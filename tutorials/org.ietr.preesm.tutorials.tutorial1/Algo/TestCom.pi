@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">TestCom</data>
+        <node expr="0" id="size" kind="param"/>
+        <node id="Sensor" kind="actor">
+            <data key="graph_desc">Sensor.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="output" name="o1"/>
+            <port expr="size" kind="output" name="o2"/>
+            <port expr="size" kind="output" name="o3"/>
+        </node>
+        <node id="Sensor2" kind="actor">
+            <data key="graph_desc">Sensor2.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="Gen_int" kind="actor">
+            <data key="graph_desc">Gen_int.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="input" name="i1"/>
+            <port expr="size" kind="input" name="i2"/>
+            <port expr="size" kind="output" name="o1"/>
+            <port expr="size" kind="output" name="o2"/>
+        </node>
+        <node id="X2InputParallelTest" kind="actor">
+            <data key="graph_desc">ParallelTest2Input.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="input" name="i1"/>
+            <port expr="size" kind="input" name="i2"/>
+            <port expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="Copy" kind="actor">
+            <data key="graph_desc">Copy.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="input" name="i1"/>
+            <port expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="ParallelTest1" kind="actor">
+            <data key="graph_desc">ParallelTest.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="input" name="i1"/>
+            <port expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="ParallelTest2" kind="actor">
+            <data key="graph_desc">ParallelTest.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="input" name="i1"/>
+            <port expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="Actuator" kind="actor">
+            <data key="graph_desc">Actuator.idl</data>
+            <port kind="cfg_input" name="size"/>
+            <port expr="size" kind="input" name="i1"/>
+            <port expr="size" kind="input" name="i2"/>
+            <port expr="size" kind="input" name="i3"/>
+        </node>
+        <edge kind="fifo" source="Sensor" sourceport="o1"
+            target="Gen_int" targetport="i1"/>
+        <edge kind="fifo" source="Sensor" sourceport="o2"
+            target="Gen_int" targetport="i2"/>
+        <edge kind="fifo" source="Sensor2" sourceport="o1"
+            target="X2InputParallelTest" targetport="i1"/>
+        <edge kind="fifo" source="Sensor" sourceport="o3"
+            target="X2InputParallelTest" targetport="i2"/>
+        <edge kind="fifo" source="Gen_int" sourceport="o1" target="Copy" targetport="i1"/>
+        <edge kind="fifo" source="Copy" sourceport="o1"
+            target="Actuator" targetport="i1"/>
+        <edge kind="fifo" source="Gen_int" sourceport="o2"
+            target="Actuator" targetport="i2"/>
+        <edge kind="fifo" source="X2InputParallelTest" sourceport="o1"
+            target="ParallelTest1" targetport="i1"/>
+        <edge kind="fifo" source="ParallelTest1" sourceport="o1"
+            target="ParallelTest2" targetport="i1"/>
+        <edge kind="fifo" source="ParallelTest2" sourceport="o1"
+            target="Actuator" targetport="i3"/>
+        <edge kind="dependency" source="size" target="Sensor" targetport="size"/>
+        <edge kind="dependency" source="size" target="Gen_int" targetport="size"/>
+        <edge kind="dependency" source="size" target="Copy" targetport="size"/>
+        <edge kind="dependency" source="size" target="Actuator" targetport="size"/>
+        <edge kind="dependency" source="size" target="Sensor2" targetport="size"/>
+        <edge kind="dependency" source="size"
+            target="X2InputParallelTest" targetport="size"/>
+        <edge kind="dependency" source="size" target="ParallelTest1" targetport="size"/>
+        <edge kind="dependency" source="size" target="ParallelTest2" targetport="size"/>
+    </graph>
+</graphml>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="kind" attr.type="string" for="graph"/>
+    <key attr.name="SCHEDULE_COST" attr.type="int" for="graph"/>
+    <key attr.name="name" attr.type="string" for="node"/>
+    <key attr.name="kind" attr.type="string" for="node"/>
+    <key attr.name="time" attr.type="string" for="node"/>
+    <key attr.name="nb_repeat" attr.type="string" for="node"/>
+    <key attr.name="OperatorDef" attr.type="string" for="node"/>
+    <key attr.name="availableOperators" attr.type="string" for="node"/>
+    <key attr.name="originalId" attr.type="string" for="node"/>
+    <key attr.name="duration" attr.type="int" for="node"/>
+    <key attr.name="schedulingOrder" attr.type="int" for="node"/>
+    <key attr.name="Operator" attr.type="string" for="node"/>
+    <key attr.name="edge_cons" attr.type="string" for="edge"/>
+    <key attr.name="edge_delay" attr.type="string" for="edge"/>
+    <key attr.name="edge_prod" attr.type="string" for="edge"/>
+    <key attr.name="data_type" attr.type="string" for="edge"/>
+    <key attr.name="source_port_modifier" attr.type="string" for="edge"/>
+    <key attr.name="target_port_modifier" attr.type="string" for="edge"/>
+    <key attr.name="Weight" attr.type="string" for="edge"/>
+    <graph edgedefault="directed" kind="sdf">
+        <data key="name">TestCom_0</data>
+        <data key="kind">sdf</data>
+        <data key="SCHEDULE_COST">0</data>
+        <node id="Sensor" kind="vertex">
+            <data key="name">Sensor</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">8a01af09-8da9-4cb4-85ee-930ab2a81d7f</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">0</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="Sensor2" kind="vertex">
+            <data key="name">Sensor2</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">ffd3efc2-ce77-45d5-9c90-37b2d12f6465</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">1</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="Gen_int" kind="vertex">
+            <data key="name">Gen_int</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">45ed20e2-891e-4e48-bf38-d1ca81ce7906</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">2</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="X2InputParallelTest" kind="vertex">
+            <data key="name">X2InputParallelTest</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">fe80e007-e185-4321-b14a-3a5005d5323e</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">3</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="Copy" kind="vertex">
+            <data key="name">Copy</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">6cfb2ed2-428d-4c25-bae7-949ddd992f22</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">4</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="ParallelTest1" kind="vertex">
+            <data key="name">ParallelTest1</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">14d9f67c-d790-4801-9b45-8e1b4d77a000</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">5</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="ParallelTest2" kind="vertex">
+            <data key="name">ParallelTest2</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">2f42864e-2782-4532-a338-068bd4526bd4</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">6</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="Actuator" kind="vertex">
+            <data key="name">Actuator</data>
+            <data key="kind">dag_vertex</data>
+            <data key="time">0</data>
+            <data key="nb_repeat">1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[Core0]</data>
+            <data key="originalId">b8bf6306-5303-46e0-9f82-8f7022f160fb</data>
+            <data key="duration">-1</data>
+            <data key="schedulingOrder">7</data>
+            <data key="Operator">Core0</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <edge source="Sensor" sourceport="out" target="Gen_int" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">200</data>
+            <data key="edge_prod">200</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">200</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="Sensor2" sourceport="out"
+            target="X2InputParallelTest" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="Sensor" sourceport="out"
+            target="X2InputParallelTest" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="Gen_int" sourceport="out" target="Copy" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="Copy" sourceport="out" target="Actuator" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="Gen_int" sourceport="out" target="Actuator" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="X2InputParallelTest" sourceport="out"
+            target="ParallelTest1" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="ParallelTest1" sourceport="out"
+            target="ParallelTest2" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="ParallelTest2" sourceport="out" target="Actuator" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight">100</data>
+            <data key="edge_prod">100</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">100</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+    </graph>
+</graphml>
