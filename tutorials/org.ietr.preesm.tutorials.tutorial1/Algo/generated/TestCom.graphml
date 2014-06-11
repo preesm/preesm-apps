@@ -15,7 +15,6 @@
     <key attr.name="data_type" attr.type="string" for="edge"/>
     <key attr.name="source_port_modifier" attr.type="string" for="edge"/>
     <key attr.name="target_port_modifier" attr.type="string" for="edge"/>
-    <key attr.name="Weight" attr.type="string" for="edge"/>
     <graph edgedefault="directed" kind="sdf">
         <data key="name">TestCom</data>
         <data key="kind">sdf</data>
@@ -74,7 +73,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="Sensor" sourceport="o2" target="Gen_int" targetport="i2">
             <data key="edge_cons">100.0</data>
@@ -83,7 +81,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="Sensor2" sourceport="o1"
             target="X2InputParallelTest" targetport="i1">
@@ -93,7 +90,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="Sensor" sourceport="o3"
             target="X2InputParallelTest" targetport="i2">
@@ -103,7 +99,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="Gen_int" sourceport="o1" target="Copy" targetport="i1">
             <data key="edge_cons">100.0</data>
@@ -112,7 +107,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="Copy" sourceport="o1" target="Actuator" targetport="i1">
             <data key="edge_cons">100.0</data>
@@ -121,7 +115,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="Gen_int" sourceport="o2" target="Actuator" targetport="i2">
             <data key="edge_cons">100.0</data>
@@ -130,7 +123,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="X2InputParallelTest" sourceport="o1"
             target="ParallelTest1" targetport="i1">
@@ -140,7 +132,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="ParallelTest1" sourceport="o1"
             target="ParallelTest2" targetport="i1">
@@ -150,7 +141,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
         <edge source="ParallelTest2" sourceport="o1" target="Actuator" targetport="i3">
             <data key="edge_cons">100.0</data>
@@ -159,7 +149,6 @@
             <data key="data_type">char</data>
             <data key="source_port_modifier"/>
             <data key="target_port_modifier"/>
-            <data key="Weight"/>
         </edge>
     </graph>
 </graphml>
