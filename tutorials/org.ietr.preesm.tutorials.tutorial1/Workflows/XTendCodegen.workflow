@@ -6,12 +6,6 @@
         <dftools:data key="variables"/>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporter">
-        <dftools:data key="variables">
-            <dftools:variable name="path" value="Algo/generated"/>
-        </dftools:data>
-    </dftools:task>
-    <dftools:task
         pluginId="org.ietr.preesm.algorithm.transforms.MultiHierarchyFlattening" taskId="MultiSDFHierarchyFlattening">
         <dftools:data key="variables">
             <dftools:variable name="depth" value="3"/>
@@ -26,7 +20,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporter2">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="Algo/generated/HSDF/"/>
+            <dftools:variable name="path" value="Algo/generated/singlerate/"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
@@ -71,10 +65,14 @@
             <dftools:variable name="Printer" value="C"/>
         </dftools:data>
     </dftools:task>
+    <dftools:task
+        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporter">
+        <dftools:data key="variables">
+            <dftools:variable name="path" value="Algo/generated/flatten/"/>
+        </dftools:data>
+    </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="PiMM2SDF"/>
-    <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
-        targetport="SDFs" to="MultiSDFExporter"/>
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
         targetport="SDFs" to="MultiSDFHierarchyFlattening"/>
     <dftools:dataTransfer from="MultiSDFHierarchyFlattening"
@@ -107,4 +105,6 @@
         targetport="scenario" to="MultiCodegen"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
         targetport="architecture" to="MultiCodegen"/>
+    <dftools:dataTransfer from="MultiSDFHierarchyFlattening"
+        sourceport="SDFs" targetport="SDFs" to="MultiSDFExporter"/>
 </dftools:workflow>

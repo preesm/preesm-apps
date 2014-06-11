@@ -37,7 +37,7 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">b72e3408-82cd-4c80-9b80-3b050b08a1c2</data>
+            <data key="originalId">6c58b1da-fdfb-4e6e-bd4b-77e7756bbc8a</data>
             <data key="duration">-1</data>
             <data key="schedulingOrder">0</data>
             <data key="Operator">Core1</data>
@@ -53,7 +53,7 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">4d1716a4-09c4-459f-ba5a-ed67316c9741</data>
+            <data key="originalId">a233b5f4-6ba8-467d-a20a-05566e7528ed</data>
             <data key="duration">-1</data>
             <data key="schedulingOrder">3</data>
             <data key="Operator">Core0</data>
@@ -69,10 +69,10 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">085ee841-6c51-4ff7-a4ad-6f039441f478</data>
+            <data key="originalId">afbc8458-017c-4656-8512-c643ecf53fb0</data>
             <data key="duration">-1</data>
-            <data key="schedulingOrder">4</data>
-            <data key="Operator">Core1</data>
+            <data key="schedulingOrder">6</data>
+            <data key="Operator">Core0</data>
             <data key="OperatorDef">x86</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
@@ -85,10 +85,10 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">3a301d38-9bef-40fb-afd7-9039577aeb78</data>
+            <data key="originalId">f9b0f97b-dd3e-455d-8ee5-36a6d5c98162</data>
             <data key="duration">-1</data>
-            <data key="schedulingOrder">7</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">9</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
@@ -101,10 +101,10 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">e6f5c605-2c6a-4cb5-9993-a034140f3702</data>
+            <data key="originalId">7bf0a356-eab7-4ac1-9fac-4c9eef0d0368</data>
             <data key="duration">-1</data>
-            <data key="schedulingOrder">8</data>
-            <data key="Operator">Core1</data>
+            <data key="schedulingOrder">10</data>
+            <data key="Operator">Core0</data>
             <data key="OperatorDef">x86</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
@@ -117,10 +117,10 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">55ba9862-0229-4eef-b982-4b0882e47766</data>
+            <data key="originalId">f57b871a-1819-453c-bdf5-e491cc093c29</data>
             <data key="duration">-1</data>
-            <data key="schedulingOrder">11</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">13</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
@@ -133,10 +133,10 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">e04ef1e6-5c22-47c4-ad02-2a357e9df7b4</data>
+            <data key="originalId">a011de66-8efd-4af6-b237-cc133726d98c</data>
             <data key="duration">-1</data>
-            <data key="schedulingOrder">12</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">14</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
@@ -149,37 +149,66 @@
             <data key="nb_repeat">1</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[Core1, Core0]</data>
-            <data key="originalId">b5142c29-fdbd-4e02-89e0-edf2b8e37487</data>
+            <data key="originalId">77a70aaf-e4d4-49fa-a6aa-2649a2145431</data>
             <data key="duration">-1</data>
-            <data key="schedulingOrder">13</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">15</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
             <data key="arguments"/>
         </node>
-        <node id="s_SensorX2InputParallelTest_0" kind="vertex">
-            <data key="name">s_SensorX2InputParallelTest_0</data>
+        <node id="s_SensorGen_int_0" kind="vertex">
+            <data key="name">s_SensorGen_int_0</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[]</data>
-            <data key="originalId">ff0c7d3d-7416-4705-b4f2-c9a2602c3973</data>
+            <data key="originalId">bb0643bc-c4ba-426d-a16c-f4aa21105599</data>
             <data key="duration">100</data>
             <data key="schedulingOrder">1</data>
             <data key="Operator">Core1</data>
+            <data key="OperatorDef">x86</data>
+            <data key="dataSize">200</data>
+            <data key="OperatorDef">x86</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="r_SensorGen_int_0" kind="vertex">
+            <data key="name">r_SensorGen_int_0</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[]</data>
+            <data key="originalId">2114a004-3ea2-48ae-bf52-5188791c5b23</data>
+            <data key="duration">100</data>
+            <data key="schedulingOrder">2</data>
+            <data key="Operator">Core0</data>
+            <data key="OperatorDef">x86</data>
+            <data key="dataSize">200</data>
+            <data key="OperatorDef">x86</data>
+            <data key="receiverGraphName">Gen_int</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="s_Sensor2X2InputParallelTest_0" kind="vertex">
+            <data key="name">s_Sensor2X2InputParallelTest_0</data>
+            <data key="OperatorDef">x86</data>
+            <data key="availableOperators">[]</data>
+            <data key="originalId">26d46345-a09f-4ad0-8aba-5977710ffa5a</data>
+            <data key="duration">100</data>
+            <data key="schedulingOrder">4</data>
+            <data key="Operator">Core0</data>
             <data key="OperatorDef">x86</data>
             <data key="dataSize">100</data>
             <data key="OperatorDef">x86</data>
             <data key="graph_desc"/>
             <data key="arguments"/>
         </node>
-        <node id="r_SensorX2InputParallelTest_0" kind="vertex">
-            <data key="name">r_SensorX2InputParallelTest_0</data>
+        <node id="r_Sensor2X2InputParallelTest_0" kind="vertex">
+            <data key="name">r_Sensor2X2InputParallelTest_0</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[]</data>
-            <data key="originalId">3c21f16a-dd93-4cbd-bde2-77036c8d9a55</data>
+            <data key="originalId">e257b170-4927-4cf5-93ea-0eecde822962</data>
             <data key="duration">100</data>
-            <data key="schedulingOrder">2</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">5</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="dataSize">100</data>
             <data key="OperatorDef">x86</data>
@@ -191,10 +220,10 @@
             <data key="name">s_CopyActuator_0</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[]</data>
-            <data key="originalId">45828c28-610c-4e4f-ad08-501f2a55b34d</data>
+            <data key="originalId">c5aa8a83-4ed8-4dc4-9a5c-f7a48f0cce2f</data>
             <data key="duration">100</data>
-            <data key="schedulingOrder">9</data>
-            <data key="Operator">Core1</data>
+            <data key="schedulingOrder">11</data>
+            <data key="Operator">Core0</data>
             <data key="OperatorDef">x86</data>
             <data key="dataSize">100</data>
             <data key="OperatorDef">x86</data>
@@ -205,10 +234,10 @@
             <data key="name">r_CopyActuator_0</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[]</data>
-            <data key="originalId">9af153f4-7d7c-47f4-95f3-d41639f9748f</data>
+            <data key="originalId">c7b07c36-0768-48ed-9bc9-c532a7ba8fd6</data>
             <data key="duration">100</data>
-            <data key="schedulingOrder">10</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">12</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="dataSize">100</data>
             <data key="OperatorDef">x86</data>
@@ -220,10 +249,10 @@
             <data key="name">s_Gen_intActuator_0</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[]</data>
-            <data key="originalId">64041f9d-39d0-472e-9a22-9adcbd421a33</data>
+            <data key="originalId">afea0e09-d669-4430-b82c-6627b26ca6a5</data>
             <data key="duration">100</data>
-            <data key="schedulingOrder">5</data>
-            <data key="Operator">Core1</data>
+            <data key="schedulingOrder">7</data>
+            <data key="Operator">Core0</data>
             <data key="OperatorDef">x86</data>
             <data key="dataSize">100</data>
             <data key="OperatorDef">x86</data>
@@ -234,10 +263,10 @@
             <data key="name">r_Gen_intActuator_0</data>
             <data key="OperatorDef">x86</data>
             <data key="availableOperators">[]</data>
-            <data key="originalId">d1bafa78-25f2-4cdc-acc5-11ad6b040774</data>
+            <data key="originalId">4fcd2521-8b4a-4231-984c-32d3998685b6</data>
             <data key="duration">100</data>
-            <data key="schedulingOrder">6</data>
-            <data key="Operator">Core0</data>
+            <data key="schedulingOrder">8</data>
+            <data key="Operator">Core1</data>
             <data key="OperatorDef">x86</data>
             <data key="dataSize">100</data>
             <data key="OperatorDef">x86</data>
@@ -367,7 +396,7 @@
             <data key="data_type">memUnit</data>
         </edge>
         <edge source="Sensor" sourceport="out"
-            target="s_SensorX2InputParallelTest_0" targetport="in">
+            target="s_SensorGen_int_0" targetport="in">
             <data key="edge_cons"/>
             <data key="edge_delay"/>
             <data key="edge_prod"/>
@@ -380,8 +409,8 @@
             <data key="edge_cons">0</data>
             <data key="data_type">memUnit</data>
         </edge>
-        <edge source="s_SensorX2InputParallelTest_0" sourceport="out"
-            target="r_SensorX2InputParallelTest_0" targetport="in">
+        <edge source="s_SensorGen_int_0" sourceport="out"
+            target="r_SensorGen_int_0" targetport="in">
             <data key="edge_cons"/>
             <data key="edge_delay"/>
             <data key="edge_prod"/>
@@ -394,7 +423,49 @@
             <data key="edge_cons">0</data>
             <data key="data_type">memUnit</data>
         </edge>
-        <edge source="r_SensorX2InputParallelTest_0" sourceport="out"
+        <edge source="r_SensorGen_int_0" sourceport="out"
+            target="Gen_int" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight"/>
+            <data key="edge_prod">0</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">0</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="Sensor2" sourceport="out"
+            target="s_Sensor2X2InputParallelTest_0" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight"/>
+            <data key="edge_prod">0</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">0</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="s_Sensor2X2InputParallelTest_0" sourceport="out"
+            target="r_Sensor2X2InputParallelTest_0" targetport="in">
+            <data key="edge_cons"/>
+            <data key="edge_delay"/>
+            <data key="edge_prod"/>
+            <data key="data_type"/>
+            <data key="source_port_modifier"/>
+            <data key="target_port_modifier"/>
+            <data key="Weight"/>
+            <data key="edge_prod">0</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">0</data>
+            <data key="data_type">memUnit</data>
+        </edge>
+        <edge source="r_Sensor2X2InputParallelTest_0" sourceport="out"
             target="X2InputParallelTest" targetport="in">
             <data key="edge_cons"/>
             <data key="edge_delay"/>
