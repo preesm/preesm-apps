@@ -2,17 +2,17 @@
 <scenario>
     <files>
         <algorithm url="/org.ietr.preesm.tutorials.tutorial2.sobel/Algo/top_display.pi"/>
-        <architecture url="/tutorial-sobel/Archi/1CoreX86.slam"/>
+        <architecture url="/org.ietr.preesm.tutorials.tutorial2.sobel/Archi/1CoreX86.slam"/>
         <codegenDirectory url="/org.ietr.preesm.tutorials.tutorial2.sobel/Code/generated"/>
     </files>
     <constraints excelUrl="">
-        <constraintGroup/>
         <constraintGroup>
             <operator name="Core0"/>
             <task name="top_display/Read_YUV"/>
             <task name="top_display"/>
             <task name="top_display/display"/>
         </constraintGroup>
+        <constraintGroup/>
         <constraintGroup/>
         <constraintGroup/>
         <constraintGroup/>
@@ -36,8 +36,10 @@
     </simuParams>
     <variables excelUrl=""/>
     <parameterValues>
-        <parameter name="index" parent="top_display" type="STATIC" value="0"/>
-        <parameter name="ysize" parent="top_display" type="STATIC" value="288"/>
         <parameter name="xsize" parent="top_display" type="STATIC" value="352"/>
+        <parameter name="nbSlice" parent="top_display" type="STATIC" value="8"/>
+        <parameter name="index" parent="top_display" type="STATIC" value="0"/>
+        <parameter name="sobel_ysize" parent="top_display" type="STATIC" value="0"/>
+        <parameter name="ysize" parent="top_display" type="STATIC" value="288"/>
     </parameterValues>
 </scenario>

@@ -10,6 +10,8 @@
         <node expr="1" id="xsize" kind="param"/>
         <node expr="1" id="ysize" kind="param"/>
         <node expr="1" id="index" kind="param"/>
+        <node expr="ysize/nbSlice+2" id="sobel_ysize" kind="param"/>
+        <node expr="1" id="nbSlice" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">/home/cguy/Bureau/Eclipse/KeplerModeling-PreesmDevGit/runtime-EclipseApplication/org.ietr.preesm.tutorials.tutorial2.sobel/Code/IDL/readYuv.idl</data>
             <port kind="cfg_input" name="xsize"/>
@@ -27,16 +29,57 @@
             <port expr="xsize/2*ysize/2" kind="input" name="v"/>
             <port expr="xsize*ysize" kind="input" name="y"/>
         </node>
+        <node id="Sobel" kind="actor">
+            <data key="graph_desc"/>
+            <port kind="cfg_input" name="xsize"/>
+            <port kind="cfg_input" name="ysize"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port expr="xsize*ysize" kind="input" name="input"/>
+            <port expr="xsize*ysize" kind="output" name="output"/>
+        </node>
+        <node id="Split" kind="actor">
+            <data key="graph_desc"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="ysize"/>
+            <port kind="cfg_input" name="xsize"/>
+            <port expr="xsize*ysize" kind="input" name="input"/>
+            <port expr="nbSlice*xsize*(ysize/nbSlice+2)" kind="output" name="output"/>
+        </node>
+        <node id="Merge" kind="actor">
+            <data key="graph_desc"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="ysize"/>
+            <port kind="cfg_input" name="xsize"/>
+            <port expr="nbSlice*xsize*(ysize/nbSlice+2)" kind="input" name="input"/>
+            <port expr="xsize*ysize" kind="output" name="output"/>
+        </node>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
             target="display" targetport="u"/>
         <edge kind="fifo" source="Read_YUV" sourceport="v"
             target="display" targetport="v"/>
         <edge kind="fifo" source="Read_YUV" sourceport="y"
+            target="Split" targetport="input"/>
+        <edge kind="fifo" source="Sobel" sourceport="output"
+            target="Merge" targetport="input"/>
+        <edge kind="fifo" source="Split" sourceport="output"
+            target="Sobel" targetport="input"/>
+        <edge kind="fifo" source="Merge" sourceport="output"
             target="display" targetport="y"/>
         <edge kind="dependency" source="xsize" target="Read_YUV" targetport="xsize"/>
         <edge kind="dependency" source="ysize" target="Read_YUV" targetport="ysize"/>
         <edge kind="dependency" source="xsize" target="display" targetport="xsize"/>
         <edge kind="dependency" source="ysize" target="display" targetport="ysize"/>
         <edge kind="dependency" source="index" target="display" targetport="index"/>
+        <edge kind="dependency" source="xsize" target="Sobel" targetport="xsize"/>
+        <edge kind="dependency" source="ysize" target="sobel_ysize"/>
+        <edge kind="dependency" source="sobel_ysize" target="Sobel" targetport="ysize"/>
+        <edge kind="dependency" source="nbSlice" target="sobel_ysize"/>
+        <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
+        <edge kind="dependency" source="nbSlice" target="Merge" targetport="nbSlice"/>
+        <edge kind="dependency" source="ysize" target="Split" targetport="ysize"/>
+        <edge kind="dependency" source="xsize" target="Split" targetport="xsize"/>
+        <edge kind="dependency" source="ysize" target="Merge" targetport="ysize"/>
+        <edge kind="dependency" source="xsize" target="Merge" targetport="xsize"/>
+        <edge kind="dependency" source="nbSlice" target="Sobel" targetport="nbSlice"/>
     </graph>
 </graphml>

@@ -9,19 +9,19 @@
         <data key="name">TestCom</data>
         <node expr="0" id="size" kind="param"/>
         <node id="Sensor" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Sensor.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Sensor.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="output" name="o1"/>
             <port expr="size" kind="output" name="o2"/>
             <port expr="size" kind="output" name="o3"/>
         </node>
         <node id="Sensor2" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Sensor2.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Sensor2.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="output" name="o1"/>
         </node>
         <node id="Gen_int" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Gen_int.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Gen_int.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="i1"/>
             <port expr="size" kind="input" name="i2"/>
@@ -29,32 +29,32 @@
             <port expr="size" kind="output" name="o2"/>
         </node>
         <node id="X2InputParallelTest" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/ParallelTest2Input.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/ParallelTest2Input.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="i1"/>
             <port expr="size" kind="input" name="i2"/>
             <port expr="size" kind="output" name="o1"/>
         </node>
         <node id="Copy" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Copy.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Copy.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="i1"/>
             <port expr="size" kind="output" name="o1"/>
         </node>
         <node id="ParallelTest1" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/ParallelTest.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/ParallelTest.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="i1"/>
             <port expr="size" kind="output" name="o1"/>
         </node>
         <node id="ParallelTest2" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/ParallelTest.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/ParallelTest.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="i1"/>
             <port expr="size" kind="output" name="o1"/>
         </node>
         <node id="Actuator" kind="actor">
-            <data key="graph_desc">/home/cguy/git/preesm-apps/tutorials/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Actuator.idl</data>
+            <data key="graph_desc">/org.ietr.preesm.tutorials.tutorial1/Code/IDL/Actuator.idl</data>
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="i1"/>
             <port expr="size" kind="input" name="i2"/>

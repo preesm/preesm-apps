@@ -9,8 +9,8 @@
         <constraintGroup>
             <operator name="Core0"/>
             <task name="TestCom/Sensor"/>
-            <task name="TestCom/Gen_int"/>
             <task name="TestCom/Sensor2"/>
+            <task name="TestCom/Gen_int"/>
             <task name="TestCom"/>
             <task name="TestCom/ParallelTest2"/>
             <task name="TestCom/Copy"/>
@@ -21,14 +21,14 @@
         <constraintGroup>
             <operator name="Core1"/>
             <task name="TestCom/Sensor"/>
-            <task name="TestCom/Gen_int"/>
             <task name="TestCom/Sensor2"/>
+            <task name="TestCom/Gen_int"/>
             <task name="TestCom"/>
             <task name="TestCom/ParallelTest2"/>
             <task name="TestCom/Copy"/>
             <task name="TestCom/ParallelTest1"/>
-            <task name="TestCom/X2InputParallelTest"/>
             <task name="TestCom/Actuator"/>
+            <task name="TestCom/X2InputParallelTest"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
@@ -40,17 +40,18 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
-            <dataType name="short" size="2"/>
             <dataType name="char" size="1"/>
-            <dataType name="uchar" size="1"/>
+            <dataType name="int" size="1"/>
+            <dataType name="uint" size="1"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
         </specialVertexOperators>
         <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
     <variables excelUrl=""/>
     <parameterValues>
-        <parameter name="size" parent="TestCom" type="STATIC" value="100"/>
+        <parameter name="size" parent="TestCom" type="STATIC" value="1"/>
     </parameterValues>
 </scenario>
