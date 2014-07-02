@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.tutorials.tutorial3.dsp.multicore/Algo/top_display.pi"/>
+        <architecture url="/org.ietr.preesm.tutorials.tutorial3.dsp.multicore/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.tutorials.tutorial3.dsp.multicore/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display/Read_YUV"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display"/>
+            <task name="top_display/display"/>
+            <task name="top_display/Split"/>
+            <task name="top_display/Sobel"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues>
+        <parameter name="N" parent="top_display" type="STATIC" value="16"/>
+        <parameter name="xsize" parent="top_display" type="STATIC" value="352"/>
+        <parameter name="sobel_ysize" parent="top_display" type="STATIC" value="null"/>
+        <parameter name="index" parent="top_display" type="STATIC" value="0"/>
+        <parameter name="ysize" parent="top_display" type="STATIC" value="288"/>
+    </parameterValues>
+</scenario>
