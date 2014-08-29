@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.stereo/Algo/stereo_top.pi"/>
+        <architecture url="/org.ietr.preesm.stereo/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.stereo/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="stereo_top"/>
+            <task name="stereo_top/Display_RGB1"/>
+            <task name="stereo_top/Census_R"/>
+            <task name="stereo_top/Split"/>
+            <task name="stereo_top/RGB2Gray_L"/>
+            <task name="stereo_top/Cost_Parallel_Work"/>
+            <task name="stereo_top/broadcast2"/>
+            <task name="stereo_top/Broadcast0"/>
+            <task name="stereo_top/Write_PPM"/>
+            <task name="stereo_top/broadcast1"/>
+            <task name="stereo_top/Census_L"/>
+            <task name="stereo_top/RGB2Gray_R"/>
+            <task name="stereo_top/Median_Filter"/>
+            <task name="stereo_top/Read_PPM1"/>
+            <task name="stereo_top/lum2RGB"/>
+            <task name="stereo_top/Display_rgb0"/>
+            <task name="stereo_top/Read_PPM0"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes/>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>0</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues>
+        <parameter name="sliceHeight" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="width" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="nbSlice" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="truncValue" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="size" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="zero" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="maxDisparity" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="overlap" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="minDisparity" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="scale" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="one" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="one_" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="nbIterations" parent="stereo_top" type="STATIC" value="null"/>
+        <parameter name="height" parent="stereo_top" type="STATIC" value="null"/>
+    </parameterValues>
+</scenario>
