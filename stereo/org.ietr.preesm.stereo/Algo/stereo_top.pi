@@ -4,6 +4,7 @@
     <key attr.name="variables" for="graph" id="variables"/>
     <key attr.name="arguments" for="node" id="arguments"/>
     <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">stereo_top</data>
         <node expr="375" id="height" kind="param"/>
@@ -61,6 +62,7 @@
             <port expr="height*width" kind="output" name="cen"/>
         </node>
         <node id="Cost_Parallel_Work" kind="actor">
+            <data key="graph_desc">\org.ietr.preesm.stereo\Algo\cost_parallel_work.pi</data>
             <port kind="cfg_input" name="truncValue"/>
             <port kind="cfg_input" name="scale"/>
             <port kind="cfg_input" name="nbIterations"/>
@@ -96,7 +98,7 @@
             <port kind="cfg_input" name="size"/>
             <port expr="size" kind="input" name="in"/>
             <port expr="size" kind="output" name="out0"/>
-            <port expr="size*3" kind="output" name="out1"/>
+            <port expr="size" kind="output" name="out1"/>
         </node>
         <node id="Display_RGB1" kind="actor">
             <port kind="cfg_input" name="index"/>
