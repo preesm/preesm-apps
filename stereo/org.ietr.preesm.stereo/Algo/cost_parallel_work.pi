@@ -76,7 +76,7 @@
             <port kind="cfg_input" name="height"/>
             <port expr="1" kind="input" name="offset"/>
             <port expr="width*height*3" kind="input" name="rgbL"/>
-            <port expr="0" kind="output" name="weights"/>
+            <port expr="height*width*3" kind="output" name="weights"/>
         </node>
         <node id="ComputeVertWeights" kind="actor">
             <port kind="cfg_input" name="horOrVert"/>
@@ -84,7 +84,7 @@
             <port kind="cfg_input" name="height"/>
             <port expr="1" kind="input" name="offset"/>
             <port expr="width*height*3" kind="input" name="rgbL"/>
-            <port expr="0" kind="output" name="weights"/>
+            <port expr="height*width*3" kind="output" name="weights"/>
         </node>
         <node id="OffsetGen" kind="actor">
             <port kind="cfg_input" name="nbIterations"/>
@@ -109,14 +109,14 @@
             <port kind="cfg_input" name="size"/>
             <port kind="cfg_input" name="nbIterations"/>
             <port expr="size*3*nbIterations" kind="input" name="in"/>
-            <port expr="0" kind="output" name="vWeights"/>
+            <port expr="size*3*nbIterations*nbDisparity" kind="output" name="out"/>
         </node>
         <node id="Broadcast3" kind="actor">
             <port kind="cfg_input" name="nbDisparity"/>
             <port kind="cfg_input" name="size"/>
             <port kind="cfg_input" name="nbIterations"/>
             <port expr="size*3*nbIterations" kind="input" name="in"/>
-            <port expr="0" kind="output" name="out"/>
+            <port expr="size*3*nbIterations*nbDisparity" kind="output" name="out"/>
         </node>
         <node id="DisparityGen" kind="actor">
             <port kind="cfg_input" name="minDisparity"/>
@@ -153,7 +153,7 @@
             sourceport="weights" target="Broadcast2" targetport="in"/>
         <edge kind="fifo" source="ComputeHorWeights"
             sourceport="weights" target="Broadcast3" targetport="in"/>
-        <edge kind="fifo" source="Broadcast2" sourceport="vWeights"
+        <edge kind="fifo" source="Broadcast2" sourceport="out"
             target="AggregateCost" targetport="vWeights"/>
         <edge kind="fifo" source="Broadcast3" sourceport="out"
             target="AggregateCost" targetport="hWeights"/>

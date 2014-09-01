@@ -9,18 +9,18 @@
         <data key="name">stereo_top</data>
         <node expr="375" id="height" kind="param"/>
         <node expr="450" id="width" kind="param"/>
-        <node expr="0" id="maxDisparity" kind="param"/>
+        <node expr="60" id="maxDisparity" kind="param"/>
         <node expr="0" id="minDisparity" kind="param"/>
-        <node expr="0" id="nbIterations" kind="param"/>
+        <node expr="5" id="nbIterations" kind="param"/>
         <node expr="15" id="nbSlice" kind="param"/>
-        <node expr="0" id="scale" kind="param"/>
-        <node expr="0" id="truncValue" kind="param"/>
+        <node expr="4" id="scale" kind="param"/>
+        <node expr="12" id="truncValue" kind="param"/>
         <node expr="height*width" id="size" kind="param"/>
         <node expr="0" id="zero" kind="param"/>
         <node expr="1" id="one" kind="param"/>
         <node expr="1" id="overlap" kind="param"/>
         <node expr="height/nbSlice+2*overlap" id="sliceHeight" kind="param"/>
-        <node expr="0" id="one_" kind="param"/>
+        <node expr="1" id="one_" kind="param"/>
         <node id="Read_PPM0" kind="actor">
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>

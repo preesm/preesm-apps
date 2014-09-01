@@ -1037,7 +1037,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="129" height="75" x="698" y="540" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="99" height="75" x="698" y="540" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.14"/>
     </link>
@@ -1090,16 +1090,16 @@
       </link>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.29" referencedGraphicsAlgorithm="//@children.25/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.8133333333333334">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="14" x="-55">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="14" font="//@fonts.1" value="vWeights"/>
-        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.5" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="47" y="3"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="25" height="14" x="-25">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="17" height="14" font="//@fonts.1" value="out"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.5" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="17" y="3"/>
       </graphicsAlgorithm>
       <link>
         <businessObjects href="cost_parallel_work.pi#//@vertices.14/@dataOutputPorts.0"/>
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="129" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="Broadcast2"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="99" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="Broadcast2"/>
       <link>
         <businessObjects href="cost_parallel_work.pi#//@vertices.14"/>
       </link>
@@ -1802,6 +1802,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="817" y="607"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.26/@anchors.4" end="//@children.15/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
