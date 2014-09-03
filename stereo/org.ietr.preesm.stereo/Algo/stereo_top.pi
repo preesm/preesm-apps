@@ -62,7 +62,7 @@
             <port expr="height*width" kind="output" name="cen"/>
         </node>
         <node id="Cost_Parallel_Work" kind="actor">
-            <data key="graph_desc">\org.ietr.preesm.stereo\Algo\cost_parallel_work.pi</data>
+            <data key="graph_desc">/org.ietr.preesm.stereo/Algo/cost_parallel_work.pi</data>
             <port kind="cfg_input" name="truncValue"/>
             <port kind="cfg_input" name="scale"/>
             <port kind="cfg_input" name="nbIterations"/>
