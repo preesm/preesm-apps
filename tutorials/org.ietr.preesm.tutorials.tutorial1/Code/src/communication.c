@@ -8,7 +8,7 @@
 	============================================================================
 */
 
-#include "x86.h"
+#include "../include/x86.h"
 
 void sendStart(sem_t* sem){
     sem_post(sem);

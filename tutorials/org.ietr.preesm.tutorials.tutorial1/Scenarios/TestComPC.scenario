@@ -7,7 +7,7 @@
     </files>
     <constraints excelUrl="">
         <constraintGroup>
-            <operator name="Core0"/>
+            <operator name="Core1"/>
             <task name="TestCom/Sensor"/>
             <task name="TestCom/Sensor2"/>
             <task name="TestCom/Gen_int"/>
@@ -19,7 +19,7 @@
             <task name="TestCom/X2InputParallelTest"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="Core1"/>
+            <operator name="Core0"/>
             <task name="TestCom/Sensor"/>
             <task name="TestCom/Sensor2"/>
             <task name="TestCom/Gen_int"/>
@@ -41,8 +41,6 @@
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
             <dataType name="char" size="1"/>
-            <dataType name="int" size="1"/>
-            <dataType name="uint" size="1"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
@@ -52,6 +50,6 @@
     </simuParams>
     <variables excelUrl=""/>
     <parameterValues>
-        <parameter name="size" parent="TestCom" type="STATIC" value="1"/>
+        <parameter name="size" parent="TestCom" type="INDEPENDENT" value="100"/>
     </parameterValues>
 </scenario>
