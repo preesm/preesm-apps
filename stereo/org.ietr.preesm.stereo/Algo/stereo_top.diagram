@@ -208,8 +208,8 @@
       </link>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.39" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeHeight="0.6266666666666667">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="14">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="14" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="index"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="18" height="14">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="10" height="14" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="id"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.7" foreground="//@colors.2" lineWidth="0" filled="true" transparency="0.0" y="2">
           <points/>
           <points x="8" y="5"/>
@@ -757,8 +757,8 @@
       </link>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.56" referencedGraphicsAlgorithm="//@children.11/@graphicsAlgorithm" relativeHeight="0.25333333333333335">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="14">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="14" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="index"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="18" height="14">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="10" height="14" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="id"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.7" foreground="//@colors.2" lineWidth="0" filled="true" transparency="0.0" y="2">
           <points/>
           <points x="8" y="5"/>
@@ -968,13 +968,13 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="89" height="61" x="1490" y="276" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="89" height="61" x="1490" y="287" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="stereo_top.pi#//@vertices.15"/>
     </link>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.17" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.7704918032786885">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="38" height="14">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="30" height="14" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="pixels"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="32" height="14">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="24" height="14" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="gray"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.6" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="3"/>
       </graphicsAlgorithm>
       <link>
@@ -1610,7 +1610,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1439" y="283"/>
-    <bendpoints x="1439" y="329"/>
+    <bendpoints x="1470" y="340"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.16/@anchors.0" end="//@children.24/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.8" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -1684,7 +1684,7 @@
     </connectionDecorators>
     <bendpoints x="161" y="81"/>
     <bendpoints x="-9" y="81"/>
-    <bendpoints x="-9" y="269"/>
+    <bendpoints y="269"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.17/@anchors.0" end="//@children.1/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.8" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -1917,7 +1917,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="-35" y="284"/>
+    <bendpoints y="283"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.26/@anchors.0" end="//@children.1/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.8" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -2242,7 +2242,7 @@
     </connectionDecorators>
     <bendpoints x="92" y="98"/>
     <bendpoints x="1422" y="98"/>
-    <bendpoints x="1422" y="315"/>
+    <bendpoints x="1470" y="326"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.17/@anchors.0" end="//@children.11/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.8" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -2274,7 +2274,7 @@
     </connectionDecorators>
     <bendpoints x="162" y="80"/>
     <bendpoints x="1442" y="80"/>
-    <bendpoints x="1442" y="301"/>
+    <bendpoints x="1470" y="312"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>
@@ -2286,6 +2286,7 @@
   <colors red="187" green="218" blue="247"/>
   <colors red="98" green="131" blue="167"/>
   <colors red="128" green="100" blue="162"/>
+  <colors red="222" green="184" blue="135"/>
   <fonts name="Arial" size="8" bold="true"/>
   <fonts name="Arial" size="8"/>
   <fonts name="Arial" size="8" italic="true" bold="true"/>

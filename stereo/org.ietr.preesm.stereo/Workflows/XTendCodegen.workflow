@@ -71,6 +71,12 @@
             <dftools:variable name="path" value="Algo/generated/flatten/"/>
         </dftools:data>
     </dftools:task>
+    <dftools:task
+        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporterc">
+        <dftools:data key="variables">
+            <dftools:variable name="path" value="Algo/generated/ibsdf/"/>
+        </dftools:data>
+    </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="PiMM2SDF"/>
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
@@ -107,4 +113,8 @@
         targetport="architecture" to="MultiCodegen"/>
     <dftools:dataTransfer from="MultiSDFHierarchyFlattening"
         sourceport="SDFs" targetport="SDFs" to="MultiSDFExporter"/>
+    <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
+        targetport="SDFs" to="MultiSDFExporterc"/>
+    <dftools:dataTransfer from="MultiSDFExporterc" sourceport="void"
+        targetport="void" to="MultiSDFHierarchyFlattening"/>
 </dftools:workflow>
