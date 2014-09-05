@@ -164,7 +164,7 @@
             <port kind="cfg_input" name="nbIterations"/>
             <port annotation="NONE" expr="nbIterations" kind="output" name="offsets"/>
         </node>
-        <node id="Broadcast0" kind="actor">
+        <node id="Broadcast0" kind="broadcast">
             <port kind="cfg_input" name="nbDisparity"/>
             <port kind="cfg_input" name="nbIterations"/>
             <port annotation="NONE" expr="nbIterations" kind="input" name="in"/>
@@ -173,13 +173,13 @@
             <port annotation="NONE" expr="nbIterations" kind="output" name="out1"/>
             <port annotation="NONE" expr="nbIterations" kind="output" name="out2"/>
         </node>
-        <node id="Broadcast1" kind="actor">
+        <node id="Broadcast1" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size*3" kind="input" name="in"/>
             <port annotation="NONE" expr="size*3" kind="output" name="out0"/>
             <port annotation="NONE" expr="size*3" kind="output" name="out1"/>
         </node>
-        <node id="Broadcast2" kind="actor">
+        <node id="Broadcast2" kind="broadcast">
             <port kind="cfg_input" name="nbDisparity"/>
             <port kind="cfg_input" name="size"/>
             <port kind="cfg_input" name="nbIterations"/>
@@ -188,7 +188,7 @@
             <port annotation="NONE"
                 expr="size*3*nbIterations*nbDisparity" kind="output" name="out"/>
         </node>
-        <node id="Broadcast3" kind="actor">
+        <node id="Broadcast3" kind="broadcast">
             <port kind="cfg_input" name="nbDisparity"/>
             <port kind="cfg_input" name="size"/>
             <port kind="cfg_input" name="nbIterations"/>
@@ -212,13 +212,13 @@
             <port annotation="NONE" expr="maxDisparity-minDisparity"
                 kind="output" name="disparities"/>
         </node>
-        <node id="Broadcast4" kind="actor">
+        <node id="Broadcast4" kind="broadcast">
             <port kind="cfg_input" name="nbDisparity"/>
             <port annotation="NONE" expr="nbDisparity" kind="input" name="in"/>
             <port annotation="NONE" expr="nbDisparity" kind="output" name="out0"/>
             <port annotation="NONE" expr="nbDisparity" kind="output" name="out1"/>
         </node>
-        <node id="Broadcast5" kind="actor">
+        <node id="Broadcast5" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out0"/>

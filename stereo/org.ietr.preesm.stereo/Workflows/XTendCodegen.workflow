@@ -26,7 +26,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiSDFListSchedulingMapping" taskId="MultiListScheduling">
         <dftools:data key="variables">
-            <dftools:variable name="balanceLoads" value="false"/>
+            <dftools:variable name="balanceLoads" value="true"/>
             <dftools:variable name="edgeSchedType" value="Simple"/>
             <dftools:variable name="simulatorType" value="LooselyTimed"/>
         </dftools:data>

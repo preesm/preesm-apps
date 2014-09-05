@@ -9,10 +9,10 @@
         <data key="name">stereo_top</data>
         <node expr="375" id="height" kind="param"/>
         <node expr="450" id="width" kind="param"/>
-        <node expr="2" id="maxDisparity" kind="param"/>
+        <node expr="60" id="maxDisparity" kind="param"/>
         <node expr="0" id="minDisparity" kind="param"/>
-        <node expr="1" id="nbIterations" kind="param"/>
-        <node expr="1" id="nbSlice" kind="param"/>
+        <node expr="5" id="nbIterations" kind="param"/>
+        <node expr="15" id="nbSlice" kind="param"/>
         <node expr="4" id="scale" kind="param"/>
         <node expr="12" id="truncValue" kind="param"/>
         <node expr="height*width" id="size" kind="param"/>
@@ -177,7 +177,7 @@
                 expr="height*width-2*topDownBorderSize*width"
                 kind="output" name="filteredDisparity"/>
         </node>
-        <node id="lum2RGB" kind="actor">
+        <node id="lum2RGB" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out0"/>
@@ -199,20 +199,20 @@
             <port kind="cfg_input" name="height"/>
             <port annotation="NONE" expr="height*width" kind="input" name="lum"/>
         </node>
-        <node id="Broadcast0" kind="actor">
+        <node id="Broadcast0" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="3*size" kind="input" name="in"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out0"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out1"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out2"/>
         </node>
-        <node id="broadcast1" kind="actor">
+        <node id="broadcast1" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out0"/>
             <port annotation="NONE" expr="size" kind="output" name="out1"/>
         </node>
-        <node id="broadcast2" kind="actor">
+        <node id="broadcast2" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out0"/>

@@ -819,7 +819,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="89" x="296" y="540" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="89" x="296" y="540" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.12"/>
     </link>
@@ -916,7 +916,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="91" height="61" x="296" y="746" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="91" height="61" x="296" y="746" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.13"/>
     </link>
@@ -1037,7 +1037,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="99" height="75" x="698" y="540" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="99" height="75" x="698" y="540" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.14"/>
     </link>
@@ -1106,7 +1106,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="99" height="75" x="698" y="730" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="99" height="75" x="698" y="730" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.15"/>
     </link>
@@ -1222,7 +1222,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="103" height="61" x="696" y="984" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="103" height="61" x="696" y="984" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.17"/>
     </link>
@@ -1274,7 +1274,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="91" height="61" x="1750" y="685" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="91" height="61" x="1750" y="685" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="cost_parallel_work.pi#//@vertices.18"/>
     </link>
@@ -1495,7 +1495,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="94" y="779"/>
+    <bendpoints x="276" y="785"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.22/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.6" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -1537,7 +1537,7 @@
     </connectionDecorators>
     <bendpoints x="217" y="507"/>
     <bendpoints x="261" y="507"/>
-    <bendpoints x="261" y="771"/>
+    <bendpoints x="276" y="771"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.2" end="//@children.17/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -1551,7 +1551,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="424" y="785"/>
+    <bendpoints x="407" y="785"/>
     <bendpoints x="424" y="621"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.3" end="//@children.16/@anchors.1">
@@ -1566,7 +1566,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="408" y="800"/>
+    <bendpoints x="407" y="799"/>
     <bendpoints x="408" y="815"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.17/@anchors.4">
@@ -2205,7 +2205,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1870" y="715"/>
+    <bendpoints x="1861" y="724"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.30/@anchors.0" end="//@children.14/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -2403,6 +2403,7 @@
   <colors red="98" green="131" blue="167"/>
   <colors red="187" green="218" blue="247"/>
   <colors red="237" green="237" blue="237"/>
+  <colors red="222" green="184" blue="135"/>
   <fonts name="Arial" size="8" bold="true"/>
   <fonts name="Arial" size="8"/>
 </pi:Diagram>
