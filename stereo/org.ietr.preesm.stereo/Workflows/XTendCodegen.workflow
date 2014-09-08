@@ -44,17 +44,17 @@
     <dftools:task
         pluginId="org.ietr.preesm.experiment.memory.MultiMemoryExclusionGraphBuilder" taskId="MultiMemExBuilder">
         <dftools:data key="variables">
-            <dftools:variable name="Suppr Fork/Join" value="? C {True, False}"/>
-            <dftools:variable name="Verbose" value="? C {True, False}"/>
+            <dftools:variable name="Suppr Fork/Join" value="False"/>
+            <dftools:variable name="Verbose" value="True"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
         pluginId="org.ietr.preesm.experiment.memory.MultiMemoryAllocator" taskId="MultiMemAlloc">
         <dftools:data key="variables">
-            <dftools:variable name="Allocator(s)" value="Basic"/>
+            <dftools:variable name="Allocator(s)" value="BestFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
-            <dftools:variable name="Data alignment" value="Data"/>
-            <dftools:variable name="Merge broadcasts" value="? C {True, False}"/>
+            <dftools:variable name="Data alignment" value="None"/>
+            <dftools:variable name="Merge broadcasts" value="False"/>
             <dftools:variable name="Nb of Shuffling Tested" value="10"/>
             <dftools:variable name="Verbose" value="True"/>
         </dftools:data>
@@ -75,6 +75,23 @@
         pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporterc">
         <dftools:data key="variables">
             <dftools:variable name="path" value="Algo/generated/ibsdf/"/>
+        </dftools:data>
+    </dftools:task>
+    <dftools:task
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemExUpdater" taskId="MultiMemExUpdate">
+        <dftools:data key="variables">
+            <dftools:variable name="Suppr Fork/Join" value="False"/>
+            <dftools:variable name="Update with MemObject lifetime" value="False"/>
+            <dftools:variable name="Verbose" value="True"/>
+        </dftools:data>
+    </dftools:task>
+    <dftools:task
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryScriptTask" taskId="MemoryScripts">
+        <dftools:data key="variables">
+            <dftools:variable name="Check" value="Fast"/>
+            <dftools:variable name="Data alignment" value="None"/>
+            <dftools:variable name="Log Path" value="log_memoryScripts"/>
+            <dftools:variable name="Verbose" value="True"/>
         </dftools:data>
     </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
@@ -103,10 +120,6 @@
         targetport="DAGs" to="MultiMemExBuilder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MultiMemExBuilder"/>
-    <dftools:dataTransfer from="MultiMemExBuilder"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiMemAlloc"/>
-    <dftools:dataTransfer from="MultiMemAlloc"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiCodegen"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MultiCodegen"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
@@ -117,4 +130,14 @@
         targetport="SDFs" to="MultiSDFExporterc"/>
     <dftools:dataTransfer from="MultiSDFExporterc" sourceport="void"
         targetport="void" to="MultiSDFHierarchyFlattening"/>
+    <dftools:dataTransfer from="MultiMemExBuilder"
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiMemExUpdate"/>
+    <dftools:dataTransfer from="MultiMemExUpdate"
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MemoryScripts"/>
+    <dftools:dataTransfer from="MemoryScripts"
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiMemAlloc"/>
+    <dftools:dataTransfer from="MultiMemAlloc"
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiCodegen"/>
+    <dftools:dataTransfer from="scenario" sourceport="scenario"
+        targetport="scenario" to="MemoryScripts"/>
 </dftools:workflow>
