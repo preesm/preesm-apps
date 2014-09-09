@@ -5,6 +5,7 @@
     <key attr.name="arguments" for="node" id="arguments"/>
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="memoryScript" attr.type="string" for="node"/>
     <key attr.name="delay" attr.type="string" for="edge"/>
     <graph edgedefault="directed">
         <data key="name">cost_parallel_work</data>
@@ -54,11 +55,15 @@
             <port kind="cfg_input" name="truncValue"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="grayL"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="grayR"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="cenL"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="cenR"/>
-            <port annotation="NONE" expr="1" kind="input" name="disparity"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="grayL"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="grayR"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="cenL"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="cenR"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="disparity"/>
             <port annotation="NONE" expr="height*width" kind="output" name="disparityError"/>
         </node>
         <node id="disparitySelect" kind="actor">
@@ -82,13 +87,14 @@
                 <param direction="OUT" isConfig="false"
                     name="backBestCost" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  float *"/>
             </loop>
+            <data key="memoryScript">org.ietr.preesm.stereo/Code/Scripts/disparitySelect.bsh</data>
             <port kind="cfg_input" name="scale"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="minDisparity"/>
             <port kind="cfg_input" name="nbDisparities"/>
             <port annotation="NONE" expr="height*width" kind="input" name="aggregatedDisparity"/>
-            <port annotation="NONE" expr="1" kind="input" name="disparity"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="disparity"/>
             <port annotation="NONE" expr="height*width" kind="input" name="currentResult"/>
             <port annotation="NONE" expr="height*width+1" kind="input" name="bestCostFeed"/>
             <port annotation="NONE" expr="height*width" kind="output" name="result"/>
@@ -113,11 +119,12 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbIterations"/>
             <port annotation="NONE" expr="nbIterations" kind="input" name="offsets"/>
-            <port annotation="NONE" expr="height*width*3*nbIterations"
-                kind="input" name="vWeights"/>
-            <port annotation="NONE" expr="height*width*3*nbIterations"
-                kind="input" name="hWeights"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="disparityError"/>
+            <port annotation="READ_ONLY"
+                expr="height*width*3*nbIterations" kind="input" name="vWeights"/>
+            <port annotation="READ_ONLY"
+                expr="height*width*3*nbIterations" kind="input" name="hWeights"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="disparityError"/>
             <port annotation="NONE" expr="height*width" kind="output" name="aggregatedDisparity"/>
         </node>
         <node id="ComputeHorWeights" kind="actor">
@@ -133,8 +140,9 @@
             <port kind="cfg_input" name="horOrVert"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="1" kind="input" name="offset"/>
-            <port annotation="NONE" expr="width*height*3" kind="input" name="rgbL"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="offset"/>
+            <port annotation="READ_ONLY" expr="width*height*3"
+                kind="input" name="rgbL"/>
             <port annotation="NONE" expr="height*width*3" kind="output" name="weights"/>
         </node>
         <node id="ComputeVertWeights" kind="actor">
@@ -150,8 +158,9 @@
             <port kind="cfg_input" name="horOrVert"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="1" kind="input" name="offset"/>
-            <port annotation="NONE" expr="width*height*3" kind="input" name="rgbL"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="offset"/>
+            <port annotation="READ_ONLY" expr="width*height*3"
+                kind="input" name="rgbL"/>
             <port annotation="NONE" expr="height*width*3" kind="output" name="weights"/>
         </node>
         <node id="OffsetGen" kind="actor">
@@ -221,7 +230,7 @@
         <node id="Broadcast5" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
-            <port annotation="NONE" expr="size" kind="output" name="out0"/>
+            <port annotation="WRITE_ONLY" expr="size" kind="output" name="out0"/>
             <port annotation="NONE" expr="size" kind="output" name="out1"/>
         </node>
         <edge kind="fifo" source="OffsetGen" sourceport="offsets"
