@@ -7,7 +7,23 @@
     </files>
     <constraints excelUrl="">
         <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top_display/Read_YUV"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display"/>
+            <task name="top_display/Split"/>
+            <task name="top_display/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
             <operator name="Core2"/>
+            <task name="top_display/Read_YUV"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display"/>
+            <task name="top_display/Split"/>
+            <task name="top_display/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
             <task name="top_display/Read_YUV"/>
             <task name="top_display/Merge"/>
             <task name="top_display"/>
@@ -23,27 +39,14 @@
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
         </constraintGroup>
-        <constraintGroup>
-            <operator name="Core1"/>
-            <task name="top_display/Read_YUV"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Sobel"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core3"/>
-            <task name="top_display/Read_YUV"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Sobel"/>
-        </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <timing opname="x86" time="5000" vertexname="Sobel"/>
-        <timing opname="x86" time="4000" vertexname="display"/>
+        <timing opname="x86" time="177" vertexname="Sobel"/>
+        <timing opname="x86" time="292" vertexname="display"/>
+        <timing opname="x86" time="6" vertexname="Merge"/>
+        <timing opname="x86" time="71" vertexname="Read_YUV"/>
+        <timing opname="x86" time="6" vertexname="Split"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
     <simuParams>
