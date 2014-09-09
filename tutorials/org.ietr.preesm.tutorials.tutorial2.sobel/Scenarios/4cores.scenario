@@ -2,10 +2,18 @@
 <scenario>
     <files>
         <algorithm url="/org.ietr.preesm.tutorials.tutorial2.sobel/Algo/top_display.pi"/>
-        <architecture url="/org.ietr.preesm.tutorials.tutorial2.sobel/Archi/1CoreX86.slam"/>
+        <architecture url="/org.ietr.preesm.tutorials.tutorial2.sobel/Archi/4CoreX86.slam"/>
         <codegenDirectory url="/org.ietr.preesm.tutorials.tutorial2.sobel/Code/generated"/>
     </files>
     <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top_display/Read_YUV"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display"/>
+            <task name="top_display/Split"/>
+            <task name="top_display/Sobel"/>
+        </constraintGroup>
         <constraintGroup>
             <operator name="Core0"/>
             <task name="top_display/Read_YUV"/>
@@ -15,9 +23,27 @@
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
         </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top_display/Read_YUV"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display"/>
+            <task name="top_display/Split"/>
+            <task name="top_display/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top_display/Read_YUV"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display"/>
+            <task name="top_display/Split"/>
+            <task name="top_display/Sobel"/>
+        </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="5000" vertexname="Sobel"/>
+        <timing opname="x86" time="4000" vertexname="display"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
     <simuParams>
@@ -25,11 +51,13 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
-            <dataType name="char" size="1"/>
             <dataType name="uchar" size="1"/>
         </dataTypes>
         <specialVertexOperators>
+            <specialVertexOperator path="Core3"/>
             <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core1"/>
         </specialVertexOperators>
         <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>

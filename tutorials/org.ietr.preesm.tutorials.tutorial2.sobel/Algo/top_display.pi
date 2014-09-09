@@ -5,71 +5,117 @@
     <key attr.name="arguments" for="node" id="arguments"/>
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="memoryScript" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">top_display</data>
-        <node expr="1" id="xsize" kind="param"/>
-        <node expr="1" id="ysize" kind="param"/>
-        <node expr="1" id="index" kind="param"/>
+        <node expr="352" id="xsize" kind="param"/>
+        <node expr="288" id="ysize" kind="param"/>
+        <node expr="0" id="index" kind="param"/>
         <node expr="ysize/nbSlice+2" id="sobel_ysize" kind="param"/>
-        <node expr="1" id="nbSlice" kind="param"/>
+        <node expr="16" id="nbSlice" kind="param"/>
         <node id="Read_YUV" kind="actor">
-            <data key="graph_desc">/home/cguy/Bureau/Eclipse/KeplerModeling-PreesmDevGit/runtime-EclipseApplication/org.ietr.preesm.tutorials.tutorial2.sobel/Code/IDL/readYuv.idl</data>
-            <port kind="cfg_input" name="xsize"/>
+            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial2.sobel/Code/include/yuvRead.h</data>
+            <loop name="readYUV">
+                <param direction="IN" isConfig="true" name="xsize" type="int "/>
+                <param direction="IN" isConfig="true" name="ysize" type=" int "/>
+                <param direction="OUT" isConfig="false" name="y" type=" unsigned char *"/>
+                <param direction="OUT" isConfig="false" name="u" type=" nsigned char *"/>
+                <param direction="OUT" isConfig="false" name="v" type=" unsigned char *"/>
+            </loop>
+            <init name="initReadYUV">
+                <param direction="IN" isConfig="true" name="xsize" type="int "/>
+                <param direction="IN" isConfig="true" name="ysize" type=" int "/>
+            </init>
             <port kind="cfg_input" name="ysize"/>
-            <port expr="xsize/2*ysize/2" kind="output" name="u"/>
-            <port expr="xsize/2*ysize/2" kind="output" name="v"/>
-            <port expr="xsize*ysize" kind="output" name="y"/>
+            <port kind="cfg_input" name="xsize"/>
+            <port annotation="NONE" expr="xsize*ysize" kind="output" name="y"/>
+            <port annotation="NONE" expr="xsize/2*ysize/2" kind="output" name="u"/>
+            <port annotation="NONE" expr="xsize/2*ysize/2" kind="output" name="v"/>
         </node>
         <node id="display" kind="actor">
-            <data key="graph_desc">/home/cguy/Bureau/Eclipse/KeplerModeling-PreesmDevGit/runtime-EclipseApplication/org.ietr.preesm.tutorials.tutorial2.sobel/Code/IDL/displayPic.idl</data>
+            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial2.sobel/Code/include/yuvDisplay.h</data>
+            <loop name="yuvDisplay">
+                <param direction="IN" isConfig="true" name="id" type="int "/>
+                <param direction="IN" isConfig="false" name="y" type=" unsigned char *"/>
+                <param direction="IN" isConfig="false" name="u" type=" nsigned char *"/>
+                <param direction="IN" isConfig="false" name="v" type=" unsigned char *"/>
+            </loop>
+            <init name="yuvDisplayInit">
+                <param direction="IN" isConfig="true" name="id" type="int "/>
+                <param direction="IN" isConfig="true" name="xsize" type=" int "/>
+                <param direction="IN" isConfig="true" name="ysize" type=" int "/>
+            </init>
+            <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="xsize"/>
             <port kind="cfg_input" name="ysize"/>
-            <port kind="cfg_input" name="index"/>
-            <port expr="xsize/2*ysize/2" kind="input" name="u"/>
-            <port expr="xsize/2*ysize/2" kind="input" name="v"/>
-            <port expr="xsize*ysize" kind="input" name="y"/>
+            <port annotation="NONE" expr="xsize*ysize" kind="input" name="y"/>
+            <port annotation="NONE" expr="xsize/2*ysize/2" kind="input" name="u"/>
+            <port annotation="NONE" expr="xsize/2*ysize/2" kind="input" name="v"/>
         </node>
         <node id="Sobel" kind="actor">
-            <data key="graph_desc"/>
-            <port kind="cfg_input" name="xsize"/>
+            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial2.sobel/Code/include/sobel.h</data>
+            <loop name="sobel">
+                <param direction="IN" isConfig="true" name="xsize" type="int "/>
+                <param direction="IN" isConfig="true" name="ysize" type=" int "/>
+                <param direction="IN" isConfig="false" name="input" type=" unsigned char *"/>
+                <param direction="OUT" isConfig="false" name="output" type=" unsigned char *"/>
+            </loop>
             <port kind="cfg_input" name="ysize"/>
+            <port kind="cfg_input" name="xsize"/>
             <port kind="cfg_input" name="nbSlice"/>
-            <port expr="xsize*ysize" kind="input" name="input"/>
-            <port expr="xsize*ysize" kind="output" name="output"/>
+            <port annotation="READ_ONLY" expr="xsize*ysize" kind="input" name="input"/>
+            <port annotation="NONE" expr="xsize*ysize" kind="output" name="output"/>
         </node>
         <node id="Split" kind="actor">
-            <data key="graph_desc"/>
+            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial2.sobel/Code/include/splitMerge.h</data>
+            <loop name="split">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int "/>
+                <param direction="IN" isConfig="true" name="xsize" type=" int "/>
+                <param direction="IN" isConfig="true" name="ysize" type=" int "/>
+                <param direction="IN" isConfig="false" name="input" type=" unsigned char *"/>
+                <param direction="OUT" isConfig="false" name="output" type=" unsigned char *"/>
+            </loop>
+            <data key="memoryScript">org.ietr.preesm.tutorials.tutorial2.sobel/Code/Scripts/split.bsh</data>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="ysize"/>
             <port kind="cfg_input" name="xsize"/>
-            <port expr="xsize*ysize" kind="input" name="input"/>
-            <port expr="nbSlice*xsize*(ysize/nbSlice+2)" kind="output" name="output"/>
+            <port annotation="NONE" expr="xsize*ysize" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="nbSlice*xsize*(ysize/nbSlice+2)" kind="output" name="output"/>
         </node>
         <node id="Merge" kind="actor">
-            <data key="graph_desc"/>
-            <port kind="cfg_input" name="nbSlice"/>
+            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial2.sobel/Code/include/splitMerge.h</data>
+            <loop name="merge">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int "/>
+                <param direction="IN" isConfig="true" name="xsize" type=" int "/>
+                <param direction="IN" isConfig="true" name="ysize" type=" int "/>
+                <param direction="IN" isConfig="false" name="input" type=" unsigned char *"/>
+                <param direction="OUT" isConfig="false" name="output" type=" unsigned char *"/>
+            </loop>
             <port kind="cfg_input" name="ysize"/>
             <port kind="cfg_input" name="xsize"/>
-            <port expr="nbSlice*xsize*(ysize/nbSlice+2)" kind="input" name="input"/>
-            <port expr="xsize*ysize" kind="output" name="output"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port annotation="NONE"
+                expr="nbSlice*xsize*(ysize/nbSlice+2)" kind="input" name="input"/>
+            <port annotation="NONE" expr="xsize*ysize" kind="output" name="output"/>
         </node>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
-            target="display" targetport="u"/>
+            target="display" targetport="u" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="v"
-            target="display" targetport="v"/>
+            target="display" targetport="v" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="y"
-            target="Split" targetport="input"/>
+            target="Split" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Sobel" sourceport="output"
-            target="Merge" targetport="input"/>
+            target="Merge" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Split" sourceport="output"
-            target="Sobel" targetport="input"/>
+            target="Sobel" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Merge" sourceport="output"
-            target="display" targetport="y"/>
+            target="display" targetport="y" type="uchar"/>
         <edge kind="dependency" source="xsize" target="Read_YUV" targetport="xsize"/>
         <edge kind="dependency" source="ysize" target="Read_YUV" targetport="ysize"/>
         <edge kind="dependency" source="xsize" target="display" targetport="xsize"/>
         <edge kind="dependency" source="ysize" target="display" targetport="ysize"/>
-        <edge kind="dependency" source="index" target="display" targetport="index"/>
+        <edge kind="dependency" source="index" target="display" targetport="id"/>
         <edge kind="dependency" source="xsize" target="Sobel" targetport="xsize"/>
         <edge kind="dependency" source="ysize" target="sobel_ysize"/>
         <edge kind="dependency" source="sobel_ysize" target="Sobel" targetport="ysize"/>
