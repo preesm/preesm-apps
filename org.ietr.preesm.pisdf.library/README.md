@@ -1,7 +1,7 @@
 This project gathers frequently used PREESM files.
 
 *WORKFLOWS*
-The Workflows contains the most frequenty used workflows for PiSDF algorithm descriptions:
+The Workflows folder contains the most frequenty used workflows for PiSDF algorithm descriptions:
 -Scheduling.workflow is a workflow which will transform a PiSDF algorithm in a set of static SDFs using the simulation parameters given in the scenario and then schedule each of the static SDFs;
 -Codegen.workflow generates C code for each of the static SDFs;
 -MemoryOptimization.wokflow generates the same code after memory optimization in order to reduce the memory footprint of each SDFs execution.
