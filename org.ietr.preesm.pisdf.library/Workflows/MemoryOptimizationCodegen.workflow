@@ -6,25 +6,25 @@
         <dftools:data key="variables"/>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.algorithm.transforms.MultiHierarchyFlattening" taskId="MultiSDFHierarchyFlattening">
+        pluginId="org.ietr.preesm.algorithm.transforms.MultiHierarchyFlattening" taskId="Hierarchy flattening">
         <dftools:data key="variables">
             <dftools:variable name="depth" value="3"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.algorithm.transforms.MultiHSDFTransformation" taskId="MultiHSDFTransformation">
+        pluginId="org.ietr.preesm.algorithm.transforms.MultiHSDFTransformation" taskId="Single-rate transformation">
         <dftools:data key="variables">
             <dftools:variable name="ExplodeImplodeSuppr" value="false"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporter2">
+        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="srSDF Exporter">
         <dftools:data key="variables">
             <dftools:variable name="path" value="Algo/generated/singlerate/"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiSDFListSchedulingMapping" taskId="MultiListScheduling">
+        pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiSDFListSchedulingMapping" taskId="Scheduling">
         <dftools:data key="variables">
             <dftools:variable name="balanceLoads" value="true"/>
             <dftools:variable name="edgeSchedType" value="Simple"/>
@@ -32,24 +32,24 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiStatEditorTransform" taskId="MultiGantt">
+        pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiStatEditorTransform" taskId="Display Gantt">
         <dftools:data key="variables"/>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiDAGExportTransform" taskId="MultiDAGExport">
+        pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiDAGExportTransform" taskId="DAG Exporter">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="DAG/dag"/>
+            <dftools:variable name="path" value="Algo/generated/DAG/"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryExclusionGraphBuilder" taskId="MultiMemExBuilder">
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryExclusionGraphBuilder" taskId="MEG Builder">
         <dftools:data key="variables">
             <dftools:variable name="Suppr Fork/Join" value="False"/>
             <dftools:variable name="Verbose" value="True"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryAllocator" taskId="MultiMemAlloc">
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryAllocator" taskId="MemAlloc">
         <dftools:data key="variables">
             <dftools:variable name="Allocator(s)" value="BestFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
@@ -60,7 +60,7 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.codegen.xtend.MultiCodegenTask" taskId="MultiCodegen">
+        pluginId="org.ietr.preesm.experiment.codegen.xtend.MultiCodegenTask" taskId="Codegen">
         <dftools:data key="variables">
             <dftools:variable name="Printer" value="C"/>
         </dftools:data>
@@ -72,13 +72,13 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="MultiSDFExporterc">
+        pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="SDF Exporter">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="Algo/generated/ibsdf/"/>
+            <dftools:variable name="path" value="Algo/generated"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.memory.MultiMemExUpdater" taskId="MultiMemExUpdate">
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemExUpdater" taskId="Memory Allocation">
         <dftools:data key="variables">
             <dftools:variable name="Suppr Fork/Join" value="False"/>
             <dftools:variable name="Update with MemObject lifetime" value="False"/>
@@ -97,47 +97,47 @@
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="PiMM2SDF"/>
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
-        targetport="SDFs" to="MultiSDFHierarchyFlattening"/>
-    <dftools:dataTransfer from="MultiSDFHierarchyFlattening"
-        sourceport="SDFs" targetport="SDFs" to="MultiHSDFTransformation"/>
-    <dftools:dataTransfer from="MultiHSDFTransformation"
-        sourceport="SDFs" targetport="SDFs" to="MultiSDFExporter2"/>
+        targetport="SDFs" to="Hierarchy flattening"/>
+    <dftools:dataTransfer from="Hierarchy flattening" sourceport="SDFs"
+        targetport="SDFs" to="Single-rate transformation"/>
+    <dftools:dataTransfer from="Single-rate transformation"
+        sourceport="SDFs" targetport="SDFs" to="srSDF Exporter"/>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
         targetport="PiMM" to="PiMM2SDF"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="MultiListScheduling"/>
+        targetport="scenario" to="Scheduling"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="MultiListScheduling"/>
-    <dftools:dataTransfer from="MultiHSDFTransformation"
-        sourceport="SDFs" targetport="SDFs" to="MultiListScheduling"/>
-    <dftools:dataTransfer from="MultiListScheduling" sourceport="ABCs"
-        targetport="ABCs" to="MultiGantt"/>
+        targetport="architecture" to="Scheduling"/>
+    <dftools:dataTransfer from="Single-rate transformation"
+        sourceport="SDFs" targetport="SDFs" to="Scheduling"/>
+    <dftools:dataTransfer from="Scheduling" sourceport="ABCs"
+        targetport="ABCs" to="Display Gantt"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="MultiGantt"/>
-    <dftools:dataTransfer from="MultiListScheduling" sourceport="DAGs"
-        targetport="DAGs" to="MultiDAGExport"/>
-    <dftools:dataTransfer from="MultiListScheduling" sourceport="DAGs"
-        targetport="DAGs" to="MultiMemExBuilder"/>
+        targetport="scenario" to="Display Gantt"/>
+    <dftools:dataTransfer from="Scheduling" sourceport="DAGs"
+        targetport="DAGs" to="DAG Exporter"/>
+    <dftools:dataTransfer from="Scheduling" sourceport="DAGs"
+        targetport="DAGs" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="MultiMemExBuilder"/>
+        targetport="scenario" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="MultiCodegen"/>
+        targetport="scenario" to="Codegen"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="MultiCodegen"/>
-    <dftools:dataTransfer from="MultiSDFHierarchyFlattening"
-        sourceport="SDFs" targetport="SDFs" to="MultiSDFExporter"/>
+        targetport="architecture" to="Codegen"/>
+    <dftools:dataTransfer from="Hierarchy flattening" sourceport="SDFs"
+        targetport="SDFs" to="MultiSDFExporter"/>
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
-        targetport="SDFs" to="MultiSDFExporterc"/>
-    <dftools:dataTransfer from="MultiSDFExporterc" sourceport="void"
-        targetport="void" to="MultiSDFHierarchyFlattening"/>
-    <dftools:dataTransfer from="MultiMemExBuilder"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiMemExUpdate"/>
-    <dftools:dataTransfer from="MultiMemExUpdate"
+        targetport="SDFs" to="SDF Exporter"/>
+    <dftools:dataTransfer from="SDF Exporter" sourceport="void"
+        targetport="void" to="Hierarchy flattening"/>
+    <dftools:dataTransfer from="MEG Builder" sourceport="DAGsAndMemExs"
+        targetport="DAGsAndMemExs" to="Memory Allocation"/>
+    <dftools:dataTransfer from="Memory Allocation"
         sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MemoryScripts"/>
     <dftools:dataTransfer from="MemoryScripts"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiMemAlloc"/>
-    <dftools:dataTransfer from="MultiMemAlloc"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MultiCodegen"/>
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MemAlloc"/>
+    <dftools:dataTransfer from="MemAlloc" sourceport="DAGsAndMemExs"
+        targetport="DAGsAndMemExs" to="Codegen"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MemoryScripts"/>
 </dftools:workflow>

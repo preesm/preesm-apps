@@ -8,7 +8,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="SDF Exporter">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="Algo/generated/ibsdf"/>
+            <dftools:variable name="path" value="Algo/generated/"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
@@ -26,7 +26,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.algorithm.exportXml.MultiSDFExporter" taskId="srSDF Exporter">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="Algo/generated/HSDF/"/>
+            <dftools:variable name="path" value="Algo/generated/singlerate/"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
@@ -44,7 +44,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiDAGExportTransform" taskId="DAG Exporter">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="Algo/dag/"/>
+            <dftools:variable name="path" value="Algo/generated/DAG/"/>
         </dftools:data>
     </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
