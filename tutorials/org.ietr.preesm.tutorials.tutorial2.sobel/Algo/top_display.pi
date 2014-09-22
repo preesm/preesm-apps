@@ -54,7 +54,7 @@
         <edge kind="fifo" source="Read_YUV" sourceport="v"
             target="display" targetport="v" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="y"
-            target="display" targetport="y" type="void"/>
+            target="display" targetport="y" type="uchar"/>
         <edge kind="dependency" source="xsize" target="Read_YUV" targetport="xsize"/>
         <edge kind="dependency" source="ysize" target="Read_YUV" targetport="ysize"/>
         <edge kind="dependency" source="xsize" target="display" targetport="xsize"/>
