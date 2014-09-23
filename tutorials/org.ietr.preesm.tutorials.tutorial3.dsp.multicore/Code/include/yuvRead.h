@@ -11,8 +11,8 @@
 #ifndef READ_YUV_H
 #define READ_YUV_H
 
-#define PATH "/home/mpelcat/Temp/akiyo_cif.yuv"
-//#define PATH "Z:/Temp/akiyo_cif.yuv"
+//#define PATH "/home/mpelcat/Temp/akiyo_cif.yuv"
+#define PATH "./akiyo_cif.yuv"
 
 #define NB_FRAME 300
 
@@ -25,7 +25,7 @@
 * @param ySize
 *        The heigth of the opened YUV file
 */
-void initReadYUV(int xSize, int ySize);
+void initReadYUV(int xsize, int ysize);
 
 /**
 * Read a new frame from the YUV file.
@@ -41,6 +41,6 @@ void initReadYUV(int xSize, int ySize);
 * param v
 *       Destination of the V component read from the file
 */
-void readYUV(int xSize, int ySize, unsigned char *y, unsigned char *u, unsigned char *v);
+void readYUV(int xsize, int ysize, unsigned char *y, unsigned char *u, unsigned char *v);
 
 #endif

@@ -24,6 +24,6 @@
 * @param output
 *        The output image
 */
-void sobel(int xSize, int ySize, unsigned char *input, unsigned char *output);
+void sobel(int xsize, int ysize, unsigned char *input, unsigned char *output);
 
 #endif

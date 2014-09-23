@@ -28,7 +28,7 @@
 * @param output
 *        the output buffer of size nbSlice*[xSize*(ySize/nbSlice+2)]
 */
-void split(int nbSlice, int xSize, int ySize, unsigned char *input, unsigned char *output);
+void split(int nbSlice, int xsize, int ysize, unsigned char *input, unsigned char *output);
 
 /**
 * Function used to assemble nbSlices slices of size xSize*(ySize/nbSlice+2) 
@@ -45,6 +45,6 @@ void split(int nbSlice, int xSize, int ySize, unsigned char *input, unsigned cha
 * @param output
 *        the output image of size xSize*Size
 */
-void merge(int nbSlice, int xSize, int ySize, unsigned char *input, unsigned char *output);
+void merge(int nbSlice, int xsize, int ysize, unsigned char *input, unsigned char *output);
 
 #endif
