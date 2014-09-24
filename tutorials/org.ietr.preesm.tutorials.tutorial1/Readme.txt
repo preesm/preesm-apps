@@ -1,9 +1,9 @@
 This tutorial project contains:
 
-- A PREESM workflow with application flattening, mapping and code generation, in folder Workflows (XTendCodegen.workflow)
+- A PREESM workflow with application flattening, mapping and code generation, in folder Workflows (Codegen.workflow)
 - A simple application named TestCom (without hierarchy), in folder Algo (graphical version: TestCom.diagram, xml one: TestCom.pi)
 - The architecture model of a PC with 2 cores interconnected by a shared memory, in folder Archi (2CoreX86.slam)
-- The associated code, IDL with function prototypes and CMakeLists to execute the code, in folder Code
+- The associated code, headers with function prototypes and CMakeLists to execute the code, in folder Code
 
 To launch PREESM on this tutorial:
 
