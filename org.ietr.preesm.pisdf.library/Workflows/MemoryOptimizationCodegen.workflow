@@ -49,7 +49,7 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryAllocator" taskId="MemAlloc">
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryAllocator" taskId="Memory Allocation">
         <dftools:data key="variables">
             <dftools:variable name="Allocator(s)" value="BestFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
@@ -78,7 +78,7 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.memory.MultiMemExUpdater" taskId="Memory Allocation">
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemExUpdater" taskId="MEG Updater">
         <dftools:data key="variables">
             <dftools:variable name="Suppr Fork/Join" value="False"/>
             <dftools:variable name="Update with MemObject lifetime" value="False"/>
@@ -131,13 +131,13 @@
     <dftools:dataTransfer from="SDF Exporter" sourceport="void"
         targetport="void" to="Hierarchy flattening"/>
     <dftools:dataTransfer from="MEG Builder" sourceport="DAGsAndMemExs"
-        targetport="DAGsAndMemExs" to="Memory Allocation"/>
-    <dftools:dataTransfer from="Memory Allocation"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MemoryScripts"/>
+        targetport="DAGsAndMemExs" to="MEG Updater"/>
+    <dftools:dataTransfer from="MEG Updater" sourceport="DAGsAndMemExs"
+        targetport="DAGsAndMemExs" to="MemoryScripts"/>
     <dftools:dataTransfer from="MemoryScripts"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="MemAlloc"/>
-    <dftools:dataTransfer from="MemAlloc" sourceport="DAGsAndMemExs"
-        targetport="DAGsAndMemExs" to="Codegen"/>
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="Memory Allocation"/>
+    <dftools:dataTransfer from="Memory Allocation"
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="Codegen"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MemoryScripts"/>
 </dftools:workflow>
