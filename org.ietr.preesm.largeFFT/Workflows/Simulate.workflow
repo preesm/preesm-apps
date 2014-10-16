@@ -38,7 +38,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.experiment.pimm.mapper.MultiDAGExportTransform" taskId="MultiDAGExport">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="DAG/dag"/>
+            <dftools:variable name="path" value="Algo/generated/dag/"/>
         </dftools:data>
     </dftools:task>
     <dftools:task
