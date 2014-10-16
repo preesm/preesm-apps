@@ -1,0 +1,8 @@
+
+module init {
+	typedef long parameter ;
+	typedef long int ;
+	interface loop {
+		void init(in parameter xSize, in parameter ySize, in parameter S, out int O, out int octavesW, out int octavesH, out float sigma);
+	} ;
+} ;

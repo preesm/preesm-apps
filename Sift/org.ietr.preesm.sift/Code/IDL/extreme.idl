@@ -1,0 +1,10 @@
+
+module extreme {
+	typedef long parameter ;
+	typedef long int ;
+	interface loop {
+		void extreme(out int keyN, in float dog, in int O, in parameter S,
+		in int octavesW, in int octavesH, in float sigma,
+		out float struct_x, out float struct_y, out int struct_o, out float struct_s);
+	} ;
+} ;

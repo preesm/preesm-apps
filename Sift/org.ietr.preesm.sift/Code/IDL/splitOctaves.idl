@@ -1,0 +1,11 @@
+
+module splitOctaves {
+	typedef long int ;
+	interface loop {
+		void splitOctaves(out char octave0, out char octave1,
+		out char octave2, out char octave3, 
+		out char octave4, out char octave5,
+		out char octave6, out char octave7,
+		in char octaves, in int O, in int octavesW, in int octavesH);
+	} ;
+} ;
