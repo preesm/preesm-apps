@@ -25,8 +25,8 @@
             <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
-            <task name="stereo_top/Read_PPM0"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
+            <task name="stereo_top/Read_PPM0"/>
             <task name="stereo_top"/>
             <task name="stereo_top/Cost_Parallel_Work/cenR"/>
             <task name="stereo_top/Display_RGB1"/>
@@ -48,7 +48,24 @@
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+        <timing opname="x86" time="8112" vertexname="AggregateCost"/>
+        <timing opname="x86" time="5528" vertexname="Census_L"/>
+        <timing opname="x86" time="5528" vertexname="Census_R"/>
+        <timing opname="x86" time="12802" vertexname="ComputeHorWeights"/>
+        <timing opname="x86" time="12802" vertexname="ComputeVertWeights"/>
+        <timing opname="x86" time="1902" vertexname="CostConstruction"/>
+        <timing opname="x86" time="1" vertexname="DisparityGen"/>
+        <timing opname="x86" time="22767" vertexname="Display_RGB1"/>
+        <timing opname="x86" time="22767" vertexname="Display_rgb0"/>
+        <timing opname="x86" time="1868" vertexname="Median_Filter"/>
+        <timing opname="x86" time="1" vertexname="OffsetGen"/>
+        <timing opname="x86" time="391" vertexname="RGB2Gray_L"/>
+        <timing opname="x86" time="391" vertexname="RGB2Gray_R"/>
+        <timing opname="x86" time="4452" vertexname="Read_PPM0"/>
+        <timing opname="x86" time="4452" vertexname="Read_PPM1"/>
+        <timing opname="x86" time="9" vertexname="Split"/>
+        <timing opname="x86" time="537" vertexname="disparitySelect"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333333E-7"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
