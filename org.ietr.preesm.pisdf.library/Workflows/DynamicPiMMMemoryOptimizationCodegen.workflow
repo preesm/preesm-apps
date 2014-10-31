@@ -12,7 +12,7 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.algorithm.transforms.MultiHSDFTransformation" taskId="Single-rate transformation">
+        pluginId="org.ietr.preesm.algorithm.transforms.MultiHSDFTransformation" taskId="Single-rate Transformation">
         <dftools:data key="variables">
             <dftools:variable name="ExplodeImplodeSuppr" value="false"/>
         </dftools:data>
@@ -60,7 +60,7 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.codegen.xtend.MultiCodegenTask" taskId="Codegen">
+        pluginId="org.ietr.preesm.experiment.codegen.xtend.MultiCodegenTask" taskId="Code Generation">
         <dftools:data key="variables">
             <dftools:variable name="Printer" value="C"/>
         </dftools:data>
@@ -86,7 +86,7 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryScriptTask" taskId="MemoryScripts">
+        pluginId="org.ietr.preesm.experiment.memory.MultiMemoryScriptTask" taskId="Memory Scripts">
         <dftools:data key="variables">
             <dftools:variable name="Check" value="Fast"/>
             <dftools:variable name="Data alignment" value="Fixed:=64"/>
@@ -99,8 +99,8 @@
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
         targetport="SDFs" to="Hierarchy flattening"/>
     <dftools:dataTransfer from="Hierarchy flattening" sourceport="SDFs"
-        targetport="SDFs" to="Single-rate transformation"/>
-    <dftools:dataTransfer from="Single-rate transformation"
+        targetport="SDFs" to="Single-rate Transformation"/>
+    <dftools:dataTransfer from="Single-rate Transformation"
         sourceport="SDFs" targetport="SDFs" to="srSDF Exporter"/>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
         targetport="PiMM" to="PiMM2SDF"/>
@@ -108,7 +108,7 @@
         targetport="scenario" to="Scheduling"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
         targetport="architecture" to="Scheduling"/>
-    <dftools:dataTransfer from="Single-rate transformation"
+    <dftools:dataTransfer from="Single-rate Transformation"
         sourceport="SDFs" targetport="SDFs" to="Scheduling"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABCs"
         targetport="ABCs" to="Display Gantt"/>
@@ -121,9 +121,9 @@
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="Codegen"/>
+        targetport="scenario" to="Code Generation"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="Codegen"/>
+        targetport="architecture" to="Code Generation"/>
     <dftools:dataTransfer from="Hierarchy flattening" sourceport="SDFs"
         targetport="SDFs" to="MultiSDFExporter"/>
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDFs"
@@ -133,11 +133,11 @@
     <dftools:dataTransfer from="MEG Builder" sourceport="DAGsAndMemExs"
         targetport="DAGsAndMemExs" to="MEG Updater"/>
     <dftools:dataTransfer from="MEG Updater" sourceport="DAGsAndMemExs"
-        targetport="DAGsAndMemExs" to="MemoryScripts"/>
-    <dftools:dataTransfer from="MemoryScripts"
+        targetport="DAGsAndMemExs" to="Memory Scripts"/>
+    <dftools:dataTransfer from="Memory Scripts"
         sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="Memory Allocation"/>
     <dftools:dataTransfer from="Memory Allocation"
-        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="Codegen"/>
+        sourceport="DAGsAndMemExs" targetport="DAGsAndMemExs" to="Code Generation"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="MemoryScripts"/>
+        targetport="scenario" to="Memory Scripts"/>
 </dftools:workflow>
