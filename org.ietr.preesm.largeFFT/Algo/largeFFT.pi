@@ -7,8 +7,8 @@
     <graph edgedefault="directed">
         <data key="name">largeFFT</data>
         <node id="size" kind="cfg_in_iface"/>
-        <node expr="size/2" id="NR" kind="param"/>
-        <node expr="size/2" id="NC" kind="param"/>
+        <node expr="sqrt(size)" id="NR" kind="param"/>
+        <node expr="sqrt(size)" id="NC" kind="param"/>
         <node id="in" kind="src">
             <port annotation="NONE" expr="size" kind="output" name="in"/>
         </node>

@@ -1,0 +1,12 @@
+
+module Ori {
+	typedef long parameter ;
+	typedef long int ;
+	interface loop {
+		void orientation(in int keyN, in float scaleSpace,
+		in int octavesW, in int octavesH, in float sigma,
+		in float struct_x, in float struct_y, in int struct_o, in float struct_s,
+		out int struct_int_x, out int struct_int_y, out int struct_int_o,
+		out int struct_int_s, out float struct_float_ori, in int O, in parameter S);
+	} ;
+} ;

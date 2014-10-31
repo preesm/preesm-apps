@@ -66,7 +66,7 @@
                 <param direction="OUT" isConfig="false" name="gray" type=" float *"/>
             </loop>
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size*3" kind="input" name="rgb"/>
+            <port annotation="READ_ONLY" expr="size*3" kind="input" name="rgb"/>
             <port annotation="NONE" expr="size" kind="output" name="gray"/>
         </node>
         <node id="Display_rgb0" kind="actor">
@@ -85,7 +85,8 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
-            <port annotation="NONE" expr="height*width*3" kind="input" name="rgb"/>
+            <port annotation="READ_ONLY" expr="height*width*3"
+                kind="input" name="rgb"/>
         </node>
         <node id="RGB2Gray_R" kind="actor">
             <data key="graph_desc">org.ietr.preesm.stereo/Code/include/rgb2Gray.h</data>
@@ -213,7 +214,7 @@
         </node>
         <node id="Broadcast0" kind="broadcast">
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="3*size" kind="input" name="in"/>
+            <port annotation="READ_ONLY" expr="3*size" kind="input" name="in"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out0"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out1"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out2"/>

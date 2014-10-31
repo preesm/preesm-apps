@@ -1,0 +1,9 @@
+
+module BuildOB {
+	typedef long parameter ;
+	typedef long int ;
+	interface loop {
+		void buildOB( in char y, out char octaves,
+		in int O, in parameter S, in int octavesW, in int octavesH);
+	} ;
+} ;
