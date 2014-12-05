@@ -11,6 +11,8 @@
 #ifndef RGB_2_GRAY_H
 #define RGB_2_GRAY_H
 
+#include "preesm.h"
+
 /**
 * This function convert the input RGB image into its gray equivalent.
 * 
@@ -21,6 +23,6 @@
 * @param gray
 *        Output buffer for the gray image.
 */
-void rgb2Gray(int size, unsigned char *rgb, float *gray);
+void rgb2Gray(int size, IN unsigned char *rgb, OUT float *gray);
 
 #endif

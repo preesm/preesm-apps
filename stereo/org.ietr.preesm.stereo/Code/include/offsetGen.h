@@ -11,6 +11,7 @@
 
 #ifndef OFFSET_GEN_H
 #define OFFSET_GEN_H
+#include "preesm.h"
 
 /**
 * Generation of an array of the offsets used in the computation 
@@ -21,6 +22,6 @@
 * @param disparities
 *        Output array for the generated offsets.
 */
-void offsetGen (int nbIterations,  int *offsets);
+void offsetGen (int nbIterations,  OUT int *offsets);
 
 #endif

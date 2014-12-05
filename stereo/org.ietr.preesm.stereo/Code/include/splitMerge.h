@@ -11,6 +11,7 @@
 
 #ifndef SPLIT_MERGE_H
 #define SPLIT_MERGE_H
+#include "preesm.h"
 
 /**
 * Function used to split an input image of size width*height into nbSlices 
@@ -28,7 +29,7 @@
 * @param output
 *        the output buffer of size nbSlice*[width*(height/nbSlice+2)]
 */
-void split(int nbSlice, int width, int height, unsigned char *input, unsigned char *output);
+void split(int nbSlice, int width, int height, IN unsigned char *input, OUT unsigned char *output);
 
 /**
 * Function used to assemble nbSlices slices of size width*(height/nbSlice+2) 
@@ -45,6 +46,6 @@ void split(int nbSlice, int width, int height, unsigned char *input, unsigned ch
 * @param output
 *        the output image of size width*Size
 */
-void merge(int nbSlice, int width, int height, unsigned char *input, unsigned char *output);
+void merge(int nbSlice, int width, int height, IN unsigned char *input, OUT unsigned char *output);
 
 #endif

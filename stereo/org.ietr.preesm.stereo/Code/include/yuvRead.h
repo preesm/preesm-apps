@@ -10,7 +10,7 @@
 
 #ifndef READ_YUV_H
 #define READ_YUV_H
-
+#include "preesm.h"
 
 #define NB_FRAME 3000
 // FPS: number of frame between two FPS measures
@@ -41,6 +41,6 @@ void initReadYUV(int id, int xSize, int ySize);
 * param v
 *       Destination of the V component read from the file
 */
-void readYUV(int id, int xSize, int ySize, unsigned char *y, unsigned char *u, unsigned char *v);
+void readYUV(int id, int xSize, int ySize, OUT unsigned char *y, OUT unsigned char *u, OUT unsigned char *v);
 
 #endif

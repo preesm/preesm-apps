@@ -11,6 +11,7 @@
 
 #ifndef DISPARITY_GEN_H
 #define DISPARITY_GEN_H
+#include "preesm.h"
 
 /**
 * Generation of an array of the disparities used in the computation 
@@ -24,6 +25,6 @@
 *        The array containing all values from minDisparity to maxDisparities-1
 */
 void disparityGen (int minDisparity, int maxDisparity,
-				   unsigned char *disparities);
+				   OUT unsigned char *disparities);
 
 #endif

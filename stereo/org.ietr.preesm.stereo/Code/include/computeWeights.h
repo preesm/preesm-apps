@@ -12,6 +12,7 @@
 
 #ifndef COMPUTE_WEIGHTS_H
 #define COMPUTE_WEIGHTS_H
+#include "preesm.h"
 
 /**
 * This function computes 3 weights for each pixel of the input rgb image.
@@ -37,6 +38,6 @@
 *        The outputed 3*height*width weights.
 */
 void computeWeights (int height , int width, int horOrVert,
-					 int *offset, unsigned char *rgbL, float *weights);
+					 IN int *offset, IN unsigned char *rgbL, OUT float *weights);
 
 #endif

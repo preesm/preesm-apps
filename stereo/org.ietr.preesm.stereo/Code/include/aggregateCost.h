@@ -12,6 +12,7 @@
 
 #ifndef AGGREGATE_COST_H
 #define AGGREGATE_COST_H
+#include "preesm.h"
 
 /**
 * This function perform both the horizontal and vertical cost aggregation
@@ -44,8 +45,8 @@
 *        The output cost map of size height*width
 */
 void aggregateCost (int height , int width, int nbIterations,
-					float *disparityError, int *offsets,
-					float *hWeights, float *vWeights,
-					float *aggregatedDisparity);
+					IN float *disparityError, IN int *offsets,
+					IN float *hWeights, IN float *vWeights,
+					OUT float *aggregatedDisparity);
 
 #endif

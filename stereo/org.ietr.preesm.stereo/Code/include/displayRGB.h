@@ -8,7 +8,8 @@
 	============================================================================
 */
 #ifndef DISPLAY_RGB
-#define DISPLAY_RB
+#define DISPLAY_RGB
+#include "preesm.h"
 
 #define NB_DISPLAY 2
 #define DISPLAY_W 480*NB_DISPLAY
@@ -44,7 +45,7 @@ void display3Components(int id, unsigned char *r, unsigned char *g, unsigned cha
 * @param rgb
 *        Array containing the 3 components of the displayed image.
 */
-void displayRGB(int id, int height, int width, unsigned char *rgb);
+void displayRGB(int id, int height, int width, IN unsigned char *rgb);
 
 /**
 * Identical to display RGB, but receive only one luminance component.
@@ -54,7 +55,7 @@ void displayRGB(int id, int height, int width, unsigned char *rgb);
 * @param lum
 *        Array containing the lum component of the displayed image.
 */
-void displayLum(int id, unsigned char *lum);
+void displayLum(int id, IN unsigned char *lum);
 
 /**
 * Function used to initialize a frame in the SDL window.

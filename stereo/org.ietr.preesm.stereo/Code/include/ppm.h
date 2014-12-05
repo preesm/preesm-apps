@@ -10,6 +10,7 @@
 
 #ifndef READ_PPM_H
 #define READ_PPM_H
+#include "preesm.h"
 
 /**
 * This function initialize the reading of a file on the hard drive.
@@ -41,7 +42,7 @@ void readPPMInit(int id, int height, int width);
 * @param rgb
 *        Output array of size height*width for the each 3 components
 */
-void readPPM(int id, int height, int width, unsigned char *rgb);
+void readPPM(int id, int height, int width, OUT unsigned char *rgb);
 
 /**
 * Write a gray image into a file.
@@ -52,6 +53,6 @@ void readPPM(int id, int height, int width, unsigned char *rgb);
 * @param gray
 *        Height*width pixels to write.
 */
-void writePPM(int height, int width, unsigned char *gray);
+void writePPM(int height, int width, IN unsigned char *gray);
 
 #endif

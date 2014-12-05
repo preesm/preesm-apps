@@ -11,6 +11,7 @@
 
 #ifndef CENSUS_H
 #define CENSUS_H
+#include "preesm.h"
 
 /**
 * This method associates a signature to each pixel of an image. This signature
@@ -31,6 +32,6 @@
 * @param cen
 *        The outputed height*width census image.
 */
-void census(int height, int width, float *gray, unsigned char *cen);
+void census(int height, int width, IN float *gray, OUT unsigned char *cen);
 
 #endif

@@ -12,6 +12,7 @@
 
 #ifndef COST_CONSTRUCTION_H
 #define COST_CONSTRUCTION_H
+#include "preesm.h"
 
 /**
 * This function computes the costs associated to the pixels of a stereo pair
@@ -44,10 +45,10 @@
 *        The outputed height*width costs.
 */
 void costConstruction (int height, int width, float truncValue,
-                       unsigned char *disparity,
-                       float *grayL, float *grayR,
-                       unsigned char *cenL, unsigned char *cenR,
-                       float *disparityError);
+                       IN unsigned char *disparity,
+                       IN float *grayL, IN float *grayR,
+                       IN unsigned char *cenL, IN unsigned char *cenR,
+                       OUT float *disparityError);
 
 /**
 * This function computes the hamming cost between two 8-bit words.

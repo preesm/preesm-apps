@@ -10,6 +10,7 @@
 
 #ifndef MEDIAN_FILTER_H
 #define MEDIAN_FILTER_H
+#include "preesm.h"
 
 /**
 * This function applies a median filter to the input image. 
@@ -31,8 +32,8 @@
 *        The (height-topDownBorderSize)*width output image
 */
 void medianFilter (int height , int width, int topDownBorderSize, 
-                   unsigned char *rawDisparity,
-				   unsigned char *filteredDisparity);
+                   IN unsigned char *rawDisparity,
+				   OUT unsigned char *filteredDisparity);
 
 /**
 * Recursive quicksort implementation.

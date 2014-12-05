@@ -11,6 +11,7 @@
 
 #ifndef DISPARITY_SELECT_H
 #define DISPARITY_SELECT_H
+#include "preesm.h"
 
 /**
 * This function compares two costs images corresponding to different
@@ -49,10 +50,10 @@
 */
 void disparitySelect (int height, int width, int nbDisparities, int scale,
                       int minDisparity,
-                      unsigned char *disparity,
-					  float *aggregatedDisparity,
-                      float *bestCostFeed, unsigned char *currentResult,
-                      unsigned char *result,
-					  float *backBestCost);
+                      IN unsigned char *disparity,
+					  IN float *aggregatedDisparity,
+                      IN float *bestCostFeed, IN unsigned char *currentResult,
+                      OUT unsigned char *result,
+					  OUT float *backBestCost);
 
 #endif
