@@ -1,8 +1,0 @@
-
-module DoG {
-	typedef long parameter ;
-	typedef long int ;
-	interface loop {
-		void DoG(out float dog, in float scaleSpace, in int O, in parameter S, in int octavesW, in int octavesH);
-	} ;
-} ;
