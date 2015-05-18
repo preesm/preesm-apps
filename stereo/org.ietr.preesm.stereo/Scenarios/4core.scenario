@@ -7,34 +7,31 @@
     </files>
     <constraints excelUrl="">
         <constraintGroup>
-            <operator name="Core2"/>
+            <operator name="Core3"/>
             <task name="stereo_top/Cost_Parallel_Work/rgbL"/>
             <task name="stereo_top/Census_R"/>
             <task name="stereo_top/broadcast2"/>
             <task name="stereo_top/Broadcast0"/>
-            <task name="stereo_top/Write_PPM"/>
             <task name="stereo_top/broadcast1"/>
             <task name="stereo_top/Census_L"/>
             <task name="stereo_top/Median_Filter"/>
-            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast1"/>
+            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast0"/>
-            <task name="stereo_top/Read_PPM1"/>
             <task name="stereo_top/Cost_Parallel_Work/disparitySelect"/>
             <task name="stereo_top/Cost_Parallel_Work/CostConstruction"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
-            <task name="stereo_top/Read_PPM0"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
             <task name="stereo_top"/>
             <task name="stereo_top/Cost_Parallel_Work/cenR"/>
             <task name="stereo_top/Cost_Parallel_Work/grayL"/>
             <task name="stereo_top/Cost_Parallel_Work/ComputeHorWeights"/>
-            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
             <task name="stereo_top/RGB2Gray_L"/>
-            <task name="stereo_top/Cost_Parallel_Work"/>
             <task name="stereo_top/Split"/>
+            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
+            <task name="stereo_top/Cost_Parallel_Work"/>
             <task name="stereo_top/Cost_Parallel_Work/cenL"/>
             <task name="stereo_top/Cost_Parallel_Work/ComputeVertWeights"/>
             <task name="stereo_top/RGB2Gray_R"/>
@@ -49,29 +46,26 @@
             <task name="stereo_top/Census_R"/>
             <task name="stereo_top/broadcast2"/>
             <task name="stereo_top/Broadcast0"/>
-            <task name="stereo_top/Write_PPM"/>
             <task name="stereo_top/broadcast1"/>
             <task name="stereo_top/Census_L"/>
             <task name="stereo_top/Median_Filter"/>
-            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast1"/>
+            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast0"/>
-            <task name="stereo_top/Read_PPM1"/>
             <task name="stereo_top/Cost_Parallel_Work/disparitySelect"/>
             <task name="stereo_top/Cost_Parallel_Work/CostConstruction"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
-            <task name="stereo_top/Read_PPM0"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
             <task name="stereo_top"/>
             <task name="stereo_top/Cost_Parallel_Work/cenR"/>
             <task name="stereo_top/Cost_Parallel_Work/grayL"/>
             <task name="stereo_top/Cost_Parallel_Work/ComputeHorWeights"/>
-            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
             <task name="stereo_top/RGB2Gray_L"/>
-            <task name="stereo_top/Cost_Parallel_Work"/>
             <task name="stereo_top/Split"/>
+            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
+            <task name="stereo_top/Cost_Parallel_Work"/>
             <task name="stereo_top/Cost_Parallel_Work/cenL"/>
             <task name="stereo_top/Cost_Parallel_Work/ComputeVertWeights"/>
             <task name="stereo_top/RGB2Gray_R"/>
@@ -81,41 +75,7 @@
             <task name="stereo_top/Cost_Parallel_Work/AggregateCost"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="Core3"/>
-            <task name="stereo_top/Cost_Parallel_Work/rgbL"/>
-            <task name="stereo_top/Census_R"/>
-            <task name="stereo_top/broadcast2"/>
-            <task name="stereo_top/Broadcast0"/>
-            <task name="stereo_top/Write_PPM"/>
-            <task name="stereo_top/broadcast1"/>
-            <task name="stereo_top/Census_L"/>
-            <task name="stereo_top/Median_Filter"/>
-            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast1"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast0"/>
-            <task name="stereo_top/Read_PPM1"/>
-            <task name="stereo_top/Cost_Parallel_Work/disparitySelect"/>
-            <task name="stereo_top/Cost_Parallel_Work/CostConstruction"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
-            <task name="stereo_top/Read_PPM0"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
-            <task name="stereo_top"/>
-            <task name="stereo_top/Cost_Parallel_Work/cenR"/>
-            <task name="stereo_top/Cost_Parallel_Work/grayL"/>
-            <task name="stereo_top/Cost_Parallel_Work/ComputeHorWeights"/>
-            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
-            <task name="stereo_top/RGB2Gray_L"/>
-            <task name="stereo_top/Cost_Parallel_Work"/>
-            <task name="stereo_top/Split"/>
-            <task name="stereo_top/Cost_Parallel_Work/cenL"/>
-            <task name="stereo_top/Cost_Parallel_Work/ComputeVertWeights"/>
-            <task name="stereo_top/RGB2Gray_R"/>
-            <task name="stereo_top/Cost_Parallel_Work/grayR"/>
-            <task name="stereo_top/Cost_Parallel_Work/OffsetGen"/>
-            <task name="stereo_top/lum2RGB"/>
-            <task name="stereo_top/Cost_Parallel_Work/AggregateCost"/>
+            <operator name="Core6"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core0"/>
@@ -136,8 +96,8 @@
             <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
             <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
-            <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
             <task name="stereo_top/Read_PPM0"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
             <task name="stereo_top"/>
             <task name="stereo_top/Cost_Parallel_Work/cenR"/>
             <task name="stereo_top/Display_RGB1"/>
@@ -155,6 +115,49 @@
             <task name="stereo_top/lum2RGB"/>
             <task name="stereo_top/Cost_Parallel_Work/AggregateCost"/>
             <task name="stereo_top/Display_rgb0"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core7"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core4"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="stereo_top/Cost_Parallel_Work/rgbL"/>
+            <task name="stereo_top/Census_R"/>
+            <task name="stereo_top/broadcast2"/>
+            <task name="stereo_top/Broadcast0"/>
+            <task name="stereo_top/broadcast1"/>
+            <task name="stereo_top/Census_L"/>
+            <task name="stereo_top/Median_Filter"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast1"/>
+            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast0"/>
+            <task name="stereo_top/Cost_Parallel_Work/disparitySelect"/>
+            <task name="stereo_top/Cost_Parallel_Work/CostConstruction"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
+            <task name="stereo_top"/>
+            <task name="stereo_top/Cost_Parallel_Work/cenR"/>
+            <task name="stereo_top/Cost_Parallel_Work/grayL"/>
+            <task name="stereo_top/Cost_Parallel_Work/ComputeHorWeights"/>
+            <task name="stereo_top/RGB2Gray_L"/>
+            <task name="stereo_top/Split"/>
+            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
+            <task name="stereo_top/Cost_Parallel_Work"/>
+            <task name="stereo_top/Cost_Parallel_Work/cenL"/>
+            <task name="stereo_top/Cost_Parallel_Work/ComputeVertWeights"/>
+            <task name="stereo_top/RGB2Gray_R"/>
+            <task name="stereo_top/Cost_Parallel_Work/grayR"/>
+            <task name="stereo_top/Cost_Parallel_Work/OffsetGen"/>
+            <task name="stereo_top/lum2RGB"/>
+            <task name="stereo_top/Cost_Parallel_Work/AggregateCost"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core5"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

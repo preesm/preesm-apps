@@ -39,18 +39,19 @@
             <port annotation="NONE" expr="size" kind="input" name="rawDisparity"/>
         </node>
         <node id="CostConstruction" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/costConstruction.h</data>
+            <data key="graph_desc">Code/include/costConstruction.h</data>
             <loop name="costConstruction">
                 <param direction="IN" isConfig="true" name="height" type="int "/>
                 <param direction="IN" isConfig="true" name="width" type=" int "/>
                 <param direction="IN" isConfig="true" name="truncValue" type=" float "/>
-                <param direction="IN" isConfig="false" name="disparity" type="&#xd;&#xa;                       unsigned char *"/>
-                <param direction="IN" isConfig="false" name="grayL" type="&#xd;&#xa;                       float *"/>
-                <param direction="IN" isConfig="false" name="grayR" type=" float *"/>
-                <param direction="IN" isConfig="false" name="cenL" type="&#xd;&#xa;                       unsigned char *"/>
-                <param direction="IN" isConfig="false" name="cenR" type=" unsigned char *"/>
+                <param direction="IN" isConfig="false" name="disparity" type="&#xd;&#xa;                       IN unsigned char *"/>
+                <param direction="IN" isConfig="false" name="grayL" type="&#xd;&#xa;                       IN float *"/>
+                <param direction="IN" isConfig="false" name="grayR" type=" IN float *"/>
+                <param direction="IN" isConfig="false" name="cenL" type="&#xd;&#xa;                       IN unsigned char *"/>
+                <param direction="IN" isConfig="false" name="cenR" type=" IN unsigned char *"/>
                 <param direction="OUT" isConfig="false"
-                    name="disparityError" type="&#xd;&#xa;                       float *"/>
+                    name="disparityError" type="&#xd;&#xa;                       OUT float *"/>
+                <param direction="IN" isConfig="false" name="back" type="&#xd;&#xa;                       IN unsigned char* "/>
             </loop>
             <port kind="cfg_input" name="truncValue"/>
             <port kind="cfg_input" name="width"/>
@@ -64,10 +65,11 @@
             <port annotation="READ_ONLY" expr="height*width"
                 kind="input" name="cenR"/>
             <port annotation="READ_ONLY" expr="1" kind="input" name="disparity"/>
+            <port annotation="NONE" expr="1" kind="input" name="back"/>
             <port annotation="NONE" expr="height*width" kind="output" name="disparityError"/>
         </node>
         <node id="disparitySelect" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/disparitySelect.h</data>
+            <data key="graph_desc">Code/include/disparitySelect.h</data>
             <loop name="disparitySelect">
                 <param direction="IN" isConfig="true" name="height" type="int "/>
                 <param direction="IN" isConfig="true" name="width" type=" int "/>
@@ -76,18 +78,18 @@
                 <param direction="IN" isConfig="true" name="scale" type=" int "/>
                 <param direction="IN" isConfig="true"
                     name="minDisparity" type="&#xd;&#xa;                      int "/>
-                <param direction="IN" isConfig="false" name="disparity" type="&#xd;&#xa;                      unsigned char *"/>
+                <param direction="IN" isConfig="false" name="disparity" type="&#xd;&#xa;                      IN unsigned char *"/>
                 <param direction="IN" isConfig="false"
-                    name="aggregatedDisparity" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  float *"/>
+                    name="aggregatedDisparity" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  IN float *"/>
                 <param direction="IN" isConfig="false"
-                    name="bestCostFeed" type="&#xd;&#xa;                      float *"/>
+                    name="bestCostFeed" type="&#xd;&#xa;                      IN float *"/>
                 <param direction="IN" isConfig="false"
-                    name="currentResult" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="result" type="&#xd;&#xa;                      unsigned char *"/>
+                    name="currentResult" type=" IN unsigned char *"/>
+                <param direction="OUT" isConfig="false" name="result" type="&#xd;&#xa;                      OUT unsigned char *"/>
                 <param direction="OUT" isConfig="false"
-                    name="backBestCost" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  float *"/>
+                    name="backBestCost" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  OUT float *"/>
             </loop>
-            <data key="memoryScript">org.ietr.preesm.stereo/Code/Scripts/disparitySelect.bsh</data>
+            <data key="memoryScript">Code/Scripts/disparitySelect.bsh</data>
             <port kind="cfg_input" name="scale"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -101,7 +103,7 @@
             <port annotation="NONE" expr="height*width+1" kind="output" name="backBestCost"/>
         </node>
         <node id="AggregateCost" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/aggregateCost.h</data>
+            <data key="graph_desc">Code/include/aggregateCost.h</data>
             <loop name="aggregateCost">
                 <param direction="IN" isConfig="true" name="height" type="int  "/>
                 <param direction="IN" isConfig="true" name="width" type=" int "/>
@@ -128,7 +130,7 @@
             <port annotation="NONE" expr="height*width" kind="output" name="aggregatedDisparity"/>
         </node>
         <node id="ComputeHorWeights" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/computeWeights.h</data>
+            <data key="graph_desc">Code/include/computeWeights.h</data>
             <loop name="computeWeights">
                 <param direction="IN" isConfig="true" name="height" type="int  "/>
                 <param direction="IN" isConfig="true" name="width" type=" int "/>
@@ -146,7 +148,7 @@
             <port annotation="NONE" expr="height*width*3" kind="output" name="weights"/>
         </node>
         <node id="ComputeVertWeights" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/computeWeights.h</data>
+            <data key="graph_desc">Code/include/computeWeights.h</data>
             <loop name="computeWeights">
                 <param direction="IN" isConfig="true" name="height" type="int  "/>
                 <param direction="IN" isConfig="true" name="width" type=" int "/>
@@ -164,7 +166,7 @@
             <port annotation="NONE" expr="height*width*3" kind="output" name="weights"/>
         </node>
         <node id="OffsetGen" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/offsetGen.h</data>
+            <data key="graph_desc">Code/include/offsetGen.h</data>
             <loop name="offsetGen">
                 <param direction="IN" isConfig="true"
                     name="nbIterations" type="int "/>
@@ -207,7 +209,7 @@
                 expr="size*3*nbIterations*nbDisparity" kind="output" name="out"/>
         </node>
         <node id="DisparityGen" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/disparityGen.h</data>
+            <data key="graph_desc">Code/include/disparityGen.h</data>
             <loop name="disparityGen">
                 <param direction="IN" isConfig="true"
                     name="minDisparity" type="int "/>
@@ -232,6 +234,7 @@
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="WRITE_ONLY" expr="size" kind="output" name="out0"/>
             <port annotation="NONE" expr="size" kind="output" name="out1"/>
+            <port annotation="NONE" expr="1" kind="output" name="back"/>
         </node>
         <edge kind="fifo" source="OffsetGen" sourceport="offsets"
             target="Broadcast0" targetport="in" type="int"/>
@@ -287,6 +290,10 @@
         <edge expr="size+1" kind="fifo" source="disparitySelect"
             sourceport="backBestCost" target="disparitySelect"
             targetport="bestCostFeed" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="8" kind="fifo" source="Broadcast5" sourceport="back"
+            target="CostConstruction" targetport="back" type="uchar">
             <data key="delay"/>
         </edge>
         <edge kind="dependency" source="nbIterations" target="OffsetGen" targetport="nbIterations"/>

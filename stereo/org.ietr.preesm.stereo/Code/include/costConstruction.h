@@ -48,7 +48,8 @@ void costConstruction (int height, int width, float truncValue,
                        IN unsigned char *disparity,
                        IN float *grayL, IN float *grayR,
                        IN unsigned char *cenL, IN unsigned char *cenR,
-                       OUT float *disparityError);
+                       OUT float *disparityError,
+                       IN unsigned char* back);
 
 /**
 * This function computes the hamming cost between two 8-bit words.
