@@ -4,6 +4,7 @@
     <key attr.name="variables" for="graph" id="variables"/>
     <key attr.name="arguments" for="node" id="arguments"/>
     <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="memoryScript" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">largeFFT</data>
         <node id="size" kind="cfg_in_iface"/>
@@ -16,34 +17,40 @@
             <port annotation="NONE" expr="size" kind="input" name="out"/>
         </node>
         <node id="Transpose_1" kind="actor">
+            <data key="memoryScript">Code/Scripts/transpose.bsh</data>
             <port kind="cfg_input" name="nbRows"/>
             <port kind="cfg_input" name="nbCols"/>
             <port annotation="NONE" expr="nbRows*nbCols" kind="input" name="in"/>
             <port annotation="NONE" expr="nbRows*nbCols" kind="output" name="out"/>
         </node>
         <node id="FFT_2" kind="actor">
+            <data key="memoryScript">Code/Scripts/fft.bsh</data>
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out"/>
         </node>
         <node id="Transpose_3" kind="actor">
+            <data key="memoryScript">Code/Scripts/transpose.bsh</data>
             <port kind="cfg_input" name="nbRows"/>
             <port kind="cfg_input" name="nbCols"/>
             <port annotation="NONE" expr="nbRows*nbCols" kind="input" name="in"/>
             <port annotation="NONE" expr="nbRows*nbCols" kind="output" name="out"/>
         </node>
         <node id="Twiddle_4" kind="actor">
+            <data key="memoryScript">Code/Scripts/twiddle.bsh</data>
             <port kind="cfg_input" name="nbCols"/>
             <port annotation="NONE" expr="1" kind="input" name="rowId"/>
             <port annotation="NONE" expr="nbCols" kind="input" name="in"/>
             <port annotation="NONE" expr="nbCols" kind="output" name="out"/>
         </node>
         <node id="FFT_5" kind="actor">
+            <data key="memoryScript">Code/Scripts/fft.bsh</data>
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out"/>
         </node>
         <node id="Transpose_6" kind="actor">
+            <data key="memoryScript">Code/Scripts/transpose.bsh</data>
             <port kind="cfg_input" name="nbCols"/>
             <port kind="cfg_input" name="nbRows"/>
             <port annotation="NONE" expr="nbRows*nbCols" kind="input" name="in"/>
@@ -66,7 +73,7 @@
         <edge kind="fifo" source="FFT_5" sourceport="out"
             target="Transpose_6" targetport="in" type="char"/>
         <edge kind="fifo" source="Transpose_6" sourceport="out"
-            target="out" targetport="out" type="void"/>
+            target="out" targetport="out" type="char"/>
         <edge kind="fifo" source="GenRowIds" sourceport="ids"
             target="Twiddle_4" targetport="rowId" type="char"/>
         <edge kind="dependency" source="size" target="NC"/>
