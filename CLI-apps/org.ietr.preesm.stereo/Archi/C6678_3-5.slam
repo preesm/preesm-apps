@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4">
+    <spirit:vendor>IETR/INSA Rennes</spirit:vendor>
+    <spirit:name>C6678_8-8</spirit:name>
+    <spirit:library>org.ietr.preesm.architecture.library</spirit:library>
+    <spirit:version>1</spirit:version>
+    <spirit:componentInstances>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core1_0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core1_1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core2_0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core2_1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core2_2</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core2_3</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core2_4</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Core1_3</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Mem1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="local"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Mem2</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="local"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Ethernet</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="ethernet" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:interconnections>
+        <spirit:interconnection>
+            <spirit:name>Core1_0|mem|Mem1|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core1_0"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Core1_1|mem|Mem1|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core1_1"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Core1_3|mem|Mem1|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core1_3"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Mem2|mem|Core2_0|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core2_0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Mem2|mem|Core2_1|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core2_1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Mem2|mem|Core2_2|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core2_2"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Mem2|mem|Core2_3|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core2_3"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Mem2|mem|Core2_4|mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Mem2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="Core2_4"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Mem1|extern|Ethernet|extern</spirit:name>
+            <spirit:activeInterface spirit:busRef="extern" spirit:componentRef="Mem1"/>
+            <spirit:activeInterface spirit:busRef="extern" spirit:componentRef="Ethernet"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>Ethernet|extern|Mem2|extern</spirit:name>
+            <spirit:activeInterface spirit:busRef="extern" spirit:componentRef="Ethernet"/>
+            <spirit:activeInterface spirit:busRef="extern" spirit:componentRef="Mem2"/>
+        </spirit:interconnection>
+    </spirit:interconnections>
+    <spirit:hierConnections/>
+    <spirit:vendorExtensions>
+        <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:componentDescription slam:componentRef="C6678_DSP"
+                slam:componentType="Operator" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="local"
+                slam:componentType="contentionComNode"
+                slam:refinement="" slam:speed="50000"/>
+            <slam:componentDescription slam:componentRef="ethernet"
+                slam:componentType="contentionComNode"
+                slam:refinement="" slam:speed="1000"/>
+        </slam:componentDescriptions>
+        <slam:linkDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Core1_0|mem|Mem1|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Core1_1|mem|Mem1|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Core1_3|mem|Mem1|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Mem2|mem|Core2_0|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Mem2|mem|Core2_1|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Mem2|mem|Core2_2|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Mem2|mem|Core2_3|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Mem2|mem|Core2_4|mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Mem1|extern|Ethernet|extern"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="Ethernet|extern|Mem2|extern"/>
+        </slam:linkDescriptions>
+        <slam:designDescription xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:parameters/>
+        </slam:designDescription>
+    </spirit:vendorExtensions>
+</spirit:design>
