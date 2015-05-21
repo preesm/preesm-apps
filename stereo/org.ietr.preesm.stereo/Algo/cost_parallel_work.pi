@@ -41,17 +41,17 @@
         <node id="CostConstruction" kind="actor">
             <data key="graph_desc">Code/include/costConstruction.h</data>
             <loop name="costConstruction">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="true" name="truncValue" type=" float "/>
-                <param direction="IN" isConfig="false" name="disparity" type="&#xd;&#xa;                       IN unsigned char *"/>
-                <param direction="IN" isConfig="false" name="grayL" type="&#xd;&#xa;                       IN float *"/>
-                <param direction="IN" isConfig="false" name="grayR" type=" IN float *"/>
-                <param direction="IN" isConfig="false" name="cenL" type="&#xd;&#xa;                       IN unsigned char *"/>
-                <param direction="IN" isConfig="false" name="cenR" type=" IN unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="truncValue" type="float"/>
+                <param direction="IN" isConfig="false" name="disparity" type="unsigned char"/>
+                <param direction="IN" isConfig="false" name="grayL" type="float"/>
+                <param direction="IN" isConfig="false" name="grayR" type="float"/>
+                <param direction="IN" isConfig="false" name="cenL" type="unsigned char"/>
+                <param direction="IN" isConfig="false" name="cenR" type="unsigned char"/>
                 <param direction="OUT" isConfig="false"
-                    name="disparityError" type="&#xd;&#xa;                       OUT float *"/>
-                <param direction="IN" isConfig="false" name="back" type="&#xd;&#xa;                       IN unsigned char* "/>
+                    name="disparityError" type="float"/>
+                <param direction="IN" isConfig="false" name="back" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="truncValue"/>
             <port kind="cfg_input" name="width"/>
@@ -71,23 +71,23 @@
         <node id="disparitySelect" kind="actor">
             <data key="graph_desc">Code/include/disparitySelect.h</data>
             <loop name="disparitySelect">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="nbDisparities" type=" int "/>
-                <param direction="IN" isConfig="true" name="scale" type=" int "/>
+                    name="nbDisparities" type="int"/>
+                <param direction="IN" isConfig="true" name="scale" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="minDisparity" type="&#xd;&#xa;                      int "/>
-                <param direction="IN" isConfig="false" name="disparity" type="&#xd;&#xa;                      IN unsigned char *"/>
+                    name="minDisparity" type="int"/>
+                <param direction="IN" isConfig="false" name="disparity" type="unsigned char"/>
                 <param direction="IN" isConfig="false"
-                    name="aggregatedDisparity" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  IN float *"/>
+                    name="aggregatedDisparity" type="float"/>
                 <param direction="IN" isConfig="false"
-                    name="bestCostFeed" type="&#xd;&#xa;                      IN float *"/>
+                    name="bestCostFeed" type="float"/>
                 <param direction="IN" isConfig="false"
-                    name="currentResult" type=" IN unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="result" type="&#xd;&#xa;                      OUT unsigned char *"/>
+                    name="currentResult" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="result" type="unsigned char"/>
                 <param direction="OUT" isConfig="false"
-                    name="backBestCost" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;  OUT float *"/>
+                    name="backBestCost" type="float"/>
             </loop>
             <data key="memoryScript">Code/Scripts/disparitySelect.bsh</data>
             <port kind="cfg_input" name="scale"/>
@@ -105,17 +105,17 @@
         <node id="AggregateCost" kind="actor">
             <data key="graph_desc">Code/include/aggregateCost.h</data>
             <loop name="aggregateCost">
-                <param direction="IN" isConfig="true" name="height" type="int  "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="nbIterations" type=" int "/>
+                    name="nbIterations" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="disparityError" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;float *"/>
-                <param direction="IN" isConfig="false" name="offsets" type=" int *"/>
-                <param direction="IN" isConfig="false" name="hWeights" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;float *"/>
-                <param direction="IN" isConfig="false" name="vWeights" type=" float *"/>
+                    name="disparityError" type="float"/>
+                <param direction="IN" isConfig="false" name="offsets" type="int"/>
+                <param direction="IN" isConfig="false" name="hWeights" type="float"/>
+                <param direction="IN" isConfig="false" name="vWeights" type="float"/>
                 <param direction="OUT" isConfig="false"
-                    name="aggregatedDisparity" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;float *"/>
+                    name="aggregatedDisparity" type="float"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -132,12 +132,12 @@
         <node id="ComputeHorWeights" kind="actor">
             <data key="graph_desc">Code/include/computeWeights.h</data>
             <loop name="computeWeights">
-                <param direction="IN" isConfig="true" name="height" type="int  "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="true" name="horOrVert" type=" int "/>
-                <param direction="IN" isConfig="false" name="offset" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9; int *"/>
-                <param direction="IN" isConfig="false" name="rgbL" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="weights" type=" float *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="horOrVert" type="int"/>
+                <param direction="IN" isConfig="false" name="offset" type="int"/>
+                <param direction="IN" isConfig="false" name="rgbL" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="weights" type="float"/>
             </loop>
             <port kind="cfg_input" name="horOrVert"/>
             <port kind="cfg_input" name="width"/>
@@ -150,12 +150,12 @@
         <node id="ComputeVertWeights" kind="actor">
             <data key="graph_desc">Code/include/computeWeights.h</data>
             <loop name="computeWeights">
-                <param direction="IN" isConfig="true" name="height" type="int  "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="true" name="horOrVert" type=" int "/>
-                <param direction="IN" isConfig="false" name="offset" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9; int *"/>
-                <param direction="IN" isConfig="false" name="rgbL" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="weights" type=" float *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="horOrVert" type="int"/>
+                <param direction="IN" isConfig="false" name="offset" type="int"/>
+                <param direction="IN" isConfig="false" name="rgbL" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="weights" type="float"/>
             </loop>
             <port kind="cfg_input" name="horOrVert"/>
             <port kind="cfg_input" name="width"/>
@@ -169,8 +169,8 @@
             <data key="graph_desc">Code/include/offsetGen.h</data>
             <loop name="offsetGen">
                 <param direction="IN" isConfig="true"
-                    name="nbIterations" type="int "/>
-                <param direction="OUT" isConfig="false" name="offsets" type="  int *"/>
+                    name="nbIterations" type="int"/>
+                <param direction="OUT" isConfig="false" name="offsets" type="int"/>
             </loop>
             <port kind="cfg_input" name="nbIterations"/>
             <port annotation="NONE" expr="nbIterations" kind="output" name="offsets"/>
@@ -212,11 +212,11 @@
             <data key="graph_desc">Code/include/disparityGen.h</data>
             <loop name="disparityGen">
                 <param direction="IN" isConfig="true"
-                    name="minDisparity" type="int "/>
+                    name="minDisparity" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="maxDisparity" type=" int "/>
+                    name="maxDisparity" type="int"/>
                 <param direction="OUT" isConfig="false"
-                    name="disparities" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;   unsigned char *"/>
+                    name="disparities" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="minDisparity"/>
             <port kind="cfg_input" name="maxDisparity"/>
