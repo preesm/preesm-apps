@@ -25,15 +25,15 @@
         <node id="Read_PPM0" kind="actor">
             <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="readPPM">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="OUT" isConfig="false" name="rgb" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char"/>
             </loop>
             <init name="readPPMInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -43,15 +43,15 @@
         <node id="Read_PPM1" kind="actor">
             <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="readPPM">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="OUT" isConfig="false" name="rgb" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char"/>
             </loop>
             <init name="readPPMInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -61,9 +61,9 @@
         <node id="RGB2Gray_L" kind="actor">
             <data key="graph_desc">Code/include/rgb2Gray.h</data>
             <loop name="rgb2Gray">
-                <param direction="IN" isConfig="true" name="size" type="int "/>
-                <param direction="IN" isConfig="false" name="rgb" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="gray" type=" float *"/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="gray" type="float"/>
             </loop>
             <port kind="cfg_input" name="size"/>
             <port annotation="READ_ONLY" expr="size*3" kind="input" name="rgb"/>
@@ -72,15 +72,15 @@
         <node id="Display_rgb0" kind="actor">
             <data key="graph_desc">Code/include/displayRGB.h</data>
             <loop name="displayRGB">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="rgb" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
             </loop>
             <init name="displayRGBInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -91,9 +91,9 @@
         <node id="RGB2Gray_R" kind="actor">
             <data key="graph_desc">Code/include/rgb2Gray.h</data>
             <loop name="rgb2Gray">
-                <param direction="IN" isConfig="true" name="size" type="int "/>
-                <param direction="IN" isConfig="false" name="rgb" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="gray" type=" float *"/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="gray" type="float"/>
             </loop>
             <data key="memoryScript">Code/Scripts/rgb2gray.bsh</data>
             <port kind="cfg_input" name="size"/>
@@ -103,10 +103,10 @@
         <node id="Census_L" kind="actor">
             <data key="graph_desc">Code/include/census.h</data>
             <loop name="census">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="gray" type=" float *"/>
-                <param direction="OUT" isConfig="false" name="cen" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="gray" type="float"/>
+                <param direction="OUT" isConfig="false" name="cen" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -117,10 +117,10 @@
         <node id="Census_R" kind="actor">
             <data key="graph_desc">Code/include/census.h</data>
             <loop name="census">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="gray" type=" float *"/>
-                <param direction="OUT" isConfig="false" name="cen" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="gray" type="float"/>
+                <param direction="OUT" isConfig="false" name="cen" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -152,11 +152,11 @@
         <node id="Split" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="split">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="false" name="input" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="output" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
             </loop>
             <data key="memoryScript">Code/Scripts/split.bsh</data>
             <port kind="cfg_input" name="overlap"/>
@@ -171,14 +171,14 @@
         <node id="Median_Filter" kind="actor">
             <data key="graph_desc">Code/include/medianFilter.h</data>
             <loop name="medianFilter">
-                <param direction="IN" isConfig="true" name="height" type="int  "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="topDownBorderSize" type=" int "/>
+                    name="topDownBorderSize" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="rawDisparity" type=" &#xd;&#xa;                   unsigned char *"/>
+                    name="rawDisparity" type="unsigned char"/>
                 <param direction="OUT" isConfig="false"
-                    name="filteredDisparity" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;   unsigned char *"/>
+                    name="filteredDisparity" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -198,13 +198,13 @@
         <node id="Display_RGB1" kind="actor">
             <data key="graph_desc">Code/include/displayRGB.h</data>
             <loop name="displayLum">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="false" name="lum" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="lum" type="unsigned char"/>
             </loop>
             <init name="displayRGBInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
@@ -234,9 +234,9 @@
         <node id="Write_PPM" kind="actor">
             <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="writePPM">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="gray" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="gray" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
