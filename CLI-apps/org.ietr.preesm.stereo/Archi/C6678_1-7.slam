@@ -7,50 +7,50 @@
     <spirit:componentInstances>
         <spirit:componentInstance>
             <spirit:instanceName>Core1_0</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_0</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_1</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_2</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_3</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_4</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_5</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>Core2_6</spirit:instanceName>
-            <spirit:componentRef spirit:library=""
-                spirit:name="C6678_DSP" spirit:vendor="" spirit:version=""/>
+            <spirit:componentRef spirit:library="" spirit:name="c6678"
+                spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
@@ -127,7 +127,7 @@
     <spirit:hierConnections/>
     <spirit:vendorExtensions>
         <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
-            <slam:componentDescription slam:componentRef="C6678_DSP"
+            <slam:componentDescription slam:componentRef="c6678"
                 slam:componentType="Operator" slam:refinement=""/>
             <slam:componentDescription slam:componentRef="local"
                 slam:componentType="contentionComNode"
