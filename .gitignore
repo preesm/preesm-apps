@@ -40,6 +40,8 @@ Thumbs.db
 
 # PREESM generated files
 *.layout
-Code/generated/*.c
-DAG/*.graphml
-
+generated/
+stats/xml/
+stats/mat/algo/
+stats/mat/archi/
+DAG

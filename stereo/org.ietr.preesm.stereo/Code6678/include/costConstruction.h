@@ -42,10 +42,13 @@
  *        stereo pair. (@see census())
  * @param disparityError
  *        The outputed height*width costs.
+ * @param back
+ *        Dummy port used to help the scheduler.
  */
 void costConstruction(int height, int width, float truncValue,
 		unsigned char *disparity, float *grayL, float *grayR,
-		unsigned char *cenL, unsigned char *cenR, float *disparityError);
+		unsigned char *cenL, unsigned char *cenR, float *disparityError,
+		unsigned char * back);
 
 /**
  * This function computes the hamming cost between two 8-bit words.

@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="model" attr.type="string" for="graph"/>
+    <key attr.name="name" attr.type="string" for="node"/>
+    <key attr.name="kind" attr.type="string" for="node"/>
+    <key attr.name="port_direction" attr.type="string" for="node"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="nbRepeat" attr.type="int" for="node"/>
+    <key attr.name="memory_script" attr.type="string" for="node"/>
+    <key attr.name="edge_cons" attr.type="string" for="edge"/>
+    <key attr.name="edge_delay" attr.type="string" for="edge"/>
+    <key attr.name="edge_prod" attr.type="string" for="edge"/>
+    <key attr.name="target_port_modifier" attr.type="string" for="edge"/>
+    <key attr.name="source_port_modifier" attr.type="string" for="edge"/>
+    <key attr.name="data_type" attr.type="string" for="edge"/>
+    <graph edgedefault="directed">
+        <data key="name">top_display</data>
+        <data key="kind">sdf</data>
+        <data key="parameters"/>
+        <data key="variables">
+            <variable name="IMG_SIZE" value="352*288"/>
+            <variable name="MAX_O" value="10"/>
+            <variable name="MAX_S" value="10"/>
+            <variable name="MAX_SiftKeypoints" value="200"/>
+            <variable name="N_BEST_KEYPOINTS" value="20"/>
+            <variable name="S" value="5"/>
+            <variable name="xsize" value="352"/>
+            <variable name="ysize" value="288"/>
+        </data>
+        <node id="Read_YUV">
+            <data key="name">Read_YUV</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/readYuv.idl</data>
+            <data key="arguments">
+                <argument name="xSize" value="xsize"/>
+                <argument name="ySize" value="ysize"/>
+            </data>
+        </node>
+        <node id="init">
+            <data key="name">init</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/init.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+                <argument name="xSize" value="xsize"/>
+                <argument name="ySize" value="ysize"/>
+            </data>
+        </node>
+        <node id="BuildOB">
+            <data key="name">BuildOB</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildOB.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS0">
+            <data key="name">BuildSS0</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS0.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="DoG">
+            <data key="name">DoG</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/DoG.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="extreme">
+            <data key="name">extreme</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/extreme.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="Ori">
+            <data key="name">Ori</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/ori.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="b_sigma">
+            <data key="name">b_sigma</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="b_octavesW">
+            <data key="name">b_octavesW</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="b_octavesH">
+            <data key="name">b_octavesH</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="b_O">
+            <data key="name">b_O</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="b_scaleSpace">
+            <data key="name">b_scaleSpace</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="b_keyN">
+            <data key="name">b_keyN</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="render">
+            <data key="name">render</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/render.idl</data>
+            <data key="arguments">
+                <argument name="n_max" value="N_BEST_KEYPOINTS"/>
+                <argument name="xSize" value="xsize"/>
+                <argument name="ySize" value="ysize"/>
+            </data>
+        </node>
+        <node id="b_y">
+            <data key="name">b_y</data>
+            <data key="kind">Broadcast</data>
+            <data key="graph_desc"/>
+            <data key="arguments"/>
+        </node>
+        <node id="display">
+            <data key="name">display</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/displayPic.idl</data>
+            <data key="arguments">
+                <argument name="index" value="0"/>
+                <argument name="xsize" value="xsize"/>
+                <argument name="ysize" value="ysize"/>
+            </data>
+        </node>
+        <node id="BuildSS2">
+            <data key="name">BuildSS2</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS2.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS3">
+            <data key="name">BuildSS3</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS3.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS4">
+            <data key="name">BuildSS4</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS4.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS5">
+            <data key="name">BuildSS5</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS5.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS6">
+            <data key="name">BuildSS6</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS6.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS1">
+            <data key="name">BuildSS1</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS1.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="BuildSS7">
+            <data key="name">BuildSS7</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/BuildSS7.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="mergeSS">
+            <data key="name">mergeSS</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/mergeSS.idl</data>
+            <data key="arguments">
+                <argument name="S" value="S"/>
+            </data>
+        </node>
+        <node id="splitOctaves">
+            <data key="name">splitOctaves</data>
+            <data key="kind">vertex</data>
+            <data key="graph_desc">../Code/IDL/splitOctaves.idl</data>
+            <data key="arguments"/>
+        </node>
+        <edge source="DoG" sourceport="dog" target="extreme" targetport="dog">
+            <data key="edge_prod">xsize*ysize*(S-1)*2</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize*(S-1)*2</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="init" sourceport="sigma" target="b_sigma" targetport="in">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out1" target="BuildSS0" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="init" sourceport="octavesW" target="b_octavesW" targetport="in">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out2" target="BuildSS0" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out3" target="DoG" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="init" sourceport="octavesH" target="b_octavesH" targetport="in">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out2" target="BuildSS0" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out3" target="DoG" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="init" sourceport="O" target="b_O" targetport="in">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out2" target="BuildSS0" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out3" target="DoG" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out4" target="extreme" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_scaleSpace" sourceport="out2" target="Ori" targetport="scaleSpace">
+            <data key="edge_prod">xsize*ysize*S*2</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize*S*2</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="extreme" sourceport="keyN" target="b_keyN" targetport="in">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="extreme" sourceport="struct_o" target="Ori" targetport="struct_o">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="extreme" sourceport="struct_s" target="Ori" targetport="struct_s">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="extreme" sourceport="struct_x" target="Ori" targetport="struct_x">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="extreme" sourceport="struct_y" target="Ori" targetport="struct_y">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="Ori" sourceport="struct_int_x" target="render" targetport="struct_x">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="Ori" sourceport="struct_int_y" target="render" targetport="struct_y">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="Ori" sourceport="struct_int_o" target="render" targetport="struct_o">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="Ori" sourceport="struct_int_s" target="render" targetport="struct_s">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="Ori" sourceport="struct_float_ori" target="render" targetport="struct_ori">
+            <data key="edge_prod">MAX_SiftKeypoints</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_SiftKeypoints</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_y" sourceport="out2" target="render" targetport="y_input">
+            <data key="edge_prod">xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="Read_YUV" sourceport="u" target="display" targetport="u">
+            <data key="edge_prod">xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="Read_YUV" sourceport="v" target="display" targetport="v">
+            <data key="edge_prod">xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="render" sourceport="y_output" target="display" targetport="y">
+            <data key="edge_prod">xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="Read_YUV" sourceport="y" target="b_y" targetport="in">
+            <data key="edge_prod">xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="b_y" sourceport="out1" target="BuildOB" targetport="y">
+            <data key="edge_prod">xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="b_keyN" sourceport="out2" target="render" targetport="keyN">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_keyN" sourceport="out1" target="Ori" targetport="keyN">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out2" target="Ori" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out5" target="Ori" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out5" target="Ori" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out3" target="extreme" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out4" target="extreme" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out4" target="extreme" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_scaleSpace" sourceport="out1" target="DoG" targetport="scaleSpace">
+            <data key="edge_prod">xsize*ysize*S*2</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize*S*2</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out1" target="BuildOB" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out1" target="BuildOB" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out1" target="BuildOB" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out4" target="render" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_O" sourceport="out5" target="Ori" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out5" target="BuildSS1" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out6" target="BuildSS1" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out6" target="BuildSS1" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out6" target="BuildSS1" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out6" target="BuildSS2" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out7" target="BuildSS2" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out7" target="BuildSS2" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out7" target="BuildSS2" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out8" target="BuildSS3" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out8" target="BuildSS3" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out8" target="BuildSS3" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out8" target="BuildSS3" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out7" target="BuildSS4" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out9" target="BuildSS4" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out9" target="BuildSS4" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out9" target="BuildSS4" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out9" target="BuildSS5" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out10" target="BuildSS5" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out10" target="BuildSS5" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out10" target="BuildSS5" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out10" target="BuildSS6" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out11" target="BuildSS6" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out11" target="BuildSS6" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out11" target="BuildSS6" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_sigma" sourceport="out11" target="BuildSS7" targetport="sigma">
+            <data key="edge_prod">MAX_S</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_S</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out12" target="BuildSS7" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out12" target="BuildSS7" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out12" target="BuildSS7" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="mergeSS" sourceport="scaleSpace"
+            target="b_scaleSpace" targetport="in">
+            <data key="edge_prod">xsize*ysize*S*2</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">xsize*ysize*S*2</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS0" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace0">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS1" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace1">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS2" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace2">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS3" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace3">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS4" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace4">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS5" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace5">
+            <data key="edge_prod">3*IMG_SIZE/4</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">3*IMG_SIZE/4</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS6" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace6">
+            <data key="edge_prod">2*IMG_SIZE/4+3*IMG_SIZE/16</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">2*IMG_SIZE/4+3*IMG_SIZE/16</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="BuildSS7" sourceport="scaleSpace" target="mergeSS" targetport="scaleSpace7">
+            <data key="edge_prod">2*IMG_SIZE/16+5*IMG_SIZE/64+5*IMG_SIZE/256+5*IMG_SIZE/1024</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">2*IMG_SIZE/16+5*IMG_SIZE/64+5*IMG_SIZE/256+5*IMG_SIZE/1024</data>
+            <data key="data_type">float</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out13" target="mergeSS" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out13" target="mergeSS" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_O" sourceport="out13" target="mergeSS" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="BuildOB" sourceport="octaves"
+            target="splitOctaves" targetport="octaves">
+            <data key="edge_prod">2*xsize*ysize</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">2*xsize*ysize</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave0"
+            target="BuildSS0" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave1"
+            target="BuildSS1" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave2"
+            target="BuildSS2" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave3"
+            target="BuildSS3" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave4"
+            target="BuildSS4" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave5"
+            target="BuildSS5" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE/4</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE/4</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave6"
+            target="BuildSS6" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE/4+IMG_SIZE/16</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE/4+IMG_SIZE/16</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="splitOctaves" sourceport="octave7"
+            target="BuildSS7" targetport="octave_in">
+            <data key="edge_prod">IMG_SIZE/16+IMG_SIZE/64+IMG_SIZE/256+IMG_SIZE/1024</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">IMG_SIZE/16+IMG_SIZE/64+IMG_SIZE/256+IMG_SIZE/1024</data>
+            <data key="data_type">uchar</data>
+        </edge>
+        <edge source="b_O" sourceport="out14" target="splitOctaves" targetport="O">
+            <data key="edge_prod">1</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">1</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesH" sourceport="out14"
+            target="splitOctaves" targetport="octavesH">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+        <edge source="b_octavesW" sourceport="out14"
+            target="splitOctaves" targetport="octavesW">
+            <data key="edge_prod">MAX_O</data>
+            <data key="edge_delay">0</data>
+            <data key="edge_cons">MAX_O</data>
+            <data key="data_type">int</data>
+        </edge>
+    </graph>
+</graphml>

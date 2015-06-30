@@ -23,17 +23,17 @@
         <node expr="height/nbSlice+2*overlap" id="sliceHeight" kind="param"/>
         <node expr="1" id="one_" kind="param"/>
         <node id="Read_PPM0" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/ppm.h</data>
+            <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="readPPM">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="OUT" isConfig="false" name="rgb" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char"/>
             </loop>
             <init name="readPPMInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -41,17 +41,17 @@
             <port annotation="NONE" expr="height*width*3" kind="output" name="rgb"/>
         </node>
         <node id="Read_PPM1" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/ppm.h</data>
+            <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="readPPM">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="OUT" isConfig="false" name="rgb" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char"/>
             </loop>
             <init name="readPPMInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -59,28 +59,28 @@
             <port annotation="NONE" expr="3*height*width" kind="output" name="rgb"/>
         </node>
         <node id="RGB2Gray_L" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/rgb2Gray.h</data>
+            <data key="graph_desc">Code/include/rgb2Gray.h</data>
             <loop name="rgb2Gray">
-                <param direction="IN" isConfig="true" name="size" type="int "/>
-                <param direction="IN" isConfig="false" name="rgb" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="gray" type=" float *"/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="gray" type="float"/>
             </loop>
             <port kind="cfg_input" name="size"/>
             <port annotation="READ_ONLY" expr="size*3" kind="input" name="rgb"/>
             <port annotation="NONE" expr="size" kind="output" name="gray"/>
         </node>
         <node id="Display_rgb0" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/displayRGB.h</data>
+            <data key="graph_desc">Code/include/displayRGB.h</data>
             <loop name="displayRGB">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="rgb" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
             </loop>
             <init name="displayRGBInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -89,24 +89,24 @@
                 kind="input" name="rgb"/>
         </node>
         <node id="RGB2Gray_R" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/rgb2Gray.h</data>
+            <data key="graph_desc">Code/include/rgb2Gray.h</data>
             <loop name="rgb2Gray">
-                <param direction="IN" isConfig="true" name="size" type="int "/>
-                <param direction="IN" isConfig="false" name="rgb" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="gray" type=" float *"/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="gray" type="float"/>
             </loop>
-            <data key="memoryScript">org.ietr.preesm.stereo/Code/Scripts/rgb2gray.bsh</data>
+            <data key="memoryScript">Code/Scripts/rgb2gray.bsh</data>
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="3*size" kind="input" name="rgb"/>
             <port annotation="NONE" expr="size" kind="output" name="gray"/>
         </node>
         <node id="Census_L" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/census.h</data>
+            <data key="graph_desc">Code/include/census.h</data>
             <loop name="census">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="gray" type=" float *"/>
-                <param direction="OUT" isConfig="false" name="cen" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="gray" type="float"/>
+                <param direction="OUT" isConfig="false" name="cen" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -115,12 +115,12 @@
             <port annotation="NONE" expr="height*width" kind="output" name="cen"/>
         </node>
         <node id="Census_R" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/census.h</data>
+            <data key="graph_desc">Code/include/census.h</data>
             <loop name="census">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="gray" type=" float *"/>
-                <param direction="OUT" isConfig="false" name="cen" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="gray" type="float"/>
+                <param direction="OUT" isConfig="false" name="cen" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -129,7 +129,7 @@
             <port annotation="NONE" expr="height*width" kind="output" name="cen"/>
         </node>
         <node id="Cost_Parallel_Work" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Algo/cost_parallel_work.pi</data>
+            <data key="graph_desc">Algo/cost_parallel_work.pi</data>
             <port kind="cfg_input" name="truncValue"/>
             <port kind="cfg_input" name="scale"/>
             <port kind="cfg_input" name="nbIterations"/>
@@ -150,15 +150,15 @@
             <port annotation="NONE" expr="height*width" kind="output" name="rawDisparity"/>
         </node>
         <node id="Split" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/splitMerge.h</data>
+            <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="split">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="false" name="input" type=" unsigned char *"/>
-                <param direction="OUT" isConfig="false" name="output" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
             </loop>
-            <data key="memoryScript">org.ietr.preesm.stereo/Code/Scripts/split.bsh</data>
+            <data key="memoryScript">Code/Scripts/split.bsh</data>
             <port kind="cfg_input" name="overlap"/>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
@@ -169,16 +169,16 @@
                 kind="output" name="output"/>
         </node>
         <node id="Median_Filter" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/medianFilter.h</data>
+            <data key="graph_desc">Code/include/medianFilter.h</data>
             <loop name="medianFilter">
-                <param direction="IN" isConfig="true" name="height" type="int  "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="topDownBorderSize" type=" int "/>
+                    name="topDownBorderSize" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="rawDisparity" type=" &#xd;&#xa;                   unsigned char *"/>
+                    name="rawDisparity" type="unsigned char"/>
                 <param direction="OUT" isConfig="false"
-                    name="filteredDisparity" type="&#xd;&#xa;&#x9;&#x9;&#x9;&#x9;   unsigned char *"/>
+                    name="filteredDisparity" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -196,15 +196,15 @@
             <port annotation="NONE" expr="size" kind="output" name="out1"/>
         </node>
         <node id="Display_RGB1" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/displayRGB.h</data>
+            <data key="graph_desc">Code/include/displayRGB.h</data>
             <loop name="displayLum">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="false" name="lum" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="lum" type="unsigned char"/>
             </loop>
             <init name="displayRGBInit">
-                <param direction="IN" isConfig="true" name="id" type="int "/>
-                <param direction="IN" isConfig="true" name="height" type=" int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
@@ -232,11 +232,11 @@
             <port annotation="NONE" expr="size" kind="output" name="out1"/>
         </node>
         <node id="Write_PPM" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.stereo/Code/include/ppm.h</data>
+            <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="writePPM">
-                <param direction="IN" isConfig="true" name="height" type="int "/>
-                <param direction="IN" isConfig="true" name="width" type=" int "/>
-                <param direction="IN" isConfig="false" name="gray" type=" unsigned char *"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="gray" type="unsigned char"/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>

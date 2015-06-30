@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.sift/Algo/top_display.graphml"/>
+        <architecture url="/org.ietr.preesm.sift/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.sift/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup/>
+        <constraintGroup/>
+        <constraintGroup/>
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="extreme"/>
+            <task name="init"/>
+            <task name="display"/>
+            <task name="render"/>
+            <task name="splitOctaves"/>
+            <task name="BuildSS7"/>
+            <task name="BuildSS6"/>
+            <task name="Read_YUV"/>
+            <task name="Ori"/>
+            <task name="mergeSS"/>
+            <task name="BuildSS1"/>
+            <task name="BuildOB"/>
+            <task name="BuildSS0"/>
+            <task name="DoG"/>
+            <task name="BuildSS5"/>
+            <task name="BuildSS4"/>
+            <task name="BuildSS3"/>
+            <task name="BuildSS2"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="100" vertexname="Read_YUV"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="2.8571429E-5"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+            <dataType name="int" size="4"/>
+            <dataType name="uchar" size="1"/>
+            <dataType name="float" size="4"/>
+            <dataType name="uint" size="4"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <variables excelUrl=""/>
+</scenario>
