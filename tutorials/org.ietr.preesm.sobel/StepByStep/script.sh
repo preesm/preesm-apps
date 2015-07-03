@@ -8,7 +8,7 @@ function log() {
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 STEPBYSTEPDIR=$PWD
-ARCHIVEDIR=$PWD/archives/
+ARCHIVEDIR=$PWD/archives
 COMMITID=$(git log -1 --pretty="%H")
 
 # Empty the achives directory
@@ -17,6 +17,7 @@ rm -r -f $ARCHIVEDIR/*
 
 # Test preesm workflow
 log "Test Preesm workflow before 1st tutorial"
+$RUNSCRIPTS/preesm_run_workflow.sh $GITDIR/preesm-apps/tutorials $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 1core.scenario
 
 # Create the original archive for the tutorial
 log "Create the original archive for the tutorial"
@@ -30,7 +31,7 @@ zip $ARCHIVEDIR/base.zip \
 		Code/lib/ReadMe.txt Code/src/* \
 	Scenarios/* \
 	Workflows/* .\
-	project \
+	.project \
 	Readme.txt
 	
 # Apply changes from 1st tutorial
