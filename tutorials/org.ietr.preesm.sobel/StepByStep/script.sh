@@ -40,6 +40,7 @@ git am --signoff -k $STEPBYSTEPDIR/tuto1.patch
 
 # Test preesm workflow
 log "Test Preesm workflow after 1st tutorial"
+$RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 4core.scenario
 
 # Reset the Git repository to original state
 log "Reset the repository to original commit $COMMITID"
