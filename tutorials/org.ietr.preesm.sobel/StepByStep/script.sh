@@ -9,7 +9,8 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 STEPBYSTEPDIR=$PWD
 ARCHIVEDIR=$PWD/archives
-COMMITID=$(git log -1 --pretty="%H")
+COMMITID=$(git log -1 --pretty="%h")
+log "Original state is commit $COMMITID"
 
 # Empty the achives directory
 log "Empty the achives directory $ARCHIVEDIR"
@@ -41,7 +42,3 @@ git am --signoff -k $STEPBYSTEPDIR/tuto1.patch
 # Test preesm workflow
 log "Test Preesm workflow after 1st tutorial"
 $RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 4core.scenario
-
-# Reset the Git repository to original state
-log "Reset the repository to original commit $COMMITID"
-git reset --hard $COMMITID
