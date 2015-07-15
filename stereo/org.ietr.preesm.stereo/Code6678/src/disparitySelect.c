@@ -16,6 +16,7 @@
 #define max(x,y) (((x)<(y))?(y):(x))
 
 void disparitySelect (int height, int width, int nbDisparities, int scale, 
+					  int minDisparity,
                       unsigned char *disparity, 
 					  float *aggregatedDisparity,
                       float *bestCostFeed, unsigned char *currentResult,
