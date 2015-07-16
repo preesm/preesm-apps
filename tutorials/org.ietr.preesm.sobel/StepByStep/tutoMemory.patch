@@ -248,7 +248,7 @@ index 11cb905..58226b5 100644
 -            <dftools:variable name="Allocator(s)" value="Basic"/>
 +            <dftools:variable name="Allocator(s)" value="FirstFit"/>
              <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
-             <dftools:variable name="Data alignment" value="Data"/>
+             <dftools:variable name="Data alignment" value="None"/>
              <dftools:variable name="Merge broadcasts" value="True"/>
 @@ -75,6 +75,30 @@
              <dftools:variable name="path" value="Algo/generated/flatten"/>
