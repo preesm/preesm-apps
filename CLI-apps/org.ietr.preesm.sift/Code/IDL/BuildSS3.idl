@@ -1,8 +1,0 @@
-
-module BuildSS3 {
-	typedef long parameter ;
-	typedef long int ;
-	interface loop {
-		void buildSS3(in char octave_in, out float scaleSpace, in int O, in parameter S, in int octavesW, in int octavesH, in float sigma);
-	} ;
-} ;
