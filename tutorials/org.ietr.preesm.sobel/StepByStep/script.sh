@@ -89,3 +89,11 @@ zip $ARCHIVEDIR/sobel_6678_sources.zip \
 		CodeC6678/yuv2dat/include/* \
 		CodeC6678/yuv2dat/src/* \
 	CodeC6678/modelPreesm.cfg
+
+# Apply changes from Memory tutorials
+log "Apply Memory tutorials (basic and advanced)"
+git am --signoff -k $STEPBYSTEPDIR/tutoMemory.patch
+
+# Test preesm workflow
+log "Test Preesm workflow after Memory tutorials"
+$RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 4core.scenario
