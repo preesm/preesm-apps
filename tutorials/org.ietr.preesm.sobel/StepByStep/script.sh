@@ -29,7 +29,8 @@ zip $ARCHIVEDIR/base.zip \
 	Code/* \
 		Code/include/* \
 		Code/lib/cmake_modules/* \
-		Code/lib/ReadMe.txt Code/src/* \
+		Code/lib/ReadMe.txt \
+		Code/src/* \
 	Scenarios/* \
 	Workflows/* .\
 	.project \
@@ -42,3 +43,34 @@ git am --signoff -k $STEPBYSTEPDIR/tuto1.patch
 # Test preesm workflow
 log "Test Preesm workflow after 1st tutorial"
 $RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 4core.scenario
+
+# Create the archive for the tutorial 1 result
+log "Create the archive for the tutorial 1 result"
+zip $ARCHIVEDIR/tutorial1_result.zip \
+	Algo/* \
+	Archi/* \
+	Code/* \
+		Code/include/* \
+		Code/lib/cmake_modules/* \
+		Code/lib/ReadMe.txt \
+		Code/src/* \
+	Scenarios/* \
+	Workflows/* .\
+	.project \
+	Readme.txt
+
+# Create the archive containing sobel sources
+log "Create the archive containing sobel sources"
+zip -j $ARCHIVEDIR/sobel_sources.zip \
+	Code/include/sobel.h \
+	Code/src/sobel.c
+	
+# Create the archive containing split/merge sources
+log "Create the archive containing split/merge sources"
+zip -j $ARCHIVEDIR/splitMerge_sources.zip \
+	Code/include/splitMerge.h \
+	Code/src/splitMerge.c
+
+# Apply changes from 1st tutorial
+log "Apply DSP tutorial"
+git am --signoff -k $STEPBYSTEPDIR/tutoDSP.patch
