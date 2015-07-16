@@ -71,6 +71,21 @@ zip -j $ARCHIVEDIR/splitMerge_sources.zip \
 	Code/include/splitMerge.h \
 	Code/src/splitMerge.c
 
-# Apply changes from 1st tutorial
+# Apply changes from DSP tutorial
 log "Apply DSP tutorial"
 git am --signoff -k $STEPBYSTEPDIR/tutoDSP.patch
+
+# Test preesm workflow
+log "Test Preesm workflow after DSP tutorial"
+$RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 8coreC6678.scenario
+
+# Create the archive containing c6678 sources
+log "Create the archive containing c6678 sources"
+zip $ARCHIVEDIR/sobel_6678_sources.zip \
+	CodeC6678/image_analyzer/* \
+	CodeC6678/include/* \
+	CodeC6678/src/* \
+	CodeC6678/yuv2dat/* \
+		CodeC6678/yuv2dat/include/* \
+		CodeC6678/yuv2dat/src/* \
+	CodeC6678/modelPreesm.cfg
