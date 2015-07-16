@@ -97,3 +97,11 @@ git am --signoff -k $STEPBYSTEPDIR/tutoMemory.patch
 # Test preesm workflow
 log "Test Preesm workflow after Memory tutorials"
 $RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel Codegen.workflow 4core.scenario
+
+# Apply Instrumented Codegen tutorials
+log "Apply Instrumented Codegen tutorials"
+git am --signoff -k $STEPBYSTEPDIR/tutoInstruCodegen.patch
+
+# Test preesm workflow
+log "Test Preesm workflow after Instrumented Codegen tutorial"
+$RUNSCRIPTS/preesm_execute_workflow.sh $RUNTIMEWORKSPACE $ECLIPSERUN org.ietr.preesm.sobel InstrumentedCodegen.workflow 1core.scenario
