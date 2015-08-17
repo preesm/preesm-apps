@@ -7,8 +7,9 @@ This tutorial project contains:
 
 To launch PREESM on this tutorial:
 
-- Import the org.ietr.preesm.tutorials.tutorial2.sobel project into your Workspace
+- Import the org.ietr.preesm.sobel project into your Workspace
 - Right-click on the workflow. Choose the unique scenario
-- Wait for the end of the mapping or stop it from the "Best Latency" editor
+- Wait for the end of the mapping
 - Use CMakeLists to generate your C project
 - Launch the execution
+- Check tutorials on http://preesm.sf.net for a more detailed tutorials
