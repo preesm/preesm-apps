@@ -23,7 +23,7 @@ $RUNSCRIPTS/preesm_run_workflow.sh $GITDIR/preesm-apps/tutorials $RUNTIMEWORKSPA
 # Create the original archive for the tutorial
 log "Create the original archive for the tutorial"
 cd .. 
-zip $ARCHIVEDIR/base.zip \
+zip $ARCHIVEDIR/org.ietr.preesm.sobel.zip \
 	Algo/* \
 	Archi/* \
 	Code/* \
