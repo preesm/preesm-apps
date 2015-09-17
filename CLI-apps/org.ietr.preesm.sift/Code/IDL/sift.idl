@@ -1,9 +1,0 @@
-
-module sift {
-	typedef long parameter ;
-	typedef long int ;
-	interface loop {
-		void sift (in parameter xSize, in parameter ySize, in char y_input, out int x, out int y, out int o, out int s, out float ori, out int keyN) ;
-	} ;
-} ;
-
