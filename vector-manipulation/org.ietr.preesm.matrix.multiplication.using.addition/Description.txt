@@ -1,0 +1,5 @@
+- crossCoreMatrixAddition project in CCS
+- 1/8 of arrayA
+- 1/8 of arrayB
+- rowA + rowB
+- Profiling code included

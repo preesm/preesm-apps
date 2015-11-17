@@ -1,0 +1,6 @@
+- crossCoreMatrixAccumulation project in CCS
+- 1/8 of arrayA
+- 1/8 of arrayB
+- rowA + rowB for X number of loops
+- Number of loops set within the "displayMatrix" actor
+- Profiling code included

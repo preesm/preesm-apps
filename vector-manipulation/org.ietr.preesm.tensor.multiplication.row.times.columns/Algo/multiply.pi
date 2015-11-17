@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">multiply</data>
+        <node expr="512" id="squaredSize" kind="param"/>
+        <node expr="24" id="depth" kind="param"/>
+        <node id="generateTensors" kind="actor">
+            <data key="graph_desc">Code/src/generateTensors.h</data>
+            <loop name="generate">
+                <param direction="IN" isConfig="true" name="rowsA" type="int "/>
+                <param direction="IN" isConfig="true" name="columnsA" type=" int "/>
+                <param direction="IN" isConfig="true" name="depthA" type=" int "/>
+                <param direction="IN" isConfig="true" name="rowsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="columnsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="depthB" type=" int "/>
+                <param direction="OUT" isConfig="false" name="arrayA" type=" int *"/>
+                <param direction="OUT" isConfig="false" name="arrayB" type=" int *"/>
+                <param direction="OUT" isConfig="false" name="startTime" type=" double *"/>
+            </loop>
+            <port kind="cfg_input" name="rowsA"/>
+            <port kind="cfg_input" name="columnsA"/>
+            <port kind="cfg_input" name="depthA"/>
+            <port kind="cfg_input" name="rowsB"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port kind="cfg_input" name="depthB"/>
+            <port annotation="NONE" expr="(rowsA*columnsA*depthA)"
+                kind="output" name="arrayA"/>
+            <port annotation="NONE" expr="(rowsB*columnsB*depthB)"
+                kind="output" name="arrayB"/>
+            <port annotation="NONE" expr="1" kind="output" name="startTime"/>
+        </node>
+        <node id="multiplyTensors" kind="actor">
+            <data key="graph_desc">Code/src/multiplyTensors.h</data>
+            <loop name="multiply">
+                <param direction="IN" isConfig="true" name="rowsA" type="int "/>
+                <param direction="IN" isConfig="true" name="columnsA" type=" int "/>
+                <param direction="IN" isConfig="true" name="depthA" type=" int "/>
+                <param direction="IN" isConfig="true" name="rowsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="columnsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="depthB" type=" int "/>
+                <param direction="IN" isConfig="false" name="arrayA" type=" int *"/>
+                <param direction="IN" isConfig="false" name="arrayB" type=" int *"/>
+                <param direction="OUT" isConfig="false" name="arrayC" type=" int *"/>
+            </loop>
+            <port kind="cfg_input" name="rowsA"/>
+            <port kind="cfg_input" name="columnsA"/>
+            <port kind="cfg_input" name="depthA"/>
+            <port kind="cfg_input" name="rowsB"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port kind="cfg_input" name="depthB"/>
+            <port annotation="NONE" expr="(rowsA*columnsA)/8"
+                kind="input" name="arrayA"/>
+            <port annotation="NONE" expr="(rowsB*columnsB)" kind="input" name="arrayB"/>
+            <port annotation="NONE" expr="(rowsA*columnsB)/8"
+                kind="output" name="arrayC"/>
+        </node>
+        <node id="broadcastTensorB" kind="broadcast">
+            <port kind="cfg_input" name="rowsB"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port kind="cfg_input" name="depthB"/>
+            <port annotation="NONE" expr="rowsB*columnsB" kind="input" name="input"/>
+            <port annotation="NONE" expr="rowsB*columnsB*8"
+                kind="output" name="output"/>
+        </node>
+        <node id="displayTensor" kind="actor">
+            <data key="graph_desc">Code/src/displayTensor.h</data>
+            <loop name="display">
+                <param direction="IN" isConfig="true" name="rowsA" type="int "/>
+                <param direction="IN" isConfig="true" name="columnsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="depthA" type=" int "/>
+                <param direction="IN" isConfig="false" name="arrayC" type=" int *"/>
+                <param direction="IN" isConfig="false" name="startTime" type=" double *"/>
+            </loop>
+            <port kind="cfg_input" name="rowsA"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port kind="cfg_input" name="depthA"/>
+            <port annotation="NONE" expr="(rowsA*columnsB*depthA)"
+                kind="input" name="arrayC"/>
+            <port annotation="NONE" expr="1" kind="input" name="startTime"/>
+        </node>
+        <edge kind="fifo" source="generateTensors" sourceport="arrayB"
+            target="broadcastTensorB" targetport="input" type="int"/>
+        <edge kind="fifo" source="broadcastTensorB" sourceport="output"
+            target="multiplyTensors" targetport="arrayB" type="int"/>
+        <edge kind="fifo" source="generateTensors" sourceport="arrayA"
+            target="multiplyTensors" targetport="arrayA" type="int"/>
+        <edge kind="fifo" source="multiplyTensors" sourceport="arrayC"
+            target="displayTensor" targetport="arrayC" type="long"/>
+        <edge kind="fifo" source="generateTensors"
+            sourceport="startTime" target="displayTensor"
+            targetport="startTime" type="double"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateTensors" targetport="rowsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateTensors" targetport="columnsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateTensors" targetport="columnsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateTensors" targetport="rowsB"/>
+        <edge kind="dependency" source="depth" target="generateTensors" targetport="depthA"/>
+        <edge kind="dependency" source="depth" target="generateTensors" targetport="depthB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="broadcastTensorB" targetport="rowsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="broadcastTensorB" targetport="columnsB"/>
+        <edge kind="dependency" source="depth" target="broadcastTensorB" targetport="depthB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyTensors" targetport="rowsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyTensors" targetport="columnsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyTensors" targetport="rowsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyTensors" targetport="columnsB"/>
+        <edge kind="dependency" source="depth" target="multiplyTensors" targetport="depthB"/>
+        <edge kind="dependency" source="depth" target="multiplyTensors" targetport="depthA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="displayTensor" targetport="rowsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="displayTensor" targetport="columnsB"/>
+        <edge kind="dependency" source="depth" target="displayTensor" targetport="depthA"/>
+    </graph>
+</graphml>

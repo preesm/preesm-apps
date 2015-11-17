@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">multiply</data>
+        <node expr="4096" id="squaredSize" kind="param"/>
+        <node id="generateMatricies" kind="actor">
+            <data key="graph_desc">Code6678/src/generateMatrices.h</data>
+            <loop name="generate">
+                <param direction="IN" isConfig="true" name="rowsA" type="int "/>
+                <param direction="IN" isConfig="true" name="columnsA" type=" int "/>
+                <param direction="IN" isConfig="true" name="rowsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="columnsB" type=" int "/>
+                <param direction="OUT" isConfig="false" name="arrayA" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="arrayB" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="startTime" type=" double *"/>
+            </loop>
+            <port kind="cfg_input" name="rowsA"/>
+            <port kind="cfg_input" name="columnsA"/>
+            <port kind="cfg_input" name="rowsB"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port annotation="WRITE_ONLY" expr="rowsA*columnsA"
+                kind="output" name="arrayA"/>
+            <port annotation="WRITE_ONLY" expr="rowsB*columnsB"
+                kind="output" name="arrayB"/>
+            <port annotation="WRITE_ONLY" expr="1" kind="output" name="startTime"/>
+        </node>
+        <node id="multiplyMatricies" kind="actor">
+            <data key="graph_desc">Code6678/src/multiplyMatrices.h</data>
+            <loop name="multiply">
+                <param direction="IN" isConfig="true" name="rowsA" type="int "/>
+                <param direction="IN" isConfig="true" name="columnsA" type=" int "/>
+                <param direction="IN" isConfig="true" name="rowsB" type=" int "/>
+                <param direction="IN" isConfig="true" name="columnsB" type=" int "/>
+                <param direction="IN" isConfig="false" name="arrayA" type=" long *"/>
+                <param direction="IN" isConfig="false" name="arrayB" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="output" type=" long *"/>
+            </loop>
+            <port kind="cfg_input" name="rowsA"/>
+            <port kind="cfg_input" name="columnsA"/>
+            <port kind="cfg_input" name="rowsB"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port annotation="READ_ONLY" expr="(rowsA*columnsA)/8"
+                kind="input" name="arrayA"/>
+            <port annotation="READ_ONLY" expr="(rowsB*columnsB)"
+                kind="input" name="arrayB"/>
+            <port annotation="WRITE_ONLY" expr="(rowsA*columnsB)/8"
+                kind="output" name="output"/>
+        </node>
+        <node id="displayMatrix" kind="actor">
+            <data key="graph_desc">Code6678/src/displayMatrix.h</data>
+            <loop name="display">
+                <param direction="IN" isConfig="true" name="rowsA" type="int "/>
+                <param direction="IN" isConfig="true" name="columnsB" type=" int "/>
+                <param direction="IN" isConfig="false" name="arrayC" type=" long *"/>
+                <param direction="IN" isConfig="false" name="startTime" type=" double *"/>
+            </loop>
+            <port kind="cfg_input" name="rowsA"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port annotation="READ_ONLY" expr="rowsA*columnsB"
+                kind="input" name="arrayC"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="startTime"/>
+        </node>
+        <node id="broadcastArrayB" kind="broadcast">
+            <port kind="cfg_input" name="rowsB"/>
+            <port kind="cfg_input" name="columnsB"/>
+            <port annotation="READ_ONLY" expr="rowsB*columnsB"
+                kind="input" name="arrayBIn"/>
+            <port annotation="WRITE_ONLY" expr="rowsB*columnsB*8"
+                kind="output" name="arrayBOut"/>
+        </node>
+        <edge kind="fifo" source="generateMatricies" sourceport="arrayA"
+            target="multiplyMatricies" targetport="arrayA" type="long"/>
+        <edge kind="fifo" source="generateMatricies" sourceport="arrayB"
+            target="broadcastArrayB" targetport="arrayBIn" type="long"/>
+        <edge kind="fifo" source="broadcastArrayB"
+            sourceport="arrayBOut" target="multiplyMatricies"
+            targetport="arrayB" type="long"/>
+        <edge kind="fifo" source="multiplyMatricies" sourceport="output"
+            target="displayMatrix" targetport="arrayC" type="long"/>
+        <edge kind="fifo" source="generateMatricies"
+            sourceport="startTime" target="displayMatrix"
+            targetport="startTime" type="double"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateMatricies" targetport="rowsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateMatricies" targetport="columnsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateMatricies" targetport="rowsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateMatricies" targetport="columnsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="broadcastArrayB" targetport="rowsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="broadcastArrayB" targetport="columnsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyMatricies" targetport="rowsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyMatricies" targetport="columnsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyMatricies" targetport="rowsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="multiplyMatricies" targetport="columnsB"/>
+        <edge kind="dependency" source="squaredSize"
+            target="displayMatrix" targetport="rowsA"/>
+        <edge kind="dependency" source="squaredSize"
+            target="displayMatrix" targetport="columnsB"/>
+    </graph>
+</graphml>

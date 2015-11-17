@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="delay" attr.type="string" for="edge"/>
+    <graph edgedefault="directed">
+        <data key="name">addition</data>
+        <node expr="8" id="squaredSize" kind="param"/>
+        <node id="generateMatrices" kind="actor">
+            <data key="graph_desc">Code6678/src/generateMatrices.h</data>
+            <loop name="generate">
+                <param direction="IN" isConfig="true" name="rows" type="int "/>
+                <param direction="IN" isConfig="true" name="columns" type=" int "/>
+                <param direction="OUT" isConfig="false"
+                    name="startArray" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="startTime" type=" double *"/>
+                <param direction="IN" isConfig="false" name="countIn" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="countOut" type=" long *"/>
+            </loop>
+            <port kind="cfg_input" name="rows"/>
+            <port kind="cfg_input" name="columns"/>
+            <port annotation="NONE" expr="1" kind="input" name="countIn"/>
+            <port annotation="NONE" expr="rows*columns" kind="output" name="startArray"/>
+            <port annotation="NONE" expr="1" kind="output" name="startTime"/>
+            <port annotation="NONE" expr="1" kind="output" name="countOut"/>
+        </node>
+        <node id="accumulateMatrices" kind="actor">
+            <data key="graph_desc">Code6678/src/accumulateMatrices.h</data>
+            <loop name="add">
+                <param direction="IN" isConfig="true" name="rows" type="int "/>
+                <param direction="IN" isConfig="true" name="columns" type=" int "/>
+                <param direction="IN" isConfig="false"
+                    name="runningTotal" type=" long *"/>
+                <param direction="IN" isConfig="false" name="inputArray" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="output" type=" long *"/>
+            </loop>
+            <port kind="cfg_input" name="rows"/>
+            <port kind="cfg_input" name="columns"/>
+            <port annotation="NONE" expr="(rows*columns)/8" kind="input" name="runningTotal"/>
+            <port annotation="NONE" expr="(rows*columns)/8" kind="input" name="inputArray"/>
+            <port annotation="NONE" expr="(rows*columns)/8"
+                kind="output" name="output"/>
+        </node>
+        <node id="displayMatrices" kind="actor">
+            <data key="graph_desc">Code6678/src/displayMatrix.h</data>
+            <loop name="display">
+                <param direction="IN" isConfig="true" name="rows" type="int "/>
+                <param direction="IN" isConfig="true" name="columns" type=" int "/>
+                <param direction="IN" isConfig="false"
+                    name="outputArray" type=" long *"/>
+                <param direction="IN" isConfig="false" name="startTime" type=" double *"/>
+                <param direction="IN" isConfig="false" name="countIn" type=" long *"/>
+                <param direction="OUT" isConfig="false" name="countOut" type=" long *"/>
+            </loop>
+            <port kind="cfg_input" name="rows"/>
+            <port kind="cfg_input" name="columns"/>
+            <port annotation="NONE" expr="rows*columns" kind="input" name="outputArray"/>
+            <port annotation="NONE" expr="1" kind="input" name="startTime"/>
+            <port annotation="NONE" expr="1" kind="input" name="countIn"/>
+            <port annotation="NONE" expr="1" kind="output" name="countOut"/>
+        </node>
+        <node id="broadcastOutput" kind="broadcast">
+            <port kind="cfg_input" name="rows"/>
+            <port kind="cfg_input" name="columns"/>
+            <port annotation="NONE" expr="rows*columns" kind="input" name="input"/>
+            <port annotation="NONE" expr="rows*columns" kind="output" name="output1"/>
+            <port annotation="NONE" expr="rows*columns" kind="output" name="output2"/>
+        </node>
+        <edge kind="fifo" source="generateMatrices"
+            sourceport="startTime" target="displayMatrices"
+            targetport="startTime" type="double"/>
+        <edge kind="fifo" source="accumulateMatrices"
+            sourceport="output" target="broadcastOutput"
+            targetport="input" type="long"/>
+        <edge expr="squaredSize*squaredSize" kind="fifo"
+            source="broadcastOutput" sourceport="output1"
+            target="accumulateMatrices" targetport="runningTotal" type="long">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="generateMatrices"
+            sourceport="startArray" target="accumulateMatrices"
+            targetport="inputArray" type="long"/>
+        <edge kind="fifo" source="broadcastOutput" sourceport="output2"
+            target="displayMatrices" targetport="outputArray" type="long"/>
+        <edge expr="1" kind="fifo" source="displayMatrices"
+            sourceport="countOut" target="displayMatrices"
+            targetport="countIn" type="long">
+            <data key="delay"/>
+        </edge>
+        <edge expr="1" kind="fifo" source="generateMatrices"
+            sourceport="countOut" target="generateMatrices"
+            targetport="countIn" type="long">
+            <data key="delay"/>
+        </edge>
+        <edge kind="dependency" source="squaredSize"
+            target="generateMatrices" targetport="rows"/>
+        <edge kind="dependency" source="squaredSize"
+            target="generateMatrices" targetport="columns"/>
+        <edge kind="dependency" source="squaredSize"
+            target="accumulateMatrices" targetport="rows"/>
+        <edge kind="dependency" source="squaredSize"
+            target="accumulateMatrices" targetport="columns"/>
+        <edge kind="dependency" source="squaredSize"
+            target="displayMatrices" targetport="rows"/>
+        <edge kind="dependency" source="squaredSize"
+            target="displayMatrices" targetport="columns"/>
+        <edge kind="dependency" source="squaredSize"
+            target="broadcastOutput" targetport="columns"/>
+        <edge kind="dependency" source="squaredSize"
+            target="broadcastOutput" targetport="rows"/>
+        <edge kind="dependency" source="squaredSize" target="broadcastOutput.output1-accumulateMatrices.runningTotal"/>
+    </graph>
+</graphml>

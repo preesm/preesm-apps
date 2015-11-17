@@ -1,0 +1,5 @@
+- crossCoreMultiplication project in CCS
+- 1/8 of arrayA
+- All of arrayB
+- rowsA * columnsB
+- Profiling code included
