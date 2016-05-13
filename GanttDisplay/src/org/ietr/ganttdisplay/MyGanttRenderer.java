@@ -1,6 +1,6 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA: Matthieu Wipliez, Jonathan Piat,
-Maxime Pelcat, Peng Cheng Mu, Jean-François Nezan, Mickaël Raulet
+Copyright or ï¿½ or Copr. IETR/INSA: Matthieu Wipliez, Jonathan Piat,
+Maxime Pelcat, Peng Cheng Mu, Jean-Franï¿½ois Nezan, Mickaï¿½l Raulet
 
 [mwipliez,jpiat,mpelcat,pmu,jnezan,mraulet]@insa-rennes.fr
 
@@ -37,6 +37,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 package org.ietr.ganttdisplay;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
@@ -203,6 +204,42 @@ public class MyGanttRenderer extends GanttRenderer {
 				g2.draw(bar);
 			}
 
+			// Displaying the tooltip inside the bar if enough space is
+			// available
+			if (getToolTipGenerator(row, column) != null) {
+				// Getting the string to display
+				String tip = getToolTipGenerator(row, column).generateToolTip(
+						dataset, subinterval, column);
+
+				// Truncting the string if it is too long
+				String subtip = "";
+				if (rectLength > 0) {
+					double percentage = (g2.getFontMetrics()
+							.getStringBounds(tip, g2).getWidth() + 10)
+							/ rectLength;
+
+					if (percentage > 1.0) {
+						subtip = tip.substring(0,
+								(int) (tip.length() / percentage));
+					}
+					else if (percentage > 0){
+						subtip = tip;
+					}
+
+					// Setting font and color
+					Font font = new Font("Garamond", Font.BOLD, 12);
+					g2.setFont(font);
+					g2.setColor(Color.WHITE);
+
+					// Testing width and displaying
+					if (!subtip.isEmpty()) {
+						g2.drawString(subtip, (int) translatedValue0 + 5,
+								(int) rectStart
+										+ g2.getFontMetrics().getHeight());
+					}
+				}
+			}
+			
 			// collect entity and tool tip information...
 			if (state.getInfo() != null) {
 				EntityCollection entities = state.getEntityCollection();
