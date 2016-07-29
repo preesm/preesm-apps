@@ -1,9 +1,12 @@
-/**
- * @file image_ppm.c
- * @brief
- * @date 4 juin 2015
- * @author Judicael Menant
- */
+/*
+	============================================================================
+	Name        : image.c
+	Author      : jmenant
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description :
+	============================================================================
+*/
 
 #include "image_ppm.h"
 

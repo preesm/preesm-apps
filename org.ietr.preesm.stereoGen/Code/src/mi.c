@@ -1,9 +1,12 @@
 /*
- * mi.c
- *
- *  Created on:  7 apr. 2016
- *      Author: ggautier
- */
+	============================================================================
+	Name        : mi.c
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for the MI based cost.
+	============================================================================
+*/
 
 #include <stdint.h>
 #include <stdlib.h>

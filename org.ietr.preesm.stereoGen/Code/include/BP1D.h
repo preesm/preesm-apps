@@ -1,3 +1,14 @@
+/*
+	============================================================================
+	Name        : BP1D.h
+	Author      : amercat
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for BP1D selection.
+	============================================================================
+*/
+
 #ifndef BP1D_H_
 #define BP1D_H_
 

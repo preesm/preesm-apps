@@ -1,9 +1,13 @@
 /*
- * census.h
- *
- *  Created on: 22 févr. 2016
- *      Author: jmenant
- */
+	============================================================================
+	Name        : census.h
+	Author      : jmenant
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for BFA aggregation.
+	============================================================================
+*/
 
 #ifndef CENSUS_H_
 #define CENSUS_H_

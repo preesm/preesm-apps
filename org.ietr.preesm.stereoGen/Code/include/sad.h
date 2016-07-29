@@ -1,9 +1,12 @@
 /*
- * sad.h
- *
- *  Created on: 25 avr. 2016
- *      Author: jmenant
- */
+	============================================================================
+	Name        : sad.h
+	Author      : jmenant
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for the SAD cost.
+	============================================================================
+*/
 
 #ifndef _SAD_H_
 #define _SAD_H_

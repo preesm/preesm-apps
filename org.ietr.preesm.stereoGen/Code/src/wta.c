@@ -1,9 +1,12 @@
 /*
- * wta.c
- *
- *  Created on: 25 avr. 2016
- *      Author: jmenant
- */
+	============================================================================
+	Name        : wta.c
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for the WTA selection.
+	============================================================================
+*/
 
 #include <string.h>
 #include <image_load.h>

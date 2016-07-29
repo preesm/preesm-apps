@@ -1,3 +1,13 @@
+/*
+	============================================================================
+	Name        : weight_calc.c
+	Author      : jmenant
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for BFA aggregation.
+	============================================================================
+*/
 #include <string.h>
 #include <math.h>
 

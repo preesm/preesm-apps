@@ -1,9 +1,13 @@
 /*
- * stereomatch.h
- *
- *  Created on: 18 févr. 2014
- *      Author: jmenant
- */
+	============================================================================
+	Name        : bfa.h
+	Author      : jmenant
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for BFA aggregation.
+	============================================================================
+*/
 
 #ifndef STEREOMATCH_H_
 #define STEREOMATCH_H_

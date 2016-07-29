@@ -1,3 +1,13 @@
+/*
+	============================================================================
+	Name        : BP1D.c
+	Author      : amercat
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for BP1D selection.
+	============================================================================
+*/
 #include <stdlib.h>
 #include "costMatrix.h"
 #include "BP1D.h"

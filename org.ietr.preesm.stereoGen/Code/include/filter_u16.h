@@ -1,9 +1,12 @@
 /*
- * filter_u16.h
- *
- *  Created on: 6 avr. 2016
- *      Author: jmenant
- */
+	============================================================================
+	Name        : filter_u16.h
+	Author      : jmenant
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : filter implementation.
+	============================================================================
+*/
 
 #ifndef _FILTER_U16_H_
 #define _FILTER_U16_H_

@@ -1,3 +1,12 @@
+/*
+	============================================================================
+	Name        : costMatrix.c
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code to slice a cost matrix.
+	============================================================================
+*/
 #include "costMatrix.h"
 #include "image_load.h"
 #include <string.h>

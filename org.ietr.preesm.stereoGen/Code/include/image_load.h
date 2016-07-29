@@ -1,16 +1,12 @@
-/**
- * @file image_load.h
- * @brief Functions to load and save sevral file format.
- *
- * The next format are currently supported :
- *  - png
- *  - ppm
- *  - pgm
- *  - pbm
- *
- * @date 8 juin 2015
- * @author Judicael Menant
- */
+/*
+	============================================================================
+	Name        : image_load.h
+	Author      : jmenant
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : Functions to load and save sevral file format.
+	============================================================================
+*/
 
 #ifndef IMAGE_LOAD_H_
 #define IMAGE_LOAD_H_

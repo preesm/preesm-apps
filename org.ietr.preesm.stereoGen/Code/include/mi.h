@@ -1,3 +1,12 @@
+/*
+	============================================================================
+	Name        : mi.h
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for the MI based cost.
+	============================================================================
+*/
 #ifndef MUTUAL_INFORMATION_H_INCLUDED
 #define MUTUAL_INFORMATION_H_INCLUDED
 #include "image_png.h"

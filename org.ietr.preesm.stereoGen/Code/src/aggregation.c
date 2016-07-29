@@ -1,3 +1,13 @@
+/*
+	============================================================================
+	Name        : aggregation.c
+	Author      : jmenant
+	Author      : ggautier
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description : code for BFA aggregation.
+	============================================================================
+*/
 #include "bfa.h"
 #include <stdio.h>
 

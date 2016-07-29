@@ -1,9 +1,12 @@
 /*
- * image.c
- *
- *  Created on: 8 janv. 2014
- *      Author: jmenant
- */
+	============================================================================
+	Name        : image.c
+	Author      : jmenant
+	Version     : 1.0
+	Copyright   : CECILL-C
+	Description :
+	============================================================================
+*/
 
 #include "image.h"
 

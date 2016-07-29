@@ -1,6 +1,6 @@
 /*
 	============================================================================
-	Name        : offsetGen.h
+	Name        : offsetGen.c
 	Author      : kdesnos
 	Version     : 1.0
 	Copyright   : CeCILL-C, IETR, INSA Rennes
