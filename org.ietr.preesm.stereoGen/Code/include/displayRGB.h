@@ -11,11 +11,11 @@
 #define DISPLAY_RGB
 #include "preesm.h"
 
-#define NB_DISPLAY 2
+#define NB_DISPLAY 3
 #define DISPLAY_W 434*NB_DISPLAY
 #define DISPLAY_H 380
 
-#define INIT_OVERLAY {NULL, NULL} // must be se same size as NB_DISPLAY
+#define INIT_OVERLAY {NULL, NULL, NULL} // must be se same size as NB_DISPLAY
 
 /**
 * Function used to display an RGB image

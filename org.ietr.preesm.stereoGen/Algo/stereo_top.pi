@@ -12,23 +12,22 @@
         <node expr="434" id="width" kind="param"/>
         <node expr="19" id="maxDisparity" kind="param"/>
         <node expr="0" id="minDisparity" kind="param"/>
-        <node expr="5" id="nbIterations" kind="param"/>
         <node expr="20" id="nbSlice" kind="param"/>
-        <node expr="4" id="scale" kind="param"/>
-        <node expr="12" id="truncValue" kind="param"/>
+        <node expr="8" id="scale" kind="param"/>
         <node expr="height*width" id="size" kind="param"/>
         <node expr="0" id="zero" kind="param"/>
         <node expr="1" id="one" kind="param"/>
         <node expr="1" id="overlap" kind="param"/>
         <node expr="height/nbSlice+2*overlap" id="sliceHeight" kind="param"/>
-        <node expr="1" id="one_" kind="param"/>
+        <node expr="2" id="two" kind="param"/>
+        <node expr="maxDisparity-minDisparity" id="ndisp" kind="param"/>
         <node id="Read_PPM0" kind="actor">
             <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="readPPM">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char "/>
             </loop>
             <init name="readPPMInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
@@ -38,7 +37,8 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
-            <port annotation="NONE" expr="height*width*3" kind="output" name="rgb"/>
+            <port annotation="WRITE_ONLY" expr="height*width*3"
+                kind="output" name="rgb"/>
         </node>
         <node id="Read_PPM1" kind="actor">
             <data key="graph_desc">Code/include/ppm.h</data>
@@ -46,7 +46,7 @@
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="rgb" type="unsigned char "/>
             </loop>
             <init name="readPPMInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
@@ -56,14 +56,15 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
-            <port annotation="NONE" expr="3*height*width" kind="output" name="rgb"/>
+            <port annotation="WRITE_ONLY" expr="3*height*width"
+                kind="output" name="rgb"/>
         </node>
         <node id="RGB2Gray_L" kind="actor">
             <data key="graph_desc">Code/include/rgb2Gray.h</data>
             <loop name="rgb2Gray">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
-                <param direction="OUT" isConfig="false" name="gray" type="float"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="gray" type="uint8_t "/>
             </loop>
             <port kind="cfg_input" name="size"/>
             <port annotation="READ_ONLY" expr="size*3" kind="input" name="rgb"/>
@@ -75,7 +76,7 @@
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char "/>
             </loop>
             <init name="displayRGBInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
@@ -92,62 +93,13 @@
             <data key="graph_desc">Code/include/rgb2Gray.h</data>
             <loop name="rgb2Gray">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="false" name="rgb" type="unsigned char"/>
-                <param direction="OUT" isConfig="false" name="gray" type="float"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="gray" type="uint8_t "/>
             </loop>
-            <data key="memoryScript">Code/Scripts/rgb2gray.bsh</data>
+            <data key="memoryScript">org.ietr.preesm.stereo/Code/Scripts/rgb2gray.bsh</data>
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="3*size" kind="input" name="rgb"/>
+            <port annotation="READ_ONLY" expr="3*size" kind="input" name="rgb"/>
             <port annotation="NONE" expr="size" kind="output" name="gray"/>
-        </node>
-        <node id="Census_L" kind="actor">
-            <data key="graph_desc">Code/include/census.h</data>
-            <loop name="census">
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="false" name="gray" type="float"/>
-                <param direction="OUT" isConfig="false" name="cen" type="unsigned char"/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="gray"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="cen"/>
-        </node>
-        <node id="Census_R" kind="actor">
-            <data key="graph_desc">Code/include/census.h</data>
-            <loop name="census">
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="false" name="gray" type="float"/>
-                <param direction="OUT" isConfig="false" name="cen" type="unsigned char"/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="gray"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="cen"/>
-        </node>
-        <node id="Cost_Parallel_Work" kind="actor">
-            <data key="graph_desc">Algo/cost_parallel_work.pi</data>
-            <port kind="cfg_input" name="truncValue"/>
-            <port kind="cfg_input" name="scale"/>
-            <port kind="cfg_input" name="nbIterations"/>
-            <port kind="cfg_input" name="minDisparity"/>
-            <port kind="cfg_input" name="maxDisparity"/>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="cenL"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="grayL"/>
-            <port annotation="READ_ONLY" expr="height*width*3"
-                kind="input" name="rgbL"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="cenR"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="grayR"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="rawDisparity"/>
         </node>
         <node id="Split" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
@@ -155,10 +107,10 @@
                 <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
             </loop>
-            <data key="memoryScript">Code/Scripts/split.bsh</data>
+            <data key="memoryScript">org.ietr.preesm.stereo/Code/Scripts/split.bsh</data>
             <port kind="cfg_input" name="overlap"/>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
@@ -176,9 +128,9 @@
                 <param direction="IN" isConfig="true"
                     name="topDownBorderSize" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="rawDisparity" type="unsigned char"/>
+                    name="rawDisparity" type="unsigned char "/>
                 <param direction="OUT" isConfig="false"
-                    name="filteredDisparity" type="unsigned char"/>
+                    name="filteredDisparity" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
@@ -199,7 +151,7 @@
             <data key="graph_desc">Code/include/displayRGB.h</data>
             <loop name="displayLum">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="false" name="lum" type="unsigned char"/>
+                <param direction="IN" isConfig="false" name="lum" type="unsigned char "/>
             </loop>
             <init name="displayRGBInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
@@ -214,34 +166,128 @@
         </node>
         <node id="Broadcast0" kind="broadcast">
             <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="ndisp"/>
             <port annotation="READ_ONLY" expr="3*size" kind="input" name="in"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out0"/>
-            <port annotation="NONE" expr="3*size" kind="output" name="out2"/>
             <port annotation="NONE" expr="3*size" kind="output" name="out1"/>
-        </node>
-        <node id="broadcast1" kind="broadcast">
-            <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size" kind="input" name="in"/>
-            <port annotation="NONE" expr="size" kind="output" name="out0"/>
-            <port annotation="NONE" expr="size" kind="output" name="out1"/>
-        </node>
-        <node id="broadcast2" kind="broadcast">
-            <port kind="cfg_input" name="size"/>
-            <port annotation="READ_ONLY" expr="size" kind="input" name="in"/>
-            <port annotation="NONE" expr="size" kind="output" name="out0"/>
-            <port annotation="NONE" expr="size" kind="output" name="out1"/>
+            <port annotation="NONE" expr="size*3" kind="output" name="out2"/>
         </node>
         <node id="Write_PPM" kind="actor">
             <data key="graph_desc">Code/include/ppm.h</data>
             <loop name="writePPM">
                 <param direction="IN" isConfig="true" name="height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="false" name="gray" type="unsigned char"/>
+                <param direction="IN" isConfig="false" name="gray" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port annotation="READ_ONLY" expr="height*width"
                 kind="input" name="gray"/>
+        </node>
+        <node id="Cost_Construction" kind="actor">
+            <data key="graph_desc">Algo/01_Cost_Construction/Constr_MI.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="lgray"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="rgray"/>
+            <port annotation="WRITE_ONLY" expr="height*width*ndisp"
+                kind="output" name="CostOUT"/>
+        </node>
+        <node id="Scale" kind="actor">
+            <data key="graph_desc">Code/include/scale.h</data>
+            <loop name="applyScale">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="scale" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="scale"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out"/>
+        </node>
+        <node id="Disparity_Selection" kind="actor">
+            <data key="graph_desc">Algo/03_Disparity_Selection/Select_WTA.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="CostIN"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="disparity_map"/>
+        </node>
+        <node id="Cost_Aggregation" kind="actor">
+            <data key="graph_desc">Algo/02_Cost_Aggregation/Aggreg_BFA.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="CostIN"/>
+            <port annotation="NONE" expr="height*width*3" kind="input" name="iml"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="CostOUT"/>
+        </node>
+        <node id="debug_1" kind="actor">
+            <data key="graph_desc">Code/include/costMatrix.h</data>
+            <loop name="costMatrix_debug_dxy_u8">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="ndisp" type="int"/>
+                <param direction="IN" isConfig="false" name="costs" type="const uint8_t "/>
+                <param direction="IN" isConfig="true" name="prefix" type="int"/>
+                <param direction="OUT" isConfig="false" name="costsOUT" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port kind="cfg_input" name="prefix"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="costs"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="costsOUT"/>
+        </node>
+        <node id="debug_2" kind="actor">
+            <data key="graph_desc">Code/include/costMatrix.h</data>
+            <loop name="costMatrix_debug_dxy_u8">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="ndisp" type="int"/>
+                <param direction="IN" isConfig="false" name="costs" type="const uint8_t "/>
+                <param direction="IN" isConfig="true" name="prefix" type="int"/>
+                <param direction="OUT" isConfig="false" name="costsOUT" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port kind="cfg_input" name="prefix"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="costs"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="costsOUT"/>
+        </node>
+        <node id="displayGRAY" kind="actor">
+            <data key="graph_desc">Code/include/displayRGB.h</data>
+            <loop name="displayLum">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="lum" type="unsigned char "/>
+            </loop>
+            <init name="displayRGBInit">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+            </init>
+            <port kind="cfg_input" name="id"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="lum"/>
+        </node>
+        <node id="Broadcastgray" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out1"/>
         </node>
         <edge kind="fifo" source="Read_PPM0" sourceport="rgb"
             target="Broadcast0" targetport="in" type="uchar"/>
@@ -249,28 +295,6 @@
             target="Display_rgb0" targetport="rgb" type="uchar"/>
         <edge kind="fifo" source="Broadcast0" sourceport="out1"
             target="RGB2Gray_L" targetport="rgb" type="uchar"/>
-        <edge kind="fifo" source="Broadcast0" sourceport="out2"
-            target="Cost_Parallel_Work" targetport="rgbL" type="uchar"/>
-        <edge kind="fifo" source="Read_PPM1" sourceport="rgb"
-            target="RGB2Gray_R" targetport="rgb" type="uchar"/>
-        <edge kind="fifo" source="RGB2Gray_L" sourceport="gray"
-            target="broadcast1" targetport="in" type="float"/>
-        <edge kind="fifo" source="broadcast1" sourceport="out0"
-            target="Census_L" targetport="gray" type="float"/>
-        <edge kind="fifo" source="broadcast1" sourceport="out1"
-            target="Cost_Parallel_Work" targetport="grayL" type="float"/>
-        <edge kind="fifo" source="Census_L" sourceport="cen"
-            target="Cost_Parallel_Work" targetport="cenL" type="uchar"/>
-        <edge kind="fifo" source="RGB2Gray_R" sourceport="gray"
-            target="broadcast2" targetport="in" type="float"/>
-        <edge kind="fifo" source="broadcast2" sourceport="out0"
-            target="Census_R" targetport="gray" type="float"/>
-        <edge kind="fifo" source="Census_R" sourceport="cen"
-            target="Cost_Parallel_Work" targetport="cenR" type="uchar"/>
-        <edge kind="fifo" source="broadcast2" sourceport="out1"
-            target="Cost_Parallel_Work" targetport="grayR" type="float"/>
-        <edge kind="fifo" source="Cost_Parallel_Work"
-            sourceport="rawDisparity" target="Split" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Split" sourceport="output"
             target="Median_Filter" targetport="rawDisparity" type="uchar"/>
         <edge kind="fifo" source="Median_Filter"
@@ -280,6 +304,30 @@
             target="Display_RGB1" targetport="lum" type="uchar"/>
         <edge kind="fifo" source="lum2RGB" sourceport="out1"
             target="Write_PPM" targetport="gray" type="uchar"/>
+        <edge kind="fifo" source="RGB2Gray_R" sourceport="gray"
+            target="Cost_Construction" targetport="rgray" type="uchar"/>
+        <edge kind="fifo" source="Read_PPM1" sourceport="rgb"
+            target="RGB2Gray_R" targetport="rgb" type="uchar"/>
+        <edge kind="fifo" source="Scale" sourceport="out" target="Split"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Disparity_Selection"
+            sourceport="disparity_map" target="Scale" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="Broadcast0" sourceport="out2"
+            target="Cost_Aggregation" targetport="iml" type="uchar"/>
+        <edge kind="fifo" source="Cost_Construction"
+            sourceport="CostOUT" target="debug_1" targetport="costs" type="uchar"/>
+        <edge kind="fifo" source="debug_1" sourceport="costsOUT"
+            target="Cost_Aggregation" targetport="CostIN" type="uchar"/>
+        <edge kind="fifo" source="Cost_Aggregation" sourceport="CostOUT"
+            target="debug_2" targetport="costs" type="uchar"/>
+        <edge kind="fifo" source="debug_2" sourceport="costsOUT"
+            target="Disparity_Selection" targetport="CostIN" type="uchar"/>
+        <edge kind="fifo" source="RGB2Gray_L" sourceport="gray"
+            target="Broadcastgray" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="Broadcastgray" sourceport="out0"
+            target="Cost_Construction" targetport="lgray" type="uchar"/>
+        <edge kind="fifo" source="Broadcastgray" sourceport="out1"
+            target="displayGRAY" targetport="lum" type="uchar"/>
         <edge kind="dependency" source="height" target="size"/>
         <edge kind="dependency" source="width" target="size"/>
         <edge kind="dependency" source="height" target="Read_PPM0" targetport="height"/>
@@ -291,29 +339,9 @@
         <edge kind="dependency" source="size" target="RGB2Gray_R" targetport="size"/>
         <edge kind="dependency" source="height" target="Display_rgb0" targetport="height"/>
         <edge kind="dependency" source="width" target="Display_rgb0" targetport="width"/>
-        <edge kind="dependency" source="size" target="broadcast1" targetport="size"/>
-        <edge kind="dependency" source="size" target="broadcast2" targetport="size"/>
-        <edge kind="dependency" source="height" target="Census_L" targetport="height"/>
-        <edge kind="dependency" source="height" target="Census_R" targetport="height"/>
-        <edge kind="dependency" source="width" target="Census_L" targetport="width"/>
-        <edge kind="dependency" source="width" target="Census_R" targetport="width"/>
-        <edge kind="dependency" source="height"
-            target="Cost_Parallel_Work" targetport="height"/>
-        <edge kind="dependency" source="width"
-            target="Cost_Parallel_Work" targetport="width"/>
         <edge kind="dependency" source="zero" target="Read_PPM0" targetport="id"/>
         <edge kind="dependency" source="one" target="Read_PPM1" targetport="id"/>
         <edge kind="dependency" source="zero" target="Display_rgb0" targetport="id"/>
-        <edge kind="dependency" source="maxDisparity"
-            target="Cost_Parallel_Work" targetport="maxDisparity"/>
-        <edge kind="dependency" source="minDisparity"
-            target="Cost_Parallel_Work" targetport="minDisparity"/>
-        <edge kind="dependency" source="nbIterations"
-            target="Cost_Parallel_Work" targetport="nbIterations"/>
-        <edge kind="dependency" source="scale"
-            target="Cost_Parallel_Work" targetport="scale"/>
-        <edge kind="dependency" source="truncValue"
-            target="Cost_Parallel_Work" targetport="truncValue"/>
         <edge kind="dependency" source="height" target="Split" targetport="height"/>
         <edge kind="dependency" source="width" target="Split" targetport="width"/>
         <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
@@ -326,10 +354,43 @@
         <edge kind="dependency" source="width" target="Median_Filter" targetport="width"/>
         <edge kind="dependency" source="overlap" target="Median_Filter" targetport="topDownBorderSize"/>
         <edge kind="dependency" source="size" target="lum2RGB" targetport="size"/>
-        <edge kind="dependency" source="one_" target="Display_RGB1" targetport="id"/>
+        <edge kind="dependency" source="two" target="Display_RGB1" targetport="id"/>
         <edge kind="dependency" source="height" target="Display_RGB1" targetport="height"/>
         <edge kind="dependency" source="height" target="Write_PPM" targetport="height"/>
         <edge kind="dependency" source="width" target="Display_RGB1" targetport="width"/>
         <edge kind="dependency" source="width" target="Write_PPM" targetport="width"/>
+        <edge kind="dependency" source="maxDisparity" target="ndisp"/>
+        <edge kind="dependency" source="minDisparity" target="ndisp"/>
+        <edge kind="dependency" source="ndisp"
+            target="Cost_Construction" targetport="ndisp"/>
+        <edge kind="dependency" source="width"
+            target="Cost_Construction" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="Cost_Construction" targetport="height"/>
+        <edge kind="dependency" source="ndisp" target="Broadcast0" targetport="ndisp"/>
+        <edge kind="dependency" source="size" target="Scale" targetport="size"/>
+        <edge kind="dependency" source="scale" target="Scale" targetport="scale"/>
+        <edge kind="dependency" source="ndisp"
+            target="Disparity_Selection" targetport="ndisp"/>
+        <edge kind="dependency" source="width"
+            target="Disparity_Selection" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="Disparity_Selection" targetport="height"/>
+        <edge kind="dependency" source="height"
+            target="Cost_Aggregation" targetport="height"/>
+        <edge kind="dependency" source="width" target="Cost_Aggregation" targetport="width"/>
+        <edge kind="dependency" source="ndisp" target="Cost_Aggregation" targetport="ndisp"/>
+        <edge kind="dependency" source="width" target="debug_1" targetport="width"/>
+        <edge kind="dependency" source="width" target="debug_2" targetport="width"/>
+        <edge kind="dependency" source="height" target="debug_1" targetport="height"/>
+        <edge kind="dependency" source="height" target="debug_2" targetport="height"/>
+        <edge kind="dependency" source="ndisp" target="debug_2" targetport="ndisp"/>
+        <edge kind="dependency" source="ndisp" target="debug_1" targetport="ndisp"/>
+        <edge kind="dependency" source="zero" target="debug_1" targetport="prefix"/>
+        <edge kind="dependency" source="one" target="debug_2" targetport="prefix"/>
+        <edge kind="dependency" source="width" target="displayGRAY" targetport="width"/>
+        <edge kind="dependency" source="height" target="displayGRAY" targetport="height"/>
+        <edge kind="dependency" source="one" target="displayGRAY" targetport="id"/>
+        <edge kind="dependency" source="size" target="Broadcastgray" targetport="size"/>
     </graph>
 </graphml>

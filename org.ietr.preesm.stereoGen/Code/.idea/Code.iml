@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/filter_u16.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/displayRGB.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/scale.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/communication.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/aggregation.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/BP1D.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/image_load.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/weigth_calc.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/rgb2Gray.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ppm.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/image_ppm.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/mi.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/sink.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/fifo.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wta.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/dump.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/sad.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/offsetGen.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/image.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/disparitySelect.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/image_png.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/clock.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/splitMerge.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/census.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/medianFilter.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/genDispLvl.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/memory.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/costMatrix.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/generated/Core0.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/fifo.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/filter_u16.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/medianFilter.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/sink.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/preesm.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/scale.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/image_load.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/mi.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/sad.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/disparitySelect.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/memory.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/genDispLvl.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/bp1d_node.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/BP1D.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/costMatrix.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/wta.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/dump.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/communication.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/rgb2Gray.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/ppm.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/splitMerge.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/bfa.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/offsetGen.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/image_ppm.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/displayRGB.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/census.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/image.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/x86.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/image_png.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/clock.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/local/include" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/local/include" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

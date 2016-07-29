@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="delay" attr.type="string" for="edge"/>
+    <graph edgedefault="directed">
+        <data key="name">Aggreg_BFA</data>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="ndisp" kind="cfg_in_iface"/>
+        <node expr="63" id="threshold_Weight" kind="param"/>
+        <node expr="4" id="cst_cd" kind="param"/>
+        <node expr="6" id="nbIterations" kind="param"/>
+        <node expr="height*width" id="size" kind="param"/>
+        <node id="iml" kind="src">
+            <port annotation="NONE" expr="height*width*3" kind="output" name="iml"/>
+        </node>
+        <node id="CostIN" kind="src">
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="CostIN"/>
+        </node>
+        <node id="CostOUT" kind="snk">
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="CostOUT"/>
+        </node>
+        <node id="compute_Vweight" kind="actor">
+            <data key="graph_desc">Code/include/bfa.h</data>
+            <loop name="compute_vweight">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="thr_weight" type="int"/>
+                <param direction="IN" isConfig="true" name="cst_cd" type="int"/>
+                <param direction="IN" isConfig="false" name="deltas" type="uint8_t"/>
+                <param direction="IN" isConfig="false" name="iml" type="const uint8_t"/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t"/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="thr_weight"/>
+            <port kind="cfg_input" name="cst_cd"/>
+            <port annotation="NONE" expr="1" kind="input" name="deltas"/>
+            <port annotation="NONE" expr="height*width*3" kind="input" name="iml"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="out"/>
+        </node>
+        <node id="compute_Hweight" kind="actor">
+            <data key="graph_desc">Code/include/bfa.h</data>
+            <loop name="compute_hweight">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="thr_weight" type="int"/>
+                <param direction="IN" isConfig="true" name="cst_cd" type="int"/>
+                <param direction="IN" isConfig="false" name="deltas" type="uint8_t"/>
+                <param direction="IN" isConfig="false" name="iml" type="const uint8_t"/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t"/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="thr_weight"/>
+            <port kind="cfg_input" name="cst_cd"/>
+            <port annotation="NONE" expr="1" kind="input" name="deltas"/>
+            <port annotation="NONE" expr="height*width*3" kind="input" name="iml"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="out"/>
+        </node>
+        <node id="AggregV" kind="actor">
+            <data key="graph_desc">Code/include/bfa.h</data>
+            <loop name="aggregateV">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="deltas" type="int"/>
+                <param direction="IN" isConfig="false" name="CostIN" type="uint8_t"/>
+                <param direction="IN" isConfig="false" name="vWeight" type="uint8_t"/>
+                <param direction="IN" isConfig="false" name="back" type="uint8_t"/>
+                <param direction="OUT" isConfig="false" name="CostOUT" type="uint8_t"/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="vWeight"/>
+            <port annotation="NONE" expr="1" kind="input" name="deltas"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="CostIN"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="back"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="CostOUT"/>
+        </node>
+        <node id="AggregBuff" kind="roundbuffer">
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="nbIterations"/>
+            <port annotation="NONE" expr="size*nbIterations"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out"/>
+        </node>
+        <node id="BroadcastAggreg" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="input"/>
+            <port annotation="NONE" expr="size" kind="output" name="out"/>
+            <port annotation="NONE" expr="size" kind="output" name="back"/>
+        </node>
+        <node id="AggregH" kind="actor">
+            <data key="graph_desc">Code/include/bfa.h</data>
+            <loop name="aggregateH">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="deltas" type="int"/>
+                <param direction="IN" isConfig="false" name="CostIN" type="uint8_t"/>
+                <param direction="IN" isConfig="false" name="hWeight" type="uint8_t"/>
+                <param direction="OUT" isConfig="false" name="CostOUT" type="uint8_t"/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="CostIN"/>
+            <port annotation="NONE" expr="1" kind="input" name="deltas"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="hWeight"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="CostOUT"/>
+        </node>
+        <node id="BroadcastIml" kind="broadcast">
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="nbIterations"/>
+            <port annotation="NONE" expr="height*width*3" kind="input" name="iml"/>
+            <port annotation="NONE" expr="height*width*3*nbIterations"
+                kind="output" name="out0"/>
+            <port annotation="NONE" expr="height*width*3*nbIterations"
+                kind="output" name="out1"/>
+        </node>
+        <node id="Deltas" kind="actor">
+            <data key="graph_desc">Code/include/offsetGen.h</data>
+            <loop name="deltasGen">
+                <param direction="IN" isConfig="true"
+                    name="nbIterations" type="int"/>
+                <param direction="OUT" isConfig="false" name="deltas" type="char"/>
+            </loop>
+            <port kind="cfg_input" name="nbIterations"/>
+            <port annotation="NONE" expr="nbIterations" kind="output" name="deltas"/>
+        </node>
+        <node id="BroadcastDeltas" kind="broadcast">
+            <port kind="cfg_input" name="nbIterations"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="NONE" expr="nbIterations" kind="input" name="deltas"/>
+            <port annotation="NONE" expr="nbIterations" kind="output" name="out0"/>
+            <port annotation="NONE" expr="nbIterations*ndisp"
+                kind="output" name="out2"/>
+            <port annotation="NONE" expr="nbIterations*ndisp"
+                kind="output" name="out4"/>
+            <port annotation="NONE" expr="nbIterations" kind="output" name="out1"/>
+        </node>
+        <node id="BroadcastDispCost" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="nbIterations"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size*nbIterations"
+                kind="output" name="out"/>
+        </node>
+        <node id="BroadcastVWeight" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port kind="cfg_input" name="nbIterations"/>
+            <port annotation="NONE" expr="size*nbIterations"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="size*ndisp*nbIterations"
+                kind="output" name="out"/>
+        </node>
+        <node id="BroadcastHweight" kind="broadcast">
+            <port kind="cfg_input" name="ndisp"/>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="nbIterations"/>
+            <port annotation="NONE" expr="size*nbIterations"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="size*ndisp*nbIterations"
+                kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="AggregV" sourceport="CostOUT"
+            target="AggregH" targetport="CostIN" type="uchar"/>
+        <edge kind="fifo" source="iml" sourceport="iml"
+            target="BroadcastIml" targetport="iml" type="uchar"/>
+        <edge kind="fifo" source="BroadcastIml" sourceport="out0"
+            target="compute_Vweight" targetport="iml" type="uchar"/>
+        <edge kind="fifo" source="BroadcastIml" sourceport="out1"
+            target="compute_Hweight" targetport="iml" type="uchar"/>
+        <edge kind="fifo" source="Deltas" sourceport="deltas"
+            target="BroadcastDeltas" targetport="deltas" type="uchar"/>
+        <edge kind="fifo" source="BroadcastDeltas" sourceport="out0"
+            target="compute_Vweight" targetport="deltas" type="uchar"/>
+        <edge kind="fifo" source="BroadcastDeltas" sourceport="out1"
+            target="compute_Hweight" targetport="deltas" type="uchar"/>
+        <edge kind="fifo" source="BroadcastDeltas" sourceport="out2"
+            target="AggregV" targetport="deltas" type="uchar"/>
+        <edge kind="fifo" source="BroadcastDeltas" sourceport="out4"
+            target="AggregH" targetport="deltas" type="uchar"/>
+        <edge kind="fifo" source="AggregH" sourceport="CostOUT"
+            target="BroadcastAggreg" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="BroadcastAggreg" sourceport="out"
+            target="AggregBuff" targetport="in" type="uchar"/>
+        <edge expr="size" kind="fifo" source="BroadcastAggreg"
+            sourceport="back" target="AggregV" targetport="back" type="uchar">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="BroadcastDispCost" sourceport="out"
+            target="AggregV" targetport="CostIN" type="uchar"/>
+        <edge kind="fifo" source="compute_Vweight" sourceport="out"
+            target="BroadcastVWeight" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="BroadcastVWeight" sourceport="out"
+            target="AggregV" targetport="vWeight" type="uchar"/>
+        <edge kind="fifo" source="compute_Hweight" sourceport="out"
+            target="BroadcastHweight" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="BroadcastHweight" sourceport="out"
+            target="AggregH" targetport="hWeight" type="uchar"/>
+        <edge kind="fifo" source="AggregBuff" sourceport="out"
+            target="CostOUT" targetport="CostOUT" type="uchar"/>
+        <edge kind="fifo" source="CostIN" sourceport="CostIN"
+            target="BroadcastDispCost" targetport="in" type="uchar"/>
+        <edge kind="dependency" source="width" target="AggregV" targetport="width"/>
+        <edge kind="dependency" source="width" target="AggregH" targetport="width"/>
+        <edge kind="dependency" source="width" target="compute_Vweight" targetport="width"/>
+        <edge kind="dependency" source="width" target="compute_Hweight" targetport="width"/>
+        <edge kind="dependency" source="height" target="compute_Vweight" targetport="height"/>
+        <edge kind="dependency" source="height" target="compute_Hweight" targetport="height"/>
+        <edge kind="dependency" source="height" target="AggregH" targetport="height"/>
+        <edge kind="dependency" source="height" target="AggregV" targetport="height"/>
+        <edge kind="dependency" source="height" target="BroadcastIml" targetport="height"/>
+        <edge kind="dependency" source="width" target="BroadcastIml" targetport="width"/>
+        <edge kind="dependency" source="threshold_Weight"
+            target="compute_Hweight" targetport="thr_weight"/>
+        <edge kind="dependency" source="threshold_Weight"
+            target="compute_Vweight" targetport="thr_weight"/>
+        <edge kind="dependency" source="cst_cd" target="compute_Vweight" targetport="cst_cd"/>
+        <edge kind="dependency" source="cst_cd" target="compute_Hweight" targetport="cst_cd"/>
+        <edge kind="dependency" source="height" target="iml"/>
+        <edge kind="dependency" source="width" target="iml"/>
+        <edge kind="dependency" source="nbIterations" target="Deltas" targetport="nbIterations"/>
+        <edge kind="dependency" source="nbIterations"
+            target="BroadcastDeltas" targetport="nbIterations"/>
+        <edge kind="dependency" source="width" target="size"/>
+        <edge kind="dependency" source="height" target="size"/>
+        <edge kind="dependency" source="height" target="CostIN"/>
+        <edge kind="dependency" source="ndisp" target="CostIN"/>
+        <edge kind="dependency" source="width" target="CostIN"/>
+        <edge kind="dependency" source="width" target="CostOUT"/>
+        <edge kind="dependency" source="ndisp" target="CostOUT"/>
+        <edge kind="dependency" source="height" target="CostOUT"/>
+        <edge kind="dependency" source="nbIterations"
+            target="AggregBuff" targetport="nbIterations"/>
+        <edge kind="dependency" source="size" target="BroadcastAggreg" targetport="size"/>
+        <edge kind="dependency" source="size" target="BroadcastAggreg.back-AggregV.back"/>
+        <edge kind="dependency" source="size" target="AggregBuff" targetport="size"/>
+        <edge kind="dependency" source="size" target="BroadcastDispCost" targetport="size"/>
+        <edge kind="dependency" source="nbIterations"
+            target="BroadcastDispCost" targetport="nbIterations"/>
+        <edge kind="dependency" source="ndisp" target="BroadcastDeltas" targetport="ndisp"/>
+        <edge kind="dependency" source="nbIterations"
+            target="BroadcastIml" targetport="nbIterations"/>
+        <edge kind="dependency" source="size" target="BroadcastVWeight" targetport="size"/>
+        <edge kind="dependency" source="ndisp" target="BroadcastVWeight" targetport="ndisp"/>
+        <edge kind="dependency" source="nbIterations"
+            target="BroadcastVWeight" targetport="nbIterations"/>
+        <edge kind="dependency" source="ndisp" target="BroadcastHweight" targetport="ndisp"/>
+        <edge kind="dependency" source="size" target="BroadcastHweight" targetport="size"/>
+        <edge kind="dependency" source="nbIterations"
+            target="BroadcastHweight" targetport="nbIterations"/>
+    </graph>
+</graphml>

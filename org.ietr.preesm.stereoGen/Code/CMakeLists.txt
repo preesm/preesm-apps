@@ -17,7 +17,7 @@ endif()
 project(Stereo)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 if (WIN32)
-  set(CMAKE_C_FLAGS "-std=c99 -DX4_CORES")
+  set(CMAKE_C_FLAGS "-std=c99 -DX1_CORE")
 else() 
   set(CMAKE_C_FLAGS "-std=gnu99 -DX1_CORE")
 endif()
@@ -54,6 +54,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/lib/cmak
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/lib/pthread-2.8.0/")
 endif()
 Find_Package ( Threads REQUIRED )
+find_package(PNG REQUIRED)
 
 #if(NOT THREADS_FOUND)
 #	MESSAGE(FATAL_ERROR "Pthread not found !")
@@ -72,6 +73,5 @@ file(
 	./generated/*.c
 	./include/*.h
 )
-
 add_executable( stereo ${source_files} ${header_files})
-target_link_libraries(stereo ${CMAKE_THREAD_LIBS_INIT} ${SDL_LIBRARY} ${SDL_IMAGE} ${M_LIB})
+target_link_libraries(stereo ${CMAKE_THREAD_LIBS_INIT} ${SDL_LIBRARY} ${SDL_IMAGE} ${M_LIB} ${PNG_LIBRARY})

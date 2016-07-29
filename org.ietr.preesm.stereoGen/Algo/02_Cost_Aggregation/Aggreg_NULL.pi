@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">Aggreg_NULL</data>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="ndisp" kind="cfg_in_iface"/>
+        <node id="CostIN" kind="src">
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="CostIN"/>
+        </node>
+        <node id="CostOUT" kind="snk">
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="CostOUT"/>
+        </node>
+        <node id="iml" kind="src">
+            <port annotation="NONE" expr="height*width*3" kind="output" name="iml"/>
+        </node>
+        <node id="BroadcastCost" kind="broadcast">
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="READ_ONLY" expr="height*width*ndisp"
+                kind="input" name="in"/>
+            <port annotation="READ_ONLY" expr="height*width*ndisp"
+                kind="output" name="out"/>
+        </node>
+        <node id="sink" kind="actor">
+            <data key="graph_desc">Code/include/sink.h</data>
+            <loop name="sink">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="UNUSED" expr="width*height*3" kind="input" name="input"/>
+        </node>
+        <edge kind="fifo" source="CostIN" sourceport="CostIN"
+            target="BroadcastCost" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="BroadcastCost" sourceport="out"
+            target="CostOUT" targetport="CostOUT" type="uchar"/>
+        <edge kind="fifo" source="iml" sourceport="iml" target="sink"
+            targetport="input" type="uchar"/>
+        <edge kind="dependency" source="height" target="iml"/>
+        <edge kind="dependency" source="height" target="CostIN"/>
+        <edge kind="dependency" source="width" target="iml"/>
+        <edge kind="dependency" source="width" target="CostIN"/>
+        <edge kind="dependency" source="ndisp" target="CostIN"/>
+        <edge kind="dependency" source="ndisp" target="CostOUT"/>
+        <edge kind="dependency" source="width" target="CostOUT"/>
+        <edge kind="dependency" source="height" target="CostOUT"/>
+        <edge kind="dependency" source="height" target="BroadcastCost" targetport="height"/>
+        <edge kind="dependency" source="width" target="BroadcastCost" targetport="width"/>
+        <edge kind="dependency" source="ndisp" target="BroadcastCost" targetport="ndisp"/>
+        <edge kind="dependency" source="width" target="sink" targetport="width"/>
+        <edge kind="dependency" source="height" target="sink" targetport="height"/>
+    </graph>
+</graphml>
