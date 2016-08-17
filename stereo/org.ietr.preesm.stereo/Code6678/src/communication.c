@@ -2,7 +2,7 @@
  ============================================================================
  Name        : communication.c
  Author      : kdesnos
- Version     : 1.0
+ Version     : 1.1
  Copyright   : CECILL-C
  Description : Comunication primitives for C6678
  ============================================================================
@@ -30,11 +30,6 @@ Semaphore_Handle interCoreSem[8];
 
 /* Notify event number that the app uses for send/receive*/
 #define EVENTIDSENDRECEIVE         10
-
-
-#pragma DATA_SECTION(barrier, ".MSMCSRAM")
-#pragma DATA_ALIGN(barrier, CACHE_LINE_SIZE);
-Char barrier = 0x00;
 
 Void callbackInterCoreCom(UInt16 procId, UInt16 lineId, UInt32 eventId,
 		UArg arg, UInt32 payload) {
@@ -99,7 +94,16 @@ void communicationInit() {
 void receiveStart(){}
 void sendEnd(){}
 
+typedef struct barrier_t {
+	char value;
+	char pingPong;
+} barrier_t;
+#pragma DATA_SECTION(barrier, ".MSMCSRAM")
+#pragma DATA_ALIGN(barrier, CACHE_LINE_SIZE);
+barrier_t barrier = {0,0};
+
 void busy_barrier() {
+	char myPong;
 	Uint8 status;
 	Char procNumber = MultiProc_self();
 
@@ -107,24 +111,19 @@ void busy_barrier() {
 		status = CSL_semAcquireDirect(2);
 	} while (status == 0);
 
-	cache_inv(&barrier, 1);
-	barrier |= (1 << procNumber);
-	cache_wbInvL2(&barrier, 1);
-	CSL_semReleaseSemaphore(2);
-
-	if (procNumber == 0) {
-		while (barrier != (Char) 0xFF) {
-			Task_sleep(1);
-			cache_invL2(&barrier, 1);
-		}
-		barrier = (Char)0x00;
-		cache_wbInvL2(&barrier, 1);
-		sendStart(1);
-		receiveEnd(7);
+	cache_invL1D(&barrier, sizeof(barrier_t));
+	if (barrier.value == 7) {
+		barrier.value = 0;
+		barrier.pingPong ^= 1;
+		cache_wbInvL1D(&barrier, sizeof(barrier_t));
+		CSL_semReleaseSemaphore(2);
 	} else {
-		receiveEnd(procNumber-1);
-		sendStart((procNumber+1)%8);
-
+		barrier.value += 1;
+		myPong = barrier.pingPong;
+		cache_wbInvL1D(&barrier, sizeof(barrier_t));
+		CSL_semReleaseSemaphore(2);
+		do {
+			cache_invL1D(&barrier, sizeof(barrier_t));
+		} while (myPong == barrier.pingPong);
 	}
 }
-
