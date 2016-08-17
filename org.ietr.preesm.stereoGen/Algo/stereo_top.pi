@@ -185,7 +185,7 @@
                 kind="input" name="gray"/>
         </node>
         <node id="Cost_Construction" kind="actor">
-            <data key="graph_desc">Algo/01_Cost_Construction/Constr_MI.pi</data>
+            <data key="graph_desc">Algo/01_Cost_Construction/Constr_CEN.pi</data>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="ndisp"/>
@@ -210,7 +210,7 @@
             <port annotation="NONE" expr="size" kind="output" name="out"/>
         </node>
         <node id="Disparity_Selection" kind="actor">
-            <data key="graph_desc">Algo/03_Disparity_Selection/Select_WTA.pi</data>
+            <data key="graph_desc">Algo/03_Disparity_Selection/Select_BP1D.pi</data>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="ndisp"/>

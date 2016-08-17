@@ -41,23 +41,14 @@ void costMatrix_dxy_getLine(int height,
 			    IN const uint8_t* CostIN,
 			    OUT uint8_t* phiB)
 {
-    int h,w,d;
-    uint8_t * CostTMP =malloc(sizeof(uint8_t)*height*width*ndisp);
-    for (h = 0; h < height; h++) {
-        for (w = 0; w < width; w++) {
-            for (d = 0; d < ndisp; d++) {
-                CostTMP[h*width*ndisp+w*ndisp+d]=CostIN[d*height*width+h*width+w];
-            }
-        }
-    }
 	int x, y, dd;
 	int halfdispartity = (ndisp-1)/2;
 	int width_phib = (width-(halfdispartity + 1));
     for (y = 0; y < height; y++) {
         for (x = 0; x < width_phib; x++) {
             for (dd = 0; dd < halfdispartity + 1; dd++) {
-                phiB[y*width*ndisp + x * (ndisp) + dd * 2] = CostTMP[y*width*ndisp + (halfdispartity + x + dd) * ndisp + 2 * dd];
-                phiB[y*width*ndisp + x * (ndisp) + dd * 2 + 1] = CostTMP[y*width*ndisp + (halfdispartity + x + dd + 1) * ndisp + (2 * dd + 1)];
+                phiB[y*width_phib*(ndisp+1) + x * (ndisp+1) + dd * 2] = 		CostIN[y*width + (halfdispartity + x + 2*dd) + height*width*(2 * dd)];
+                phiB[y*width_phib*(ndisp+1) + x * (ndisp+1) + dd * 2 + 1] = 	CostIN[y*width + (halfdispartity + x + 2*dd + 1) + height*width*(2 * dd + 1)];
             }
         }
     }

@@ -10,7 +10,7 @@
         <node id="height" kind="cfg_in_iface"/>
         <node id="width" kind="cfg_in_iface"/>
         <node id="ndisp" kind="cfg_in_iface"/>
-        <node expr="20" id="Phi0" kind="param"/>
+        <node expr="8" id="Phi0" kind="param"/>
         <node id="CostIN" kind="src">
             <port annotation="NONE" expr="height*width*ndisp"
                 kind="output" name="CostIN"/>
@@ -32,7 +32,8 @@
             <port kind="cfg_input" name="ndisp"/>
             <port annotation="READ_ONLY" expr="height*width*ndisp"
                 kind="input" name="CostIN"/>
-            <port annotation="NONE" expr="height*width*ndisp"
+            <port annotation="NONE"
+                expr="height*(width-(ndisp-1)/2-1)*(ndisp+1)"
                 kind="output" name="phiB"/>
         </node>
         <node id="computeFi" kind="actor">
@@ -47,8 +48,10 @@
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="ndisp"/>
             <port kind="cfg_input" name="Phi0"/>
-            <port annotation="READ_ONLY" expr="width*ndisp" kind="input" name="phiB"/>
-            <port annotation="NONE" expr="width*ndisp" kind="output" name="Fi"/>
+            <port annotation="READ_ONLY"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+1)" kind="input" name="phiB"/>
+            <port annotation="NONE"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+2)" kind="output" name="Fi"/>
         </node>
         <node id="computeEnergy" kind="actor">
             <data key="graph_desc">Code/include/BP1D.h</data>
@@ -65,17 +68,22 @@
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="ndisp"/>
             <port kind="cfg_input" name="Phi0"/>
-            <port annotation="READ_ONLY" expr="width*ndisp" kind="input" name="Fi"/>
-            <port annotation="READ_ONLY" expr="width*ndisp" kind="input" name="phiB"/>
+            <port annotation="READ_ONLY"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+2)" kind="input" name="Fi"/>
+            <port annotation="READ_ONLY"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+1)" kind="input" name="phiB"/>
             <port annotation="NONE" expr="width" kind="output" name="disparity_map"/>
         </node>
         <node id="BroadcastPhiB" kind="broadcast">
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="ndisp"/>
-            <port annotation="READ_ONLY" expr="width*ndisp" kind="input" name="in"/>
-            <port annotation="NONE" expr="width*ndisp" kind="output" name="out0"/>
-            <port annotation="NONE" expr="width*ndisp" kind="output" name="out1"/>
+            <port annotation="READ_ONLY"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+1)" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+1)" kind="output" name="out0"/>
+            <port annotation="NONE"
+                expr="(width-(ndisp-1)/2-1)*(ndisp+1)" kind="output" name="out1"/>
         </node>
         <edge kind="fifo" source="computeEnergy"
             sourceport="disparity_map" target="disparity_map"
