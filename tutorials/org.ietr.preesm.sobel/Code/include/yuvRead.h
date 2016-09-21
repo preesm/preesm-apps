@@ -13,8 +13,7 @@
 
 #include "preesm.h"
 
-//#define PATH "/home/user/Temp/akiyo_cif.yuv"
-#define PATH "./akiyo_cif.yuv"
+#define PATH PROJECT_ROOT_PATH "/dat/akiyo_cif.yuv"
 
 #define NB_FRAME 300
 

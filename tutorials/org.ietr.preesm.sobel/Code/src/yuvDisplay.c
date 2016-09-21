@@ -7,9 +7,13 @@
 	Description : Displaying YUV frames one next to another in a row
 	============================================================================
 */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "yuvDisplay.h"
 #include <SDL.h>
+
 
 extern int stopThreads;
 
@@ -18,16 +22,17 @@ extern int stopThreads;
 */
 typedef struct YuvDisplay
 {
-    SDL_Overlay* overlays[NB_DISPLAY];	    // One overlay per frame
-    SDL_Surface *screen;					// SDL surface where to display
+    SDL_Texture* textures[NB_DISPLAY];	    // One overlay per frame
+    SDL_Window *screen;					    // SDL surface where to display
+    SDL_Renderer *renderer;
     int currentXMin;						// Position for next display
     int initialized;                        // Initialization done ?
 
 } YuvDisplay;
 
 
-// State of the yuvDisplay actor: an overlay of fixed size
-YuvDisplay display = { INIT_OVERLAY, NULL, 0, 0 };
+// Initialize
+YuvDisplay display = {.textures={NULL},.initialized=0};
 
 /**
 * Initializes a display frame. Be careful, once a window size has been chosen,
@@ -47,20 +52,19 @@ void yuvDisplayInit (int id, int width, int height)
 
     if(height > DISPLAY_H)
     {
-        fprintf(stderr, "SDL screen is not high enough for display %d.", id);
+        fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
         system("PAUSE");
         exit(1);
     }
     else if(id >= NB_DISPLAY)
     {
-        fprintf(stderr, "The number of displays is limited to %d.", NB_DISPLAY);
+        fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
         system("PAUSE");
         exit(1);
     }
     else if(display.currentXMin + width > DISPLAY_W)
     {
-        fprintf(stderr, "The number is not wide enough for display %d.", NB_DISPLAY);
-
+        fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
         system("PAUSE");
         exit(1);
     }
@@ -82,76 +86,83 @@ void yuvDisplayInit (int id, int width, int height)
             exit(1);
         }
 
-        display.screen = SDL_SetVideoMode(DISPLAY_W, DISPLAY_H, 32, SDL_HWSURFACE);
-        SDL_WM_SetCaption(name, name);
+        display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                          DISPLAY_W, DISPLAY_H, SDL_WINDOW_SHOWN);
         if(!display.screen)
         {
             fprintf(stderr, "SDL: could not set video mode - exiting\n");
             exit(1);
         }
+
+        display.renderer = SDL_CreateRenderer(display.screen, -1, SDL_RENDERER_ACCELERATED);
+        if (!display.renderer)
+        {
+            fprintf(stderr, "SDL: could not create renderer - exiting\n");
+            exit(1);
+        }
     }
 
-    if(display.overlays[id] == NULL)
+    if(display.textures[id] == NULL)
     {
 
-        display.overlays[id] = SDL_CreateYUVOverlay(width, height,
-                               SDL_IYUV_OVERLAY, display.screen);
+        display.textures[id] = SDL_CreateTexture(display.renderer,
+                               SDL_PIXELFORMAT_IYUV,
+                               SDL_TEXTUREACCESS_STREAMING,
+                               width, height);
 
-        memset(display.overlays[id]->pixels[0], 0, width*height);
-        memset(display.overlays[id]->pixels[1], 0, width*height/4);
-        memset(display.overlays[id]->pixels[2], 0, width*height/4);
+        if (!display.textures[id])
+        {
+            fprintf(stderr, "SDL: could not create texture - exiting\n");
+            exit(1);
+        }
+
         display.currentXMin += width;
     }
 
 }
-/**
-* Display one YUV frame
-*
-* @param id display unique identifier
-* @param y luma
-* @param u chroma U
-* @param v chroma V
-*/
+
+
 void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v)
 {
 
-    SDL_Overlay* overlay = display.overlays[id];
-    SDL_Rect video_rect = {overlay->w*id,0,overlay->w, overlay->h};	// SDL frame position and size (x, y, w, h)
-    int height = video_rect.w * video_rect.h;
+    SDL_Texture* texture = display.textures[id];
+    int w,h;
 
-    //SDL_LockYUVOverlay(overlay);
-    if (SDL_LockYUVOverlay(overlay) < 0)
-    {
-        fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-        system("PAUSE");
-    }
-    memcpy(overlay->pixels[0], y, height);
-    memcpy(overlay->pixels[1], u, height/4);
-    memcpy(overlay->pixels[2], v, height/4);
+    // Retrieve texture attribute
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
-    SDL_UnlockYUVOverlay(overlay);
+    SDL_UpdateYUVTexture(
+                        texture, NULL,
+                        y, w,
+                        u, w/2,
+                        v, w/2
+                    );
 
     yuvRefreshDisplay(id);
 }
+
+
 void yuvRefreshDisplay(int id)
 {
+    SDL_Texture* texture = display.textures[id];
     SDL_Event event;
-    SDL_Rect video_rect;
+    SDL_Rect screen_rect;
 
-        video_rect.x = display.overlays[id]->w*id;
-        video_rect.y = 0;
-        video_rect.w = display.overlays[id]->w;
-        video_rect.h = display.overlays[id]->h;
+    SDL_QueryTexture(texture, NULL, NULL, &(screen_rect.w), &(screen_rect.h));
 
-        SDL_DisplayYUVOverlay(display.overlays[id], &video_rect);
+    screen_rect.x = screen_rect.w*id;
+    screen_rect.y = 0;
 
-    /* Grab all the events off the queue. */
+    SDL_RenderCopy(display.renderer, texture, NULL, &screen_rect);
+    SDL_RenderPresent(display.renderer);
+
+    // Grab all the events off the queue.
     while (SDL_PollEvent(&event))
     {
         switch (event.type)
         {
         case SDL_QUIT:
-        stopThreads = 1;
+            stopThreads = 1;
             break;
         default:
             break;
@@ -159,7 +170,10 @@ void yuvRefreshDisplay(int id)
     }
 }
 
+
 void yuvFinalize(int id)
 {
-    SDL_FreeYUVOverlay(display.overlays[id]);
+    SDL_DestroyTexture(display.textures[id]);
+    SDL_DestroyRenderer(display.renderer);
+    SDL_DestroyWindow(display.screen);
 }
