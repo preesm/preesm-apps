@@ -63,6 +63,22 @@ if(NOT SDL2_FOUND)
   MESSAGE(FATAL_ERROR "SDL not found !")
 endif()
 
+if (WIN32)
+	file(GLOB
+		SDL2_DLL
+		${SDL2DIR}/bin/*.dll
+		${SDL2DIR}/lib/*.dll
+	)
+	
+	MESSAGE("Copy SDL DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	else()
+		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+	endif()
+endif()
+
 
 # *******************************************
 # ************ Pthread LIBRARY **************
@@ -78,6 +94,23 @@ endif()
 if(NOT THREADS_FOUND)
 	MESSAGE(FATAL_ERROR "Pthread not found !")
 endif()
+
+
+if (WIN32)
+	file(GLOB
+		PTHREADS_DLL
+		${CMAKE_PREFIX_PATH}/lib/*.dll
+	)
+
+	MESSAGE("Copy Pthreads DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	else()
+		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+	endif()
+endif()
+
 
 # *******************************************
 # **************** Sobel.exe  ****************
