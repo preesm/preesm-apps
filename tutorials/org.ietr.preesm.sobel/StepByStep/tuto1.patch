@@ -947,8 +947,8 @@ index a4d4434..51f404c 100644
 -set(CMAKE_C_FLAGS "-DX1_CORE") 
 +set(CMAKE_C_FLAGS "-DX4_CORES")
 
- # *******************************************
- # ************** SDL LIBRARY ****************
+ # Add definition for relative path into project
+ add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 diff --git a/tutorials/org.ietr.preesm.sobel/Code/include/sobel.h b/tutorials/org.ietr.preesm.sobel/Code/include/sobel.h
 new file mode 100644
 index 0000000..7029d02
