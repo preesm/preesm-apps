@@ -2,13 +2,16 @@
 	============================================================================
 	Name        : displayRGB.c
 	Author      : mpelcat & kdesnos
-	Version     : 1.0
+	Version     : 1.1
 	Copyright   : CeCILL-C, IETR, INSA Rennes
 	Description : Displaying RGB frames one next to another in a row
 	============================================================================
-*/
+	*/
+
+#include <stdio.h>
 
 #include "displayRGB.h"
+
 #include <SDL.h>
 #include <pthread.h>
 #include <time.h>
@@ -20,144 +23,176 @@ extern int stopThreads;
 */
 typedef struct RGBDisplay
 {
-    SDL_Surface* overlays[NB_DISPLAY];	    // One overlay per frame
-    SDL_Surface *screen;					// SDL surface where to display
-    int currentXMin;						// Position for next display
-    int initialized;                        // Initialization done ?
-
+	SDL_Texture* textures[NB_DISPLAY];	    // One overlay per frame
+	SDL_Window *screen;					    // SDL window where to display
+	SDL_Surface* surface[NB_DISPLAY];
+	SDL_Renderer *renderer;
+	int currentXMin;						// Position for next display
+	int initialized;                        // Initialization done ?
 } RGBDisplay;
 
 
-// State of the yuvDisplay actor: an overlay of fixed size
-RGBDisplay display = { INIT_OVERLAY, NULL, 0, 0 };
+// Initialize
+RGBDisplay display = { .textures = { NULL }, .initialized = 0 };
 
-void displayRGBInit (int id, int height, int width)
-{
-    if(display.initialized==0)
-    {
-        display.currentXMin = 0;
-    }
+void displayRGBInit(int id, int height, int width){
+	if (display.initialized == 0)
+	{
+		display.currentXMin = 0;
+	}
 
-    if(height > DISPLAY_H)
-    {
-        fprintf(stderr, "SDL screen is not high enough for display %d.", id);
-        system("PAUSE");
-        exit(1);
-    }
+	if (height > DISPLAY_H)
+	{
+		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
+		system("PAUSE");
+		exit(1);
+	}
+	else if (id >= NB_DISPLAY)
+	{
+		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
+		system("PAUSE");
+		exit(1);
+	}
+	else if (display.currentXMin + width > DISPLAY_W)
+	{
+		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
+		system("PAUSE");
+		exit(1);
+	}
 
-     else if(id >= NB_DISPLAY)
-    {
-        fprintf(stderr, "The number of displays is limited to %d.", NB_DISPLAY);
-        system("PAUSE");
-        exit(1);
-    }
 
-     else if(display.currentXMin + width > DISPLAY_W)
-    {
-        fprintf(stderr, "The number is not wide enough for display %d.", NB_DISPLAY);
+#ifdef VERBOSE
+	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+#endif
 
-        system("PAUSE");
-        exit(1);
-    }
+	if (display.initialized == 0)
+	{
+		// Generating window name
+		char* name = "Display";
+		display.initialized = 1;
 
-    if(display.initialized==0)
-    {
-        // Generating window name
-        char* name = "Display";
-        display.initialized = 1;
+		if (SDL_Init(SDL_INIT_VIDEO))
+		{
+			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+			exit(1);
+		}
 
-        if(SDL_Init(SDL_INIT_VIDEO))
-        {
-            fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
-            exit(1);
-        }
+		display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+										  DISPLAY_W, DISPLAY_H, SDL_WINDOW_SHOWN);
+		if (!display.screen)
+		{
+			fprintf(stderr, "SDL: could not set video mode - exiting\n");
+			exit(1);
+		}
 
-        display.screen = SDL_SetVideoMode(DISPLAY_W, DISPLAY_H, 24, SDL_HWSURFACE);
-        SDL_WM_SetCaption(name, name);
-        if(!display.screen)
-        {
-            fprintf(stderr, "SDL: could not set video mode - exiting\n");
-            exit(1);
-        }
-    }
-    if(display.overlays[id] == NULL)
-    {
+		display.renderer = SDL_CreateRenderer(display.screen, -1, SDL_RENDERER_ACCELERATED);
+		if (!display.renderer)
+		{
+			fprintf(stderr, "SDL: could not create renderer - exiting\n");
+			exit(1);
+		}
+	}
 
-        display.overlays[id] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height,
-                               24, 0x0000FF,0x00FF00,0xFF0000,0);
-        display.overlays[id]->pitch = 3*width;
+	if (display.textures[id] == NULL)
+	{
 
-        display.currentXMin += width;
-    }
+		display.textures[id] = SDL_CreateTexture(display.renderer,
+												 SDL_PIXELFORMAT_RGB888,
+												 SDL_TEXTUREACCESS_STREAMING,
+												 width, height);
+
+		if (!display.textures[id])
+		{
+			fprintf(stderr, "SDL: could not create texture - exiting\n");
+			exit(1);
+		}
+
+		display.currentXMin += width;
+	}
+
+	if (display.surface[id] == NULL){
+		display.surface[id] = SDL_CreateRGBSurface(0, width, height, 32,0,0,0,0);
+		if (!display.surface[id])
+		{
+			fprintf(stderr, "SDL: could not create surface - exiting\n");
+			exit(1);
+		}
+	}
+
 }
 
 void displayLum(int id, unsigned char *lum){
-    display3Components(id,lum,lum,lum,1);
+	int idxPxl,w,h;
+	SDL_Texture* texture = display.textures[id];
+	SDL_Surface *surface = display.surface[id];
+
+	// Prepare RGB texture
+	// Retrieve texture attribute
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
+	for (idxPxl = 0; idxPxl < h*w; idxPxl++){
+		*(((char*)(surface->pixels)) + 4 * idxPxl)	   = *(lum + idxPxl);
+		*(((char*)(surface->pixels)) + 4 * idxPxl + 1) = *(lum + idxPxl);
+		*(((char*)(surface->pixels)) + 4 * idxPxl + 2) = *(lum + idxPxl);
+	}
+
+	refreshDisplayRGB(id);
 }
 
 void displayRGB(int id, int height, int width, unsigned char *rgb){
-	unsigned char *r = rgb;
-    unsigned char *g = rgb+1;
-    unsigned char *b = rgb+2;
-    display3Components(id,r,g,b,3);
+
+	int idxPxl, w, h;
+	SDL_Texture* texture = display.textures[id];
+	SDL_Surface *surface = display.surface[id];
+
+	// Prepare RGB texture
+	// Retrieve texture attribute
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
+	for (idxPxl = 0; idxPxl < h*w; idxPxl++){
+		*(((char*)(surface->pixels)) + 4 * idxPxl + 0) = *(rgb + 3 * idxPxl + 2);
+		*(((char*)(surface->pixels)) + 4 * idxPxl + 1) = *(rgb + 3 * idxPxl + 1);
+		*(((char*)(surface->pixels)) + 4 * idxPxl + 2) = *(rgb + 3 * idxPxl + 0);
+	}
+
+	refreshDisplayRGB(id);
 }
 
-void display3Components(int id, unsigned char *r, unsigned char *g, unsigned char *b, int pixelStride){
-    SDL_Surface* overlay = display.overlays[id];
-    SDL_Rect video_rect = {overlay->w*id,0,overlay->w, overlay->h};	// SDL frame position and size (x, y, w, h)
-    int vSize = video_rect.w * video_rect.h;
-	int idxPxl;
-    int rgb = 0;
 
-     if (SDL_LockSurface(overlay) < 0)
-    {
-        fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-        system("PAUSE");
-    }
-
-    for(idxPxl = 0; idxPxl < overlay->h*overlay->w; idxPxl++){
-        *(((char*)(overlay->pixels))+3*idxPxl)   = *(r+idxPxl*pixelStride) ;
-        *(((char*)(overlay->pixels))+3*idxPxl+1) = *(g+idxPxl*pixelStride) ;
-        *(((char*)(overlay->pixels))+3*idxPxl+2) = *(b+idxPxl*pixelStride) ;        
-    }
-
-    SDL_UnlockSurface(overlay);
-    refreshDisplayRGB(id);
-}
 void refreshDisplayRGB(int id)
 {
+	SDL_Texture* texture = display.textures[id];
+	SDL_Event event;
+	SDL_Rect screen_rect;
+	
+	SDL_QueryTexture(texture, NULL, NULL, &(screen_rect.w), &(screen_rect.h));
 
-    SDL_Event event;
-    SDL_Rect video_rect;
+	SDL_UpdateTexture(texture, NULL, display.surface[id]->pixels, screen_rect.w*4);
 
-        video_rect.x = display.overlays[id]->w*id;
-        video_rect.y = 0;
-        video_rect.w = display.overlays[id]->w;
-        video_rect.h = display.overlays[id]->h;
+	screen_rect.x = screen_rect.w*id;
+	screen_rect.y = 0;
 
-        SDL_BlitSurface(display.overlays[id],0,display.screen,&video_rect);
-        SDL_UpdateRect(display.screen, 0, 0, 0, 0);
+	SDL_RenderCopy(display.renderer, texture, NULL, &screen_rect);
+	SDL_RenderPresent(display.renderer);
 
-        //SDL_DisplayYUVOverlay(display.overlays[id], &video_rect);
-
-    // Grab all the events off the queue.
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            stopThreads = 1;
-            break;
-        default:
-            break;
-        }
-    }
-
+	// Grab all the events off the queue.
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			stopThreads = 1;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void finalizeRGB(int id)
 {
-    /*
-    SDL_FreeYUVOverlay(display.overlays[id]);
-    */
+	SDL_FreeSurface(display.surface[id]);
+	SDL_DestroyTexture(display.textures[id]);
+	SDL_DestroyRenderer(display.renderer);
+	SDL_DestroyWindow(display.screen);
 }

@@ -20,7 +20,7 @@
 
    ======================================================================*/
 #define NB_PATH 2
-char* paths[] = {"./im0.ppm","./im1.ppm"};
+char* paths[] = {"./dat/im0.ppm","./dat/im1.ppm"};
 char* outPath = "./out.ppm";
 static FILE * ptfile[NB_PATH] ;
 clock_t tick;
