@@ -32,12 +32,12 @@ zip StepByStep/archives/org.ietr.preesm.sobel.zip \
 	Code/* \
 		Code/include/* \
 		Code/lib/cmake_modules/* \
-		Code/lib/ReadMe.txt \
+		Code/lib/ReadMe.md \
 		Code/src/* \
 	Scenarios/* \
 	Workflows/* \
 	.project \
-	Readme.txt
+	Readme.md
 popd
 	
 # Apply changes from 1st tutorial
@@ -58,12 +58,12 @@ zip StepByStep/archives/tutorial1_result.zip \
 	Code/* \
 		Code/include/* \
 		Code/lib/cmake_modules/* \
-		Code/lib/ReadMe.txt \
+		Code/lib/ReadMe.md \
 		Code/src/* \
 	Scenarios/* \
 	Workflows/* .\
 	.project \
-	Readme.txt
+	Readme.md
 popd
 
 # Create the archive containing sobel sources
