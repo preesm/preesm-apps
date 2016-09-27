@@ -4,8 +4,8 @@ Date: Thu, 16 Jul 2015 16:44:03 +0200
 Subject: [PATCH] (Sobel) Instrumented CodeGen tutorial result.
 
 ---
- .../Workflows/InstrumentedCodegen.workflow         | 154 +++++++++++++++++++++
- 1 file changed, 154 insertions(+)
+ .../Workflows/InstrumentedCodegen.workflow         | 155 +++++++++++++++++++++
+ 1 file changed, 155 insertions(+)
  create mode 100644 tutorials/org.ietr.preesm.sobel/Workflows/InstrumentedCodegen.workflow
 
 diff --git a/tutorials/org.ietr.preesm.sobel/Workflows/InstrumentedCodegen.workflow b/tutorials/org.ietr.preesm.sobel/Workflows/InstrumentedCodegen.workflow
@@ -13,7 +13,7 @@ new file mode 100644
 index 0000000..66e7296
 --- /dev/null
 +++ b/tutorials/org.ietr.preesm.sobel/Workflows/InstrumentedCodegen.workflow
-@@ -0,0 +1,154 @@
+@@ -0,0 +1,155 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +<dftools:workflow xmlns:dftools="http://net.sf.dftools">
 +    <dftools:scenario pluginId="org.ietr.preesm.scenario.task"/>
@@ -71,6 +71,7 @@ index 0000000..66e7296
 +            <dftools:variable name="Allocator(s)" value="Basic"/>
 +            <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
 +            <dftools:variable name="Data alignment" value="None"/>
++            <dftools:variable name="Distribution" value="SharedOnly"/>
 +            <dftools:variable name="Merge broadcasts" value="True"/>
 +            <dftools:variable name="Nb of Shuffling Tested" value="10"/>
 +            <dftools:variable name="Verbose" value="True"/>
@@ -135,8 +136,8 @@ index 0000000..66e7296
 +        targetport="DAG" to="MEG Builder"/>
 +    <dftools:dataTransfer from="scenario" sourceport="scenario"
 +        targetport="scenario" to="MEG Builder"/>
-+    <dftools:dataTransfer from="Memory Allocation" sourceport="MemEx"
-+        targetport="MemEx" to="Code Generation"/>
++    <dftools:dataTransfer from="Memory Allocation" sourceport="MEGs"
++        targetport="MEGs" to="Code Generation"/>
 +    <dftools:dataTransfer from="scenario" sourceport="scenario"
 +        targetport="scenario" to="Code Generation"/>
 +    <dftools:dataTransfer from="scenario" sourceport="architecture"
