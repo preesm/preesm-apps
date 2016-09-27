@@ -249,8 +249,8 @@ index 11cb905..58226b5 100644
 +            <dftools:variable name="Allocator(s)" value="FirstFit"/>
              <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
              <dftools:variable name="Data alignment" value="None"/>
-             <dftools:variable name="Merge broadcasts" value="True"/>
-@@ -75,6 +75,30 @@
+             <dftools:variable name="Distribution" value="SharedOnly"/>
+@@ -76,6 +76,30 @@
              <dftools:variable name="path" value="Algo/generated/flatten"/>
          </dftools:data>
      </dftools:task>
@@ -281,16 +281,16 @@ index 11cb905..58226b5 100644
      <dftools:dataTransfer from="scenario" sourceport="scenario"
          targetport="scenario" to="Display Gantt"/>
      <dftools:dataTransfer from="Scheduling" sourceport="ABC"
-@@ -95,8 +119,6 @@
+@@ -96,8 +120,6 @@
          targetport="DAG" to="MEG Builder"/>
      <dftools:dataTransfer from="scenario" sourceport="scenario"
          targetport="scenario" to="MEG Builder"/>
 -    <dftools:dataTransfer from="MEG Builder" sourceport="MemEx"
 -        targetport="MemEx" to="Memory Allocation"/>
-     <dftools:dataTransfer from="Memory Allocation" sourceport="MemEx"
-         targetport="MemEx" to="Code Generation"/>
+     <dftools:dataTransfer from="Memory Allocation" sourceport="MEGs"
+         targetport="MEGs" to="Code Generation"/>
      <dftools:dataTransfer from="scenario" sourceport="scenario"
-@@ -115,4 +137,18 @@
+@@ -116,4 +138,18 @@
          targetport="void" to="MEG Builder"/>
      <dftools:dataTransfer from="HierarchyFlattening" sourceport="SDF"
          targetport="SDF" to="Flat SDF Exporter"/>
