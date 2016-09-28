@@ -55,6 +55,7 @@
             <dftools:variable name="Allocator(s)" value="BestFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
             <dftools:variable name="Data alignment" value="None"/>
+            <dftools:variable name="Distribution" value="SharedOnly"/>
             <dftools:variable name="Merge broadcasts" value="False"/>
             <dftools:variable name="Nb of Shuffling Tested" value="10"/>
             <dftools:variable name="Verbose" value="True"/>
@@ -110,8 +111,8 @@
         targetport="DAG" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MEG Builder"/>
-    <dftools:dataTransfer from="Memory Allocation" sourceport="MemEx"
-        targetport="MemEx" to="Code Generation"/>
+    <dftools:dataTransfer from="Memory Allocation" sourceport="MEGs"
+        targetport="MEGs" to="Code Generation"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Code Generation"/>
     <dftools:dataTransfer from="scenario" sourceport="architecture"
