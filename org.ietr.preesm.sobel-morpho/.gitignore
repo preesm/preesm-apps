@@ -1,0 +1,11 @@
+/Debug
+/Code/bin
+/Code/dat
+/Code/generated
+/Code/lib
+/DAG
+/Algo/generated
+.settings
+/CodeC6678/*
+!/CodeC6678/src
+!/CodeC6678/include
