@@ -11,28 +11,43 @@
             <task name="top/Stabilization/v"/>
             <task name="top/DisplayYUV"/>
             <task name="top/Stabilization/y"/>
-            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DivideBlocks"/>
             <task name="top/Stabilization/u"/>
             <task name="top/Stabilization/DuplicateFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
+            <task name="top"/>
+            <task name="top/ReadYUV"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
+            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
             <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/ComputeBlockMotionVectors"/>
             <task name="top/Stabilization"/>
             <task name="top/WriteYUV"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top"/>
-            <task name="top/ReadYUV"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/ComputeBlockMotionVector"/>
             <task name="top/DuplicateY"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/rV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateV"/>
-            <task name="top/DuplicateU"/>
             <task name="top/Stabilization/rU"/>
+            <task name="top/DuplicateU"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="52" vertexname="ReadYUV"/>
+        <timing opname="x86" time="1" vertexname="FindDominatingMotion"/>
+        <timing opname="x86" time="140" vertexname="WriteYUV"/>
+        <timing opname="x86" time="29" vertexname="renderFrame"/>
+        <timing opname="x86" time="611" vertexname="DisplayYUV"/>
+        <timing opname="x86" time="31" vertexname="DivideBlocks"/>
+        <timing opname="x86" time="1" vertexname="AccumulateMotion"/>
+        <timing opname="x86" time="667" vertexname="MD5"/>
+        <timing opname="x86" time="6500" vertexname="ComputeBlockMotionVector"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-7"/>
     </timings>
     <simuParams>

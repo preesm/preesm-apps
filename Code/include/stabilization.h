@@ -141,9 +141,9 @@ void computeBlockMotionVectors(const int width, const int height,
 void computeBlockMotionVector(const int width, const int height,
 							  const int blockWidth, const int blockHeight,
 							  const int maxDeltaX, const int maxDeltaY,
-							  const coord * const blockCoord, const unsigned char * const blockData, 
-							  const unsigned char * const previousFrame,
-							  coord * const vector);
+							  IN const coord * const blockCoord, IN const unsigned char * const blockData, 
+							  IN const unsigned char * const previousFrame,
+							  OUT coord * const vector);
 
 /**
 * The method divides the input frame into blocks of blockWidth*

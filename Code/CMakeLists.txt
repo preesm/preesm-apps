@@ -24,7 +24,7 @@ endif()
 
 project(stabilization-sequential)
 project(stabilization)
-set(CMAKE_C_FLAGS "-DX1_CORE") 
+set(CMAKE_C_FLAGS "-DX4_CORES") 
 
 # Set to 1 to activate debug compilation (0 for release)
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")

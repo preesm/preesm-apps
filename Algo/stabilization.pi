@@ -42,33 +42,6 @@
             <port annotation="NONE"
                 expr="displayHeight/2*displayWidth/2" kind="input" name="rV"/>
         </node>
-        <node id="ComputeBlockMotionVectors" kind="actor">
-            <data key="graph_desc">Code/include/stabilization.h</data>
-            <loop name="computeBlockMotionVectors">
-                <param direction="IN" isConfig="true" name="width" type="const int"/>
-                <param direction="IN" isConfig="true" name="height" type="const int"/>
-                <param direction="IN" isConfig="true" name="blockWidth" type="const int"/>
-                <param direction="IN" isConfig="true" name="blockHeight" type="const int"/>
-                <param direction="IN" isConfig="true" name="maxDeltaX" type="const int"/>
-                <param direction="IN" isConfig="true" name="maxDeltaY" type="const int"/>
-                <param direction="IN" isConfig="false" name="frame" type="const unsigned char "/>
-                <param direction="IN" isConfig="false"
-                    name="previousFrame" type="const unsigned char "/>
-                <param direction="OUT" isConfig="false" name="vectors" type="coord "/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="blockWidth"/>
-            <port kind="cfg_input" name="blockHeight"/>
-            <port kind="cfg_input" name="maxDeltaX"/>
-            <port kind="cfg_input" name="maxDeltaY"/>
-            <port kind="cfg_input" name="nbVectors"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="frame"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="previousFrame"/>
-            <port annotation="NONE" expr="nbVectors" kind="output" name="vectors"/>
-        </node>
         <node id="DuplicateFrame" kind="broadcast">
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -143,19 +116,34 @@
             <port annotation="NONE" expr="1" kind="output" name="out_0"/>
             <port annotation="NONE" expr="1" kind="output" name="out_1"/>
         </node>
+        <node id="ComputeBlockMotionVectorss" kind="actor">
+            <data key="graph_desc">Algo/computeBlockMotion.pi</data>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="blockWidth"/>
+            <port kind="cfg_input" name="blockHeight"/>
+            <port kind="cfg_input" name="maxDeltaX"/>
+            <port kind="cfg_input" name="maxDeltaY"/>
+            <port kind="cfg_input" name="nbVectors"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="frame"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="previousFrame"/>
+            <port annotation="NONE" expr="nbVectors" kind="output" name="vectors"/>
+        </node>
         <edge kind="fifo" source="DuplicateFrame" sourceport="out_0"
-            target="ComputeBlockMotionVectors" targetport="frame" type="uchar"/>
+            target="ComputeBlockMotionVectorss" targetport="frame" type="uchar"/>
         <edge kind="fifo" source="u" sourceport="u" target="renderFrame"
             targetport="uIn" type="uchar"/>
         <edge kind="fifo" source="v" sourceport="v" target="renderFrame"
             targetport="vIn" type="uchar"/>
-        <edge kind="fifo" source="ComputeBlockMotionVectors"
+        <edge kind="fifo" source="ComputeBlockMotionVectorss"
             sourceport="vectors" target="FindDominatingMotion"
             targetport="vectors" type="coord"/>
         <edge kind="fifo" source="y" sourceport="y"
             target="DuplicateFrame" targetport="in" type="uchar"/>
         <edge expr="height*width" kind="fifo" source="DuplicateFrame"
-            sourceport="out_1" target="ComputeBlockMotionVectors"
+            sourceport="out_1" target="ComputeBlockMotionVectorss"
             targetport="previousFrame" type="uchar">
             <data key="delay"/>
         </edge>
@@ -181,17 +169,17 @@
             <data key="delay"/>
         </edge>
         <edge kind="dependency" source="width"
-            target="ComputeBlockMotionVectors" targetport="width"/>
+            target="ComputeBlockMotionVectorss" targetport="width"/>
         <edge kind="dependency" source="height"
-            target="ComputeBlockMotionVectors" targetport="height"/>
+            target="ComputeBlockMotionVectorss" targetport="height"/>
         <edge kind="dependency" source="blockWidth"
-            target="ComputeBlockMotionVectors" targetport="blockWidth"/>
+            target="ComputeBlockMotionVectorss" targetport="blockWidth"/>
         <edge kind="dependency" source="blockHeight"
-            target="ComputeBlockMotionVectors" targetport="blockHeight"/>
+            target="ComputeBlockMotionVectorss" targetport="blockHeight"/>
         <edge kind="dependency" source="maxDeltaX"
-            target="ComputeBlockMotionVectors" targetport="maxDeltaX"/>
+            target="ComputeBlockMotionVectorss" targetport="maxDeltaX"/>
         <edge kind="dependency" source="maxDeltaY"
-            target="ComputeBlockMotionVectors" targetport="maxDeltaY"/>
+            target="ComputeBlockMotionVectorss" targetport="maxDeltaY"/>
         <edge kind="dependency" source="width" target="y"/>
         <edge kind="dependency" source="height" target="y"/>
         <edge kind="dependency" source="width" target="u"/>
@@ -200,8 +188,8 @@
         <edge kind="dependency" source="height" target="v"/>
         <edge kind="dependency" source="width" target="DuplicateFrame" targetport="width"/>
         <edge kind="dependency" source="height" target="DuplicateFrame" targetport="height"/>
-        <edge kind="dependency" source="width" target="DuplicateFrame.out_1-ComputeBlockMotionVectors.previousFrame"/>
-        <edge kind="dependency" source="height" target="DuplicateFrame.out_1-ComputeBlockMotionVectors.previousFrame"/>
+        <edge kind="dependency" source="width" target="DuplicateFrame.out_1-ComputeBlockMotionVectorss.previousFrame"/>
+        <edge kind="dependency" source="height" target="DuplicateFrame.out_1-ComputeBlockMotionVectorss.previousFrame"/>
         <edge kind="dependency" source="height" target="nbVectors"/>
         <edge kind="dependency" source="width" target="nbVectors"/>
         <edge kind="dependency" source="blockWidth" target="nbVectors"/>
@@ -213,7 +201,7 @@
         <edge kind="dependency" source="height"
             target="FindDominatingMotion" targetport="height"/>
         <edge kind="dependency" source="nbVectors"
-            target="ComputeBlockMotionVectors" targetport="nbVectors"/>
+            target="ComputeBlockMotionVectorss" targetport="nbVectors"/>
         <edge kind="dependency" source="border" target="displayHeight"/>
         <edge kind="dependency" source="border" target="displayWidth"/>
         <edge kind="dependency" source="height" target="displayHeight"/>
