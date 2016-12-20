@@ -35,18 +35,6 @@ int main(int argc, char** argv)
 	initReadYUV(WIDTH, HEIGHT);
 	initYUVWrite();
 
-	// First frame display (no processing required)
-	// Read a frame
-	readYUV(WIDTH, HEIGHT, y, u, v);
-
-	// Render the frame
-	coord delta = { 0, 0 };
-	renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &delta, y, u, v, yDisp, uDisp, vDisp);
-
-	// Display it
-	yuvDisplay(0, yDisp, uDisp, vDisp);
-
-
 	unsigned int frameIndex = 1;
 	while (!stopThreads)
 	{
@@ -77,7 +65,7 @@ int main(int argc, char** argv)
 		accumulateMotion(&dominatingMotionVector, &accumulatedMotion, &accumulatedMotion);
 
 		// Render the motion compensated frame
-		renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &delta, y, u, v, yDisp, uDisp, vDisp);
+		renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &accumulatedMotion, y, u, v, yDisp, uDisp, vDisp);
 
 		// Display it
 		yuvDisplay(0, yDisp, uDisp, vDisp);
