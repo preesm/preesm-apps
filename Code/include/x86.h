@@ -37,6 +37,8 @@
 #include "fifo.h"
 #include "dump.h"
 
+#include "stabilization.h"
+
 
 typedef unsigned char uchar;
 

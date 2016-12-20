@@ -19,7 +19,7 @@
 
 void renderFrame(const int frameWidth, const int frameHeight,
 				 const int dispWidth, const int dispHeight,
-				 const coord * const delta,
+				 const coordf * const delta,
 				 const unsigned char * const yIn, const unsigned char * const uIn, const unsigned char * const vIn,
 				 unsigned char * const yOut, unsigned char * const uOut, unsigned char * const vOut){
 
@@ -30,8 +30,8 @@ void renderFrame(const int frameWidth, const int frameHeight,
 
 	// Compute the position of the rendered frame 
 	// top-left (first pixel position)
-	int xLeft = dispWidth / 2 - frameWidth / 2 + delta->x;
-	int yTop = dispHeight / 2 - frameHeight / 2 + delta->y;
+	int xLeft = dispWidth / 2 - frameWidth / 2 + (int)roundf(delta->x);
+	int yTop = dispHeight / 2 - frameHeight / 2 + (int)roundf(delta->y);
 	// bottom right corner (last pixel position +(1,1))
 	int xRight = xLeft + frameWidth;
 	int yBot = yTop + frameHeight;
@@ -65,6 +65,18 @@ void computeBlockMotionVectors(const int width, const int height,
 							   const int maxDeltaX, const int maxDeltaY,
 							   const unsigned char * const frame, const unsigned char * const previousFrame,
 							   coord * const vectors){
+	static int first = 0;
+
+	const unsigned char * pFrame;
+	if (first == 0){
+		first = 1;
+		pFrame	= frame;
+	}
+	else {
+		pFrame = previousFrame;
+	}
+
+
 	// Useful constant
 	const int blocksPerLine = width / blockWidth;
 
@@ -80,7 +92,7 @@ void computeBlockMotionVectors(const int width, const int height,
 			computeBlockMotionVector(width, height,
 									 blockWidth, blockHeight,
 									 maxDeltaX, maxDeltaY,
-									 b, previousFrame,
+									 b, pFrame,
 									 vectors + blY*blocksPerLine + blX);
 		}
 	}
@@ -228,13 +240,13 @@ void findDominatingMotionVector(const int nbVectors,
 	free(probas);
 }
 
-void accumulateMotion(const coordf * const motionVector, coordf * const accumulatedMotion){
+void accumulateMotion(const coordf * const motionVector, const coordf * const accumulatedMotionIn, coordf * const accumulatedMotionOut){
 
 	// Apply filter
-	accumulatedMotion->x *= HIGH_PASS_FILTER_TAP;
-	accumulatedMotion->y *= HIGH_PASS_FILTER_TAP;
+	accumulatedMotionOut->x = accumulatedMotionIn->x * HIGH_PASS_FILTER_TAP;
+	accumulatedMotionOut->y = accumulatedMotionIn->y * HIGH_PASS_FILTER_TAP;
 
 	// Accumulate new motion vector
-	accumulatedMotion->x += motionVector->x;
-	accumulatedMotion->y += motionVector->y;
+	accumulatedMotionOut->x += motionVector->x;
+	accumulatedMotionOut->y += motionVector->y;
 }

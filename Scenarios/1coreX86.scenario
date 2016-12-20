@@ -8,20 +8,34 @@
     <constraints excelUrl="">
         <constraintGroup>
             <operator name="Core0"/>
+            <task name="top/Stabilization/v"/>
             <task name="top/DisplayYUV"/>
+            <task name="top/Stabilization/y"/>
+            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/u"/>
+            <task name="top/Stabilization/DuplicateFrame"/>
+            <task name="top/Stabilization/AccumulateMotion"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectors"/>
+            <task name="top/Stabilization"/>
+            <task name="top/Stabilization/renderFrame"/>
             <task name="top"/>
             <task name="top/ReadYUV"/>
+            <task name="top/Stabilization/FindDominatingMotion"/>
+            <task name="top/Stabilization/rV"/>
+            <task name="top/Stabilization/rU"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-7"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
+            <dataType name="coordf" size="8"/>
+            <dataType name="coord" size="8"/>
             <dataType name="uchar" size="1"/>
         </dataTypes>
         <specialVertexOperators>

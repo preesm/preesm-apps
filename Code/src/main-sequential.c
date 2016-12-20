@@ -74,13 +74,9 @@ int main(int argc, char** argv)
 		#endif
 
 		// Accumulate motion
-		accumulateMotion(&dominatingMotionVector, &accumulatedMotion);
+		accumulateMotion(&dominatingMotionVector, &accumulatedMotion, &accumulatedMotion);
 
 		// Render the motion compensated frame
-		coord delta;
-		delta.y = (int)roundf(accumulatedMotion.y);
-		delta.x = (int)roundf(accumulatedMotion.x);
-
 		renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &delta, y, u, v, yDisp, uDisp, vDisp);
 
 		// Display it

@@ -12,6 +12,8 @@
 
 #include <assert.h>
 
+#include "preesm.h"
+
 #include "applicationParameters.h"
 #include "matrix.h"
 
@@ -77,9 +79,9 @@ typedef struct block {
 */
 void renderFrame(const int frameWidth, const int frameHeight,
 				 const int dispWidth, const int dispHeight,
-				 const coord * const delta,
-				 const unsigned char * const yIn, const unsigned char * const uIn, const unsigned char * const vIn,
-				 unsigned char * const yOut, unsigned char * const uOut, unsigned char * const vOut);
+				 IN const coordf * const delta,
+				 IN const unsigned char * const yIn, IN const unsigned char * const uIn, IN const unsigned char * const vIn,
+				 OUT unsigned char * const yOut, OUT unsigned char * const uOut, OUT unsigned char * const vOut);
 
 /**
 * Computes the motion vectors for the frame decomposed into blocks of
@@ -116,8 +118,8 @@ void renderFrame(const int frameWidth, const int frameHeight,
 void computeBlockMotionVectors(const int width, const int height,
 							   const int blockWidth, const int blockHeight,
 							   const int maxDeltaX, const int maxDeltaY,
-							   const unsigned char * const frame, const unsigned char * const previousFrame,
-							   coord * const vectors);
+							   IN const unsigned char * const frame, IN const unsigned char * const previousFrame,
+							   OUT coord * const vectors);
 
 /**
 * Computes the motion vectors for the given block.
@@ -226,7 +228,7 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 *		 vector resulting from the computation
 */
 void findDominatingMotionVector(const int nbVectors,
-								const coord * const vectors, coordf * const dominatingVector);
+								IN const coord * const vectors, OUT coordf * const dominatingVector);
 
 
 /**
@@ -236,10 +238,12 @@ void findDominatingMotionVector(const int nbVectors,
 * 
 * @param motionVector
 *        new 2D motion to accumulate.
-* @param accumulatedMotion
+* @param accumulatedMotionIn
+*        accumulated 2D motion vector to update.
+** @param accumulatedMotionOut
 *        updated accumulated 2D motion vector.
 */
-void accumulateMotion(const coordf * const motionVector, coordf * const accumulatedMotion);
+void accumulateMotion(IN const coordf * const motionVector, IN const coordf * const accumulatedMotionIn, OUT coordf * const accumulatedMotionOut);
 
 
 #endif
