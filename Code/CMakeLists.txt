@@ -24,7 +24,7 @@ endif()
 
 project(stabilization-sequential)
 project(stabilization)
-
+set(CMAKE_C_FLAGS "-DX1_CORE") 
 
 # Set to 1 to activate debug compilation (0 for release)
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -121,6 +121,7 @@ file(
 	source_files
 	./src/*.c
 	./include/*.h
+	./generated/*c
 )
 
 list(REMOVE_ITEM 
@@ -130,6 +131,14 @@ list(REMOVE_ITEM
 
 add_executable( stabilization ${source_files} ${header_files})
 target_link_libraries(stabilization ${SDL2_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+
+
+file(
+	GLOB_RECURSE
+	source_files
+	./src/*.c
+	./include/*.h
+)
 
 list(REMOVE_ITEM 
      source_files 

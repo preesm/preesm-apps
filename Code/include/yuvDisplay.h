@@ -8,6 +8,7 @@
 	============================================================================
 	*/
 
+#include "preesm.h"
 #include "applicationParameters.h"
 
 #ifndef DISPLAY_YUV
@@ -33,7 +34,7 @@
 * @param v
 *        the V component of the frame to display
 */
-void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v);
+void yuvDisplay(int id, IN unsigned char *y, IN unsigned char *u, IN unsigned char *v);
 
 /**
 * Initialize a new display with a parameterizable resolution and open a

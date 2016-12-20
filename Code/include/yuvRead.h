@@ -8,6 +8,7 @@
 	============================================================================
 */
 
+#include "preesm.h"
 #include "applicationParameters.h"
 
 #ifndef READ_YUV_H
@@ -38,7 +39,7 @@ void initReadYUV(int width, int height);
 * param v
 *       Destination of the V component read from the file
 */
-void readYUV(int width, int height,  unsigned char *y,  unsigned char *u,  unsigned char *v);
+void readYUV(int width, int height, OUT unsigned char *y, OUT unsigned char *u, OUT unsigned char *v);
 
 /**
 * Close the read file.
