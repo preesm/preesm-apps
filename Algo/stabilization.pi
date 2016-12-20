@@ -63,8 +63,10 @@
             <port kind="cfg_input" name="maxDeltaX"/>
             <port kind="cfg_input" name="maxDeltaY"/>
             <port kind="cfg_input" name="nbVectors"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="frame"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="previousFrame"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="frame"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="previousFrame"/>
             <port annotation="NONE" expr="nbVectors" kind="output" name="vectors"/>
         </node>
         <node id="DuplicateFrame" kind="broadcast">
@@ -108,8 +110,8 @@
             <port kind="cfg_input" name="frameHeight"/>
             <port kind="cfg_input" name="dispWidth"/>
             <port kind="cfg_input" name="dispHeight"/>
-            <port annotation="NONE" expr="1" kind="input" name="delta"/>
-            <port annotation="NONE" expr="frameHeight*frameWidth"
+            <port annotation="READ_ONLY" expr="1" kind="input" name="delta"/>
+            <port annotation="READ_ONLY" expr="frameHeight*frameWidth"
                 kind="input" name="yIn"/>
             <port annotation="NONE" expr="frameHeight/2*frameWidth/2"
                 kind="input" name="uIn"/>
@@ -133,7 +135,7 @@
                     name="accumulatedMotionOut" type="coordf "/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="motionVector"/>
-            <port annotation="NONE" expr="1" kind="input" name="accumulatedMotionIn"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="accumulatedMotionIn"/>
             <port annotation="NONE" expr="1" kind="output" name="accumulatedMotionOut"/>
         </node>
         <node id="DuplicateAccumulatedMotion" kind="broadcast">

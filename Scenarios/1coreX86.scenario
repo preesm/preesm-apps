@@ -21,8 +21,11 @@
             <task name="top"/>
             <task name="top/ReadYUV"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
+            <task name="top/DuplicateY"/>
             <task name="top/Stabilization/rV"/>
+            <task name="top/MD5"/>
             <task name="top/Stabilization/rU"/>
+            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

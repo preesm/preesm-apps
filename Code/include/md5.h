@@ -23,10 +23,14 @@
  * See md5.c for more information.
  */
 
+#define VERBOSE
+
 #ifdef HAVE_OPENSSL
 #include <openssl/md5.h>
 #elif !defined(_MD5_H)
 #define _MD5_H
+
+#include "preesm.h"
 
 /* Any 32-bit or wider unsigned integer data type will do */
 typedef unsigned int MD5_u32plus;
@@ -38,8 +42,11 @@ typedef struct {
 	MD5_u32plus block[16];
 } MD5_CTX;
 
-extern void MD5_Init(MD5_CTX *ctx);
-extern void MD5_Update(MD5_CTX *ctx, const void *data, unsigned long size);
-extern void MD5_Final(unsigned char *result, MD5_CTX *ctx);
+/**
+* Modified version of the MD5 to fit Preesm prototypes style.
+* 
+* 
+*/
+void MD5_Update(unsigned long size, IN const void *data);
 
 #endif

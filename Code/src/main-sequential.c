@@ -25,8 +25,6 @@ int main(int argc, char** argv)
 	static coord motionVectors[(HEIGHT / BLOCK_HEIGHT)*(WIDTH / BLOCK_WIDTH)];
 	static coordf dominatingMotionVector;
 	static coordf accumulatedMotion = { 0.0f, 0.0f };
-	static MD5_CTX md5_ctx;
-	static unsigned char hash[16];
 
 	// Init display
 	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
@@ -71,17 +69,7 @@ int main(int argc, char** argv)
 		yuvDisplay(0, yDisp, uDisp, vDisp);
 
 		// Compute the MD5 of the rendered frame
-		MD5_Init(&md5_ctx);
-		MD5_Update(&md5_ctx, yDisp, DISPLAY_H*DISPLAY_W);
-		MD5_Final(hash, &md5_ctx);
-		#ifdef VERBOSE
-		// Print MD5
-		printf("MD5 %3d: ",frameIndex);
-		for (int i = 16; i > 0; i -= 1){
-			printf("%02x", *(hash+i-1));
-		}
-		printf("\n");
-		#endif
+		MD5_Update(DISPLAY_H*DISPLAY_W, yDisp);
 
 		// Save it
 		yuvWrite(DISPLAY_W, DISPLAY_H, yDisp, uDisp, vDisp);

@@ -65,18 +65,6 @@ void computeBlockMotionVectors(const int width, const int height,
 							   const int maxDeltaX, const int maxDeltaY,
 							   const unsigned char * const frame, const unsigned char * const previousFrame,
 							   coord * const vectors){
-	static int first = 0;
-
-	const unsigned char * pFrame;
-	if (first == 0){
-		first = 1;
-		pFrame	= frame;
-	}
-	else {
-		pFrame = previousFrame;
-	}
-
-
 	// Useful constant
 	const int blocksPerLine = width / blockWidth;
 
@@ -92,7 +80,7 @@ void computeBlockMotionVectors(const int width, const int height,
 			computeBlockMotionVector(width, height,
 									 blockWidth, blockHeight,
 									 maxDeltaX, maxDeltaY,
-									 b, pFrame,
+									 b, previousFrame,
 									 vectors + blY*blocksPerLine + blX);
 		}
 	}
@@ -200,44 +188,54 @@ void divideBlocks(const int width, const int height,
 
 void findDominatingMotionVector(const int nbVectors,
 								const coord * const vectors, coordf * const dominatingVector){
-	// Compute multivariate gaussian parameters
-	coordf mean;
-	matrix sigma;
-	meanVector(nbVectors, vectors, &mean);
-	covarianceMatrix2D(nbVectors, vectors, &mean, &sigma);
+	static int first = 0;
 
-
-	// Keep only the vectors with the highest probability
-	// (criteria is a probability threshold, but a fixed number of vectors
-	// could be used instead)
-	float * probas = malloc(nbVectors*sizeof(nbVectors));
-	getProbabilities(nbVectors, vectors, &mean, &sigma, probas);
-
-	// Keep the mean of most probable vectors
-	// find max proba
-	float threshold = 0.0f;
-	for (int i = 0; i < nbVectors; i++){
-		threshold = MAX(threshold, probas[i]);
+	const unsigned char * pFrame;
+	if (first == 0){
+		first = 1;
+		dominatingVector->x = 0;
+		dominatingVector->y = 0;
 	}
+	else {
+		// Compute multivariate gaussian parameters
+		coordf mean;
+		matrix sigma;
+		meanVector(nbVectors, vectors, &mean);
+		covarianceMatrix2D(nbVectors, vectors, &mean, &sigma);
 
-	// Lower thresold
-	threshold *= 2.0f / 3.0f;
-	dominatingVector->x = 0.0f;
-	dominatingVector->y = 0.0f;
-	int nbAbove = 0;
-	for (int i = 0; i < nbVectors; i++){
-		if (probas[i] > threshold){
-			nbAbove++;
-			dominatingVector->x += vectors[i].x;
-			dominatingVector->y += vectors[i].y;
+
+		// Keep only the vectors with the highest probability
+		// (criteria is a probability threshold, but a fixed number of vectors
+		// could be used instead)
+		float * probas = malloc(nbVectors*sizeof(nbVectors));
+		getProbabilities(nbVectors, vectors, &mean, &sigma, probas);
+
+		// Keep the mean of most probable vectors
+		// find max proba
+		float threshold = 0.0f;
+		for (int i = 0; i < nbVectors; i++){
+			threshold = MAX(threshold, probas[i]);
 		}
+
+		// Lower thresold
+		threshold *= 2.0f / 3.0f;
+		dominatingVector->x = 0.0f;
+		dominatingVector->y = 0.0f;
+		int nbAbove = 0;
+		for (int i = 0; i < nbVectors; i++){
+			if (probas[i] > threshold){
+				nbAbove++;
+				dominatingVector->x += vectors[i].x;
+				dominatingVector->y += vectors[i].y;
+			}
+		}
+		dominatingVector->x /= (float)nbAbove;
+		dominatingVector->y /= (float)nbAbove;
+
+
+		// Cleanup
+		free(probas);
 	}
-	dominatingVector->x /= (float)nbAbove;
-	dominatingVector->y /= (float)nbAbove;
-
-
-	// Cleanup
-	free(probas);
 }
 
 void accumulateMotion(const coordf * const motionVector, const coordf * const accumulatedMotionIn, coordf * const accumulatedMotionOut){
