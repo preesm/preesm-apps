@@ -17,13 +17,16 @@
             <task name="top/Stabilization/AccumulateMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectors"/>
             <task name="top/Stabilization"/>
+            <task name="top/WriteYUV"/>
             <task name="top/Stabilization/renderFrame"/>
             <task name="top"/>
             <task name="top/ReadYUV"/>
-            <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/DuplicateY"/>
+            <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/rV"/>
             <task name="top/MD5"/>
+            <task name="top/DuplicateV"/>
+            <task name="top/DuplicateU"/>
             <task name="top/Stabilization/rU"/>
             <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
         </constraintGroup>

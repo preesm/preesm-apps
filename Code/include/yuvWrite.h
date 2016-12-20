@@ -8,6 +8,7 @@
 * @copyright CECILL-C
 */
 
+#include "preesm.h"
 #include "applicationParameters.h"
 
 #ifndef YUV_WRITE_H
@@ -35,9 +36,9 @@ void initYUVWrite();
 *       V component written in the file
 */
 void yuvWrite(const int width, const int height,
-			  const unsigned char * const y, 
-			  const unsigned char * const u, 
-			  const unsigned char * const v);
+			  IN const unsigned char * const y, 
+			  IN const unsigned char * const u, 
+			  IN const unsigned char * const v);
 
 /**
 * Close the written file.

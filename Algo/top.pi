@@ -54,8 +54,10 @@
             <port kind="cfg_input" name="border"/>
             <port annotation="READ_ONLY" expr="height*width"
                 kind="input" name="y"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="u"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
+            <port annotation="READ_ONLY" expr="height/2*width/2"
+                kind="input" name="u"/>
+            <port annotation="READ_ONLY" expr="height/2*width/2"
+                kind="input" name="v"/>
         </node>
         <node id="Stabilization" kind="actor">
             <data key="graph_desc">Algo/stabilization.pi</data>
@@ -88,6 +90,38 @@
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
+        </node>
+        <node id="WriteYUV" kind="actor">
+            <data key="graph_desc">Code/include/yuvWrite.h</data>
+            <loop name="yuvWrite">
+                <param direction="IN" isConfig="true" name="width" type="const int"/>
+                <param direction="IN" isConfig="true" name="height" type="const int"/>
+                <param direction="IN" isConfig="false" name="y" type="const unsigned char "/>
+                <param direction="IN" isConfig="false" name="u" type="const unsigned char "/>
+                <param direction="IN" isConfig="false" name="v" type="const unsigned char "/>
+            </loop>
+            <init name="initYUVWrite"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="READ_ONLY" expr="height*width"
+                kind="input" name="y"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="u"/>
+            <port annotation="READ_ONLY" expr="height/2*width/2"
+                kind="input" name="v"/>
+        </node>
+        <node id="DuplicateU" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size/4" kind="input" name="in"/>
+            <port annotation="NONE" expr="size/4" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size/4" kind="output" name="out_1"/>
+        </node>
+        <node id="DuplicateV" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size/4" kind="input" name="in"/>
+            <port annotation="NONE" expr="size/4" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size/4" kind="output" name="out_1"/>
         </node>
         <edge kind="fifo" source="ReadYUV" sourceport="y"
             target="Stabilization" targetport="y" type="uchar"/>
@@ -98,13 +132,23 @@
         <edge kind="fifo" source="Stabilization" sourceport="rY"
             target="DuplicateY" targetport="in" type="uchar"/>
         <edge kind="fifo" source="Stabilization" sourceport="rU"
-            target="DisplayYUV" targetport="u" type="uchar"/>
+            target="DuplicateU" targetport="in" type="uchar"/>
         <edge kind="fifo" source="Stabilization" sourceport="rV"
-            target="DisplayYUV" targetport="v" type="uchar"/>
+            target="DuplicateV" targetport="in" type="uchar"/>
         <edge kind="fifo" source="DuplicateY" sourceport="out_0"
             target="DisplayYUV" targetport="y" type="uchar"/>
         <edge kind="fifo" source="DuplicateY" sourceport="out_1"
             target="MD5" targetport="data" type="uchar"/>
+        <edge kind="fifo" source="DuplicateY" sourceport="out_2"
+            target="WriteYUV" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="DuplicateU" sourceport="out_0"
+            target="DisplayYUV" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="DuplicateU" sourceport="out_1"
+            target="WriteYUV" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="DuplicateV" sourceport="out_0"
+            target="DisplayYUV" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="DuplicateV" sourceport="out_1"
+            target="WriteYUV" targetport="v" type="uchar"/>
         <edge kind="dependency" source="width" target="ReadYUV" targetport="width"/>
         <edge kind="dependency" source="height" target="ReadYUV" targetport="height"/>
         <edge kind="dependency" source="displayHeight"
@@ -125,5 +169,9 @@
         <edge kind="dependency" source="displayWidth" target="displaySize"/>
         <edge kind="dependency" source="displaySize" target="MD5" targetport="size"/>
         <edge kind="dependency" source="displaySize" target="DuplicateY" targetport="size"/>
+        <edge kind="dependency" source="displaySize" target="DuplicateU" targetport="size"/>
+        <edge kind="dependency" source="displaySize" target="DuplicateV" targetport="size"/>
+        <edge kind="dependency" source="displayWidth" target="WriteYUV" targetport="width"/>
+        <edge kind="dependency" source="displayHeight" target="WriteYUV" targetport="height"/>
     </graph>
 </graphml>
