@@ -33,18 +33,6 @@
 #define MIN(x,y) ((x>y)? y:x)
 #define MAX(x,y) ((x>y)? x:y)
 
-/**
-* Structure used to store a block of pixels and its associated coordinates in
-* the original frame.
-*
-* The size of a block is determined by BLOCK_WIDTH and BLOCK_HEIGHT macro.
-*/
-typedef struct block {
-	coord coordinates; //!< coordinates of the first pixel of the block.
-	unsigned char pix[BLOCK_WIDTH*BLOCK_HEIGHT]; //!< pixels of the block.
-} block;
-
-
 
 /**
 * Render a motion compensated frame in for a display of configurable size.
@@ -153,7 +141,8 @@ void computeBlockMotionVectors(const int width, const int height,
 void computeBlockMotionVector(const int width, const int height,
 							  const int blockWidth, const int blockHeight,
 							  const int maxDeltaX, const int maxDeltaY,
-							  const block * const b, const unsigned char * const previousFrame,
+							  const coord * const blockCoord, const unsigned char * const blockData, 
+							  const unsigned char * const previousFrame,
 							  coord * const vector);
 
 /**
@@ -175,8 +164,9 @@ void computeBlockMotionVector(const int width, const int height,
 */
 void divideBlocks(const int width, const int height,
 				  const int blockWidth, const int blockHeight,
-				  const unsigned char * const frame,
-				  block * const blocks);
+				  IN const unsigned char * const frame,
+				  OUT coord * const blocksCoord,
+				  OUT unsigned char * const blocksData);
 
 /**
 * Computes the Mean Squared Error for the given block at the given position.
@@ -206,7 +196,9 @@ void divideBlocks(const int width, const int height,
 unsigned int computeMeanSquaredError(const int width, const int height,
 									 const int blockWidth, const int blockHeight,
 									 const int deltaX, const int deltaY,
-									 const block * const b, const unsigned char * const previousFrame);
+									 const coord * blockCoort,
+									 const unsigned char * const blockData, 
+									 const unsigned char * const previousFrame);
 
 
 /**

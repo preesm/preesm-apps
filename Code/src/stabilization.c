@@ -67,33 +67,42 @@ void computeBlockMotionVectors(const int width, const int height,
 							   coord * const vectors){
 	// Useful constant
 	const int blocksPerLine = width / blockWidth;
+	const int nbBlocks = ((width / blockWidth)*(height / blockHeight));
+	const int blockSize = blockHeight*blockWidth;
 
 	// Divide into blocks
-	block *blocks;
-	blocks = malloc((width / blockWidth)*(height / blockHeight)*sizeof(block));
-	divideBlocks(width, height, blockWidth, blockHeight, frame, blocks);
+	coord * blocksCoord;
+	blocksCoord = malloc(nbBlocks*sizeof(coord));
+	unsigned char * blocksData;
+	blocksData = malloc(nbBlocks*blockSize*sizeof(unsigned char));
+	divideBlocks(width, height, blockWidth, blockHeight, frame, blocksCoord, blocksData);
 
 	// Process the blocks one by one
 	for (int blY = 0; blY < (height / blockHeight); blY++){
 		for (int blX = 0; blX < (width / blockWidth); blX++){
-			const block* const b = blocks + blY*blocksPerLine + blX;
+			const unsigned char * const blockData = blocksData + (blY*blocksPerLine + blX)*blockSize;
+			const coord * const blockCoord = blocksCoord + blY*blocksPerLine + blX;
 			computeBlockMotionVector(width, height,
 									 blockWidth, blockHeight,
 									 maxDeltaX, maxDeltaY,
-									 b, previousFrame,
+									 blockCoord,
+									 blockData, previousFrame,
 									 vectors + blY*blocksPerLine + blX);
 		}
 	}
 
 	// Free blocks memory
-	free(blocks);
+	free(blocksCoord);
+	free(blocksData);
 }
 
 
 unsigned int computeMeanSquaredError(const int width, const int height,
 									 const int blockWidth, const int blockHeight,
 									 const int deltaX, const int deltaY,
-									 const block * const b, const unsigned char * const previousFrame){
+									 const coord * blockCoord,
+									 const unsigned char * const blockData, 
+									 const unsigned char * const previousFrame){
 	// Clip previous values to stay within the previousFrame
 	int yMinClip = MIN(MAX(0 - deltaY, 0), blockHeight);
 	int xMinClip = MIN(MAX(0 - deltaX, 0), blockWidth);
@@ -114,7 +123,7 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 		cost = 0;
 		for (int y = yMinClip; y < yMaxClip; y++){
 			for (int x = yMinClip; x < xMaxClip; x++){
-				const unsigned char pixBlock = *(b->pix + y*blockWidth + x);
+				const unsigned char pixBlock = *(blockData + y*blockWidth + x);
 				const unsigned char pixFrame = *(previousFrame + (deltaY * width + deltaX) + y * width + x);
 				// Squared error
 				short diff = pixFrame - pixBlock;
@@ -131,15 +140,16 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 void computeBlockMotionVector(const int width, const int height,
 							  const int blockWidth, const int blockHeight,
 							  const int maxDeltaX, const int maxDeltaY,
-							  const block * const b, const unsigned char * const previousFrame,
+							  const coord * const blockCoord, const unsigned char * const blockData,
+							  const unsigned char * const previousFrame,
 							  coord * const vector){
 	// Compute neighboorhood start positions
 	// Top-left 
-	int deltaYTop = b->coordinates.y - maxDeltaY;
-	int deltaXLeft = b->coordinates.x - maxDeltaX;
+	int deltaYTop = blockCoord->y - maxDeltaY;
+	int deltaXLeft = blockCoord->x - maxDeltaX;
 	// Bottom-right +(1,1)
-	int deltaYBot = b->coordinates.y + maxDeltaY;
-	int deltaXRight = b->coordinates.x + maxDeltaX;
+	int deltaYBot = blockCoord->y + maxDeltaY;
+	int deltaXRight = blockCoord->x + maxDeltaX;
 
 	// Initialize MMSE search
 	unsigned int minCost = UINT_MAX;
@@ -152,13 +162,14 @@ void computeBlockMotionVector(const int width, const int height,
 			unsigned int cost = computeMeanSquaredError(width, height,
 														blockWidth, blockHeight,
 														deltaX, deltaY,
-														b, previousFrame);
+														blockCoord,
+														blockData, previousFrame);
 
 			// Minimizes MSE
 			if (cost < minCost){
 				minCost = cost;
-				vector->x = deltaX - b->coordinates.x;
-				vector->y = deltaY - b->coordinates.y;
+				vector->x = deltaX - blockCoord->x;
+				vector->y = deltaY - blockCoord->y;
 			}
 		}
 	}
@@ -168,17 +179,20 @@ void computeBlockMotionVector(const int width, const int height,
 void divideBlocks(const int width, const int height,
 				  const int blockWidth, const int blockHeight,
 				  const unsigned char * const frame,
-				  block * const blocks){
+				  coord * const blocksCoord,
+				  unsigned char * const blocksData){
 	const int blocksPerLine = width / blockWidth;
+	const int blockSize = blockHeight*blockWidth;
 	// Raster scan blocks
 	for (int y = 0; y < height / blockHeight; y++){
 		for (int x = 0; x < blocksPerLine; x++){
-			block * b = blocks + y*(blocksPerLine)+x;
-			b->coordinates.x = x*blockWidth;
-			b->coordinates.y = y*blockHeight;
+			coord * blockCoord = blocksCoord + y*(blocksPerLine)+x;
+			unsigned char * blockData = blocksData + (y*(blocksPerLine)+x)*blockSize;
+			blockCoord->x = x*blockWidth;
+			blockCoord->y = y*blockHeight;
 			// Copy block lines in output
 			for (int line = 0; line < blockHeight; line++){
-				memcpy(b->pix + line * blockWidth,
+				memcpy(blockData + line * blockWidth,
 					   frame + (y*blockHeight + line)*width + x*blockWidth,
 					   blockWidth);
 			}
