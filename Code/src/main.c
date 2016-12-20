@@ -1,120 +1,124 @@
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+/*
+	============================================================================
+	Name        : main.c
+	Author      : kdesnos
+	Version     :
+	Copyright   : CECILL-C
+	Description :
+	============================================================================
+*/
 
-#include "applicationParameters.h"
-#include "yuvDisplay.h" 
-#include "yuvRead.h"	
-#include "yuvWrite.h"
-#include "stabilization.h"
-#include "md5.h"
 
-// #define VERBOSE
+
+
+#include "x86.h"
+
+
+pthread_barrier_t iter_barrier;
+int stopThreads;
+
+
+int main(void)
+{
+
+    // Declaring thread pointers
+#ifdef X1_CORE
+    pthread_t threadCore0;
+#else
+#ifdef X4_CORES
+    pthread_t threadCore0;
+    pthread_t threadCore1;
+    pthread_t threadCore2;
+    pthread_t threadCore3;
+#else
+#ifdef X8_CORES
+    pthread_t threadCore0;
+    pthread_t threadCore1;
+    pthread_t threadCore2;
+    pthread_t threadCore3;
+    pthread_t threadCore4;
+    pthread_t threadCore5;
+    pthread_t threadCore6;
+    pthread_t threadCore7;
+#else
 #ifdef VERBOSE
-#include <stdio.h>
+    printf("Error: no number of cores defined\n");
+#endif
+#endif // 8_CORES
+#endif // 4_CORES
+#endif // 1_CORE
+
+#ifdef VERBOSE
+    printf("Launched main\n");
 #endif
 
-int stopThreads = 0;
+// Creating a synchronization barrier
+    stopThreads = 0;
+#ifdef X1_CORE
+    pthread_barrier_init(&iter_barrier, NULL, 1);
+#else
+#ifdef X4_CORES
+    pthread_barrier_init(&iter_barrier, NULL, 4);
+#else
+#ifdef X8_CORES
+    pthread_barrier_init(&iter_barrier, NULL, 8);
+#endif // 8_CORES
+#endif // 4_CORES
+#endif // 1_CORE
 
-int main(int argc, char** argv)
-{
-	// Declarations
-	static unsigned char y[HEIGHT*WIDTH], u[HEIGHT*WIDTH / 4], v[HEIGHT*WIDTH / 4];
-	static unsigned char yPrevious[HEIGHT*WIDTH];
-	static unsigned char yDisp[DISPLAY_W*DISPLAY_H], uDisp[DISPLAY_W*DISPLAY_H / 4], vDisp[DISPLAY_W*DISPLAY_H / 4];
-	static coord motionVectors[(HEIGHT / BLOCK_HEIGHT)*(WIDTH / BLOCK_WIDTH)];
-	static coordf dominatingMotionVector;
-	static coordf accumulatedMotion = { 0.0f, 0.0f };
-	static MD5_CTX md5_ctx;
-	static unsigned char hash[16];
+    // Creating threads
+#ifdef X1_CORE
+    pthread_create(&threadCore0, NULL, computationThread_Core0, NULL);
+#else
+#ifdef X4_CORES
+    pthread_create(&threadCore0, NULL, computationThread_Core0, NULL);
+    pthread_create(&threadCore1, NULL, computationThread_Core1, NULL);
+    pthread_create(&threadCore2, NULL, computationThread_Core2, NULL);
+    pthread_create(&threadCore3, NULL, computationThread_Core3, NULL);
+#else
+#ifdef X8_CORES
+    pthread_create(&threadCore0, NULL, computationThread_Core0, NULL);
+    pthread_create(&threadCore1, NULL, computationThread_Core1, NULL);
+    pthread_create(&threadCore2, NULL, computationThread_Core2, NULL);
+    pthread_create(&threadCore3, NULL, computationThread_Core3, NULL);
+    pthread_create(&threadCore4, NULL, computationThread_Core4, NULL);
+    pthread_create(&threadCore5, NULL, computationThread_Core5, NULL);
+    pthread_create(&threadCore6, NULL, computationThread_Core6, NULL);
+    pthread_create(&threadCore7, NULL, computationThread_Core7, NULL);
+#endif // 8_CORES
+#endif // 4_CORES
+#endif // 1_CORE
 
-	// Init display
-	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
+// Waiting for thread terminations
+#ifdef X1_CORE
+    pthread_join(threadCore0,NULL);
+#else
+#ifdef X4_CORES
+    pthread_join(threadCore0,NULL);
+    pthread_join(threadCore1,NULL);
+    pthread_join(threadCore2,NULL);
+    pthread_join(threadCore3,NULL);
+#else
+#ifdef X8_CORES
+    pthread_join(threadCore0,NULL);
+    pthread_join(threadCore1,NULL);
+    pthread_join(threadCore2,NULL);
+    pthread_join(threadCore3,NULL);
+    pthread_join(threadCore4,NULL);
+    pthread_join(threadCore5,NULL);
+    pthread_join(threadCore6,NULL);
+    pthread_join(threadCore7,NULL);
+#endif // 8_CORES
+#endif // 4_CORES
+#endif // 1_CORE
 
-	// Open files
-	initReadYUV(WIDTH, HEIGHT);
-	initYUVWrite();
-
-	// First frame display (no processing required)
-	// Read a frame
-	readYUV(WIDTH, HEIGHT, y, u, v);
-
-	// Render the frame
-	coord delta = { 0, 0 };
-	renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &delta, y, u, v, yDisp, uDisp, vDisp);
-
-	// Display it
-	yuvDisplay(0, yDisp, uDisp, vDisp);
 
 
-	unsigned int frameIndex = 1;
-	while (!stopThreads)
-	{
-		// Backup previous frame
-		memcpy(yPrevious, y, HEIGHT*WIDTH);
+#ifdef VERBOSE
+    printf("Press any key to stop application\n");
+#endif
 
-		// Read a frame
-		readYUV(WIDTH, HEIGHT, y, u, v);
-
-		// Compute motion vectors
-		computeBlockMotionVectors(WIDTH, HEIGHT,
-								  BLOCK_WIDTH, BLOCK_HEIGHT,
-								  MAX_DELTA_X, MAX_DELTA_Y,
-								  y, yPrevious,
-								  motionVectors);
-
-		// Find dominating motion vector
-		const int nbVectors = (HEIGHT / BLOCK_HEIGHT)*(WIDTH / BLOCK_WIDTH);
-		findDominatingMotionVector(nbVectors,
-								   motionVectors, &dominatingMotionVector);
-		#ifdef VERBOSE
-		// Print motion vector
-		printf("Frame %3d: %2.2f, %2.2f\n", frameIndex,
-			   dominatingMotionVector.x, dominatingMotionVector.y);
-		#endif
-
-		// Accumulate motion
-		accumulateMotion(&dominatingMotionVector, &accumulatedMotion);
-
-		// Render the motion compensated frame
-		coord delta;
-		delta.y = (int)roundf(accumulatedMotion.y);
-		delta.x = (int)roundf(accumulatedMotion.x);
-
-		renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &delta, y, u, v, yDisp, uDisp, vDisp);
-
-		// Display it
-		yuvDisplay(0, yDisp, uDisp, vDisp);
-
-		// Compute the MD5 of the rendered frame
-		MD5_Init(&md5_ctx);
-		MD5_Update(&md5_ctx, yDisp, DISPLAY_H*DISPLAY_W);
-		MD5_Final(hash, &md5_ctx);
-		#ifdef VERBOSE
-		// Print MD5
-		printf("MD5 %3d: ",frameIndex);
-		for (int i = 16; i > 0; i -= 1){
-			printf("%02x", *(hash+i-1));
-		}
-		printf("\n");
-		#endif
-
-		// Save it
-		yuvWrite(DISPLAY_W, DISPLAY_H, yDisp, uDisp, vDisp);
-
-		// Exit ?
-		frameIndex++;
-		if (frameIndex == NB_FRAME){
-			stopThreads = 1;
-		}
-	}
-
-	#ifdef VERBOSE
-	printf("Exit program\n");
-	#endif 
-	yuvFinalize(0);
-	endYUVRead();
-	endYUVWrite();
-
-	return 0;
+    // Waiting for the user to end the procedure
+    getchar();
+    exit(0);
 }

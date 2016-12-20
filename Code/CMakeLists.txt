@@ -22,7 +22,9 @@ if(NOT WIN32)
 	MESSAGE(WARNING "This CMake project has not been tested on Linux.")
 endif()
 
+project(stabilization-sequential)
 project(stabilization)
+
 
 # Set to 1 to activate debug compilation (0 for release)
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -80,9 +82,40 @@ if (WIN32)
 endif()
 
 # *******************************************
+# ************ Pthread LIBRARY **************
+# *******************************************
+if (WIN32)
+  set(THREADS_USE_PTHREADS_WIN32 true)
+	# pthread included AFTER Sdl to avoid unnecessary warnings
+	file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
+	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
+	Find_Package ( THREADS REQUIRED )
+endif()
+
+if(NOT THREADS_FOUND)
+	MESSAGE(FATAL_ERROR "Pthread not found !")
+endif()
+
+
+if (WIN32)
+	file(GLOB
+		PTHREADS_DLL
+		${CMAKE_PREFIX_PATH}/lib/*.dll
+	)
+
+	MESSAGE("Copy Pthreads DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	else()
+		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+	endif()
+endif()
+
+# *******************************************
 # ************ stabilization.exe  *************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${THREADS_PTHREADS_INCLUDE_DIR} ${SDL2_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -90,5 +123,31 @@ file(
 	./include/*.h
 )
 
+list(REMOVE_ITEM 
+     source_files 
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
+	 )
+
 add_executable( stabilization ${source_files} ${header_files})
-target_link_libraries(stabilization ${SDL2_LIBRARY})
+target_link_libraries(stabilization ${SDL2_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+
+list(REMOVE_ITEM 
+     source_files 
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/fifo.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/communication.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/memory.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/dump.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/fifo.h"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/communication.h"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/memory.h"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/dump.h"
+	 )
+	 
+list(APPEND  
+     source_files 
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
+	 )
+add_executable( stabilization-sequential ${source_files} ${header_files})
+target_link_libraries(stabilization-sequential ${SDL2_LIBRARY})
+
