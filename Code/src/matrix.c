@@ -18,7 +18,8 @@
 void meanVector(const unsigned int nbVector, const coord * const vectors,
 				coordf * const mean){
 	long x = 0, y = 0;
-	for (const coord * vec = vectors; vec < vectors + nbVector; vec++){
+	const coord * vec = vectors;
+	for (; vec < vectors + nbVector; vec++){
 		x += vec->x;
 		y += vec->y;
 	}
@@ -31,9 +32,10 @@ void covarianceMatrix2D(const unsigned int nbVector, const coord * const vectors
 						const coordf * const mean, matrix * const sigma){
 
 	coordf *temp = malloc(nbVector*sizeof(coordf));
-
+    unsigned int i ;
+    unsigned int c;
 	// Substract mean to all vectors
-	for (unsigned int i = 0; i < nbVector; i++){
+	for (i = 0; i < nbVector; i++){
 		(temp + i)->x = (vectors + i)->x - mean->x;
 		(temp + i)->y = (vectors + i)->y - mean->y;
 	}
@@ -44,7 +46,7 @@ void covarianceMatrix2D(const unsigned int nbVector, const coord * const vectors
 	sigma->coeffs[1] = 0.0;
 	sigma->coeffs[2] = 0.0;
 	sigma->coeffs[3] = 0.0;
-	for (unsigned int c = 0; c < nbVector; c++){
+	for (c = 0; c < nbVector; c++){
 		sigma->coeffs[0] += (temp + c)->x * (temp + c)->x;
 		sigma->coeffs[1] += (temp + c)->x * (temp + c)->y;
 		// sigma->coeffs[2] += equal to coeffs[1]
@@ -73,9 +75,10 @@ void getProbabilities(const unsigned int nbVector, const coord * const vectors,
 
 		// pre compute denominator
 		const float divisor = 1.0f / sqrtf(4.0f * PI * PI * detSigma);
+		unsigned int i ;
 
 		// Loop over the vectors to compute probability
-		for (unsigned int i = 0; i < nbVector; i++){
+		for (i= 0; i < nbVector; i++){
 			const coord *vec = vectors + i;
 			// Substract mean value
 			float tX = vec->x - mean->x;
@@ -97,8 +100,9 @@ void getProbabilities(const unsigned int nbVector, const coord * const vectors,
 
 		// compute the probabilities for the dimension with non zero variance (if any).
 		if (dimension == 0){
+                unsigned int i;
 			// all vectors are identical
-			for (unsigned int i = 0; i < nbVector; i++){
+			for (i = 0; i < nbVector; i++){
 				proba[i] = 1.0;
 			}
 		}
@@ -109,7 +113,8 @@ void getProbabilities(const unsigned int nbVector, const coord * const vectors,
 			const float divisor = 1.0f / (sqrtf(2.0f * PI) * var);
 
 			// Loop over the vectors to compute probability
-			for (unsigned int i = 0; i < nbVector; i++){
+			unsigned int i;
+			for (i = 0; i < nbVector; i++){
 				float val = (dimension == 2) ? vectors[i].x - mean->x : vectors[i].y - mean->y;
 				proba[i] = expf(-(val*val) / (2 * var))*divisor;
 			}

@@ -12,7 +12,7 @@
 #define X86_H
 
 #define VERBOSE
-	
+
 #ifdef _WIN32
 #include <windows.h>
 #include <pthread.h>
@@ -33,6 +33,9 @@
 #include <string.h>
 #include <semaphore.h>
 
+#include "yuvRead.h"
+#include "yuvWrite.h"
+#include "yuvDisplay.h"
 #include "communication.h"
 #include "fifo.h"
 #include "dump.h"

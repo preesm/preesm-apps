@@ -28,7 +28,7 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	memset(uOut, BG_BLACK_U, dispWidth*dispHeight / 4);
 	memset(vOut, BG_BLACK_V, dispWidth*dispHeight / 4);
 
-	// Compute the position of the rendered frame 
+	// Compute the position of the rendered frame
 	// top-left (first pixel position)
 	int xLeft = dispWidth / 2 - frameWidth / 2 + (int)roundf(delta->x);
 	int yTop = dispHeight / 2 - frameHeight / 2 + (int)roundf(delta->y);
@@ -43,14 +43,15 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	int yBotClip = MIN(MAX(yBot, 0), dispHeight);
 
 	// Render Y
-	for (int y = yTopClip; y < yBotClip; y++){
+	int y;
+	for (y = yTopClip; y < yBotClip; y++){
 		memcpy(yOut + y*dispWidth + xLeftClip,
 			   yIn + (y - yTop)*frameWidth + (xLeftClip - xLeft),
 			   xRightClip - xLeftClip);
 	}
 
 	// Render UV
-	for (int y = yTopClip / 2; y < yBotClip / 2; y++){
+	for (y = yTopClip / 2; y < yBotClip / 2; y++){
 		memcpy(uOut + y*dispWidth / 2 + xLeftClip / 2,
 			   uIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
 			   (xRightClip - xLeftClip) / 2);
@@ -78,8 +79,10 @@ void computeBlockMotionVectors(const int width, const int height,
 	divideBlocks(width, height, blockWidth, blockHeight, frame, blocksCoord, blocksData);
 
 	// Process the blocks one by one
-	for (int blY = 0; blY < (height / blockHeight); blY++){
-		for (int blX = 0; blX < (width / blockWidth); blX++){
+	int blY;
+	for (blY = 0; blY < (height / blockHeight); blY++){
+            int blX;
+		for ( blX = 0; blX < (width / blockWidth); blX++){
 			const unsigned char * const blockData = blocksData + (blY*blocksPerLine + blX)*blockSize;
 			const coord * const blockCoord = blocksCoord + blY*blocksPerLine + blX;
 			computeBlockMotionVector(width, height,
@@ -101,7 +104,7 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 									 const int blockWidth, const int blockHeight,
 									 const int deltaX, const int deltaY,
 									 const coord * blockCoord,
-									 const unsigned char * const blockData, 
+									 const unsigned char * const blockData,
 									 const unsigned char * const previousFrame){
 	// Clip previous values to stay within the previousFrame
 	int yMinClip = MIN(MAX(0 - deltaY, 0), blockHeight);
@@ -112,17 +115,18 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 	// Compute MSE
 	unsigned int cost;
 
-	// At least half of the block must be matched within previous frame to 
-	// consider the cost as valid (otherwise, a small number of pixel might 
+	// At least half of the block must be matched within previous frame to
+	// consider the cost as valid (otherwise, a small number of pixel might
 	// get "lucky" and get a low cost).
 	int matchedSize = (yMaxClip - yMinClip)*(xMaxClip - xMinClip);
 	if (matchedSize < blockHeight*blockWidth / 2) {
-		cost = UINT_MAX;
+		cost = 0xffffffff;
 	}
 	else {
 		cost = 0;
-		for (int y = yMinClip; y < yMaxClip; y++){
-			for (int x = yMinClip; x < xMaxClip; x++){
+		int y,x;
+		for ( y = yMinClip; y < yMaxClip; y++){
+			for (x = yMinClip; x < xMaxClip; x++){
 				const unsigned char pixBlock = *(blockData + y*blockWidth + x);
 				const unsigned char pixFrame = *(previousFrame + (deltaY * width + deltaX) + y * width + x);
 				// Squared error
@@ -144,7 +148,7 @@ void computeBlockMotionVector(const int width, const int height,
 							  const unsigned char * const previousFrame,
 							  coord * const vector){
 	// Compute neighboorhood start positions
-	// Top-left 
+	// Top-left
 	int deltaYTop = blockCoord->y - maxDeltaY;
 	int deltaXLeft = blockCoord->x - maxDeltaX;
 	// Bottom-right +(1,1)
@@ -152,12 +156,13 @@ void computeBlockMotionVector(const int width, const int height,
 	int deltaXRight = blockCoord->x + maxDeltaX;
 
 	// Initialize MMSE search
-	unsigned int minCost = UINT_MAX;
+	unsigned int minCost = 0xffffffff;
 	vector->x = 0;
 	vector->y = 0;
 	// Raster scan neighborhood
-	for (int deltaY = deltaYTop; deltaY < deltaYBot; deltaY++){
-		for (int deltaX = deltaXLeft; deltaX < deltaXRight; deltaX++){
+	int deltaY , deltaX;
+	for ( deltaY = deltaYTop; deltaY < deltaYBot; deltaY++){
+		for (deltaX = deltaXLeft; deltaX < deltaXRight; deltaX++){
 			// Compute MSE
 			unsigned int cost = computeMeanSquaredError(width, height,
 														blockWidth, blockHeight,
@@ -184,14 +189,16 @@ void divideBlocks(const int width, const int height,
 	const int blocksPerLine = width / blockWidth;
 	const int blockSize = blockHeight*blockWidth;
 	// Raster scan blocks
-	for (int y = 0; y < height / blockHeight; y++){
-		for (int x = 0; x < blocksPerLine; x++){
+	int x,y;
+	for (y = 0; y < height / blockHeight; y++){
+		for (x = 0; x < blocksPerLine; x++){
 			coord * blockCoord = blocksCoord + y*(blocksPerLine)+x;
 			unsigned char * blockData = blocksData + (y*(blocksPerLine)+x)*blockSize;
+			int line;
 			blockCoord->x = x*blockWidth;
 			blockCoord->y = y*blockHeight;
 			// Copy block lines in output
-			for (int line = 0; line < blockHeight; line++){
+			for ( line = 0; line < blockHeight; line++){
 				memcpy(blockData + line * blockWidth,
 					   frame + (y*blockHeight + line)*width + x*blockWidth,
 					   blockWidth);
@@ -227,7 +234,8 @@ void findDominatingMotionVector(const int nbVectors,
 		// Keep the mean of most probable vectors
 		// find max proba
 		float threshold = 0.0f;
-		for (int i = 0; i < nbVectors; i++){
+		int i;
+		for (i = 0; i < nbVectors; i++){
 			threshold = MAX(threshold, probas[i]);
 		}
 
@@ -236,7 +244,7 @@ void findDominatingMotionVector(const int nbVectors,
 		dominatingVector->x = 0.0f;
 		dominatingVector->y = 0.0f;
 		int nbAbove = 0;
-		for (int i = 0; i < nbVectors; i++){
+		for ( i = 0; i < nbVectors; i++){
 			if (probas[i] > threshold){
 				nbAbove++;
 				dominatingVector->x += vectors[i].x;
