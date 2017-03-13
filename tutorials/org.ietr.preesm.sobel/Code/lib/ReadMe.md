@@ -18,7 +18,7 @@ The project compilation requires the following libraries:
 ## pthread 
 1. Download the pthread library:   
    [pthread-w32-2-8-0-release.exe](ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-8-0-release.exe)
-2. Execute te downloaded executable to decompress its content in a temporary directory.
+2. Execute the downloaded executable to decompress its content in a temporary directory.
 3. Copy the content of the decompressed /Pre-built.2/ directory into a folder named exactly as follows:  
   ```/<project-path>/lib/pthread-2.8.0/```  
   (where <project-path> is replaced with your project path).
