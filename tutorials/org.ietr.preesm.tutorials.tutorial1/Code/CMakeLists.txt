@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 # ************* CMake Content ***************
 # *******************************************
 # This CMake create a workspace containing the following projects
-# 
+#
 # Programs
 #  - introduction
 
@@ -50,6 +50,8 @@ if (WIN32)
 	file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
 	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
 	Find_Package ( THREADS REQUIRED )
+else()
+	Find_Package ( Threads REQUIRED )
 endif()
 
 if(NOT THREADS_FOUND)
