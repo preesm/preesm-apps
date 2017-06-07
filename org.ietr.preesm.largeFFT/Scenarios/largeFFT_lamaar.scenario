@@ -3,7 +3,7 @@
     <files>
         <algorithm url="/org.ietr.preesm.largeFFT/Algo/top.pi"/>
         <architecture url="/org.ietr.preesm.largeFFT/Archi/lamaar.slam"/>
-        <codegenDirectory url=""/>
+        <codegenDirectory url="/org.ietr.preesm.largeFFT/Code/generated"/>
     </files>
     <constraints excelUrl="">
         <constraintGroup>
