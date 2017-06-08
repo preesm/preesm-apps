@@ -54,4 +54,6 @@ void *computationThread_Core5(void *arg);
 void *computationThread_Core6(void *arg);
 void *computationThread_Core7(void *arg);
 
+#define MAX_NB_CORES 8
+
 #endif
