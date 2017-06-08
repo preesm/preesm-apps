@@ -45,8 +45,6 @@
 
 typedef unsigned char uchar;
 
-#define MAX_NB_CORES 8
-
 void *computationThread_Core0(void *arg);
 void *computationThread_Core1(void *arg);
 void *computationThread_Core2(void *arg);

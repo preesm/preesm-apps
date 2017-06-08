@@ -66,6 +66,8 @@ int main(void)
 #endif // 4_CORES
 #endif // 1_CORE
 
+	communicationInit();
+
     // Creating threads
 #ifdef X1_CORE
     pthread_create(&threadCore0, NULL, computationThread_Core0, NULL);

@@ -14,6 +14,13 @@
 #define COMMUNICATION_H
 
 /**
+* Maximum number of core supported by the communication library.
+* This number is used to allocate the table of semaphores used for intercore
+* synchronization.
+*/
+#define MAX_NB_CORES 8
+
+/**
 * Initialize the semaphores used for inter-core synchronization.
 */
 void communicationInit();

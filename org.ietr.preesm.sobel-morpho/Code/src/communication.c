@@ -8,6 +8,8 @@
 	============================================================================
 */
 
+#include <semaphore.h>
+
 #include "x86.h"
 #include "communication.h"
 

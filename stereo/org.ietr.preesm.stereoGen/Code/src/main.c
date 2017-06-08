@@ -11,8 +11,6 @@
 
 
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "x86.h"
 
 
@@ -67,6 +65,8 @@ int main(void)
 #endif // 8_CORES
 #endif // 4_CORES
 #endif // 1_CORE
+
+	communicationInit();
 
     // Creating threads
 #ifdef X1_CORE
