@@ -126,7 +126,7 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 		cost = 0;
 		int y,x;
 		for ( y = yMinClip; y < yMaxClip; y++){
-			for (x = yMinClip; x < xMaxClip; x++){
+			for (x = xMinClip; x < xMaxClip; x++){
 				const unsigned char pixBlock = *(blockData + y*blockWidth + x);
 				const unsigned char pixFrame = *(previousFrame + (deltaY * width + deltaX) + y * width + x);
 				// Squared error
