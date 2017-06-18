@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">Disparity_Selection</data>
+        <node id="phi0" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="n_disp" kind="cfg_in_iface"/>
+        <node id="n_slice" kind="cfg_in_iface"/>
+        <node id="select_selection" kind="cfg_in_iface"/>
+        <node id="nb_lines_sup" kind="cfg_in_iface"/>
+        <node expr="(floor(height/n_slice)+1)*width*n_disp"
+            id="size_mux" kind="param"/>
+        <node expr="(floor(height/n_slice)+1)*width" id="size_demux" kind="param"/>
+        <node id="slice_cost" kind="src">
+            <port annotation="NONE" expr="size_mux" kind="output" name="slice_cost"/>
+        </node>
+        <node id="slice_disp" kind="snk">
+            <port annotation="NONE" expr="size_demux" kind="input" name="slice_disp"/>
+        </node>
+        <node id="Mux_Disparity_Selection" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="mux">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out0" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out1" type="uint8_t "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out1"/>
+        </node>
+        <node id="BP1D" kind="actor">
+            <data key="graph_desc">Code/include/bp1d_PREESM.h</data>
+            <loop name="bp1d_PREESM_parallel">
+                <param direction="IN" isConfig="false" name="slice_cost" type="const uint8_t "/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true" name="n_disp" type="int"/>
+                <param direction="IN" isConfig="true" name="phi0" type="int"/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="slice_disp_map" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="phi0"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width*n_disp"
+                kind="input" name="slice_cost"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width" kind="output" name="slice_disp_map"/>
+        </node>
+        <node id="WTA" kind="actor">
+            <data key="graph_desc">Code/include/wta_selection_parallel.h</data>
+            <loop name="wta_selection_parallel">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="n_disp" type="int"/>
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+                <param direction="IN" isConfig="false" name="slice_cost" type="const uint8_t "/>
+                <param direction="OUT" isConfig="false"
+                    name="slice_disp" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width*n_disp"
+                kind="input" name="slice_cost"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width" kind="output" name="slice_disp"/>
+        </node>
+        <node id="Demux_Disparity_Selection" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="demux">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="in0" type="uint8_t "/>
+                <param direction="IN" isConfig="false" name="in1" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in0"/>
+            <port annotation="NONE" expr="size" kind="input" name="in1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="slice_cost" sourceport="slice_cost"
+            target="Mux_Disparity_Selection" targetport="in" type="uint8_t"/>
+        <edge kind="fifo" source="Mux_Disparity_Selection"
+            sourceport="out0" target="BP1D" targetport="slice_cost" type="uint8_t"/>
+        <edge kind="fifo" source="Mux_Disparity_Selection"
+            sourceport="out1" target="WTA" targetport="slice_cost" type="uint8_t"/>
+        <edge kind="fifo" source="BP1D" sourceport="slice_disp_map"
+            target="Demux_Disparity_Selection" targetport="in0" type="uint8_t"/>
+        <edge kind="fifo" source="WTA" sourceport="slice_disp"
+            target="Demux_Disparity_Selection" targetport="in1" type="uint8_t"/>
+        <edge kind="fifo" source="Demux_Disparity_Selection"
+            sourceport="out" target="slice_disp" targetport="slice_disp" type="uint8_t"/>
+        <edge kind="dependency" source="select_selection"
+            target="Mux_Disparity_Selection" targetport="select"/>
+        <edge kind="dependency" source="select_selection" target="BP1D" targetport="select"/>
+        <edge kind="dependency" source="select_selection" target="WTA" targetport="select"/>
+        <edge kind="dependency" source="select_selection"
+            target="Demux_Disparity_Selection" targetport="select"/>
+        <edge kind="dependency" source="phi0" target="BP1D" targetport="phi0"/>
+        <edge kind="dependency" source="n_slice" target="BP1D" targetport="n_slice"/>
+        <edge kind="dependency" source="n_slice" target="WTA" targetport="n_slice"/>
+        <edge kind="dependency" source="n_disp" target="BP1D" targetport="n_disp"/>
+        <edge kind="dependency" source="n_disp" target="WTA" targetport="n_disp"/>
+        <edge kind="dependency" source="height" target="BP1D" targetport="height"/>
+        <edge kind="dependency" source="height" target="WTA" targetport="height"/>
+        <edge kind="dependency" source="width" target="BP1D" targetport="width"/>
+        <edge kind="dependency" source="width" target="WTA" targetport="width"/>
+        <edge kind="dependency" source="size_mux"
+            target="Mux_Disparity_Selection" targetport="size"/>
+        <edge kind="dependency" source="size_demux"
+            target="Demux_Disparity_Selection" targetport="size"/>
+        <edge kind="dependency" source="width" target="size_mux"/>
+        <edge kind="dependency" source="nb_lines_sup" target="size_mux"/>
+        <edge kind="dependency" source="n_slice" target="size_mux"/>
+        <edge kind="dependency" source="n_disp" target="size_mux"/>
+        <edge kind="dependency" source="height" target="size_mux"/>
+        <edge kind="dependency" source="width" target="size_demux"/>
+        <edge kind="dependency" source="nb_lines_sup" target="size_demux"/>
+        <edge kind="dependency" source="n_slice" target="size_demux"/>
+        <edge kind="dependency" source="height" target="size_demux"/>
+        <edge kind="dependency" source="size_demux" target="slice_disp"/>
+        <edge kind="dependency" source="size_mux" target="slice_cost"/>
+    </graph>
+</graphml>

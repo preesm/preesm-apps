@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">Cost_Aggregation</data>
+        <node
+            expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp*n_slice"
+            id="size_mux" kind="param"/>
+        <node expr="(floor(height/n_slice)+1)*width*n_disp*n_slice"
+            id="size_demux" kind="param"/>
+        <node id="select_aggregation" kind="cfg_in_iface"/>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="threshold_BFA" kind="cfg_in_iface"/>
+        <node id="n_iter" kind="cfg_in_iface"/>
+        <node id="d_max" kind="cfg_in_iface"/>
+        <node id="cst_cd" kind="cfg_in_iface"/>
+        <node id="n_disp" kind="cfg_in_iface"/>
+        <node id="n_slice" kind="cfg_in_iface"/>
+        <node id="nb_lines_sup" kind="cfg_in_iface"/>
+        <node id="costs" kind="src">
+            <port annotation="NONE" expr="size_mux" kind="output" name="costs"/>
+        </node>
+        <node id="refined_costs" kind="snk">
+            <port annotation="NONE" expr="size_demux" kind="input" name="refined_costs"/>
+        </node>
+        <node id="image_left" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="image_left"/>
+        </node>
+        <node id="image_right" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="image_right"/>
+        </node>
+        <node id="BFA" kind="actor">
+            <data key="graph_desc">Code/include/bfa_aggregation_parallel.h</data>
+            <loop name="bfa_aggregation_parallel">
+                <param direction="IN" isConfig="false" name="im_l" type="const struct str_image_rgb "/>
+                <param direction="IN" isConfig="false" name="im_r" type="const struct str_image_rgb "/>
+                <param direction="IN" isConfig="false" name="costs" type="uint8_t "/>
+                <param direction="OUT" isConfig="false"
+                    name="refined_costs" type="uint8_t "/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="n_disp" type="int"/>
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="threshold_BFA" type="int"/>
+                <param direction="IN" isConfig="true" name="cst_cd" type="int"/>
+                <param direction="IN" isConfig="true" name="niter" type="int"/>
+                <param direction="IN" isConfig="true" name="dmax" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nb_lines_sup" type="int"/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="cst_cd"/>
+            <port kind="cfg_input" name="threshold_BFA"/>
+            <port kind="cfg_input" name="niter"/>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="dmax"/>
+            <port annotation="NONE"
+                expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp*n_slice"
+                kind="input" name="costs"/>
+            <port annotation="NONE" expr="1" kind="input" name="im_l"/>
+            <port annotation="NONE" expr="1" kind="input" name="im_r"/>
+            <port annotation="NONE"
+                expr="((floor(height/n_slice)+1))*width*n_disp*n_slice"
+                kind="output" name="refined_costs"/>
+        </node>
+        <node id="No_Aggregation" kind="actor">
+            <data key="graph_desc">Code/include/no_aggregation.h</data>
+            <loop name="no_aggregation">
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="n_disp" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nb_lines_sup" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="size_mux"/>
+            <port kind="cfg_input" name="size_demux"/>
+            <port annotation="NONE" expr="size_mux" kind="input" name="in"/>
+            <port annotation="NONE" expr="size_demux" kind="output" name="out"/>
+        </node>
+        <node id="Demux_Aggregation" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="demux">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="in0" type="uint8_t "/>
+                <param direction="IN" isConfig="false" name="in1" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in0"/>
+            <port annotation="NONE" expr="size" kind="input" name="in1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out"/>
+        </node>
+        <node id="Mux_Aggregation" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="mux">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out0" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out1" type="uint8_t "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="select"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out1"/>
+        </node>
+        <edge kind="fifo" source="image_left" sourceport="image_left"
+            target="BFA" targetport="im_l" type="struct str_image_rgb"/>
+        <edge kind="fifo" source="image_right" sourceport="image_right"
+            target="BFA" targetport="im_r" type="struct str_image_rgb"/>
+        <edge kind="fifo" source="costs" sourceport="costs"
+            target="Mux_Aggregation" targetport="in" type="uint8_t"/>
+        <edge kind="fifo" source="Demux_Aggregation" sourceport="out"
+            target="refined_costs" targetport="refined_costs" type="uint8_t"/>
+        <edge kind="fifo" source="No_Aggregation" sourceport="out"
+            target="Demux_Aggregation" targetport="in0" type="uint8_t"/>
+        <edge kind="fifo" source="BFA" sourceport="refined_costs"
+            target="Demux_Aggregation" targetport="in1" type="uint8_t"/>
+        <edge kind="fifo" source="Mux_Aggregation" sourceport="out0"
+            target="No_Aggregation" targetport="in" type="uint8_t"/>
+        <edge kind="fifo" source="Mux_Aggregation" sourceport="out1"
+            target="BFA" targetport="costs" type="uint8_t"/>
+        <edge kind="dependency" source="size_mux"
+            target="Mux_Aggregation" targetport="size"/>
+        <edge kind="dependency" source="size_mux" target="costs"/>
+        <edge kind="dependency" source="cst_cd" target="BFA" targetport="cst_cd"/>
+        <edge kind="dependency" source="threshold_BFA" target="BFA" targetport="threshold_BFA"/>
+        <edge kind="dependency" source="n_iter" target="BFA" targetport="niter"/>
+        <edge kind="dependency" source="select_aggregation" target="BFA" targetport="select"/>
+        <edge kind="dependency" source="select_aggregation"
+            target="Mux_Aggregation" targetport="select"/>
+        <edge kind="dependency" source="select_aggregation"
+            target="No_Aggregation" targetport="select"/>
+        <edge kind="dependency" source="select_aggregation"
+            target="Demux_Aggregation" targetport="select"/>
+        <edge kind="dependency" source="size_demux"
+            target="Demux_Aggregation" targetport="size"/>
+        <edge kind="dependency" source="size_demux" target="refined_costs"/>
+        <edge kind="dependency" source="height" target="BFA" targetport="height"/>
+        <edge kind="dependency" source="width" target="BFA" targetport="width"/>
+        <edge kind="dependency" source="nb_lines_sup" target="BFA" targetport="nb_lines_sup"/>
+        <edge kind="dependency" source="n_disp" target="BFA" targetport="n_disp"/>
+        <edge kind="dependency" source="n_slice" target="BFA" targetport="n_slice"/>
+        <edge kind="dependency" source="d_max" target="BFA" targetport="dmax"/>
+        <edge kind="dependency" source="width" target="size_mux"/>
+        <edge kind="dependency" source="height" target="size_mux"/>
+        <edge kind="dependency" source="n_disp" target="size_mux"/>
+        <edge kind="dependency" source="nb_lines_sup" target="size_mux"/>
+        <edge kind="dependency" source="n_slice" target="size_mux"/>
+        <edge kind="dependency" source="nb_lines_sup" target="size_demux"/>
+        <edge kind="dependency" source="n_slice" target="size_demux"/>
+        <edge kind="dependency" source="n_disp" target="size_demux"/>
+        <edge kind="dependency" source="height" target="size_demux"/>
+        <edge kind="dependency" source="width" target="size_demux"/>
+        <edge kind="dependency" source="nb_lines_sup"
+            target="No_Aggregation" targetport="nb_lines_sup"/>
+        <edge kind="dependency" source="n_disp" target="No_Aggregation" targetport="n_disp"/>
+        <edge kind="dependency" source="width" target="No_Aggregation" targetport="width"/>
+        <edge kind="dependency" source="n_slice" target="No_Aggregation" targetport="n_slice"/>
+        <edge kind="dependency" source="height" target="No_Aggregation" targetport="height"/>
+        <edge kind="dependency" source="size_mux"
+            target="No_Aggregation" targetport="size_mux"/>
+        <edge kind="dependency" source="size_demux"
+            target="No_Aggregation" targetport="size_demux"/>
+    </graph>
+</graphml>

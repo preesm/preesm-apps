@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">Cost_Construction</data>
+        <node id="census_size" kind="cfg_in_iface"/>
+        <node id="n_disp" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="n_slice" kind="cfg_in_iface"/>
+        <node id="select_construction" kind="cfg_in_iface"/>
+        <node id="threshold_SAD" kind="cfg_in_iface"/>
+        <node
+            expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp"
+            id="size_demux" kind="param"/>
+        <node id="nb_lines_sup" kind="cfg_in_iface"/>
+        <node id="slice_left" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="slice_left"/>
+        </node>
+        <node id="slice_right" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="slice_right"/>
+        </node>
+        <node id="slice_cost" kind="snk">
+            <port annotation="NONE" expr="size_demux" kind="input" name="slice_cost"/>
+        </node>
+        <node id="Census" kind="actor">
+            <data key="graph_desc">Code/include/census_PREESM_parallel.h</data>
+            <loop name="census_PREESM">
+                <param direction="IN" isConfig="false" name="slice_r" type="struct str_image_gray "/>
+                <param direction="IN" isConfig="false" name="slice_l" type="struct str_image_gray "/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="n_disp" type="int"/>
+                <param direction="IN" isConfig="true" name="census_size" type="int"/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="slice_cost" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="census_size"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port annotation="NONE" expr="1" kind="input" name="slice_l"/>
+            <port annotation="NONE" expr="1" kind="input" name="slice_r"/>
+            <port annotation="NONE"
+                expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp"
+                kind="output" name="slice_cost"/>
+        </node>
+        <node id="SAD" kind="actor">
+            <data key="graph_desc">Code/include/sad_cost_parallel.h</data>
+            <loop name="sad_cost_parallel">
+                <param direction="IN" isConfig="false" name="slice_l" type="const struct str_image_gray "/>
+                <param direction="IN" isConfig="false" name="slice_r" type="const struct str_image_gray "/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="n_disp" type="int"/>
+                <param direction="IN" isConfig="true" name="thres" type="int"/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="thres"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port annotation="NONE" expr="1" kind="input" name="slice_l"/>
+            <port annotation="NONE" expr="1" kind="input" name="slice_r"/>
+            <port annotation="NONE"
+                expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp"
+                kind="output" name="out"/>
+        </node>
+        <node id="Mux_Left_Construction" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="mux_construction">
+                <param direction="IN" isConfig="false" name="in" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="out0" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="out1" type="struct str_image_gray "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out0"/>
+            <port annotation="NONE" expr="1" kind="output" name="out1"/>
+        </node>
+        <node id="Mux_Right_Construction" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="mux_construction">
+                <param direction="IN" isConfig="false" name="in" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="out0" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="out1" type="struct str_image_gray "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out0"/>
+            <port annotation="NONE" expr="1" kind="output" name="out1"/>
+        </node>
+        <node id="Demux_Construction" kind="actor">
+            <data key="graph_desc">Code/include/mux.h</data>
+            <loop name="demux">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="in0" type="uint8_t "/>
+                <param direction="IN" isConfig="false" name="in1" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+                <param direction="IN" isConfig="true" name="select" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="select"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in0"/>
+            <port annotation="NONE" expr="size" kind="input" name="in1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="slice_left" sourceport="slice_left"
+            target="Mux_Left_Construction" targetport="in" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Mux_Left_Construction"
+            sourceport="out0" target="Census" targetport="slice_l" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Mux_Left_Construction"
+            sourceport="out1" target="SAD" targetport="slice_l" type="struct str_image_gray"/>
+        <edge kind="fifo" source="slice_right" sourceport="slice_right"
+            target="Mux_Right_Construction" targetport="in" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Mux_Right_Construction"
+            sourceport="out0" target="Census" targetport="slice_r" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Mux_Right_Construction"
+            sourceport="out1" target="SAD" targetport="slice_r" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Census" sourceport="slice_cost"
+            target="Demux_Construction" targetport="in0" type="uint8_t"/>
+        <edge kind="fifo" source="SAD" sourceport="out"
+            target="Demux_Construction" targetport="in1" type="uint8_t"/>
+        <edge kind="fifo" source="Demux_Construction" sourceport="out"
+            target="slice_cost" targetport="slice_cost" type="uint8_t"/>
+        <edge kind="dependency" source="select_construction"
+            target="Mux_Left_Construction" targetport="select"/>
+        <edge kind="dependency" source="select_construction"
+            target="Mux_Right_Construction" targetport="select"/>
+        <edge kind="dependency" source="select_construction"
+            target="Census" targetport="select"/>
+        <edge kind="dependency" source="select_construction"
+            target="SAD" targetport="select"/>
+        <edge kind="dependency" source="select_construction"
+            target="Demux_Construction" targetport="select"/>
+        <edge kind="dependency" source="n_slice" target="Census" targetport="n_slice"/>
+        <edge kind="dependency" source="height" target="Census" targetport="height"/>
+        <edge kind="dependency" source="n_disp" target="Census" targetport="n_disp"/>
+        <edge kind="dependency" source="width" target="Census" targetport="width"/>
+        <edge kind="dependency" source="width" target="SAD" targetport="width"/>
+        <edge kind="dependency" source="n_slice" target="SAD" targetport="n_slice"/>
+        <edge kind="dependency" source="n_disp" target="SAD" targetport="n_disp"/>
+        <edge kind="dependency" source="height" target="SAD" targetport="height"/>
+        <edge kind="dependency" source="census_size" target="Census" targetport="census_size"/>
+        <edge kind="dependency" source="threshold_SAD" target="SAD" targetport="thres"/>
+        <edge kind="dependency" source="size_demux"
+            target="Demux_Construction" targetport="size"/>
+        <edge kind="dependency" source="n_disp" target="size_demux"/>
+        <edge kind="dependency" source="width" target="size_demux"/>
+        <edge kind="dependency" source="n_slice" target="size_demux"/>
+        <edge kind="dependency" source="height" target="size_demux"/>
+        <edge kind="dependency" source="nb_lines_sup" target="size_demux"/>
+        <edge kind="dependency" source="size_demux" target="slice_cost"/>
+        <edge kind="dependency" source="nb_lines_sup" target="Census" targetport="nb_lines_sup"/>
+        <edge kind="dependency" source="nb_lines_sup" target="SAD" targetport="nb_lines_sup"/>
+    </graph>
+</graphml>

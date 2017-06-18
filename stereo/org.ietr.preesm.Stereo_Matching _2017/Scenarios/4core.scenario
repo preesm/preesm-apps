@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/Stereo_Matching _V1_Parallel/Algo/top_display.pi"/>
+        <architecture url="/Stereo_Matching _V1_Parallel/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/Stereo_Matching _V1_Parallel/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display/Disparity_Selection/slice_disp"/>
+            <task name="top_display/Cost_Construction/Demux_Construction"/>
+            <task name="top_display/Disparity_Selection/Mux_Disparity_Selection"/>
+            <task name="top_display"/>
+            <task name="top_display/Cost_Construction/slice_right"/>
+            <task name="top_display/Cost_Aggregation/Mux_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/Demux_Aggregation"/>
+            <task name="top_display/Cost_Construction/SAD"/>
+            <task name="top_display/Load_Images"/>
+            <task name="top_display/Cost_Construction"/>
+            <task name="top_display/Disparity_Selection"/>
+            <task name="top_display/Disparity_Selection/Demux_Disparity_Selection"/>
+            <task name="top_display/Cost_Aggregation/costs"/>
+            <task name="top_display/Cost_Aggregation/image_right"/>
+            <task name="top_display/Cost_Aggregation"/>
+            <task name="top_display/Cost_Construction/Mux_Left_Construction"/>
+            <task name="top_display/Cost_Aggregation/No_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/refined_costs"/>
+            <task name="top_display/Cost_Construction/Mux_Right_Construction"/>
+            <task name="top_display/Disparity_Selection/WTA"/>
+            <task name="top_display/Cost_Construction/slice_cost"/>
+            <task name="top_display/Save_And_Compare"/>
+            <task name="top_display/Split_Left"/>
+            <task name="top_display/Disparity_Selection/BP1D"/>
+            <task name="top_display/Cost_Construction/slice_left"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display/Disparity_Selection/slice_cost"/>
+            <task name="top_display/Cost_Aggregation/BFA"/>
+            <task name="top_display/Cost_Construction/Census"/>
+            <task name="top_display/Cost_Aggregation/image_left"/>
+            <task name="top_display/Split_Right"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top_display/Disparity_Selection/slice_disp"/>
+            <task name="top_display/Cost_Construction/Demux_Construction"/>
+            <task name="top_display/Disparity_Selection/Mux_Disparity_Selection"/>
+            <task name="top_display"/>
+            <task name="top_display/Cost_Construction/slice_right"/>
+            <task name="top_display/Cost_Aggregation/Mux_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/Demux_Aggregation"/>
+            <task name="top_display/Cost_Construction/SAD"/>
+            <task name="top_display/Load_Images"/>
+            <task name="top_display/Cost_Construction"/>
+            <task name="top_display/Disparity_Selection"/>
+            <task name="top_display/Disparity_Selection/Demux_Disparity_Selection"/>
+            <task name="top_display/Cost_Aggregation/costs"/>
+            <task name="top_display/Cost_Aggregation/image_right"/>
+            <task name="top_display/Cost_Aggregation"/>
+            <task name="top_display/Cost_Construction/Mux_Left_Construction"/>
+            <task name="top_display/Cost_Aggregation/No_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/refined_costs"/>
+            <task name="top_display/Cost_Construction/Mux_Right_Construction"/>
+            <task name="top_display/Disparity_Selection/WTA"/>
+            <task name="top_display/Cost_Construction/slice_cost"/>
+            <task name="top_display/Save_And_Compare"/>
+            <task name="top_display/Split_Left"/>
+            <task name="top_display/Disparity_Selection/BP1D"/>
+            <task name="top_display/Cost_Construction/slice_left"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display/Disparity_Selection/slice_cost"/>
+            <task name="top_display/Cost_Aggregation/BFA"/>
+            <task name="top_display/Cost_Construction/Census"/>
+            <task name="top_display/Cost_Aggregation/image_left"/>
+            <task name="top_display/Split_Right"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top_display/Disparity_Selection/slice_disp"/>
+            <task name="top_display/Cost_Construction/Demux_Construction"/>
+            <task name="top_display/Disparity_Selection/Mux_Disparity_Selection"/>
+            <task name="top_display"/>
+            <task name="top_display/Cost_Construction/slice_right"/>
+            <task name="top_display/Cost_Aggregation/Mux_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/Demux_Aggregation"/>
+            <task name="top_display/Cost_Construction/SAD"/>
+            <task name="top_display/Load_Images"/>
+            <task name="top_display/Cost_Construction"/>
+            <task name="top_display/Disparity_Selection"/>
+            <task name="top_display/Disparity_Selection/Demux_Disparity_Selection"/>
+            <task name="top_display/Cost_Aggregation/costs"/>
+            <task name="top_display/Cost_Aggregation/image_right"/>
+            <task name="top_display/Cost_Aggregation"/>
+            <task name="top_display/Cost_Construction/Mux_Left_Construction"/>
+            <task name="top_display/Cost_Aggregation/No_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/refined_costs"/>
+            <task name="top_display/Cost_Construction/Mux_Right_Construction"/>
+            <task name="top_display/Disparity_Selection/WTA"/>
+            <task name="top_display/Cost_Construction/slice_cost"/>
+            <task name="top_display/Save_And_Compare"/>
+            <task name="top_display/Split_Left"/>
+            <task name="top_display/Disparity_Selection/BP1D"/>
+            <task name="top_display/Cost_Construction/slice_left"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display/Disparity_Selection/slice_cost"/>
+            <task name="top_display/Cost_Aggregation/BFA"/>
+            <task name="top_display/Cost_Construction/Census"/>
+            <task name="top_display/Cost_Aggregation/image_left"/>
+            <task name="top_display/Split_Right"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top_display/Disparity_Selection/slice_disp"/>
+            <task name="top_display/Cost_Construction/Demux_Construction"/>
+            <task name="top_display/Disparity_Selection/Mux_Disparity_Selection"/>
+            <task name="top_display"/>
+            <task name="top_display/Cost_Construction/slice_right"/>
+            <task name="top_display/Cost_Aggregation/Mux_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/Demux_Aggregation"/>
+            <task name="top_display/Cost_Construction/SAD"/>
+            <task name="top_display/Load_Images"/>
+            <task name="top_display/Cost_Construction"/>
+            <task name="top_display/Disparity_Selection"/>
+            <task name="top_display/Disparity_Selection/Demux_Disparity_Selection"/>
+            <task name="top_display/Cost_Aggregation/costs"/>
+            <task name="top_display/Cost_Aggregation/image_right"/>
+            <task name="top_display/Cost_Aggregation"/>
+            <task name="top_display/Cost_Construction/Mux_Left_Construction"/>
+            <task name="top_display/Cost_Aggregation/No_Aggregation"/>
+            <task name="top_display/Cost_Aggregation/refined_costs"/>
+            <task name="top_display/Cost_Construction/Mux_Right_Construction"/>
+            <task name="top_display/Disparity_Selection/WTA"/>
+            <task name="top_display/Cost_Construction/slice_cost"/>
+            <task name="top_display/Save_And_Compare"/>
+            <task name="top_display/Split_Left"/>
+            <task name="top_display/Disparity_Selection/BP1D"/>
+            <task name="top_display/Cost_Construction/slice_left"/>
+            <task name="top_display/Merge"/>
+            <task name="top_display/Disparity_Selection/slice_cost"/>
+            <task name="top_display/Cost_Aggregation/BFA"/>
+            <task name="top_display/Cost_Construction/Census"/>
+            <task name="top_display/Cost_Aggregation/image_left"/>
+            <task name="top_display/Split_Right"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="struct str_image_gray" size="12"/>
+            <dataType name="uint8_t" size="1"/>
+            <dataType name="struct str_image_rgb" size="20"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+</scenario>

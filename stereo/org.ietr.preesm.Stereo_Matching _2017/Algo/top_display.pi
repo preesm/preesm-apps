@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">top_display</data>
+        <node expr="7" id="census_size" kind="param"/>
+        <node expr="60" id="n_disp" kind="param"/>
+        <node expr="20" id="phi0" kind="param"/>
+        <node expr="375" id="height" kind="param"/>
+        <node expr="450" id="width" kind="param"/>
+        <node expr="12" id="n_slice" kind="param"/>
+        <node expr="floor(census_size/2)" id="nb_lines_sup" kind="param"/>
+        <node expr="0" id="select_selection" kind="param"/>
+        <node expr="0" id="select_construction" kind="param"/>
+        <node expr="20" id="threshold_SAD" kind="param"/>
+        <node expr="63" id="threshold_BFA" kind="param"/>
+        <node expr="33" id="d_max" kind="param"/>
+        <node expr="0" id="select_aggregation" kind="param"/>
+        <node expr="4" id="cst_cd" kind="param"/>
+        <node expr="5" id="n_iter" kind="param"/>
+        <node id="Load_Images" kind="actor">
+            <data key="graph_desc">Code/include/load_images_PREESM.h</data>
+            <loop name="load_images">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="OUT" isConfig="false" name="im_l_gray" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="im_r_gray" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="im_l_rgb" type="struct str_image_rgb "/>
+                <param direction="OUT" isConfig="false" name="im_r_rgb" type="struct str_image_rgb "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="1" kind="output" name="im_l_gray"/>
+            <port annotation="NONE" expr="1" kind="output" name="im_r_gray"/>
+            <port annotation="NONE" expr="1" kind="output" name="im_l_rgb"/>
+            <port annotation="NONE" expr="1" kind="output" name="im_r_rgb"/>
+        </node>
+        <node id="Save_And_Compare" kind="actor">
+            <data key="graph_desc">Code/include/save_image_PREESM.h</data>
+            <loop name="save_image_PREESM">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="disp_map" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="disp_map"/>
+        </node>
+        <node id="Split_Left" kind="actor">
+            <data key="graph_desc">Code/include/split_merge.h</data>
+            <loop name="split_complex">
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="window_size" type="int"/>
+                <param direction="IN" isConfig="false" name="image" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="slices" type="struct str_image_gray "/>
+            </loop>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="window_size"/>
+            <port annotation="NONE" expr="1" kind="input" name="image"/>
+            <port annotation="NONE" expr="n_slice" kind="output" name="slices"/>
+        </node>
+        <node id="Split_Right" kind="actor">
+            <data key="graph_desc">Code/include/split_merge.h</data>
+            <loop name="split_complex">
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="window_size" type="int"/>
+                <param direction="IN" isConfig="false" name="image" type="struct str_image_gray "/>
+                <param direction="OUT" isConfig="false" name="slices" type="struct str_image_gray "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="window_size"/>
+            <port annotation="NONE" expr="1" kind="input" name="image"/>
+            <port annotation="NONE" expr="n_slice" kind="output" name="slices"/>
+        </node>
+        <node id="Merge" kind="actor">
+            <data key="graph_desc">Code/include/split_merge.h</data>
+            <loop name="merge_complex_without_extra_lines">
+                <param direction="IN" isConfig="true" name="n_slice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="slices" type="uint8_t "/>
+                <param direction="OUT" isConfig="false" name="disp_map" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="window_size"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width*n_slice"
+                kind="input" name="slices"/>
+            <port annotation="NONE" expr="width*height" kind="output" name="disp_map"/>
+        </node>
+        <node id="Disparity_Selection" kind="actor">
+            <data key="graph_desc">Algo/Disparity_Selection.pi</data>
+            <port kind="cfg_input" name="select_selection"/>
+            <port kind="cfg_input" name="phi0"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width*n_disp"
+                kind="input" name="slice_cost"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width" kind="output" name="slice_disp"/>
+        </node>
+        <node id="Cost_Construction" kind="actor">
+            <data key="graph_desc">Algo/Cost_Construction.pi</data>
+            <port kind="cfg_input" name="select_construction"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port kind="cfg_input" name="census_size"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="threshold_SAD"/>
+            <port annotation="NONE" expr="1" kind="input" name="slice_left"/>
+            <port annotation="NONE" expr="1" kind="input" name="slice_right"/>
+            <port annotation="NONE"
+                expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp"
+                kind="output" name="slice_cost"/>
+        </node>
+        <node id="Cost_Aggregation" kind="actor">
+            <data key="graph_desc">Algo/Cost_Aggregation.pi</data>
+            <port kind="cfg_input" name="select_aggregation"/>
+            <port kind="cfg_input" name="n_iter"/>
+            <port kind="cfg_input" name="d_max"/>
+            <port kind="cfg_input" name="cst_cd"/>
+            <port kind="cfg_input" name="threshold_BFA"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="n_slice"/>
+            <port kind="cfg_input" name="n_disp"/>
+            <port kind="cfg_input" name="nb_lines_sup"/>
+            <port annotation="NONE"
+                expr="((floor(height/n_slice)+1)+ 2* nb_lines_sup)*width*n_disp*n_slice"
+                kind="input" name="costs"/>
+            <port annotation="NONE" expr="1" kind="input" name="image_left"/>
+            <port annotation="NONE" expr="1" kind="input" name="image_right"/>
+            <port annotation="NONE"
+                expr="(floor(height/n_slice)+1)*width*n_disp*n_slice"
+                kind="output" name="refined_costs"/>
+        </node>
+        <edge kind="fifo" source="Load_Images" sourceport="im_l_gray"
+            target="Split_Left" targetport="image" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Load_Images" sourceport="im_r_gray"
+            target="Split_Right" targetport="image" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Merge" sourceport="disp_map"
+            target="Save_And_Compare" targetport="disp_map" type="uint8_t"/>
+        <edge kind="fifo" source="Disparity_Selection"
+            sourceport="slice_disp" target="Merge" targetport="slices" type="uint8_t"/>
+        <edge kind="fifo" source="Split_Left" sourceport="slices"
+            target="Cost_Construction" targetport="slice_left" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Split_Right" sourceport="slices"
+            target="Cost_Construction" targetport="slice_right" type="struct str_image_gray"/>
+        <edge kind="fifo" source="Cost_Construction"
+            sourceport="slice_cost" target="Cost_Aggregation"
+            targetport="costs" type="uint8_t"/>
+        <edge kind="fifo" source="Cost_Aggregation"
+            sourceport="refined_costs" target="Disparity_Selection"
+            targetport="slice_cost" type="uint8_t"/>
+        <edge kind="fifo" source="Load_Images" sourceport="im_l_rgb"
+            target="Cost_Aggregation" targetport="image_left" type="struct str_image_rgb"/>
+        <edge kind="fifo" source="Load_Images" sourceport="im_r_rgb"
+            target="Cost_Aggregation" targetport="image_right" type="struct str_image_rgb"/>
+        <edge kind="dependency" source="width" target="Save_And_Compare" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="Save_And_Compare" targetport="height"/>
+        <edge kind="dependency" source="width" target="Load_Images" targetport="width"/>
+        <edge kind="dependency" source="height" target="Load_Images" targetport="height"/>
+        <edge kind="dependency" source="census_size" target="nb_lines_sup"/>
+        <edge kind="dependency" source="n_slice" target="Split_Left" targetport="n_slice"/>
+        <edge kind="dependency" source="width" target="Split_Left" targetport="width"/>
+        <edge kind="dependency" source="height" target="Split_Left" targetport="height"/>
+        <edge kind="dependency" source="height" target="Split_Right" targetport="height"/>
+        <edge kind="dependency" source="n_slice" target="Split_Right" targetport="n_slice"/>
+        <edge kind="dependency" source="width" target="Split_Right" targetport="width"/>
+        <edge kind="dependency" source="census_size" target="Split_Left" targetport="window_size"/>
+        <edge kind="dependency" source="census_size"
+            target="Split_Right" targetport="window_size"/>
+        <edge kind="dependency" source="width" target="Merge" targetport="width"/>
+        <edge kind="dependency" source="height" target="Merge" targetport="height"/>
+        <edge kind="dependency" source="n_slice" target="Merge" targetport="n_slice"/>
+        <edge kind="dependency" source="census_size" target="Merge" targetport="window_size"/>
+        <edge kind="dependency" source="select_selection"
+            target="Disparity_Selection" targetport="select_selection"/>
+        <edge kind="dependency" source="phi0"
+            target="Disparity_Selection" targetport="phi0"/>
+        <edge kind="dependency" source="n_disp"
+            target="Disparity_Selection" targetport="n_disp"/>
+        <edge kind="dependency" source="n_slice"
+            target="Disparity_Selection" targetport="n_slice"/>
+        <edge kind="dependency" source="width"
+            target="Disparity_Selection" targetport="width"/>
+        <edge kind="dependency" source="nb_lines_sup"
+            target="Disparity_Selection" targetport="nb_lines_sup"/>
+        <edge kind="dependency" source="height"
+            target="Disparity_Selection" targetport="height"/>
+        <edge kind="dependency" source="select_construction"
+            target="Cost_Construction" targetport="select_construction"/>
+        <edge kind="dependency" source="nb_lines_sup"
+            target="Cost_Construction" targetport="nb_lines_sup"/>
+        <edge kind="dependency" source="census_size"
+            target="Cost_Construction" targetport="census_size"/>
+        <edge kind="dependency" source="height"
+            target="Cost_Construction" targetport="height"/>
+        <edge kind="dependency" source="n_disp"
+            target="Cost_Construction" targetport="n_disp"/>
+        <edge kind="dependency" source="n_slice"
+            target="Cost_Construction" targetport="n_slice"/>
+        <edge kind="dependency" source="width"
+            target="Cost_Construction" targetport="width"/>
+        <edge kind="dependency" source="threshold_SAD"
+            target="Cost_Construction" targetport="threshold_SAD"/>
+        <edge kind="dependency" source="select_aggregation"
+            target="Cost_Aggregation" targetport="select_aggregation"/>
+        <edge kind="dependency" source="n_iter"
+            target="Cost_Aggregation" targetport="n_iter"/>
+        <edge kind="dependency" source="d_max" target="Cost_Aggregation" targetport="d_max"/>
+        <edge kind="dependency" source="cst_cd"
+            target="Cost_Aggregation" targetport="cst_cd"/>
+        <edge kind="dependency" source="threshold_BFA"
+            target="Cost_Aggregation" targetport="threshold_BFA"/>
+        <edge kind="dependency" source="height"
+            target="Cost_Aggregation" targetport="height"/>
+        <edge kind="dependency" source="width" target="Cost_Aggregation" targetport="width"/>
+        <edge kind="dependency" source="n_slice"
+            target="Cost_Aggregation" targetport="n_slice"/>
+        <edge kind="dependency" source="n_disp"
+            target="Cost_Aggregation" targetport="n_disp"/>
+        <edge kind="dependency" source="nb_lines_sup"
+            target="Cost_Aggregation" targetport="nb_lines_sup"/>
+    </graph>
+</graphml>
