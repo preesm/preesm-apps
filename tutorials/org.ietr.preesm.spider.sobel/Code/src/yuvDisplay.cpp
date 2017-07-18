@@ -32,7 +32,7 @@ typedef struct YuvDisplay
 
 
 // Initialize
-YuvDisplay display = {.textures={NULL},.initialized=0};
+YuvDisplay display = {NULL , NULL, NULL, 0};
 
 /**
 * Initializes a display frame. Be careful, once a window size has been chosen,

@@ -14,6 +14,7 @@
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
+            <task name="top_display/nbSliceSetter"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -64,5 +65,8 @@
         <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
     <variables excelUrl=""/>
-    <parameterValues/>
+    <parameterValues>
+        <parameter name="nbSlice" parent="top_display"
+            type="ACTOR_DEPENDENT" value="[1]"/>
+    </parameterValues>
 </scenario>

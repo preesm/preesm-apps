@@ -111,19 +111,47 @@ if (WIN32)
 	endif()
 endif()
 
+# *******************************************
+# ************ Spider LIBRARY ***************
+# *******************************************
+
+# find the spider folder in the libspider directory.
+file(GLOB SPIDERDIR "${LIBS_DIR}/spider")
+set(ENV{SPIDERDIR} ${SPIDERDIR})
+
+Find_Package (Spider REQUIRED )
+
+if(NOT SPIDER_FOUND)
+  MESSAGE(FATAL_ERROR "SPIDER not found !")
+endif()
+
+if (WIN32)
+	file(GLOB
+		SPIDER_DLL
+		${SPIDERDIR}/lib/*.dll
+	)
+	
+	MESSAGE("Copy SPIDER DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+		file(COPY ${SPIDER_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	else()
+		file(COPY ${SPIDER_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${SPIDER_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+	endif()
+endif()
 
 # *******************************************
 # **************** Sobel.exe  ****************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
-	./src/*.c
+	./src/*.cpp
 	./src/*.h
-	./generated/*.c
+	./generated/*.cpp
 	./include/*.h
 )
 
 add_executable( sobel ${source_files} ${header_files})
-target_link_libraries(sobel ${SDL2_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(sobel ${SDL2_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})

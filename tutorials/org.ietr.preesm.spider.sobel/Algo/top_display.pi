@@ -98,6 +98,15 @@
                 expr="nbSlice*width*(height/nbSlice+2)" kind="input" name="input"/>
             <port annotation="NONE" expr="height*width" kind="output" name="output"/>
         </node>
+        <node id="nbSliceSetter" kind="actor">
+            <data key="graph_desc">Code/include/nbSliceSetter.h</data>
+            <loop name="nbSliceSetter">
+                <param direction="IN" isConfig="true" name="ysize" type="Param"/>
+                <param direction="OUT" isConfig="true" name="nbSlice" type="Param "/>
+            </loop>
+            <port kind="cfg_input" name="ysize"/>
+            <port annotation="NONE" kind="cfg_output" name="nbSlice"/>
+        </node>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
             target="display" targetport="u" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="v"
@@ -125,5 +134,8 @@
         <edge kind="dependency" source="width" target="Merge" targetport="width"/>
         <edge kind="dependency" source="nbSlice" target="Merge" targetport="nbSlice"/>
         <edge kind="dependency" source="sliceHeight" target="Sobel" targetport="height"/>
+        <edge kind="dependency" source="nbSliceSetter"
+            sourceport="nbSlice" target="nbSlice"/>
+        <edge kind="dependency" source="height" target="nbSliceSetter" targetport="ysize"/>
     </graph>
 </graphml>
