@@ -29,7 +29,7 @@ The project compilation requires the following libraries:
    [SDL2 Download Webpage](https://www.libsdl.org/download-2.0.php)  
    Among the different proposed libraries, make sure you use the "Development 
    libraries". 
-3. This step differs depending on the used IDE.
+2. This step differs depending on the used IDE.
    * **For MinGW based IDEs (Codeblocks, Makefile, Eclipse CDT, ...)**
      1. Decompress the dowloaded file in a temporary location. 
      2. In the decompressed file, copy the content of the following directory  
@@ -48,6 +48,15 @@ The project compilation requires the following libraries:
 	    ```/<project-path>/lib/SDL-2.0.<xx>/lib/x86```  
 		into its parent directory  
 		```/<project-path>/lib/SDL-2.0.<xx>/lib```  
+
+## SDL2_TTF
+1. Download the SDL2 Development libraries corresponding to your IDE.  
+   [SDL2_TTF Download Webpage](https://www.libsdl.org/projects/SDL_ttf/)  
+   Among the different proposed libraries, make sure you use the "Development 
+   libraries". 
+2. Follow the same procedure as for the SDL2 library. The folder containing the library must be named as follows:  
+   ```SDL2_ttf-2.0.<xx>```  
+   where `<xx>` is replaced with your version number.
 
 ## Spider
 Follow steps listed in the [following tutorial](http://preesm.sourceforge.net/website/index.php?id=tuto-spider#4)

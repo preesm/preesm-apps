@@ -79,6 +79,39 @@ if (WIN32)
 	endif()
 endif()
 
+# *******************************************
+# ************ SDL2TTF LIBRARY **************
+# ******************************************
+# Set variables before finding SDL2TTF Library
+# Helps to find where SDL2TTF libraries are saved (win32 only)
+if(WIN32)
+    # find the SDL2_ttf-x.y.z folder in the lib directory.
+	file(GLOB SDL2TTFDIR "${LIBS_DIR}/SDL2_ttf-[\\.|0-9]*")
+	set(ENV{SDL2TTFDIR} ${SDL2TTFDIR})
+endif()
+
+
+Find_Package (SDL2TTF REQUIRED )
+
+if(NOT SDL2TTF_FOUND)
+  MESSAGE(FATAL_ERROR "SDL2TTF not found !")
+endif()
+
+if (WIN32)
+	file(GLOB
+		SDL2TTF_DLL
+		${SDL2TTFDIR}/bin/*.dll
+		${SDL2TTFDIR}/lib/*.dll
+	)
+	
+	MESSAGE("Copy SDL2_ttf DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	else()
+		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+	endif()
+endif()
 
 # *******************************************
 # ************ Pthread LIBRARY **************
@@ -143,6 +176,7 @@ endif()
 # *******************************************
 # **************** Sobel.exe  ****************
 # *******************************************
+MESSAGE("${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR}")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
