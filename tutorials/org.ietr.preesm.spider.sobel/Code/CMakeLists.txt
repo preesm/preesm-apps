@@ -150,6 +150,7 @@ file(
 	./src/*.cpp
 	./src/*.h
 	./generated/*.cpp
+	./generated/*.h
 	./include/*.h
 )
 
