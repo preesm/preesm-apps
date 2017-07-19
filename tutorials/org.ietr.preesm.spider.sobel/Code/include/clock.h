@@ -12,7 +12,7 @@
 #define CLOCK_H
 
 // stamps used in clock functions to store data
-#define MAX_STAMPS 50
+#define MAX_STAMPS 51
 #define CLOCK_STAMP_GENERAL 0
 
 // Starting to record time for a given stamp

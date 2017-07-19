@@ -56,7 +56,7 @@ void initReadYUV(int width, int height) {
 #endif
 
     // Set initial clock
-    startTiming(0);
+    startTiming(50);
 }
 
 /*========================================================================
@@ -69,9 +69,9 @@ void readYUV(int width, int height, unsigned char *y, unsigned char *u, unsigned
     if( ftell(ptfile)/(width*height + width*height/2) >=NB_FRAME){
     	unsigned int time = 0;
         rewind(ptfile);
-        time = stopTiming(0);
+        time = stopTiming(50);
         printf("\nMain: %d frames in %d us - %f fps\n", NB_FRAME-1 ,time, (NB_FRAME-1.0)/(float)time*1000000);
-        startTiming(0);
+        startTiming(50);
     }
     fread(y, sizeof(char), width * height, ptfile);
     fread(u, sizeof(char), width * height / 4, ptfile);

@@ -13,6 +13,7 @@
 
 #include <spider.h>
 
+void initNbSliceSetter(Param height);
 void nbSliceSetter (Param ysize, Param* nbSlice);
 
 #endif//NB_SLICE_SETTER

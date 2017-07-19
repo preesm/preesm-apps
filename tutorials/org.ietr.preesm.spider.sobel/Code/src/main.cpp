@@ -44,6 +44,7 @@
 
 
 #include "../generated/top_display.h"
+#include "nbSliceSetter.h"
 #include "yuvRead.h"
 #include "yuvDisplay.h"
 
@@ -51,7 +52,7 @@
 
 #define NB_LRT 8
 
-#define NB_ITERATION 10000
+#define NB_ITERATION 100000
 
 #define STACK_IS_DYNAMIC (1)
 
@@ -161,6 +162,7 @@ int main(int argc, char* argv[]){
 
 	
 	/* Actor initialisation here if needed */
+	initNbSliceSetter(DISPLAY_H);
 	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
 	initReadYUV(DISPLAY_W, DISPLAY_H);
 

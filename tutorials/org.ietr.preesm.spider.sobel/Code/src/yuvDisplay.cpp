@@ -18,8 +18,6 @@
 
 #define FPS_MEAN 50
 
-extern int stopThreads;
-
 /**
 * Structure representing one display
 */
@@ -165,7 +163,7 @@ void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigne
                         u, w/2,
                         v, w/2
                     );
-    SDL_Event event;
+
     SDL_Rect screen_rect;
 
     screen_rect.w = w;
@@ -216,19 +214,6 @@ void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigne
 	SDL_RenderCopy(display.renderer, sliceTexture, NULL, &sliceTextRect);
 
     SDL_RenderPresent(display.renderer);
-
-    // Grab all the events off the queue.
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            stopThreads = 1;
-            break;
-        default:
-            break;
-        }
-    }
 }
 
 
