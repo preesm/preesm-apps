@@ -37,9 +37,10 @@
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
             <loop name="yuvDisplay">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="false" name="y" type="unsigned char"/>
-                <param direction="IN" isConfig="false" name="u" type="unsigned char"/>
-                <param direction="IN" isConfig="false" name="v" type="unsigned char"/>
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="v" type="unsigned char "/>
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
@@ -49,6 +50,7 @@
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
             <port annotation="NONE" expr="height*width" kind="input" name="y"/>
             <port annotation="NONE" expr="height/2*width/2" kind="input" name="u"/>
             <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
@@ -137,5 +139,6 @@
         <edge kind="dependency" source="nbSliceSetter"
             sourceport="nbSlice" target="nbSlice"/>
         <edge kind="dependency" source="height" target="nbSliceSetter" targetport="ysize"/>
+        <edge kind="dependency" source="nbSlice" target="display" targetport="nbSlice"/>
     </graph>
 </graphml>

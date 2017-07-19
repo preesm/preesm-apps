@@ -177,7 +177,7 @@ endif()
 # **************** Sobel.exe  ****************
 # *******************************************
 MESSAGE("${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR}")
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -189,4 +189,4 @@ file(
 )
 
 add_executable( sobel ${source_files} ${header_files})
-target_link_libraries(sobel ${SDL2_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})
+target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})

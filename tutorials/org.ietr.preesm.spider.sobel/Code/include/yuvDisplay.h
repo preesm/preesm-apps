@@ -1,7 +1,7 @@
 /*
 	============================================================================
 	Name        : displayYUV.h
-	Author      : mpelcat & kdesnos
+	Author      : mpelcat & kdesnos & jheulot
 	Version     :
 	Copyright   :
 	Description : Displaying YUV frames one next to another in a row.
@@ -18,6 +18,9 @@
 
 #define INIT_OVERLAY {NULL} // must be se same size as NB_DISPLAY
 
+#define PATH_TTF PROJECT_ROOT_PATH "/dat/arial.ttf"
+
+
 /**
 * Function called to display one of the YUV frame of the window.
 * The size of the displayed frame must correspond to the one declared
@@ -25,6 +28,8 @@
 *
 * @param id
 *        The id of the frame to display
+* @param nbSlice
+*        The number of slice used to parallelize computations.
 * @param y
 *        the Y component of the frame to display
 * @param u
@@ -32,7 +37,7 @@
 * @param v
 *        the V component of the frame to display
 */
-void yuvDisplay(int id, IN unsigned char *y, IN unsigned char *u, IN unsigned char *v);
+void yuvDisplay(int id, int nbSlice, IN unsigned char *y, IN unsigned char *u, IN unsigned char *v);
 
 /**
 * Initialize a new display with a parameterizable resolution and open a
