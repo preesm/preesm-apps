@@ -2,12 +2,13 @@
 	============================================================================
 	Name        : communication.c
 	Author      : kdesnos
-	Version     : 1.0
+	Version     : 2.1
 	Copyright   : CECILL-C
-	Description : 
+	Description :
 	============================================================================
 */
 
+#include <pthread.h>
 #include <semaphore.h>
 
 #include "x86.h"
@@ -26,6 +27,13 @@ void communicationInit(){
 }
 
 void sendStart(int senderID, int receiverID){
+#ifndef NDEBUG
+	if(senderID >= MAX_NB_CORES || receiverID >= MAX_NB_CORES){
+		printf("Number of core exceeds the limit specified in communication.h. \n Update MAX_NB_CORES.");
+		exit(-1);
+	}
+
+#endif
 	sem_post(&interCoreSem[receiverID][senderID]);
 }
 

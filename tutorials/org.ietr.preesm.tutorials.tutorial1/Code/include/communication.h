@@ -2,7 +2,7 @@
 	============================================================================
 	Name        : communication.h
 	Author      : kdesnos
-	Version     : 2.0
+	Version     : 2.1
 	Copyright   : CECILL-C
 	Description : Communication primitive for Preesm Codegen.
                   Currently, primitives were tested only for x86, shared_mem
@@ -18,7 +18,7 @@
 * This number is used to allocate the table of semaphores used for intercore
 * synchronization.
 */
-#define MAX_NB_CORES 8
+#define MAX_NB_CORES 16
 
 /**
 * Initialize the semaphores used for inter-core synchronization.
@@ -28,7 +28,7 @@ void communicationInit();
 /**
 * Non-blocking function called by the sender to signal that a buffer is ready
 * to be sent.
-* 
+*
 * @param[in] senderID
 *        the ID of the sender core
 * @param[in] coreID
@@ -49,7 +49,7 @@ void sendEnd();
 void receiveStart();
 
 /**
-* Blocking function called by the sender to wait for the received data 
+* Blocking function called by the sender to wait for the received data
 * availability.
 *
 * @param[in] senderID
