@@ -18,6 +18,8 @@
 
 #define FPS_MEAN 50
 
+extern int stopThreads;
+
 /**
 * Structure representing one display
 */
@@ -35,6 +37,16 @@ typedef struct YuvDisplay
 
 // Initialize
 static YuvDisplay display;
+
+int exitCallBack(void* userdata, SDL_Event* event){
+	if (event->type == SDL_QUIT){
+		printf("Exit request from GUI.\n");
+		stopThreads = 1;
+		return 0;
+	}
+	
+	return 1;
+}
 
 /**
 * Initializes a display frame. Be careful, once a window size has been chosen,
@@ -145,12 +157,14 @@ void yuvDisplayInit (int id, int width, int height)
     for(int i=0; i<FPS_MEAN; i++){
         startTiming(i);
     }
+
+	printf("register\n");
+	SDL_SetEventFilter(exitCallBack, NULL);
 }
 
 
 void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigned char *v)
 {
-
     SDL_Texture* texture = display.textures[id];
     int w,h;
 
@@ -214,6 +228,17 @@ void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigne
 	SDL_RenderCopy(display.renderer, sliceTexture, NULL, &sliceTextRect);
 
     SDL_RenderPresent(display.renderer);
+	
+	SDL_Event event;
+	// Grab all the events off the queue.
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		default:
+			break;
+		}
+	}
 }
 
 

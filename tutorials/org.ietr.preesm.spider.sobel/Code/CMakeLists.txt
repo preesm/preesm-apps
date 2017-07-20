@@ -14,7 +14,7 @@ if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 	add_definitions( -D_CRT_SECURE_NO_WARNINGS )
 endif()
 
-project(Sobel)
+project(piSobel)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_C_FLAGS "-DX4_CORES")
 
@@ -188,5 +188,5 @@ file(
 	./include/*.h
 )
 
-add_executable( sobel ${source_files} ${header_files})
-target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})
+add_executable( piSobel ${source_files} ${header_files})
+target_link_libraries(piSobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})

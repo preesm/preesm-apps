@@ -20,7 +20,6 @@
             <operator name="Core1"/>
             <task name="top_display/Merge"/>
             <task name="top_display/Read_YUV"/>
-            <task name="top_display/display"/>
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
@@ -29,7 +28,6 @@
             <operator name="Core2"/>
             <task name="top_display/Merge"/>
             <task name="top_display/Read_YUV"/>
-            <task name="top_display/display"/>
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
@@ -38,7 +36,6 @@
             <operator name="Core3"/>
             <task name="top_display/Merge"/>
             <task name="top_display/Read_YUV"/>
-            <task name="top_display/display"/>
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
