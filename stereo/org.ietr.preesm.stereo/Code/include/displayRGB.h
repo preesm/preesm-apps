@@ -15,6 +15,8 @@
 #define DISPLAY_W 480*NB_DISPLAY
 #define DISPLAY_H 270
 
+#define PATH_TTF PROJECT_ROOT_PATH "/dat/arial.ttf"
+
 /**
 * Function used to display an RGB image
 *

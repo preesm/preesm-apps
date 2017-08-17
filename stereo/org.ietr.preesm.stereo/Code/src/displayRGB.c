@@ -13,8 +13,11 @@
 #include "displayRGB.h"
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <pthread.h>
 #include <time.h>
+
+#define FPS_MEAN 5
 
 extern int stopThreads;
 
@@ -27,13 +30,25 @@ typedef struct RGBDisplay
 	SDL_Window *screen;					    // SDL window where to display
 	SDL_Surface* surface[NB_DISPLAY];
 	SDL_Renderer *renderer;
+	TTF_Font *text_font;
 	int currentXMin;						// Position for next display
 	int initialized;                        // Initialization done ?
+	int stampId;
 } RGBDisplay;
 
 
 // Initialize
-RGBDisplay display = { .textures = { NULL }, .initialized = 0 };
+static RGBDisplay display ;
+
+int exitCallBack(void* userdata, SDL_Event* event){
+	if (event->type == SDL_QUIT){
+		printf("Exit request from GUI.\n");
+		stopThreads = 1;
+		return 0;
+	}
+
+	return 1;
+}
 
 void displayRGBInit(int id, int height, int width){
 	if (display.initialized == 0)
@@ -71,10 +86,29 @@ void displayRGBInit(int id, int height, int width){
 		char* name = "Display";
 		display.initialized = 1;
 
+		SDL_SetEventFilter(exitCallBack, NULL);
+
 		if (SDL_Init(SDL_INIT_VIDEO))
 		{
 			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
 			exit(1);
+		}
+
+		printf("SDL_Init_end\n");
+
+		/* Initialize SDL TTF for text display */
+		if (TTF_Init())
+		{
+			printf("TTF initialization failed: %s\n", TTF_GetError());
+		}
+
+		printf("TTF_Init\n");
+
+		/* Initialize Font for text display */
+		display.text_font = TTF_OpenFont(PATH_TTF, 20);
+		if (!display.text_font)
+		{
+			printf("TTF_OpenFont: %s\n", TTF_GetError());
 		}
 
 		display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -116,6 +150,13 @@ void displayRGBInit(int id, int height, int width){
 		{
 			fprintf(stderr, "SDL: could not create surface - exiting\n");
 			exit(1);
+		}
+	}
+
+	if (id == 0){
+		display.stampId = 1;
+		for (int i = 1; i<FPS_MEAN+1; i++){
+			startTiming(i);
 		}
 	}
 
@@ -173,6 +214,35 @@ void refreshDisplayRGB(int id)
 	screen_rect.y = 0;
 
 	SDL_RenderCopy(display.renderer, texture, NULL, &screen_rect);
+
+	/* Draw FPS text */
+	if (id == 0){
+		char fps_text[20];
+		SDL_Color colorWhite = { 255, 255, 255, 255 };
+
+		int time = stopTiming(display.stampId+1);
+		sprintf(fps_text, "FPS: %.2f", 1. / (time / 1000000. / FPS_MEAN));
+		startTiming(display.stampId+1);
+		display.stampId = (display.stampId + 1) % FPS_MEAN;
+
+		SDL_Surface* fpsText = TTF_RenderText_Blended(display.text_font, fps_text, colorWhite);
+		SDL_Texture* fpsTexture = SDL_CreateTextureFromSurface(display.renderer, fpsText);
+
+		int fpsWidth, fpsHeight;
+		SDL_QueryTexture(fpsTexture, NULL, NULL, &fpsWidth, &fpsHeight);
+		SDL_Rect fpsTextRect;
+
+		fpsTextRect.x = 0;
+		fpsTextRect.y = 0;
+		fpsTextRect.w = fpsWidth;
+		fpsTextRect.h = fpsHeight;
+		SDL_RenderCopy(display.renderer, fpsTexture, NULL, &fpsTextRect);
+
+		/* Free resources */
+		SDL_FreeSurface(fpsText);
+		SDL_DestroyTexture(fpsTexture);
+	}
+
 	SDL_RenderPresent(display.renderer);
 
 	// Grab all the events off the queue.
@@ -180,9 +250,6 @@ void refreshDisplayRGB(int id)
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
-			stopThreads = 1;
-			break;
 		default:
 			break;
 		}

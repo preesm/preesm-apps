@@ -47,3 +47,12 @@ The project compilation requires the following libraries:
 	    ```/<project-path>/lib/SDL-2.0.<xx>/lib/x86```  
 		into its parent directory  
 		```/<project-path>/lib/SDL-2.0.<xx>/lib```  
+		
+## SDL2_TTF
+1. Download the SDL2 Development libraries corresponding to your IDE.  
+   [SDL2_TTF Download Webpage](https://www.libsdl.org/projects/SDL_ttf/)  
+   Among the different proposed libraries, make sure you use the "Development 
+   libraries". 
+2. Follow the same procedure as for the SDL2 library. The folder containing the library must be named as follows:  
+   ```SDL2_ttf-2.0.<xx>```  
+   where `<xx>` is replaced with your version number.
