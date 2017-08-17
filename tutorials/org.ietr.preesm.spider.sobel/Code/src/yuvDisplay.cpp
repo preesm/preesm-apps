@@ -187,7 +187,7 @@ void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigne
 
     SDL_RenderCopy(display.renderer, texture, NULL, &screen_rect);
 
-    /* Draw FPS */
+    /* Draw FPS text */
     char fps_text[20];
 	SDL_Color colorWhite = {255, 255, 255, 255};
 
@@ -209,7 +209,11 @@ void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigne
 	fpsTextRect.h = fpsHeight;
 	SDL_RenderCopy(display.renderer, fpsTexture, NULL, &fpsTextRect);
 
-	/* Draw NbSlice */
+	/* Free resources */
+	SDL_FreeSurface(fpsText);
+	SDL_DestroyTexture(fpsTexture);
+
+	/* Draw NbSlice Text */
     char slice_text[20];
 
     sprintf(slice_text, "nbSlice: %d", nbSlice);
@@ -226,6 +230,10 @@ void yuvDisplay(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigne
 	sliceTextRect.w = sliceWidth;
 	sliceTextRect.h = sliceHeight;
 	SDL_RenderCopy(display.renderer, sliceTexture, NULL, &sliceTextRect);
+
+	/* Free resources */
+	SDL_FreeSurface(sliceText);
+	SDL_DestroyTexture(sliceTexture);
 
     SDL_RenderPresent(display.renderer);
 	
