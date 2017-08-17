@@ -162,7 +162,7 @@ int main(int argc, char* argv[]){
 
 	
 	/* Actor initialisation here if needed */
-	
+
 	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
 	initReadYUV(DISPLAY_W, DISPLAY_H);
 	initNbSliceSetter(DISPLAY_H);
@@ -176,16 +176,14 @@ int main(int argc, char* argv[]){
 		
 	// Main loop, exeption handling can be removed to increase performance
 	try{
-	//int i=1;{
-	for(int i=0; i<NB_ITERATION && !stopThreads; i++){
-		//printf("NStep = %d\n", i);
+		for(int i=0; i<NB_ITERATION && !stopThreads; i++){
 
-		Spider::iterate();
+			Spider::iterate();
 
-		// Printing Gantt
-		if (cfg.traceEnabled) Spider::printGantt("stereo.pgantt", "stereo_tex.dat", &stat);
+			// Printing Gantt
+			if (cfg.traceEnabled) Spider::printGantt("gantt.pgantt", "gantt_tex.dat", &stat);
 
-	}
+		}
 	}catch(const char* s){
 		printf("Exception : %s\n", s);
 	}
