@@ -1,11 +1,11 @@
 /*
-	============================================================================
-	Name        : displayYUV.h
-	Author      : mpelcat & kdesnos & jheulot
-	Version     :
-	Copyright   :
-	Description : Displaying YUV frames one next to another in a row.
-	============================================================================
+============================================================================
+Name        : displayYUV.h
+Author      : mpelcat & kdesnos & jheulot
+Version     :
+Copyright   :
+Description : Displaying YUV frames one next to another in a row.
+============================================================================
 */
 #ifndef DISPLAY_YUV
 #define DISPLAY_YUV
@@ -20,11 +20,29 @@
 
 #define PATH_TTF PROJECT_ROOT_PATH "/dat/arial.ttf"
 
+/**
+* Function called to display one of the YUV frame of the window.
+* The size of the displayed frame must correspond to the one declared
+* when initializing the display.
+* This function also display the number of Frames per seconds.
+*
+* @param id
+*        The id of the frame to display
+* @param y
+*        the Y component of the frame to display
+* @param u
+*        the U component of the frame to display
+* @param v
+*        the V component of the frame to display
+*/
+void yuvDisplay(int id, IN unsigned char *y, IN unsigned char *u, IN unsigned char *v);
 
 /**
 * Function called to display one of the YUV frame of the window.
 * The size of the displayed frame must correspond to the one declared
 * when initializing the display.
+* This function also display the number of Frames per seconds and the number
+* of slices used for parallelization.
 *
 * @param id
 *        The id of the frame to display
@@ -37,7 +55,7 @@
 * @param v
 *        the V component of the frame to display
 */
-void yuvDisplay(int id, int nbSlice, IN unsigned char *y, IN unsigned char *u, IN unsigned char *v);
+void yuvDisplayWithNbSlice(int id, int nbSlice, IN unsigned char *y, IN unsigned char *u, IN unsigned char *v);
 
 /**
 * Initialize a new display with a parameterizable resolution and open a
@@ -57,7 +75,7 @@ void yuvDisplay(int id, int nbSlice, IN unsigned char *y, IN unsigned char *u, I
 * @param height
 *        the height of the initialized display
 */
-void yuvDisplayInit (int id, int width, int height);
+void yuvDisplayInit(int id, int width, int height);
 
 /**
 * Function used to free a display
