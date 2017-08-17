@@ -162,10 +162,10 @@ int main(int argc, char* argv[]){
 
 	
 	/* Actor initialisation here if needed */
-	initNbSliceSetter(DISPLAY_H);
+	
 	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
 	initReadYUV(DISPLAY_W, DISPLAY_H);
-
+	initNbSliceSetter(DISPLAY_H);
 
 
 
@@ -177,7 +177,7 @@ int main(int argc, char* argv[]){
 	// Main loop, exeption handling can be removed to increase performance
 	try{
 	//int i=1;{
-	for(int i=0; i<NB_ITERATION; i++){
+	for(int i=0; i<NB_ITERATION && !stopThreads; i++){
 		//printf("NStep = %d\n", i);
 
 		Spider::iterate();
