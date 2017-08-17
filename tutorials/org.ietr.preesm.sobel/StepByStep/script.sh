@@ -31,6 +31,7 @@ zip StepByStep/archives/org.ietr.preesm.sobel.zip \
 	Archi/* \
 	Code/* \
 		Code/include/* \
+		Code/dat/* \
 		Code/lib/cmake_modules/* \
 		Code/lib/ReadMe.md \
 		Code/src/* \
@@ -57,6 +58,7 @@ zip StepByStep/archives/tutorial1_result.zip \
 	Archi/* \
 	Code/* \
 		Code/include/* \
+		Code/dat/* \
 		Code/lib/cmake_modules/* \
 		Code/lib/ReadMe.md \
 		Code/src/* \
