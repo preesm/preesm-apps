@@ -155,7 +155,7 @@ void yuvDisplayInit(int id, int width, int height)
 
 	display.stampId = 0;
 	for (int i = 0; i<FPS_MEAN; i++){
-		startTiming(i);
+		startTiming(i + 1);
 	}
 
 	printf("register\n");
@@ -194,9 +194,9 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
 	char fps_text[20];
 	SDL_Color colorWhite = { 255, 255, 255, 255 };
 
-	int time = stopTiming(display.stampId);
+	int time = stopTiming(display.stampId + 1);
 	sprintf(fps_text, "FPS: %.2f", 1. / (time / 1000000. / FPS_MEAN));
-	startTiming(display.stampId);
+	startTiming(display.stampId + 1);
 	display.stampId = (display.stampId + 1) % FPS_MEAN;
 
 	SDL_Surface* fpsText = TTF_RenderText_Blended(display.text_font, fps_text, colorWhite);

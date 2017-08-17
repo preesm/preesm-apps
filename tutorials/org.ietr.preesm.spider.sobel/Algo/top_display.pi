@@ -35,7 +35,7 @@
         </node>
         <node id="display" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
-            <loop name="yuvDisplay">
+            <loop name="yuvDisplayWithNbSlice">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
                 <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
