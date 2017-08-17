@@ -944,7 +944,7 @@ index a4d4434..51f404c 100644
  
  project(Sobel)
  set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
--set(CMAKE_C_FLAGS "-DX1_CORE") 
+-set(CMAKE_C_FLAGS "-DX1_CORE")
 +set(CMAKE_C_FLAGS "-DX4_CORES")
 
  # Add definition for relative path into project
