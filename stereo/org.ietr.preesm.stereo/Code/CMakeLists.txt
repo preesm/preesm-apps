@@ -16,7 +16,6 @@ endif()
 
 project(Stereo)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(CMAKE_C_FLAGS "-DX4_CORES")
 
 # Add definition for relative path into project
 add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
