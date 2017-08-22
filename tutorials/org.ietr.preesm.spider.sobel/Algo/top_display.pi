@@ -103,10 +103,13 @@
         <node id="nbSliceSetter" kind="actor">
             <data key="graph_desc">Code/include/nbSliceSetter.h</data>
             <loop name="nbSliceSetter">
-                <param direction="IN" isConfig="true" name="ysize" type="Param"/>
+                <param direction="IN" isConfig="true" name="height" type="Param"/>
                 <param direction="OUT" isConfig="true" name="nbSlice" type="Param "/>
             </loop>
-            <port kind="cfg_input" name="ysize"/>
+            <init name="initNbSliceSetter">
+                <param direction="IN" isConfig="true" name="height" type="Param"/>
+            </init>
+            <port kind="cfg_input" name="height"/>
             <port annotation="NONE" kind="cfg_output" name="nbSlice"/>
         </node>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
@@ -138,7 +141,7 @@
         <edge kind="dependency" source="sliceHeight" target="Sobel" targetport="height"/>
         <edge kind="dependency" source="nbSliceSetter"
             sourceport="nbSlice" target="nbSlice"/>
-        <edge kind="dependency" source="height" target="nbSliceSetter" targetport="ysize"/>
+        <edge kind="dependency" source="height" target="nbSliceSetter" targetport="height"/>
         <edge kind="dependency" source="nbSlice" target="display" targetport="nbSlice"/>
     </graph>
 </graphml>
