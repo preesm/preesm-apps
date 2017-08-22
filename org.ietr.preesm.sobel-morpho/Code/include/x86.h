@@ -45,13 +45,4 @@
 
 typedef unsigned char uchar;
 
-void *computationThread_Core0(void *arg);
-void *computationThread_Core1(void *arg);
-void *computationThread_Core2(void *arg);
-void *computationThread_Core3(void *arg);
-void *computationThread_Core4(void *arg);
-void *computationThread_Core5(void *arg);
-void *computationThread_Core6(void *arg);
-void *computationThread_Core7(void *arg);
-
 #endif

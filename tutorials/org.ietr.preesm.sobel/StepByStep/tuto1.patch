@@ -7,7 +7,6 @@ Subject: [PATCH] (Sobel) Tutorial 1 result.
  .../org.ietr.preesm.sobel/Algo/top_display.diagram | 558 +++++++++++++++++++--
  .../org.ietr.preesm.sobel/Algo/top_display.pi      |  67 ++-
  .../org.ietr.preesm.sobel/Archi/4CoreX86.slam      |  83 +++
- .../org.ietr.preesm.sobel/Code/CMakeLists.txt      |   2 +-
  .../org.ietr.preesm.sobel/Code/include/sobel.h     |  31 ++
  .../Code/include/splitMerge.h                      |  52 ++
  tutorials/org.ietr.preesm.sobel/Code/include/x86.h |   2 +
@@ -936,19 +935,6 @@ index 0000000..9f2885b
 +        </slam:designDescription>
 +    </spirit:vendorExtensions>
 +</spirit:design>
-diff --git a/tutorials/org.ietr.preesm.sobel/Code/CMakeLists.txt b/tutorials/org.ietr.preesm.sobel/Code/CMakeLists.txt
-index a4d4434..51f404c 100644
---- a/tutorials/org.ietr.preesm.sobel/Code/CMakeLists.txt
-+++ b/tutorials/org.ietr.preesm.sobel/Code/CMakeLists.txt
-@@ -16,7 +16,7 @@ endif()
- 
- project(Sobel)
- set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
--set(CMAKE_C_FLAGS "-DX1_CORE")
-+set(CMAKE_C_FLAGS "-DX4_CORES")
-
- # Add definition for relative path into project
- add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 diff --git a/tutorials/org.ietr.preesm.sobel/Code/include/sobel.h b/tutorials/org.ietr.preesm.sobel/Code/include/sobel.h
 new file mode 100644
 index 0000000..7029d02
