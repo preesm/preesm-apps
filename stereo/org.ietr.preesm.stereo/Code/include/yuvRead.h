@@ -12,9 +12,6 @@
 #define READ_YUV_H
 #include "preesm.h"
 
-#define NB_FRAME 3000
-// FPS: number of frame between two FPS measures
-#define FPS 10
 
 /**
 * Initialize the readYUV actor.

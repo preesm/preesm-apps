@@ -14,4 +14,8 @@
 #define IN
 #define OUT
 
+#define NB_FRAME 3000
+// FPS: number of frame between two FPS measures
+#define FPS 10
+
 #endif

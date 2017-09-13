@@ -23,7 +23,6 @@
 char* paths[] = {"./dat/im0.ppm","./dat/im1.ppm"};
 char* outPath = "./out.ppm";
 static FILE * ptfile[NB_PATH] ;
-clock_t tick;
 long imageStartPosition[NB_PATH];
 
 void writePPM(int height, int width, unsigned char *gray){
@@ -110,7 +109,7 @@ void readPPMInit(int id,int height, int width) {
     }
 
     // Set initial clock
-    tick = clock();
+    startTiming(0);
 }
 
 void readPPM(int id,int height, int width, unsigned char *rgbPtr){
@@ -118,12 +117,13 @@ void readPPM(int id,int height, int width, unsigned char *rgbPtr){
     int rgb;
 
 	if(id == 1){
-		tick = clock()-tick;
-		printf("\nMain: Processed in %f => %f fps\n",tick/(float)CLOCKS_PER_SEC,1/(float)tick*(float)CLOCKS_PER_SEC);
-		tick = clock();
-	}
+		unsigned int time = 0;
+        time = stopTiming(0);
+        printf("\nMain: Processed in %d us - %f fps\n",time, ((float)1)/(float)time*1000000);
+        startTiming(0);
+}
 
     fseek(ptfile[id],imageStartPosition[id], SEEK_SET);
 
-    fread(rgbPtr,sizeof(char), 3*width*height, ptfile[id]);    
+    fread(rgbPtr,sizeof(char), 3*width*height, ptfile[id]);
 }
