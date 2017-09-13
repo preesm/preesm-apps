@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 # ************* CMake Content ***************
 # *******************************************
 # This CMake create a workspace containing the following projects
-# 
+#
 # Programs
 #  - stereo.exe
 
@@ -68,7 +68,7 @@ if (WIN32)
 		${SDL2DIR}/bin/*.dll
 		${SDL2DIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -102,7 +102,7 @@ if (WIN32)
 		${SDL2TTFDIR}/bin/*.dll
 		${SDL2TTFDIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL2_ttf DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -157,4 +157,10 @@ file(
 )
 
 add_executable( stereo ${source_files} ${header_files})
-target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+
+# add lib math on non Visual Studio environment only
+if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+	target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+else()
+	target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} m)
+endif()
