@@ -12,8 +12,8 @@
 #include "preesm.h"
 
 #define NB_DISPLAY 2
-#define DISPLAY_W 480*NB_DISPLAY
-#define DISPLAY_H 270
+#define DISPLAY_W 450*NB_DISPLAY
+#define DISPLAY_H 380
 
 #define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
 

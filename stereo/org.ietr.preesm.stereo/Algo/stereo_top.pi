@@ -8,12 +8,12 @@
     <key attr.name="memoryScript" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">stereo_top</data>
-        <node expr="380" id="height" kind="param"/>
-        <node expr="434" id="width" kind="param"/>
+        <node expr="375" id="height" kind="param"/>
+        <node expr="450" id="width" kind="param"/>
         <node expr="19" id="maxDisparity" kind="param"/>
         <node expr="0" id="minDisparity" kind="param"/>
         <node expr="5" id="nbIterations" kind="param"/>
-        <node expr="20" id="nbSlice" kind="param"/>
+        <node expr="15" id="nbSlice" kind="param"/>
         <node expr="4" id="scale" kind="param"/>
         <node expr="12" id="truncValue" kind="param"/>
         <node expr="height*width" id="size" kind="param"/>
