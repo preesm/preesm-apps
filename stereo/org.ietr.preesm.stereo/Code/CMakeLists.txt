@@ -35,8 +35,11 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
 			set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 	endif()
+	#add libmath during non visual studio builds
+	set(CMAKE_EXTRA_LIB m)
 else()
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	unset(CMAKE_EXTRA_LIB)
 endif()
 
 if(WIN32)
@@ -159,8 +162,4 @@ file(
 add_executable( stereo ${source_files} ${header_files})
 
 # add lib math on non Visual Studio environment only
-if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
-	target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-else()
-	target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} m)
-endif()
+target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
