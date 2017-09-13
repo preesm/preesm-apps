@@ -113,7 +113,6 @@ void yuvDisplayInit(int id, int width, int height)
 		printf("TTF_Init\n");
 
 		/* Initialize Font for text display */
-		//display.text_font = TTF_OpenFont("./arial.ttf", 20);
 		display.text_font = TTF_OpenFont(PATH_TTF, 20);
 		if (!display.text_font)
 		{
