@@ -160,6 +160,5 @@ file(
 )
 
 add_executable( stereo ${source_files} ${header_files})
-
-# add lib math on non Visual Studio environment only
 target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
+set(CMAKE_C_FLAGS "-std=c99")

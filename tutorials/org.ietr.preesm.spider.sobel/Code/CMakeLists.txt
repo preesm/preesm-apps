@@ -190,3 +190,4 @@ file(
 
 add_executable( piSobel ${source_files} ${header_files})
 target_link_libraries(piSobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})
+set(CMAKE_C_FLAGS "-std=c99")

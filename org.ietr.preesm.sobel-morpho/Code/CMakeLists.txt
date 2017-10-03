@@ -159,3 +159,4 @@ file(
 
 add_executable( sobel ${source_files} ${header_files})
 target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+set(CMAKE_C_FLAGS "-std=c99")

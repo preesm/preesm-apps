@@ -131,3 +131,4 @@ file(
 )
 add_executable( stereo ${source_files} ${header_files})
 target_link_libraries(stereo ${CMAKE_THREAD_LIBS_INIT} ${SDL2_LIBRARY} ${M_LIB} ${PNG_LIBRARY})
+set(CMAKE_C_FLAGS "-std=c99")

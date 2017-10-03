@@ -89,3 +89,4 @@ file(
 
 add_executable( introduction ${source_files} ${header_files})
 target_link_libraries(introduction ${CMAKE_THREAD_LIBS_INIT})
+set(CMAKE_C_FLAGS "-std=c99")
