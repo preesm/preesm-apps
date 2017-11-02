@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/cacla/Algo/prediction.pi"/>
+        <architecture url="/cacla/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/cacla/Code/codegen"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="prediction/Environment"/>
+            <task name="prediction/Actor_MLP/state"/>
+            <task name="prediction/Actor_MLP/action"/>
+            <task name="prediction/Actor_MLP/Hidden_layer/computeNeuron"/>
+            <task name="prediction/Actor_MLP/Hidden_layer/input"/>
+            <task name="prediction/Actor_MLP/Hidden_layer/weights"/>
+            <task name="prediction/Actor_MLP/Hidden_layer/bias_values"/>
+            <task name="prediction/Actor_MLP/Hidden_layer/output"/>
+            <task name="prediction/Actor_MLP/Hidden_layer"/>
+            <task name="prediction/Actor_MLP/Output_layer/computeNeuron"/>
+            <task name="prediction/Actor_MLP/Output_layer/input"/>
+            <task name="prediction/Actor_MLP/Output_layer/weights"/>
+            <task name="prediction/Actor_MLP/Output_layer/bias_values"/>
+            <task name="prediction/Actor_MLP/Output_layer/output"/>
+            <task name="prediction/Actor_MLP/Output_layer"/>
+            <task name="prediction/Actor_MLP/weights_hidden/BroadcastWeightsGen"/>
+            <task name="prediction/Actor_MLP/weights_hidden/weightGen"/>
+            <task name="prediction/Actor_MLP/weights_hidden/weights_out"/>
+            <task name="prediction/Actor_MLP/weights_hidden/bias_out"/>
+            <task name="prediction/Actor_MLP/weights_hidden/BroadcastBiasGen"/>
+            <task name="prediction/Actor_MLP/weights_hidden"/>
+            <task name="prediction/Actor_MLP/weights_output/BroadcastWeightsGen"/>
+            <task name="prediction/Actor_MLP/weights_output/weightGen"/>
+            <task name="prediction/Actor_MLP/weights_output/weights_out"/>
+            <task name="prediction/Actor_MLP/weights_output/bias_out"/>
+            <task name="prediction/Actor_MLP/weights_output/BroadcastBiasGen"/>
+            <task name="prediction/Actor_MLP/weights_output"/>
+            <task name="prediction/Actor_MLP"/>
+            <task name="prediction"/>
+            <task name="prediction/renderEnv"/>
+            <task name="prediction/broadcastState"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="float" size="4"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+</scenario>
