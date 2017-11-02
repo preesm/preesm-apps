@@ -20,21 +20,28 @@ float last_action = 0.f;
 
 void envInit(float *state_angular, float *state_observation) {
     srand((unsigned int)time(NULL));
+    // Use a random value to determine the sign of initial values
     float sign = (float)(rand()) / (float)(RAND_MAX);
     if (sign > 0.5f) {
         sign = 1.f;
     } else {
         sign = -1.f;
     }
-//    state_angular[0] = sign * M_PI * (float)(rand()) / (float)(RAND_MAX);
-//    state_angular[1] = sign * (float)(rand()) / (float)(RAND_MAX);
-    state_angular[0] = -1.335607;
-    state_angular[1] = -0.523917;
-    fprintf(stderr, "%f - %f\n", state_angular[0], state_angular[1]);
+    state_angular[0] = sign * M_PI * (float)(rand()) / (float)(RAND_MAX);
+    sign = (float)(rand()) / (float)(RAND_MAX);
+    if (sign > 0.5f) {
+        sign = 1.f;
+    } else {
+        sign = -1.f;
+    }
+    state_angular[1] = sign * (float)(rand()) / (float)(RAND_MAX);
+    fprintf(stderr, "Initial angular state:\n");
+    fprintf(stderr, "     Angular Position: %f rad\n", state_angular[0]);
+    fprintf(stderr, "     Angular Velocity: %f rad/s\n", state_angular[1]);
     state_observation[0] = cos(state_angular[0]);
     state_observation[1] = sin(state_angular[0]);
     state_observation[2] = state_angular[1];
-    fprintf(stderr, "%f - %f - %f\n", state_observation[0], state_observation[1], state_observation[2]);
+    fprintf(stderr, "Initial state: %f - %f - %f\n", state_observation[0], state_observation[1], state_observation[2]);
 }
 
 
@@ -64,5 +71,4 @@ void step(int state_space_size, int action_space_size, int state_angular_size,
     state_observation[0] = cos(theta);
     state_observation[1] = sin(theta);
     state_observation[2] = angular_speed;
-//    fprintf(stderr, "OUTPUT: %f %f %f\n", state_observation[0], state_observation[1], state_observation[2]);
 }

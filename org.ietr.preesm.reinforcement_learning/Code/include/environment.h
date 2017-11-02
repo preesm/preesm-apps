@@ -15,7 +15,9 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 /**
- * @brief Initializes the angular state of the system
+ * @brief Initializes the angular state of the system to random values
+ *        The angular position is initialized in [-pi;pi]
+ *        The angular velocity is initialized in [-1;1]
  *
  * @param state_angular Values of angular state of the system
  */

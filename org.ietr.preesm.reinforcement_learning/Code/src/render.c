@@ -108,6 +108,7 @@ void renderEnv(int size, float *state) {
         }
     }
 
+    // Sleep to smooth the rendering
     usleep(24000);
 }
 
