@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">critic_mlp</data>
+        <node id="value_space_size" kind="cfg_in_iface"/>
+        <node id="state_space_size" kind="cfg_in_iface"/>
+        <node id="hidden_size" kind="cfg_in_iface"/>
+        <node id="value" kind="snk">
+            <port annotation="NONE" expr="value_space_size" kind="input" name="value"/>
+        </node>
+        <node id="state" kind="src">
+            <port annotation="NONE" expr="state_space_size"
+                kind="output" name="state"/>
+        </node>
+        <node id="value_prediction" kind="actor">
+            <data key="graph_desc">Algo/mlp_train.pi</data>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="hidden_size"/>
+            <port kind="cfg_input" name="input_size"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="input_size * hidden_size + hidden_size * output_size"
+                kind="input" name="weights"/>
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="input" name="bias"/>
+            <port annotation="NONE" expr="output_size" kind="output" name="output"/>
+        </node>
+        <node id="weights" kind="src">
+            <port annotation="NONE"
+                expr="state_space_size * hidden_size + hidden_size * value_space_size"
+                kind="output" name="weights"/>
+        </node>
+        <node id="bias" kind="src">
+            <port annotation="NONE"
+                expr="hidden_size + value_space_size" kind="output" name="bias"/>
+        </node>
+        <edge kind="fifo" source="value_prediction" sourceport="output"
+            target="value" targetport="value" type="float"/>
+        <edge kind="fifo" source="state" sourceport="state"
+            target="value_prediction" targetport="input" type="float"/>
+        <edge kind="fifo" source="weights" sourceport="weights"
+            target="value_prediction" targetport="weights" type="float"/>
+        <edge kind="fifo" source="bias" sourceport="bias"
+            target="value_prediction" targetport="bias" type="float"/>
+        <edge kind="dependency" source="state_space_size" target="state"/>
+        <edge kind="dependency" source="value_space_size" target="value"/>
+        <edge kind="dependency" source="hidden_size"
+            target="value_prediction" targetport="hidden_size"/>
+        <edge kind="dependency" source="value_space_size"
+            target="value_prediction" targetport="output_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="value_prediction" targetport="input_size"/>
+        <edge kind="dependency" source="value_space_size" target="bias"/>
+        <edge kind="dependency" source="hidden_size" target="bias"/>
+        <edge kind="dependency" source="state_space_size" target="weights"/>
+        <edge kind="dependency" source="hidden_size" target="weights"/>
+        <edge kind="dependency" source="value_space_size" target="weights"/>
+    </graph>
+</graphml>

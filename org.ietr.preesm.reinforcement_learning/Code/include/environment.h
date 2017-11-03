@@ -34,6 +34,6 @@ void envInit(float *state_angular, float *state_observation);
  * @param reward            Step reward from the actions applied
  */
 void step(int state_space_size, int action_space_size, int state_angular_size,
-IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation);
+IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation, OUT float *reward);
 
 #endif

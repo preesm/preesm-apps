@@ -56,8 +56,9 @@ if(WIN32)
 endif()
 
 
-find_Package (SDL2 REQUIRED)
+find_Package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 if(NOT SDL2_FOUND)
   MESSAGE(FATAL_ERROR "SDL not found !")
@@ -117,7 +118,7 @@ endif()
 # *******************************************
 # **************** Sobel.exe  ****************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -129,5 +130,5 @@ file(
  
 add_executable( cacla ${source_files} ${header_files})
 target_link_libraries(cacla m)
-target_link_libraries(cacla ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(cacla ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 set(CMAKE_C_FLAGS "-std=c99 -lm")

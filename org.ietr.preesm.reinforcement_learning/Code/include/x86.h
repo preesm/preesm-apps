@@ -38,6 +38,7 @@
 #include "dump.h"
 
 #include "environment.h"
+#include "mlp.h"
 #include "actor_mlp.h"
 #include "render.h"
 

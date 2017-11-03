@@ -18,7 +18,7 @@
             <port annotation="NONE" expr="size" kind="output" name="weights_out1"/>
         </node>
         <node id="weightGen" kind="actor">
-            <data key="graph_desc">Code/include/actor_mlp.h</data>
+            <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="weightsGen">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>

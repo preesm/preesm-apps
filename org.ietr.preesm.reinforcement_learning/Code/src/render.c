@@ -7,12 +7,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-// SDL lib
+// SDL libs
 #include <SDL.h>
 #include <SDL_image.h>
-//#include <SDL_ttf.h>
+#include <SDL_ttf.h>
+// timing lib
+#include "../include/clock.h"
 
-//#define FPS_MEAN 50
+#define FPS_MEAN 50
 
 #include "../include/render.h"
 
@@ -34,7 +36,8 @@ typedef struct sdlDisplay {
     SDL_Renderer *renderer;
     SDL_Window *screen;
     SDL_Texture *texture;
-//    TTF_Font *text_font;
+    TTF_Font *font;
+    int stampId;
 }sdlDisplay;
 
 static sdlDisplay display;
@@ -49,7 +52,22 @@ void renderInit(void) {
         fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
         exit(1);
     }
-    fprintf(stderr, "SDL_Init_end\n");
+    fprintf(stderr, "SDL_Init_End\n");
+
+
+    // Initialize SDL TTF for text display
+    fprintf(stderr, "SDL_TTF_Init_Start\n");
+    if (TTF_Init()) {
+        printf("TTF initialization failed: %s\n", TTF_GetError());
+    }
+    fprintf(stderr, "SDL_TTF_Init_End\n");
+
+    // Open Font for text display
+    display.font = TTF_OpenFont(PATH_TTF, 20);
+    if (!display.font) {
+        printf("TTF_OpenFont: %s\n", TTF_GetError());
+    }
+
     // Create window
     display.screen = SDL_CreateWindow("Environment_Display", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                      DISPLAY_W, DISPLAY_H, SDL_WINDOW_SHOWN);
@@ -77,6 +95,11 @@ void renderInit(void) {
         exit(1);
     }
 
+    display.stampId = 0;
+    for (int i = 0; i < FPS_MEAN; ++i) {
+        startTiming(i + 1);
+    }
+
     fprintf(stderr, "register exit callback\n");
     SDL_SetEventFilter(exitCallBack, NULL);
 }
@@ -87,15 +110,35 @@ void renderEnv(int size, float *state) {
     /* Clear the entire screen to our selected color. */
     SDL_RenderClear(display.renderer);
 
-    // set color for the pendulum
-    SDL_SetRenderDrawColor(display.renderer, 255, 0, 0, 255);
-
+    // Position of the pendulum in the window
     SDL_Rect dest = {225, 250, 49, 234};
     SDL_Point center = {25, 15};
+    // Convert the angle to degree with the offset to match the python training
     float angle = 180.f - state[0] * 180.f / (PI);
-
+    // Display the pendulum
     SDL_RenderCopyEx(display.renderer, display.texture, NULL, &dest, angle, &center, SDL_FLIP_NONE);
 
+    // Print FPS text
+    char stringFPS[20];
+    SDL_Color colorGreen = {0, 255, 0, 255};
+    int timeStamp = stopTiming(display.stampId + 1);
+    sprintf(stringFPS, "%.2f fps", 1. / (timeStamp / 1000000. / FPS_MEAN));
+    startTiming(display.stampId + 1);
+    display.stampId = (display.stampId + 1) % FPS_MEAN;
+
+    SDL_Surface* surfaceFPS = TTF_RenderText_Blended(display.font, stringFPS, colorGreen);
+    SDL_Texture* textureFPS = SDL_CreateTextureFromSurface(display.renderer, surfaceFPS);
+
+    int widthFPS, heightFPS;
+    SDL_QueryTexture(textureFPS, NULL, NULL, &widthFPS, &heightFPS);
+    SDL_Rect rectFPSText = {0, 0, widthFPS, heightFPS};
+    SDL_RenderCopy(display.renderer, textureFPS, NULL, &rectFPSText);
+
+    // Free resources
+    SDL_FreeSurface(surfaceFPS);
+    SDL_DestroyTexture(textureFPS);
+
+    // Proceed to the actual display
     SDL_RenderPresent(display.renderer);
 
     SDL_Event event;
@@ -109,7 +152,7 @@ void renderEnv(int size, float *state) {
     }
 
     // Sleep to smooth the rendering
-    usleep(24000);
+    usleep(1000);
 }
 
 void renderFinalize(void)

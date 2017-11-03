@@ -46,7 +46,7 @@ void envInit(float *state_angular, float *state_observation) {
 
 
 void step(int state_space_size, int action_space_size, int state_angular_size,
-          IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation) {
+          IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation, OUT float *reward) {
     // Get current angular state
     float theta = state_angular_in[0];
     float angular_speed = state_angular_in[1];
@@ -56,8 +56,8 @@ void step(int state_space_size, int action_space_size, int state_angular_size,
     last_action = action_clip;
 
     // Compute reward
-    float reward = POW2(MODF((theta + M_PI), (2.f * M_PI)) - M_PI) + 0.1f * POW2(angular_speed) + 0.001f*(POW2(action_clip));
-    reward = -(reward);
+    reward[0] = POW2(MODF((theta + M_PI), (2.f * M_PI)) - M_PI) + 0.1f * POW2(angular_speed) + 0.001f*(POW2(action_clip));
+    reward[0] = -(reward[0]);
 
     // Update angular state
     angular_speed = angular_speed + ((-3.f) * G_CONSTANT / (2.f * LENGTH_CONSTANT) * sin(theta + M_PI) +

@@ -10,7 +10,7 @@
         <node id="input_size" kind="cfg_in_iface"/>
         <node id="layer_size" kind="cfg_in_iface"/>
         <node id="computeNeuron" kind="actor">
-            <data key="graph_desc">Code/include/actor_mlp.h</data>
+            <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="neuron">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="false" name="input" type="float "/>
