@@ -6,7 +6,7 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">neuron</data>
+        <data key="name">mlp_layer</data>
         <node id="input_size" kind="cfg_in_iface"/>
         <node id="layer_size" kind="cfg_in_iface"/>
         <node id="computeNeuron" kind="actor">

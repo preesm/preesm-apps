@@ -13,23 +13,23 @@
         <node expr="input_size * hidden_size" id="size_weights_hidden" kind="param"/>
         <node expr="output_size * hidden_size" id="size_weights_output" kind="param"/>
         <node id="Output_layer" kind="actor">
-            <data key="graph_desc">Algo/neuron_output.pi</data>
+            <data key="graph_desc">Algo/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
-            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="Hidden_layer" kind="actor">
-            <data key="graph_desc">Algo/neuron.pi</data>
+            <data key="graph_desc">Algo/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
+            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
-            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="output" kind="snk">
@@ -63,8 +63,15 @@
             <port annotation="NONE" expr="size_out0" kind="output" name="bias_out0"/>
             <port annotation="NONE" expr="size_out1" kind="output" name="bias_out1"/>
         </node>
-        <edge kind="fifo" source="Hidden_layer" sourceport="output"
-            target="Output_layer" targetport="input" type="float"/>
+        <node id="activationFunction" kind="actor">
+            <data key="graph_desc">Code/include/mlp.h</data>
+            <loop name="activateTanHyperbolic">
+                <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="OUT" isConfig="false" name="output" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="input"/>
+            <port annotation="NONE" expr="1" kind="output" name="output"/>
+        </node>
         <edge kind="fifo" source="Output_layer" sourceport="output"
             target="output" targetport="output" type="float"/>
         <edge kind="fifo" source="input" sourceport="input"
@@ -81,6 +88,10 @@
             target="Output_layer" targetport="bias_values" type="float"/>
         <edge kind="fifo" source="bias" sourceport="bias"
             target="ForkBias" targetport="bias_in" type="float"/>
+        <edge kind="fifo" source="Hidden_layer" sourceport="output"
+            target="activationFunction" targetport="input" type="float"/>
+        <edge kind="fifo" source="activationFunction"
+            sourceport="output" target="Output_layer" targetport="input" type="float"/>
         <edge kind="dependency" source="output_size" target="output"/>
         <edge kind="dependency" source="input_size" target="input"/>
         <edge kind="dependency" source="input_size"

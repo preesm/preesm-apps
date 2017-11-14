@@ -12,7 +12,6 @@
         <node expr="2" id="state_angular_size" kind="param"/>
         <node expr="3" id="state_space_size" kind="param"/>
         <node expr="1" id="value_space_size" kind="param"/>
-        <node expr="0.99" id="gamma" kind="param"/>
         <node expr="20" id="critic_hidden_size" kind="param"/>
         <node
             expr="state_space_size * critic_hidden_size + critic_hidden_size * value_space_size"
@@ -20,7 +19,6 @@
         <node expr="critic_hidden_size + value_space_size"
             id="bias_broadcast_size" kind="param"/>
         <node expr="20" id="actor_hidden_size" kind="param"/>
-        <node expr="0.5" id="Gaussian_Sigma" kind="param"/>
         <node id="Environment" kind="actor">
             <data key="graph_desc">Code/include/environment.h</data>
             <loop name="step">
@@ -102,12 +100,25 @@
                 kind="output" name="bias"/>
         </node>
         <node id="Temporal_Difference_Error" kind="actor">
-            <port kind="cfg_input" name="gamma"/>
+            <data key="graph_desc">Code/include/critic_mlp.h</data>
+            <loop name="td_error">
+                <param direction="IN" isConfig="false" name="gamma_in" type="float"/>
+                <param direction="IN" isConfig="false" name="reward" type="float"/>
+                <param direction="IN" isConfig="false"
+                    name="value_state" type="float"/>
+                <param direction="IN" isConfig="false"
+                    name="value_next_state" type="float"/>
+                <param direction="OUT" isConfig="false" name="target" type="float "/>
+                <param direction="OUT" isConfig="false" name="sigma" type="float "/>
+                <param direction="OUT" isConfig="false" name="gamma_out" type="float "/>
+            </loop>
             <port annotation="NONE" expr="1" kind="input" name="value_state"/>
             <port annotation="NONE" expr="1" kind="input" name="value_next_state"/>
             <port annotation="NONE" expr="1" kind="input" name="reward"/>
+            <port annotation="NONE" expr="1" kind="input" name="gamma_in"/>
             <port annotation="NONE" expr="1" kind="output" name="sigma"/>
             <port annotation="NONE" expr="1" kind="output" name="target"/>
+            <port annotation="NONE" expr="1" kind="output" name="gamma_out"/>
         </node>
         <node id="Critic_MLP_old" kind="actor">
             <data key="graph_desc">Algo/critic_mlp.pi</data>
@@ -162,10 +173,20 @@
                 kind="output" name="bias"/>
         </node>
         <node id="GaussianPolicy" kind="actor">
+            <data key="graph_desc">Code/include/actor_mlp.h</data>
+            <loop name="normalSampler">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="sigma_in" type="float "/>
+                <param direction="IN" isConfig="false" name="action_in" type="const float "/>
+                <param direction="OUT" isConfig="false"
+                    name="action_out" type="float "/>
+                <param direction="OUT" isConfig="false" name="sigma_out" type="float "/>
+            </loop>
             <port kind="cfg_input" name="size"/>
-            <port kind="cfg_input" name="sigma"/>
             <port annotation="NONE" expr="size" kind="input" name="action_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="sigma_in"/>
             <port annotation="NONE" expr="size" kind="output" name="action_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="sigma_out"/>
         </node>
         <node id="broadcastAction" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -258,6 +279,16 @@
             target="Actor_MLP" targetport="input" type="float">
             <data key="delay"/>
         </edge>
+        <edge expr="1" kind="fifo" source="GaussianPolicy"
+            sourceport="sigma_out" target="GaussianPolicy"
+            targetport="sigma_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="1" kind="fifo" source="Temporal_Difference_Error"
+            sourceport="gamma_out" target="Temporal_Difference_Error"
+            targetport="gamma_in" type="float">
+            <data key="delay"/>
+        </edge>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="action_space_size"
@@ -275,8 +306,6 @@
             target="Critic_MLP" targetport="state_space_size"/>
         <edge kind="dependency" source="value_space_size"
             target="Critic_MLP" targetport="value_space_size"/>
-        <edge kind="dependency" source="gamma"
-            target="Temporal_Difference_Error" targetport="gamma"/>
         <edge kind="dependency" source="value_space_size"
             target="Critic_MLP_old" targetport="value_space_size"/>
         <edge kind="dependency" source="state_space_size"
@@ -323,8 +352,6 @@
             target="Actor_MLP" targetport="hidden_size"/>
         <edge kind="dependency" source="action_space_size"
             target="Actor_MLP" targetport="output_size"/>
-        <edge kind="dependency" source="Gaussian_Sigma"
-            target="GaussianPolicy" targetport="sigma"/>
         <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out1-Actor_MLP.input"/>
         <edge kind="dependency" source="state_space_size" target="Update_Actor.weights-Actor_MLP.weights"/>
         <edge kind="dependency" source="action_space_size" target="Update_Actor.bias-Actor_MLP.bias"/>

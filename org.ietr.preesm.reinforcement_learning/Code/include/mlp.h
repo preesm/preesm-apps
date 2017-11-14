@@ -25,15 +25,13 @@ void layer(int layer_size, int output_size, float *weights, float *bias_values, 
 /**
  * @brief Generic neuron actor for MLP
  *
- * This compute the output of neuron[i] of a layer of a MLP neural network
+ * This compute the output of neuron[i] of a hidden layer of a MLP neural network
  *
  * With n input values, weights array is constructed this way:
  *      weight[0] -> weight from input[0] to neuron[i]
  *      weight[1] -> weight from input[1] to neuron[i]
  *      ...
  *      weight[n] -> weight from input[n] to neuron[i]
- *
- * Output is obtained using an hyperbolic tangent activation function
  *
  * @param input_size  Size of the previous layer
  * @param input       Input values (output of the previous layer)
@@ -46,26 +44,56 @@ void neuron(int input_size,
             OUT float *output);
 
 /**
- * @brief Output neuron actor for MLP
+ * @brief Hyperbolic tangent activation function
  *
- * This compute the output of neuron[i] of a layer of a MLP neural network
+ *                            2
+ *    f(x) = tanh(x) = (--------------) - 1
+ *                       1 + exp(-2x)
  *
- * With n input values, weights array is constructed this way:
- *      weight[0] -> weight from input[0] to neuron[i]
- *      weight[1] -> weight from input[1] to neuron[i]
- *      ...
- *      weight[n] -> weight from input[n] to neuron[i]
- *
- *
- * @param input_size  Size of the previous layer
- * @param input       Input values (output of the previous layer)
- * @param weights     Weights associated to the inputs
- * @param bias_values Bias values associated to the neuron
- * @param output      Response of the neuron to the inputs
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
  */
-void neuron_output(int input_size,
-                   IN float *input, IN float *weights, IN float *bias_values,
-                   OUT float *output);
+void activateTanHyperbolic(IN float *input,
+                           OUT float *output);
+
+/**
+ * @brief Rectified Linear Unit activation function
+ *
+ *            | 0, x < 0
+ *     f(x) = |
+ *            | x, else
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void activateReLU(IN float *input,
+                  OUT float *output);
+
+/**
+ * @brief Soft sign activation function
+ *
+ *                 x
+ *     f(x) = ------------
+ *             1 + abs(x)
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void activateSoftSign(IN float *input,
+                      OUT float *output);
+
+/**
+ * @brief Sigmoid activation function
+ *
+ *                 1
+ *     f(x) = ------------
+ *             1 + exp(-x)
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void activateSigmoid(IN float *input,
+                     OUT float *output);
 /**
  * @brief Handle the weights and biases of layer of a MLP
  *
@@ -80,5 +108,17 @@ void neuron_output(int input_size,
 void weightsGen(int input_size, int layer_size,
                 IN float *weights_in, IN float *bias_in,
                 OUT float *weights_out, OUT float *bias_out);
+
+/**
+ * @brief Performs the Mean Square Error loss operation
+ *
+ * @param size         Size of the arrays
+ * @param labels       Array filled with target values
+ * @param predictions  Array filled with predicted values
+ * @param mse_output   Scalar value of the MSE
+ */
+void lossMSE(int size,
+             IN float *labels, IN float *predictions,
+             OUT float *mse_output);
 
 #endif //MLP_H

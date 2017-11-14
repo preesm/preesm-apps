@@ -3,9 +3,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+// math lib
+#include <math.h>
+
 // File header
 #include "../include/actor_mlp.h"
 
+#ifndef M_PI
+    #define M_PI 3.1415926535897932385f
+#endif
+
+#define N_SAMPLING 30
 
 void actorWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out) {
     switch(id) {
@@ -116,5 +124,37 @@ void actorWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out) {
             break;
         default:
             fprintf(stderr, "Unhandled ID init value: %d", id);
+    }
+}
+
+
+void normalSampler(int size,
+                     IN float *sigma_in, IN const float *action_in,
+                     OUT float *action_out, OUT float *sigma_out) {
+    // Work around the lack of constant definer in PREESM
+    (*sigma_out) = sigma_in[0];
+
+    // Get a random value and project it on the gaussian curve
+    // Perform N sampling and take a value randomly in the sampled array
+    float array_samples[N_SAMPLING];
+    // Pre-compute constant value
+    float const_sig_pi = 1.f / (sigma_in[0] * (float)(sqrt(2 * M_PI)));
+    float const_sq_sig = 2.f * sigma_in[0] * sigma_in[0];
+    for (int i = 0; i < size; ++i) {
+        for (int n = 0; n < N_SAMPLING; ++n) {
+            float value = (float)(rand());
+            float numerator = -((value - action_in[i]) * (value - action_in[i]));
+            // Gaussian function:
+            //                          1                     (x - mu)²
+            // P(x|mu, sigma) = -------------------- * exp(- ------------)
+            //                   sigma * sqrt(2*pi)           2 * sigma²
+            array_samples[n] = (float)(const_sig_pi * exp(numerator / const_sq_sig));
+        }
+        // Choose uniformly a random sample among the sampled ones
+        int sample = (int)((float)(N_SAMPLING) * (float)(rand()) / (float)(RAND_MAX));
+        if (sample == N_SAMPLING) {
+            --sample;
+        }
+        action_out[i] = array_samples[sample];
     }
 }

@@ -42,6 +42,7 @@
             <task name="prediction/Actor_MLP/action_predictor"/>
             <task name="prediction/Actor_MLP"/>
             <task name="prediction"/>
+            <task name="prediction/Actor_MLP/action_predictor/activationFunction"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

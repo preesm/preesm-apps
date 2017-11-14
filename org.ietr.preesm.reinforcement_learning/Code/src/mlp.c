@@ -16,6 +16,8 @@
 #define M_PI 3.1415926535897932385
 #endif
 
+#define ABS(x) ((x) < 0 ? (-(x)) : (x))
+
 void layer(int layer_size, int output_size, float *weights, float *bias_values, float *input, float *output) {
     /*
      * Structure of layer in a MLP:
@@ -56,28 +58,31 @@ void neuron(int input_size,
         //fprintf(stderr, "%lf\n", weights[wi]);
         result += input[wi] * weights[wi];
     }
-    (*output) = tanh(result);
+    (*output) = result;
 }
 
-void neuron_output(int input_size,
-                   IN float *input, IN float *weights, IN float *bias_values,
-                   OUT float *output) {
-    float result = bias_values[0];
-    /*
-     * This compute the output of neuron[i] of an output layer of a MLP neural network
-     *
-     * With n input values, weights array is constructed this way:
-     *      weight[0] -> weight from input[0] to neuron[i]
-     *      weight[1] -> weight from input[1] to neuron[i]
-     *      ...
-     *      weight[n] -> weight from input[n] to neuron[i]
-     *
-     */
-    for (int wi = 0; wi < input_size; ++wi) {
-        //fprintf(stderr, "%lf\n", weights[wi]);
-        result += input[wi] * weights[wi];
+void activateTanHyperbolic(IN float *input,
+                           OUT float *output) {
+    output[0] = (float)(tanh((double)(input[0])));
+}
+
+void activateReLU(IN float *input,
+                  OUT float *output) {
+    if (input[0] < 0) {
+        output[0] = 0.f;
+    } else {
+        output[0] = input[0];
     }
-    (*output) = result;
+}
+
+void activateSoftSign(IN float *input,
+                      OUT float *output) {
+    output[0] = input[0] / (1.f + ABS(input[0]));
+}
+
+void activateSigmoid(IN float *input,
+                     OUT float *output) {
+    output[0] = 1 / (1.f + (float)(exp((double)(-input[0]))));
 }
 
 
@@ -90,3 +95,17 @@ void weightsGen(int input_size, int layer_size,
     memcpy(weights_out, weights_in, input_size * layer_size * sizeof(float));
     memcpy(bias_out, bias_in, layer_size * sizeof(float));
 }
+
+
+void lossMSE(int size,
+             IN float *labels, IN float *predictions,
+             OUT float *mse_output) {
+    // Compute element wise (label - prediction) * (label - prediction)
+    float mse = 0.f;
+    for (int i = 0; i < size; ++i) {
+        mse += (labels[i] - predictions[i]) * (labels[i] - predictions[i]);
+    }
+    mse_output[0] = mse / (float)(size);
+}
+
+

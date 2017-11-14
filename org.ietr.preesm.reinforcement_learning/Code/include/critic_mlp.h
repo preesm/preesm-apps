@@ -7,9 +7,22 @@
 
 #include "preesm.h"
 
+#define GAMMA 0.99
+
 void criticWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
 
-void td_error(IN float gamma,IN float reward, IN float value_state, IN float value_next_state,
-              OUT float *target, OUT float *sigma);
+/**
+ * @brief Compute the Temporal Difference Error used to update the critic neural network
+ *
+ * @param gamma_in
+ * @param reward
+ * @param value_state
+ * @param value_next_state
+ * @param target
+ * @param sigma
+ * @param gamma_out
+ */
+void td_error(IN float *gamma_in,IN float reward, IN float value_state, IN float value_next_state,
+              OUT float *target, OUT float *sigma, OUT float *gamma_out);
 
 #endif //CRITIC_MLP_H

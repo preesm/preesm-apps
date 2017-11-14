@@ -152,7 +152,7 @@ void renderEnv(int size, float *state) {
     }
 
     // Sleep to smooth the rendering
-    usleep(1000);
+//    usleep(1000);
 }
 
 void renderFinalize(void)
