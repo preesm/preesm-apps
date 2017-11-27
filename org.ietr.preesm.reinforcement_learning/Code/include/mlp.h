@@ -57,6 +57,20 @@ void activateTanHyperbolic(IN float *input,
                            OUT float *output);
 
 /**
+ * @brief Hyperbolic tangent derivative function
+ *
+ *                           2
+ *    f(x) = tanh(x) = (--------------) - 1
+ *                       1 + exp(-2x)
+ *    f'(x) = 1 - (f(x))^2
+ *
+ * @param input  Input value
+ * @param output Activated output of a neuron
+ */
+void derivativeTanHyperbolic(IN float *input,
+                             OUT float *output);
+
+/**
  * @brief Rectified Linear Unit activation function
  *
  *            | 0, x < 0
@@ -68,6 +82,19 @@ void activateTanHyperbolic(IN float *input,
  */
 void activateReLU(IN float *input,
                   OUT float *output);
+
+/**
+ * @brief Rectified Linear Unit derivative function
+ *
+ *            | 0, x < 0
+ *     f(x) = |
+ *            | 1, else
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void derivativeReLU(IN float *input,
+                    OUT float *output);
 
 /**
  * @brief Soft sign activation function
@@ -83,7 +110,20 @@ void activateSoftSign(IN float *input,
                       OUT float *output);
 
 /**
- * @brief Sigmoid activation function
+ * @brief Soft sign derivative function
+ *
+ *                    1
+ *     f'(x) = ----------------
+ *              (1 + abs(x))^2
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void derivativeSoftSign(IN float *input,
+                        OUT float *output);
+
+/**
+ * @brief Logistic activation function
  *
  *                 1
  *     f(x) = ------------
@@ -92,8 +132,25 @@ void activateSoftSign(IN float *input,
  * @param input  Raw output of a neuron
  * @param output Activated output of a neuron
  */
-void activateSigmoid(IN float *input,
-                     OUT float *output);
+void activateLogistic(IN float *input,
+                      OUT float *output);
+
+
+/**
+ * @brief Logistic derivative function
+ *
+ *                 1
+ *     f(x) = ------------
+ *             1 + exp(-x)
+ *
+ *     f'(x) = f(x) * (1 - f(x))
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void derivativeLogistic(IN float *input,
+                        OUT float *output);
+
 /**
  * @brief Handle the weights and biases of layer of a MLP
  *
@@ -109,16 +166,5 @@ void weightsGen(int input_size, int layer_size,
                 IN float *weights_in, IN float *bias_in,
                 OUT float *weights_out, OUT float *bias_out);
 
-/**
- * @brief Performs the Mean Square Error loss operation
- *
- * @param size         Size of the arrays
- * @param labels       Array filled with target values
- * @param predictions  Array filled with predicted values
- * @param mse_output   Scalar value of the MSE
- */
-void lossMSE(int size,
-             IN float *labels, IN float *predictions,
-             OUT float *mse_output);
 
 #endif //MLP_H

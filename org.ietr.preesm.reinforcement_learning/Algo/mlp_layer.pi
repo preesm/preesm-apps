@@ -20,9 +20,9 @@
                 <param direction="OUT" isConfig="false" name="output" type="float "/>
             </loop>
             <port kind="cfg_input" name="input_size"/>
+            <port annotation="NONE" expr="1" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="input_size" kind="input" name="weights"/>
-            <port annotation="NONE" expr="1" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="1" kind="output" name="output"/>
         </node>
         <node id="input" kind="src">

@@ -112,9 +112,9 @@
                 <param direction="OUT" isConfig="false" name="sigma" type="float "/>
                 <param direction="OUT" isConfig="false" name="gamma_out" type="float "/>
             </loop>
-            <port annotation="NONE" expr="1" kind="input" name="value_state"/>
             <port annotation="NONE" expr="1" kind="input" name="value_next_state"/>
             <port annotation="NONE" expr="1" kind="input" name="reward"/>
+            <port annotation="NONE" expr="1" kind="input" name="value_state"/>
             <port annotation="NONE" expr="1" kind="input" name="gamma_in"/>
             <port annotation="NONE" expr="1" kind="output" name="sigma"/>
             <port annotation="NONE" expr="1" kind="output" name="target"/>
@@ -164,8 +164,8 @@
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="space_size"/>
-            <port annotation="NONE" expr="space_size" kind="input" name="target"/>
             <port annotation="NONE" expr="1" kind="input" name="sigma"/>
+            <port annotation="NONE" expr="space_size" kind="input" name="target"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
                 kind="output" name="weights"/>

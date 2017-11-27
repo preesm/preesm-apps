@@ -66,6 +66,12 @@ void activateTanHyperbolic(IN float *input,
     output[0] = (float)(tanh((double)(input[0])));
 }
 
+void derivativeTanHyperbolic(IN float *input,
+                             OUT float *output) {
+    float f_x = (float)(tanh((double)(input[0])));
+    output[0] = 1 - (f_x * f_x);
+}
+
 void activateReLU(IN float *input,
                   OUT float *output) {
     if (input[0] < 0) {
@@ -75,16 +81,37 @@ void activateReLU(IN float *input,
     }
 }
 
+void derivativeReLU(IN float *input,
+                    OUT float *output) {
+    if (input[0] < 0) {
+        output[0] = 0.f;
+    } else {
+        output[0] = 1.f;
+    }
+}
+
 void activateSoftSign(IN float *input,
                       OUT float *output) {
     output[0] = input[0] / (1.f + ABS(input[0]));
 }
 
-void activateSigmoid(IN float *input,
-                     OUT float *output) {
+
+void derivativeSoftSign(IN float *input,
+                        OUT float *output) {
+    float den = (1.f + ABS(input[0]));
+    output[0] = 1.f / (den * den);
+}
+
+void activateLogistic(IN float *input,
+                      OUT float *output) {
     output[0] = 1 / (1.f + (float)(exp((double)(-input[0]))));
 }
 
+void derivativeLogistic(IN float *input,
+                        OUT float *output) {
+    float f_x = 1 / (1.f + (float)(exp((double)(-input[0]))));
+    output[0] = f_x * (1  - f_x);
+}
 
 void weightsGen(int input_size, int layer_size,
                 IN float *weights_in, IN float *bias_in,
@@ -97,15 +124,7 @@ void weightsGen(int input_size, int layer_size,
 }
 
 
-void lossMSE(int size,
-             IN float *labels, IN float *predictions,
-             OUT float *mse_output) {
-    // Compute element wise (label - prediction) * (label - prediction)
-    float mse = 0.f;
-    for (int i = 0; i < size; ++i) {
-        mse += (labels[i] - predictions[i]) * (labels[i] - predictions[i]);
-    }
-    mse_output[0] = mse / (float)(size);
-}
+
+
 
 

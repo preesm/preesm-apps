@@ -28,10 +28,10 @@
             <data key="graph_desc">Algo/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
-            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="Output_layer" kind="actor">
