@@ -56,8 +56,8 @@ void step(int state_space_size, int action_space_size, int state_angular_size,
     last_action = action_clip;
 
     // Compute reward
-//    reward[0] = POW2(MODF((theta + M_PI), (2.f * M_PI)) - M_PI) + 0.1f * POW2(angular_speed) + 0.001f*(POW2(action_clip));
-//    reward[0] = -(reward[0]);
+    reward[0] = POW2(MODF((theta + M_PI), (2.f * M_PI)) - M_PI) + 0.1f * POW2(angular_speed) + 0.001f*(POW2(action_clip));
+    reward[0] = -(reward[0]);
 
     // Update angular state
     angular_speed = angular_speed + ((-3.f) * G_CONSTANT / (2.f * LENGTH_CONSTANT) * sin(theta + M_PI) +

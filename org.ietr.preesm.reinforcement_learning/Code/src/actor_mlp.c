@@ -129,26 +129,26 @@ void actorWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out) {
 
 
 void normalSampler(int size,
-                     IN float *sigma_in, IN const float *action_in,
-                     OUT float *action_out, OUT float *sigma_out) {
-    // Work around the lack of constant definer in PREESM
-    (*sigma_out) = sigma_in[0];
-
+                   IN float *sigma_in, IN const float *action_in,
+                   OUT float *action_out) {
     // Get a random value and project it on the gaussian curve
     // Perform N sampling and take a value randomly in the sampled array
     float array_samples[N_SAMPLING];
     // Pre-compute constant value
-    float const_sig_pi = 1.f / (sigma_in[0] * (float)(sqrt(2 * M_PI)));
-    float const_sq_sig = 2.f * sigma_in[0] * sigma_in[0];
+    float sigma = sigma_in[0];
+    float const_sig_pi = 1.f / (sigma * (float)(sqrt(2 * M_PI)));
+    float const_sq_sig = 2.f * sigma * sigma;
     for (int i = 0; i < size; ++i) {
+        float mu = action_in[i];
         for (int n = 0; n < N_SAMPLING; ++n) {
             float value = (float)(rand());
-            float numerator = -((value - action_in[i]) * (value - action_in[i]));
+            float numerator = -((value - mu) * (value - mu));
             // Gaussian function:
             //                          1                     (x - mu)²
             // P(x|mu, sigma) = -------------------- * exp(- ------------)
             //                   sigma * sqrt(2*pi)           2 * sigma²
             array_samples[n] = (float)(const_sig_pi * exp(numerator / const_sq_sig));
+            //fprintf(stderr, "value: %f\n",  array_samples[n]);
         }
         // Choose uniformly a random sample among the sampled ones
         int sample = (int)((float)(N_SAMPLING) * (float)(rand()) / (float)(RAND_MAX));
@@ -157,6 +157,7 @@ void normalSampler(int size,
         }
         action_out[i] = array_samples[sample];
     }
+    fprintf(stderr, "mu: %f sigma: %f action: %f \n",action_in[0], sigma, action_out[0]);
 }
 
 void validActor(IN float *sigma,
@@ -168,4 +169,12 @@ void validActor(IN float *sigma,
     if (valid[0]) {
         fprintf(stderr, "updating actor\n");
     }
+}
+
+void sigmaGen(OUT float *sigma) {
+    sigma[0] = SIGMA_GAUSSIAN;
+}
+
+void actorLearningRateGen(OUT float *learning_rate) {
+    learning_rate[0] = ACTOR_LEARNING_RATE;
 }

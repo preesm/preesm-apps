@@ -137,21 +137,17 @@ void adamUpdateBetas(IN float *betas_in, IN int *valid,
         betas_out[3] = betas_in[3];
     } else {
         // Update betas powered
-        betas_out[0] = betas_in[0]; // Save B1
-        betas_out[1] = betas_in[1]; // Save B2
+        betas_out[0] = 0.9f;//betas_in[0]; // Save B1
+        betas_out[1] = 0.999f;//betas_in[1]; // Save B2
         betas_out[2] = betas_in[2] * betas_in[0]; // Update B1^t
         betas_out[3] = betas_in[3] * betas_in[1]; // Update B2^t
     }
 }
 
-void initAdam(float *betas, float *learning_rate) {
+void initAdam(float *betas) {
     betas[0] = 0.9;
     betas[1] = 0.999;
     betas[2] = 0.9;
     betas[3] = 0.999;
-    learning_rate[0] = 0.001;
 }
 
-void learningRateGen(OUT float *learning_rate) {
-    learning_rate[0] = 0.001;
-}

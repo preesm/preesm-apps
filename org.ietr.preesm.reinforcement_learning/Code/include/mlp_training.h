@@ -115,8 +115,6 @@ void applyAdamOptimizer(int size,
 void adamUpdateBetas(IN float *betas_in, IN int *valid,
                      OUT float *betas_out);
 
-void initAdam(float *betas, float *learning_rate);
-
-void learningRateGen(OUT float *learning_rate);
+void initAdam(float *betas);
 
 #endif //CACLA_MLP_TRAINING_H
