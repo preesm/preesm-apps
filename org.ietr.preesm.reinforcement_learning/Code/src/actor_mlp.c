@@ -158,3 +158,14 @@ void normalSampler(int size,
         action_out[i] = array_samples[sample];
     }
 }
+
+void validActor(IN float *sigma,
+                OUT int *valid) {
+    valid[0] = 0;
+    if (sigma[0] > 0.f) {
+        valid[0] = 1;
+    }
+    if (valid[0]) {
+        fprintf(stderr, "updating actor\n");
+    }
+}

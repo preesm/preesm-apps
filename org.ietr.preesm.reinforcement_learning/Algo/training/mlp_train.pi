@@ -17,6 +17,7 @@
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
@@ -26,8 +27,9 @@
             <data key="graph_desc">Algo/common/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
-            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
@@ -67,10 +69,26 @@
             <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="activateTanHyperbolic">
                 <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false" name="output" type="float "/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="input"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="1" kind="output" name="output"/>
+        </node>
+        <node id="valid_mlp" kind="actor">
+            <data key="graph_desc">Code/include/critic_mlp.h</data>
+            <loop name="validCritic">
+                <param direction="OUT" isConfig="false" name="valid" type="int "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
+        </node>
+        <node id="BroadCastValid" kind="broadcast">
+            <port kind="cfg_input" name="hidden_size"/>
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="hidden_size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
         </node>
         <edge kind="fifo" source="Output_layer" sourceport="output"
             target="output" targetport="output" type="float"/>
@@ -92,6 +110,14 @@
             target="activationFunction" targetport="input" type="float"/>
         <edge kind="fifo" source="activationFunction"
             sourceport="output" target="Output_layer" targetport="input" type="float"/>
+        <edge kind="fifo" source="valid_mlp" sourceport="valid"
+            target="BroadCastValid" targetport="in" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_0"
+            target="Hidden_layer" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_1"
+            target="activationFunction" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_2"
+            target="Output_layer" targetport="valid" type="int"/>
         <edge kind="dependency" source="output_size" target="output"/>
         <edge kind="dependency" source="input_size" target="input"/>
         <edge kind="dependency" source="input_size"
@@ -116,5 +142,7 @@
         <edge kind="dependency" source="output_size" target="ForkBias" targetport="size_out1"/>
         <edge kind="dependency" source="size_weights_hidden" target="weights"/>
         <edge kind="dependency" source="size_weights_output" target="weights"/>
+        <edge kind="dependency" source="hidden_size"
+            target="BroadCastValid" targetport="hidden_size"/>
     </graph>
 </graphml>

@@ -41,6 +41,8 @@
 #include "mlp.h"
 #include "actor_mlp.h"
 #include "render.h"
+#include "mlp_training.h"
+#include "critic_mlp.h"
 
 typedef unsigned char uchar;
 

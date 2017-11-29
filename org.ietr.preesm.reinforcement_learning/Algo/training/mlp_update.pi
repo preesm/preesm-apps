@@ -13,7 +13,6 @@
         <node id="input_size" kind="cfg_in_iface"/>
         <node expr="input_size * hidden_size" id="size_weights_hidden" kind="param"/>
         <node expr="output_size * hidden_size" id="size_weights_output" kind="param"/>
-        <node id="valid" kind="cfg_in_iface"/>
         <node id="weights" kind="snk">
             <port annotation="NONE"
                 expr="size_weights_hidden + size_weights_output"
@@ -37,7 +36,6 @@
             <port kind="cfg_input" name="layer_size"/>
             <port kind="cfg_input" name="next_layer_size"/>
             <port kind="cfg_input" name="input_size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="next_layer_size" kind="input" name="next_layer_errors"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="layer_bias"/>
             <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
@@ -45,6 +43,7 @@
                 kind="input" name="layer_weights"/>
             <port annotation="NONE" expr="next_layer_size * layer_size"
                 kind="input" name="next_layer_weights"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="layer_size * input_size"
                 kind="output" name="weights_gradient"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="bias_gradient"/>
@@ -53,12 +52,12 @@
             <data key="graph_desc">Algo/training/output_gradients.pi</data>
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="input_size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
             <port annotation="NONE" expr="output_size" kind="input" name="target"/>
             <port annotation="NONE" expr="output_size" kind="input" name="layer_bias"/>
             <port annotation="NONE" expr="output_size *  input_size"
                 kind="input" name="layer_weights"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="output_size * input_size"
                 kind="output" name="weights_gradient"/>
             <port annotation="NONE" expr="output_size" kind="output" name="bias_gradient"/>
@@ -92,11 +91,11 @@
             <data key="graph_desc">Algo/common/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="BroadCastWeights_hidden" kind="broadcast">
@@ -136,12 +135,12 @@
             <data key="graph_desc">Code/include/mlp_training.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="param_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="fo_moment_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="IN" isConfig="false"
                     name="so_moment_in" type="float "/>
                 <param direction="IN" isConfig="false" name="betas" type="float "/>
@@ -153,13 +152,13 @@
                     name="so_moment_out" type="float "/>
             </loop>
             <port kind="cfg_input" name="size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="4" kind="input" name="betas"/>
             <port annotation="NONE" expr="size" kind="input" name="gradients"/>
             <port annotation="NONE" expr="size" kind="input" name="param_in"/>
             <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
             <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="size" kind="output" name="param_out"/>
             <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
             <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
@@ -167,12 +166,12 @@
         <node id="update_betas" kind="actor">
             <data key="graph_desc">Code/include/mlp_training.h</data>
             <loop name="adamUpdateBetas">
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="betas_in" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false" name="betas_out" type="float "/>
             </loop>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="4" kind="input" name="betas_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="4" kind="output" name="betas_out"/>
         </node>
         <node id="BroadCastBetas" kind="broadcast">
@@ -187,12 +186,12 @@
             <data key="graph_desc">Code/include/mlp_training.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="param_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="fo_moment_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="IN" isConfig="false"
                     name="so_moment_in" type="float "/>
                 <param direction="IN" isConfig="false" name="betas" type="float "/>
@@ -204,13 +203,13 @@
                     name="so_moment_out" type="float "/>
             </loop>
             <port kind="cfg_input" name="size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="4" kind="input" name="betas"/>
             <port annotation="NONE" expr="size" kind="input" name="gradients"/>
             <port annotation="NONE" expr="size" kind="input" name="param_in"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
             <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
             <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="size" kind="output" name="param_out"/>
             <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
             <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
@@ -219,12 +218,12 @@
             <data key="graph_desc">Code/include/mlp_training.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="param_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="fo_moment_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="IN" isConfig="false"
                     name="so_moment_in" type="float "/>
                 <param direction="IN" isConfig="false" name="betas" type="float "/>
@@ -236,13 +235,13 @@
                     name="so_moment_out" type="float "/>
             </loop>
             <port kind="cfg_input" name="size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="4" kind="input" name="betas"/>
             <port annotation="NONE" expr="size" kind="input" name="gradients"/>
             <port annotation="NONE" expr="size" kind="input" name="param_in"/>
             <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
             <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="size" kind="output" name="param_out"/>
             <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
             <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
@@ -251,12 +250,12 @@
             <data key="graph_desc">Code/include/mlp_training.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="param_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="fo_moment_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="IN" isConfig="false"
                     name="so_moment_in" type="float "/>
                 <param direction="IN" isConfig="false" name="betas" type="float "/>
@@ -268,13 +267,13 @@
                     name="so_moment_out" type="float "/>
             </loop>
             <port kind="cfg_input" name="size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="size" kind="input" name="gradients"/>
             <port annotation="NONE" expr="4" kind="input" name="betas"/>
             <port annotation="NONE" expr="size" kind="input" name="param_in"/>
             <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
             <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="size" kind="output" name="param_out"/>
             <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
             <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
@@ -307,6 +306,20 @@
             <port annotation="NONE" expr="1" kind="output" name="out_1"/>
             <port annotation="NONE" expr="1" kind="output" name="out_2"/>
             <port annotation="NONE" expr="1" kind="output" name="out_3"/>
+        </node>
+        <node id="valid" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
+        </node>
+        <node id="BroadCastValid" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_3"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_4"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_5"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_6"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_7"/>
         </node>
         <edge kind="fifo" source="Output_Gradients"
             sourceport="bias_gradient" target="BroadCastSigma_output"
@@ -475,6 +488,24 @@
         <edge kind="fifo" source="BroadCastLearningRate"
             sourceport="out_3" target="AdamOptimizer_hiddenBias"
             targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="valid" sourceport="valid"
+            target="BroadCastValid" targetport="in" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_0"
+            target="update_betas" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_1"
+            target="Hidden_layer" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_2"
+            target="Output_Gradients" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_3"
+            target="AdamOptimizer_outputWeights" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_4"
+            target="AdamOptimizer_outputBias" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_5"
+            target="Hidden_Gradients" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_6"
+            target="AdamOptimizer_hiddenBias" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_7"
+            target="AdamOptimizer_hiddenWeights" targetport="valid" type="int"/>
         <edge kind="dependency" source="input_size"
             target="Hidden_Gradients" targetport="input_size"/>
         <edge kind="dependency" source="output_size"
@@ -543,17 +574,5 @@
         <edge kind="dependency" source="output_size" target="AdamOptimizer_outputBias.so_moment_out-AdamOptimizer_outputBias.so_moment_in"/>
         <edge kind="dependency" source="hidden_size" target="AdamOptimizer_hiddenBias.fo_moment_out-AdamOptimizer_hiddenBias.fo_moment_in"/>
         <edge kind="dependency" source="hidden_size" target="AdamOptimizer_hiddenBias.so_moment_out-AdamOptimizer_hiddenBias.so_moment_in"/>
-        <edge kind="dependency" source="valid" target="update_betas" targetport="valid"/>
-        <edge kind="dependency" source="valid" target="Hidden_layer" targetport="valid"/>
-        <edge kind="dependency" source="valid" target="Output_Gradients" targetport="valid"/>
-        <edge kind="dependency" source="valid"
-            target="AdamOptimizer_outputBias" targetport="valid"/>
-        <edge kind="dependency" source="valid" target="Hidden_Gradients" targetport="valid"/>
-        <edge kind="dependency" source="valid"
-            target="AdamOptimizer_outputWeights" targetport="valid"/>
-        <edge kind="dependency" source="valid"
-            target="AdamOptimizer_hiddenBias" targetport="valid"/>
-        <edge kind="dependency" source="valid"
-            target="AdamOptimizer_hiddenWeights" targetport="valid"/>
     </graph>
 </graphml>

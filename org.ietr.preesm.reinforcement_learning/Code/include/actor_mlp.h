@@ -24,4 +24,13 @@ void normalSampler(int size,
                      IN float *sigma_in, IN const float *action_in,
                      OUT float *action_out, OUT float *sigma_out);
 
+/**
+ * @brief Generate 1 if the actor should be trained, 0 else.
+ *
+ * @param sigma value of sigma.
+ * @param valid boolean of activation.
+ */
+void validActor(IN float *sigma,
+                OUT int *valid);
+
 #endif

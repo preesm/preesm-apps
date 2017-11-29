@@ -7,10 +7,10 @@
 #include "../include/mlp_training.h"
 
 
-void computeLayerSigma(int layer_size, int next_layer_size, int valid,
-                       IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights,
+void computeLayerSigma(int layer_size, int next_layer_size,
+                       IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights, IN int *valid,
                        OUT float *layer_sigmas) {
-    if (valid == 0) {
+    if (*valid == 0) {
         return;
     } else {
         for (int j = 0; j < layer_size; ++j) {
@@ -38,10 +38,10 @@ void computeLayerSigma(int layer_size, int next_layer_size, int valid,
     }
 }
 
-void computeOutputSigma(int output_size, int valid,
-                        IN float *derivative_values, IN float *predicted, IN float *target,
+void computeOutputSigma(int output_size,
+                        IN float *derivative_values, IN float *predicted, IN float *target, IN int *valid,
                         OUT float *output_sigmas) {
-    if (valid == 0) {
+    if (*valid == 0) {
         return;
     }
     for (int j = 0; j < output_size; ++j) {
@@ -62,10 +62,10 @@ void lossMSE(int size,
 }
 
 
-void computeLayerWeightsGradients(int input_size, int layer_size, int valid,
-                                  IN float *sigmas, IN float *inputs,
+void computeLayerWeightsGradients(int input_size, int layer_size,
+                                  IN float *sigmas, IN float *inputs, IN int *valid,
                                   OUT float *gradients) {
-    if (valid == 0) {
+    if (*valid == 0) {
         return;
     }
     /* Gradients are computed as follows:
@@ -97,11 +97,11 @@ void computeLayerWeightsGradients(int input_size, int layer_size, int valid,
     }
 }
 
-void applyAdamOptimizer(int size, int valid,
-                        IN float *param_in, IN float *fo_moment_in, IN float *learning_rate,
+void applyAdamOptimizer(int size,
+                        IN float *param_in, IN float *fo_moment_in, IN float *learning_rate, IN int *valid,
                         IN float *so_moment_in, IN float *betas, IN float *gradients,
                         OUT float *param_out, OUT float *fo_moment_out, OUT float *so_moment_out) {
-    if (valid == 0) {
+    if (*valid == 0) {
         memcpy(param_out, param_in, size * sizeof(float));
         memcpy(fo_moment_out, fo_moment_in, size * sizeof(float));
         memcpy(so_moment_out, so_moment_in, size * sizeof(float));
@@ -128,10 +128,9 @@ void applyAdamOptimizer(int size, int valid,
     }
 }
 
-void adamUpdateBetas(int valid,
-                     IN float *betas_in,
+void adamUpdateBetas(IN float *betas_in, IN int *valid,
                      OUT float *betas_out) {
-    if (valid == 0) {
+    if (*valid == 0) {
         betas_out[0] = betas_in[0];
         betas_out[1] = betas_in[1];
         betas_out[2] = betas_in[2];

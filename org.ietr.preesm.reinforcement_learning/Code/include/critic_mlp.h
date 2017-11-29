@@ -22,7 +22,11 @@ void criticWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
  * @param sigma
  * @param gamma_out
  */
-void td_error(IN float *gamma_in,IN float reward, IN float value_state, IN float value_next_state,
-              OUT float *target, OUT float *sigma, OUT float *gamma_out);
+void td_error(IN float *gamma_in,IN float *reward, IN float *value_state, IN float *value_next_state,
+              OUT float *target, OUT float *sigma);
+
+void validCritic(OUT int *valid);
+
+void gammaGen(OUT float *gamma);
 
 #endif //CRITIC_MLP_H

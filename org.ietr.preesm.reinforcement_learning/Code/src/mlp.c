@@ -40,10 +40,10 @@ void layer(int layer_size, int output_size, float *weights, float *bias_values, 
     }
 }
 
-void neuron(int input_size, int valid,
-            IN float *input, IN float *weights, IN float *bias_values,
+void neuron(int input_size,
+            IN float *input, IN float *weights, IN float *bias_values, IN int *valid,
             OUT float *output) {
-    if (valid == 0) {
+    if (*valid == 0) {
         (*output) = 0;
     } else {
         float result = bias_values[0];
@@ -65,20 +65,18 @@ void neuron(int input_size, int valid,
     }
 }
 
-void activateTanHyperbolic(int valid,
-                           IN float *input,
+void activateTanHyperbolic(IN float *input, IN int *valid,
                            OUT float *output) {
-    if (valid == 0) {
+    if (*valid == 0) {
         output[0] = 0;
     } else {
         output[0] = (float)(tanh((double)(input[0])));
     }
 }
 
-void derivativeTanHyperbolic(int valid,
-                             IN float *input,
+void derivativeTanHyperbolic(IN float *input, IN int *valid,
                              OUT float *output) {
-    if (valid == 0) {
+    if (*valid == 0) {
         output[0] = 0;
     } else {
         float f_x = (float)(tanh((double)(input[0])));

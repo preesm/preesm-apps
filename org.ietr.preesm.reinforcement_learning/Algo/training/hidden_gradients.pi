@@ -10,7 +10,6 @@
         <node id="layer_size" kind="cfg_in_iface"/>
         <node id="next_layer_size" kind="cfg_in_iface"/>
         <node id="input_size" kind="cfg_in_iface"/>
-        <node id="valid" kind="cfg_in_iface"/>
         <node id="layer_weights" kind="src">
             <port annotation="NONE" expr="layer_size * input_size"
                 kind="output" name="layer_weights"/>
@@ -35,23 +34,23 @@
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="next_layer_size" type="int"/>
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="derivative_values" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="next_layer_sigmas" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="next_layer_weights" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false"
                     name="layer_sigmas" type="float "/>
             </loop>
             <port kind="cfg_input" name="layer_size"/>
             <port kind="cfg_input" name="next_layer_size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="derivative_values"/>
             <port annotation="NONE" expr="next_layer_size" kind="input" name="next_layer_sigmas"/>
             <port annotation="NONE" expr="next_layer_size* layer_size"
                 kind="input" name="next_layer_weights"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="layer_sigmas"/>
         </node>
         <node id="layer_bias" kind="src">
@@ -62,16 +61,16 @@
             <loop name="computeLayerWeightsGradients">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="sigmas" type="float "/>
                 <param direction="IN" isConfig="false" name="inputs" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false" name="gradients" type="float "/>
             </loop>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="sigmas"/>
             <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="layer_size * input_size"
                 kind="output" name="gradients"/>
         </node>
@@ -79,11 +78,11 @@
             <data key="graph_desc">Algo/common/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size * layer_size"
                 kind="input" name="weights"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="BroadcastInput" kind="broadcast">
@@ -95,12 +94,12 @@
         <node id="Derivative_Function" kind="actor">
             <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="derivativeTanHyperbolic">
-                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false" name="output" type="float "/>
             </loop>
-            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="1" kind="input" name="input"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="1" kind="output" name="output"/>
         </node>
         <node id="bias_gradient" kind="snk">
@@ -111,6 +110,17 @@
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+        </node>
+        <node id="BroadCastValid" kind="broadcast">
+            <port kind="cfg_input" name="layer_size"/>
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="layer_size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_3"/>
+        </node>
+        <node id="valid" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
         </node>
         <edge kind="fifo" source="next_layer_weights"
             sourceport="next_layer_weights" target="Compute_Sigma"
@@ -144,6 +154,16 @@
             target="Compute_Gradients" targetport="sigmas" type="float"/>
         <edge kind="fifo" source="BroadcastSigma" sourceport="out_0"
             target="bias_gradient" targetport="bias_gradient" type="float"/>
+        <edge kind="fifo" source="valid" sourceport="valid"
+            target="BroadCastValid" targetport="in" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_0"
+            target="layer" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_1"
+            target="Derivative_Function" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_2"
+            target="Compute_Sigma" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadCastValid" sourceport="out_3"
+            target="Compute_Gradients" targetport="valid" type="int"/>
         <edge kind="dependency" source="layer_size"
             target="Compute_Sigma" targetport="layer_size"/>
         <edge kind="dependency" source="next_layer_size"
@@ -168,11 +188,7 @@
         <edge kind="dependency" source="layer_size" target="bias_gradient"/>
         <edge kind="dependency" source="layer_size"
             target="BroadcastSigma" targetport="size"/>
-        <edge kind="dependency" source="valid" target="layer" targetport="valid"/>
-        <edge kind="dependency" source="valid"
-            target="Derivative_Function" targetport="valid"/>
-        <edge kind="dependency" source="valid" target="Compute_Sigma" targetport="valid"/>
-        <edge kind="dependency" source="valid"
-            target="Compute_Gradients" targetport="valid"/>
+        <edge kind="dependency" source="layer_size"
+            target="BroadCastValid" targetport="layer_size"/>
     </graph>
 </graphml>

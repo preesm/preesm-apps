@@ -19,7 +19,11 @@
         <node expr="critic_hidden_size + value_space_size"
             id="bias_broadcast_size" kind="param"/>
         <node expr="20" id="actor_hidden_size" kind="param"/>
-        <node expr="1" id="valid_critic" kind="param"/>
+        <node
+            expr="state_space_size * actor_hidden_size + actor_hidden_size * action_space_size"
+            id="actor_weights_size" kind="param"/>
+        <node expr="action_space_size + actor_hidden_size"
+            id="actor_bias_size" kind="param"/>
         <node id="Environment" kind="actor">
             <data key="graph_desc">Code/include/environment.h</data>
             <loop name="step">
@@ -48,9 +52,9 @@
                 kind="input" name="state_angular_in"/>
             <port annotation="NONE" expr="state_space_size"
                 kind="output" name="state_observation"/>
-            <port annotation="NONE" expr="1" kind="output" name="reward"/>
             <port annotation="NONE" expr="state_angular_size"
                 kind="output" name="state_angular_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="reward"/>
         </node>
         <node id="broadcastState" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -88,19 +92,19 @@
             <port annotation="NONE" expr="size" kind="output" name="state_out2"/>
             <port annotation="NONE" expr="size" kind="output" name="state_out3"/>
             <port annotation="NONE" expr="size" kind="output" name="state_out1"/>
+            <port annotation="NONE" expr="size" kind="output" name="state_out4"/>
         </node>
         <node id="Temporal_Difference_Error" kind="actor">
             <data key="graph_desc">Code/include/critic_mlp.h</data>
             <loop name="td_error">
-                <param direction="IN" isConfig="false" name="gamma_in" type="float"/>
-                <param direction="IN" isConfig="false" name="reward" type="float"/>
+                <param direction="IN" isConfig="false" name="gamma_in" type="float "/>
+                <param direction="IN" isConfig="false" name="reward" type="float "/>
                 <param direction="IN" isConfig="false"
-                    name="value_state" type="float"/>
+                    name="value_state" type="float "/>
                 <param direction="IN" isConfig="false"
-                    name="value_next_state" type="float"/>
+                    name="value_next_state" type="float "/>
                 <param direction="OUT" isConfig="false" name="target" type="float "/>
                 <param direction="OUT" isConfig="false" name="sigma" type="float "/>
-                <param direction="OUT" isConfig="false" name="gamma_out" type="float "/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="value_next_state"/>
             <port annotation="NONE" expr="1" kind="input" name="reward"/>
@@ -108,7 +112,6 @@
             <port annotation="NONE" expr="1" kind="input" name="gamma_in"/>
             <port annotation="NONE" expr="1" kind="output" name="sigma"/>
             <port annotation="NONE" expr="1" kind="output" name="target"/>
-            <port annotation="NONE" expr="1" kind="output" name="gamma_out"/>
         </node>
         <node id="Critic_MLP_old" kind="actor">
             <data key="graph_desc">Algo/training/mlp_train.pi</data>
@@ -150,19 +153,6 @@
                 kind="input" name="bias"/>
             <port annotation="NONE" expr="output_size" kind="output" name="output"/>
         </node>
-        <node id="Update_Actor" kind="actor">
-            <port kind="cfg_input" name="hidden_size"/>
-            <port kind="cfg_input" name="output_size"/>
-            <port kind="cfg_input" name="input_size"/>
-            <port kind="cfg_input" name="space_size"/>
-            <port annotation="NONE" expr="1" kind="input" name="sigma"/>
-            <port annotation="NONE" expr="space_size" kind="input" name="target"/>
-            <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
-                kind="output" name="weights"/>
-            <port annotation="NONE" expr="hidden_size + output_size"
-                kind="output" name="bias"/>
-        </node>
         <node id="GaussianPolicy" kind="actor">
             <data key="graph_desc">Code/include/actor_mlp.h</data>
             <loop name="normalSampler">
@@ -190,15 +180,15 @@
             <port kind="cfg_input" name="hidden_size"/>
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="input_size"/>
-            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
                 kind="input" name="weights_in"/>
             <port annotation="NONE" expr="output_size + hidden_size"
                 kind="input" name="bias_in"/>
-            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
-            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
-            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
                 kind="output" name="weights"/>
@@ -217,6 +207,61 @@
             <port annotation="NONE" expr="1" kind="input" name="in"/>
             <port annotation="NONE" expr="1" kind="output" name="out0"/>
             <port annotation="NONE" expr="1" kind="output" name="out1"/>
+        </node>
+        <node id="Update_Actor" kind="actor">
+            <data key="graph_desc">Algo/training/mlp_update.pi</data>
+            <port kind="cfg_input" name="hidden_size"/>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="input_size"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
+            <port annotation="NONE"
+                expr="input_size * hidden_size + hidden_size * output_size"
+                kind="input" name="weights_in"/>
+            <port annotation="NONE" expr="output_size + hidden_size"
+                kind="input" name="bias_in"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="input_size * hidden_size + hidden_size * output_size"
+                kind="output" name="weights"/>
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="output" name="bias"/>
+        </node>
+        <node id="BroadcastWeightsActor" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="input"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+        </node>
+        <node id="BroadcastBiasActor" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="input"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+        </node>
+        <node id="valid_actor" kind="actor">
+            <data key="graph_desc">Code/include/actor_mlp.h</data>
+            <loop name="validActor">
+                <param direction="IN" isConfig="false" name="sigma" type="float "/>
+                <param direction="OUT" isConfig="false" name="valid" type="int "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="sigma"/>
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
+        </node>
+        <node id="valid_critic" kind="actor">
+            <data key="graph_desc">Code/include/critic_mlp.h</data>
+            <loop name="validCritic">
+                <param direction="OUT" isConfig="false" name="valid" type="int "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
+        </node>
+        <node id="gen_gamma" kind="actor">
+            <data key="graph_desc">Code/include/critic_mlp.h</data>
+            <loop name="gammaGen">
+                <param direction="OUT" isConfig="false" name="gamma" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="output" name="gamma"/>
         </node>
         <edge kind="fifo" source="broadcastState"
             sourceport="state_out0" target="renderEnv"
@@ -267,28 +312,12 @@
             target="Critic_MLP_old" targetport="bias" type="float">
             <data key="delay"/>
         </edge>
-        <edge kind="fifo" source="Temporal_Difference_Error"
-            sourceport="sigma" target="Update_Actor" targetport="sigma" type="float"/>
-        <edge kind="fifo" source="broadcastAction"
-            sourceport="action_out1" target="Update_Actor"
-            targetport="target" type="float"/>
         <edge kind="fifo" source="broadcastAction"
             sourceport="action_out0" target="Environment"
             targetport="input_actions" type="float"/>
         <edge kind="fifo" source="GaussianPolicy"
             sourceport="action_out" target="broadcastAction"
             targetport="action" type="float"/>
-        <edge
-            expr="state_space_size * actor_hidden_size + actor_hidden_size * action_space_size"
-            kind="fifo" source="Update_Actor" sourceport="weights"
-            target="Actor_MLP" targetport="weights" type="float">
-            <data key="delay"/>
-        </edge>
-        <edge expr="actor_hidden_size + action_space_size" kind="fifo"
-            source="Update_Actor" sourceport="bias" target="Actor_MLP"
-            targetport="bias" type="float">
-            <data key="delay"/>
-        </edge>
         <edge kind="fifo" source="Actor_MLP" sourceport="output"
             target="GaussianPolicy" targetport="action_in" type="float"/>
         <edge expr="state_space_size" kind="fifo"
@@ -299,11 +328,6 @@
         <edge expr="1" kind="fifo" source="GaussianPolicy"
             sourceport="sigma_out" target="GaussianPolicy"
             targetport="sigma_in" type="float">
-            <data key="delay"/>
-        </edge>
-        <edge expr="1" kind="fifo" source="Temporal_Difference_Error"
-            sourceport="gamma_out" target="Temporal_Difference_Error"
-            targetport="gamma_in" type="float">
             <data key="delay"/>
         </edge>
         <edge kind="fifo" source="Temporal_Difference_Error"
@@ -332,6 +356,47 @@
         </edge>
         <edge kind="fifo" source="Update_Critic" sourceport="bias"
             target="BroadcastBiasCritic" targetport="input" type="float"/>
+        <edge kind="fifo" source="broadcastAction"
+            sourceport="action_out1" target="Update_Actor"
+            targetport="target" type="float"/>
+        <edge kind="fifo" source="BroadcastStateFeature"
+            sourceport="state_out4" target="Update_Actor"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="broadcastLearningRate"
+            sourceport="out0" target="Update_Actor"
+            targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="Update_Actor" sourceport="weights"
+            target="BroadcastWeightsActor" targetport="input" type="float"/>
+        <edge expr="actor_weights_size" kind="fifo"
+            source="BroadcastWeightsActor" sourceport="out_0"
+            target="Update_Actor" targetport="weights_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="actor_weights_size" kind="fifo"
+            source="BroadcastWeightsActor" sourceport="out_1"
+            target="Actor_MLP" targetport="weights" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="Update_Actor" sourceport="bias"
+            target="BroadcastBiasActor" targetport="input" type="float"/>
+        <edge expr="actor_bias_size" kind="fifo"
+            source="BroadcastBiasActor" sourceport="out_0"
+            target="Update_Actor" targetport="bias_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="actor_bias_size" kind="fifo"
+            source="BroadcastBiasActor" sourceport="out_1"
+            target="Actor_MLP" targetport="bias" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="valid_actor" sourceport="valid"
+            target="Update_Actor" targetport="valid" type="int"/>
+        <edge kind="fifo" source="Temporal_Difference_Error"
+            sourceport="sigma" target="valid_actor" targetport="sigma" type="float"/>
+        <edge kind="fifo" source="valid_critic" sourceport="valid"
+            target="Update_Critic" targetport="valid" type="int"/>
+        <edge kind="fifo" source="gen_gamma" sourceport="gamma"
+            target="Temporal_Difference_Error" targetport="gamma_in" type="float"/>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="action_space_size"
@@ -375,14 +440,6 @@
             target="GaussianPolicy" targetport="size"/>
         <edge kind="dependency" source="action_space_size"
             target="broadcastAction" targetport="size"/>
-        <edge kind="dependency" source="action_space_size"
-            target="Update_Actor" targetport="space_size"/>
-        <edge kind="dependency" source="state_space_size"
-            target="Update_Actor" targetport="input_size"/>
-        <edge kind="dependency" source="action_space_size"
-            target="Update_Actor" targetport="output_size"/>
-        <edge kind="dependency" source="actor_hidden_size"
-            target="Update_Actor" targetport="hidden_size"/>
         <edge kind="dependency" source="state_space_size"
             target="Actor_MLP" targetport="input_size"/>
         <edge kind="dependency" source="actor_hidden_size"
@@ -390,11 +447,6 @@
         <edge kind="dependency" source="action_space_size"
             target="Actor_MLP" targetport="output_size"/>
         <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out1-Actor_MLP.input"/>
-        <edge kind="dependency" source="state_space_size" target="Update_Actor.weights-Actor_MLP.weights"/>
-        <edge kind="dependency" source="action_space_size" target="Update_Actor.bias-Actor_MLP.bias"/>
-        <edge kind="dependency" source="action_space_size" target="Update_Actor.weights-Actor_MLP.weights"/>
-        <edge kind="dependency" source="actor_hidden_size" target="Update_Actor.bias-Actor_MLP.bias"/>
-        <edge kind="dependency" source="actor_hidden_size" target="Update_Actor.weights-Actor_MLP.weights"/>
         <edge kind="dependency" source="critic_hidden_size"
             target="Update_Critic" targetport="hidden_size"/>
         <edge kind="dependency" source="state_space_size"
@@ -403,7 +455,24 @@
             target="Update_Critic" targetport="output_size"/>
         <edge kind="dependency" source="bias_broadcast_size" target="BroadcastBiasCritic.out_2-Update_Critic.bias_in"/>
         <edge kind="dependency" source="critic_weights_broadcast_size" target="BroadcastWeightsCritic.out_2-Update_Critic.weights_in"/>
-        <edge kind="dependency" source="valid_critic"
-            target="Update_Critic" targetport="valid"/>
+        <edge kind="dependency" source="action_space_size"
+            target="Update_Actor" targetport="output_size"/>
+        <edge kind="dependency" source="actor_hidden_size"
+            target="Update_Actor" targetport="hidden_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="Update_Actor" targetport="input_size"/>
+        <edge kind="dependency" source="actor_hidden_size" target="actor_weights_size"/>
+        <edge kind="dependency" source="action_space_size" target="actor_weights_size"/>
+        <edge kind="dependency" source="state_space_size" target="actor_weights_size"/>
+        <edge kind="dependency" source="actor_weights_size"
+            target="BroadcastWeightsActor" targetport="size"/>
+        <edge kind="dependency" source="actor_weights_size" target="BroadcastWeightsActor.out_1-Actor_MLP.weights"/>
+        <edge kind="dependency" source="actor_weights_size" target="BroadcastWeightsActor.out_0-Update_Actor.weights_in"/>
+        <edge kind="dependency" source="actor_bias_size" target="BroadcastBiasActor.out_1-Actor_MLP.bias"/>
+        <edge kind="dependency" source="actor_bias_size"
+            target="BroadcastBiasActor" targetport="size"/>
+        <edge kind="dependency" source="actor_bias_size" target="BroadcastBiasActor.out_0-Update_Actor.bias_in"/>
+        <edge kind="dependency" source="actor_hidden_size" target="actor_bias_size"/>
+        <edge kind="dependency" source="action_space_size" target="actor_bias_size"/>
     </graph>
 </graphml>

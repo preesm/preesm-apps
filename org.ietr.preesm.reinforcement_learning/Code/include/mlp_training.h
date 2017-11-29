@@ -32,8 +32,8 @@
  * @param next_layer_weights  Input vector of weights connecting layer (l) to layer (l + 1). Size of (l) * (l + 1).
  * @param layer_sigmas        Output vector of layer (l) sigma values.
  */
-void computeLayerSigma(int layer_size, int next_layer_size, int valid,
-                       IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights,
+void computeLayerSigma(int layer_size, int next_layer_size,
+                       IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights, IN int *valid,
                        OUT float *layer_sigmas);
 
 /**
@@ -58,8 +58,8 @@ void computeLayerSigma(int layer_size, int next_layer_size, int valid,
  * @param target              Input vector of target values (t_k).
  * @param output_sigmas       Output vector of layer (l) sigma values.
  */
-void computeOutputSigma(int output_size, int valid,
-                        IN float *derivative_values, IN float *predicted, IN float *target,
+void computeOutputSigma(int output_size,
+                        IN float *derivative_values, IN float *predicted, IN float *target, IN int *valid,
                         OUT float *output_sigmas);
 
 /**
@@ -83,8 +83,8 @@ void lossMSE(int size,
  * @param inputs       Vector of inputs to the layer
  * @param gradients    Output vector of gradients
  */
-void computeLayerWeightsGradients(int input_size, int layer_size, int valid,
-                                  IN float *sigmas, IN float *inputs,
+void computeLayerWeightsGradients(int input_size, int layer_size,
+                                  IN float *sigmas, IN float *inputs, IN int *valid,
                                   OUT float *gradients);
 
 
@@ -106,14 +106,13 @@ void computeLayerWeightsGradients(int input_size, int layer_size, int valid,
  * @param fo_moment_out  First order moment estimation updated.
  * @param so_moment_out  Second raw order moment estimation updated.
  */
-void applyAdamOptimizer(int size, int valid,
-                        IN float *param_in, IN float *fo_moment_in, IN float *learning_rate,
+void applyAdamOptimizer(int size,
+                        IN float *param_in, IN float *fo_moment_in, IN float *learning_rate, IN int *valid,
                         IN float *so_moment_in, IN float *betas, IN float *gradients,
                         OUT float *param_out, OUT float *fo_moment_out, OUT float *so_moment_out);
 
 
-void adamUpdateBetas(int valid,
-                     IN float *betas_in,
+void adamUpdateBetas(IN float *betas_in, IN int *valid,
                      OUT float *betas_out);
 
 void initAdam(float *betas, float *learning_rate);

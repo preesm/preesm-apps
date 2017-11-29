@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
     <files>
-        <algorithm url="/org.ietr.preesm.reinforcement_learning/Algo/prediction.pi"/>
+        <algorithm url="/org.ietr.preesm.reinforcement_learning/Algo/prediction/prediction.pi"/>
         <architecture url="/org.ietr.preesm.reinforcement_learning/Archi/1CoreX86.slam"/>
         <codegenDirectory url="/org.ietr.preesm.reinforcement_learning/Code/codegen"/>
     </files>
@@ -15,34 +15,40 @@
             <task name="prediction/Actor_MLP/action"/>
             <task name="prediction/Actor_MLP/action_predictor/output"/>
             <task name="prediction/Actor_MLP/action_predictor/input"/>
+            <task name="prediction/Actor_MLP/action_predictor/activationFunction"/>
+            <task name="prediction/Actor_MLP/action_predictor/BroadCastValid"/>
+            <task name="prediction/Actor_MLP/action_predictor/valid"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_hidden/BroadcastWeightsGen"/>
-            <task name="prediction/Actor_MLP/action_predictor/weights_hidden/weightGen"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_hidden/weights_out"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_hidden/bias_out"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_hidden/BroadcastBiasGen"/>
+            <task name="prediction/Actor_MLP/action_predictor/weights_hidden/WeightsCopy"/>
+            <task name="prediction/Actor_MLP/action_predictor/weights_hidden/BiasCopy"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_hidden"/>
             <task name="prediction/Actor_MLP/action_predictor/Hidden_layer/computeNeuron"/>
             <task name="prediction/Actor_MLP/action_predictor/Hidden_layer/input"/>
             <task name="prediction/Actor_MLP/action_predictor/Hidden_layer/weights"/>
             <task name="prediction/Actor_MLP/action_predictor/Hidden_layer/bias_values"/>
             <task name="prediction/Actor_MLP/action_predictor/Hidden_layer/output"/>
+            <task name="prediction/Actor_MLP/action_predictor/Hidden_layer/valid"/>
             <task name="prediction/Actor_MLP/action_predictor/Hidden_layer"/>
             <task name="prediction/Actor_MLP/action_predictor/Output_layer/computeNeuron"/>
             <task name="prediction/Actor_MLP/action_predictor/Output_layer/input"/>
             <task name="prediction/Actor_MLP/action_predictor/Output_layer/weights"/>
             <task name="prediction/Actor_MLP/action_predictor/Output_layer/bias_values"/>
             <task name="prediction/Actor_MLP/action_predictor/Output_layer/output"/>
+            <task name="prediction/Actor_MLP/action_predictor/Output_layer/valid"/>
             <task name="prediction/Actor_MLP/action_predictor/Output_layer"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_output/BroadcastWeightsGen"/>
-            <task name="prediction/Actor_MLP/action_predictor/weights_output/weightGen"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_output/weights_out"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_output/bias_out"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_output/BroadcastBiasGen"/>
+            <task name="prediction/Actor_MLP/action_predictor/weights_output/WeightsCopy"/>
+            <task name="prediction/Actor_MLP/action_predictor/weights_output/BiasCopy"/>
             <task name="prediction/Actor_MLP/action_predictor/weights_output"/>
             <task name="prediction/Actor_MLP/action_predictor"/>
             <task name="prediction/Actor_MLP"/>
             <task name="prediction"/>
-            <task name="prediction/Actor_MLP/action_predictor/activationFunction"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
@@ -55,6 +61,7 @@
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
             <dataType name="float" size="4"/>
+            <dataType name="int" size="4"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
