@@ -19,7 +19,7 @@
                 kind="input" name="action"/>
         </node>
         <node id="action_predictor" kind="actor">
-            <data key="graph_desc">Algo/mlp.pi</data>
+            <data key="graph_desc">Algo/prediction/mlp.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="hidden_size"/>

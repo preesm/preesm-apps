@@ -13,7 +13,7 @@
         <node expr="input_size * hidden_size" id="size_weights_hidden" kind="param"/>
         <node expr="output_size * hidden_size" id="size_weights_output" kind="param"/>
         <node id="Output_layer" kind="actor">
-            <data key="graph_desc">Algo/mlp_layer.pi</data>
+            <data key="graph_desc">Algo/common/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
@@ -23,7 +23,7 @@
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="Hidden_layer" kind="actor">
-            <data key="graph_desc">Algo/mlp_layer.pi</data>
+            <data key="graph_desc">Algo/common/mlp_layer.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>

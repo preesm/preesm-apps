@@ -9,10 +9,12 @@
         <data key="name">mlp_layer</data>
         <node id="input_size" kind="cfg_in_iface"/>
         <node id="layer_size" kind="cfg_in_iface"/>
+        <node id="valid" kind="cfg_in_iface"/>
         <node id="computeNeuron" kind="actor">
             <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="neuron">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
+                <param direction="IN" isConfig="true" name="valid" type="int"/>
                 <param direction="IN" isConfig="false" name="input" type="float "/>
                 <param direction="IN" isConfig="false" name="weights" type="float "/>
                 <param direction="IN" isConfig="false"
@@ -20,6 +22,7 @@
                 <param direction="OUT" isConfig="false" name="output" type="float "/>
             </loop>
             <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="valid"/>
             <port annotation="NONE" expr="1" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE" expr="input_size" kind="input" name="weights"/>
@@ -54,5 +57,6 @@
         <edge kind="dependency" source="layer_size" target="bias_values"/>
         <edge kind="dependency" source="layer_size" target="input"/>
         <edge kind="dependency" source="layer_size" target="weights"/>
+        <edge kind="dependency" source="valid" target="computeNeuron" targetport="valid"/>
     </graph>
 </graphml>

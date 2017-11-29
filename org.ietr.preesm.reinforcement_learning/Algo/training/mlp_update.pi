@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="delay" attr.type="string" for="edge"/>
+    <graph edgedefault="directed">
+        <data key="name">mlp_update</data>
+        <node id="hidden_size" kind="cfg_in_iface"/>
+        <node id="output_size" kind="cfg_in_iface"/>
+        <node id="input_size" kind="cfg_in_iface"/>
+        <node expr="input_size * hidden_size" id="size_weights_hidden" kind="param"/>
+        <node expr="output_size * hidden_size" id="size_weights_output" kind="param"/>
+        <node id="valid" kind="cfg_in_iface"/>
+        <node id="weights" kind="snk">
+            <port annotation="NONE"
+                expr="size_weights_hidden + size_weights_output"
+                kind="input" name="weights"/>
+        </node>
+        <node id="bias" kind="snk">
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="input" name="bias"/>
+        </node>
+        <node id="weights_in" kind="src">
+            <port annotation="NONE"
+                expr="size_weights_hidden + size_weights_output"
+                kind="output" name="weights_in"/>
+        </node>
+        <node id="bias_in" kind="src">
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="output" name="bias_in"/>
+        </node>
+        <node id="Hidden_Gradients" kind="actor">
+            <data key="graph_desc">Algo/training/hidden_gradients.pi</data>
+            <port kind="cfg_input" name="layer_size"/>
+            <port kind="cfg_input" name="next_layer_size"/>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="next_layer_size" kind="input" name="next_layer_errors"/>
+            <port annotation="NONE" expr="layer_size" kind="input" name="layer_bias"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
+            <port annotation="NONE" expr="layer_size * input_size"
+                kind="input" name="layer_weights"/>
+            <port annotation="NONE" expr="next_layer_size * layer_size"
+                kind="input" name="next_layer_weights"/>
+            <port annotation="NONE" expr="layer_size * input_size"
+                kind="output" name="weights_gradient"/>
+            <port annotation="NONE" expr="layer_size" kind="output" name="bias_gradient"/>
+        </node>
+        <node id="Output_Gradients" kind="actor">
+            <data key="graph_desc">Algo/training/output_gradients.pi</data>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="layer_bias"/>
+            <port annotation="NONE" expr="output_size *  input_size"
+                kind="input" name="layer_weights"/>
+            <port annotation="NONE" expr="output_size * input_size"
+                kind="output" name="weights_gradient"/>
+            <port annotation="NONE" expr="output_size" kind="output" name="bias_gradient"/>
+        </node>
+        <node id="BroadCastSigma_output" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+        </node>
+        <node id="learning_rate" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
+        </node>
+        <node id="ForkBias" kind="fork">
+            <port kind="cfg_input" name="size_out0"/>
+            <port kind="cfg_input" name="size_out1"/>
+            <port annotation="NONE" expr="size_out0 + size_out1"
+                kind="input" name="bias_in"/>
+            <port annotation="NONE" expr="size_out0" kind="output" name="bias_out0"/>
+            <port annotation="NONE" expr="size_out1" kind="output" name="bias_out1"/>
+        </node>
+        <node id="ForkWeights" kind="fork">
+            <port kind="cfg_input" name="size_out0"/>
+            <port kind="cfg_input" name="size_out1"/>
+            <port annotation="NONE" expr="size_out0 + size_out1"
+                kind="input" name="weights_in"/>
+            <port annotation="NONE" expr="size_out0" kind="output" name="weights_out0"/>
+            <port annotation="NONE" expr="size_out1" kind="output" name="weights_out1"/>
+        </node>
+        <node id="Hidden_layer" kind="actor">
+            <data key="graph_desc">Algo/common/mlp_layer.pi</data>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="layer_size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE" expr="input_size * layer_size"
+                kind="input" name="weights"/>
+            <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
+        </node>
+        <node id="BroadCastWeights_hidden" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
+        </node>
+        <node id="BroadCastWeights_output" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
+        </node>
+        <node id="input" kind="src">
+            <port annotation="NONE" expr="input_size" kind="output" name="input"/>
+        </node>
+        <node id="BroadCastBias_hidden" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
+        </node>
+        <node id="BroadCastInput" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+        </node>
+        <node id="target" kind="src">
+            <port annotation="NONE" expr="output_size" kind="output" name="target"/>
+        </node>
+        <node id="AdamOptimizer_hiddenWeights" kind="actor">
+            <data key="graph_desc">Code/include/mlp_training.h</data>
+            <loop name="applyAdamOptimizer">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="valid" type="int"/>
+                <param direction="IN" isConfig="false" name="param_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="fo_moment_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="so_moment_in" type="float "/>
+                <param direction="IN" isConfig="false" name="betas" type="float "/>
+                <param direction="IN" isConfig="false" name="gradients" type="float "/>
+                <param direction="OUT" isConfig="false" name="param_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="fo_moment_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="so_moment_out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="4" kind="input" name="betas"/>
+            <port annotation="NONE" expr="size" kind="input" name="gradients"/>
+            <port annotation="NONE" expr="size" kind="input" name="param_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="size" kind="output" name="param_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
+        </node>
+        <node id="update_betas" kind="actor">
+            <data key="graph_desc">Code/include/mlp_training.h</data>
+            <loop name="adamUpdateBetas">
+                <param direction="IN" isConfig="true" name="valid" type="int"/>
+                <param direction="IN" isConfig="false" name="betas_in" type="float "/>
+                <param direction="OUT" isConfig="false" name="betas_out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="4" kind="input" name="betas_in"/>
+            <port annotation="NONE" expr="4" kind="output" name="betas_out"/>
+        </node>
+        <node id="BroadCastBetas" kind="broadcast">
+            <port annotation="NONE" expr="4" kind="input" name="in"/>
+            <port annotation="NONE" expr="4" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="4" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="4" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="4" kind="output" name="out_3"/>
+            <port annotation="NONE" expr="4" kind="output" name="out_4"/>
+        </node>
+        <node id="AdamOptimizer_hiddenBias" kind="actor">
+            <data key="graph_desc">Code/include/mlp_training.h</data>
+            <loop name="applyAdamOptimizer">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="valid" type="int"/>
+                <param direction="IN" isConfig="false" name="param_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="fo_moment_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="so_moment_in" type="float "/>
+                <param direction="IN" isConfig="false" name="betas" type="float "/>
+                <param direction="IN" isConfig="false" name="gradients" type="float "/>
+                <param direction="OUT" isConfig="false" name="param_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="fo_moment_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="so_moment_out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="4" kind="input" name="betas"/>
+            <port annotation="NONE" expr="size" kind="input" name="gradients"/>
+            <port annotation="NONE" expr="size" kind="input" name="param_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
+            <port annotation="NONE" expr="size" kind="output" name="param_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
+        </node>
+        <node id="AdamOptimizer_outputBias" kind="actor">
+            <data key="graph_desc">Code/include/mlp_training.h</data>
+            <loop name="applyAdamOptimizer">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="valid" type="int"/>
+                <param direction="IN" isConfig="false" name="param_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="fo_moment_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="so_moment_in" type="float "/>
+                <param direction="IN" isConfig="false" name="betas" type="float "/>
+                <param direction="IN" isConfig="false" name="gradients" type="float "/>
+                <param direction="OUT" isConfig="false" name="param_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="fo_moment_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="so_moment_out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="4" kind="input" name="betas"/>
+            <port annotation="NONE" expr="size" kind="input" name="gradients"/>
+            <port annotation="NONE" expr="size" kind="input" name="param_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="size" kind="output" name="param_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
+        </node>
+        <node id="AdamOptimizer_outputWeights" kind="actor">
+            <data key="graph_desc">Code/include/mlp_training.h</data>
+            <loop name="applyAdamOptimizer">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="valid" type="int"/>
+                <param direction="IN" isConfig="false" name="param_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="fo_moment_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="learning_rate" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="so_moment_in" type="float "/>
+                <param direction="IN" isConfig="false" name="betas" type="float "/>
+                <param direction="IN" isConfig="false" name="gradients" type="float "/>
+                <param direction="OUT" isConfig="false" name="param_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="fo_moment_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="so_moment_out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE" expr="size" kind="input" name="gradients"/>
+            <port annotation="NONE" expr="4" kind="input" name="betas"/>
+            <port annotation="NONE" expr="size" kind="input" name="param_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="so_moment_in"/>
+            <port annotation="NONE" expr="size" kind="input" name="fo_moment_in"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="size" kind="output" name="param_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="fo_moment_out"/>
+            <port annotation="NONE" expr="size" kind="output" name="so_moment_out"/>
+        </node>
+        <node id="BroadCastBias_output" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+        </node>
+        <node id="JoinBias" kind="join">
+            <port kind="cfg_input" name="size_in0"/>
+            <port kind="cfg_input" name="size_in1"/>
+            <port annotation="NONE" expr="size_in1" kind="input" name="bias_in1"/>
+            <port annotation="NONE" expr="size_in0" kind="input" name="bias_in0"/>
+            <port annotation="NONE" expr="size_in0 + size_in1"
+                kind="output" name="bias_out"/>
+        </node>
+        <node id="JoinWeights" kind="join">
+            <port kind="cfg_input" name="size_in0"/>
+            <port kind="cfg_input" name="size_in1"/>
+            <port annotation="NONE" expr="size_in0" kind="input" name="weights_in0"/>
+            <port annotation="NONE" expr="size_in1" kind="input" name="weights_in1"/>
+            <port annotation="NONE" expr="size_in0 + size_in1"
+                kind="output" name="weights_out"/>
+        </node>
+        <node id="BroadCastLearningRate" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_3"/>
+        </node>
+        <edge kind="fifo" source="Output_Gradients"
+            sourceport="bias_gradient" target="BroadCastSigma_output"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastSigma_output"
+            sourceport="out_1" target="Hidden_Gradients"
+            targetport="next_layer_errors" type="float"/>
+        <edge kind="fifo" source="ForkWeights" sourceport="weights_out0"
+            target="BroadCastWeights_hidden" targetport="in" type="float"/>
+        <edge kind="fifo" source="Hidden_layer" sourceport="output"
+            target="Output_Gradients" targetport="inputs" type="float"/>
+        <edge kind="fifo" source="BroadCastWeights_hidden"
+            sourceport="out_1" target="Hidden_Gradients"
+            targetport="layer_weights" type="float"/>
+        <edge kind="fifo" source="BroadCastWeights_output"
+            sourceport="out_0" target="Output_Gradients"
+            targetport="layer_weights" type="float"/>
+        <edge kind="fifo" source="ForkWeights" sourceport="weights_out1"
+            target="BroadCastWeights_output" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastWeights_output"
+            sourceport="out_1" target="Hidden_Gradients"
+            targetport="next_layer_weights" type="float"/>
+        <edge kind="fifo" source="ForkBias" sourceport="bias_out0"
+            target="BroadCastBias_hidden" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastBias_hidden"
+            sourceport="out_0" target="Hidden_layer"
+            targetport="bias_values" type="float"/>
+        <edge kind="fifo" source="BroadCastBias_hidden"
+            sourceport="out_1" target="Hidden_Gradients"
+            targetport="layer_bias" type="float"/>
+        <edge kind="fifo" source="bias_in" sourceport="bias_in"
+            target="ForkBias" targetport="bias_in" type="float"/>
+        <edge kind="fifo" source="weights_in" sourceport="weights_in"
+            target="ForkWeights" targetport="weights_in" type="float"/>
+        <edge kind="fifo" source="BroadCastWeights_hidden"
+            sourceport="out_0" target="Hidden_layer"
+            targetport="weights" type="float"/>
+        <edge kind="fifo" source="input" sourceport="input"
+            target="BroadCastInput" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastInput" sourceport="out_0"
+            target="Hidden_layer" targetport="input" type="float"/>
+        <edge kind="fifo" source="BroadCastInput" sourceport="out_1"
+            target="Hidden_Gradients" targetport="inputs" type="float"/>
+        <edge kind="fifo" source="target" sourceport="target"
+            target="Output_Gradients" targetport="target" type="float"/>
+        <edge kind="fifo" source="Hidden_Gradients"
+            sourceport="weights_gradient"
+            target="AdamOptimizer_hiddenWeights" targetport="gradients" type="float"/>
+        <edge kind="fifo" source="BroadCastWeights_hidden"
+            sourceport="out_2" target="AdamOptimizer_hiddenWeights"
+            targetport="param_in" type="float"/>
+        <edge kind="fifo" source="update_betas" sourceport="betas_out"
+            target="BroadCastBetas" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastBetas" sourceport="out_0"
+            target="AdamOptimizer_hiddenWeights" targetport="betas" type="float"/>
+        <edge expr="4" kind="fifo" source="BroadCastBetas"
+            sourceport="out_4" target="update_betas"
+            targetport="betas_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="size_weights_hidden" kind="fifo"
+            source="AdamOptimizer_hiddenWeights"
+            sourceport="fo_moment_out"
+            target="AdamOptimizer_hiddenWeights"
+            targetport="fo_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="size_weights_hidden" kind="fifo"
+            source="AdamOptimizer_hiddenWeights"
+            sourceport="so_moment_out"
+            target="AdamOptimizer_hiddenWeights"
+            targetport="so_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="hidden_size" kind="fifo"
+            source="AdamOptimizer_hiddenBias" sourceport="fo_moment_out"
+            target="AdamOptimizer_hiddenBias" targetport="fo_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="hidden_size" kind="fifo"
+            source="AdamOptimizer_hiddenBias" sourceport="so_moment_out"
+            target="AdamOptimizer_hiddenBias" targetport="so_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="Hidden_Gradients"
+            sourceport="bias_gradient" target="AdamOptimizer_hiddenBias"
+            targetport="gradients" type="float"/>
+        <edge kind="fifo" source="BroadCastBias_hidden"
+            sourceport="out_2" target="AdamOptimizer_hiddenBias"
+            targetport="param_in" type="float"/>
+        <edge kind="fifo" source="BroadCastBetas" sourceport="out_1"
+            target="AdamOptimizer_hiddenBias" targetport="betas" type="float"/>
+        <edge expr="output_size" kind="fifo"
+            source="AdamOptimizer_outputBias" sourceport="fo_moment_out"
+            target="AdamOptimizer_outputBias" targetport="fo_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="output_size" kind="fifo"
+            source="AdamOptimizer_outputBias" sourceport="so_moment_out"
+            target="AdamOptimizer_outputBias" targetport="so_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="BroadCastSigma_output"
+            sourceport="out_0" target="AdamOptimizer_outputBias"
+            targetport="gradients" type="float"/>
+        <edge kind="fifo" source="BroadCastBetas" sourceport="out_2"
+            target="AdamOptimizer_outputBias" targetport="betas" type="float"/>
+        <edge expr="size_weights_output" kind="fifo"
+            source="AdamOptimizer_outputWeights"
+            sourceport="fo_moment_out"
+            target="AdamOptimizer_outputWeights"
+            targetport="fo_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="size_weights_output" kind="fifo"
+            source="AdamOptimizer_outputWeights"
+            sourceport="so_moment_out"
+            target="AdamOptimizer_outputWeights"
+            targetport="so_moment_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="Output_Gradients"
+            sourceport="weights_gradient"
+            target="AdamOptimizer_outputWeights" targetport="gradients" type="float"/>
+        <edge kind="fifo" source="BroadCastBetas" sourceport="out_3"
+            target="AdamOptimizer_outputWeights" targetport="betas" type="float"/>
+        <edge kind="fifo" source="BroadCastWeights_output"
+            sourceport="out_2" target="AdamOptimizer_outputWeights"
+            targetport="param_in" type="float"/>
+        <edge kind="fifo" source="ForkBias" sourceport="bias_out1"
+            target="BroadCastBias_output" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastBias_output"
+            sourceport="out_0" target="Output_Gradients"
+            targetport="layer_bias" type="float"/>
+        <edge kind="fifo" source="BroadCastBias_output"
+            sourceport="out_1" target="AdamOptimizer_outputBias"
+            targetport="param_in" type="float"/>
+        <edge kind="fifo" source="JoinBias" sourceport="bias_out"
+            target="bias" targetport="bias" type="float"/>
+        <edge kind="fifo" source="AdamOptimizer_outputBias"
+            sourceport="param_out" target="JoinBias"
+            targetport="bias_in1" type="float"/>
+        <edge kind="fifo" source="AdamOptimizer_hiddenBias"
+            sourceport="param_out" target="JoinBias"
+            targetport="bias_in0" type="float"/>
+        <edge kind="fifo" source="JoinWeights" sourceport="weights_out"
+            target="weights" targetport="weights" type="float"/>
+        <edge kind="fifo" source="AdamOptimizer_hiddenWeights"
+            sourceport="param_out" target="JoinWeights"
+            targetport="weights_in0" type="float"/>
+        <edge kind="fifo" source="AdamOptimizer_outputWeights"
+            sourceport="param_out" target="JoinWeights"
+            targetport="weights_in1" type="float"/>
+        <edge kind="fifo" source="learning_rate"
+            sourceport="learning_rate" target="BroadCastLearningRate"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadCastLearningRate"
+            sourceport="out_0" target="AdamOptimizer_outputWeights"
+            targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="BroadCastLearningRate"
+            sourceport="out_1" target="AdamOptimizer_outputBias"
+            targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="BroadCastLearningRate"
+            sourceport="out_2" target="AdamOptimizer_hiddenWeights"
+            targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="BroadCastLearningRate"
+            sourceport="out_3" target="AdamOptimizer_hiddenBias"
+            targetport="learning_rate" type="float"/>
+        <edge kind="dependency" source="input_size"
+            target="Hidden_Gradients" targetport="input_size"/>
+        <edge kind="dependency" source="output_size"
+            target="Hidden_Gradients" targetport="next_layer_size"/>
+        <edge kind="dependency" source="hidden_size"
+            target="Hidden_Gradients" targetport="layer_size"/>
+        <edge kind="dependency" source="input_size"
+            target="Hidden_layer" targetport="input_size"/>
+        <edge kind="dependency" source="hidden_size"
+            target="Hidden_layer" targetport="layer_size"/>
+        <edge kind="dependency" source="output_size"
+            target="Output_Gradients" targetport="output_size"/>
+        <edge kind="dependency" source="hidden_size"
+            target="Output_Gradients" targetport="input_size"/>
+        <edge kind="dependency" source="output_size"
+            target="BroadCastSigma_output" targetport="size"/>
+        <edge kind="dependency" source="output_size" target="target"/>
+        <edge kind="dependency" source="input_size" target="input"/>
+        <edge kind="dependency" source="input_size"
+            target="BroadCastInput" targetport="size"/>
+        <edge kind="dependency" source="hidden_size"
+            target="BroadCastBias_hidden" targetport="size"/>
+        <edge kind="dependency" source="hidden_size" target="ForkBias" targetport="size_out0"/>
+        <edge kind="dependency" source="output_size" target="ForkBias" targetport="size_out1"/>
+        <edge kind="dependency" source="hidden_size" target="size_weights_hidden"/>
+        <edge kind="dependency" source="input_size" target="size_weights_hidden"/>
+        <edge kind="dependency" source="hidden_size" target="size_weights_output"/>
+        <edge kind="dependency" source="output_size" target="size_weights_output"/>
+        <edge kind="dependency" source="size_weights_hidden"
+            target="ForkWeights" targetport="size_out0"/>
+        <edge kind="dependency" source="size_weights_output"
+            target="ForkWeights" targetport="size_out1"/>
+        <edge kind="dependency" source="size_weights_hidden"
+            target="BroadCastWeights_hidden" targetport="size"/>
+        <edge kind="dependency" source="size_weights_output"
+            target="BroadCastWeights_output" targetport="size"/>
+        <edge kind="dependency" source="size_weights_hidden"
+            target="AdamOptimizer_hiddenWeights" targetport="size"/>
+        <edge kind="dependency" source="hidden_size"
+            target="AdamOptimizer_hiddenBias" targetport="size"/>
+        <edge kind="dependency" source="output_size"
+            target="AdamOptimizer_outputBias" targetport="size"/>
+        <edge kind="dependency" source="size_weights_output"
+            target="AdamOptimizer_outputWeights" targetport="size"/>
+        <edge kind="dependency" source="output_size"
+            target="BroadCastBias_output" targetport="size"/>
+        <edge kind="dependency" source="size_weights_hidden" target="weights_in"/>
+        <edge kind="dependency" source="size_weights_output" target="weights_in"/>
+        <edge kind="dependency" source="hidden_size" target="bias_in"/>
+        <edge kind="dependency" source="output_size" target="bias_in"/>
+        <edge kind="dependency" source="hidden_size" target="JoinBias" targetport="size_in0"/>
+        <edge kind="dependency" source="output_size" target="JoinBias" targetport="size_in1"/>
+        <edge kind="dependency" source="size_weights_hidden"
+            target="JoinWeights" targetport="size_in0"/>
+        <edge kind="dependency" source="size_weights_output"
+            target="JoinWeights" targetport="size_in1"/>
+        <edge kind="dependency" source="size_weights_output" target="weights"/>
+        <edge kind="dependency" source="size_weights_hidden" target="weights"/>
+        <edge kind="dependency" source="output_size" target="bias"/>
+        <edge kind="dependency" source="hidden_size" target="bias"/>
+        <edge kind="dependency" source="size_weights_output" target="AdamOptimizer_outputWeights.fo_moment_out-AdamOptimizer_outputWeights.fo_moment_in"/>
+        <edge kind="dependency" source="size_weights_output" target="AdamOptimizer_outputWeights.so_moment_out-AdamOptimizer_outputWeights.so_moment_in"/>
+        <edge kind="dependency" source="size_weights_hidden" target="AdamOptimizer_hiddenWeights.fo_moment_out-AdamOptimizer_hiddenWeights.fo_moment_in"/>
+        <edge kind="dependency" source="size_weights_hidden" target="AdamOptimizer_hiddenWeights.so_moment_out-AdamOptimizer_hiddenWeights.so_moment_in"/>
+        <edge kind="dependency" source="output_size" target="AdamOptimizer_outputBias.fo_moment_out-AdamOptimizer_outputBias.fo_moment_in"/>
+        <edge kind="dependency" source="output_size" target="AdamOptimizer_outputBias.so_moment_out-AdamOptimizer_outputBias.so_moment_in"/>
+        <edge kind="dependency" source="hidden_size" target="AdamOptimizer_hiddenBias.fo_moment_out-AdamOptimizer_hiddenBias.fo_moment_in"/>
+        <edge kind="dependency" source="hidden_size" target="AdamOptimizer_hiddenBias.so_moment_out-AdamOptimizer_hiddenBias.so_moment_in"/>
+        <edge kind="dependency" source="valid" target="update_betas" targetport="valid"/>
+        <edge kind="dependency" source="valid" target="Hidden_layer" targetport="valid"/>
+        <edge kind="dependency" source="valid" target="Output_Gradients" targetport="valid"/>
+        <edge kind="dependency" source="valid"
+            target="AdamOptimizer_outputBias" targetport="valid"/>
+        <edge kind="dependency" source="valid" target="Hidden_Gradients" targetport="valid"/>
+        <edge kind="dependency" source="valid"
+            target="AdamOptimizer_outputWeights" targetport="valid"/>
+        <edge kind="dependency" source="valid"
+            target="AdamOptimizer_hiddenBias" targetport="valid"/>
+        <edge kind="dependency" source="valid"
+            target="AdamOptimizer_hiddenWeights" targetport="valid"/>
+    </graph>
+</graphml>

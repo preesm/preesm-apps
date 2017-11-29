@@ -42,7 +42,7 @@
                 kind="output" name="state_angular_out"/>
         </node>
         <node id="Actor_MLP" kind="actor">
-            <data key="graph_desc">Algo/actor_mlp.pi</data>
+            <data key="graph_desc">Algo/prediction/actor_mlp.pi</data>
             <port kind="cfg_input" name="state_space_size"/>
             <port kind="cfg_input" name="action_space_size"/>
             <port annotation="NONE" expr="state_space_size" kind="input" name="state"/>

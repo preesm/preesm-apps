@@ -32,10 +32,35 @@
  * @param next_layer_weights  Input vector of weights connecting layer (l) to layer (l + 1). Size of (l) * (l + 1).
  * @param layer_sigmas        Output vector of layer (l) sigma values.
  */
-void computeLayerSigma(int layer_size, int next_layer_size,
+void computeLayerSigma(int layer_size, int next_layer_size, int valid,
                        IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights,
                        OUT float *layer_sigmas);
 
+/**
+ * @brief Compute sigma values of the output layer. The sigma value is used to compute the gradient
+ *        of the weights of a layer.
+ *
+ *        s_k = g_k'(z_k) * (a_k - t_k)
+ *
+ *        where:
+ *        - k:    index of a node in the current layer l
+ *        - g_k:  activation function of node k. (thus g_k' is the derivative of this function)
+ *        - z_k:  input to node k. -> z_k = b_k + sum(a_j * w_jk)
+ *        - b_k:  bias value of node k in layer l
+ *        - a_j:  output value of node j in layer (l - 1). -> a_j = g_j(z_j)
+ *        - w_jk: weight connecting node j in layer (l - 1) to node k in layer l
+ *        - t_k:  target value for node k.
+ *
+ *
+ * @param output_size         Size of the output layer (l).
+ * @param derivative_values   Input vector of the pre-computed derivative values (g_k'(z_k)). Size of (l).
+ * @param predicted           Input vector of predicted values (a_k). Size of (l)
+ * @param target              Input vector of target values (t_k).
+ * @param output_sigmas       Output vector of layer (l) sigma values.
+ */
+void computeOutputSigma(int output_size, int valid,
+                        IN float *derivative_values, IN float *predicted, IN float *target,
+                        OUT float *output_sigmas);
 
 /**
  * @brief Performs the Mean Square Error loss operation
@@ -58,9 +83,10 @@ void lossMSE(int size,
  * @param inputs       Vector of inputs to the layer
  * @param gradients    Output vector of gradients
  */
-void computeLayerWeightsGradients(int input_size, int layer_size,
+void computeLayerWeightsGradients(int input_size, int layer_size, int valid,
                                   IN float *sigmas, IN float *inputs,
                                   OUT float *gradients);
+
 
 
 /**
@@ -79,11 +105,19 @@ void computeLayerWeightsGradients(int input_size, int layer_size,
  * @param param_out      Parameter vector updated.
  * @param fo_moment_out  First order moment estimation updated.
  * @param so_moment_out  Second raw order moment estimation updated.
- * @param betas_out
  */
-void applyAdamOptimizer(int size,
+void applyAdamOptimizer(int size, int valid,
                         IN float *param_in, IN float *fo_moment_in, IN float *learning_rate,
                         IN float *so_moment_in, IN float *betas, IN float *gradients,
-                        OUT float *param_out, OUT float *fo_moment_out, OUT float *so_moment_out, OUT float *betas_out);
+                        OUT float *param_out, OUT float *fo_moment_out, OUT float *so_moment_out);
+
+
+void adamUpdateBetas(int valid,
+                     IN float *betas_in,
+                     OUT float *betas_out);
+
+void initAdam(float *betas, float *learning_rate);
+
+void learningRateGen(OUT float *learning_rate);
 
 #endif //CACLA_MLP_TRAINING_H

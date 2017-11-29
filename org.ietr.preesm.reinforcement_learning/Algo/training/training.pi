@@ -19,6 +19,7 @@
         <node expr="critic_hidden_size + value_space_size"
             id="bias_broadcast_size" kind="param"/>
         <node expr="20" id="actor_hidden_size" kind="param"/>
+        <node expr="1" id="valid_critic" kind="param"/>
         <node id="Environment" kind="actor">
             <data key="graph_desc">Code/include/environment.h</data>
             <loop name="step">
@@ -47,9 +48,9 @@
                 kind="input" name="state_angular_in"/>
             <port annotation="NONE" expr="state_space_size"
                 kind="output" name="state_observation"/>
+            <port annotation="NONE" expr="1" kind="output" name="reward"/>
             <port annotation="NONE" expr="state_angular_size"
                 kind="output" name="state_angular_out"/>
-            <port annotation="NONE" expr="1" kind="output" name="reward"/>
         </node>
         <node id="broadcastState" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -68,36 +69,25 @@
             <port annotation="NONE" expr="size" kind="input" name="state"/>
         </node>
         <node id="Critic_MLP" kind="actor">
-            <data key="graph_desc">Algo/critic_mlp.pi</data>
-            <port kind="cfg_input" name="value_space_size"/>
-            <port kind="cfg_input" name="state_space_size"/>
+            <data key="graph_desc">Algo/training/mlp_train.pi</data>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size"/>
-            <port annotation="NONE" expr="state_space_size" kind="input" name="state"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE"
-                expr="state_space_size * hidden_size  + hidden_size * value_space_size"
+                expr="input_size* hidden_size  + hidden_size * output_size"
                 kind="input" name="weights"/>
-            <port annotation="NONE"
-                expr="hidden_size + value_space_size" kind="input" name="bias"/>
-            <port annotation="NONE" expr="value_space_size"
-                kind="output" name="value"/>
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="input" name="bias"/>
+            <port annotation="NONE" expr="output_size" kind="output" name="output"/>
         </node>
         <node id="BroadcastStateFeature" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="state"/>
             <port annotation="NONE" expr="size" kind="output" name="state_out0"/>
-            <port annotation="NONE" expr="size" kind="output" name="state_out1"/>
             <port annotation="NONE" expr="size" kind="output" name="state_out2"/>
-        </node>
-        <node id="Update_Critic" kind="actor">
-            <port kind="cfg_input" name="hidden_size"/>
-            <port kind="cfg_input" name="output_size"/>
-            <port kind="cfg_input" name="input_size"/>
-            <port annotation="NONE" expr="1" kind="input" name="target"/>
-            <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
-                kind="output" name="weights"/>
-            <port annotation="NONE" expr="hidden_size + output_size"
-                kind="output" name="bias"/>
+            <port annotation="NONE" expr="size" kind="output" name="state_out3"/>
+            <port annotation="NONE" expr="size" kind="output" name="state_out1"/>
         </node>
         <node id="Temporal_Difference_Error" kind="actor">
             <data key="graph_desc">Code/include/critic_mlp.h</data>
@@ -121,33 +111,34 @@
             <port annotation="NONE" expr="1" kind="output" name="gamma_out"/>
         </node>
         <node id="Critic_MLP_old" kind="actor">
-            <data key="graph_desc">Algo/critic_mlp.pi</data>
-            <port kind="cfg_input" name="value_space_size"/>
-            <port kind="cfg_input" name="state_space_size"/>
+            <data key="graph_desc">Algo/training/mlp_train.pi</data>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size"/>
-            <port annotation="NONE" expr="state_space_size" kind="input" name="state"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
             <port annotation="NONE"
-                expr="state_space_size * hidden_size  + hidden_size * value_space_size"
+                expr="input_size * hidden_size  + hidden_size * output_size"
                 kind="input" name="weights"/>
-            <port annotation="NONE"
-                expr="hidden_size + value_space_size" kind="input" name="bias"/>
-            <port annotation="NONE" expr="value_space_size"
-                kind="output" name="value"/>
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="input" name="bias"/>
+            <port annotation="NONE" expr="output_size" kind="output" name="output"/>
         </node>
         <node id="BroadcastWeightsCritic" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="input"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
         </node>
         <node id="BroadcastBiasCritic" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="input"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
         </node>
         <node id="Actor_MLP" kind="actor">
-            <data key="graph_desc">Algo/mlp_train.pi</data>
+            <data key="graph_desc">Algo/training/mlp_train.pi</data>
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="hidden_size"/>
             <port kind="cfg_input" name="input_size"/>
@@ -194,6 +185,39 @@
             <port annotation="NONE" expr="size" kind="output" name="action_out0"/>
             <port annotation="NONE" expr="size" kind="output" name="action_out1"/>
         </node>
+        <node id="Update_Critic" kind="actor">
+            <data key="graph_desc">Algo/training/mlp_update.pi</data>
+            <port kind="cfg_input" name="hidden_size"/>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="valid"/>
+            <port annotation="NONE"
+                expr="input_size * hidden_size + hidden_size * output_size"
+                kind="input" name="weights_in"/>
+            <port annotation="NONE" expr="output_size + hidden_size"
+                kind="input" name="bias_in"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="input_size * hidden_size + hidden_size * output_size"
+                kind="output" name="weights"/>
+            <port annotation="NONE" expr="hidden_size + output_size"
+                kind="output" name="bias"/>
+        </node>
+        <node id="LearningRate_gen" kind="actor">
+            <data key="graph_desc">Code/include/mlp_training.h</data>
+            <loop name="learningRateGen">
+                <param direction="OUT" isConfig="false"
+                    name="learning_rate" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
+        </node>
+        <node id="broadcastLearningRate" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out0"/>
+            <port annotation="NONE" expr="1" kind="output" name="out1"/>
+        </node>
         <edge kind="fifo" source="broadcastState"
             sourceport="state_out0" target="renderEnv"
             targetport="state" type="float"/>
@@ -210,24 +234,19 @@
             target="BroadcastStateFeature" targetport="state" type="float"/>
         <edge kind="fifo" source="BroadcastStateFeature"
             sourceport="state_out0" target="Critic_MLP"
-            targetport="state" type="float"/>
-        <edge kind="fifo" source="Critic_MLP" sourceport="value"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="Critic_MLP" sourceport="output"
             target="Temporal_Difference_Error"
             targetport="value_next_state" type="float"/>
         <edge kind="fifo" source="Environment" sourceport="reward"
             target="Temporal_Difference_Error" targetport="reward" type="float"/>
-        <edge kind="fifo" source="Temporal_Difference_Error"
-            sourceport="target" target="Update_Critic"
-            targetport="target" type="float"/>
-        <edge kind="fifo" source="Critic_MLP_old" sourceport="value"
+        <edge kind="fifo" source="Critic_MLP_old" sourceport="output"
             target="Temporal_Difference_Error" targetport="value_state" type="float"/>
         <edge expr="state_space_size" kind="fifo"
             source="BroadcastStateFeature" sourceport="state_out2"
-            target="Critic_MLP_old" targetport="state" type="float">
+            target="Critic_MLP_old" targetport="input" type="float">
             <data key="delay"/>
         </edge>
-        <edge kind="fifo" source="Update_Critic" sourceport="weights"
-            target="BroadcastWeightsCritic" targetport="input" type="float"/>
         <edge expr="critic_weights_broadcast_size" kind="fifo"
             source="BroadcastWeightsCritic" sourceport="out_0"
             target="Critic_MLP" targetport="weights" type="float">
@@ -238,8 +257,6 @@
             target="Critic_MLP_old" targetport="weights" type="float">
             <data key="delay"/>
         </edge>
-        <edge kind="fifo" source="Update_Critic" sourceport="bias"
-            target="BroadcastBiasCritic" targetport="input" type="float"/>
         <edge expr="bias_broadcast_size" kind="fifo"
             source="BroadcastBiasCritic" sourceport="out_0"
             target="Critic_MLP" targetport="bias" type="float">
@@ -289,6 +306,32 @@
             targetport="gamma_in" type="float">
             <data key="delay"/>
         </edge>
+        <edge kind="fifo" source="Temporal_Difference_Error"
+            sourceport="target" target="Update_Critic"
+            targetport="target" type="float"/>
+        <edge kind="fifo" source="LearningRate_gen"
+            sourceport="learning_rate" target="broadcastLearningRate"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="broadcastLearningRate"
+            sourceport="out1" target="Update_Critic"
+            targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="BroadcastStateFeature"
+            sourceport="state_out3" target="Update_Critic"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="Update_Critic" sourceport="weights"
+            target="BroadcastWeightsCritic" targetport="input" type="float"/>
+        <edge expr="critic_weights_broadcast_size" kind="fifo"
+            source="BroadcastWeightsCritic" sourceport="out_2"
+            target="Update_Critic" targetport="weights_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge expr="bias_broadcast_size" kind="fifo"
+            source="BroadcastBiasCritic" sourceport="out_2"
+            target="Update_Critic" targetport="bias_in" type="float">
+            <data key="delay"/>
+        </edge>
+        <edge kind="fifo" source="Update_Critic" sourceport="bias"
+            target="BroadcastBiasCritic" targetport="input" type="float"/>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="action_space_size"
@@ -303,22 +346,16 @@
         <edge kind="dependency" source="state_space_size"
             target="BroadcastStateFeature" targetport="size"/>
         <edge kind="dependency" source="state_space_size"
-            target="Critic_MLP" targetport="state_space_size"/>
+            target="Critic_MLP" targetport="input_size"/>
         <edge kind="dependency" source="value_space_size"
-            target="Critic_MLP" targetport="value_space_size"/>
+            target="Critic_MLP" targetport="output_size"/>
         <edge kind="dependency" source="value_space_size"
-            target="Critic_MLP_old" targetport="value_space_size"/>
+            target="Critic_MLP_old" targetport="output_size"/>
         <edge kind="dependency" source="state_space_size"
-            target="Critic_MLP_old" targetport="state_space_size"/>
-        <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out2-Critic_MLP_old.state"/>
-        <edge kind="dependency" source="critic_hidden_size"
-            target="Update_Critic" targetport="hidden_size"/>
-        <edge kind="dependency" source="value_space_size"
-            target="Update_Critic" targetport="output_size"/>
+            target="Critic_MLP_old" targetport="input_size"/>
+        <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out2-Critic_MLP_old.input"/>
         <edge kind="dependency" source="critic_hidden_size"
             target="Critic_MLP" targetport="hidden_size"/>
-        <edge kind="dependency" source="state_space_size"
-            target="Update_Critic" targetport="input_size"/>
         <edge kind="dependency" source="critic_weights_broadcast_size"
             target="BroadcastWeightsCritic" targetport="size"/>
         <edge kind="dependency" source="critic_hidden_size" target="critic_weights_broadcast_size"/>
@@ -358,5 +395,15 @@
         <edge kind="dependency" source="action_space_size" target="Update_Actor.weights-Actor_MLP.weights"/>
         <edge kind="dependency" source="actor_hidden_size" target="Update_Actor.bias-Actor_MLP.bias"/>
         <edge kind="dependency" source="actor_hidden_size" target="Update_Actor.weights-Actor_MLP.weights"/>
+        <edge kind="dependency" source="critic_hidden_size"
+            target="Update_Critic" targetport="hidden_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="Update_Critic" targetport="input_size"/>
+        <edge kind="dependency" source="value_space_size"
+            target="Update_Critic" targetport="output_size"/>
+        <edge kind="dependency" source="bias_broadcast_size" target="BroadcastBiasCritic.out_2-Update_Critic.bias_in"/>
+        <edge kind="dependency" source="critic_weights_broadcast_size" target="BroadcastWeightsCritic.out_2-Update_Critic.weights_in"/>
+        <edge kind="dependency" source="valid_critic"
+            target="Update_Critic" targetport="valid"/>
     </graph>
 </graphml>

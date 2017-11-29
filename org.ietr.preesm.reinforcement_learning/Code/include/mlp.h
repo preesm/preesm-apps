@@ -39,7 +39,7 @@ void layer(int layer_size, int output_size, float *weights, float *bias_values, 
  * @param bias_values Bias values associated to the neuron
  * @param output      Response of the neuron to the inputs
  */
-void neuron(int input_size,
+void neuron(int input_size, int valid,
             IN float *input, IN float *weights, IN float *bias_values,
             OUT float *output);
 
@@ -53,7 +53,8 @@ void neuron(int input_size,
  * @param input  Raw output of a neuron
  * @param output Activated output of a neuron
  */
-void activateTanHyperbolic(IN float *input,
+void activateTanHyperbolic(int valid,
+                           IN float *input,
                            OUT float *output);
 
 /**
@@ -67,7 +68,8 @@ void activateTanHyperbolic(IN float *input,
  * @param input  Input value
  * @param output Activated output of a neuron
  */
-void derivativeTanHyperbolic(IN float *input,
+void derivativeTanHyperbolic(int valid,
+                             IN float *input,
                              OUT float *output);
 
 /**

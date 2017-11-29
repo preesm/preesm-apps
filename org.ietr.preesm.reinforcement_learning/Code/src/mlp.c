@@ -40,36 +40,50 @@ void layer(int layer_size, int output_size, float *weights, float *bias_values, 
     }
 }
 
-void neuron(int input_size,
+void neuron(int input_size, int valid,
             IN float *input, IN float *weights, IN float *bias_values,
             OUT float *output) {
-    float result = bias_values[0];
-    /*
-     * This compute the output of neuron[i] of a layer of a MLP neural network
-     *
-     * With n input values, weights array is constructed this way:
-     *      weight[0] -> weight from input[0] to neuron[i]
-     *      weight[1] -> weight from input[1] to neuron[i]
-     *      ...
-     *      weight[n] -> weight from input[n] to neuron[i]
-     *
-     */
-    for (int wi = 0; wi < input_size; ++wi) {
-        //fprintf(stderr, "%lf\n", weights[wi]);
-        result += input[wi] * weights[wi];
+    if (valid == 0) {
+        (*output) = 0;
+    } else {
+        float result = bias_values[0];
+        /*
+         * This compute the output of neuron[i] of a layer of a MLP neural network
+         *
+         * With n input values, weights array is constructed this way:
+         *      weight[0] -> weight from input[0] to neuron[i]
+         *      weight[1] -> weight from input[1] to neuron[i]
+         *      ...
+         *      weight[n] -> weight from input[n] to neuron[i]
+         *
+         */
+        for (int wi = 0; wi < input_size; ++wi) {
+            //fprintf(stderr, "%lf\n", weights[wi]);
+            result += input[wi] * weights[wi];
+        }
+        (*output) = result;
     }
-    (*output) = result;
 }
 
-void activateTanHyperbolic(IN float *input,
+void activateTanHyperbolic(int valid,
+                           IN float *input,
                            OUT float *output) {
-    output[0] = (float)(tanh((double)(input[0])));
+    if (valid == 0) {
+        output[0] = 0;
+    } else {
+        output[0] = (float)(tanh((double)(input[0])));
+    }
 }
 
-void derivativeTanHyperbolic(IN float *input,
+void derivativeTanHyperbolic(int valid,
+                             IN float *input,
                              OUT float *output) {
-    float f_x = (float)(tanh((double)(input[0])));
-    output[0] = 1 - (f_x * f_x);
+    if (valid == 0) {
+        output[0] = 0;
+    } else {
+        float f_x = (float)(tanh((double)(input[0])));
+        output[0] = 1 - (f_x * f_x);
+    }
 }
 
 void activateReLU(IN float *input,
