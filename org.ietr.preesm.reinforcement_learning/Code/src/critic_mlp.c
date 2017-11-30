@@ -1,9 +1,9 @@
 //
 // Created by farresti on 03/11/17.
 //
-
-#include <printf.h>
-#include <x86.h>
+// std libs
+#include <stdio.h>
+// file header
 #include "../include/critic_mlp.h"
 
 

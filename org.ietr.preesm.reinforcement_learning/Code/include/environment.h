@@ -9,10 +9,7 @@
 #define G_CONSTANT 10.f
 #define MASS_CONSTANT 1.f
 #define LENGTH_CONSTANT 1.f
-#define POW2(x) ((x) * (x))
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 /**
  * @brief Initializes the angular state of the system to random values

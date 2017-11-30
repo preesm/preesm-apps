@@ -2,16 +2,16 @@
 // Created by farresti on 03/11/17.
 //
 
-// Math lib
+// math lib
 #include <math.h>
-// Std libs
+// std libs
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// File header
+// file header
 #include "../include/mlp.h"
 
+// file defines
 #ifndef M_PI
 #define M_PI 3.1415926535897932385
 #endif

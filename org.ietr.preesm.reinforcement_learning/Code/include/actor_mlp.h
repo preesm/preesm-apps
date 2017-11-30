@@ -20,7 +20,7 @@ void actorWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
  * @param action_in  Vector of input actions
  * @param action_out Vector of output actions
  */
-void normalSampler(int size,
+void actionSampler(int size,
                    IN float *sigma_in, IN const float *action_in,
                    OUT float *action_out);
 

@@ -5,20 +5,18 @@
 // std libs
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+#include <time.h>
 // SDL libs
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <zconf.h>
 // timing lib
 #include "../include/clock.h"
-
-#define FPS_MEAN 50
-
+// file header
 #include "../include/render.h"
 
+// file defines
+#define FPS_MEAN 50
 #define PI 3.1415926535898f
 
 extern int stopThreads;
@@ -44,6 +42,9 @@ typedef struct sdlDisplay {
 static sdlDisplay display;
 
 void renderInit(void) {
+    // Initializes random module
+    srand((unsigned int)time(NULL));
+
     display.screen = NULL;
     display.renderer = NULL;
 

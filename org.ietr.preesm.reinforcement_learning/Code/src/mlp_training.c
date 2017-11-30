@@ -1,10 +1,13 @@
 //
 // Created by farresti on 23/11/17.
 //
-
+// math lib
 #include <math.h>
+// std libs
 #include <string.h>
+// file header
 #include "../include/mlp_training.h"
+#include "../include/common.h"
 
 
 void computeLayerSigma(int layer_size, int next_layer_size,
@@ -149,5 +152,10 @@ void initAdam(float *betas) {
     betas[1] = 0.999;
     betas[2] = 0.9;
     betas[3] = 0.999;
+}
+
+
+void randomInitializers(int size, OUT float *vector) {
+
 }
 
