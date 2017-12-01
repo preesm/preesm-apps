@@ -5,6 +5,8 @@
 #ifndef CACLA_COMMON_H
 #define CACLA_COMMON_H
 
+#include "preesm.h"
+
 #define N_SAMPLING_SIZE 50
 
 #ifndef M_PI
@@ -15,6 +17,7 @@
 #define POW2(x) ((x) * (x))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 /**
  * @brief Samples a random variable following a normal distribution.
@@ -37,5 +40,42 @@ float normalSampler(float mu, float sigma);
  * @return -1 or 1
  */
 int randomSign(void);
+
+
+
+/**
+ * @brief Initializes a vector of float with random normal values.
+ *
+ * @param size    Size of the vector
+ * @param mu      Center value of the distribution.
+ * @param sigma   Standard deviation of the distribution.
+ * @param vector  Output vector initialized.
+ */
+void randomVectorInitializer(int size, float mu, float sigma, float *vector);
+
+/**
+ * @brief Initializes a vector of float with a constant value.
+ *
+ * @param size    Size of the vector
+ * @param value   Constant value to initialize the vector with.
+ * @param vector  Output vector initialized.
+ */
+void constantVectorInitializer(int size, float value, float *vector);
+
+
+/**
+ * @brief Clip a vector's values in given limits.
+ *        The limits array should contains only two values:
+ *        limits[0] = minimum value allowed for the vector.
+ *        limits[1] = maximum value allowed for the vector.
+ *
+ * @param size    Size of the vector
+ * @param input   Input vector (non clipped).
+ * @param limits  Limits values.
+ * @param output  Output vector (clipped).
+ */
+void clipValues(int size,
+                IN float *input, IN float *limits,
+                OUT float *output);
 
 #endif //CACLA_COMMON_H

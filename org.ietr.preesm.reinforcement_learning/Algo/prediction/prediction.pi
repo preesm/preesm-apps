@@ -13,7 +13,7 @@
         <node expr="2" id="state_angular_size" kind="param"/>
         <node id="Environment" kind="actor">
             <data key="graph_desc">Code/include/environment.h</data>
-            <loop name="step">
+            <loop name="step_noreward">
                 <param direction="IN" isConfig="true"
                     name="state_space_size" type="int"/>
                 <param direction="IN" isConfig="true"

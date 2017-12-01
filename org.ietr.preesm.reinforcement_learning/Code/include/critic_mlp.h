@@ -7,8 +7,8 @@
 
 #include "preesm.h"
 
-#define DISCOUNT_FACTOR 0.95f
-#define CRITIC_LEARNING_RATE 0.001f
+#define DISCOUNT_FACTOR 0.99f
+#define CRITIC_LEARNING_RATE 0.0001f
 
 void criticWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
 

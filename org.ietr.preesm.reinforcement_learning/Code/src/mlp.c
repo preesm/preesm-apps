@@ -18,25 +18,37 @@
 
 #define ABS(x) ((x) < 0 ? (-(x)) : (x))
 
-void layer(int layer_size, int output_size, float *weights, float *bias_values, float *input, float *output) {
+void layer(int input_size, int layer_size,
+           IN float *weights, IN float *bias_values, IN float *input, IN int *valid,
+           OUT float *output) {
+    if (*valid == 0) {
+        for (int i = 0; i < layer_size; ++i) {
+            output[i] = 0;
+        }
+        return;
+    }
     /*
      * Structure of layer in a MLP:
      *
-     * input:       -> N tokens with N the number of neurons of the layer
-     * output:      -> O tokens with O the number of neurons of the next layer
+     * input:       -> N tokens with N the number of input to the layer
+     * output:      -> O tokens with O the number of neurons of the layer
      *
      * weights:     -> Matrix of dimension N*O tokens
      * bias_values: -> Vector of O tokens
      *
      */
     // Performs the matrix product between the input vector and the weight matrix
-    for (int wo_i = 0; wo_i < output_size; ++wo_i) {
-        // Start with the bias_value
-        output[wo_i] = bias_values[wo_i];
-        int matrix_row = output_size * wo_i;
-        for (int wl_i = 0; wl_i < layer_size; ++wl_i) {
-            output[wo_i] += weights[matrix_row + wo_i] * input[wl_i];
+    int offset_neuron = 0;
+    for (int n = 0; n < layer_size; ++n) {
+        float neuron = bias_values[n];
+        for (int i = 0; i < input_size; ++i) {
+            fprintf(stderr, "input[%d] * weights[%d]: %f * %f = %f\n", i, offset_neuron + i,
+                    input[i], weights[offset_neuron + i], input[i] * weights[offset_neuron + i]);
+            neuron += input[i] * weights[offset_neuron + i];
         }
+        fprintf(stderr, "output[%d] = %f\n", n, neuron);
+        output[n] = neuron;
+        offset_neuron += input_size;
     }
 }
 
@@ -58,8 +70,9 @@ void neuron(int input_size,
          *
          */
         for (int wi = 0; wi < input_size; ++wi) {
-            //fprintf(stderr, "%lf\n", weights[wi]);
             result += input[wi] * weights[wi];
+//            fprintf(stderr, "input[%d] * weights[%d]: %f * %f = %f\n", wi, wi,
+//                    input[wi], weights[wi], input[wi] * weights[wi]);
         }
         (*output) = result;
     }
@@ -123,6 +136,28 @@ void derivativeLogistic(IN float *input,
                         OUT float *output) {
     float f_x = 1 / (1.f + (float)(exp((double)(-input[0]))));
     output[0] = f_x * (1  - f_x);
+}
+
+
+void activateLinear(IN float *input,
+                    OUT float *output) {
+    output[0] = input[0];
+}
+
+
+/**
+ * @brief Linear derivative function
+ *
+ *     f(x) = x
+ *
+ *     f'(x) = 1
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void derivativeLinear(IN float *input,
+                      OUT float *output) {
+    output[0] = 1;
 }
 
 void weightsGen(int input_size, int layer_size,

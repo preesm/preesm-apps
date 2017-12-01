@@ -5,6 +5,7 @@
 #include <math.h>
 // std libs
 #include <string.h>
+#include <stdio.h>
 // file header
 #include "../include/mlp_training.h"
 #include "../include/common.h"
@@ -47,6 +48,7 @@ void computeOutputSigma(int output_size,
     if (*valid == 0) {
         return;
     }
+    fprintf(stderr, "updating. Target: %lf  Predicted: %lf\n", target[0], predicted[0]);
     for (int j = 0; j < output_size; ++j) {
         output_sigmas[j] = (predicted[j] - target[j]) *derivative_values[j];
     }
@@ -140,22 +142,17 @@ void adamUpdateBetas(IN float *betas_in, IN int *valid,
         betas_out[3] = betas_in[3];
     } else {
         // Update betas powered
-        betas_out[0] = 0.9f;//betas_in[0]; // Save B1
-        betas_out[1] = 0.999f;//betas_in[1]; // Save B2
+        betas_out[0] = betas_in[0]; // Save B1
+        betas_out[1] = betas_in[1]; // Save B2
         betas_out[2] = betas_in[2] * betas_in[0]; // Update B1^t
         betas_out[3] = betas_in[3] * betas_in[1]; // Update B2^t
     }
 }
 
 void initAdam(float *betas) {
-    betas[0] = 0.9;
-    betas[1] = 0.999;
-    betas[2] = 0.9;
-    betas[3] = 0.999;
-}
-
-
-void randomInitializers(int size, OUT float *vector) {
-
+    betas[0] = 0.9f;
+    betas[1] = 0.999f;
+    betas[2] = betas[0];
+    betas[3] = betas[1];
 }
 

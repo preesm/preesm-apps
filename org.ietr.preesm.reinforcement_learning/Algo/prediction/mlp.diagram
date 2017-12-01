@@ -933,6 +933,7 @@
   <colors red="237" green="237" blue="237"/>
   <colors red="128" green="100" blue="162"/>
   <colors red="222" green="184" blue="135"/>
+  <colors red="255" green="218" blue="185"/>
   <fonts name="Arial" size="8" bold="true"/>
   <fonts name="Arial" size="8" italic="true" bold="true"/>
   <fonts name="Arial" size="8"/>

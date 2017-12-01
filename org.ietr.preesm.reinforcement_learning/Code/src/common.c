@@ -4,6 +4,7 @@
 
 // std lib
 #include <stdlib.h>
+#include <stdio.h>
 // math lib
 #include <math.h>
 // file header
@@ -58,4 +59,29 @@ int randomSign(void) {
         return 1;
     }
     return -1;
+}
+
+void randomVectorInitializer(int size, float mu, float sigma, float *vector) {
+    for (int i = 0; i < size; ++i) {
+        vector[i] = i;
+//        vector[i] = normalSampler(mu, sigma);
+        fprintf(stderr, "vector[%d] = %f\n", i, vector[i]);
+    }
+}
+
+void constantVectorInitializer(int size, float value, float *vector) {
+    for (int i = 0; i < size; ++i) {
+        vector[i] = value;
+    }
+}
+
+void clipValues(int size,
+                IN float *input, IN float *limits,
+                OUT float *output) {
+    float limit_inf = limits[0];
+    float limit_sup = limits[1];
+    for (int i = 0; i < size; ++i) {
+        output[i] = MIN(MAX(input[i], limit_inf), limit_sup);
+    }
+    fprintf(stderr, "Input: %lf Clipped: %lf\n", input[0], output[0]);
 }

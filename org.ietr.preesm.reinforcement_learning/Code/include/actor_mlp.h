@@ -3,8 +3,8 @@
 
 #include "preesm.h"
 
-#define SIGMA_GAUSSIAN 0.1f
-#define ACTOR_LEARNING_RATE 0.001f
+#define SIGMA_GAUSSIAN 10.f
+#define ACTOR_LEARNING_RATE 0.005f
 
 void actorWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
 
@@ -50,5 +50,18 @@ void sigmaGen(OUT float *sigma);
  * @param learning_rate Generate same value of learning_rate each firing of the actor
  */
 void actorLearningRateGen(OUT float *learning_rate);
+
+
+/**
+ * @brief Saves the network values.
+ *
+ * @param n_layer             Number of layers of the network.
+ * @param size_layer_weights  Vector containing the number of weights in each layer.
+ * @param size_layer_bias     Vector containing the number of bias in each layer.
+ * @param weights             Weights vector.
+ * @param bias                Bias vector.
+ */
+void saveNetWork(int n_layer,
+                 IN int *size_layer_weights, IN int * size_layer_bias, IN float **weights, IN float **bias);
 
 #endif

@@ -19,7 +19,9 @@
  * @param input   Input value vector of size "layer_size"
  * @param output  Output value vector of size "output_size"
  */
-void layer(int layer_size, int output_size, float *weights, float *bias_values, float *input, float *output);
+void layer(int input_size, int layer_size,
+           IN float *weights, IN float *bias_values, IN float *input, IN int *valid,
+           OUT float *output);
 
 
 /**
@@ -150,6 +152,32 @@ void activateLogistic(IN float *input,
  */
 void derivativeLogistic(IN float *input,
                         OUT float *output);
+
+
+/**
+ * @brief Linear activation function
+ *
+ *     f(x) = x
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void activateLinear(IN float *input,
+                    OUT float *output);
+
+
+/**
+ * @brief Linear derivative function
+ *
+ *     f(x) = x
+ *
+ *     f'(x) = 1
+ *
+ * @param input  Raw output of a neuron
+ * @param output Activated output of a neuron
+ */
+void derivativeLinear(IN float *input,
+                      OUT float *output);
 
 /**
  * @brief Handle the weights and biases of layer of a MLP

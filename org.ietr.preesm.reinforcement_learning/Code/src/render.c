@@ -10,6 +10,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <zconf.h>
 // timing lib
 #include "../include/clock.h"
 // file header
@@ -154,7 +155,8 @@ void renderEnv(int size, float *state) {
     }
 
     // Sleep to smooth the rendering
-    usleep(500000);
+//    usleep(500000);
+//    sleep(1);
 }
 
 void renderFinalize(void)

@@ -155,7 +155,7 @@
         </node>
         <node id="GaussianPolicy" kind="actor">
             <data key="graph_desc">Code/include/actor_mlp.h</data>
-            <loop name="normalSampler">
+            <loop name="actionSampler">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
                 <param direction="IN" isConfig="false" name="sigma_in" type="float "/>
                 <param direction="IN" isConfig="false" name="action_in" type="const float "/>
@@ -271,6 +271,26 @@
             </loop>
             <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
         </node>
+        <node id="ClipAction" kind="actor">
+            <data key="graph_desc">Code/include/common.h</data>
+            <loop name="clipValues">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="IN" isConfig="false" name="limits" type="float "/>
+                <param direction="OUT" isConfig="false" name="output" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="input"/>
+            <port annotation="NONE" expr="2" kind="input" name="limits"/>
+            <port annotation="NONE" expr="size" kind="output" name="output"/>
+        </node>
+        <node id="gen_environment_limits" kind="actor">
+            <data key="graph_desc">Code/include/environment.h</data>
+            <loop name="envActionLimits">
+                <param direction="OUT" isConfig="false" name="limits" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="2" kind="output" name="limits"/>
+        </node>
         <edge kind="fifo" source="broadcastState"
             sourceport="state_out0" target="renderEnv"
             targetport="state" type="float"/>
@@ -323,9 +343,6 @@
         <edge kind="fifo" source="broadcastAction"
             sourceport="action_out0" target="Environment"
             targetport="input_actions" type="float"/>
-        <edge kind="fifo" source="GaussianPolicy"
-            sourceport="action_out" target="broadcastAction"
-            targetport="action" type="float"/>
         <edge kind="fifo" source="Actor_MLP" sourceport="output"
             target="GaussianPolicy" targetport="action_in" type="float"/>
         <edge expr="state_space_size" kind="fifo"
@@ -403,6 +420,13 @@
         <edge kind="fifo" source="gen_critic_learning_rate"
             sourceport="learning_rate" target="Update_Critic"
             targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="GaussianPolicy"
+            sourceport="action_out" target="ClipAction"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="ClipAction" sourceport="output"
+            target="broadcastAction" targetport="action" type="float"/>
+        <edge kind="fifo" source="gen_environment_limits"
+            sourceport="limits" target="ClipAction" targetport="limits" type="float"/>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="action_space_size"
@@ -482,5 +506,7 @@
         <edge kind="dependency" source="action_space_size" target="actor_bias_size"/>
         <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out3-Update_Critic.input"/>
         <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out4-Update_Actor.input"/>
+        <edge kind="dependency" source="action_space_size"
+            target="ClipAction" targetport="size"/>
     </graph>
 </graphml>

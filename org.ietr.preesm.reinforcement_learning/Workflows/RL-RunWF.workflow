@@ -77,6 +77,12 @@
             <dftools:variable name="path" value="Algo/generated/flatten"/>
         </dftools:data>
     </dftools:task>
+    <dftools:task pluginId="org.ietr.preesm.plugin.exportXml.sdf4jgml" taskId="SDF Exporter">
+        <dftools:data key="variables">
+            <dftools:variable name="openFile" value="false"/>
+            <dftools:variable name="path" value="Algo/generated/"/>
+        </dftools:data>
+    </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Display Gantt"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
@@ -117,4 +123,6 @@
         targetport="void" to="MEG Builder"/>
     <dftools:dataTransfer from="HierarchyFlattening" sourceport="SDF"
         targetport="SDF" to="Flat SDF Exporter"/>
+    <dftools:dataTransfer from="StaticPiMM2SDF" sourceport="SDF"
+        targetport="SDF" to="SDF Exporter"/>
 </dftools:workflow>
