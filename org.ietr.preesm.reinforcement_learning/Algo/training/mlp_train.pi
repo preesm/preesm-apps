@@ -69,14 +69,6 @@
             <port annotation="NONE" expr="hidden_size + output_size"
                 kind="output" name="bias"/>
         </node>
-        <node id="ForkWeights" kind="fork">
-            <port kind="cfg_input" name="size_out0"/>
-            <port kind="cfg_input" name="size_out1"/>
-            <port annotation="NONE" expr="size_out0 + size_out1"
-                kind="input" name="weights_in"/>
-            <port annotation="NONE" expr="size_out0" kind="output" name="weights_out0"/>
-            <port annotation="NONE" expr="size_out1" kind="output" name="weights_out1"/>
-        </node>
         <node id="ForkBias" kind="fork">
             <port kind="cfg_input" name="size_out0"/>
             <port kind="cfg_input" name="size_out1"/>
@@ -119,14 +111,16 @@
             <port annotation="NONE" expr="1" kind="input" name="input"/>
             <port annotation="NONE" expr="1" kind="output" name="output"/>
         </node>
+        <node id="ForkWeights" kind="fork">
+            <port kind="cfg_input" name="size_out0"/>
+            <port kind="cfg_input" name="size_out1"/>
+            <port annotation="NONE" expr="size_out0 + size_out1"
+                kind="input" name="weights_in"/>
+            <port annotation="NONE" expr="size_out0" kind="output" name="weights_out0"/>
+            <port annotation="NONE" expr="size_out1" kind="output" name="weights_out1"/>
+        </node>
         <edge kind="fifo" source="input" sourceport="input"
             target="Hidden_layer" targetport="input" type="float"/>
-        <edge kind="fifo" source="weights" sourceport="weights"
-            target="ForkWeights" targetport="weights_in" type="float"/>
-        <edge kind="fifo" source="ForkWeights" sourceport="weights_out1"
-            target="Output_layer" targetport="weights" type="float"/>
-        <edge kind="fifo" source="ForkWeights" sourceport="weights_out0"
-            target="Hidden_layer" targetport="weights" type="float"/>
         <edge kind="fifo" source="ForkBias" sourceport="bias_out0"
             target="Hidden_layer" targetport="bias_values" type="float"/>
         <edge kind="fifo" source="ForkBias" sourceport="bias_out1"
@@ -149,6 +143,12 @@
             target="output" targetport="output" type="float"/>
         <edge kind="fifo" source="Output_layer" sourceport="output"
             target="outputActivation" targetport="input" type="float"/>
+        <edge kind="fifo" source="weights" sourceport="weights"
+            target="ForkWeights" targetport="weights_in" type="float"/>
+        <edge kind="fifo" source="ForkWeights" sourceport="weights_out0"
+            target="Hidden_layer" targetport="weights" type="float"/>
+        <edge kind="fifo" source="ForkWeights" sourceport="weights_out1"
+            target="Output_layer" targetport="weights" type="float"/>
         <edge kind="dependency" source="output_size" target="output"/>
         <edge kind="dependency" source="input_size" target="input"/>
         <edge kind="dependency" source="input_size"
@@ -161,13 +161,9 @@
             target="Output_layer" targetport="input_size"/>
         <edge kind="dependency" source="hidden_size" target="bias"/>
         <edge kind="dependency" source="output_size" target="bias"/>
-        <edge kind="dependency" source="size_weights_hidden"
-            target="ForkWeights" targetport="size_out0"/>
         <edge kind="dependency" source="hidden_size" target="size_weights_hidden"/>
         <edge kind="dependency" source="input_size" target="size_weights_hidden"/>
         <edge kind="dependency" source="output_size" target="size_weights_output"/>
-        <edge kind="dependency" source="size_weights_output"
-            target="ForkWeights" targetport="size_out1"/>
         <edge kind="dependency" source="hidden_size" target="size_weights_output"/>
         <edge kind="dependency" source="hidden_size" target="ForkBias" targetport="size_out0"/>
         <edge kind="dependency" source="output_size" target="ForkBias" targetport="size_out1"/>
@@ -175,5 +171,9 @@
         <edge kind="dependency" source="size_weights_output" target="weights"/>
         <edge kind="dependency" source="hidden_size"
             target="BroadCastValid" targetport="hidden_size"/>
+        <edge kind="dependency" source="size_weights_hidden"
+            target="ForkWeights" targetport="size_out0"/>
+        <edge kind="dependency" source="size_weights_output"
+            target="ForkWeights" targetport="size_out1"/>
     </graph>
 </graphml>
