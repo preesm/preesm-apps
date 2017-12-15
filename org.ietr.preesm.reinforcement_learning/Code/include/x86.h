@@ -39,10 +39,9 @@
 
 #include "environment.h"
 #include "mlp.h"
-#include "actor_mlp.h"
+#include "actor.h"
 #include "render.h"
-#include "mlp_training.h"
-#include "critic_mlp.h"
+#include "critic.h"
 #include "common.h"
 
 
@@ -54,10 +53,12 @@ memcpy(FIFO_Head_BroadcastStateFeat__3, FIFO_Head_BroadcastStateFeat__1, 3 * siz
 memcpy(FIFO_Head_BroadcastStateFeat__0, FIFO_Head_BroadcastStateFeat__1, 3 * sizeof(float)); \
 initAdam((float*)FIFO_Head_Update_Actor_Broad__0); \
 initAdam((float*)FIFO_Head_Update_Critic_Broa__0); \
+randomVectorInitializer(80, 0.f, 1.f, (float*)FIFO_Head_BroadcastWeightsAc__0); \
+randomVectorInitializer(20, 0.f, 0.5f, (float*)FIFO_Head_BroadcastWeightsAc__0 + 60 * sizeof(float)); \
 constantVectorInitializer(21, 0.f, (float*)FIFO_Head_BroadcastBiasActor__0); \
 constantVectorInitializer(21, 0.f, (float*)FIFO_Head_BroadcastBiasCriti__0); \
 randomVectorInitializer(80, 0.f, 1.f, (float*)FIFO_Head_BroadcastWeightsCr__0); \
-/*randomVectorInitializer(20, 0.f, 0.5f, (float*)FIFO_Head_BroadcastWeightsCr__0 + 60 * sizeof(float));*/ \
+randomVectorInitializer(20, 0.f, 0.5f, (float*)FIFO_Head_BroadcastWeightsCr__0 + 60 * sizeof(float)); \
 memcpy(FIFO_Head_BroadcastBiasCriti__1, FIFO_Head_BroadcastBiasCriti__0, 21 * sizeof(float)); \
 memcpy(FIFO_Head_BroadcastWeightsCr__1, FIFO_Head_BroadcastWeightsCr__0, 80 * sizeof(float)); \
 memcpy(FIFO_Head_BroadcastBiasCriti__2, FIFO_Head_BroadcastBiasCriti__0, 21 * sizeof(float)); \

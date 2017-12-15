@@ -20,12 +20,10 @@ void criticWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
  * @param value_state
  * @param value_next_state Value predicted by the network in current state.
  * @param target           Value of the target for the critic neural network update.
- * @param sigma            Value of the TD-error.
+ * @param delta            Value of the TD-error.
  */
 void td_error(IN float *gamma_in,IN float *reward, IN float *value_state, IN float *value_next_state,
-              OUT float *target, OUT float *sigma);
-
-void validCritic(OUT int *valid);
+              OUT float *target, OUT float *delta);
 
 /**
  * @brief Constant generator for discount factor gamma for TD-Error

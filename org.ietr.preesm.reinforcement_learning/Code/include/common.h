@@ -78,4 +78,11 @@ void clipValues(int size,
                 IN float *input, IN float *limits,
                 OUT float *output);
 
+/**
+ * @brief Actor that produces 1 each iteration.
+ *        Used to validate other actor (workaround to the lack of "if" in PREESM)
+ * @param valid
+ */
+void valid(OUT int *valid);
+
 #endif //CACLA_COMMON_H

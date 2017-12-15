@@ -5,7 +5,7 @@
 // math lib
 #include <math.h>
 // file header
-#include "../include/actor_mlp.h"
+#include "actor.h"
 #include "../include/common.h"
 
 
@@ -132,7 +132,7 @@ void actionSampler(int size,
         float mu = action_in[i];
         action_out[i] = normalSampler(mu, sigma);
     }
-    fprintf(stderr, "mu: %f sigma: %f action: %f \n", action_in[0], sigma, action_out[0]);
+//    fprintf(stderr, "mu: %f sigma: %f action: %f \n", action_in[0], sigma, action_out[0]);
 }
 
 void validActor(IN float *sigma,
@@ -144,7 +144,16 @@ void validActor(IN float *sigma,
 }
 
 void sigmaGen(OUT float *sigma) {
-    sigma[0] = SIGMA_GAUSSIAN;
+    static float sigma_static = SIGMA_GAUSSIAN;
+    static int timestep = 0;
+    sigma[0] = sigma_static;
+    // Sigma decay
+
+    sigma_static = (float)(timestep) * (-SIGMA_GAUSSIAN / 20000.f) + SIGMA_GAUSSIAN;
+    timestep = (timestep + 1) % 20000;
+    if (timestep == 0) {
+        sigma_static = SIGMA_GAUSSIAN;
+    }
 }
 
 void actorLearningRateGen(OUT float *learning_rate) {

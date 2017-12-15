@@ -63,9 +63,7 @@ int randomSign(void) {
 
 void randomVectorInitializer(int size, float mu, float sigma, float *vector) {
     for (int i = 0; i < size; ++i) {
-        vector[i] = i;
-//        vector[i] = normalSampler(mu, sigma);
-        fprintf(stderr, "vector[%d] = %f\n", i, vector[i]);
+        vector[i] = normalSampler(mu, sigma);
     }
 }
 
@@ -83,5 +81,9 @@ void clipValues(int size,
     for (int i = 0; i < size; ++i) {
         output[i] = MIN(MAX(input[i], limit_inf), limit_sup);
     }
-    fprintf(stderr, "Input: %lf Clipped: %lf\n", input[0], output[0]);
+}
+
+
+void valid(OUT int *valid) {
+    valid[0] = 1;
 }

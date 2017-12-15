@@ -3,8 +3,8 @@
 
 #include "preesm.h"
 
-#define SIGMA_GAUSSIAN 10.f
-#define ACTOR_LEARNING_RATE 0.005f
+#define SIGMA_GAUSSIAN 2.f
+#define ACTOR_LEARNING_RATE 0.01f
 
 void actorWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
 

@@ -4,18 +4,13 @@
 // std libs
 #include <stdio.h>
 // file header
-#include "../include/critic_mlp.h"
+#include "critic.h"
 
 
 void td_error(IN float *gamma_in,IN float *reward, IN float *value_state, IN float *value_next_state,
-              OUT float *target, OUT float *sigma) {
+              OUT float *target, OUT float *delta) {
     (*target) = reward[0] + gamma_in[0] * value_next_state[0];
-    (*sigma) = (*target) - value_state[0];
-    fprintf(stderr, "reward: %f value: %f value_next: %f sigma: %f\n", reward[0], value_state[0], value_next_state[0], *sigma);
-}
-
-void validCritic(OUT int *valid) {
-    valid[0] = 1;
+    (*delta) = (*target) - value_state[0];
 }
 
 void gammaGen(OUT float *gamma) {
