@@ -152,13 +152,13 @@ void derivativeLinear(IN float *input,
 /************************************/
 
 void computeLayerBackPropError(int layer_size, int next_layer_size,
-                               IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights, IN int *valid,
-                               OUT float *layer_sigmas) {
+                               IN int *valid, IN float *derivative_values, IN float *next_layer_errors, IN float *next_layer_weights,
+                               OUT float *errors) {
     if (*valid == 0) {
         return;
     } else {
         for (int j = 0; j < layer_size; ++j) {
-            float sum_next_layer = 0.f;
+            float weighted_backprop_error = 0.f;
             for (int k = 0; k < next_layer_size; ++k) {
                 /* The weights are arranged in following order:
                  *     l = layer_size
@@ -175,21 +175,21 @@ void computeLayerBackPropError(int layer_size, int next_layer_size,
                  *     weight[l * ln - 1] -> weight from node[n] of layer (l) to node[k] of layer (l + 1)
                  *
                  */
-                sum_next_layer += next_layer_sigmas[k] * next_layer_weights[j + k * layer_size];
+                weighted_backprop_error += next_layer_errors[k] * next_layer_weights[j + k * layer_size];
             }
-            layer_sigmas[j] = derivative_values[j] * sum_next_layer;
+            errors[j] = derivative_values[j] * weighted_backprop_error;
         }
     }
 }
 
 void computeOutputError(int output_size,
-                        IN float *derivative_values, IN float *predicted, IN float *target, IN int *valid,
-                        OUT float *output_sigmas) {
+                        IN int *valid, IN float *derivative_values, IN float *predicted, IN float *target,
+                        OUT float *errors) {
     if (*valid == 0) {
         return;
     }
     for (int j = 0; j < output_size; ++j) {
-        output_sigmas[j] = 2.f * (predicted[j] - target[j]) *derivative_values[j];
+        errors[j] = 2.f * (predicted[j] - target[j]) *derivative_values[j];
     }
 }
 

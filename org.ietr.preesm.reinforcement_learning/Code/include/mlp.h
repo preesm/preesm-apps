@@ -200,13 +200,13 @@ void derivativeLinear(IN float *input,
  * @param layer_size          Size of the current layer (l).
  * @param next_layer_size     Size of the next layer (l + 1).
  * @param derivative_values   Input vector of the pre-computed derivative values (g_j'(z_j)). Size of (l).
- * @param next_layer_sigmas   Input vector of sigma values of layer (l + 1). Size of (l + 1).
+ * @param next_layer_errors   Input vector of errors values of layer (l + 1). Size of (l + 1).
  * @param next_layer_weights  Input vector of weights connecting layer (l) to layer (l + 1). Size of (l) * (l + 1).
- * @param layer_sigmas        Output vector of layer (l) sigma values.
+ * @param errors              Output vector of layer (l) errors values.
  */
 void computeLayerBackPropError(int layer_size, int next_layer_size,
-                               IN float *derivative_values, IN float *next_layer_sigmas, IN float *next_layer_weights, IN int *valid,
-                               OUT float *layer_sigmas);
+                               IN int *valid, IN float *derivative_values, IN float *next_layer_errors, IN float *next_layer_weights,
+                               OUT float *errors);
 
 /**
  * @brief Compute sigma values of the output layer. The sigma value is used to compute the gradient
@@ -228,11 +228,11 @@ void computeLayerBackPropError(int layer_size, int next_layer_size,
  * @param derivative_values   Input vector of the pre-computed derivative values (g_k'(z_k)). Size of (l).
  * @param predicted           Input vector of predicted values (a_k). Size of (l)
  * @param target              Input vector of target values (t_k).
- * @param output_sigmas       Output vector of layer (l) sigma values.
+ * @param errors              Output vector of layer (l) errors values.
  */
 void computeOutputError(int output_size,
-                        IN float *derivative_values, IN float *predicted, IN float *target, IN int *valid,
-                        OUT float *output_sigmas);
+                        IN int *valid, IN float *derivative_values, IN float *predicted, IN float *target,
+                        OUT float *errors);
 
 /**
  * @brief Performs the Mean Square Error loss operation

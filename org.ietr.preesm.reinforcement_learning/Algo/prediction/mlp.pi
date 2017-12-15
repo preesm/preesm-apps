@@ -25,7 +25,7 @@
             <port annotation="NONE" expr="layer_size" kind="output" name="bias_out"/>
         </node>
         <node id="Hidden_layer" kind="actor">
-            <data key="graph_desc">Algo/common/mlp_layer.pi</data>
+            <data key="graph_desc">Algo/common/neuron.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
@@ -36,7 +36,7 @@
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="Output_layer" kind="actor">
-            <data key="graph_desc">Algo/common/mlp_layer.pi</data>
+            <data key="graph_desc">Algo/common/neuron.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
             <port annotation="NONE" expr="input_size" kind="input" name="input"/>
@@ -73,8 +73,8 @@
             <port annotation="NONE" expr="1" kind="output" name="out_2"/>
         </node>
         <node id="valid" kind="actor">
-            <data key="graph_desc">Code/include/critic_mlp.h</data>
-            <loop name="validCritic">
+            <data key="graph_desc">Code/include/common.h</data>
+            <loop name="valid">
                 <param direction="OUT" isConfig="false" name="valid" type="int "/>
             </loop>
             <port annotation="NONE" expr="1" kind="output" name="valid"/>
