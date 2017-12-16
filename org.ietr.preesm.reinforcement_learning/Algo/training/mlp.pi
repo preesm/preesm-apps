@@ -13,7 +13,7 @@
         <node expr="input_size * hidden_size" id="size_weights_hidden" kind="param"/>
         <node expr="output_size * hidden_size" id="size_weights_output" kind="param"/>
         <node id="Output_layer" kind="actor">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Algo/common/neuron.pi</data>
             <loop name="layer">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>
@@ -34,7 +34,7 @@
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="Hidden_layer" kind="actor">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Algo/common/neuron.pi</data>
             <loop name="layer">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>

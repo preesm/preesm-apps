@@ -22,11 +22,26 @@
 
 extern int stopThreads;
 
+static int render = 0;
+
 int exitCallBack(void* userdata, SDL_Event* event){
-    if (event->type == SDL_QUIT){
-        printf("Exit request from GUI.\n");
-        stopThreads = 1;
-        return 0;
+    if (event->type == SDL_QUIT) {
+        fprintf(stderr, "What action do you wish to perform ?\n");
+        fprintf(stderr, "\t- Quit (q)\n");
+        fprintf(stderr, "\t- Toggle rendering (r)\n");
+        fprintf(stderr, "answer: \n");
+        char ans = (char)getchar();
+        // Clear stdin buffer
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+        if (ans == 'r') {
+            render ^= 1;
+        } else if (ans == 'q') {
+            printf("Exit request from GUI.\n");
+            stopThreads = 1;
+            return 0;
+        }
+        return 1;
     }
 
     return 1;
@@ -108,6 +123,50 @@ void renderInit(void) {
 }
 
 void renderEnv(int size, float *state) {
+//    static long int i = 0;
+//    static double max_fps = 0.;
+//    static double avg_fps = 0.;
+//    static double min_fps = DBL_MAX;
+    SDL_Event event;
+    // Grab all the events off the queue.
+    while (SDL_PollEvent(&event)) {
+        switch (event.type)
+        {
+            default:
+                break;
+        }
+    }
+
+    // Compute FPS
+    char stringFPS[20];
+    int timeStamp = stopTiming(display.stampId + 1);
+    double fps = 1. / (timeStamp / 1000000. / FPS_MEAN);
+    sprintf(stringFPS, "%.2f fps", fps);
+    startTiming(display.stampId + 1);
+    display.stampId = (display.stampId + 1) % FPS_MEAN;
+
+//    if (fps > max_fps) {
+//        max_fps = fps;
+//    }
+//    if (fps < min_fps && fps > 0.) {
+//        min_fps = fps;
+//    }
+//    avg_fps += fps;
+//    if (i % 10000 == 0) {
+//        avg_fps /= 10000.;
+//        fprintf(stderr, "Avg FPS: %.2f\n", avg_fps);
+//        fprintf(stderr, "Min FPS: %.2f\n", min_fps);
+//        fprintf(stderr, "Max FPS: %.2f\n", max_fps);
+//        avg_fps = 0.;
+//        min_fps = DBL_MAX;
+//        max_fps = 0.;
+//    }
+//    ++i;
+
+    if (!render) {
+        return;
+    }
+
     /* Select the color for drawing. It is set to red here. */
     SDL_SetRenderDrawColor(display.renderer, 255, 255, 255, 255);
     /* Clear the entire screen to our selected color. */
@@ -122,13 +181,7 @@ void renderEnv(int size, float *state) {
     SDL_RenderCopyEx(display.renderer, display.texture, NULL, &dest, angle, &center, SDL_FLIP_NONE);
 
     // Print FPS text
-    char stringFPS[20];
     SDL_Color colorGreen = {0, 255, 0, 255};
-    int timeStamp = stopTiming(display.stampId + 1);
-    sprintf(stringFPS, "%.2f fps", 1. / (timeStamp / 1000000. / FPS_MEAN));
-    startTiming(display.stampId + 1);
-    display.stampId = (display.stampId + 1) % FPS_MEAN;
-
     SDL_Surface* surfaceFPS = TTF_RenderText_Blended(display.font, stringFPS, colorGreen);
     SDL_Texture* textureFPS = SDL_CreateTextureFromSurface(display.renderer, surfaceFPS);
 
@@ -144,19 +197,8 @@ void renderEnv(int size, float *state) {
     // Proceed to the actual display
     SDL_RenderPresent(display.renderer);
 
-    SDL_Event event;
-    // Grab all the events off the queue.
-    while (SDL_PollEvent(&event)) {
-        switch (event.type)
-        {
-            default:
-                break;
-        }
-    }
-
     // Sleep to smooth the rendering
 //    usleep(500000);
-//    sleep(1);
 }
 
 void renderFinalize(void)

@@ -291,5 +291,7 @@ void adamUpdateBetas(IN double *betas_in, IN int *valid,
 
 void initAdam(double *betas);
 
+void adamEpsilonGen(OUT double *epsilon);
+
 
 #endif //MLP_H

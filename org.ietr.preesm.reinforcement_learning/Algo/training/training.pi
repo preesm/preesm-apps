@@ -174,44 +174,44 @@
             <port annotation="NONE" expr="size" kind="output" name="action_out1"/>
         </node>
         <node id="Update_Critic" kind="actor">
-            <data key="graph_desc">Algo/training/mlp_update.pi</data>
+            <data key="graph_desc">Algo/training/network_train.pi</data>
             <port kind="cfg_input" name="hidden_size"/>
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="input_size"/>
-            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="targets"/>
             <port annotation="NONE" expr="output_size + hidden_size"
-                kind="input" name="bias_in"/>
-            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+                kind="input" name="bias"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
-                kind="input" name="weights_in"/>
+                kind="input" name="weights"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
-                kind="output" name="weights"/>
+                kind="output" name="weights_out"/>
             <port annotation="NONE" expr="hidden_size + output_size"
-                kind="output" name="bias"/>
+                kind="output" name="bias_out"/>
         </node>
         <node id="Update_Actor" kind="actor">
-            <data key="graph_desc">Algo/training/mlp_update.pi</data>
+            <data key="graph_desc">Algo/training/network_train.pi</data>
             <port kind="cfg_input" name="hidden_size"/>
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="input_size"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
-            <port annotation="NONE" expr="output_size" kind="input" name="target"/>
+            <port annotation="NONE" expr="output_size" kind="input" name="targets"/>
             <port annotation="NONE" expr="output_size + hidden_size"
-                kind="input" name="bias_in"/>
+                kind="input" name="bias"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
-                kind="input" name="weights_in"/>
-            <port annotation="NONE" expr="input_size" kind="input" name="input"/>
+                kind="input" name="weights"/>
+            <port annotation="NONE" expr="input_size" kind="input" name="inputs"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size + hidden_size * output_size"
-                kind="output" name="weights"/>
+                kind="output" name="weights_out"/>
             <port annotation="NONE" expr="hidden_size + output_size"
-                kind="output" name="bias"/>
+                kind="output" name="bias_out"/>
         </node>
         <node id="BroadcastWeightsActor" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -332,37 +332,37 @@
         </edge>
         <edge kind="fifo" source="Temporal_Difference_Error"
             sourceport="target" target="Update_Critic"
-            targetport="target" type="float"/>
+            targetport="targets" type="float"/>
         <edge expr="state_space_size" kind="fifo"
             source="BroadcastStateFeature" sourceport="state_out3"
-            target="Update_Critic" targetport="input" type="float">
+            target="Update_Critic" targetport="inputs" type="float">
             <data key="delay"/>
         </edge>
         <edge expr="critic_weights_size" kind="fifo"
-            source="Update_Critic" sourceport="weights"
+            source="Update_Critic" sourceport="weights_out"
             target="BroadcastWeightsCritic" targetport="input" type="float">
             <data key="delay"/>
         </edge>
         <edge expr="critic_bias_size" kind="fifo" source="Update_Critic"
-            sourceport="bias" target="BroadcastBiasCritic"
+            sourceport="bias_out" target="BroadcastBiasCritic"
             targetport="input" type="float">
             <data key="delay"/>
         </edge>
         <edge kind="fifo" source="broadcastAction"
             sourceport="action_out1" target="Update_Actor"
-            targetport="target" type="float"/>
+            targetport="targets" type="float"/>
         <edge expr="state_space_size" kind="fifo"
             source="BroadcastStateFeature" sourceport="state_out4"
-            target="Update_Actor" targetport="input" type="float">
+            target="Update_Actor" targetport="inputs" type="float">
             <data key="delay"/>
         </edge>
         <edge expr="actor_weights_size" kind="fifo"
-            source="Update_Actor" sourceport="weights"
+            source="Update_Actor" sourceport="weights_out"
             target="BroadcastWeightsActor" targetport="input" type="float">
             <data key="delay"/>
         </edge>
         <edge expr="actor_bias_size" kind="fifo" source="Update_Actor"
-            sourceport="bias" target="BroadcastBiasActor"
+            sourceport="bias_out" target="BroadcastBiasActor"
             targetport="input" type="float">
             <data key="delay"/>
         </edge>
@@ -390,25 +390,24 @@
         <edge kind="fifo" source="gen_environment_limits"
             sourceport="limits" target="ClipAction" targetport="limits" type="float"/>
         <edge kind="fifo" source="BroadcastBiasActor" sourceport="out_1"
-            target="Update_Actor" targetport="bias_in" type="void"/>
+            target="Update_Actor" targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastBiasActor" sourceport="out_0"
             target="Actor_MLP" targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsActor"
             sourceport="out_0" target="Update_Actor"
-            targetport="weights_in" type="void"/>
+            targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsActor"
             sourceport="out_1" target="Actor_MLP" targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsCritic"
             sourceport="out_2" target="Update_Critic"
-            targetport="weights_in" type="void"/>
+            targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsCritic"
             sourceport="out_1" target="Critic_MLP" targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsCritic"
             sourceport="out_0" target="Critic_MLP_Next"
             targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastBiasCritic"
-            sourceport="out_2" target="Update_Critic"
-            targetport="bias_in" type="void"/>
+            sourceport="out_2" target="Update_Critic" targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastBiasCritic"
             sourceport="out_1" target="Critic_MLP" targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastBiasCritic"
@@ -481,13 +480,13 @@
             target="BroadcastBiasActor" targetport="size"/>
         <edge kind="dependency" source="actor_hidden_size" target="actor_bias_size"/>
         <edge kind="dependency" source="action_space_size" target="actor_bias_size"/>
-        <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out3-Update_Critic.input"/>
-        <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out4-Update_Actor.input"/>
+        <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out3-Update_Critic.inputs"/>
+        <edge kind="dependency" source="state_space_size" target="BroadcastStateFeature.state_out4-Update_Actor.inputs"/>
         <edge kind="dependency" source="action_space_size"
             target="ClipAction" targetport="size"/>
-        <edge kind="dependency" source="actor_bias_size" target="Update_Actor.bias-BroadcastBiasActor.input"/>
-        <edge kind="dependency" source="actor_weights_size" target="Update_Actor.weights-BroadcastWeightsActor.input"/>
-        <edge kind="dependency" source="critic_weights_size" target="Update_Critic.weights-BroadcastWeightsCritic.input"/>
-        <edge kind="dependency" source="critic_bias_size" target="Update_Critic.bias-BroadcastBiasCritic.input"/>
+        <edge kind="dependency" source="actor_bias_size" target="Update_Actor.bias_out-BroadcastBiasActor.input"/>
+        <edge kind="dependency" source="actor_weights_size" target="Update_Actor.weights_out-BroadcastWeightsActor.input"/>
+        <edge kind="dependency" source="critic_weights_size" target="Update_Critic.weights_out-BroadcastWeightsCritic.input"/>
+        <edge kind="dependency" source="critic_bias_size" target="Update_Critic.bias_out-BroadcastBiasCritic.input"/>
     </graph>
 </graphml>

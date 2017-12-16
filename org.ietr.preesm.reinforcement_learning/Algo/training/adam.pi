@@ -9,7 +9,7 @@
         <data key="name">adam</data>
         <node id="layer_size" kind="cfg_in_iface"/>
         <node id="input_size" kind="cfg_in_iface"/>
-        <node expr="0" id="weights_size" kind="param"/>
+        <node expr="input_size * layer_size" id="weights_size" kind="param"/>
         <node id="gradients" kind="src">
             <port annotation="NONE" expr="layer_size + weights_size"
                 kind="output" name="gradients"/>

@@ -118,7 +118,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="116" height="106" x="1580" y="250" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.1" foreground="//@colors.11" lineWidth="2" transparency="0.0" width="116" height="106" x="1580" y="250" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="mlp_raw.pi#//@vertices.0"/>
     </link>
@@ -199,14 +199,14 @@
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="116" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="Output_layer"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="116" height="20" font="//@fonts.2" horizontalAlignment="ALIGNMENT_CENTER" value="Output_layer"/>
       <link>
         <businessObjects href="mlp_raw.pi#//@vertices.0"/>
       </link>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="116" height="106" x="667" y="250" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.1" foreground="//@colors.11" lineWidth="2" transparency="0.0" width="116" height="106" x="667" y="250" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="mlp_raw.pi#//@vertices.1"/>
     </link>
@@ -287,7 +287,7 @@
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="116" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="Hidden_layer"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="116" height="20" font="//@fonts.2" horizontalAlignment="ALIGNMENT_CENTER" value="Hidden_layer"/>
       <link>
         <businessObjects href="mlp_raw.pi#//@vertices.1"/>
       </link>
@@ -1687,6 +1687,8 @@
   <colors red="234" green="153" blue="153"/>
   <colors red="255" green="165" blue="79"/>
   <colors red="222" green="184" blue="135"/>
+  <colors red="128" green="100" blue="162"/>
   <fonts name="Arial" size="8" bold="true"/>
   <fonts name="Arial" size="8"/>
+  <fonts name="Arial" size="8" italic="true" bold="true"/>
 </pi:Diagram>

@@ -293,6 +293,10 @@ void initAdam(double *betas) {
     betas[3] = betas[1];
 }
 
+void adamEpsilonGen(OUT double *epsilon) {
+    epsilon[0] = 1e-8;
+}
+
 
 
 

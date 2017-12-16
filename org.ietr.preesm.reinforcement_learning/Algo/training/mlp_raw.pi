@@ -13,15 +13,15 @@
         <node expr="input_size * hidden_size" id="size_weights_hidden" kind="param"/>
         <node expr="output_size * hidden_size" id="size_weights_output" kind="param"/>
         <node id="Output_layer" kind="actor">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Algo/common/neuron.pi</data>
             <loop name="layer">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
+                <param direction="IN" isConfig="false" name="input" type="float "/>
                 <param direction="IN" isConfig="false" name="weights" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="bias_values" type="float "/>
-                <param direction="IN" isConfig="false" name="input" type="float "/>
-                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false" name="output" type="float "/>
             </loop>
             <port kind="cfg_input" name="input_size"/>
@@ -34,15 +34,15 @@
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
         <node id="Hidden_layer" kind="actor">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Algo/common/neuron.pi</data>
             <loop name="layer">
                 <param direction="IN" isConfig="true" name="input_size" type="int"/>
                 <param direction="IN" isConfig="true" name="layer_size" type="int"/>
+                <param direction="IN" isConfig="false" name="valid" type="int "/>
+                <param direction="IN" isConfig="false" name="input" type="float "/>
                 <param direction="IN" isConfig="false" name="weights" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="bias_values" type="float "/>
-                <param direction="IN" isConfig="false" name="input" type="float "/>
-                <param direction="IN" isConfig="false" name="valid" type="int "/>
                 <param direction="OUT" isConfig="false" name="output" type="float "/>
             </loop>
             <port kind="cfg_input" name="input_size"/>
