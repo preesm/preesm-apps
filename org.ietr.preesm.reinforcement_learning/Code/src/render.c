@@ -11,6 +11,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <zconf.h>
+#include <float.h>
 // timing lib
 #include "../include/clock.h"
 // file header
@@ -123,10 +124,10 @@ void renderInit(void) {
 }
 
 void renderEnv(int size, float *state) {
-//    static long int i = 0;
-//    static double max_fps = 0.;
-//    static double avg_fps = 0.;
-//    static double min_fps = DBL_MAX;
+    static long int i = 0;
+    static double max_fps = 0.;
+    static double avg_fps = 0.;
+    static double min_fps = DBL_MAX;
     SDL_Event event;
     // Grab all the events off the queue.
     while (SDL_PollEvent(&event)) {
@@ -145,23 +146,23 @@ void renderEnv(int size, float *state) {
     startTiming(display.stampId + 1);
     display.stampId = (display.stampId + 1) % FPS_MEAN;
 
-//    if (fps > max_fps) {
-//        max_fps = fps;
-//    }
-//    if (fps < min_fps && fps > 0.) {
-//        min_fps = fps;
-//    }
-//    avg_fps += fps;
-//    if (i % 10000 == 0) {
-//        avg_fps /= 10000.;
-//        fprintf(stderr, "Avg FPS: %.2f\n", avg_fps);
-//        fprintf(stderr, "Min FPS: %.2f\n", min_fps);
-//        fprintf(stderr, "Max FPS: %.2f\n", max_fps);
-//        avg_fps = 0.;
-//        min_fps = DBL_MAX;
-//        max_fps = 0.;
-//    }
-//    ++i;
+    if (fps > max_fps) {
+        max_fps = fps;
+    }
+    if (fps < min_fps && fps > 0.) {
+        min_fps = fps;
+    }
+    avg_fps += fps;
+    if (i % 10000 == 0) {
+        avg_fps /= 10000.;
+        fprintf(stderr, "Avg FPS: %.2f\n", avg_fps);
+        fprintf(stderr, "Min FPS: %.2f\n", min_fps);
+        fprintf(stderr, "Max FPS: %.2f\n", max_fps);
+        avg_fps = 0.;
+        min_fps = DBL_MAX;
+        max_fps = 0.;
+    }
+    ++i;
 
     if (!render) {
         return;
