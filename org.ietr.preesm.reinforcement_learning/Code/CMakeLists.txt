@@ -131,4 +131,4 @@ file(
 add_executable( cacla ${source_files} ${header_files})
 target_link_libraries(cacla m)
 target_link_libraries(cacla ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-set(CMAKE_C_FLAGS "-std=c99 -lm")
+set(CMAKE_C_FLAGS "-std=gnu99 -lm")

@@ -272,14 +272,14 @@ int main(void) {
     renderInit();
 
     //Creates both mlps
-    int sizes_critic[2] = {20, 1};
-    int sizes_actor[2] = {40, 7};
-    mlp_net *actor_mlp = create_mlp(2, 3, sizes_actor, 0.0001f,
+    int sizes_critic[5] = {40, 20, 5, 200, 1};
+    int sizes_actor[5] = {40, 100, 5, 10, 1};
+    mlp_net *actor_mlp = create_mlp(5, 3, sizes_actor, 0.0001f,
                                     activateTanHyperbolic,
                                     activateLinear,
                                     derivativeTanHyperbolicActivated,
                                     derivativeLinear);
-    mlp_net *critic_mlp = create_mlp(2, 3, sizes_critic, 0.0001f,
+    mlp_net *critic_mlp = create_mlp(5, 3, sizes_critic, 0.0001f,
                                      activateTanHyperbolic,
                                      activateLinear,
                                      derivativeTanHyperbolicActivated,
@@ -299,6 +299,9 @@ int main(void) {
     float sigma = 2.f;
     long int i = 0;
     float limits[2] = {-MAX_TORQUE, MAX_TORQUE};
+    uint64_t dumpTimed[4];
+    int nbExec[4];
+    initNbExec(nbExec, 4);
     while(!stopThreads) {
         // pred action
         run_mlp(actor_mlp, obs_state, &action);
@@ -322,13 +325,24 @@ int main(void) {
         // compute td-error
         float value = 0.f;
         float value_next = 0.f;
-        run_mlp(critic_mlp, obs_state_next, &value_next);
-        run_mlp(critic_mlp, obs_state, &value);
-        float target = reward + DISCOUNT_FACTOR * value_next;
+        dumpTime(0, dumpTimed);
+        for (int i = 0; i < *(nbExec + 1); ++i) {
+            run_mlp(critic_mlp, obs_state_next, &value_next);
+        }
+        dumpTime(1, dumpTimed);
+        for (int i = 0; i < *(nbExec + 2); ++i) {
+            run_mlp(critic_mlp, obs_state, &value);
+        }
+        float target;
+        target = reward + DISCOUNT_FACTOR * value_next;
         float delta = target - value;
 
         // update critic network
-        update_mlp(critic_mlp, &target);
+        dumpTime(2, dumpTimed);
+        for (int i = 0; i < *(nbExec + 3); ++i) {
+            update_mlp(critic_mlp, &target);
+        }
+        dumpTime(3, dumpTimed);
 
         if (delta > 0.f) {
             int n = (int)ceil((delta / sqrt(variance)));
@@ -345,6 +359,7 @@ int main(void) {
 
         // update state
         memcpy(obs_state, obs_state_next, 3 * sizeof(float));
+//        writeTime(dumpTimed, 4, nbExec);
 
         // sigma decay
         //sigma = sigma - sigma_reset / sigma_decay_period;

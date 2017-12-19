@@ -372,7 +372,7 @@
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
-    <timings excelUrl="">
+    <timings excelUrl="/org.ietr.preesm.reinforcement_learning/Code/codegen/analysis.csv">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
     </timings>
     <simuParams>

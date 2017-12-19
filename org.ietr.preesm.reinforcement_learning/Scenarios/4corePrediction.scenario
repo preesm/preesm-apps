@@ -1461,7 +1461,24 @@
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
-    <timings excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="1000" vertexname="optimizeWeights"/>
+        <timing opname="x86" time="1000" vertexname="optimizeBias"/>
+        <timing opname="x86" time="10" vertexname="adamBetas"/>
+        <timing opname="x86" time="10" vertexname="gen_actor_learning_rate"/>
+        <timing opname="x86" time="10" vertexname="gen_critic_learning_rate"/>
+        <timing opname="x86" time="10" vertexname="gen_environment_limits"/>
+        <timing opname="x86" time="10" vertexname="gen_epsilon"/>
+        <timing opname="x86" time="10" vertexname="gen_gamma"/>
+        <timing opname="x86" time="10" vertexname="gen_sigma"/>
+        <timing opname="x86" time="10" vertexname="outputActivation"/>
+        <timing opname="x86" time="10" vertexname="Temporal_Difference_Error"/>
+        <timing opname="x86" time="10" vertexname="ClipAction"/>
+        <timing opname="x86" time="10" vertexname="valid_critic"/>
+        <timing opname="x86" time="10" vertexname="valid_mlp"/>
+        <timing opname="x86" time="10" vertexname="valid_actor"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
         <mainComNode>shared_mem</mainComNode>

@@ -12,15 +12,46 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <math.h>
-#include <time.h>
 #include "../include/dump.h"
+
+#define ceil(x) (((x) - (double)((int)((x)))) < 0.5 ? ((int)((x)) + 1):(int)((x)+0.5))
+
+#ifdef _WIN32
+#include <windows.h>
+#define GET_CLOCK(clock_t) { \
+    LARGE_INTEGER now; \
+    QueryPerformanceCounter(&now); \
+    clock_t = now.QuadPart; \
+}
+#define GET_ELAPSED_US(elapsed, clock_start, clock_end) { \
+    (elapsed) = (clock_start) - (clock_end); \
+    (elapsed) *= 1000000; \
+    LARGE_INTEGER frequency; \
+    QueryPerformanceFrequency(&frequency); \
+    (elapsed) /= frequency.QuadPart; \
+}
+#elif defined(__GNUC__) && !defined(__MACH__)
+#include <unistd.h>
+#include <time.h>
+#define GET_CLOCK(clock_t) { \
+    struct timespec clock; \
+    clock_gettime(CLOCK_MONOTONIC, &clock); \
+    (clock_t) = (uint64_t)(clock.tv_sec * 1e9) + clock.tv_nsec; \
+}
+#define GET_ELAPSED_US(elapsed, clock_start, clock_end) { \
+    (elapsed) = (clock_start) - (clock_end); \
+    (elapsed) /= 1000; \
+}
+#else // Undefined or Unsupported platform, thus no assumption is made on available hardware
+#define GET_CLOCK(clock_t) { clock_t = 0; }
+#define GET_ELAPSED_US(elapsed, clock_start, clock_end) { (elapsed) = 0; }
+#endif
 
 static FILE *ptfile;
 static int *bckupNbExec;
 
-void dumpTime(int id,long* dumpBuffer){
-    dumpBuffer[id] = clock();
+void dumpTime(int id, uint64_t* dumpBuffer) {
+    GET_CLOCK(dumpBuffer[id]);
 }
 
 void initNbExec(int* nbExec, int nbDump){
@@ -48,32 +79,32 @@ void initNbExec(int* nbExec, int nbDump){
     fflush(ptfile);
 }
 
-void writeTime(long* dumpBuffer, int nbDump, int* nbExec){
+void writeTime(uint64_t* dumpBuffer, int nbDump, int* nbExec){
     static int stable = 0;
     int i ;
     int changed = 0;
 	int nbNotReady = 0;
-	
     if(stable != 0) {
         printf("--\n");
         for(i=1;i< nbDump;i++){
-            float nbEx = (float)*(nbExec+i);
+            float nbEx = (float)(*(nbExec+i));
+            uint64_t elapsed_us;
+            GET_ELAPSED_US(elapsed_us, dumpBuffer[i], dumpBuffer[i - 1]);
             float res;
-            nbEx = (nbEx != 0)? 1/nbEx : 0;
-            res = ((float)dumpBuffer[i]-(float)dumpBuffer[i-1]) * nbEx;
-            fprintf(ptfile,"%.2f;",res*CLOCKS_PER_SEC );
+            nbEx = (nbEx != 0.f)? 1.f/nbEx : 0.f;
+            res = (float)(elapsed_us) * nbEx; // Gives time in us
+            fprintf(ptfile,"%.2f;", res);
         }
         fprintf(ptfile,"\n");
         fflush(ptfile);
     } else {
-        for(i=nbDump-1;i>=0;i--){
+        for(i=nbDump-1;i>0;i--){
             int nbExecBefore;
-
-            dumpBuffer[i] = dumpBuffer[i]-dumpBuffer[i-1];
-            // We consider that all measures below 5 ms are not precise enough
+            GET_ELAPSED_US(dumpBuffer[i], dumpBuffer[i], dumpBuffer[i - 1]);
+            // We consider that all measures below 10 ms are not precise enough
             nbExecBefore = *(nbExec+i);
-            if(dumpBuffer[i] < 10*1000/CLOCKS_PER_SEC) {
-                *(nbExec+i) = ceil(*(nbExec+i) * 1.5);
+            if(dumpBuffer[i] / 1000 < 10 && (*(nbExec+i)) != 0) {
+                *(nbExec+i) = ceil((*(nbExec+i) * 1.5));
                 if(*(nbExec+i) > 131072) {
                     *(nbExec+i) = 131072;
                 }
@@ -87,8 +118,7 @@ void writeTime(long* dumpBuffer, int nbDump, int* nbExec){
 
 			} else {
 				if(*(nbExec+i)!=0){
-				bckupNbExec[i] = *(nbExec+i);
-				*(nbExec+i) = 0;
+				    bckupNbExec[i] = *(nbExec+i);
 				}
 			}
         }

@@ -35,6 +35,8 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
 			set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 	endif()
+	#add libmath during non visual studio builds
+	set(CMAKE_EXTRA_LIB lm)
 else()
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
@@ -159,4 +161,4 @@ file(
 
 add_executable( sobel ${source_files} ${header_files})
 target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-set(CMAKE_C_FLAGS "-std=c99")
+set(CMAKE_C_FLAGS "-std=gnu99")

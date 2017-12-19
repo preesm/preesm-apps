@@ -153,15 +153,15 @@ void renderEnv(int size, float *state) {
         min_fps = fps;
     }
     avg_fps += fps;
-    if (i % 10000 == 0) {
-        avg_fps /= 10000.;
-        fprintf(stderr, "Avg FPS: %.2f\n", avg_fps);
-        fprintf(stderr, "Min FPS: %.2f\n", min_fps);
-        fprintf(stderr, "Max FPS: %.2f\n", max_fps);
-        avg_fps = 0.;
-        min_fps = DBL_MAX;
-        max_fps = 0.;
-    }
+//    if (i % 10000 == 0) {
+//        avg_fps /= 10000.;
+//        fprintf(stderr, "Avg FPS: %.2f\n", avg_fps);
+//        fprintf(stderr, "Min FPS: %.2f\n", min_fps);
+//        fprintf(stderr, "Max FPS: %.2f\n", max_fps);
+//        avg_fps = 0.;
+//        min_fps = DBL_MAX;
+//        max_fps = 0.;
+//    }
     ++i;
 
     if (!render) {

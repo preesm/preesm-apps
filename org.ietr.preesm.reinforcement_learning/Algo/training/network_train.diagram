@@ -3177,7 +3177,7 @@
     <bendpoints x="1182" y="828"/>
     <bendpoints x="1486" y="828"/>
     <bendpoints x="1873" y="828"/>
-    <bendpoints x="1933" y="373"/>
+    <bendpoints x="1933" y="372"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.12/@anchors.5" end="//@children.16/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3197,7 +3197,7 @@
     <bendpoints x="1182" y="605"/>
     <bendpoints x="1486" y="605"/>
     <bendpoints x="1873" y="605"/>
-    <bendpoints x="1933" y="345"/>
+    <bendpoints x="1933" y="344"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.12/@anchors.6" end="//@children.15/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3216,7 +3216,7 @@
     <bendpoints x="924" y="527"/>
     <bendpoints x="1182" y="527"/>
     <bendpoints x="1486" y="527"/>
-    <bendpoints x="1546" y="331"/>
+    <bendpoints x="1546" y="330"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.29/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3404,7 +3404,7 @@
     <bendpoints x="924" y="572"/>
     <bendpoints x="1182" y="572"/>
     <bendpoints x="1486" y="572"/>
-    <bendpoints x="1546" y="359"/>
+    <bendpoints x="1546" y="358"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.11/@anchors.6" end="//@children.30/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3728,7 +3728,7 @@
     <bendpoints x="1182" y="619"/>
     <bendpoints x="1486" y="619"/>
     <bendpoints x="1873" y="619"/>
-    <bendpoints x="1933" y="359"/>
+    <bendpoints x="1933" y="358"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.37/@anchors.1" end="//@children.38/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3800,7 +3800,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="367" y="744"/>
-    <bendpoints x="473" y="687"/>
+    <bendpoints x="473" y="686"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.39/@anchors.3" end="//@children.40/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3835,7 +3835,7 @@
     <bendpoints x="1486" y="343"/>
     <bendpoints x="1546" y="447"/>
     <bendpoints x="1873" y="447"/>
-    <bendpoints x="1933" y="331"/>
+    <bendpoints x="1933" y="330"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.40/@anchors.3" end="//@children.15/@anchors.4">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3853,7 +3853,7 @@
     <bendpoints x="1182" y="458"/>
     <bendpoints x="1242" y="541"/>
     <bendpoints x="1486" y="541"/>
-    <bendpoints x="1546" y="345"/>
+    <bendpoints x="1546" y="344"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.39/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3869,7 +3869,7 @@
     </connectionDecorators>
     <bendpoints x="655" y="875"/>
     <bendpoints x="473" y="875"/>
-    <bendpoints x="473" y="701"/>
+    <bendpoints x="473" y="700"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.16/@anchors.14" end="//@children.20/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>

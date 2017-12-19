@@ -24,6 +24,7 @@ add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Set to 1 to activate debug compilation (0 for release)
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+	set(DEBUG 1)
 	if(${DEBUG})
 			MESSAGE("Generate Debug project")
 			set(CMAKE_BUILD_TYPE Debug)
@@ -131,4 +132,4 @@ file(
 add_executable( cacla ${source_files} ${header_files})
 target_link_libraries(cacla m)
 target_link_libraries(cacla ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-set(CMAKE_C_FLAGS "-std=c99 -lm")
+set(CMAKE_C_FLAGS "-std=gnu99 -lm")
