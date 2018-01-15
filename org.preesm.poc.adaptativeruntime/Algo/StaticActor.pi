@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">StaticActor</data>
+        <node expr="1" id="display1" kind="param"/>
+        <node expr="1" id="decision" kind="param"/>
+        <node id="ReadImage" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="ReadImage"/>
+        </node>
+        <node id="Display" kind="actor">
+            <data key="graph_desc">ActorSplitCpp/actors.h</data>
+            <loop name="display">
+                <param direction="IN" isConfig="false" name="img" type="rgbimg "/>
+                <param direction="IN" isConfig="true" name="displayID" type="unsigned int"/>
+            </loop>
+            <init name="initDisplays"/>
+            <port kind="cfg_input" name="displayID"/>
+            <port annotation="NONE" expr="1" kind="input" name="img"/>
+        </node>
+        <node id="Brightness" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="Brightness"/>
+        </node>
+        <node id="ConfigActor" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="configActor_sink">
+                <param direction="IN" isConfig="false" name="brightness" type="In double "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="brightness"/>
+        </node>
+        <node id="do" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="doSomething">
+                <param direction="IN" isConfig="false" name="img_in" type="In rgbimg "/>
+                <param direction="OUT" isConfig="false" name="img_out" type="rgbimg "/>
+                <param direction="IN" isConfig="true"
+                    name="someParameter" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="someParameter"/>
+            <port annotation="NONE" expr="1" kind="input" name="img_in"/>
+            <port annotation="NONE" expr="1" kind="output" name="img_out"/>
+        </node>
+        <edge kind="fifo" source="Brightness" sourceport="Brightness"
+            target="ConfigActor" targetport="brightness" type="double"/>
+        <edge kind="fifo" source="do" sourceport="img_out"
+            target="Display" targetport="img" type="rgbimg"/>
+        <edge kind="fifo" source="ReadImage" sourceport="ReadImage"
+            target="do" targetport="img_in" type="rgbimg"/>
+        <edge kind="dependency" source="display1" target="Display" targetport="displayID"/>
+        <edge kind="dependency" source="decision" target="do" targetport="someParameter"/>
+    </graph>
+</graphml>

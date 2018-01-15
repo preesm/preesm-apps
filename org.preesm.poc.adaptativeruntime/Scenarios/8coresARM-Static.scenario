@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.preesm.poc.adaptativeruntime/Algo/topStatic.pi"/>
+        <architecture url="/org.preesm.poc.adaptativeruntime/Archi/8coresARM.slam"/>
+        <codegenDirectory url="/org.preesm.poc.adaptativeruntime/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="core0"/>
+            <task name="topStatic/Read"/>
+            <task name="topStatic/Display"/>
+            <task name="topStatic/broadcast"/>
+            <task name="topStatic/ComputeBrightnessAndFW"/>
+            <task name="topStatic/DDD/ReadImage"/>
+            <task name="topStatic/DDD/Display"/>
+            <task name="topStatic/DDD/Brightness"/>
+            <task name="topStatic/DDD/ConfigActor"/>
+            <task name="topStatic/DDD/do"/>
+            <task name="topStatic/DDD"/>
+            <task name="topStatic"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl=""/>
+    <simuParams>
+        <mainCore>core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+            <dataType name="rgbimg" size="1440000"/>
+            <dataType name="double" size="4"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+</scenario>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">DynamicActor</data>
+        <node expr="1" id="decision" kind="param"/>
+        <node expr="1" id="display1" kind="param"/>
+        <node expr="decision*4+(1-decision)" id="nbSlices" kind="param"/>
+        <node expr="800" id="width" kind="param"/>
+        <node expr="600" id="height" kind="param"/>
+        <node expr="height/nbSlices+2" id="sliceHeight" kind="param"/>
+        <node id="ReadImage" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="ReadImage"/>
+        </node>
+        <node id="DisplayBlur" kind="actor">
+            <data key="graph_desc">ActorSplitCpp/actors.h</data>
+            <loop name="display">
+                <param direction="IN" isConfig="false" name="img" type="rgbimg "/>
+                <param direction="IN" isConfig="true" name="displayID" type="unsigned int"/>
+            </loop>
+            <init name="initDisplays"/>
+            <port kind="cfg_input" name="displayID"/>
+            <port annotation="NONE" expr="1" kind="input" name="img"/>
+        </node>
+        <node id="Brightness" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="Brightness"/>
+        </node>
+        <node id="ConfigActor" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="configActor">
+                <param direction="IN" isConfig="false" name="brightness" type="double "/>
+                <param direction="OUT" isConfig="true" name="decision" type="Param "/>
+            </loop>
+            <port annotation="NONE" kind="cfg_output" name="decision"/>
+            <port annotation="NONE" expr="1" kind="input" name="brightness"/>
+        </node>
+        <node id="blur" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="blur">
+                <param direction="IN" isConfig="false" name="img_in" type="rgbimg "/>
+                <param direction="OUT" isConfig="false" name="img_out" type="rgbimg "/>
+                <param direction="IN" isConfig="true" name="decision" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision" kind="input" name="img_in"/>
+            <port annotation="NONE" expr="decision" kind="output" name="img_out"/>
+        </node>
+        <node id="splitRGB" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="splitRGB">
+                <param direction="IN" isConfig="false" name="img_in" type="rgbimg "/>
+                <param direction="OUT" isConfig="false" name="R" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="G" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="B" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision" kind="input" name="img_in"/>
+            <port annotation="NONE" expr="decision*800*600"
+                kind="output" name="R"/>
+            <port annotation="NONE" expr="decision*800*600"
+                kind="output" name="G"/>
+            <port annotation="NONE" expr="decision*800*600"
+                kind="output" name="B"/>
+        </node>
+        <node id="mergeRGB" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="mergeRGB">
+                <param direction="IN" isConfig="false" name="R" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="G" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="B" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="img_out" type="rgbimg "/>
+            </loop>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*800*600" kind="input" name="R"/>
+            <port annotation="NONE" expr="decision*800*600" kind="input" name="G"/>
+            <port annotation="NONE" expr="decision*800*600" kind="input" name="B"/>
+            <port annotation="NONE" expr="decision" kind="output" name="img_out"/>
+        </node>
+        <node id="Split" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="split">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="decision*(nbSlice*width*(height/nbSlice+2))"
+                kind="output" name="output"/>
+        </node>
+        <node id="Sobel" kind="actor">
+            <data key="graph_desc">Code/include/sobel.h</data>
+            <loop name="sobel">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="output" name="output"/>
+        </node>
+        <node id="Merge" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="merge">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE"
+                expr="decision*(nbSlice*width*(height/nbSlice+2))"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="output" name="output"/>
+        </node>
+        <node id="Split_0" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="split">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="decision*(nbSlice*width*(height/nbSlice+2))"
+                kind="output" name="output"/>
+        </node>
+        <node id="Sobel_0" kind="actor">
+            <data key="graph_desc">Code/include/sobel.h</data>
+            <loop name="sobel">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="output" name="output"/>
+        </node>
+        <node id="Merge_0" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="merge">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE"
+                expr="decision*(nbSlice*width*(height/nbSlice+2))"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="output" name="output"/>
+        </node>
+        <node id="Split_1" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="split">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="decision*(nbSlice*width*(height/nbSlice+2))"
+                kind="output" name="output"/>
+        </node>
+        <node id="Sobel_1" kind="actor">
+            <data key="graph_desc">Code/include/sobel.h</data>
+            <loop name="sobel">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="output" name="output"/>
+        </node>
+        <node id="Merge_1" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="merge">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char"/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char"/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE"
+                expr="decision*(nbSlice*width*(height/nbSlice+2))"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="decision*height*width"
+                kind="output" name="output"/>
+        </node>
+        <node id="Fork" kind="fork">
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="decision" kind="output" name="out1"/>
+            <port annotation="NONE" expr="1-decision" kind="output" name="out2"/>
+        </node>
+        <node id="Join" kind="join">
+            <port kind="cfg_input" name="decision"/>
+            <port annotation="NONE" expr="decision" kind="input" name="in1"/>
+            <port annotation="NONE" expr="1-decision" kind="input" name="int2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="Brightness" sourceport="Brightness"
+            target="ConfigActor" targetport="brightness" type="double"/>
+        <edge kind="fifo" source="Sobel" sourceport="output"
+            target="Merge" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Split" sourceport="output"
+            target="Sobel" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="splitRGB" sourceport="R"
+            target="Split" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Merge" sourceport="output"
+            target="mergeRGB" targetport="R" type="uchar"/>
+        <edge kind="fifo" source="Sobel_0" sourceport="output"
+            target="Merge_0" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Split_0" sourceport="output"
+            target="Sobel_0" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Sobel_1" sourceport="output"
+            target="Merge_1" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Split_1" sourceport="output"
+            target="Sobel_1" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="splitRGB" sourceport="G"
+            target="Split_1" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="splitRGB" sourceport="B"
+            target="Split_0" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Merge_1" sourceport="output"
+            target="mergeRGB" targetport="G" type="uchar"/>
+        <edge kind="fifo" source="Merge_0" sourceport="output"
+            target="mergeRGB" targetport="B" type="uchar"/>
+        <edge kind="fifo" source="blur" sourceport="img_out"
+            target="splitRGB" targetport="img_in" type="rgbimg"/>
+        <edge kind="fifo" source="mergeRGB" sourceport="img_out"
+            target="Join" targetport="in1" type="rgbimg"/>
+        <edge kind="fifo" source="ReadImage" sourceport="ReadImage"
+            target="Fork" targetport="in" type="rgbimg"/>
+        <edge kind="fifo" source="Fork" sourceport="out1" target="blur"
+            targetport="img_in" type="rgbimg"/>
+        <edge kind="fifo" source="Fork" sourceport="out2" target="Join"
+            targetport="int2" type="rgbimg"/>
+        <edge kind="fifo" source="Join" sourceport="out"
+            target="DisplayBlur" targetport="img" type="rgbimg"/>
+        <edge kind="dependency" source="decision" target="blur" targetport="decision"/>
+        <edge kind="dependency" source="display1" target="DisplayBlur" targetport="displayID"/>
+        <edge kind="dependency" source="ConfigActor"
+            sourceport="decision" target="decision"/>
+        <edge kind="dependency" source="decision" target="nbSlices"/>
+        <edge kind="dependency" source="width" target="Sobel" targetport="width"/>
+        <edge kind="dependency" source="height" target="sliceHeight"/>
+        <edge kind="dependency" source="height" target="Split" targetport="height"/>
+        <edge kind="dependency" source="width" target="Split" targetport="width"/>
+        <edge kind="dependency" source="height" target="Merge" targetport="height"/>
+        <edge kind="dependency" source="width" target="Merge" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight" target="Sobel" targetport="height"/>
+        <edge kind="dependency" source="nbSlices" target="sliceHeight"/>
+        <edge kind="dependency" source="nbSlices" target="Split" targetport="nbSlice"/>
+        <edge kind="dependency" source="nbSlices" target="Merge" targetport="nbSlice"/>
+        <edge kind="dependency" source="height" target="Split_0" targetport="height"/>
+        <edge kind="dependency" source="width" target="Split_0" targetport="width"/>
+        <edge kind="dependency" source="nbSlices" target="Split_0" targetport="nbSlice"/>
+        <edge kind="dependency" source="width" target="Sobel_0" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight" target="Sobel_0" targetport="height"/>
+        <edge kind="dependency" source="height" target="Merge_0" targetport="height"/>
+        <edge kind="dependency" source="width" target="Merge_0" targetport="width"/>
+        <edge kind="dependency" source="nbSlices" target="Merge_0" targetport="nbSlice"/>
+        <edge kind="dependency" source="height" target="Split_1" targetport="height"/>
+        <edge kind="dependency" source="width" target="Split_1" targetport="width"/>
+        <edge kind="dependency" source="nbSlices" target="Split_1" targetport="nbSlice"/>
+        <edge kind="dependency" source="width" target="Sobel_1" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight" target="Sobel_1" targetport="height"/>
+        <edge kind="dependency" source="height" target="Merge_1" targetport="height"/>
+        <edge kind="dependency" source="width" target="Merge_1" targetport="width"/>
+        <edge kind="dependency" source="nbSlices" target="Merge_1" targetport="nbSlice"/>
+        <edge kind="dependency" source="decision" target="splitRGB" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Split" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Split_1" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Split_0" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Sobel" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Sobel_1" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Sobel_0" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Merge" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Merge_1" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Merge_0" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="mergeRGB" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Fork" targetport="decision"/>
+        <edge kind="dependency" source="decision" target="Join" targetport="decision"/>
+    </graph>
+</graphml>
