@@ -17,7 +17,7 @@
             <port annotation="NONE" expr="1" kind="output" name="ReadImage"/>
         </node>
         <node id="DisplayBlur" kind="actor">
-            <data key="graph_desc">ActorSplitCpp/actors.h</data>
+            <data key="graph_desc">Code/include/actors.h</data>
             <loop name="display">
                 <param direction="IN" isConfig="false" name="img" type="rgbimg "/>
                 <param direction="IN" isConfig="true" name="displayID" type="unsigned int"/>

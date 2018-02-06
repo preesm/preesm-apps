@@ -8,7 +8,7 @@
     <graph edgedefault="directed">
         <data key="name">topDynamic</data>
         <node id="Read" kind="actor">
-            <data key="graph_desc">ActorSplitCpp/actors.h</data>
+            <data key="graph_desc">Code/include/actors.h</data>
             <loop name="read">
                 <param direction="OUT" isConfig="false" name="img" type="rgbimg "/>
             </loop>
