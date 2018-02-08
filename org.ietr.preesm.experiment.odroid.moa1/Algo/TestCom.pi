@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">TestCom</data>
+        <node expr="200" id="size" kind="param"/>
+        <node expr="1" id="N" kind="param"/>
+        <node expr="5" id="stressN" kind="param"/>
+        <node id="Sensor" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="sensor">
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o2" type="char "/>
+                <param direction="OUT" isConfig="false" name="o3" type="char "/>
+                <param direction="OUT" isConfig="false" name="o4" type="char "/>
+                <param direction="OUT" isConfig="false" name="o5" type="char "/>
+                <param direction="OUT" isConfig="false" name="o6" type="char "/>
+                <param direction="OUT" isConfig="false" name="o7" type="char "/>
+                <param direction="OUT" isConfig="false" name="o8" type="char "/>
+                <param direction="OUT" isConfig="false" name="op" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="N" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="sensor_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="N" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="N"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o1"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o2"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o3"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o4"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o5"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o6"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o7"/>
+            <port annotation="NONE" expr="size*N" kind="output" name="o8"/>
+            <port annotation="NONE" expr="size" kind="output" name="op"/>
+        </node>
+        <node id="Sensor2" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="sensor2">
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="sensor2_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="5*size" kind="output" name="o1"/>
+        </node>
+        <node id="Gen_int" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="gen_int">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="IN" isConfig="false" name="i2" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o2" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="gen_int_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="input" name="i2"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o2"/>
+        </node>
+        <node id="X2InputParallelTest" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="parallel2">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="IN" isConfig="false" name="i2" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="parallel_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="5*size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="input" name="i2"/>
+            <port annotation="NONE" expr="5*size" kind="output" name="o1"/>
+        </node>
+        <node id="Copy" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="copy">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="copy_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="N"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="ParallelTest1" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="parallel">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="parallel_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="5*size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="5*size" kind="output" name="o1"/>
+        </node>
+        <node id="ParallelTest2" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="parallel">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="parallel_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="5*size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="5*size" kind="output" name="o1"/>
+        </node>
+        <node id="Actuator" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="actuator">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="IN" isConfig="false" name="i2" type="char "/>
+                <param direction="IN" isConfig="false" name="i3" type="char "/>
+                <param direction="IN" isConfig="false" name="i4" type="char "/>
+                <param direction="IN" isConfig="false" name="i5" type="char "/>
+                <param direction="IN" isConfig="false" name="i6" type="char "/>
+                <param direction="IN" isConfig="false" name="i7" type="char "/>
+                <param direction="IN" isConfig="false" name="i8" type="char "/>
+                <param direction="IN" isConfig="false" name="ip" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="N" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="actuator_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="N" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="N"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i2"/>
+            <port annotation="NONE" expr="size" kind="input" name="i3"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i4"/>
+            <port annotation="NONE" expr="size" kind="input" name="i5"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i6"/>
+            <port annotation="NONE" expr="size" kind="input" name="i7"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i8"/>
+            <port annotation="NONE" expr="5*size" kind="input" name="ip"/>
+        </node>
+        <node id="Gen_int2" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="gen_int">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="IN" isConfig="false" name="i2" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o2" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="gen_int_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="input" name="i2"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o2"/>
+        </node>
+        <node id="Copy2" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="copy">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="copy_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="N"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="Gen_int3" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="gen_int">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="IN" isConfig="false" name="i2" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o2" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="gen_int_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="input" name="i2"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o2"/>
+        </node>
+        <node id="Copy3" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="copy">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="copy_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="N"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+        </node>
+        <node id="Gen_int4" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="gen_int">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="IN" isConfig="false" name="i2" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o2" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="gen_int_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="input" name="i2"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o2"/>
+        </node>
+        <node id="Copy4" kind="actor">
+            <data key="graph_desc">Code/include/testcom.h</data>
+            <loop name="copy">
+                <param direction="IN" isConfig="false" name="i1" type="char "/>
+                <param direction="OUT" isConfig="false" name="o1" type="char "/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </loop>
+            <init name="copy_init">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="true" name="stressN" type="int"/>
+            </init>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="N"/>
+            <port kind="cfg_input" name="stressN"/>
+            <port annotation="NONE" expr="size*N" kind="input" name="i1"/>
+            <port annotation="NONE" expr="size" kind="output" name="o1"/>
+        </node>
+        <edge kind="fifo" source="Sensor" sourceport="o1"
+            target="Gen_int" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o2"
+            target="Gen_int" targetport="i2" type="char"/>
+        <edge kind="fifo" source="Sensor2" sourceport="o1"
+            target="X2InputParallelTest" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Gen_int" sourceport="o1" target="Copy"
+            targetport="i1" type="char"/>
+        <edge kind="fifo" source="Copy" sourceport="o1"
+            target="Actuator" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Gen_int" sourceport="o2"
+            target="Actuator" targetport="i2" type="char"/>
+        <edge kind="fifo" source="X2InputParallelTest" sourceport="o1"
+            target="ParallelTest1" targetport="i1" type="char"/>
+        <edge kind="fifo" source="ParallelTest1" sourceport="o1"
+            target="ParallelTest2" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o3"
+            target="Gen_int2" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o4"
+            target="Gen_int2" targetport="i2" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o5"
+            target="Gen_int3" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o6"
+            target="Gen_int3" targetport="i2" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o7"
+            target="Gen_int4" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="o8"
+            target="Gen_int4" targetport="i2" type="char"/>
+        <edge kind="fifo" source="Gen_int2" sourceport="o1"
+            target="Copy2" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Gen_int3" sourceport="o1"
+            target="Copy3" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Gen_int4" sourceport="o1"
+            target="Copy4" targetport="i1" type="char"/>
+        <edge kind="fifo" source="Copy2" sourceport="o1"
+            target="Actuator" targetport="i3" type="char"/>
+        <edge kind="fifo" source="Copy3" sourceport="o1"
+            target="Actuator" targetport="i5" type="char"/>
+        <edge kind="fifo" source="Copy4" sourceport="o1"
+            target="Actuator" targetport="i7" type="char"/>
+        <edge kind="fifo" source="Sensor" sourceport="op"
+            target="X2InputParallelTest" targetport="i2" type="char"/>
+        <edge kind="fifo" source="Gen_int2" sourceport="o2"
+            target="Actuator" targetport="i4" type="char"/>
+        <edge kind="fifo" source="Gen_int3" sourceport="o2"
+            target="Actuator" targetport="i6" type="char"/>
+        <edge kind="fifo" source="Gen_int4" sourceport="o2"
+            target="Actuator" targetport="i8" type="char"/>
+        <edge kind="fifo" source="ParallelTest2" sourceport="o1"
+            target="Actuator" targetport="ip" type="char"/>
+        <edge kind="dependency" source="size" target="Sensor" targetport="size"/>
+        <edge kind="dependency" source="size" target="Gen_int" targetport="size"/>
+        <edge kind="dependency" source="size" target="Copy" targetport="size"/>
+        <edge kind="dependency" source="size" target="Actuator" targetport="size"/>
+        <edge kind="dependency" source="size" target="Sensor2" targetport="size"/>
+        <edge kind="dependency" source="size"
+            target="X2InputParallelTest" targetport="size"/>
+        <edge kind="dependency" source="size" target="ParallelTest1" targetport="size"/>
+        <edge kind="dependency" source="size" target="ParallelTest2" targetport="size"/>
+        <edge kind="dependency" source="N" target="Copy" targetport="N"/>
+        <edge kind="dependency" source="N" target="Actuator" targetport="N"/>
+        <edge kind="dependency" source="size" target="Copy2" targetport="size"/>
+        <edge kind="dependency" source="size" target="Copy3" targetport="size"/>
+        <edge kind="dependency" source="size" target="Copy4" targetport="size"/>
+        <edge kind="dependency" source="size" target="Gen_int2" targetport="size"/>
+        <edge kind="dependency" source="size" target="Gen_int3" targetport="size"/>
+        <edge kind="dependency" source="size" target="Gen_int4" targetport="size"/>
+        <edge kind="dependency" source="N" target="Copy2" targetport="N"/>
+        <edge kind="dependency" source="N" target="Copy3" targetport="N"/>
+        <edge kind="dependency" source="N" target="Copy4" targetport="N"/>
+        <edge kind="dependency" source="stressN" target="Sensor" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Gen_int" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Gen_int2" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Gen_int3" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Gen_int4" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Sensor2" targetport="stressN"/>
+        <edge kind="dependency" source="stressN"
+            target="X2InputParallelTest" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Copy" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Copy2" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Copy3" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Copy4" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="ParallelTest1" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="ParallelTest2" targetport="stressN"/>
+        <edge kind="dependency" source="stressN" target="Actuator" targetport="stressN"/>
+        <edge kind="dependency" source="N" target="Sensor" targetport="N"/>
+    </graph>
+</graphml>
