@@ -23,6 +23,11 @@ void _getBrightness(const Mat& frame, double& brightness) {
 	Scalar summ = sum(lum);
 	//-- percentage conversion factor
 	brightness = summ[0]/((pow(2,8)-1)*frame.rows * frame.cols) * 2;
+	temp.release();
+	color[0].release();
+	color[1].release();
+	color[2].release();
+	lum.release();
 }
 
 // https://stackoverflow.com/questions/27114425/opencv-convert-rgb-matrix-to-1d-array
@@ -38,9 +43,10 @@ void matToRGB(Mat openCVImage, rgbimg* outimg) {
 	       outimg->b[y*XSAMPLING + x] = blue;
 	   }
 	}
+	openCVImage.release();
 }
 
-unsigned char * interleave(rgbimg* img) {
+Mat RGBToMat(rgbimg* img) {
 	unsigned char * res = (unsigned char *) malloc (XSAMPLING * YSAMPLING * 3);
 	for (int y = 0; y < YSAMPLING; y++) {
 		for (int x = 0; x < XSAMPLING; x++) {
@@ -49,11 +55,7 @@ unsigned char * interleave(rgbimg* img) {
 			res[(y * XSAMPLING + x) * 3 + 2] = img->r[y * XSAMPLING + x];
 		}
 	}
-	return res;
-}
-
-Mat RGBToMat(rgbimg* img) {
-	unsigned char* pixels = interleave(img);
-	Mat src =  Mat(YSAMPLING,XSAMPLING, CV_8UC3, pixels);
+	Mat src =  Mat(YSAMPLING,XSAMPLING, CV_8UC3, res).clone();
+	free(res);
 	return src;
 }

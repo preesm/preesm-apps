@@ -37,17 +37,21 @@ void read(rgbimg* img) {
 	Mat resizedFrame;
 	resize(inputFrame, resizedFrame, Size(XSAMPLING, YSAMPLING), INTER_LINEAR);
 	matToRGB(resizedFrame, img);
+	resizedFrame.release();
+	inputFrame.release();
 }
 
 void computeBrightness(rgbimg * img, double * b) {
 	Mat src =  RGBToMat(img);
 	_getBrightness(src, *b);
+	src.release();
 }
 
 void display(rgbimg * img, unsigned int displayID) {
 	Mat m = RGBToMat(img);
 	imshow(displays[displayID], m);
 	waitKey(15);
+	m.release();
 }
 
 void computeBrightnessAndForward(IN rgbimg * img_in, OUT double * brightness, OUT rgbimg * img_out) {
@@ -63,15 +67,10 @@ void configActor(IN double * brightness, long * param) {
 	}
 }
 
-void configActor_sink(IN double * brightness) {
-	// nothing
-}
-
 void blur(IN rgbimg * img_in, OUT rgbimg * img_out, int someParameter) {
 	if (someParameter) {
 		Mat m = RGBToMat(img_in);
 	    GaussianBlur(m, m, Size(7,7), 1.5, 1.5);
-//        cvtColor(m,m,COLOR_RGB2YCrCb);
 		matToRGB(m, img_out);
 	} else {
 		memcpy(img_out, img_in, sizeof(rgbimg));
@@ -84,6 +83,7 @@ void canny(IN rgbimg * img_in, OUT rgbimg * img_out, int someParameter) {
         Canny(m,m,100,200);
         cvtColor(m,m,COLOR_GRAY2RGB);
 		matToRGB(m, img_out);
+		m.release();
 	} else {
 		memcpy(img_out, img_in, sizeof(rgbimg));
 	}
@@ -97,6 +97,7 @@ void sobel(IN rgbimg * img_in, OUT rgbimg * img_out, int someParameter) {
 	    int ddepth = CV_16S;
 	    Sobel( m, m, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
 	    matToRGB(m, img_out);
+		m.release();
 	} else {
 		memcpy(img_out, img_in, sizeof(rgbimg));
 	}
@@ -119,6 +120,7 @@ void doSomething(IN rgbimg * img_in, OUT rgbimg * img_out, int someParameter) {
 	if (someParameter) {
 		Mat m = RGBToMat(img_in);
 		matToRGB(m, img_out);
+		m.release();
 	} else {
 		memcpy(img_out, img_in, sizeof(rgbimg));
 	}
