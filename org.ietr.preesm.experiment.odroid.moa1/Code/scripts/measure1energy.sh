@@ -136,9 +136,11 @@ odroid_sudo_exec 'rm -rf ~/Code'
 if [ ${EXPERIMENT_ID} -ge 64 ]; then
     APPPATH=Code/Stereo
     TARGETSCRIPT=targetScriptStereo.sh
+    BINNAME=stereo
 else
     APPPATH=Code
     TARGETSCRIPT=targetScriptTestCom.sh
+    BINNAME=test-moa
 fi
 
 # clean generated Code from previous phases
@@ -160,15 +162,11 @@ rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
 odroid_exec "cd ~/Code/bin/make && make"
 
-
-#cd ~/Code
-#rm -r bin
-#./CMakeGCC.sh
-#cd bin/make
-#make
-#cd ~/Code
-#mkdir stats
-
+if [ ${EXPERIMENT_ID} -ge 64 ]; then
+  odroid_exec "cd ~/Code/bin/make && ./stereo"
+else
+  odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./test_moa"
+fi
 
 ###################################
 ## Cleanup
