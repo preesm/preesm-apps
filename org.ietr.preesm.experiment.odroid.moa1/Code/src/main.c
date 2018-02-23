@@ -81,6 +81,8 @@ int main(void)
     // Creating a synchronization barrier
     pthread_barrier_init(&iter_barrier, NULL, nb_threads);
 
+    communicationInit();
+
     // Creating threads A7 cluster
     if(computationThread_A7_Core0  && !emptyLoop_A7_Core0){
       pthread_create(&threadCore0, NULL, computationThread_A7_Core0, NULL);
