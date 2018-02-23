@@ -24,7 +24,9 @@ USR=odroid # Odroid user
 PSD=odroid # Odroid user password
 
 #APPDIR='/home/payvar/preesm-2.8.0-linux.gtk.x86_64/workspace/org.ietr.preesm.experiment.odroid.moa1'
-APPDIR="/home/anmorvan/test/max_droid/org.ietr.preesm.experiment.odroid.moa1/"
+#APPDIR="/home/anmorvan/test/max_droid/org.ietr.preesm.experiment.odroid.moa1/"
+APPDIR=$(cd `dirname ${0}`/../.. && pwd)
+
 #PREESMDIR='/home/payvar/preesm-2.8.0-linux.gtk.x86_64'
 PREESMDIR="/home/anmorvan/test/preesm-2.8.0-linux.gtk.x86_64/"
  # Experiment ID corresponding to the scenario
