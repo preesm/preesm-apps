@@ -131,13 +131,27 @@ odroid_init_board
 # Clean previous code version on target
 odroid_sudo_exec 'rm -rf ~/Code'
 
+
+if [ ${EXPERIMENT_ID} -ge 64 ]; then
+    APPPATH=Code/Stereo
+else
+    APPPATH=Code
+fi
+
 # clean generated Code from previous phases
-rm -rf ${APPDIR}/Code/generated ${APPDIR}/Code/bin
+rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/{APPPATH}/bin
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
+#####################
+#####################
+## todo : handle affinity in codegen
+rm -f ${APPDIR}/${APPPATH}/generated/main.c
+#####################
+#####################
+
 # transfer Code on odroid board
-rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Code ${USR}@${IP}:/home/${USR}/
+rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${USR}/Code
 
 # Compile Code
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
@@ -166,23 +180,8 @@ exit
     # Repeating N times the launch
     for execit in 0 1 2 3 4 5 6 7 8 9
     do
-      # Running code on the Odroid target
-      if [ "$1" -ge "64" ]
-      then
-        
-        # Running code on the Odroid target
-        if [ "$1" -ge "3411" ]
-        then
-            # Scenarios over 3411 correspond to crypto application
-            ssh odroid@$IP 'sudo bash -s' < targetScriptCrypto.sh
-        else
-            # Scenarios between 64 and 3410 correspond to stereo application
-            ssh odroid@$IP 'sudo bash -s' < targetScriptTestCom.sh
-        fi
-      else
-          # Scenarios under 64 correspond to testcom application
-          ssh odroid@$IP 'sudo bash -s' < targetScriptTestCom.sh
-      fi
+      # Scenarios between 64 and 3410 correspond to stereo application
+      ssh odroid@$IP 'sudo bash -s' < targetScriptTestCom.sh
 
       # Copying back the power data on PC
       mkdir -p $APPLI/finalstats/mat/activity
