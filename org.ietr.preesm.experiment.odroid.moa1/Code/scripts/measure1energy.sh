@@ -24,7 +24,8 @@ USR=odroid # Odroid user
 PSD=odroid # Odroid user password
 
 #PREESMDIR='/home/payvar/preesm-2.8.0-linux.gtk.x86_64'
-PREESMDIR="/home/anmorvan/test/preesm-2.8.0-linux.gtk.x86_64/"
+#PREESMDIR="/home/anmorvan/test/preesm-2.8.0-linux.gtk.x86_64/"
+PREESMDIR="/home/anmorvan/test/preesm-2.8.0-SNAPSHOT201802231522-linux.gtk.x86_64/"
  # Experiment ID corresponding to the scenario
 EXPERIMENT_ID=$1
 
@@ -134,12 +135,14 @@ odroid_sudo_exec 'rm -rf ~/Code'
 
 if [ ${EXPERIMENT_ID} -ge 64 ]; then
     APPPATH=Code/Stereo
+    TARGETSCRIPT=targetScriptStereo.sh
 else
     APPPATH=Code
+    TARGETSCRIPT=targetScriptTestCom.sh
 fi
 
 # clean generated Code from previous phases
-rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/{APPPATH}/bin
+rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
