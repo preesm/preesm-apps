@@ -25,9 +25,17 @@
 #define _XOPEN_SOURCE 600
 #endif
 
+#define _GNU_SOURCE
 
 #include <string.h>
 #include <pthread.h>
+
+#include <sched.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <assert.h>
+
 #include <semaphore.h>
 
 #include "communication.h"
