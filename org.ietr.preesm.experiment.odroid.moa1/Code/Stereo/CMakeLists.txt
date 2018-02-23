@@ -14,7 +14,6 @@ if(${CMAKE_GENERATOR} MATCHES "Visual Studio 9 2008")
 	add_definitions( -D_CRT_SECURE_NO_WARNINGS )
 endif()
 
-add_definitions( -DLOOP_SIZE=100 )
 project(Stereo)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_C_FLAGS "-std=c99 -O3") 
