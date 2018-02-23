@@ -13,7 +13,7 @@
 
 #include "ARM.h"
 
-// GCC specific! Week attribute makes function existence testable
+// GCC specific! Weak attribute makes function existence testable
 void *computationThread_A15_Core4(void *arg) __attribute__((weak));
 void *computationThread_A15_Core5(void *arg) __attribute__((weak));
 void *computationThread_A15_Core6(void *arg) __attribute__((weak));
