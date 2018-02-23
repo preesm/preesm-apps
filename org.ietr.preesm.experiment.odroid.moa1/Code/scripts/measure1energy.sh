@@ -146,7 +146,7 @@ rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/{APPPATH}/bin
 #####################
 #####################
 ## todo : handle affinity in codegen
-rm -f ${APPDIR}/${APPPATH}/generated/main.c
+#rm -f ${APPDIR}/${APPPATH}/generated/main.c
 #####################
 #####################
 
