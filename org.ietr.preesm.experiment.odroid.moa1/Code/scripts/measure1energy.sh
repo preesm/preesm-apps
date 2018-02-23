@@ -44,7 +44,6 @@ WORKSPACE=$(mktemp -d --suffix=_preesm-workspace)
 WORKFLOW="Codegen.workflow"
 SCENARIO="TestComPC_${EXPERIMENT_ID}.scenario"
 
-    
 # SSH key file name
 SSHKEYFILE=id_rsa_odroid
 
@@ -58,7 +57,7 @@ function odroid_init_board() {
   
   # generate a ssh key to avoid interactive communications
   [ ! -e ${SSHKEYFILE} ] && ssh-keygen -f ${SSHKEYFILE} -t rsa -N ''
-  echo -e "${PSD}\n" | ssh-copy-id -i ${SSHKEYFILE}.pub ${USR}@${IP}
+  ssh-copy-id -i ${SSHKEYFILE}.pub ${USR}@${IP}
   
   # make sudo skip asking password for user 
   set +e
@@ -76,12 +75,27 @@ function odroid_init_board() {
 }
 
 function odroid_sudo_exec() {
+  # create tmp files on both sides
+  LOCALTMP=$(mktemp)
+  REMOTETMP=$(ssh -i ${SSHKEYFILE} ${USR}@${IP} /bin/bash -c "mktemp")
+  
+  # init local script then transfer it
+  echo "$@" > ${LOCALTMP}
+  scp -q -i ${SSHKEYFILE} ${LOCALTMP} ${USR}@${IP}:${REMOTETMP}
+  ssh -i ${SSHKEYFILE} ${USR}@${IP} chmod 777 ${REMOTETMP}
+  
+  # exec script
   echo "[ODROID - START] sudo ${@}"
   set +e
-  ssh -i ${SSHKEYFILE} ${USR}@${IP} /usr/bin/sudo ${@}
+  ssh -i ${SSHKEYFILE} ${USR}@${IP} /usr/bin/sudo ${REMOTETMP}
   RES=$?
   set -e
   echo "[ODROID - EXIT (${RES})] sudo ${@}"
+  
+  # cleanup
+  ssh -i ${SSHKEYFILE} ${USR}@${IP} rm ${REMOTETMP}
+  rm ${LOCALTMP}
+  
   return ${RES}
 }
 
@@ -119,7 +133,7 @@ odroid_init_board
 odroid_sudo_exec 'rm -rf ~/Code'
 
 # clean generated Code from previous phases
-rm -rf ${APPDIR}/Code/generated
+rm -rf ${APPDIR}/Code/generated ${APPDIR}/Code/bin
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
