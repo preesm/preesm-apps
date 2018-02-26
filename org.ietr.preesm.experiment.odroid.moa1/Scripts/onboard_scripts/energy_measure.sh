@@ -88,6 +88,7 @@ esac
 
 ITERATION=0
 declare -A measures
+MEASURECOUNT=0
 
 # init array. Necessary to avoid unbound variable error
 for DEV in ${DEV_LIST}; do
@@ -97,7 +98,7 @@ for DEV in ${DEV_LIST}; do
   if [ "${DEV}" == "A15" ]; then
     # also measure temperature for A15
     for CORE_ID in $(seq 4 7); do
-      measures[${DEV},${CORE_ID}]+=""
+      measures[${DEV},${CORE_ID}]=""
     done
   fi
 done
@@ -123,6 +124,8 @@ while [ ! -z "$(pidof $2)" ]; do
   ITERATION=$((ITERATION+1))
   # 10 Hz measurements
   sleep 0.1s
+  MEASURECOUNT=$((MEASURECOUNT + 1))
+  echo "Measure #${MEASURECOUNT}"
 done
 
 #Write the values in files
@@ -134,7 +137,7 @@ for DEV in ${DEV_LIST}; do
   if [ "${DEV}" == "A15" ]; then
     # also write temperature for A15
     for CORE_ID in $(seq 4 7); do
-      echo "${measures[${DEV},${CORE_ID}]}" > ${SCRIPT_DIR}/Results/temp_core_${CORE_ID}.csv
+      echo "${measures[${DEV},${CORE_ID}]}" > ${SCRIPT_DIR}/Results/CPU${CORE_ID}_T.csv
     done
   fi
 done
