@@ -31,21 +31,20 @@ EXPERIMENT_ID=$1
 
 
 ###################################
-## Generated Config
+## Generated / Constant Config
 ###################################
 
-APPDIR=$(cd `dirname ${0}`/../.. && pwd)
+APPDIR=$(cd `dirname ${0}`/../ && pwd)
 # parse project name from .project file
 PROJECT=$(cat $APPDIR/.project | grep -oPm1 "(?<=<name>)[^<]+")
 # use temporary directory as workspace
 WORKSPACE=$(mktemp -d --suffix=_preesm-workspace)
 
-
 WORKFLOW=Codegen.workflow
 SCENARIO="TestComPC_${EXPERIMENT_ID}.scenario"
 
 # SSH key file name
-SSHKEYFILE=id_rsa_odroid
+SSHKEYFILE=.id_rsa_odroid
 
 ###################################
 ## Functions
@@ -144,7 +143,7 @@ else
 fi
 
 # clean generated Code from previous phases
-rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin
+rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPATH}/stats
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
@@ -157,10 +156,12 @@ rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin
 
 # transfer Code on odroid board
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${USR}/Code
+rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts ${USR}@${IP}:/home/${USR}/Code/
 
 # Compile Code
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
 odroid_exec "cd ~/Code/bin/make && make"
+odroid_exec "mkdir -p ~/Code/stats"
 
 if [ ${EXPERIMENT_ID} -ge 64 ]; then
   odroid_exec "cd ~/Code/bin/make && ./stereo"
@@ -168,16 +169,13 @@ else
   odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./test_moa"
 fi
 
+
 ###################################
 ## Cleanup
 ###################################
 
 rm -rf ${WORKSPACE}
 exit
-
-    # Copying the code to the Odroid target. The code is in the workspace copy of the project.
-    cp -Rf $WORKSPACE/$PROJECT/Code ~/Temp/odroid/home/odroid
-
     # Repeating N times the launch
     for execit in 0 1 2 3 4 5 6 7 8 9
     do
