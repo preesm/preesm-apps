@@ -6,121 +6,123 @@
 # arg2 : program name
 
 
-[ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
+[ $# -ne 2 ] && echo "Error: requires 2 arguments" && exit 1
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
+SCRIPT_DIR=$(cd `dirname ${0}`/ && pwd)
+CLUSTER_NAME=$(echo $1 | awk '{print toupper($0)}')
+PROGRAM_NAME=$2
+
+TEMPERATURES_PATH="/sys/devices/10060000.tmu/temp"
+INA_DRV_BASEPATH="/sys/bus/i2c/drivers/INA231/"
+INA_DRV_ID=$(ls ${INA_DRV_BASEPATH} | grep ".-0045" | cut -d'-' -f1)
+
+A15_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0040/"
+ME_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0041/"
+A7_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0045/"
+
+function print_sensor_value() {
+  DEVICE=$1
+  SENSOR=$2
+  case ${DEVICE} in
+    A7)
+      DEV_INA_DRV_PATH="${A7_INA_DRV_PATH}"
+      ;;
+    A15)
+      DEV_INA_DRV_PATH="${A15_INA_DRV_PATH}"
+      ;;
+    ME)
+      DEV_INA_DRV_PATH="${ME_INA_DRV_PATH}"
+      ;;
+    *)
+      echo "Error: invalid device '${DEVICE}'"
+      exit 1
+      ;;
+  esac
+  case ${SENSOR} in
+    W | A | V)
+      cat "${DEV_INA_DRV_PATH}/sensor_${SENSOR}"
+      ;;
+    *)
+      echo "Error: invalid device '${DEVICE}'"
+      exit 1
+      ;;
+  esac
+}
+
+function print_cpu_temp() {
+  CORE_ID=$1
+  case ${CORE_ID} in
+    0 | 1 | 2 | 3)
+      echo "Error: cannot get temperature for cores 0 to 3."
+      exit 1
+      ;;
+    4 | 5 | 6 | 7)
+      TEMP_ID=$((CORE_ID - 3))
+      ;;
+    GPU)
+      TEMP_ID=5
+      ;;
+    *)
+      echo "Error: unsupported core id ${CORE_ID}."
+      exit 1
+      ;;
+  esac
+  cat ${TEMPERATURES_PATH} | awk "FNR == ${TEMP_ID} {print \$3}"
+}
+
+
+case ${CLUSTER_NAME} in
+  A7)
+    DEV_LIST="A7"
+    ;;
+  A15)
+    DEV_LIST="A15"
+    ;;
+  ALL)
+    DEV_LIST="A7 A15 ME"
+    ;;
+  *)
+    echo "Invalid cluster name (expect A7, A15 or All)";
+    exit
+    ;;
+esac
 
 total=0.0
 measurement_number=0
 
+while [ ! -z "$(pidof $2)" ]; do
+  for DEV in ${DEV_LIST}; do
+    tab_W[${measurement_number}]=$(print_sensor_value ${DEV} W)
+    tab_A[${measurement_number}]=$(print_sensor_value ${DEV} A)
+    tab_V[${measurement_number}]=$(print_sensor_value ${DEV} V)
+    if [ "${DEV}" == "A15" ]; then
+      # also measure temperature for A15
+      tab_T_4[$measurement_number]=$(print_cpu_temp 4)
+      tab_T_5[$measurement_number]=$(print_cpu_temp 5)
+      tab_T_6[$measurement_number]=$(print_cpu_temp 6)
+      tab_T_7[$measurement_number]=$(print_cpu_temp 7)
+    fi
+  done
+  
+  measurement_number=$((measurement_number+1))
+  # 10 Hz measurements
+  sleep 0.1s
+done
 
-INA_DRV_ID=$(ls /sys/bus/i2c/drivers/INA231/ | grep ".-0045" | cut -d'-' -f1)
-
-if [ $1 == "A7" ]; then
-	while [ ! -z "$(pidof $2)" ]; do
-
-		#Get the values of the sensors
-		CPU_W_A7=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0045/sensor_W`
-		CPU_A_A7=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0045/sensor_A`
-		CPU_V_A7=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0045/sensor_V`
-
-		#Write there values in tables
-		tab_W[$measurement_number]=`echo "$CPU_W_A7"`
-		tab_A[$measurement_number]=`echo "$CPU_A_A7"`
-		tab_V[$measurement_number]=`echo "$CPU_V_A7"`
-
-		#Incerment the index table
-		measurement_number=$((measurement_number+1))
-
-		# 10 Hz measurements
-		#sleep 0.1s
-	done
-
-
-elif [ $1 == "A15" ];then
-	while [ ! -z "$(pidof $2)" ]; do
-	
-		#Get the values of the sensors
-		CPU_W_A15=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0040/sensor_W`
-		CPU_A_A15=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0040/sensor_A`
-		CPU_V_A15=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0040/sensor_V`
-
-		CPU5_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 1 {print $3}'`
-		CPU6_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 2 {print $3}'`
-		CPU7_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 3 {print $3}'`
-		CPU8_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 4 {print $3}'`
-
-		#Write there values in tables
-		tab_W[$measurement_number]=`echo "$CPU_W_A15"`
-		tab_A[$measurement_number]=`echo "$CPU_A_A15"`
-		tab_V[$measurement_number]=`echo "$CPU_V_A15"`
-
-		tab_T_5[$measurement_number]=`echo "$CPU5_TEMP"`
-		tab_T_6[$measurement_number]=`echo "$CPU6_TEMP"`
-		tab_T_7[$measurement_number]=`echo "$CPU7_TEMP"`
-		tab_T_8[$measurement_number]=`echo "$CPU8_TEMP"`
-
-		#Incerment the index table
-		measurement_number=$((measurement_number+1))
-
-		# 10 Hz measurements
-		#sleep 0.1s
-	done
-
-
-elif [ $1 == "All" ];then
-	while [ ! -z "$(pidof $2)" ]; do
-	
-		#Get the values of the sensors
-		CPU_W_A7=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0045/sensor_W`
-		CPU_W_A15=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0040/sensor_W`
-		CPU_W_ME=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0041/sensor_W`
-	
-		CPU_A_A7=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0045/sensor_A`
-		CPU_A_A15=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0040/sensor_A`
-		CPU_A_ME=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0041/sensor_A`
-
-		CPU_V_A7=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0045/sensor_V`
-		CPU_V_A15=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0040/sensor_V`
-		CPU_V_ME=`cat /sys/bus/i2c/drivers/INA231/${INA_DRV_ID}-0041/sensor_V`
-
-		CPU5_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 1 {print $3}'`
-		CPU6_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 2 {print $3}'`
-		CPU7_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 3 {print $3}'`
-		CPU8_TEMP=`cat /sys/devices/10060000.tmu/temp | awk 'FNR == 4 {print $3}'`
-
-		#Write there values in tables
-		tab_W[$measurement_number]=`echo "$CPU_W_A7 $CPU_W_A15 $CPU_W_ME ; "`
-		tab_A[$measurement_number]=`echo "$CPU_A_A7 $CPU_A_A15 $CPU_A_ME ; "`
-		tab_V[$measurement_number]=`echo "$CPU_V_A7 $CPU_V_A15 $CPU_V_ME ; "`
-
-		tab_T_5[$measurement_number]=`echo "$CPU5_TEMP"`
-		tab_T_6[$measurement_number]=`echo "$CPU6_TEMP"`
-		tab_T_7[$measurement_number]=`echo "$CPU7_TEMP"`
-		tab_T_8[$measurement_number]=`echo "$CPU8_TEMP"`
-
-		#Incerment the index table
-		measurement_number=$((measurement_number+1))
-
-		# 10 Hz measurements
-		#sleep 0.1s
-	done
-else
-	echo "Invalide argument";
-	exit
-fi
-
-mkdir -p Results
+mkdir -p ${SCRIPT_DIR}/Results
 #Write the values in files
-echo "${tab_W[@]}" >> Results/power.csv;
-echo "${tab_A[@]}" >> Results/intensity.csv;
-echo "${tab_V[@]}" >> Results/tension.csv;
+echo "${tab_W[@]}" >> ${SCRIPT_DIR}/Results/power.csv;
+echo "${tab_A[@]}" >> ${SCRIPT_DIR}/Results/intensity.csv;
+echo "${tab_V[@]}" >> ${SCRIPT_DIR}/Results/tension.csv;
 
-if [ $1 == "A15" -o $1 == "All" ];then
-	echo "${tab_T_5[@]}" >> Results/temp_core_5.csv;
-	echo "${tab_T_6[@]}" >> Results/temp_core_6.csv;
-	echo "${tab_T_7[@]}" >> Results/temp_core_7.csv;
-	echo "${tab_T_8[@]}" >> Results/temp_core_8.csv;
-fi
+case ${DEV_LIST} in
+  *A15*)
+    echo "${tab_T_4[@]}" >> ${SCRIPT_DIR}/Results/temp_core_4.csv;
+    echo "${tab_T_5[@]}" >> ${SCRIPT_DIR}/Results/temp_core_5.csv;
+    echo "${tab_T_6[@]}" >> ${SCRIPT_DIR}/Results/temp_core_6.csv;
+    echo "${tab_T_7[@]}" >> ${SCRIPT_DIR}/Results/temp_core_7.csv;
+    ;;
+esac
 
-
+exit 0
