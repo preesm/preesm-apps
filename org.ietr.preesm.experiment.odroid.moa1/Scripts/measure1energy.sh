@@ -161,14 +161,23 @@ rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts/onboard_scripts/* ${USR}@$
 # Compile Code
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
 odroid_exec "cd ~/Code/bin/make && make"
+
+# prepare board for energy measurement
 odroid_exec "mkdir -p ~/Code/stats"
+odroid_sudo_exec "~/Code/Scripts/configure.sh"
 
 if [ ${EXPERIMENT_ID} -ge 64 ]; then
-  odroid_exec "cd ~/Code/bin/make && ./stereo"
+  odroid_exec "cd ~/Code/bin/make && ./${BINNAME}" &
 else
-  odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./test_moa"
+  odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./${BINNAME}" &
 fi
+odroid_exec "~/Code/Scripts/energy_measure.sh All ${BINNAME}" &
+wait
+wait
 
+echo ""
+echo "done"
+echo ""
 
 ###################################
 ## Cleanup
