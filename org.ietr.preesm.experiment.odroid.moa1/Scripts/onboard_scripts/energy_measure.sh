@@ -104,6 +104,7 @@ for DEV in ${DEV_LIST}; do
 done
 
 # Querry measures
+start_ts=$(date '+%s')
 while [ ! -z "$(pidof $2)" ]; do
   for DEV in ${DEV_LIST}; do
     for SENSOR in W A V; do
@@ -122,11 +123,13 @@ while [ ! -z "$(pidof $2)" ]; do
   done
   
   ITERATION=$((ITERATION+1))
-  # 10 Hz measurements
-  sleep 0.1s
+  # used for computing measure rate (in Hz)
   MEASURECOUNT=$((MEASURECOUNT + 1))
-  echo "Measure #${MEASURECOUNT}"
 done
+end_ts=$(date '+%s')
+total_ts=$((end_ts - start_ts + 1))
+
+MEASURE_FREQ=$((MEASURECOUNT / total_ts))
 
 #Write the values in files
 mkdir -p ${SCRIPT_DIR}/Results
@@ -141,5 +144,6 @@ for DEV in ${DEV_LIST}; do
     done
   fi
 done
+echo "${MEASURE_FREQ} Hz" > ${SCRIPT_DIR}/Results/measure_rate
 
 exit 0

@@ -143,7 +143,7 @@ else
 fi
 
 # clean generated Code from previous phases
-rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPATH}/stats
+rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPATH}/stats ${APPDIR}/${APPPATH}/finalstats
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
@@ -158,6 +158,7 @@ rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPA
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${USR}/Code
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts/onboard_scripts/* ${USR}@${IP}:/home/${USR}/Code/Scripts/
 
+
 # Compile Code
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
 odroid_exec "cd ~/Code/bin/make && make"
@@ -165,24 +166,33 @@ odroid_exec "cd ~/Code/bin/make && make"
 # prepare board for energy measurement
 odroid_exec "mkdir -p ~/Code/stats"
 odroid_sudo_exec "~/Code/Scripts/configure.sh"
+mkdir -p ${APPDIR}/${APPPATH}/finalstats
 
-if [ ${EXPERIMENT_ID} -ge 64 ]; then
-  odroid_exec "cd ~/Code/bin/make && ./${BINNAME}" &
-else
-  odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./${BINNAME}" &
-fi
-odroid_exec "~/Code/Scripts/energy_measure.sh All ${BINNAME}" &
+for execit in $(seq 0 9); do
+  if [ ${EXPERIMENT_ID} -ge 64 ]; then
+    odroid_exec "cd ~/Code/bin/make && ./${BINNAME}" &
+  else
+    odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./${BINNAME}" &
+  fi
+  odroid_exec "~/Code/Scripts/energy_measure.sh All ${BINNAME}" &
 
-wait # application execution, within the if
-wait # monitoring execution , after the if
+  wait # application execution, within the if
+  wait # monitoring execution , after the if
+
+  # Copying back the data on local FS
+  odroid_exec "mv ~/Code/Scripts/Results ~/Code/Scripts/measure_${execit}" 
+  rsync -e "ssh -i ${SSHKEYFILE}" -au ${USR}@${IP}:/home/${USR}/Code/Scripts/measure_${execit} ${APPDIR}/${APPPATH}/finalstats/
+
+done;
 
 echo ""
 echo "Execution done"
 echo ""
 
-## TODO: get data from board to local FS
+      # Computing the energy
 
-
+      # Computing the time
+      
 ###################################
 ## Cleanup
 ###################################
@@ -190,8 +200,7 @@ echo ""
 rm -rf ${WORKSPACE}
 exit
     # Repeating N times the launch
-    for execit in 0 1 2 3 4 5 6 7 8 9
-    do
+    for execit in $(seq 0 9); do
       # Scenarios between 64 and 3410 correspond to stereo application
       ssh odroid@$IP 'sudo bash -s' < targetScriptTestCom.sh
 
