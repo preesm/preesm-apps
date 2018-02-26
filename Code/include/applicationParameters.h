@@ -58,7 +58,7 @@
 - Value set to val < 0.9 : High-pass filter. DC component is rapidly
 * eliminated. Rapid camera motions are compensated.
 */
-#define HIGH_PASS_FILTER_TAP 0.98
+#define HIGH_PASS_FILTER_TAP 0.98f
 
 /**
 * Width and height in pixels of the border displayed around the rendered image.

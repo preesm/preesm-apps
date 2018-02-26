@@ -18,15 +18,46 @@
 #include "stabilization.h"
 
 void renderFrame(const int frameWidth, const int frameHeight,
-				 const int dispWidth, const int dispHeight,
-				 const coordf * const delta,
-				 const unsigned char * const yIn, const unsigned char * const uIn, const unsigned char * const vIn,
-				 unsigned char * const yOut, unsigned char * const uOut, unsigned char * const vOut){
+	const int dispWidth, const int dispHeight,
+	const coordf * const delta,
+	const coordf * const deltaPrev,
+	const unsigned char * const yIn, const unsigned char * const uIn, const unsigned char * const vIn,
+	const unsigned char * const yPrev, const unsigned char * const uPrev, const unsigned char * const vPrev,
+	unsigned char * const yOut, unsigned char * const uOut, unsigned char * const vOut){
 
 	// Set the background color
 	memset(yOut, BG_BLACK_Y, dispWidth*dispHeight);
 	memset(uOut, BG_BLACK_U, dispWidth*dispHeight / 4);
 	memset(vOut, BG_BLACK_V, dispWidth*dispHeight / 4);
+
+	// Create the fading ghost of previous frame
+	// find position
+	int deltaPrevX = (int)roundf(deltaPrev->x);
+	int deltaPrevY = (int)roundf(deltaPrev->y);
+	int xPrevLeft = MAX(0, deltaPrevX);
+	int yPrevTop = MAX(0, deltaPrevY);
+	int xPrevRight = MIN(dispWidth, dispWidth + deltaPrevX);
+	int yPrevBot = MIN(dispHeight, dispHeight + deltaPrevY);
+
+	static int first = 1;
+
+	if (!first){
+		// Render Ghost
+		int lineLengthGhost = xPrevRight - xPrevLeft;
+		for (int j = yPrevTop; j < yPrevBot; j++){
+			memcpy(yOut + j*dispWidth + xPrevLeft, yPrev + (j + deltaPrevY)*dispWidth + (xPrevLeft + deltaPrevX), lineLengthGhost);
+		}
+
+
+		for (int j = yPrevTop / 2; j < yPrevBot / 2; j++){
+			memcpy(uOut + j*dispWidth / 2 + xPrevLeft / 2, uPrev + (j + deltaPrevY / 2)*(dispWidth / 2) + (xPrevLeft / 2 + deltaPrevX / 2), xPrevRight /2 - xPrevLeft / 2);
+			memcpy(vOut + j*dispWidth / 2 + xPrevLeft / 2, vPrev + (j + deltaPrevY / 2)*(dispWidth / 2) + (xPrevLeft / 2 + deltaPrevX / 2), xPrevRight/2 - xPrevLeft / 2);
+		}
+	}
+	else {
+		first = 0;
+	}
+
 
 	// Compute the position of the rendered frame
 	// top-left (first pixel position)
@@ -46,26 +77,26 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	int y;
 	for (y = yTopClip; y < yBotClip; y++){
 		memcpy(yOut + y*dispWidth + xLeftClip,
-			   yIn + (y - yTop)*frameWidth + (xLeftClip - xLeft),
-			   xRightClip - xLeftClip);
+			yIn + (y - yTop)*frameWidth + (xLeftClip - xLeft),
+			xRightClip - xLeftClip);
 	}
 
 	// Render UV
 	for (y = yTopClip / 2; y < yBotClip / 2; y++){
 		memcpy(uOut + y*dispWidth / 2 + xLeftClip / 2,
-			   uIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
-			   (xRightClip - xLeftClip) / 2);
+			uIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
+			(xRightClip - xLeftClip) / 2);
 		memcpy(vOut + y*dispWidth / 2 + xLeftClip / 2,
-			   vIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
-			   (xRightClip - xLeftClip) / 2);
+			vIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
+			(xRightClip - xLeftClip) / 2);
 	}
 }
 
 void computeBlockMotionVectors(const int width, const int height,
-							   const int blockWidth, const int blockHeight,
-							   const int maxDeltaX, const int maxDeltaY,
-							   const unsigned char * const frame, const unsigned char * const previousFrame,
-							   coord * const vectors){
+	const int blockWidth, const int blockHeight,
+	const int maxDeltaX, const int maxDeltaY,
+	const unsigned char * const frame, const unsigned char * const previousFrame,
+	coord * const vectors){
 	// Useful constant
 	const int blocksPerLine = width / blockWidth;
 	const int nbBlocks = ((width / blockWidth)*(height / blockHeight));
@@ -81,16 +112,16 @@ void computeBlockMotionVectors(const int width, const int height,
 	// Process the blocks one by one
 	int blY;
 	for (blY = 0; blY < (height / blockHeight); blY++){
-            int blX;
-		for ( blX = 0; blX < (width / blockWidth); blX++){
+		int blX;
+		for (blX = 0; blX < (width / blockWidth); blX++){
 			const unsigned char * const blockData = blocksData + (blY*blocksPerLine + blX)*blockSize;
 			const coord * const blockCoord = blocksCoord + blY*blocksPerLine + blX;
 			computeBlockMotionVector(width, height,
-									 blockWidth, blockHeight,
-									 maxDeltaX, maxDeltaY,
-									 blockCoord,
-									 blockData, previousFrame,
-									 vectors + blY*blocksPerLine + blX);
+				blockWidth, blockHeight,
+				maxDeltaX, maxDeltaY,
+				blockCoord,
+				blockData, previousFrame,
+				vectors + blY*blocksPerLine + blX);
 		}
 	}
 
@@ -101,11 +132,11 @@ void computeBlockMotionVectors(const int width, const int height,
 
 
 unsigned int computeMeanSquaredError(const int width, const int height,
-									 const int blockWidth, const int blockHeight,
-									 const int deltaX, const int deltaY,
-									 const coord * blockCoord,
-									 const unsigned char * const blockData,
-									 const unsigned char * const previousFrame){
+	const int blockWidth, const int blockHeight,
+	const int deltaX, const int deltaY,
+	const coord * blockCoord,
+	const unsigned char * const blockData,
+	const unsigned char * const previousFrame){
 	// Clip previous values to stay within the previousFrame
 	int yMinClip = MIN(MAX(0 - deltaY, 0), blockHeight);
 	int xMinClip = MIN(MAX(0 - deltaX, 0), blockWidth);
@@ -124,8 +155,8 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 	}
 	else {
 		cost = 0;
-		int y,x;
-		for ( y = yMinClip; y < yMaxClip; y++){
+		int y, x;
+		for (y = yMinClip; y < yMaxClip; y++){
 			for (x = xMinClip; x < xMaxClip; x++){
 				const unsigned char pixBlock = *(blockData + y*blockWidth + x);
 				const unsigned char pixFrame = *(previousFrame + (deltaY * width + deltaX) + y * width + x);
@@ -142,11 +173,11 @@ unsigned int computeMeanSquaredError(const int width, const int height,
 }
 
 void computeBlockMotionVector(const int width, const int height,
-							  const int blockWidth, const int blockHeight,
-							  const int maxDeltaX, const int maxDeltaY,
-							  const coord * const blockCoord, const unsigned char * const blockData,
-							  const unsigned char * const previousFrame,
-							  coord * const vector){
+	const int blockWidth, const int blockHeight,
+	const int maxDeltaX, const int maxDeltaY,
+	const coord * const blockCoord, const unsigned char * const blockData,
+	const unsigned char * const previousFrame,
+	coord * const vector){
 	// Compute neighboorhood start positions
 	// Top-left
 	int deltaYTop = blockCoord->y - maxDeltaY;
@@ -160,15 +191,15 @@ void computeBlockMotionVector(const int width, const int height,
 	vector->x = 0;
 	vector->y = 0;
 	// Raster scan neighborhood
-	int deltaY , deltaX;
-	for ( deltaY = deltaYTop; deltaY < deltaYBot; deltaY++){
+	int deltaY, deltaX;
+	for (deltaY = deltaYTop; deltaY < deltaYBot; deltaY++){
 		for (deltaX = deltaXLeft; deltaX < deltaXRight; deltaX++){
 			// Compute MSE
 			unsigned int cost = computeMeanSquaredError(width, height,
-														blockWidth, blockHeight,
-														deltaX, deltaY,
-														blockCoord,
-														blockData, previousFrame);
+				blockWidth, blockHeight,
+				deltaX, deltaY,
+				blockCoord,
+				blockData, previousFrame);
 
 			// Minimizes MSE
 			if (cost < minCost){
@@ -182,14 +213,14 @@ void computeBlockMotionVector(const int width, const int height,
 
 
 void divideBlocks(const int width, const int height,
-				  const int blockWidth, const int blockHeight,
-				  const unsigned char * const frame,
-				  coord * const blocksCoord,
-				  unsigned char * const blocksData){
+	const int blockWidth, const int blockHeight,
+	const unsigned char * const frame,
+	coord * const blocksCoord,
+	unsigned char * const blocksData){
 	const int blocksPerLine = width / blockWidth;
 	const int blockSize = blockHeight*blockWidth;
 	// Raster scan blocks
-	int x,y;
+	int x, y;
 	for (y = 0; y < height / blockHeight; y++){
 		for (x = 0; x < blocksPerLine; x++){
 			coord * blockCoord = blocksCoord + y*(blocksPerLine)+x;
@@ -198,17 +229,17 @@ void divideBlocks(const int width, const int height,
 			blockCoord->x = x*blockWidth;
 			blockCoord->y = y*blockHeight;
 			// Copy block lines in output
-			for ( line = 0; line < blockHeight; line++){
+			for (line = 0; line < blockHeight; line++){
 				memcpy(blockData + line * blockWidth,
-					   frame + (y*blockHeight + line)*width + x*blockWidth,
-					   blockWidth);
+					frame + (y*blockHeight + line)*width + x*blockWidth,
+					blockWidth);
 			}
 		}
 	}
 }
 
 void findDominatingMotionVector(const int nbVectors,
-								const coord * const vectors, coordf * const dominatingVector){
+	const coord * const vectors, coordf * const dominatingVector){
 	static int first = 0;
 
 	const unsigned char * pFrame;
@@ -244,7 +275,7 @@ void findDominatingMotionVector(const int nbVectors,
 		dominatingVector->x = 0.0f;
 		dominatingVector->y = 0.0f;
 		int nbAbove = 0;
-		for ( i = 0; i < nbVectors; i++){
+		for (i = 0; i < nbVectors; i++){
 			if (probas[i] > threshold){
 				nbAbove++;
 				dominatingVector->x += vectors[i].x;
@@ -260,7 +291,13 @@ void findDominatingMotionVector(const int nbVectors,
 	}
 }
 
-void accumulateMotion(const coordf * const motionVector, const coordf * const accumulatedMotionIn, coordf * const accumulatedMotionOut){
+void accumulateMotion(const coordf * const motionVector, const coordf * const accumulatedMotionIn, const coordf * const filteredMotionIn, coordf * const filteredMotionOut, coordf * const accumulatedMotionOut){
+
+	// Compute filtered motion
+	filteredMotionOut->x -= roundf(filteredMotionIn->x);
+	filteredMotionOut->y -= roundf(filteredMotionIn->y);
+	filteredMotionOut->x = filteredMotionOut->x + (accumulatedMotionIn->x * (1.0f - HIGH_PASS_FILTER_TAP));
+	filteredMotionOut->y = filteredMotionOut->y + (accumulatedMotionIn->y * (1.0f - HIGH_PASS_FILTER_TAP));
 
 	// Apply filter
 	accumulatedMotionOut->x = accumulatedMotionIn->x * HIGH_PASS_FILTER_TAP;

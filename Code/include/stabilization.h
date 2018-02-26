@@ -41,6 +41,7 @@
 * where the input frame is placed in front of a black background. The position
 * of the frame is centered with a displacement of deltaX and deltaY pixels on
 * the abscissa and ordinate coordinates respectively.
+* This function also renders a ghost of previously rendered frames.
 *
 * @param frameWidth
 *		 width of the input frame in pixels.
@@ -52,12 +53,20 @@
 *		 height of the rendered frame in pixels.
 * @param delta
 *		 displacement of the input frame.
+* @param deltaPrev
+*		 displacement of the previous frame due to accumulated motion filtering.
 * @param yIn
 *        the Y component of the frame to render.
 * @param uIn
 *        the U component of the frame to render.
 * @param vIn
 *        the V component of the frame to render.
+* @param yPrev
+*        the Y component of the previously rendered frame (for Ghost).
+* @param uPrev
+*        the U component of the previously rendered frame (for Ghost).
+* @param vPrev
+*        the V component of the previously rendered frame (for Ghost).
 * @param yOut
 *        the Y component of the rendered frame.
 * @param uOut
@@ -68,7 +77,9 @@
 void renderFrame(const int frameWidth, const int frameHeight,
 				 const int dispWidth, const int dispHeight,
 				 IN const coordf * const delta,
+				 IN const coordf * const deltaPrev,
 				 IN const unsigned char * const yIn, IN const unsigned char * const uIn, IN const unsigned char * const vIn,
+				 IN const unsigned char * const yPrev, IN const unsigned char * const uPrev, IN const unsigned char * const vPrev,
 				 OUT unsigned char * const yOut, OUT unsigned char * const uOut, OUT unsigned char * const vOut);
 
 /**
@@ -235,7 +246,7 @@ void findDominatingMotionVector(const int nbVectors,
 ** @param accumulatedMotionOut
 *        updated accumulated 2D motion vector.
 */
-void accumulateMotion(IN const coordf * const motionVector, IN const coordf * const accumulatedMotionIn, OUT coordf * const accumulatedMotionOut);
+void accumulateMotion(IN const coordf * const motionVector, IN const coordf * const accumulatedMotionIn, IN coordf * const filteredMotionIn, OUT coordf * const filteredMotionOut, OUT coordf * const accumulatedMotionOut);
 
 
 #endif

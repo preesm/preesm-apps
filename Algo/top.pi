@@ -87,7 +87,7 @@
         </node>
         <node id="DuplicateY" kind="broadcast">
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="READ_ONLY" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
             <port annotation="NONE" expr="size" kind="output" name="out_2"/>
@@ -113,13 +113,13 @@
         </node>
         <node id="DuplicateU" kind="broadcast">
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size/4" kind="input" name="in"/>
+            <port annotation="READ_ONLY" expr="size/4" kind="input" name="in"/>
             <port annotation="NONE" expr="size/4" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size/4" kind="output" name="out_1"/>
         </node>
         <node id="DuplicateV" kind="broadcast">
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size/4" kind="input" name="in"/>
+            <port annotation="READ_ONLY" expr="size/4" kind="input" name="in"/>
             <port annotation="NONE" expr="size/4" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size/4" kind="output" name="out_1"/>
         </node>

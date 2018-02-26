@@ -22,9 +22,11 @@ int main(int argc, char** argv)
 	static unsigned char y[HEIGHT*WIDTH], u[HEIGHT*WIDTH / 4], v[HEIGHT*WIDTH / 4];
 	static unsigned char yPrevious[HEIGHT*WIDTH];
 	static unsigned char yDisp[DISPLAY_W*DISPLAY_H], uDisp[DISPLAY_W*DISPLAY_H / 4], vDisp[DISPLAY_W*DISPLAY_H / 4];
+	static unsigned char yDispPrev[DISPLAY_W*DISPLAY_H], uDispPrev[DISPLAY_W*DISPLAY_H / 4], vDispPrev[DISPLAY_W*DISPLAY_H / 4];
 	static coord motionVectors[(HEIGHT / BLOCK_HEIGHT)*(WIDTH / BLOCK_WIDTH)];
 	static coordf dominatingMotionVector;
 	static coordf accumulatedMotion = { 0.0f, 0.0f };
+	static coordf filteredMotion;
 
 	// Init display
 	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
@@ -60,10 +62,15 @@ int main(int argc, char** argv)
 		#endif
 
 		// Accumulate motion
-		accumulateMotion(&dominatingMotionVector, &accumulatedMotion, &accumulatedMotion);
+		accumulateMotion(&dominatingMotionVector, &accumulatedMotion, &filteredMotion, &filteredMotion, &accumulatedMotion);
 
 		// Render the motion compensated frame
-		renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &accumulatedMotion, y, u, v, yDisp, uDisp, vDisp);
+		renderFrame(WIDTH, HEIGHT, DISPLAY_W, DISPLAY_H, &accumulatedMotion, &filteredMotion, y, u, v, yDispPrev, uDispPrev, vDispPrev, yDisp, uDisp, vDisp);
+
+		// Backup for future ghosting
+		memcpy(yDispPrev, yDisp, DISPLAY_W*DISPLAY_H);
+		memcpy(uDispPrev, uDisp, DISPLAY_W/2*DISPLAY_H/2);
+		memcpy(vDispPrev, vDisp, DISPLAY_W/2*DISPLAY_H/2);
 
 		// Display it
 		yuvDisplay(0, yDisp, uDisp, vDisp);
