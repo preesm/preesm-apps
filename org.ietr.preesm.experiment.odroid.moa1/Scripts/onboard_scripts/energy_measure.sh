@@ -86,41 +86,57 @@ case ${CLUSTER_NAME} in
     ;;
 esac
 
-total=0.0
-measurement_number=0
+ITERATION=0
+declare -A measures
 
+# init array. Necessary to avoid unbound variable error
+for DEV in ${DEV_LIST}; do
+  for SENSOR in W A V; do
+    measures[${DEV},${SENSOR}]=""
+  done
+  if [ "${DEV}" == "A15" ]; then
+    # also measure temperature for A15
+    for CORE_ID in $(seq 4 7); do
+      measures[${DEV},${CORE_ID}]+=""
+    done
+  fi
+done
+
+# Querry measures
 while [ ! -z "$(pidof $2)" ]; do
   for DEV in ${DEV_LIST}; do
-    tab_W[${measurement_number}]=$(print_sensor_value ${DEV} W)
-    tab_A[${measurement_number}]=$(print_sensor_value ${DEV} A)
-    tab_V[${measurement_number}]=$(print_sensor_value ${DEV} V)
+    for SENSOR in W A V; do
+      VAL=$(print_sensor_value ${DEV} ${SENSOR})
+      #echo "$DEV $SENSOR = $VAL"
+      measures[${DEV},${SENSOR}]+=" ${VAL}"
+    done
     if [ "${DEV}" == "A15" ]; then
       # also measure temperature for A15
-      tab_T_4[$measurement_number]=$(print_cpu_temp 4)
-      tab_T_5[$measurement_number]=$(print_cpu_temp 5)
-      tab_T_6[$measurement_number]=$(print_cpu_temp 6)
-      tab_T_7[$measurement_number]=$(print_cpu_temp 7)
+      for CORE_ID in $(seq 4 7); do
+        VAL=$(print_cpu_temp ${CORE_ID})
+        #echo "CPU $DEV temp = $VAL"
+        measures[${DEV},${CORE_ID}]+=" ${VAL}"
+      done
     fi
   done
   
-  measurement_number=$((measurement_number+1))
+  ITERATION=$((ITERATION+1))
   # 10 Hz measurements
   sleep 0.1s
 done
 
-mkdir -p ${SCRIPT_DIR}/Results
 #Write the values in files
-echo "${tab_W[@]}" >> ${SCRIPT_DIR}/Results/power.csv;
-echo "${tab_A[@]}" >> ${SCRIPT_DIR}/Results/intensity.csv;
-echo "${tab_V[@]}" >> ${SCRIPT_DIR}/Results/tension.csv;
-
-case ${DEV_LIST} in
-  *A15*)
-    echo "${tab_T_4[@]}" >> ${SCRIPT_DIR}/Results/temp_core_4.csv;
-    echo "${tab_T_5[@]}" >> ${SCRIPT_DIR}/Results/temp_core_5.csv;
-    echo "${tab_T_6[@]}" >> ${SCRIPT_DIR}/Results/temp_core_6.csv;
-    echo "${tab_T_7[@]}" >> ${SCRIPT_DIR}/Results/temp_core_7.csv;
-    ;;
-esac
+mkdir -p ${SCRIPT_DIR}/Results
+for DEV in ${DEV_LIST}; do
+  for SENSOR in W A V; do
+    echo "${measures[${DEV},${SENSOR}]}" > ${SCRIPT_DIR}/Results/${DEV}_${SENSOR}.csv
+  done
+  if [ "${DEV}" == "A15" ]; then
+    # also write temperature for A15
+    for CORE_ID in $(seq 4 7); do
+      echo "${measures[${DEV},${CORE_ID}]}" > ${SCRIPT_DIR}/Results/temp_core_${CORE_ID}.csv
+    done
+  fi
+done
 
 exit 0
