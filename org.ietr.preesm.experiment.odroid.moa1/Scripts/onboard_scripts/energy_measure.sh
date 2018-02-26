@@ -7,7 +7,6 @@
 
 
 [ $# -ne 2 ] && echo "Error: requires 2 arguments" && exit 1
-[ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
 SCRIPT_DIR=$(cd `dirname ${0}`/ && pwd)
 CLUSTER_NAME=$(echo $1 | awk '{print toupper($0)}')
@@ -70,7 +69,6 @@ function print_cpu_temp() {
   esac
   cat ${TEMPERATURES_PATH} | awk "FNR == ${TEMP_ID} {print \$3}"
 }
-
 
 case ${CLUSTER_NAME} in
   A7)
