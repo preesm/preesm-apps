@@ -6,9 +6,7 @@
 [ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
-
-SCRIPT_DIR=$(cd `dirname ${0}`/ && pwd)
-CLUSTER_NAME=$1
+CLUSTER_NAME=$(echo $1 | awk '{print toupper($0)}')
 TARGET_FREQ=$2
 
 case ${CLUSTER_NAME} in
@@ -31,8 +29,6 @@ TARGET_GOVERNOR="userspace"
 
 #1) Set scaling_governor
 if [ "${CURRENT_GOVERNOR}" != "${TARGET_GOVERNOR}" ]; then
-  echo "${TARGET_GOVERNOR}"
-  echo "${GOVERNOR_PATH}"
 	echo "${TARGET_GOVERNOR}" > "${GOVERNOR_PATH}"
 	echo "Scaling_governor of the cluster ${CLUSTER_NAME} is set to '${TARGET_GOVERNOR}'"
 fi

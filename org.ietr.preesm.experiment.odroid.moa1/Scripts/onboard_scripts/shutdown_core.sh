@@ -7,7 +7,7 @@
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
 CORE_ID=$1
-TARGET_MODE=$2
+TARGET_MODE=$(echo $2 | awk '{print toupper($0)}')
 
 case ${TARGET_MODE} in
   ON)
