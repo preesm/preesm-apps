@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 # desc : This script switch ON or OFF a core
 # arg1 : core ID
 # arg2 : ON or OFF

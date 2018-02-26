@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 # desc : This script set a frequency for a cluster
 # arg1 : cluster A7 or A15
 # arg2 : frequency

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 # desc : This script measure the power, intensity, voltage and temperature (of the cluster A15 only) of a program.
 #		 For each case A7, A15 or All, the main loop is duplicated and adaptated to reduce the overhead.
 #        For each case the main loop is iterate while the PID of the program is alive.

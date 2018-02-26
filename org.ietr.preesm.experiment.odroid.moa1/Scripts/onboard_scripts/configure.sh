@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 1
 
