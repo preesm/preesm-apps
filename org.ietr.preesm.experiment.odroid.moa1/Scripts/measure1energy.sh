@@ -190,24 +190,26 @@ echo ""
 echo "Execution done"
 echo ""
 
-      # Computing the energy
+for execit in $(seq 0 9); do
+  # Computing the energy
+  echo "Energy for measurement #${execit}:"
+  ${APPDIR}/Scripts/energy_computer_v2.sh ${APPDIR}/${APPPATH}/finalstats/measure_${execit}
+done
 
-      # Computing the time
-      
+
 ###################################
 ## Cleanup
 ###################################
 
 rm -rf ${WORKSPACE}
 exit
+
+###################################
+## TODO
+###################################
+
     # Repeating N times the launch
     for execit in $(seq 0 9); do
-      # Scenarios between 64 and 3410 correspond to stereo application
-      ssh odroid@$IP 'sudo bash -s' < targetScriptTestCom.sh
-
-      # Copying back the power data on PC
-      mkdir -p $APPLI/finalstats/mat/activity
-      mv -f ~/Temp/odroid/home/odroid/Code/stats/power.csv $APPLI/finalstats/mat/activity/I${execit}_power_$EXPERIMENT_ID.csv
 
       # Computing the energy
       $APPLI/finalstats/energy_computer/energy_computer $APPLI/finalstats/mat/activity/I${execit}_power_$EXPERIMENT_ID.csv > $APPLI/finalstats/mat/activity/I${execit}_energy_$EXPERIMENT_ID.csv
