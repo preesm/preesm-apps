@@ -12,4 +12,4 @@ out.ppm
 *#
 
 **/org.ietr.preesm.memory.temporary
-**/id_rsa*
+**/.id_rsa*

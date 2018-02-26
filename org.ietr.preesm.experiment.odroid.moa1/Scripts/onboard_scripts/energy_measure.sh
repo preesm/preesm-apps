@@ -5,6 +5,11 @@
 # arg1 : cluster => A7, A15 or All
 # arg2 : program name
 
+
+[ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
+[ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
+
+
 total=0.0
 measurement_number=0
 

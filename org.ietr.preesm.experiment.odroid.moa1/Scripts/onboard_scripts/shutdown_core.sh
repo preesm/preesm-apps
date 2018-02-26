@@ -3,20 +3,29 @@
 # arg1 : core ID
 # arg2 : ON or OFF
 
-#If you want to switch on a core and it's offline
-if [ $2 == "ON" ];then
-	if [ `cat /sys/devices/system/cpu/cpu$1/online` == 0 ]; then
-		sudo bash -c "echo 1 > /sys/devices/system/cpu/cpu$1/online";
-		echo "Cpu $1 is ON."
-	fi
-#Else if you want to switch off a core and it's online 
-elif [ $2 == "OFF" ];then
-	if [ `cat /sys/devices/system/cpu/cpu$1/online` == 1 ]; then
-		sudo bash -c "echo 0 > /sys/devices/system/cpu/cpu$1/online";
-		echo "Cpu $1 is OFF."
-	fi
-#Else it's a invalide argument 
-else
-	echo "Invalide argument";
-	exit
-fi
+[ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
+[ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
+
+CORE_ID=$1
+TARGET_MODE=$2
+
+case ${TARGET_MODE} in
+  ON)
+    TARGET_MODE_ID=1
+    ;;
+  OFF)
+    TARGET_MODE_ID=0
+    ;;
+  *)
+    echo "Invalid argument";
+    exit 3
+    ;;
+esac
+
+MODE_PATH="/sys/devices/system/cpu/cpu${CORE_ID}/online"
+CURRENT_MODE_ID=$(cat "${MODE_PATH}")
+
+[ "${CURRENT_MODE_ID}" == "${TARGET_MODE_ID}" ] && echo "CPU ${CORE_ID} already ${TARGET_MODE}" && exit 0
+
+echo ${TARGET_MODE_ID} > ${MODE_PATH}
+

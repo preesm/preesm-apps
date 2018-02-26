@@ -6,6 +6,8 @@
 [ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
+
+SCRIPT_DIR=$(cd `dirname ${0}`/ && pwd)
 CLUSTER_NAME=$1
 TARGET_FREQ=$2
 

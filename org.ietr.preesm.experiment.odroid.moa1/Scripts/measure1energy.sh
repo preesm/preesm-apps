@@ -156,7 +156,7 @@ rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPA
 
 # transfer Code on odroid board
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${USR}/Code
-rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts ${USR}@${IP}:/home/${USR}/Code/
+rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts/onboard_scripts/* ${USR}@${IP}:/home/${USR}/Code/Scripts/
 
 # Compile Code
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
