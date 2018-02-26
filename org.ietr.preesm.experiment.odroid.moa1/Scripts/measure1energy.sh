@@ -3,7 +3,9 @@
 ####################################################################
 # Generating an application with Preesm and measuring its execution
 # energy consumption on an Odroid XU3 board.
-# Usage: $1 = experiment number (and scenario number)
+# Usage: $1 = experiment number (= scenario number)
+# Result: in folder ${0}/../finalstats
+#   a list of measurements
 ####################################################################
 
 echo "Starting new measurement"
@@ -182,7 +184,6 @@ for execit in $(seq 0 9); do
   # Copying back the data on local FS
   odroid_exec "mv ~/Code/Scripts/Results ~/Code/Scripts/measure_${execit}" 
   rsync -e "ssh -i ${SSHKEYFILE}" -au ${USR}@${IP}:/home/${USR}/Code/Scripts/measure_${execit} ${APPDIR}/${APPPATH}/finalstats/
-
 done;
 
 echo ""
