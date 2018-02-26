@@ -3,7 +3,7 @@
 # arg1 : cluster A7 or A15
 # arg2 : frequency
 
-[ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
+[ $# -ne 2 ] && echo "Error: requires 2 arguments" && exit 1
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
 CLUSTER_NAME=$(echo $1 | awk '{print toupper($0)}')

@@ -3,7 +3,7 @@
 # arg1 : core ID
 # arg2 : ON or OFF
 
-[ $# -ne 2 ] && echo "Error: requries 2 arguments" && exit 1
+[ $# -ne 2 ] && echo "Error: requires 2 arguments" && exit 1
 [ "$(whoami)" != "root" ] && echo "Error: must be run as root" && exit 2
 
 CORE_ID=$1
