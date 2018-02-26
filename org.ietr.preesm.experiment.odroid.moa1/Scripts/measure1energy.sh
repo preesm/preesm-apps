@@ -139,7 +139,7 @@ if [ ${EXPERIMENT_ID} -ge 64 ]; then
 else
     APPPATH=Code
     TARGETSCRIPT=targetScriptTestCom.sh
-    BINNAME=test-moa
+    BINNAME=test_moa
 fi
 
 # clean generated Code from previous phases
