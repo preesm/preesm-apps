@@ -172,12 +172,16 @@ else
   odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./${BINNAME}" &
 fi
 odroid_exec "~/Code/Scripts/energy_measure.sh All ${BINNAME}" &
-wait
-wait
+
+wait # application execution, within the if
+wait # monitoring execution , after the if
 
 echo ""
-echo "done"
+echo "Execution done"
 echo ""
+
+## TODO: get data from board to local FS
+
 
 ###################################
 ## Cleanup
