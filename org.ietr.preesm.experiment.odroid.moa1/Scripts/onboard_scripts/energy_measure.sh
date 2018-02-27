@@ -19,6 +19,7 @@ INA_DRV_ID=$(ls ${INA_DRV_BASEPATH} | grep ".-0045" | cut -d'-' -f1)
 A15_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0040/"
 ME_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0041/"
 A7_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0045/"
+GPU_INA_DRV_PATH="${INA_DRV_BASEPATH}/${INA_DRV_ID}-0044/"
 
 function print_sensor_value() {
   DEVICE=$1
@@ -32,6 +33,9 @@ function print_sensor_value() {
       ;;
     ME)
       DEV_INA_DRV_PATH="${ME_INA_DRV_PATH}"
+      ;;
+    GPU)
+      DEV_INA_DRV_PATH="${GPU_INA_DRV_PATH}"
       ;;
     *)
       echo "Error: invalid device '${DEVICE}'"
@@ -78,7 +82,7 @@ case ${CLUSTER_NAME} in
     DEV_LIST="A15"
     ;;
   ALL)
-    DEV_LIST="A7 A15 ME"
+    DEV_LIST="A7 A15 ME GPU"
     ;;
   *)
     echo "Invalid cluster name (expect A7, A15 or All)";
@@ -86,9 +90,7 @@ case ${CLUSTER_NAME} in
     ;;
 esac
 
-ITERATION=0
 declare -A measures
-MEASURECOUNT=0
 
 # init array. Necessary to avoid unbound variable error
 for DEV in ${DEV_LIST}; do
@@ -98,8 +100,12 @@ for DEV in ${DEV_LIST}; do
   if [ "${DEV}" == "A15" ]; then
     # also measure temperature for A15
     for CORE_ID in $(seq 4 7); do
-      measures[${DEV},${CORE_ID}]=""
+      measures[${DEV},T${CORE_ID}]=""
     done
+    if [ "${DEV}" == "GPU" ]; then
+      VAL=$(print_cpu_temp GPU)
+      measures[${DEV},T]=""
+    fi
   fi
 done
 
@@ -109,27 +115,23 @@ while [ ! -z "$(pidof $2)" ]; do
   for DEV in ${DEV_LIST}; do
     for SENSOR in W A V; do
       VAL=$(print_sensor_value ${DEV} ${SENSOR})
-      #echo "$DEV $SENSOR = $VAL"
       measures[${DEV},${SENSOR}]+=" ${VAL}"
     done
     if [ "${DEV}" == "A15" ]; then
       # also measure temperature for A15
       for CORE_ID in $(seq 4 7); do
         VAL=$(print_cpu_temp ${CORE_ID})
-        #echo "CPU $DEV temp = $VAL"
-        measures[${DEV},${CORE_ID}]+=" ${VAL}"
+        measures[${DEV},T${CORE_ID}]+=" ${VAL}"
       done
     fi
+    if [ "${DEV}" == "GPU" ]; then
+      VAL=$(print_cpu_temp GPU)
+      measures[${DEV},T]+=" ${VAL}"
+    fi
   done
-  
-  ITERATION=$((ITERATION+1))
-  # used for computing measure rate (in Hz)
-  MEASURECOUNT=$((MEASURECOUNT + 1))
 done
 end_ts=$(date '+%s')
 total_ts=$((end_ts - start_ts + 1))
-
-MEASURE_FREQ=$((MEASURECOUNT / total_ts))
 
 #Write the values in files
 mkdir -p ${SCRIPT_DIR}/Results
@@ -140,10 +142,13 @@ for DEV in ${DEV_LIST}; do
   if [ "${DEV}" == "A15" ]; then
     # also write temperature for A15
     for CORE_ID in $(seq 4 7); do
-      echo "${measures[${DEV},${CORE_ID}]}" > ${SCRIPT_DIR}/Results/CPU${CORE_ID}_T.csv
+      echo "${measures[${DEV},T${CORE_ID}]}" > ${SCRIPT_DIR}/Results/CPU${CORE_ID}_T.csv
     done
   fi
+  if [ "${DEV}" == "GPU" ]; then
+    echo "${measures[${DEV},T]}" > ${SCRIPT_DIR}/Results/GPU_T.csv
+  fi
 done
-echo "${MEASURE_FREQ} Hz" > ${SCRIPT_DIR}/Results/measure_rate
+echo "${total_ts} s" > ${SCRIPT_DIR}/Results/measure_time.csv
 
 exit 0
