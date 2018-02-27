@@ -110,7 +110,7 @@ for DEV in ${DEV_LIST}; do
 done
 
 # Querry measures
-start_ts=$(date '+%s')
+start_ts=$(date '+%s%N')
 while [ ! -z "$(pidof $2)" ]; do
   for DEV in ${DEV_LIST}; do
     for SENSOR in W A V; do
@@ -130,8 +130,8 @@ while [ ! -z "$(pidof $2)" ]; do
     fi
   done
 done
-end_ts=$(date '+%s')
-total_ts=$((end_ts - start_ts + 1))
+end_ts=$(date '+%s%N')
+total_ts=$((end_ts - start_ts))
 
 #Write the values in files
 mkdir -p ${SCRIPT_DIR}/Results
@@ -149,6 +149,6 @@ for DEV in ${DEV_LIST}; do
     echo "${measures[${DEV},T]}" > ${SCRIPT_DIR}/Results/GPU_T.csv
   fi
 done
-echo "${total_ts} s" > ${SCRIPT_DIR}/Results/measure_time.csv
+echo "${total_ts} ns" > ${SCRIPT_DIR}/Results/measure_time.csv
 
 exit 0
