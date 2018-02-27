@@ -25,6 +25,8 @@ IP=192.168.100.15 # Odroid IP
 USR=odroid # Odroid user
 PSD=odroid # Odroid user password
 
+NBREPEAT=4
+
 #PREESMDIR='/home/payvar/preesm-2.8.0-linux.gtk.x86_64'
 #PREESMDIR="/home/anmorvan/test/preesm-2.8.0-linux.gtk.x86_64/"
 PREESMDIR="/home/anmorvan/test/preesm-2.8.0-SNAPSHOT201802231522-linux.gtk.x86_64/"
@@ -170,7 +172,7 @@ odroid_exec "mkdir -p ~/Code/stats"
 odroid_sudo_exec "~/Code/Scripts/configure.sh"
 mkdir -p ${APPDIR}/${APPPATH}/finalstats
 
-for execit in $(seq 0 9); do
+for execit in $(seq 0 $NBREPEAT); do
   if [ ${EXPERIMENT_ID} -ge 64 ]; then
     odroid_exec "cd ~/Code/bin/make && ./${BINNAME}" &
   else
@@ -190,36 +192,27 @@ echo ""
 echo "Execution done"
 echo ""
 
-for execit in $(seq 0 9); do
+for execit in $(seq 0 $NBREPEAT); do
   # Computing the energy
-  echo "Energy for measurement #${execit}:"
-  ${APPDIR}/Scripts/energy_computer_v2.sh ${APPDIR}/${APPPATH}/finalstats/measure_${execit}
+  ENERGY=$(${APPDIR}/Scripts/energy_computer_v2.sh ${APPDIR}/${APPPATH}/finalstats/measure_${execit})
+  echo "Energy computation for measurement #${execit}: ${ENERGY}"
+  echo "${ENERGY}" > ${APPDIR}/${APPPATH}/finalstats/measure_${execit}/energy_computed.csv
 done
 
+echo ""
+echo "Copying quantas and tokens"
+mv -f ${APPDIR}/stats/mat/activity/tokens.csv ${APPDIR}/${APPPATH}/finalstats/
+mv -f ${APPDIR}/stats/mat/activity/quanta.csv ${APPDIR}/${APPPATH}/finalstats/
+mv -f ${APPDIR}/stats/mat/activity/custom_quanta.csv ${APPDIR}/${APPPATH}/finalstats/
+echo ""
 
 ###################################
 ## Cleanup
 ###################################
 
+echo "Done. Cleaning up."
+echo " => measures and results in "
+echo "    '${APPDIR}/${APPPATH}/finalstats/'"
+echo ""
 rm -rf ${WORKSPACE}
 exit
-
-###################################
-## TODO
-###################################
-
-    # Repeating N times the launch
-    for execit in $(seq 0 9); do
-
-      # Computing the energy
-      $APPLI/finalstats/energy_computer/energy_computer $APPLI/finalstats/mat/activity/I${execit}_power_$EXPERIMENT_ID.csv > $APPLI/finalstats/mat/activity/I${execit}_energy_$EXPERIMENT_ID.csv
-
-      # Computing the time
-      wc -l < $APPLI/finalstats/mat/activity/I${execit}_power_$EXPERIMENT_ID.csv > $APPLI/finalstats/mat/activity/I${execit}_time_$EXPERIMENT_ID.csv
-
-      # Copying back the activity from the temporary workspace
-      mv -f $WORKSPACE/$PROJECT/stats/mat/activity/tokens.csv $APPLI/finalstats/mat/activity/I${execit}_tokens_$EXPERIMENT_ID.csv
-      mv -f $WORKSPACE/$PROJECT/stats/mat/activity/quanta.csv $APPLI/finalstats/mat/activity/I${execit}_quanta_$EXPERIMENT_ID.csv
-      mv -f $WORKSPACE/$PROJECT/stats/mat/activity/custom_quanta.csv $APPLI/finalstats/mat/activity/I${execit}_custom_quanta_$EXPERIMENT_ID.csv
-    done
-fi
