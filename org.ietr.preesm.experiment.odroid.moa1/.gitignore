@@ -6,6 +6,7 @@
 /Code/generated
 /Code/Stereo/generated
 /Code/scripts/Results
+stats/mat/activity
 *.pgantt
 *.o
 out.ppm
