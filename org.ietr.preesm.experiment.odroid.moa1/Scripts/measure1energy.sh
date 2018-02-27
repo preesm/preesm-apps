@@ -3,49 +3,85 @@
 ####################################################################
 # Generating an application with Preesm and measuring its execution
 # energy consumption on an Odroid XU3 board.
-# Usage: $1 = experiment number (= scenario number)
-# Result: in folder ${0}/../finalstats
-#   a list of measurements
+# Usage:
+#   $1 = Preesm setup dir
+#   $2 = Preesm project to test
+#   $3 = Workflow file name under $2/Workflows/
+#   $4 = Scenario file name under $2/Scenarios/
+# Optional arguments :
+#   $5 = Command to build the application on the board (see below)
+#        by default : 'cd Code/ && make'
+#   $6 = Command to run the application on the board (see below)
+#        by default : 'cd Code/ && make test'
+#   $7 = Number of measures (or 4 by default)
+# Result: in folder ${APPDIR}/finalstats/
+#   a list of measurements in .csv files
 ####################################################################
-
-echo "Starting new measurement"
-# Whole process from Preesm mapping decision to execution on board and energy retrieval
 
 ###################################
 ## Check
 ###################################
 
-[ $# -ne 1 ] && echo "Error: wrong arguments" && echo "usage: $0 EXPERIMENT_ID" && exit 1
+case $# in
+  4)
+    BUILD_CMD="cd Code/ && make"
+    RUN_CMD="cd Code/ && make test"
+    NBREPEAT=4
+    ;;
+  5)
+    BUILD_CMD=$5
+    RUN_CMD="cd Code/ && make test"
+    NBREPEAT=4
+    ;;
+  6)
+    BUILD_CMD=$5
+    RUN_CMD=$6
+    NBREPEAT=4
+    ;;
+  7)
+    BUILD_CMD=$5
+    RUN_CMD=$6
+    NBREPEAT=$7
+    ;;
+  *)
+    cat << "EOF"
+# Usage:
+#   $1 = Preesm setup dir
+#   $2 = Preesm project to test
+#   $3 = Workflow file name under $2/Workflows/
+#   $4 = Scenario file name under $2/Scenarios/
+# Optional arguments :
+#   $5 = Command to build the application on the board (see below)
+#        by default : 'cd Code/ && make'
+#   $6 = Command to run the application on the board (see below)
+#        by default : 'cd Code/ && make test'
+#   $7 = Number of measures (or 4 by default)
+EOF
+    exit 1
+    ;;
+esac
+
+PREESMDIR=$1
+APPDIR=$2
+WORKFLOW=$3
+SCENARIO=$4
 
 ###################################
 ## Config
 ###################################
 
-IP=192.168.100.15 # Odroid IP
+IP=192.168.0.2 # Odroid IP
 USR=odroid # Odroid user
 PSD=odroid # Odroid user password
-
-NBREPEAT=4
-
-#PREESMDIR='/home/payvar/preesm-2.8.0-linux.gtk.x86_64'
-#PREESMDIR="/home/anmorvan/test/preesm-2.8.0-linux.gtk.x86_64/"
-PREESMDIR="/home/anmorvan/test/preesm-2.8.0-SNAPSHOT201802231522-linux.gtk.x86_64/"
- # Experiment ID corresponding to the scenario
-EXPERIMENT_ID=$1
-
 
 ###################################
 ## Generated / Constant Config
 ###################################
 
-APPDIR=$(cd `dirname ${0}`/../ && pwd)
 # parse project name from .project file
 PROJECT=$(cat $APPDIR/.project | grep -oPm1 "(?<=<name>)[^<]+")
 # use temporary directory as workspace
 WORKSPACE=$(mktemp -d --suffix=_preesm-workspace)
-
-WORKFLOW=Codegen.workflow
-SCENARIO="TestComPC_${EXPERIMENT_ID}.scenario"
 
 # SSH key file name
 SSHKEYFILE=.id_rsa_odroid
@@ -129,6 +165,9 @@ function odroid_exec() {
 ###################################
 ## Script Flow
 ###################################
+
+echo "Starting new measurement"
+# Whole process from Preesm mapping decision to execution on board and energy retrieval
 
 odroid_init_board
 
