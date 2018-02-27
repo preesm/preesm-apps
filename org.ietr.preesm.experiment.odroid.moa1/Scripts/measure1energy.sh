@@ -135,7 +135,6 @@ odroid_init_board
 # Clean previous code version on target
 odroid_sudo_exec 'rm -rf ~/Code'
 
-
 if [ ${EXPERIMENT_ID} -ge 64 ]; then
     APPPATH=Code/Stereo
     TARGETSCRIPT=targetScriptStereo.sh
@@ -151,17 +150,9 @@ rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPA
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
-#####################
-#####################
-## todo : handle affinity in codegen
-#rm -f ${APPDIR}/${APPPATH}/generated/main.c
-#####################
-#####################
-
 # transfer Code on odroid board
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${USR}/Code
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts/onboard_scripts/* ${USR}@${IP}:/home/${USR}/Code/Scripts/
-
 
 # Compile Code
 odroid_exec "cd ~/Code && ./CMakeGCC.sh"
