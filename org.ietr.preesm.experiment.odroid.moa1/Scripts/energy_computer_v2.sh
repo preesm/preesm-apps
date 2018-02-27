@@ -17,6 +17,6 @@ for FILE in ${POWERFILES}; do
   done
 done
 MEASURE_RATE=
-#TOTAL_POWER=$((TOTAL_POWER / MEASURE_RATE))
-TOTAL_POWER=$(echo "$TOTAL_POWER / ($TOTAL_MEASURES / $MEASURE_TIME)" | bc -l)
+#Time is in nanoseconds, so divide by 10^9
+TOTAL_POWER=$(echo "$TOTAL_POWER / ($TOTAL_MEASURES / ($MEASURE_TIME / 1000000000.0))" | bc -l)
 echo $TOTAL_POWER

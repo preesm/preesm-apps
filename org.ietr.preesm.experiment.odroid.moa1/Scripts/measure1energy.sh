@@ -172,7 +172,8 @@ odroid_exec "mkdir -p ~/Code/stats"
 odroid_sudo_exec "~/Code/Scripts/configure.sh"
 mkdir -p ${APPDIR}/${APPPATH}/finalstats
 
-for execit in $(seq 0 $NBREPEAT); do
+for execit in $(seq 1 $NBREPEAT); do
+  echo "execution $execit / $NBREPEAT"
   if [ ${EXPERIMENT_ID} -ge 64 ]; then
     odroid_exec "cd ~/Code/bin/make && ./${BINNAME}" &
   else
@@ -192,7 +193,7 @@ echo ""
 echo "Execution done"
 echo ""
 
-for execit in $(seq 0 $NBREPEAT); do
+for execit in $(seq 1 $NBREPEAT); do
   # Computing the energy
   ENERGY=$(${APPDIR}/Scripts/energy_computer_v2.sh ${APPDIR}/${APPPATH}/finalstats/measure_${execit})
   echo "Energy computation for measurement #${execit}: ${ENERGY}"
