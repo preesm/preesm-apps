@@ -12,11 +12,19 @@
 #   $5 = Command to build the application on the board (see below)
 #        by default : 'cd Code/ && make'
 #   $6 = Command to run the application on the board (see below)
-#        by default : 'cd Code/ && make test'
+#        by default : 'cd Code/ && make run'
 #   $7 = Number of measures (or 4 by default)
 # Result: in folder ${APPDIR}/finalstats/
 #   a list of measurements in .csv files
 ####################################################################
+
+###################################
+## Config
+###################################
+
+IP=192.168.100.15 # Odroid IP
+USR=odroid # Odroid user login
+PSD=odroid # Odroid user password
 
 ###################################
 ## Check
@@ -25,12 +33,12 @@
 case $# in
   4)
     BUILD_CMD="cd Code/ && make"
-    RUN_CMD="cd Code/ && make test"
+    RUN_CMD="cd Code/ && make run"
     NBREPEAT=4
     ;;
   5)
     BUILD_CMD=$5
-    RUN_CMD="cd Code/ && make test"
+    RUN_CMD="cd Code/ && make run"
     NBREPEAT=4
     ;;
   6)
@@ -65,14 +73,6 @@ PREESMDIR=$1
 APPDIR=$2
 WORKFLOW=$3
 SCENARIO=$4
-
-###################################
-## Config
-###################################
-
-IP=192.168.0.2 # Odroid IP
-USR=odroid # Odroid user
-PSD=odroid # Odroid user password
 
 ###################################
 ## Generated / Constant Config
@@ -162,9 +162,19 @@ function odroid_exec() {
   
   return ${RES}
 }
+
 ###################################
 ## Script Flow
 ###################################
+
+echo "Compile code"
+
+# clean generated Code from previous phases
+rm -rf ${APPDIR}/Code/generated ${APPDIR}/Code/bin ${APPDIR}/Code/stats ${APPDIR}/Code/finalstats
+# Launching Preesm in command line on the project
+./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
+
+exit
 
 echo "Starting new measurement"
 # Whole process from Preesm mapping decision to execution on board and energy retrieval
@@ -174,49 +184,34 @@ odroid_init_board
 # Clean previous code version on target
 odroid_sudo_exec 'rm -rf ~/Code'
 
-if [ ${EXPERIMENT_ID} -ge 64 ]; then
-    APPPATH=Code/Stereo
-    TARGETSCRIPT=targetScriptStereo.sh
-    BINNAME=stereo
-else
-    APPPATH=Code
-    TARGETSCRIPT=targetScriptTestCom.sh
-    BINNAME=test_moa
-fi
-
-# clean generated Code from previous phases
-rm -rf ${APPDIR}/${APPPATH}/generated ${APPDIR}/${APPPATH}/bin ${APPDIR}/${APPPATH}/stats ${APPDIR}/${APPPATH}/finalstats
-# Launching Preesm in command line on the project
-./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
-
 # transfer Code on odroid board
-rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/${APPPATH}/* ${USR}@${IP}:/home/${USR}/Code
+rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Code/* ${USR}@${IP}:/home/${USR}/Code
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts/onboard_scripts/* ${USR}@${IP}:/home/${USR}/Code/Scripts/
-
-# Compile Code
-odroid_exec "cd ~/Code && ./CMakeGCC.sh"
-odroid_exec "cd ~/Code/bin/make && make"
 
 # prepare board for energy measurement
 odroid_exec "mkdir -p ~/Code/stats"
 odroid_sudo_exec "~/Code/Scripts/configure.sh"
-mkdir -p ${APPDIR}/${APPPATH}/finalstats
+mkdir -p ${APPDIR}/Code/finalstats
+
+# Compile Code
+odroid_exec "cd /home/${USR}/ && ${BUILD_CMD}"
 
 for execit in $(seq 1 $NBREPEAT); do
   echo "execution $execit / $NBREPEAT"
   if [ ${EXPERIMENT_ID} -ge 64 ]; then
-    odroid_exec "cd ~/Code/bin/make && ./${BINNAME}" &
+    odroid_exec "cd /home/${USR}/ && ${RUN_CMD}" &
+    odroid_exec "~/Code/Scripts/energy_measure.sh All test_moa" &
   else
-    odroid_exec "cd ~/Code/bin/make && echo -e \"\n\" | ./${BINNAME}" &
+    odroid_exec "cd /home/${USR}/ && ${RUN_CMD}" &
+    odroid_exec "~/Code/Scripts/energy_measure.sh All test_moa" &
   fi
-  odroid_exec "~/Code/Scripts/energy_measure.sh All ${BINNAME}" &
 
-  wait # application execution, within the if
-  wait # monitoring execution , after the if
+  wait # application execution
+  wait # monitoring execution
 
   # Copying back the data on local FS
   odroid_exec "mv ~/Code/Scripts/Results ~/Code/Scripts/measure_${execit}" 
-  rsync -e "ssh -i ${SSHKEYFILE}" -au ${USR}@${IP}:/home/${USR}/Code/Scripts/measure_${execit} ${APPDIR}/${APPPATH}/finalstats/
+  rsync -e "ssh -i ${SSHKEYFILE}" -au ${USR}@${IP}:/home/${USR}/Code/Scripts/measure_${execit} ${APPDIR}/Code/finalstats/
 done;
 
 echo ""
@@ -227,14 +222,14 @@ for execit in $(seq 1 $NBREPEAT); do
   # Computing the energy
   ENERGY=$(${APPDIR}/Scripts/energy_computer_v2.sh ${APPDIR}/${APPPATH}/finalstats/measure_${execit})
   echo "Energy computation for measurement #${execit}: ${ENERGY}"
-  echo "${ENERGY}" > ${APPDIR}/${APPPATH}/finalstats/measure_${execit}/energy_computed.csv
+  echo "${ENERGY}" > ${APPDIR}/Code/finalstats/measure_${execit}/energy_computed.csv
 done
 
 echo ""
 echo "Copying quantas and tokens"
-mv -f ${APPDIR}/stats/mat/activity/tokens.csv ${APPDIR}/${APPPATH}/finalstats/
-mv -f ${APPDIR}/stats/mat/activity/quanta.csv ${APPDIR}/${APPPATH}/finalstats/
-mv -f ${APPDIR}/stats/mat/activity/custom_quanta.csv ${APPDIR}/${APPPATH}/finalstats/
+mv -f ${APPDIR}/stats/mat/activity/tokens.csv ${APPDIR}/Code/finalstats/
+mv -f ${APPDIR}/stats/mat/activity/quanta.csv ${APPDIR}/Code/finalstats/
+mv -f ${APPDIR}/stats/mat/activity/custom_quanta.csv ${APPDIR}/Code/finalstats/
 echo ""
 
 ###################################
@@ -243,7 +238,7 @@ echo ""
 
 echo "Done. Cleaning up."
 echo " => measures and results in "
-echo "    '${APPDIR}/${APPPATH}/finalstats/'"
+echo "    '${APPDIR}/Code/finalstats/'"
 echo ""
 rm -rf ${WORKSPACE}
 exit
