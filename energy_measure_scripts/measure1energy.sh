@@ -11,7 +11,7 @@
 #   $5 = Binary name under $2/Code after build is done
 # Optional arguments :
 #   $6 = Command to build the application on the board (see below)
-#        by default : 'cd Code/ && make'
+#        by default : 'make'
 #   $7 = Number of measures (or 4 by default)
 # Result: in folder ${APPDIR}/finalstats/
 #   a list of measurements in .csv files
@@ -31,7 +31,7 @@ PSD=odroid # Odroid user password
 
 case $# in
   5)
-    BUILD_CMD=$6
+    BUILD_CMD="make"
     NBREPEAT=4
     ;;
   6)
