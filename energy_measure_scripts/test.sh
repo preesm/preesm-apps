@@ -23,6 +23,6 @@
   /home/anmorvan/git/preesm-apps/org.ietr.preesm.experiment.odroid.moa1/ \
   Codegen.workflow \
   TestComPC_1.scenario \
+  "./bin/make/test_moa" \
   "make" \
-  "make run" \
   2
