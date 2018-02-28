@@ -10,9 +10,9 @@
 #   $4 = Scenario file name under $2/Scenarios/
 # Optional arguments :
 #   $5 = Command to build the application on the board (see below)
-#        by default : 'cd Code/ && make'
+#        by default : 'make'
 #   $6 = Command to run the application on the board (see below)
-#        by default : 'cd Code/ && make run'
+#        by default : 'make run'
 #   $7 = Number of measures (or 4 by default)
 # Result: in folder ${APPDIR}/finalstats/
 #   a list of measurements in .csv files
@@ -32,13 +32,13 @@ PSD=odroid # Odroid user password
 
 case $# in
   4)
-    BUILD_CMD="cd Code/ && make"
-    RUN_CMD="cd Code/ && make run"
+    BUILD_CMD="make"
+    RUN_CMD="make run"
     NBREPEAT=4
     ;;
   5)
     BUILD_CMD=$5
-    RUN_CMD="cd Code/ && make run"
+    RUN_CMD="make run"
     NBREPEAT=4
     ;;
   6)
@@ -174,8 +174,6 @@ rm -rf ${APPDIR}/Code/generated ${APPDIR}/Code/bin ${APPDIR}/Code/stats ${APPDIR
 # Launching Preesm in command line on the project
 ./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
-exit
-
 echo "Starting new measurement"
 # Whole process from Preesm mapping decision to execution on board and energy retrieval
 
@@ -200,7 +198,7 @@ for execit in $(seq 1 $NBREPEAT); do
   echo "execution $execit / $NBREPEAT"
   if [ ${EXPERIMENT_ID} -ge 64 ]; then
     odroid_exec "cd /home/${USR}/ && ${RUN_CMD}" &
-    odroid_exec "~/Code/Scripts/energy_measure.sh All test_moa" &
+    odroid_exec "~/Code/Scripts/energy_measure.sh All stereo" &
   else
     odroid_exec "cd /home/${USR}/ && ${RUN_CMD}" &
     odroid_exec "~/Code/Scripts/energy_measure.sh All test_moa" &
