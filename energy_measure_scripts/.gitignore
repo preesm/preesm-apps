@@ -1,0 +1,16 @@
+/Debug
+/Code/bin
+/Code/Stereo/bin
+/Code/Crypto/Code/bin
+/Algo/generated
+/Code/generated
+/Code/Stereo/generated
+/Code/scripts/Results
+stats/mat/activity
+*.pgantt
+*.o
+out.ppm
+*#
+
+**/org.ietr.preesm.memory.temporary
+**/.id_rsa*

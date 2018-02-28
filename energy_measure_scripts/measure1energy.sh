@@ -74,6 +74,8 @@ PROJECT=$(cat $APPDIR/.project | grep -oPm1 "(?<=<name>)[^<]+")
 # use temporary directory as workspace
 WORKSPACE=$(mktemp -d --suffix=_preesm-workspace)
 
+SCRIPT_DIR=$(cd $(dirname ${0}) && pwd)
+
 # SSH key file name
 SSHKEYFILE=.id_rsa_odroid
 
@@ -176,7 +178,7 @@ odroid_sudo_exec 'rm -rf ~/Code'
 
 # transfer Code on odroid board
 rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Code/* ${USR}@${IP}:/home/${USR}/Code
-rsync -e "ssh -i ${SSHKEYFILE}" -au ${APPDIR}/Scripts/onboard_scripts/* ${USR}@${IP}:/home/${USR}/Code/Scripts/
+rsync -e "ssh -i ${SSHKEYFILE}" -au ${SCRIPT_DIR}/onboard_scripts/* ${USR}@${IP}:/home/${USR}/Code/Scripts/
 
 # prepare board for energy measurement
 odroid_exec "mkdir -p ~/Code/stats"
@@ -190,20 +192,21 @@ odroid_exec "cd /home/${USR}/Code && ${BUILD_CMD}"
 for execit in $(seq 1 $NBREPEAT); do
   echo "execution $execit / $NBREPEAT"
   
-  odroid_exec "/home/${USR}/Code/${BIN_NAME}"
+  odroid_exec "/home/${USR}/Code/Scripts/energy_measure_simple.sh /home/${USR}/Code/${BIN_NAME}"
 
   # Copying back the data on local FS
-  odroid_exec "mv ~/Code/Results ~/Code/Scripts/measure_${execit}" 
+  odroid_exec "mv ~/Code/Scripts/Results ~/Code/Scripts/measure_${execit}" 
   rsync -e "ssh -i ${SSHKEYFILE}" -au ${USR}@${IP}:/home/${USR}/Code/Scripts/measure_${execit} ${APPDIR}/Code/finalstats/
 done;
 
 echo ""
 echo "Execution done"
+echo "  measures in '${APPDIR}/Code/finalstats/'"
 echo ""
 
 for execit in $(seq 1 $NBREPEAT); do
   # Computing the energy
-  ENERGY=$(${APPDIR}/Scripts/energy_computer_v2.sh ${APPDIR}/Code/finalstats/measure_${execit})
+  ENERGY=$(${SCRIPT_DIR}/energy_computer_v2.sh ${APPDIR}/Code/finalstats/measure_${execit})
   echo "Energy computation for measurement #${execit}: ${ENERGY}"
   echo "${ENERGY}" > ${APPDIR}/Code/finalstats/measure_${execit}/energy_computed.csv
 done
