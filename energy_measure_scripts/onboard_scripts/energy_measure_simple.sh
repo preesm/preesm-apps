@@ -10,23 +10,16 @@ SCRIPT_DIR=$(cd $(dirname ${0}) && pwd)
 rm -rf ${SCRIPT_DIR}/Results/
 mkdir -p ${SCRIPT_DIR}/Results/
 
-
-##########################
-# TODO! play with nice
-##########################
-
 # run energy recorder async. and keep PID 
-/usr/local/bin/EnergyRecorder > ${SCRIPT_DIR}/Results/records &
-PID=$!
+# need sudo to access lower nice priority
+nice -n 20 /usr/local/bin/EnergyRecorder > ${SCRIPT_DIR}/Results/records &
 
 # run program
-${BINARY}
+# need sudo to access lower nice priority
+sudo nice -n -19 ${BINARY}
 
 #kill energy monitor when binary is finished
-
-while ps -p ${PID} > /dev/null;
-do
-  kill -2 ${PID};
-done
+# need sudo to kill program run as sudo ...
+sudo killall EnergyRecorder
 
 

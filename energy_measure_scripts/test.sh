@@ -25,4 +25,4 @@
   TestComPC_1.scenario \
   "./test_moa" \
   "make" \
-  10
+  4
