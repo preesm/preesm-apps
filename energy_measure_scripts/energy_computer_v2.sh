@@ -7,7 +7,7 @@
 MEASURE_FOLDER=$1
 
 POWERFILES=$(ls ${MEASURE_FOLDER}/*_W*.csv)
-MEASURE_TIME=$(cat ${MEASURE_FOLDER}/measure_time.csv | cut -d' ' -f1)
+MEASURE_TIME=$(cat ${MEASURE_FOLDER}/time_ns.csv | cut -d' ' -f1)
 TOTAL_POWER=0
 for FILE in ${POWERFILES}; do
   TOTAL_MEASURES=0

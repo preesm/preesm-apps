@@ -33,9 +33,6 @@ command -v EnergyRecorder > /dev/null || {
   rm -rf ${TMPDIR}
 }
 
-exit
-
-
 XDN=$(find_free_display_number)
 echo ""
 echo "Virtual framebuffer: DISPLAY=${XDN}"
@@ -47,12 +44,12 @@ echo ""
 # clean previous run
 rm -rf ${SCRIPT_DIR}/Results/
 mkdir -p ${SCRIPT_DIR}/Results/
-
+echo "result dir : ${SCRIPT_DIR}/Results/"
 
 start_ts=$(date '+%s%N')
 # run energy recorder async. and keep PID 
 # need sudo to access lower nice priority
-nice -n 20 /usr/local/bin/EnergyRecorder ${SCRIPT_DIR}/Results/ &
+sudo nice -n -20 /usr/local/bin/EnergyRecorder ${SCRIPT_DIR}/Results &
 # run program
 # need sudo to access lower nice priority
 sudo nice -n -19 ${BINARY}
