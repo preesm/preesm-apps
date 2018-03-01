@@ -19,7 +19,7 @@
 ####################################################################
 
 ./measure1energy.sh \
-  /home/anmorvan/test/preesm-2.8.0-SNAPSHOT201802231522-linux.gtk.x86_64/ \
+  /home/anmorvan/test/preesm-2.8.0-SNAPSHOT201803011401-linux.gtk.x86_64/ \
   /home/anmorvan/git/preesm-apps/org.ietr.preesm.experiment.odroid.moa1/ \
   Codegen.workflow \
   TestComPC_1.scenario \
