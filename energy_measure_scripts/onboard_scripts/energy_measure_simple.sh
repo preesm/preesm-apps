@@ -33,12 +33,14 @@ command -v EnergyRecorder > /dev/null || {
   rm -rf ${TMPDIR}
 }
 
-XDN=$(find_free_display_number)
-echo ""
-echo "Virtual framebuffer: DISPLAY=${XDN}"
-export DISPLAY=:${XDN}.0
-/usr/bin/Xvfb :${XDN} -ac -screen 0 1280x1024x16 &
-XVFBPID=$!
+if [ -x /usr/bin/Xvfb ]; then
+  XDN=$(find_free_display_number)
+  echo ""
+  echo "Virtual framebuffer: DISPLAY=${XDN}"
+  export DISPLAY=:${XDN}.0
+  /usr/bin/Xvfb :${XDN} -ac -screen 0 1280x1024x16 &
+  XVFBPID=$!
+fi;
 echo ""
 
 # clean previous run
@@ -63,6 +65,8 @@ echo ${total_ts} > ${SCRIPT_DIR}/Results/time_ns.csv
 sudo killall EnergyRecorder
 
 #finally kill virtual framebuffer
-kill -2 ${XVFBPID}
+if [ -x /usr/bin/Xvfb ]; then
+  kill -2 ${XVFBPID}
+fi
 
 

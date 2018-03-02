@@ -4,7 +4,7 @@
 # Generating an application with Preesm and measuring its execution
 # energy consumption on an Odroid XU3 board.
 # Usage:
-#   $1 = Preesm setup dir
+#   $1 = Odroid IP
 #   $2 = Preesm setup dir
 #   $3 = Preesm project to test
 #   $4 = Workflow file name under $2/Workflows/
@@ -45,7 +45,7 @@ case $# in
   *)
     cat << "EOF"
 # Usage:
-#   $1 = Preesm setup dir
+#   $1 = Odroid IP
 #   $2 = Preesm setup dir
 #   $3 = Preesm project to test
 #   $4 = Workflow file name under $2/Workflows/
