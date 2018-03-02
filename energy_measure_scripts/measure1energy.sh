@@ -217,9 +217,25 @@ done
 
 echo ""
 echo "Copying quantas and tokens"
-mv -f ${APPDIR}/stats/mat/activity/tokens.csv ${APPDIR}/Code/finalstats/
-mv -f ${APPDIR}/stats/mat/activity/quanta.csv ${APPDIR}/Code/finalstats/
-mv -f ${APPDIR}/stats/mat/activity/custom_quanta.csv ${APPDIR}/Code/finalstats/
+
+if [ -e ${APPDIR}/stats/mat/activity/tokens.csv ]; then
+  echo " * token.csv"
+  mv -f ${APPDIR}/stats/mat/activity/tokens.csv ${APPDIR}/Code/finalstats/
+else
+  echo " * could not find token.csv"
+fi
+if [ -e ${APPDIR}/stats/mat/activity/quanta.csv ]; then
+  echo " * quanta.csv"
+  mv -f ${APPDIR}/stats/mat/activity/quanta.csv ${APPDIR}/Code/finalstats/
+else
+  echo " * could not find quanta.csv"
+fi
+if [ -e ${APPDIR}/stats/mat/activity/custom_quanta.csv ]; then
+  echo " * custom_quanta.csv"
+  mv -f ${APPDIR}/stats/mat/activity/custom_quanta.csv ${APPDIR}/Code/finalstats/
+else
+  echo " * could not find custom_quanta.csv"
+fi
 echo ""
 
 ###################################
