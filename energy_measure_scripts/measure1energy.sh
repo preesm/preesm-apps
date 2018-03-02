@@ -5,14 +5,15 @@
 # energy consumption on an Odroid XU3 board.
 # Usage:
 #   $1 = Preesm setup dir
-#   $2 = Preesm project to test
-#   $3 = Workflow file name under $2/Workflows/
-#   $4 = Scenario file name under $2/Scenarios/
-#   $5 = Binary name under $2/Code after build is done
+#   $2 = Preesm setup dir
+#   $3 = Preesm project to test
+#   $4 = Workflow file name under $2/Workflows/
+#   $5 = Scenario file name under $2/Scenarios/
+#   $6 = Binary name under $2/Code after build is done
 # Optional arguments :
-#   $6 = Command to build the application on the board (see below)
+#   $7 = Command to build the application on the board (see below)
 #        by default : 'make'
-#   $7 = Number of measures (or 4 by default)
+#   $8 = Number of measures (or 4 by default)
 # Result: in folder ${APPDIR}/finalstats/
 #   a list of measurements in .csv files
 ####################################################################
@@ -21,7 +22,6 @@
 ## Config
 ###################################
 
-IP=192.168.100.15 # Odroid IP
 USR=odroid # Odroid user login
 PSD=odroid # Odroid user password
 
@@ -30,40 +30,44 @@ PSD=odroid # Odroid user password
 ###################################
 
 case $# in
-  5)
+  6)
     BUILD_CMD="make"
     NBREPEAT=4
     ;;
-  6)
-    BUILD_CMD=$6
+  7)
+    BUILD_CMD=$7
     NBREPEAT=4
     ;;
-  7)
-    BUILD_CMD=$6
-    NBREPEAT=$7
+  8)
+    BUILD_CMD=$7
+    NBREPEAT=$8
     ;;
   *)
     cat << "EOF"
 # Usage:
 #   $1 = Preesm setup dir
-#   $2 = Preesm project to test
-#   $3 = Workflow file name under $2/Workflows/
-#   $4 = Scenario file name under $2/Scenarios/
-#   $5 = Binary name under $2/Code after build is done
+#   $2 = Preesm setup dir
+#   $3 = Preesm project to test
+#   $4 = Workflow file name under $2/Workflows/
+#   $5 = Scenario file name under $2/Scenarios/
+#   $6 = Binary name under $2/Code after build is done
 # Optional arguments :
-#   $6 = Command to build the application on the board (see below)
-#        by default : 'cd Code/ && make'
-#   $7 = Number of measures (or 4 by default)
+#   $7 = Command to build the application on the board (see below)
+#        by default : 'make'
+#   $8 = Number of measures (or 4 by default)
+# Result: in folder ${APPDIR}/finalstats/
+#   a list of measurements in .csv files
 EOF
     exit 1
     ;;
 esac
 
-PREESMDIR=$1
-APPDIR=$2
-WORKFLOW=$3
-SCENARIO=$4
-BIN_NAME=$5
+IP=$1
+PREESMDIR=$2
+APPDIR=$3
+WORKFLOW=$4
+SCENARIO=$5
+BIN_NAME=$6
 
 ###################################
 ## Generated / Constant Config
