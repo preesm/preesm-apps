@@ -55,6 +55,8 @@
 *		 displacement of the input frame.
 * @param deltaPrev
 *		 displacement of the previous frame due to accumulated motion filtering.
+*        Displacement is actually divided by two in both direction to represent the
+*        filtered displacement of U and V component.
 * @param yIn
 *        the Y component of the frame to render.
 * @param uIn
@@ -241,6 +243,19 @@ void findDominatingMotionVector(const int nbVectors,
 * 
 * @param motionVector
 *        new 2D motion to accumulate.
+* @param filteredMotionIn
+*        motion on x and y coordinates filtered by the high-pass filter.
+*        motion is actually divided by two in both direction to represent the
+*        filtered displacement of U and V component.
+* @param filteredMotionIn
+*        Updated motion on x and y coordinates filtered by the high-pass filter.
+*        motion is actually divided by two in both direction to represent the
+*        filtered displacement of U and V component.
+*        Update consists of integrating the newly filtered motion between 
+*        accumulateMotionOut and In, and also removing the integer part of
+*        filteredMotionIn that has to be removed after it is used once in rendering. 
+** @param accumulatedMotionOut
+*        updated accumulated 2D motion vector.
 * @param accumulatedMotionIn
 *        accumulated 2D motion vector to update.
 ** @param accumulatedMotionOut

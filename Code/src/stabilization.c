@@ -31,11 +31,12 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	memset(vOut, BG_BLACK_V, dispWidth*dispHeight / 4);
 
 	// Create the fading ghost of previous frame
+
 	// find position
-	int deltaPrevX = (int)roundf(deltaPrev->x);
-	int deltaPrevY = (int)roundf(deltaPrev->y);
-	int xPrevLeft = MAX(0, deltaPrevX);
-	int yPrevTop = MAX(0, deltaPrevY);
+	int deltaPrevX = (int)roundf(deltaPrev->x)*2; // Multiply by 2 for Y
+	int deltaPrevY = (int)roundf(deltaPrev->y)*2;
+	int xPrevLeft = MAX(0, -deltaPrevX);
+	int yPrevTop = MAX(0, -deltaPrevY);
 	int xPrevRight = MIN(dispWidth, dispWidth + deltaPrevX);
 	int yPrevBot = MIN(dispHeight, dispHeight + deltaPrevY);
 
@@ -45,10 +46,13 @@ void renderFrame(const int frameWidth, const int frameHeight,
 		// Render Ghost
 		int lineLengthGhost = xPrevRight - xPrevLeft;
 		for (int j = yPrevTop; j < yPrevBot; j++){
-			memcpy(yOut + j*dispWidth + xPrevLeft, yPrev + (j + deltaPrevY)*dispWidth + (xPrevLeft + deltaPrevX), lineLengthGhost);
+			// memcpy(yOut + j*dispWidth + xPrevLeft, yPrev + (j + deltaPrevY)*dispWidth + (xPrevLeft + deltaPrevX), lineLengthGhost);
+			for (int i = xPrevLeft; i < xPrevLeft + lineLengthGhost; i++){
+				*(yOut + j*dispWidth + i) = *(yPrev + (j + deltaPrevY)*dispWidth + (i + deltaPrevX)) * HIGH_PASS_FILTER_TAP;
+			}
 		}
 
-
+		
 		for (int j = yPrevTop / 2; j < yPrevBot / 2; j++){
 			memcpy(uOut + j*dispWidth / 2 + xPrevLeft / 2, uPrev + (j + deltaPrevY / 2)*(dispWidth / 2) + (xPrevLeft / 2 + deltaPrevX / 2), xPrevRight /2 - xPrevLeft / 2);
 			memcpy(vOut + j*dispWidth / 2 + xPrevLeft / 2, vPrev + (j + deltaPrevY / 2)*(dispWidth / 2) + (xPrevLeft / 2 + deltaPrevX / 2), xPrevRight/2 - xPrevLeft / 2);
@@ -296,8 +300,8 @@ void accumulateMotion(const coordf * const motionVector, const coordf * const ac
 	// Compute filtered motion
 	filteredMotionOut->x -= roundf(filteredMotionIn->x);
 	filteredMotionOut->y -= roundf(filteredMotionIn->y);
-	filteredMotionOut->x = filteredMotionOut->x + (accumulatedMotionIn->x * (1.0f - HIGH_PASS_FILTER_TAP));
-	filteredMotionOut->y = filteredMotionOut->y + (accumulatedMotionIn->y * (1.0f - HIGH_PASS_FILTER_TAP));
+	filteredMotionOut->x = filteredMotionOut->x + (accumulatedMotionIn->x * (1.0f - HIGH_PASS_FILTER_TAP)) / 2.0f;
+	filteredMotionOut->y = filteredMotionOut->y + (accumulatedMotionIn->y * (1.0f - HIGH_PASS_FILTER_TAP)) /2.0f;
 
 	// Apply filter
 	accumulatedMotionOut->x = accumulatedMotionIn->x * HIGH_PASS_FILTER_TAP;
