@@ -196,7 +196,7 @@ odroid_exec "cd /home/${USR}/Code && ${BUILD_CMD}"
 for execit in $(seq 1 $NBREPEAT); do
   echo "execution $execit / $NBREPEAT"
   
-  odroid_exec "/home/${USR}/Code/Scripts/energy_measure_simple.sh /home/${USR}/Code/${BIN_NAME}"
+  odroid_exec "/home/${USR}/Code/Scripts/energy_measure_simple.sh /home/${USR}/Code/ ${BIN_NAME}"
 
   # Copying back the data on local FS
   odroid_exec "mv ~/Code/Scripts/Results ~/Code/Scripts/measure_${execit}" 
@@ -212,7 +212,7 @@ for execit in $(seq 1 $NBREPEAT); do
   # Computing the energy
   ENERGY=$(${SCRIPT_DIR}/energy_computer_v2.sh ${APPDIR}/Code/finalstats/measure_${execit})
   echo "Energy computation for measurement #${execit}: ${ENERGY}"
-  echo "${ENERGY}" > ${APPDIR}/Code/finalstats/measure_${execit}/energy_computed.csv
+  echo "${ENERGY}" > ${APPDIR}/Code/finalstats/measure_${execit}/energy_computed_J.csv
 done
 
 echo ""

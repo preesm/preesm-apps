@@ -2,7 +2,8 @@
 # desc : This script measure the power consumption of a program.
 # arg1 :program name
 
-BINARY=$1
+EXEC_FOLDER=$1
+BINARY=$2
 
 SCRIPT_DIR=$(cd $(dirname ${0}) && pwd)
 
@@ -47,6 +48,8 @@ echo ""
 rm -rf ${SCRIPT_DIR}/Results/
 mkdir -p ${SCRIPT_DIR}/Results/
 echo "result dir : ${SCRIPT_DIR}/Results/"
+
+cd ${EXEC_FOLDER}
 
 start_ts=$(date '+%s%N')
 # run energy recorder async. and keep PID 
