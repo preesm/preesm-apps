@@ -171,7 +171,7 @@ echo "Compile code"
 # clean generated Code from previous phases
 rm -rf ${APPDIR}/Code/generated ${APPDIR}/Code/bin ${APPDIR}/Code/stats ${APPDIR}/Code/finalstats
 # Launching Preesm in command line on the project
-./commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
+${SCRIPT_DIR}/commandLinePreesm.sh ${PREESMDIR} ${APPDIR} ${WORKFLOW} ${SCENARIO}
 
 echo "Starting new measurement"
 # Whole process from Preesm mapping decision to execution on board and energy retrieval
