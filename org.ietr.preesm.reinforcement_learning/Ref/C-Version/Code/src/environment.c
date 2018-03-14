@@ -95,7 +95,7 @@ void step(int state_space_size, int action_space_size, int state_angular_size,
                                      (3.f / (MASS_CONSTANT * POW2(LENGTH_CONSTANT))) * action_clip) * TIME_DELTA;
     theta = theta + angular_speed * TIME_DELTA;
     angular_speed = MIN(MAX(angular_speed, -MAX_SPEED), MAX_SPEED);
-    state_angular_out[0] = theta;
+    state_angular_out[0] = MODF((theta + M_PI), (2.f * M_PI)) - M_PI);
     state_angular_out[1] = angular_speed;
 
     // Output the observations

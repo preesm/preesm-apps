@@ -19,13 +19,13 @@ int stopThreads = 0;
 #if  defined(LEARN_SIN)
 
 #define INPUT 2
-#define SIZE 4
+#define SIZE 3
 
 #define getRand() -M_PI + 2.f * M_PI * (float)(rand()) / (float)(RAND_MAX)
 
 int main(void) {
     srand((unsigned int)time(NULL));
-    int mlp_sizes[SIZE] = {5, 20, 2, INPUT};
+    int mlp_sizes[SIZE] = {5, 40, INPUT};
     mlp_net *network = create_mlp(SIZE, INPUT, mlp_sizes, 0.00005f,
                                   activateTanHyperbolic,
                                   activateLinear,
@@ -37,9 +37,10 @@ int main(void) {
         float inputs[INPUT];
         float targets[INPUT];
         float predictions[INPUT];
-        double error = 0.f;
+        double error = 0;
         long long int i = 0;
-        double epsilon = 1e-5;
+        double epsilon = 1e-3;
+        double mean_error = 0;
         do {
             // get inputs
             inputs[0] = getRand();
@@ -52,8 +53,9 @@ int main(void) {
 
             update_mlp(network, targets);
             lossMSE(INPUT, targets, predictions, &error);
+            mean_error = 0.99 * mean_error + 0.01 * error;
             ++i;
-        } while(error > epsilon);
+        } while(mean_error > epsilon);
         fprintf(stderr, "targets: %f pred: %f error: %lf.\n", targets[0], predictions[0], error);
         fprintf(stderr, "training done in %lld iterations.\n", i);
         fprintf(stderr, "testing...\n");
@@ -272,14 +274,16 @@ int main(void) {
     renderInit();
 
     //Creates both mlps
-    int sizes_critic[5] = {40, 20, 5, 200, 1};
-    int sizes_actor[5] = {40, 100, 5, 10, 1};
-    mlp_net *actor_mlp = create_mlp(5, 3, sizes_actor, 0.0001f,
+    int sizes_critic[4] = {10, 20, 10, 1};
+    int sizes_actor[3] = {20, 10, 1};
+    float actor_learning_rate = 0.001f;
+    float critic_learning_rate = 0.0005f;
+    mlp_net *actor_mlp = create_mlp(3, 3, sizes_actor, actor_learning_rate,
                                     activateTanHyperbolic,
                                     activateLinear,
                                     derivativeTanHyperbolicActivated,
                                     derivativeLinear);
-    mlp_net *critic_mlp = create_mlp(5, 3, sizes_critic, 0.0001f,
+    mlp_net *critic_mlp = create_mlp(4, 3, sizes_critic, critic_learning_rate,
                                      activateTanHyperbolic,
                                      activateLinear,
                                      derivativeTanHyperbolicActivated,
@@ -299,9 +303,6 @@ int main(void) {
     float sigma = 2.f;
     long int i = 0;
     float limits[2] = {-MAX_TORQUE, MAX_TORQUE};
-    uint64_t dumpTimed[4];
-    int nbExec[4];
-    initNbExec(nbExec, 4);
     while(!stopThreads) {
         // pred action
         run_mlp(actor_mlp, obs_state, &action);
@@ -325,24 +326,14 @@ int main(void) {
         // compute td-error
         float value = 0.f;
         float value_next = 0.f;
-        dumpTime(0, dumpTimed);
-        for (int i = 0; i < *(nbExec + 1); ++i) {
-            run_mlp(critic_mlp, obs_state_next, &value_next);
-        }
-        dumpTime(1, dumpTimed);
-        for (int i = 0; i < *(nbExec + 2); ++i) {
-            run_mlp(critic_mlp, obs_state, &value);
-        }
+        run_mlp(critic_mlp, obs_state_next, &value_next);
+        run_mlp(critic_mlp, obs_state, &value);
         float target;
         target = reward + DISCOUNT_FACTOR * value_next;
         float delta = target - value;
 
         // update critic network
-        dumpTime(2, dumpTimed);
-        for (int i = 0; i < *(nbExec + 3); ++i) {
-            update_mlp(critic_mlp, &target);
-        }
-        dumpTime(3, dumpTimed);
+        update_mlp(critic_mlp, &delta);
 
         if (delta > 0.f) {
             int n = (int)ceil((delta / sqrt(variance)));
@@ -359,7 +350,6 @@ int main(void) {
 
         // update state
         memcpy(obs_state, obs_state_next, 3 * sizeof(float));
-//        writeTime(dumpTimed, 4, nbExec);
 
         // sigma decay
         //sigma = sigma - sigma_reset / sigma_decay_period;
@@ -401,7 +391,7 @@ int main(void) {
     renderInit();
 
     //Creates both mlps
-    int sizes_actor[2] = {40, 1};
+    int sizes_actor[2] = {20, 1};
     mlp_net *actor_mlp = create_mlp(2, 3, sizes_actor, 0.0001f,
                                     activateTanHyperbolic,
                                     activateLinear,
@@ -448,7 +438,7 @@ int main(void) {
         memcpy(obs_state, obs_state_next, 3 * sizeof(float));
 
         // fps management
-        usleep(50000);
+//        usleep(50000);
     }
 
 
@@ -467,8 +457,8 @@ int main(void) {
 #elif defined(BENCH)
 
 void bench(void) {
-    int sizes[2] = {20, 1};
-    mlp_net *network = create_mlp(2, 3, sizes, 0.01f,
+    int sizes[3] = {20, 20, 1};
+    mlp_net *network = create_mlp(3, 3, sizes, 0.01f,
                                   activateTanHyperbolic,
                                   activateLinear,
                                   derivativeTanHyperbolicActivated,
@@ -476,6 +466,7 @@ void bench(void) {
 
     actorWeightGenInit(0, network->weights[0], network->bias[0]);
     actorWeightGenInit(1, network->weights[1], network->bias[1]);
+    actorWeightGenInit(2, network->weights[2], network->bias[2]);
 
     double iterations = 10000.;
     fprintf(stderr, "Bench configuration:\n");
@@ -500,10 +491,6 @@ void bench(void) {
         fprintf(stderr, "target: %f\n", target);
         fprintf(stderr, "value: %f\n", pred);
         compute_gradient(network, &target);
-//        double mse = 0;
-//        lossMSE(1, &target, &pred, &mse);
-//        fprintf(stderr, "loss: %lf\n", mse);
-//        print_gradients(network);
         apply_gradient(network);
     }
     print_mlp(network);

@@ -196,21 +196,6 @@ void activateLinear(IN float *input,
 void derivativeLinear(IN float *input,
                       OUT float *output);
 
-/**
- * @brief Handle the weights and biases of layer of a MLP
- *
- * @param input_size  Size of the previous layer
- * @param layer_size  Size of the current layer
- * @param weights_in  Input weights
- * @param bias_in     Input bias
- * @param weights_out Output copy of the input
- * @param bias_out    Output copy of the input
- */
-
-void weightsGen(int input_size, int layer_size,
-                IN float *weights_in, IN float *bias_in,
-                OUT float *weights_out, OUT float *bias_out);
-
 
 /**************************************/
 /********* SEQUENTIAL VERSION *********/
@@ -322,6 +307,8 @@ void compute_gradient(mlp_net* network, float *target);
 
 /**
  * @brief Apply the Adam optimizer algorithm on the gradients to update the parameters of the network.
+ *        Source: KINGMA, Diederik et BA, Jimmy.
+ *                Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.
  *
  * @param network Pointer to the network.
  */

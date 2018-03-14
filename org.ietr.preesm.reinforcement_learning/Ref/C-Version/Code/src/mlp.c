@@ -134,17 +134,6 @@ void derivativeLinear(IN float *input,
     output[0] = 1;
 }
 
-void weightsGen(int input_size, int layer_size,
-                IN float *weights_in, IN float *bias_in,
-                OUT float *weights_out, OUT float *bias_out) {
-    /*
-     * Simple copy of the IN data to the OUT data
-     */
-    memcpy(weights_out, weights_in, input_size * layer_size * sizeof(float));
-    memcpy(bias_out, bias_in, layer_size * sizeof(float));
-}
-
-
 
 /************************************/
 /********  SEQUENTIAL FUNC **********/
@@ -354,9 +343,6 @@ void apply_gradient(mlp_net* network) {
                                                               network->bias_optimizer.beta1 + (1. - network->bias_optimizer.beta1) * grad;
             network->bias_optimizer.sec_order_moments[n][j] = network->bias_optimizer.sec_order_moments[n][j] *
                                                               network->bias_optimizer.beta2 + (1. - network->bias_optimizer.beta2) * grad * grad;
-//            double unbiased_fo = network->bias_optimizer.fst_order_moments[n][j] / (1. - network->bias_optimizer.beta1_pow);
-//            double unbiased_so = network->bias_optimizer.sec_order_moments[n][j] / (1. - network->bias_optimizer.beta2_pow);
-//            network->bias[n][j] -= (lr * unbiased_fo / (network->bias_optimizer.epsilon + sqrt(unbiased_so)));
             network->bias[n][j] -= (lr * network->bias_optimizer.fst_order_moments[n][j] /
                     (bias_epsilon_t + sqrt(network->bias_optimizer.sec_order_moments[n][j])));
 
@@ -367,9 +353,6 @@ void apply_gradient(mlp_net* network) {
                         network->weight_optimizer.beta1 + (1. - network->weight_optimizer.beta1) * grad;
                 network->weight_optimizer.sec_order_moments[n][offset + i] = network->weight_optimizer.sec_order_moments[n][offset + i] *
                                                                       network->weight_optimizer.beta2 + (1. - network->weight_optimizer.beta2) * grad * grad;
-//                unbiased_fo = network->weight_optimizer.fst_order_moments[n][offset + i] / (1. - network->weight_optimizer.beta1_pow);
-//                unbiased_so = network->weight_optimizer.sec_order_moments[n][offset + i] / (1. - network->weight_optimizer.beta2_pow);
-//                network->weights[n][offset + i] -= (lr * unbiased_fo / (network->weight_optimizer.epsilon + sqrt(unbiased_so)));
                 network->weights[n][offset + i] -= (lr * network->weight_optimizer.fst_order_moments[n][offset + i] /
                                         (weights_epsilon_t + sqrt(network->weight_optimizer.sec_order_moments[n][offset + i])));
             }
@@ -381,7 +364,6 @@ void apply_gradient(mlp_net* network) {
     network->bias_optimizer.beta1_pow *= network->bias_optimizer.beta1;
     network->bias_optimizer.beta2_pow *= network->bias_optimizer.beta2;
 }
-
 
 void update_mlp(mlp_net* network, float *target) {
     // Compute the gradients
