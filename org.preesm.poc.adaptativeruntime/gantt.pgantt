@@ -1,0 +1,282 @@
+<data>
+	<event
+		start="241584"
+		end="339251"
+		title="Graph handling"
+		mapping="TID -1314852864 (Spider)"
+		color="#fa64c8"
+		>Step_1.</event>
+	<event
+		start="344835"
+		end="351627"
+		title="Graph Optimization"
+		mapping="TID -1314852864 (Spider)"
+		color="#6496c8"
+		>Step_4.</event>
+	<event
+		start="354127"
+		end="385043"
+		title="Task Scheduling"
+		mapping="TID -1314852864 (Spider)"
+		color="#9696c8"
+		>Step_3.</event>
+	<event
+		start="393293"
+		end="113668128"
+		title="Read_0_0"
+		mapping="TID -1314852864 (Spider)"
+		color="#969696"
+		>Step_-1228767204.</event>
+	<event
+		start="113697879"
+		end="268416928"
+		title="ComputeBrightnessAndFW_0_0"
+		mapping="TID -1314852864 (Spider)"
+		color="#c89696"
+		>Step_-1228767204.</event>
+	<event
+		start="268442678"
+		end="268445011"
+		title="ConfigActor_0_0"
+		mapping="TID -1314852864 (Spider)"
+		color="#fa9696"
+		>Step_-1228767204.</event>
+	<event
+		start="269174890"
+		end="269837227"
+		title="Graph handling"
+		mapping="TID -1314852864 (Spider)"
+		color="#c896c8"
+		>Step_1.</event>
+	<event
+		start="269843227"
+		end="269851227"
+		title="Graph handling"
+		mapping="TID -1314852864 (Spider)"
+		color="#fa96c8"
+		>Step_1.</event>
+	<event
+		start="269854852"
+		end="269883352"
+		title="Graph Optimization"
+		mapping="TID -1314852864 (Spider)"
+		color="#64c8c8"
+		>Step_4.</event>
+	<event
+		start="269887477"
+		end="269892394"
+		title="Graph handling"
+		mapping="TID -1314852864 (Spider)"
+		color="#96c8c8"
+		>Step_1.</event>
+	<event
+		start="269895685"
+		end="269903185"
+		title="Graph Optimization"
+		mapping="TID -1314852864 (Spider)"
+		color="#c8c8c8"
+		>Step_4.</event>
+	<event
+		start="269905727"
+		end="270260770"
+		title="Task Scheduling"
+		mapping="TID -1314852864 (Spider)"
+		color="#fac8c8"
+		>Step_3.</event>
+	<event
+		start="270308187"
+		end="469982844"
+		title="blur_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#64c896"
+		>Step_-1228767204.</event>
+	<event
+		start="470014719"
+		end="474179740"
+		title="splitRGB_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#96c896"
+		>Step_-1228767204.</event>
+	<event
+		start="474205907"
+		end="475974791"
+		title="Split_1_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#c8c896"
+		>Step_-1228767204.</event>
+	<event
+		start="474192032"
+		end="478559430"
+		title="Split_0_0_0"
+		mapping="TID -1407143344 (LRT 3)"
+		color="#fac896"
+		>Step_-1228767204.</event>
+	<event
+		start="478589430"
+		end="480170563"
+		title="Fork_0_0"
+		mapping="TID -1407143344 (LRT 3)"
+		color="#64fa96"
+		>Step_-1228767204.</event>
+	<event
+		start="492531960"
+		end="493821425"
+		title="Split_0_0"
+		mapping="TID -1398754736 (LRT 2)"
+		color="#96fa96"
+		>Step_-1228767204.</event>
+	<event
+		start="493833383"
+		end="495060806"
+		title="Fork_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#c8fa96"
+		>Step_-1228767204.</event>
+	<event
+		start="493854134"
+		end="495092265"
+		title="Fork_0_0"
+		mapping="TID -1398754736 (LRT 2)"
+		color="#fafa96"
+		>Step_-1228767204.</event>
+	<event
+		start="495099140"
+		end="518225176"
+		title="Sobel_1_0_1"
+		mapping="TID -1432309168 (LRT 6)"
+		color="#6464c8"
+		>Step_-1228767204.</event>
+	<event
+		start="495072723"
+		end="518375010"
+		title="Sobel_0_1"
+		mapping="TID -1440697776 (LRT 7)"
+		color="#9664c8"
+		>Step_-1228767204.</event>
+	<event
+		start="495098973"
+		end="518620178"
+		title="Sobel_1_0_3"
+		mapping="TID -1423920560 (LRT 5)"
+		color="#c864c8"
+		>Step_-1228767204.</event>
+	<event
+		start="495099640"
+		end="519711642"
+		title="Sobel_1_0_2"
+		mapping="TID -1415531952 (LRT 4)"
+		color="#fa64c8"
+		>Step_-1228767204.</event>
+	<event
+		start="480199563"
+		end="532824418"
+		title="Sobel_0_0_3"
+		mapping="TID -1407143344 (LRT 3)"
+		color="#6496c8"
+		>Step_-1228767204.</event>
+	<event
+		start="518627803"
+		end="539835913"
+		title="Sobel_0_0_1"
+		mapping="TID -1423920560 (LRT 5)"
+		color="#9696c8"
+		>Step_-1228767204.</event>
+	<event
+		start="495091807"
+		end="540472666"
+		title="Sobel_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#c896c8"
+		>Step_-1228767204.</event>
+	<event
+		start="519718684"
+		end="543851475"
+		title="Sobel_0_0_2"
+		mapping="TID -1415531952 (LRT 4)"
+		color="#fa96c8"
+		>Step_-1228767204.</event>
+	<event
+		start="495106182"
+		end="565603004"
+		title="Sobel_1_0_0"
+		mapping="TID -1398754736 (LRT 2)"
+		color="#64c8c8"
+		>Step_-1228767204.</event>
+	<event
+		start="565611712"
+		end="565954631"
+		title="Join_0_0"
+		mapping="TID -1432309168 (LRT 6)"
+		color="#96c8c8"
+		>Step_-1228767204.</event>
+	<event
+		start="565964173"
+		end="566327550"
+		title="Merge_1_0_0"
+		mapping="TID -1432309168 (LRT 6)"
+		color="#c8c8c8"
+		>Step_-1228767204.</event>
+	<event
+		start="532848793"
+		end="579867036"
+		title="Sobel_0_3"
+		mapping="TID -1407143344 (LRT 3)"
+		color="#fac8c8"
+		>Step_-1228767204.</event>
+	<event
+		start="540493624"
+		end="586401737"
+		title="Sobel_0_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#64fac8"
+		>Step_-1228767204.</event>
+	<event
+		start="565627838"
+		end="613911379"
+		title="Sobel_0_2"
+		mapping="TID -1398754736 (LRT 2)"
+		color="#96fac8"
+		>Step_-1228767204.</event>
+	<event
+		start="613917212"
+		end="615120760"
+		title="Join_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#c8fac8"
+		>Step_-1228767204.</event>
+	<event
+		start="613930837"
+		end="615137135"
+		title="Join_0_0"
+		mapping="TID -1398754736 (LRT 2)"
+		color="#fafac8"
+		>Step_-1228767204.</event>
+	<event
+		start="615153552"
+		end="616255724"
+		title="Merge_0_0"
+		mapping="TID -1398754736 (LRT 2)"
+		color="#6464fa"
+		>Step_-1228767204.</event>
+	<event
+		start="615144968"
+		end="616268224"
+		title="Merge_0_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#9664fa"
+		>Step_-1228767204.</event>
+	<event
+		start="616287933"
+		end="619585658"
+		title="mergeRGB_0_0"
+		mapping="TID -1390366128 (LRT 1)"
+		color="#c864fa"
+		>Step_-1228767204.</event>
+	<event
+		start="619594616"
+		end="872747792"
+		title="DisplayBlur_0_0"
+		mapping="TID -1314852864 (Spider)"
+		color="#fa64fa"
+		>Step_-1228767204.</event>
+</data>

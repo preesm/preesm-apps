@@ -14,13 +14,6 @@
 #define IN
 #define OUT
 
-#include "communication.h"
-#include "fifo.h"
-#include "dump.h"
-
-#include "yuvRead.h"
-#include "yuvDisplay.h"
-
-typedef unsigned char uchar;
+#define In
 
 #endif

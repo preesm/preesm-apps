@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">topDynamic</data>
+        <node id="Read" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="read">
+                <param direction="OUT" isConfig="false" name="img" type="rgbimg "/>
+            </loop>
+            <init name="initRead"/>
+            <port annotation="NONE" expr="1" kind="output" name="img"/>
+        </node>
+        <node id="ComputeBrightnessAndFW" kind="actor">
+            <data key="graph_desc">Code/include/actors.h</data>
+            <loop name="computeBrightnessAndForward">
+                <param direction="IN" isConfig="false" name="img_in" type="In rgbimg "/>
+                <param direction="OUT" isConfig="false"
+                    name="brightness" type="double "/>
+                <param direction="OUT" isConfig="false" name="img_out" type="rgbimg "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="img_in"/>
+            <port annotation="NONE" expr="1" kind="output" name="brightness"/>
+            <port annotation="NONE" expr="1" kind="output" name="img_out"/>
+        </node>
+        <node id="DDD" kind="actor">
+            <data key="graph_desc">Algo/DynamicActor.pi</data>
+            <port annotation="NONE" expr="1" kind="input" name="ReadImage"/>
+            <port annotation="NONE" expr="1" kind="input" name="Brightness"/>
+        </node>
+        <edge kind="fifo" source="ComputeBrightnessAndFW"
+            sourceport="brightness" target="DDD" targetport="Brightness" type="double"/>
+        <edge kind="fifo" source="ComputeBrightnessAndFW"
+            sourceport="img_out" target="DDD" targetport="ReadImage" type="rgbimg"/>
+        <edge kind="fifo" source="Read" sourceport="img"
+            target="ComputeBrightnessAndFW" targetport="img_in" type="rgbimg"/>
+    </graph>
+</graphml>

@@ -15,6 +15,7 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <pthread.h>
 #else
 // For Linux
 // Pthread barriers are defined in POSIX 2001 version
@@ -23,6 +24,7 @@
 // For the 2001 revision compliance the defined value of _POSIX_VERSION should be 200112L.
 #define _POSIX_C_SOURCE 200112L
 #define _XOPEN_SOURCE 600
+#include <pthread.h>
 #endif
 
 #include <stdlib.h>
@@ -31,12 +33,16 @@
 #include <string.h>
 #include <semaphore.h>
 
+#include "yuvRead.h"
+#include "yuvWrite.h"
+#include "yuvDisplay.h"
 #include "communication.h"
 #include "fifo.h"
 #include "dump.h"
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
+#include "md5.h"
+#include "stabilization.h"
+
 
 typedef unsigned char uchar;
 

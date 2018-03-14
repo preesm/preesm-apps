@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.experiment.odroid.moa1/Algo/stereo_top.pi"/>
+        <architecture url="/org.ietr.preesm.experiment.odroid.moa1/Archi/Odroid.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.experiment.odroid.moa1/Code/Stereo/generated"/>
+    </files>
+    <constraints excelUrl="/org.ietr.preesm.experiment.odroid.moa1/Scenarios/TestComPC1A7.xls">
+        <constraintGroup>
+            <operator name="A7_Core0"/>
+            <task name="stereo_top/Census_L"/>
+            <task name="stereo_top/Cost_Parallel_Work/rawDisparity"/>
+            <task name="stereo_top/RGB2Gray_L"/>
+            <task name="stereo_top/RGB2Gray_R"/>
+            <task name="stereo_top/Cost_Parallel_Work/CostConstruction"/>
+            <task name="stereo_top/Cost_Parallel_Work/ComputeHorWeights"/>
+            <task name="stereo_top/Census_R"/>
+            <task name="stereo_top/Cost_Parallel_Work/disparitySelect"/>
+            <task name="stereo_top/Display_rgb0"/>
+            <task name="stereo_top/Median_Filter"/>
+            <task name="stereo_top/broadcast2"/>
+            <task name="stereo_top/Cost_Parallel_Work/AggregateCost"/>
+            <task name="stereo_top/Cost_Parallel_Work/rgbL"/>
+            <task name="stereo_top/Cost_Parallel_Work/OffsetGen"/>
+            <task name="stereo_top/broadcast1"/>
+            <task name="stereo_top/Cost_Parallel_Work/DisparityGen"/>
+            <task name="stereo_top/Split"/>
+            <task name="stereo_top/lum2RGB"/>
+            <task name="stereo_top/Cost_Parallel_Work/ComputeVertWeights"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast4"/>
+            <task name="stereo_top/Display_RGB1"/>
+            <task name="stereo_top/Read_PPM0"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast5"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast2"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast3"/>
+            <task name="stereo_top/Write_PPM"/>
+            <task name="stereo_top/Read_PPM1"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast0"/>
+            <task name="stereo_top/Broadcast0"/>
+            <task name="stereo_top/Cost_Parallel_Work/Broadcast1"/>
+            <task name="stereo_top"/>
+            <task name="stereo_top/Cost_Parallel_Work/grayR"/>
+            <task name="stereo_top/Cost_Parallel_Work/cenR"/>
+            <task name="stereo_top/Cost_Parallel_Work/grayL"/>
+            <task name="stereo_top/Cost_Parallel_Work/cenL"/>
+            <task name="stereo_top/Cost_Parallel_Work"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="/org.ietr.preesm.experiment.odroid.moa1/finalstats/analysis/Preesm_setup/time_TestComPC_64.xls">
+        <timing opname="ARM_CortexA15" time="6625000" vertexname="OffsetGen"/>
+        <timing opname="ARM_CortexA7" time="5585714" vertexname="OffsetGen"/>
+        <timing opname="ARM_CortexA15" time="711173611" vertexname="Read_PPM0"/>
+        <timing opname="ARM_CortexA7" time="1537026531" vertexname="Read_PPM0"/>
+        <timing opname="ARM_CortexA15" time="711173611" vertexname="Read_PPM1"/>
+        <timing opname="ARM_CortexA7" time="1537026531" vertexname="Read_PPM1"/>
+        <timing opname="ARM_CortexA15" time="7319444" vertexname="Display_rgb0"/>
+        <timing opname="ARM_CortexA7" time="9742857" vertexname="Display_rgb0"/>
+        <timing opname="ARM_CortexA15" time="7055556" vertexname="Split"/>
+        <timing opname="ARM_CortexA7" time="8844898" vertexname="Split"/>
+        <timing opname="ARM_CortexA15" time="7319444" vertexname="Display_RGB1"/>
+        <timing opname="ARM_CortexA7" time="9742857" vertexname="Display_RGB1"/>
+        <timing opname="ARM_CortexA15" time="6166667" vertexname="DisparityGen"/>
+        <timing opname="ARM_CortexA7" time="5900000" vertexname="DisparityGen"/>
+        <timing opname="ARM_CortexA15" time="2451402784" vertexname="RGB2Gray_L"/>
+        <timing opname="ARM_CortexA7" time="6666754084" vertexname="RGB2Gray_L"/>
+        <timing opname="ARM_CortexA15" time="2451402784" vertexname="RGB2Gray_R"/>
+        <timing opname="ARM_CortexA7" time="6666754084" vertexname="RGB2Gray_R"/>
+        <timing opname="ARM_CortexA15" time="2320937479" vertexname="Census_L"/>
+        <timing opname="ARM_CortexA7" time="6856279595" vertexname="Census_L"/>
+        <timing opname="ARM_CortexA15" time="2320937479" vertexname="Census_R"/>
+        <timing opname="ARM_CortexA7" time="6856279595" vertexname="Census_R"/>
+        <timing opname="ARM_CortexA15" time="2569489821" vertexname="Median_Filter"/>
+        <timing opname="ARM_CortexA7" time="5080679595" vertexname="Median_Filter"/>
+        <timing opname="ARM_CortexA15" time="101369749618" vertexname="Write_PPM"/>
+        <timing opname="ARM_CortexA7" time="130380081595" vertexname="Write_PPM"/>
+        <timing opname="ARM_CortexA15" time="2760980555" vertexname="CostConstruction"/>
+        <timing opname="ARM_CortexA7" time="13153362788" vertexname="CostConstruction"/>
+        <timing opname="ARM_CortexA15" time="1128657406" vertexname="disparitySelect"/>
+        <timing opname="ARM_CortexA7" time="6181944897" vertexname="disparitySelect"/>
+        <timing opname="ARM_CortexA15" time="30019852789" vertexname="AggregateCost"/>
+        <timing opname="ARM_CortexA7" time="76394685156" vertexname="AggregateCost"/>
+        <timing opname="ARM_CortexA15" time="36865661433" vertexname="ComputeHorWeights"/>
+        <timing opname="ARM_CortexA7" time="85264106901" vertexname="ComputeHorWeights"/>
+        <timing opname="ARM_CortexA15" time="36865661433" vertexname="ComputeVertWeights"/>
+        <timing opname="ARM_CortexA7" time="85264106901" vertexname="ComputeVertWeights"/>
+        <memcpyspeed opname="ARM_CortexA15" setuptime="1" timeperunit="1.0E-8"/>
+        <memcpyspeed opname="ARM_CortexA7" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>A7_Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+            <dataType name="float" size="4"/>
+            <dataType name="int" size="4"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="A7_Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+</scenario>
