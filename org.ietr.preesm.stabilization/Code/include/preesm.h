@@ -14,4 +14,6 @@
 #define IN
 #define OUT
 
+#include "communication.h"
+
 #endif

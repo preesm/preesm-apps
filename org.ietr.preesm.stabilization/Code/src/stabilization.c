@@ -37,8 +37,8 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	int deltaPrevY = (int)roundf(deltaPrev->y)*2;
 	int xPrevLeft = MAX(0, -deltaPrevX);
 	int yPrevTop = MAX(0, -deltaPrevY);
-	int xPrevRight = MIN(dispWidth, dispWidth + deltaPrevX);
-	int yPrevBot = MIN(dispHeight, dispHeight + deltaPrevY);
+	int xPrevRight = MIN(dispWidth, dispWidth - deltaPrevX);
+	int yPrevBot = MIN(dispHeight, dispHeight - deltaPrevY);
 
 	static int first = 1;
 
