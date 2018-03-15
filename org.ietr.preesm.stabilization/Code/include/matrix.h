@@ -95,5 +95,5 @@ void getProbabilities(const unsigned int nbVector, const coord * const vectors,
 * @param invMat
 *       inversion result.
 */
-inverseMatrix2D(const matrix * const mat, matrix * const invMat);
+void inverseMatrix2D(const matrix * const mat, matrix * const invMat);
 #endif

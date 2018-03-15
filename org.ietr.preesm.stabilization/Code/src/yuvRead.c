@@ -34,7 +34,9 @@ void initReadYUV(int width, int height) {
     if((ptfile = fopen(PATH_VIDEO, "rb")) == NULL )
     {
         fprintf(stderr,"ERROR: Task read cannot open yuv_file '%s'\n", PATH_VIDEO);
+#ifdef _WIN32
         system("PAUSE");
+#endif
         exit(0);
     }
 
@@ -49,7 +51,9 @@ void initReadYUV(int width, int height) {
     if(fsize < NB_FRAME*(width*height + width*height/2))
     {
         fprintf(stderr,"ERROR: Task read yuv_file incorrect size");
+#ifdef _WIN32
         system("PAUSE");
+#endif
         return;
     }
 

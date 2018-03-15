@@ -261,7 +261,9 @@ void findDominatingMotionVector(const int nbVectors,
 ** @param accumulatedMotionOut
 *        updated accumulated 2D motion vector.
 */
-void accumulateMotion(IN const coordf * const motionVector, IN const coordf * const accumulatedMotionIn, IN coordf * const filteredMotionIn, OUT coordf * const filteredMotionOut, OUT coordf * const accumulatedMotionOut);
+void accumulateMotion(IN const coordf * const motionVector, IN const coordf * const accumulatedMotionIn,
+					  IN coordf * const filteredMotionIn,
+					  OUT coordf * const filteredMotionOut, OUT coordf * const accumulatedMotionOut);
 
 
 #endif

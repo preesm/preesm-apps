@@ -261,7 +261,6 @@ void MD5_Update(unsigned long size, const void *data)
 	static unsigned char hash[16];
 	MD5_u32plus saved_lo;
 	unsigned long used, available;
-	static int frameIndex = 0;
 
 	MD5_Init();
 

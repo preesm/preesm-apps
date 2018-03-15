@@ -22,7 +22,9 @@ void initYUVWrite(){
 	if ((ptfile = fopen(PATH_WRITE, "wb")) == NULL)
 	{
 		fprintf(stderr, "ERROR: Task read cannot open output yuv_file '%s'\n", PATH_WRITE);
+#ifdef _WIN32
 		system("PAUSE");
+#endif
 		exit(0);
 	}
 }

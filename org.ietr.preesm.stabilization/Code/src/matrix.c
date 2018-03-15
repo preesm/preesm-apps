@@ -122,7 +122,7 @@ void getProbabilities(const unsigned int nbVector, const coord * const vectors,
 	}
 }
 
-inverseMatrix2D(const matrix * const mat, matrix * const invMat){
+void inverseMatrix2D(const matrix * const mat, matrix * const invMat){
 	float detMat = mat->coeffs[0] * mat->coeffs[3] - mat->coeffs[2] * mat->coeffs[1];
 
 	invMat->coeffs[0] = mat->coeffs[3] / detMat;

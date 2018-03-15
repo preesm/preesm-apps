@@ -11,6 +11,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <float.h>
@@ -26,42 +27,37 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	unsigned char * const yOut, unsigned char * const uOut, unsigned char * const vOut){
 
 	// Set the background color
-	memset(yOut, BG_BLACK_Y, dispWidth*dispHeight);
-	memset(uOut, BG_BLACK_U, dispWidth*dispHeight / 4);
-	memset(vOut, BG_BLACK_V, dispWidth*dispHeight / 4);
+	memset(yOut, BG_BLACK_Y, (size_t)(dispWidth) * (size_t)(dispHeight));
+	memset(uOut, BG_BLACK_U, (size_t)(dispWidth) * (size_t)(dispHeight) / 4);
+	memset(vOut, BG_BLACK_V, (size_t)(dispWidth) * (size_t)(dispHeight) / 4);
 
 	// Create the fading ghost of previous frame
 
 	// find position
 	int deltaPrevX = (int)roundf(deltaPrev->x)*2; // Multiply by 2 for Y
 	int deltaPrevY = (int)roundf(deltaPrev->y)*2;
-	int xPrevLeft = MAX(0, -deltaPrevX);
-	int yPrevTop = MAX(0, -deltaPrevY);
+	int xPrevLeft = MIN(MAX(0, -deltaPrevX), dispWidth);
+	int yPrevTop = MIN(MAX(0, -deltaPrevY), dispHeight);
 	int xPrevRight = MIN(dispWidth, dispWidth - deltaPrevX);
 	int yPrevBot = MIN(dispHeight, dispHeight - deltaPrevY);
 
 	static int first = 1;
 
-	if (!first){
-		// Render Ghost
-		int lineLengthGhost = xPrevRight - xPrevLeft;
-		for (int j = yPrevTop; j < yPrevBot; j++){
-			// memcpy(yOut + j*dispWidth + xPrevLeft, yPrev + (j + deltaPrevY)*dispWidth + (xPrevLeft + deltaPrevX), lineLengthGhost);
-			for (int i = xPrevLeft; i < xPrevLeft + lineLengthGhost; i++){
-				*(yOut + j*dispWidth + i) = *(yPrev + (j + deltaPrevY)*dispWidth + (i + deltaPrevX)) * HIGH_PASS_FILTER_TAP;
-			}
-		}
-
-		
-		for (int j = yPrevTop / 2; j < yPrevBot / 2; j++){
-			memcpy(uOut + j*dispWidth / 2 + xPrevLeft / 2, uPrev + (j + deltaPrevY / 2)*(dispWidth / 2) + (xPrevLeft / 2 + deltaPrevX / 2), xPrevRight /2 - xPrevLeft / 2);
-			memcpy(vOut + j*dispWidth / 2 + xPrevLeft / 2, vPrev + (j + deltaPrevY / 2)*(dispWidth / 2) + (xPrevLeft / 2 + deltaPrevX / 2), xPrevRight/2 - xPrevLeft / 2);
-		}
-	}
-	else {
-		first = 0;
-	}
-
+    if (first) {
+        first = 0;
+    } else {
+        // Render Ghost
+        int lineLengthGhost = xPrevRight - xPrevLeft;
+        for (int y = yPrevTop; y < yPrevBot; ++y){
+            // Y Ghost Rendering
+            for (int x = xPrevLeft; x < xPrevLeft + lineLengthGhost; ++x) {
+                *(yOut + y * dispWidth + x) = *(yPrev + (y + deltaPrevY)*dispWidth + (x + deltaPrevX)) * HIGH_PASS_FILTER_TAP;
+            }
+            // UV Ghost Rendering
+            memcpy(uOut + (y / 2) * (dispWidth / 2) + xPrevLeft / 2, uPrev + ((y + deltaPrevY) / 2) * (dispWidth / 2) + (xPrevLeft + deltaPrevX) / 2, (xPrevRight - xPrevLeft) / 2);
+            memcpy(vOut + (y / 2) * (dispWidth / 2) + xPrevLeft / 2, vPrev + ((y + deltaPrevY) / 2) * (dispWidth / 2) + (xPrevLeft + deltaPrevX) / 2, (xPrevRight - xPrevLeft) / 2);
+        }
+    }
 
 	// Compute the position of the rendered frame
 	// top-left (first pixel position)
@@ -77,22 +73,19 @@ void renderFrame(const int frameWidth, const int frameHeight,
 	int xRightClip = MIN(MAX(xRight, 0), dispWidth);
 	int yBotClip = MIN(MAX(yBot, 0), dispHeight);
 
-	// Render Y
-	int y;
-	for (y = yTopClip; y < yBotClip; y++){
-		memcpy(yOut + y*dispWidth + xLeftClip,
-			yIn + (y - yTop)*frameWidth + (xLeftClip - xLeft),
+	for (int y = yTopClip; y < yBotClip; y++){
+        // Render Y
+		memcpy(yOut + y * dispWidth + xLeftClip,
+			yIn + (y - yTop) * frameWidth + (xLeftClip - xLeft),
 			xRightClip - xLeftClip);
-	}
 
-	// Render UV
-	for (y = yTopClip / 2; y < yBotClip / 2; y++){
-		memcpy(uOut + y*dispWidth / 2 + xLeftClip / 2,
-			uIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
-			(xRightClip - xLeftClip) / 2);
-		memcpy(vOut + y*dispWidth / 2 + xLeftClip / 2,
-			vIn + (y - yTop / 2)*frameWidth / 2 + (xLeftClip - xLeft) / 2,
-			(xRightClip - xLeftClip) / 2);
+        // Render UV
+        memcpy(uOut + (y / 2) * (dispWidth / 2) + xLeftClip / 2,
+               uIn + (y - yTop) / 2 * (frameWidth / 2) + (xLeftClip - xLeft) / 2,
+               (xRightClip - xLeftClip) / 2);
+        memcpy(vOut + (y / 2) * (dispWidth / 2) + xLeftClip / 2,
+               vIn + (y - yTop) / 2 * (frameWidth / 2) + (xLeftClip - xLeft) / 2,
+               (xRightClip - xLeftClip) / 2);
 	}
 }
 
@@ -246,7 +239,6 @@ void findDominatingMotionVector(const int nbVectors,
 	const coord * const vectors, coordf * const dominatingVector){
 	static int first = 0;
 
-	const unsigned char * pFrame;
 	if (first == 0){
 		first = 1;
 		dominatingVector->x = 0;
@@ -295,7 +287,9 @@ void findDominatingMotionVector(const int nbVectors,
 	}
 }
 
-void accumulateMotion(const coordf * const motionVector, const coordf * const accumulatedMotionIn, const coordf * const filteredMotionIn, coordf * const filteredMotionOut, coordf * const accumulatedMotionOut){
+void accumulateMotion(IN const coordf * const motionVector, IN const coordf * const accumulatedMotionIn,
+						   IN coordf * const filteredMotionIn,
+						   OUT coordf * const filteredMotionOut, OUT coordf * const accumulatedMotionOut) {
 
 	// Compute filtered motion
 	filteredMotionOut->x -= roundf(filteredMotionIn->x);
