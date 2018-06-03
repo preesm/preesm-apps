@@ -40,9 +40,17 @@ Thumbs.db
 
 # PREESM generated files
 *.layout
-generated/
+**/codegen/
+**/generated/
 stats/xml/
 stats/mat/algo/
 stats/mat/archi/
 DAG
 **/.settings/
+
+# CLion generated files
+**/.idea/
+
+# CMake generated files
+**/cmake-build-debug/
+**/cmake-build-release/
