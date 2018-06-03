@@ -164,7 +164,7 @@ list(REMOVE_ITEM
 	 )
 
 add_executable( stabilization ${source_files} ${header_files})
-target_link_libraries(stabilization ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(stabilization ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} -lm)
 
 
 file(
@@ -192,5 +192,5 @@ list(APPEND
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 add_executable( stabilization-sequential ${source_files} ${header_files})
-target_link_libraries(stabilization-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY})
+target_link_libraries(stabilization-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} -lm)
 
