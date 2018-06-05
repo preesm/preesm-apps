@@ -17,11 +17,6 @@ endif()
 # Add definition for relative path into project
 add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 
-# Guard for linux users
-if(NOT WIN32)
-	MESSAGE(WARNING "This CMake project has not been tested on Linux.")
-endif()
-
 project(stabilization-sequential)
 project(stabilization)
 
@@ -40,6 +35,8 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
 			set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 	endif()
+	#add libmath during non visual studio builds
+	set(CMAKE_EXTRA_LIB m)
 else()
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
@@ -164,8 +161,7 @@ list(REMOVE_ITEM
 	 )
 
 add_executable( stabilization ${source_files} ${header_files})
-target_link_libraries(stabilization ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} -lm)
-
+target_link_libraries(stabilization ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
 
 file(
 	GLOB_RECURSE
@@ -192,5 +188,7 @@ list(APPEND
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 add_executable( stabilization-sequential ${source_files} ${header_files})
-target_link_libraries(stabilization-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} -lm)
+
+target_link_libraries(stabilization-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_EXTRA_LIB})
+set(CMAKE_C_FLAGS "-std=c99")
 
