@@ -34,3 +34,27 @@ clean:
 
 proper: clean
 	rm -rfv $(TARGET)
+
+install_odroid_deps:
+	sudo apt update
+	sudo apt upgrade -y
+	sudo apt install -y libsdl2-ttf-dev
+
+
+scheduler_get:
+	@echo -n "A7: "
+	@cat /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
+	@echo -n "A15: "
+	@cat /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
+
+scheduler_set_ondemand:
+	echo "ondemand" | sudo tee /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
+	echo "ondemand" | sudo tee /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
+
+scheduler_set_performance:
+	echo "performance" > /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
+	echo "performance" > /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
+
+demo: scheduler_set_ondemand proper
+	EnergyMonitor &
+	$(MAKE) test
