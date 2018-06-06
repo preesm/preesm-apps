@@ -8,10 +8,10 @@
     <graph edgedefault="directed">
         <data key="name">DynamicActor</data>
         <node expr="1" id="decision" kind="param"/>
-        <node expr="1" id="display1" kind="param"/>
+        <node expr="0" id="display1" kind="param"/>
         <node expr="decision*4+(1-decision)" id="nbSlices" kind="param"/>
-        <node expr="800" id="width" kind="param"/>
-        <node expr="600" id="height" kind="param"/>
+        <node expr="640" id="width" kind="param"/>
+        <node expr="480" id="height" kind="param"/>
         <node expr="height/nbSlices+2" id="sliceHeight" kind="param"/>
         <node id="ReadImage" kind="src">
             <port annotation="NONE" expr="1" kind="output" name="ReadImage"/>
@@ -38,17 +38,6 @@
             <port annotation="NONE" kind="cfg_output" name="decision"/>
             <port annotation="NONE" expr="1" kind="input" name="brightness"/>
         </node>
-        <node id="blur" kind="actor">
-            <data key="graph_desc">Code/include/actors.h</data>
-            <loop name="blur">
-                <param direction="IN" isConfig="false" name="img_in" type="rgbimg "/>
-                <param direction="OUT" isConfig="false" name="img_out" type="rgbimg "/>
-                <param direction="IN" isConfig="true" name="decision" type="int"/>
-            </loop>
-            <port kind="cfg_input" name="decision"/>
-            <port annotation="NONE" expr="decision" kind="input" name="img_in"/>
-            <port annotation="NONE" expr="decision" kind="output" name="img_out"/>
-        </node>
         <node id="splitRGB" kind="actor">
             <data key="graph_desc">Code/include/actors.h</data>
             <loop name="splitRGB">
@@ -59,11 +48,11 @@
             </loop>
             <port kind="cfg_input" name="decision"/>
             <port annotation="NONE" expr="decision" kind="input" name="img_in"/>
-            <port annotation="NONE" expr="decision*800*600"
+            <port annotation="NONE" expr="decision*640*480"
                 kind="output" name="R"/>
-            <port annotation="NONE" expr="decision*800*600"
+            <port annotation="NONE" expr="decision*640*480"
                 kind="output" name="G"/>
-            <port annotation="NONE" expr="decision*800*600"
+            <port annotation="NONE" expr="decision*640*480"
                 kind="output" name="B"/>
         </node>
         <node id="mergeRGB" kind="actor">
@@ -75,9 +64,9 @@
                 <param direction="OUT" isConfig="false" name="img_out" type="rgbimg "/>
             </loop>
             <port kind="cfg_input" name="decision"/>
-            <port annotation="NONE" expr="decision*800*600" kind="input" name="R"/>
-            <port annotation="NONE" expr="decision*800*600" kind="input" name="G"/>
-            <port annotation="NONE" expr="decision*800*600" kind="input" name="B"/>
+            <port annotation="NONE" expr="decision*640*480" kind="input" name="R"/>
+            <port annotation="NONE" expr="decision*640*480" kind="input" name="G"/>
+            <port annotation="NONE" expr="decision*640*480" kind="input" name="B"/>
             <port annotation="NONE" expr="decision" kind="output" name="img_out"/>
         </node>
         <node id="Split" kind="actor">
@@ -280,19 +269,16 @@
             target="mergeRGB" targetport="G" type="uchar"/>
         <edge kind="fifo" source="Merge_0" sourceport="output"
             target="mergeRGB" targetport="B" type="uchar"/>
-        <edge kind="fifo" source="blur" sourceport="img_out"
-            target="splitRGB" targetport="img_in" type="rgbimg"/>
         <edge kind="fifo" source="mergeRGB" sourceport="img_out"
             target="Join" targetport="in1" type="rgbimg"/>
         <edge kind="fifo" source="ReadImage" sourceport="ReadImage"
             target="Fork" targetport="in" type="rgbimg"/>
-        <edge kind="fifo" source="Fork" sourceport="out1" target="blur"
-            targetport="img_in" type="rgbimg"/>
         <edge kind="fifo" source="Fork" sourceport="out2" target="Join"
             targetport="int2" type="rgbimg"/>
         <edge kind="fifo" source="Join" sourceport="out"
             target="DisplayBlur" targetport="img" type="rgbimg"/>
-        <edge kind="dependency" source="decision" target="blur" targetport="decision"/>
+        <edge kind="fifo" source="Fork" sourceport="out1"
+            target="splitRGB" targetport="img_in" type="rgbimg"/>
         <edge kind="dependency" source="display1" target="DisplayBlur" targetport="displayID"/>
         <edge kind="dependency" source="ConfigActor"
             sourceport="decision" target="decision"/>

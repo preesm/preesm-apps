@@ -5,8 +5,8 @@
 #include "adaptive_runtime.h"
 
 
-#define XSAMPLING 800
-#define YSAMPLING 600
+#define XSAMPLING 640
+#define YSAMPLING 480
 
 
 typedef struct {

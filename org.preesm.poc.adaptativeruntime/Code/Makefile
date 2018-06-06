@@ -10,13 +10,14 @@ CC=g++
 INCS=-I./include -I./generated
 LIBS=$(shell pkg-config --libs opencv) -lpthread -lSpider
 
-CFLAGS=-fpic $(INCS) -O0
+CFLAGS=-fpic $(INCS) -O3
 CPPFLAGS=$(CFLAGS)
 
 all: $(TARGET)
 
 test: proper all
 	./$(TARGET)
+	GanttDisplay -f gantt.pgantt
 
 $(TARGET): $(patsubst %,%.o,$(DEPS)) $(patsubst %,%.o,$(GENS))
 	$(CC) -o $@ $^ $(LIBS)

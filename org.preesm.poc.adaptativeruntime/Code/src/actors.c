@@ -4,7 +4,7 @@
 
 #include "../include/ARM_CortexA7.h"
 #include "image.h"
-
+#include "v4l2uvc.h"
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
@@ -18,7 +18,7 @@ void matToRGB(Mat openCVImage,rgbimg * outimg);
 Mat RGBToMat(rgbimg* img);
 
 #define array_size(x)  (sizeof(x) / sizeof((x)[0]))
-const char* displays[] = { "output" };
+const char* displays[] = { "output", "output1", "output2" };
 
 void initDisplays() {
 	for (unsigned int i = 0; i < array_size(displays); i++) {
@@ -27,18 +27,17 @@ void initDisplays() {
 }
 
 VideoCapture* cap;
+VideoCapture* cap1;
+VideoCapture* cap2;
 void initRead() {
-	cap = new VideoCapture(0);
+//	cap = new VideoCapture(0);
+//	cap1 = new VideoCapture(1);
+//	cap2 = new VideoCapture(2);
 }
 
 void read(rgbimg* img) {
-	Mat inputFrame;
-	(*cap) >> inputFrame;
-	Mat resizedFrame;
-	resize(inputFrame, resizedFrame, Size(XSAMPLING, YSAMPLING), INTER_LINEAR);
-	matToRGB(resizedFrame, img);
-	resizedFrame.release();
-	inputFrame.release();
+
+	cam(img->r, img->g, img->b, XSAMPLING, YSAMPLING, 0);
 }
 
 void computeBrightness(rgbimg * img, double * b) {
@@ -50,7 +49,7 @@ void computeBrightness(rgbimg * img, double * b) {
 void display(rgbimg * img, unsigned int displayID) {
 	Mat m = RGBToMat(img);
 	imshow(displays[displayID], m);
-	waitKey(15);
+	waitKey(1);
 	m.release();
 }
 
