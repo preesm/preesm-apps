@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">actor_train</data>
+        <node id="input_size" kind="cfg_in_iface"/>
+        <node id="hidden_size" kind="cfg_in_iface"/>
+        <node id="output_size" kind="cfg_in_iface"/>
+        <node expr="hidden_size + output_size" id="bias_size" kind="param"/>
+        <node
+            expr="input_size * hidden_size + hidden_size * output_size"
+            id="weights_size" kind="param"/>
+        <node expr="0" id="nbUpdate" kind="param"/>
+        <node id="Train" kind="actor">
+            <data key="graph_desc">Algo/training-dynamic/network_train.pi</data>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="hidden_size"/>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="nbUpdate"/>
+            <port annotation="NONE"
+                expr="nbUpdate * (hidden_size + output_size)"
+                kind="input" name="bias"/>
+            <port annotation="NONE" expr="nbUpdate *input_size"
+                kind="input" name="inputs"/>
+            <port annotation="NONE" expr="nbUpdate" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="nbUpdate * output_size"
+                kind="input" name="targets"/>
+            <port annotation="NONE" expr="nbUpdate" kind="input" name="valid"/>
+            <port annotation="NONE"
+                expr="nbUpdate * (input_size * hidden_size + hidden_size * output_size)"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="nbUpdate * (input_size * hidden_size + hidden_size * output_size)"
+                kind="output" name="weights_out"/>
+            <port annotation="NONE"
+                expr="nbUpdate * (hidden_size + output_size)"
+                kind="output" name="bias_out"/>
+        </node>
+        <node id="valid" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
+        </node>
+        <node id="learning_rate" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
+        </node>
+        <node id="weights" kind="src">
+            <port annotation="NONE" expr="weights_size" kind="output" name="weights"/>
+        </node>
+        <node id="bias" kind="src">
+            <port annotation="NONE" expr="bias_size" kind="output" name="bias"/>
+        </node>
+        <node id="inputs" kind="src">
+            <port annotation="NONE" expr="input_size" kind="output" name="inputs"/>
+        </node>
+        <node id="targets" kind="src">
+            <port annotation="NONE" expr="output_size" kind="output" name="targets"/>
+        </node>
+        <node id="bias_out" kind="snk">
+            <port annotation="NONE" expr="bias_size" kind="input" name="bias_out"/>
+        </node>
+        <node id="weights_out" kind="snk">
+            <port annotation="NONE" expr="weights_size" kind="input" name="weights_out"/>
+        </node>
+        <node id="nbUpdatesSetter" kind="actor">
+            <data key="graph_desc">Spider/include/actor.h</data>
+            <loop name="setNTrainActor">
+                <param direction="IN" isConfig="false" name="sigma" type="float "/>
+                <param direction="OUT" isConfig="false" name="nUpdate" type="int "/>
+            </loop>
+            <port annotation="NONE" kind="cfg_output" name="nUpdates"/>
+            <port annotation="NONE" expr="1" kind="input" name="sigma"/>
+        </node>
+        <node id="sigma" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="sigma"/>
+        </node>
+        <edge kind="fifo" source="bias" sourceport="bias" target="Train"
+            targetport="bias" type="float"/>
+        <edge kind="fifo" source="inputs" sourceport="inputs"
+            target="Train" targetport="inputs" type="float"/>
+        <edge kind="fifo" source="learning_rate"
+            sourceport="learning_rate" target="Train"
+            targetport="learning_rate" type="float"/>
+        <edge kind="fifo" source="targets" sourceport="targets"
+            target="Train" targetport="targets" type="float"/>
+        <edge kind="fifo" source="valid" sourceport="valid"
+            target="Train" targetport="valid" type="float"/>
+        <edge kind="fifo" source="weights" sourceport="weights"
+            target="Train" targetport="weights" type="float"/>
+        <edge kind="fifo" source="Train" sourceport="weights_out"
+            target="weights_out" targetport="weights_out" type="float"/>
+        <edge kind="fifo" source="Train" sourceport="bias_out"
+            target="bias_out" targetport="bias_out" type="float"/>
+        <edge kind="fifo" source="sigma" sourceport="sigma"
+            target="nbUpdatesSetter" targetport="sigma" type="float"/>
+        <edge kind="dependency" source="hidden_size" target="bias_size"/>
+        <edge kind="dependency" source="hidden_size" target="weights_size"/>
+        <edge kind="dependency" source="output_size" target="bias_size"/>
+        <edge kind="dependency" source="input_size" target="weights_size"/>
+        <edge kind="dependency" source="output_size" target="weights_size"/>
+        <edge kind="dependency" source="weights_size" target="weights"/>
+        <edge kind="dependency" source="bias_size" target="bias"/>
+        <edge kind="dependency" source="input_size" target="inputs"/>
+        <edge kind="dependency" source="output_size" target="targets"/>
+        <edge kind="dependency" source="input_size" target="Train" targetport="input_size"/>
+        <edge kind="dependency" source="output_size" target="Train" targetport="output_size"/>
+        <edge kind="dependency" source="hidden_size" target="Train" targetport="hidden_size"/>
+        <edge kind="dependency" source="weights_size" target="weights_out"/>
+        <edge kind="dependency" source="bias_size" target="bias_out"/>
+        <edge kind="dependency" source="nbUpdatesSetter"
+            sourceport="nUpdates" target="nbUpdate"/>
+        <edge kind="dependency" source="nbUpdate" target="Train" targetport="nbUpdate"/>
+    </graph>
+</graphml>

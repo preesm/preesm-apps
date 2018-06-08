@@ -8,10 +8,18 @@
 
 #include <zconf.h>
 #include <math.h>
-#include "../include/x86.h"
+#include <time.h>
 #include <unistd.h>
-#include <x86.h>
 #include <clock.h>
+#include <stdlib.h>
+#include <render.h>
+#include <mlp.h>
+#include <environment.h>
+#include <actor_mlp.h>
+#include <common.h>
+#include <stdio.h>
+#include <critic_mlp.h>
+#include <memory.h>
 
 #define CACLA_train
 int stopThreads = 0;

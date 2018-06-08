@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <x86.h>
+#include <actor_mlp.h>
 // file header
 #include "../include/mlp.h"
 #include "../include/common.h"
