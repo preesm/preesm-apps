@@ -13,6 +13,11 @@
 
 #include "preesm.h"
 
+/**
+ * Two thresholds are used to refine the results. The bandwidth
+ * can be shortened or enlarged to allow less or more points in
+ * the output.
+ */
 #define HIGH_THRESHOLD	80000
 #define LOW_THRESHOLD	12000
 
@@ -29,28 +34,28 @@
  * A pixel is considered to be an edge point if its value is larger
  * than the two neighbor pixels in the perpendicular direction of
  * its derivative.
- * 					b		(neighbor pixel 1)
- * 					|
- * 					a--->	(direction of derivative)
- * 					|
- * 					c		(neighbor pixel 2)
+ * 				b		(neighbor pixel 1)
+ * 				|
+ * 				a--->	(direction of derivative)
+ * 				|
+ * 				c		(neighbor pixel 2)
  * (a is considered to be an edge if (|a| > |b| and |a| > |c|))
  *
  * Since the function is applied to digital images, only four
  * directions are possible: 0°, 45°, 90° and 135°. Four thresholds
  * are used to classify the direction of derivatives into one of the
  * angles.
- * arg = atan2(y, x);
+ * 	  arg = atan2(y, x);
  *
  *       	| 0°,	if (-22.5° <= arg < 22.5°)
  *       	|		or (arg >= 157.5°)
- *       	|		or (arg < -157.5°)
+ *       	|		or (arg < -157.5°);
  *    arg = | 45°, 	if (22.5° <= arg < 67.5°)
- * 		 	|		or (-157.5° <= arg < -112.5°)
+ * 		 	|		or (-157.5° <= arg < -112.5°);
  *       	| 90°, 	if (67.5° <= arg < 112.5°)
- *       	|		or (-112.5° <= arg < -67.5°)
+ *       	|		or (-112.5° <= arg < -67.5°);
  *       	| 135°, if (112.5° <= arg < 157.5°)
- *       	|		or (-67.5° <= arg < -22.5°)
+ *       	|		or (-67.5° <= arg < -22.5°);
  *
  * Two thresholds are used to further refine the results.
  *
@@ -69,3 +74,4 @@ void canny(int width, int height, IN char *gx, IN char *gy,
 		OUT unsigned char *output);
 
 #endif	// CANNY_H
+
