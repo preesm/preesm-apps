@@ -1,4 +1,4 @@
-# org.ietr.preesm.sobel project
+# org.ietr.preesm.canny-xy project
 ## Project description 
 
 This tutorial project contains:
