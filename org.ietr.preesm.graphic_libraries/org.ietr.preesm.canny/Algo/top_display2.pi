@@ -14,6 +14,7 @@
         <node expr="width/nbColumn+2" id="columnWidth" kind="param"/>
         <node expr="height/nbSlice+2" id="sliceHeight" kind="param"/>
         <node expr="0" id="index" kind="param"/>
+        <node expr="width*height" id="displaySize" kind="param"/>
         <node id="ReadYUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readY">
@@ -123,6 +124,22 @@
                 kind="input" name="input"/>
             <port annotation="NONE" expr="height*width" kind="output" name="output"/>
         </node>
+        <node id="Md5" kind="actor">
+            <data key="graph_desc">Code/include/md5.h</data>
+            <loop name="MD5_Update">
+                <param direction="IN" isConfig="true" name="size" type="unsigned long"/>
+                <param direction="IN" isConfig="false" name="data" type="const void "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="data"/>
+        </node>
+        <node id="Duplicate_Result" kind="broadcast">
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output_0"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output_1"/>
+        </node>
         <edge kind="fifo" source="ReadYUV" sourceport="y"
             target="Split2" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Split2" sourceport="output"
@@ -133,12 +150,16 @@
             target="Canny" targetport="gy" type="char"/>
         <edge kind="fifo" source="Canny" sourceport="output"
             target="Merge2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Merge2" sourceport="output"
-            target="Display" targetport="y" type="uchar"/>
         <edge kind="fifo" source="ReadYUV" sourceport="u"
             target="Display" targetport="u" type="uchar"/>
         <edge kind="fifo" source="ReadYUV" sourceport="v"
             target="Display" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="Merge2" sourceport="output"
+            target="Duplicate_Result" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Result"
+            sourceport="output_0" target="Display" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Result"
+            sourceport="output_1" target="Md5" targetport="data" type="uchar"/>
         <edge kind="dependency" source="width" target="columnWidth"/>
         <edge kind="dependency" source="nbColumn" target="columnWidth"/>
         <edge kind="dependency" source="height" target="sliceHeight"/>
@@ -160,5 +181,11 @@
         <edge kind="dependency" source="nbSlice" target="Split2" targetport="nbSlice"/>
         <edge kind="dependency" source="width" target="Display" targetport="width"/>
         <edge kind="dependency" source="height" target="Display" targetport="height"/>
+        <edge kind="dependency" source="width" target="Duplicate_Result" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="Duplicate_Result" targetport="height"/>
+        <edge kind="dependency" source="height" target="displaySize"/>
+        <edge kind="dependency" source="width" target="displaySize"/>
+        <edge kind="dependency" source="displaySize" target="Md5" targetport="size"/>
     </graph>
 </graphml>

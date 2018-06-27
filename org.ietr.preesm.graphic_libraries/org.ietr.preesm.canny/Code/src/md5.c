@@ -258,6 +258,10 @@ void MD5_Update(unsigned long size, const void *data) {
 	MD5_u32plus saved_lo;
 	unsigned long used, available;
 
+#ifdef VERBOSE
+	static int frameIndex = 0;
+#endif
+
 	MD5_Init();
 
 	saved_lo = ctx.lo;
