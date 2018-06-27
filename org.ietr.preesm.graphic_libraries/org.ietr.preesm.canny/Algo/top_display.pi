@@ -11,7 +11,7 @@
         <node expr="720" id="height" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="height/nbSlice+2" id="sliceHeight" kind="param"/>
-        <node expr="4" id="nbSlice" kind="param"/>
+        <node expr="1" id="nbSlice" kind="param"/>
         <node expr="100" id="border" kind="param"/>
         <node expr="width+2*border" id="displayWidth" kind="param"/>
         <node expr="height+2*border" id="displayHeight" kind="param"/>
