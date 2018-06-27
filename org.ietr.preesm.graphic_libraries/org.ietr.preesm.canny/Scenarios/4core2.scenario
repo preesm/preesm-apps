@@ -8,37 +8,37 @@
     <constraints excelUrl="">
         <constraintGroup>
             <operator name="Core0"/>
-            <task name="top_display2/Read_YUV"/>
-            <task name="top_display2/Split"/>
             <task name="top_display2/Canny"/>
-            <task name="top_display2/Merge"/>
             <task name="top_display2/Display"/>
             <task name="top_display2/Sobel2"/>
             <task name="top_display2"/>
+            <task name="top_display2/ReadYUV"/>
+            <task name="top_display2/Split2"/>
+            <task name="top_display2/Merge2"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
-            <task name="top_display2/Split"/>
-            <task name="top_display2/Canny"/>
-            <task name="top_display2/Merge"/>
             <task name="top_display2/Sobel2"/>
+            <task name="top_display2/Canny"/>
+            <task name="top_display2/Split2"/>
+            <task name="top_display2/Merge2"/>
             <task name="top_display2"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
-            <task name="top_display2/Split"/>
             <task name="top_display2/Canny"/>
-            <task name="top_display2/Merge"/>
             <task name="top_display2/Sobel2"/>
             <task name="top_display2"/>
+            <task name="top_display2/Split2"/>
+            <task name="top_display2/Merge2"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
-            <task name="top_display2/Split"/>
             <task name="top_display2/Canny"/>
-            <task name="top_display2/Merge"/>
             <task name="top_display2/Sobel2"/>
             <task name="top_display2"/>
+            <task name="top_display2/Split2"/>
+            <task name="top_display2/Merge2"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
