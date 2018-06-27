@@ -14,6 +14,8 @@
             <task name="top_display/Merge"/>
             <task name="top_display/Gaussian"/>
             <task name="top_display"/>
+            <task name="top_display/Md5"/>
+            <task name="top_display/Duplicate_Result"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
