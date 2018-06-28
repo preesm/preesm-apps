@@ -1,7 +1,7 @@
 # org.ietr.preesm.gaussian-filter project
 ## Project description 
 
-This preesm project is an implementation of the Gaussian filter. It aims to parallelize the calculations in multi-core architectures to augment the performance of the Gaussian algorithm. In order to do so, the input images or video sequences need to be splitted into smaller units, treated separately and in parallel, then merged together. Two methods of splitting are proposed, one splits the input horizontally into slices and the other splits the input horizontally and vertically into blocks. A sequential version of this program is also provided as a comparison.
+This preesm project is an implementation of the Gaussian filter. It aims to parallelize the calculations in multi-core architectures to augment the performance of the Gaussian algorithm. In order to do so, the input images or video sequences need to be splitted into smaller units, treated separately and in parallel, then merged together. Two methods of splitting are proposed, one splits the input horizontally into slices and the other splits the input horizontally and vertically into blocks. The number of slices and columns are specified as parameters in the top_display workflow. A sequential version of this program is also provided as a comparison.
 
 This project mainly contains:
 
