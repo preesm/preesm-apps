@@ -19,4 +19,6 @@ The project mainly contains:
 * The canny and canny-sequential executables are generated in the bin/Release folder
 * Launch the execution
 
-Note that the yuv sequence and the ttf font are not provided in the /dat folder.
+## Notes
+* The yuv sequence and the ttf font are not provided
+* If the nbSlice (or nbColumn) is set to 1, the sliceHeight (columnWidth) parameter should be set to height/nbSlice (width/nbColumn); otherwise, a two-pixel width border should be added, sliceHeight should be (height/nbSlice+4) and columnWidth is(width/nbColumn+4)
