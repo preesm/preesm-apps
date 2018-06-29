@@ -15,41 +15,56 @@
 
 void split(int nbSlice, int width, int height, unsigned char *input,
 		unsigned char *output) {
-	int i;
+	int i, destIndex, srcIndex;
 	int sliceSize = width * height / nbSlice;
-	// Fill first and last line with 0
-	memset(output, 0, width);
-	// First Slice
-	memcpy(output + width, input, sliceSize);
-	// Copy next line if several slice
-	if (nbSlice > 1) {
-		memcpy(output + width + sliceSize, input + sliceSize, width);
+	int copySize = sliceSize + 4 * width;
+
+	if (nbSlice <= 1) {
+		memcpy(output, input, sliceSize);
+	} else {
+		// First slice
+		memcpy(output, input, sliceSize + 4 * width);
+		destIndex = copySize;
+		srcIndex = sliceSize;
+
+		// Slices other than first and last
+		for (i = 1; i < nbSlice - 1; i++) {
+			memcpy(output + destIndex, input + srcIndex - 2 * width, copySize);
+			destIndex += copySize;
+			srcIndex += sliceSize;
+		}
+
+		// Last slice
+		memcpy(output + destIndex, input + srcIndex - 4 * width, copySize);
 	}
-	// Slice other than first and last
-	for (i = 1; i < nbSlice - 1; i++) {
-		int destIndex = i * (sliceSize + 2 * width);
-		memcpy(output + destIndex, input + i * sliceSize - width,
-				sliceSize + 2 * width);
-	}
-	// Last Slice
-	i = nbSlice - 1;
-	if (nbSlice > 1) {
-		// we have i = nbSlice -1;
-		int destIndex = i * (sliceSize + 2 * width);
-		memcpy(output + destIndex, input + i * sliceSize - width,
-				sliceSize + width);
-	}
-	// Last line
-	memset(output + (height + nbSlice * 2 - 1) * width, 0, width);
 }
 
 void merge(int nbSlice, int width, int height, unsigned char *input,
 		unsigned char *output) {
 	int i;
-	int sliceSize = width * height / nbSlice;
-	// Copy the slice content except the first and last lines
-	for (i = 0; i < nbSlice; i++) {
-		int idx = i * (sliceSize + 2 * width);
-		memcpy(output + i * sliceSize, input + idx + width, sliceSize);
+	int sliceHeight = height / nbSlice;
+	int destSliceSize = width * sliceHeight;
+	int srcSliceSize = width * (sliceHeight + 4);
+
+	unsigned char *destIndex = output;
+	unsigned char *srcIndex = input;
+
+	if (nbSlice <= 1) {
+		memcpy(destIndex, srcIndex, destSliceSize - 2 * width);
+		memset(destIndex + destSliceSize - 2 * width, 0, 2 * width);
+		return;
 	}
+
+	memcpy(destIndex, srcIndex, destSliceSize);
+
+	for (i = 1; i < nbSlice - 1; i++) {
+		destIndex += destSliceSize;
+		srcIndex += srcSliceSize;
+		memcpy(destIndex, srcIndex + 2 * width, destSliceSize);
+	}
+
+	destIndex += destSliceSize;
+	srcIndex += srcSliceSize;
+	memcpy(destIndex, srcIndex + 4 * width, destSliceSize);
+
 }

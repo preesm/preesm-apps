@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "canny.h"
 
 void canny(int width, int height, char *gx, char *gy, unsigned char *output) {
@@ -27,11 +28,15 @@ void canny(int width, int height, char *gx, char *gy, unsigned char *output) {
 	double t3 = 5 * t1;
 	double t4 = 7 * t1;
 
-	k = 0;
+	// Zero in the first two lines
+	memset(output, 0, 2 * width);
+
+	k = 2 * width;
 	// Apply the filter
-	for (j = 1; j < height - 1; j++) {
+	for (j = 2; j < height - 2; j++) {
 		output[k++] = 0;
-		for (i = 1; i < width - 1; i++) {
+		output[k++] = 0;
+		for (i = 2; i < width - 2; i++) {
 			current_x = gx[k];
 			current_y = gy[k];
 
@@ -75,8 +80,8 @@ void canny(int width, int height, char *gx, char *gy, unsigned char *output) {
 
 			/**
 			 * Filtering & Thresholding: A pixel is considered to be an edge if
-			 * its value is bigger than the two neighbor pixels. A double thresholding
-			 * is applied to refine the result.
+			 * its value is bigger than the two neighbor pixels.
+			 * A double thresholding is then applied to refine the result.
 			 */
 			if (current > neighbor1&& current > neighbor2
 			&& current > LOW_THRESHOLD && current < HIGH_THRESHOLD) {
@@ -90,5 +95,9 @@ void canny(int width, int height, char *gx, char *gy, unsigned char *output) {
 			k++;
 		}
 		output[k++] = 0;
+		output[k++] = 0;
 	}
+
+	// Zero in the last two lines
+	memset(output + k, 0, 2 * width);
 }
