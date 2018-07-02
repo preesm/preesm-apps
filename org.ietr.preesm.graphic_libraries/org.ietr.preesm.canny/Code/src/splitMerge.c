@@ -76,6 +76,7 @@ void split2(int width, int height, int nbColumn, int nbSlice,
 	int sliceHeight = height / nbSlice;
 	int columnWidth = width / nbColumn;
 	int destColumnWidth = columnWidth + 4;
+	int sliceSize = sliceHeight * width;
 
 	unsigned char *destIndex = output;
 	unsigned char *srcIndex = input;
@@ -87,24 +88,29 @@ void split2(int width, int height, int nbColumn, int nbSlice,
 	}
 
 	// First column
+
+	// First slice
 	for (i = 0; i < sliceHeight; i++) {
 		memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 		destIndex += destColumnWidth;
 	}
 
 	if (nbSlice > 1) {
+		// Four extra lines
 		for (i = sliceHeight; i < sliceHeight + 4; i++) {
 			memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 			destIndex += destColumnWidth;
 		}
-		for (j = 1; j < nbSlice; j++) {
-			srcIndex += sliceHeight * width;
+		// Middle slices
+		for (j = 1; j < nbSlice - 1; j++) {
+			srcIndex += sliceSize;
 			for (i = -2; i < sliceHeight + 2; i++) {
 				memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 				destIndex += destColumnWidth;
 			}
 		}
-		srcIndex += sliceHeight * width;
+		srcIndex += sliceSize;
+		// Last slice
 		for (i = -4; i < sliceHeight; i++) {
 			memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 			destIndex += destColumnWidth;
@@ -113,57 +119,60 @@ void split2(int width, int height, int nbColumn, int nbSlice,
 
 	// Middle columns
 	for (k = 1; k < nbColumn - 1; k++) {
-		srcIndex = input + k * columnWidth;
+		srcIndex = input + k * columnWidth - 2;
+		// First slice
 		for (i = 0; i < sliceHeight; i++) {
-			memcpy(destIndex, srcIndex + i * width - 2, destColumnWidth);
+			memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 			destIndex += destColumnWidth;
 		}
-
 		if (nbSlice > 1) {
+			// Four extra lines
 			for (i = sliceHeight; i < sliceHeight + 4; i++) {
 				memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 				destIndex += destColumnWidth;
 			}
-			for (j = 1; j < nbSlice; j++) {
-				srcIndex += sliceHeight * width;
+			// Middle slices
+			for (j = 1; j < nbSlice - 1; j++) {
+				srcIndex += sliceSize;
 				for (i = -2; i < sliceHeight + 2; i++) {
-					memcpy(destIndex, srcIndex + i * width - 2,
-							destColumnWidth);
+					memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 					destIndex += destColumnWidth;
 				}
 			}
-
-			srcIndex += sliceHeight * width;
+			srcIndex += sliceSize;
+			// Last slice
 			for (i = -4; i < sliceHeight; i++) {
-				memcpy(destIndex, srcIndex + i * width - 2, destColumnWidth);
+				memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 				destIndex += destColumnWidth;
 			}
 		}
 	}
 
 	// Last column
-	srcIndex = input + width - columnWidth;
+	srcIndex = input + width - destColumnWidth;
+	// First slice
 	for (i = 0; i < sliceHeight; i++) {
-		memcpy(destIndex, srcIndex + i * width - 4, destColumnWidth);
+		memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 		destIndex += destColumnWidth;
 	}
-
 	if (nbSlice > 1) {
+		// Four extra lines
 		for (i = sliceHeight; i < sliceHeight + 4; i++) {
 			memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 			destIndex += destColumnWidth;
 		}
+		// Middle slices
 		for (j = 1; j < nbSlice - 1; j++) {
-			srcIndex += sliceHeight * width;
+			srcIndex += sliceSize;
 			for (i = -2; i < sliceHeight + 2; i++) {
-				memcpy(destIndex, srcIndex + i * width - 4, destColumnWidth);
+				memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 				destIndex += destColumnWidth;
 			}
 		}
-
-		srcIndex += sliceHeight * width;
+		srcIndex += sliceSize;
+		// Last slice
 		for (i = -4; i < sliceHeight; i++) {
-			memcpy(destIndex, srcIndex + i * width - 4, destColumnWidth);
+			memcpy(destIndex, srcIndex + i * width, destColumnWidth);
 			destIndex += destColumnWidth;
 		}
 	}
@@ -196,7 +205,7 @@ void merge2(int width, int height, int nbColumn, int nbSlice,
 	if (nbSlice > 1) {
 		srcIndex += 6 * srcColumnWidth;
 		// Middle slices
-		for (j = 1; j < nbSlice; j++) {
+		for (j = 1; j < nbSlice - 1; j++) {
 			for (i = 0; i < sliceHeight; i++) {
 				memcpy(destIndex, srcIndex, columnWidth);
 				destIndex += width;
@@ -226,7 +235,7 @@ void merge2(int width, int height, int nbColumn, int nbSlice,
 			srcIndex += 6 * srcColumnWidth;
 
 			// Middle slices
-			for (j = 1; j < nbSlice; j++) {
+			for (j = 1; j < nbSlice - 1; j++) {
 				for (i = 0; i < sliceHeight; i++) {
 					memcpy(destIndex, srcIndex + 2, columnWidth);
 					destIndex += width;
@@ -252,6 +261,7 @@ void merge2(int width, int height, int nbColumn, int nbSlice,
 		destIndex += width;
 		srcIndex += srcColumnWidth;
 	}
+
 	if (nbSlice > 1) {
 		srcIndex += 6 * srcColumnWidth;
 		// Middle slices

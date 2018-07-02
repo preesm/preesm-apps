@@ -8,11 +8,11 @@
     <graph edgedefault="directed">
         <data key="name">top_display2</data>
         <node expr="1280" id="width" kind="param"/>
-        <node expr="4" id="nbColumn" kind="param"/>
+        <node expr="2" id="nbColumn" kind="param"/>
         <node expr="720" id="height" kind="param"/>
-        <node expr="1" id="nbSlice" kind="param"/>
+        <node expr="2" id="nbSlice" kind="param"/>
         <node expr="width/nbColumn+4" id="columnWidth" kind="param"/>
-        <node expr="height/nbSlice" id="sliceHeight" kind="param"/>
+        <node expr="height/nbSlice+4" id="sliceHeight" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="width*height" id="displaySize" kind="param"/>
         <node id="ReadYUV" kind="actor">
