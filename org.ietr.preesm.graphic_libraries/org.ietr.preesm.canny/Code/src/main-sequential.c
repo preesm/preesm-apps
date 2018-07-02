@@ -20,14 +20,13 @@ int main(int argc, char** argv) {
 	static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
 			* WIDTH / 4];
 	static char gx[HEIGHT * WIDTH], gy[HEIGHT * WIDTH];
-	static unsigned char yDisp[HEIGHT * WIDTH];
+	unsigned int frameIndex = 1;
 
 	// Init display
 	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
 	// Init read
 	initReadYUV(WIDTH, HEIGHT);
 
-	unsigned int frameIndex = 1;
 	while (!stopThreads) {
 		// Read a frame
 		readY(WIDTH, HEIGHT, y, u, v);
@@ -36,10 +35,13 @@ int main(int argc, char** argv) {
 		sobel2(WIDTH, HEIGHT, y, gx, gy);
 
 		// Apply Harris detector
-		canny(WIDTH, HEIGHT, gx, gy, yDisp);
+		canny(WIDTH, HEIGHT, gx, gy, y);
 
 		// Display filtered image
-		yuvDisplay(0, yDisp, u, v);
+		yuvDisplay(0, y, u, v);
+
+		// MD5 check
+		MD5_Update(WIDTH * HEIGHT, y + WIDTH);
 
 		// Exit ?
 		frameIndex++;
@@ -54,3 +56,4 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
+

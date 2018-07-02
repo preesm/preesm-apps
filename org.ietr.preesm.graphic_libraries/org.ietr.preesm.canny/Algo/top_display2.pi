@@ -8,11 +8,11 @@
     <graph edgedefault="directed">
         <data key="name">top_display2</data>
         <node expr="1280" id="width" kind="param"/>
-        <node expr="2" id="nbColumn" kind="param"/>
+        <node expr="4" id="nbColumn" kind="param"/>
         <node expr="720" id="height" kind="param"/>
-        <node expr="2" id="nbSlice" kind="param"/>
-        <node expr="width/nbColumn+2" id="columnWidth" kind="param"/>
-        <node expr="height/nbSlice+2" id="sliceHeight" kind="param"/>
+        <node expr="1" id="nbSlice" kind="param"/>
+        <node expr="width/nbColumn+4" id="columnWidth" kind="param"/>
+        <node expr="height/nbSlice" id="sliceHeight" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="width*height" id="displaySize" kind="param"/>
         <node id="ReadYUV" kind="actor">
@@ -100,9 +100,11 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbColumn"/>
             <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="sliceHeight"/>
+            <port kind="cfg_input" name="columnWidth"/>
             <port annotation="NONE" expr="height*width" kind="input" name="input"/>
             <port annotation="NONE"
-                expr="nbColumn*(width/nbColumn+2)*nbSlice*(height/nbSlice+2)"
+                expr="nbColumn*columnWidth*nbSlice*sliceHeight"
                 kind="output" name="output"/>
         </node>
         <node id="Merge2" kind="actor">
@@ -119,8 +121,10 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbColumn"/>
             <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="sliceHeight"/>
+            <port kind="cfg_input" name="columnWidth"/>
             <port annotation="NONE"
-                expr="nbColumn*(width/nbColumn+2)*nbSlice*(height/nbSlice+2)"
+                expr="nbColumn*columnWidth*nbSlice*sliceHeight"
                 kind="input" name="input"/>
             <port annotation="NONE" expr="height*width" kind="output" name="output"/>
         </node>
@@ -187,5 +191,9 @@
         <edge kind="dependency" source="height" target="displaySize"/>
         <edge kind="dependency" source="width" target="displaySize"/>
         <edge kind="dependency" source="displaySize" target="Md5" targetport="size"/>
+        <edge kind="dependency" source="sliceHeight" target="Split2" targetport="sliceHeight"/>
+        <edge kind="dependency" source="columnWidth" target="Split2" targetport="columnWidth"/>
+        <edge kind="dependency" source="sliceHeight" target="Merge2" targetport="sliceHeight"/>
+        <edge kind="dependency" source="columnWidth" target="Merge2" targetport="columnWidth"/>
     </graph>
 </graphml>
