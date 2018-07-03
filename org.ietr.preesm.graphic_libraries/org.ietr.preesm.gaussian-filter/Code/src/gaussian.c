@@ -17,8 +17,6 @@ void gaussian(int width, int height, unsigned char *input,
 	int a, b, c;
 	int res;
 
-	a = 0;
-	b = width * (height - 1);
 	// apply the filter
 	for (j = 1; j < height - 1; j++) {
 		a = (j - 1) * width;
