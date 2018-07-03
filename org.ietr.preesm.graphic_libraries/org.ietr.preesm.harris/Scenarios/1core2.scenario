@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
     <files>
-        <algorithm url="/org.ietr.preesm.harris/Algo/top_display.pi"/>
+        <algorithm url="/org.ietr.preesm.harris/Algo/top_display2.pi"/>
         <architecture url="/org.ietr.preesm.harris/Archi/1CoreX86.slam"/>
         <codegenDirectory url="/org.ietr.preesm.harris/Code/generated"/>
     </files>
     <constraints excelUrl="">
         <constraintGroup>
             <operator name="Core0"/>
-            <task name="top_display/Read_YUV"/>
-            <task name="top_display/display"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Harris"/>
-            <task name="top_display/Sobel2"/>
-            <task name="top_display/DuplicateY"/>
-            <task name="top_display/DuplicateResult"/>
-            <task name="top_display/Md5"/>
-            <task name="top_display"/>
+            <task name="top_display2/Read_YUV"/>
+            <task name="top_display2/display"/>
+            <task name="top_display2/Harris"/>
+            <task name="top_display2/Sobel2"/>
+            <task name="top_display2/DuplicateY"/>
+            <task name="top_display2/Split2"/>
+            <task name="top_display2/Merge2"/>
+            <task name="top_display2"/>
+            <task name="top_display2/Md5"/>
+            <task name="top_display2/DuplicateResult"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>

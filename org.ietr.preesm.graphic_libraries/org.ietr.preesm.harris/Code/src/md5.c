@@ -41,6 +41,10 @@
 
 #include "md5.h"
 
+#ifdef VERBOSE
+#include <stdio.h>
+#endif
+
 MD5_CTX ctx;
 
 /*
@@ -256,6 +260,9 @@ void MD5_Update(unsigned long size, const void *data) {
 	static unsigned char hash[16];
 	MD5_u32plus saved_lo;
 	unsigned long used, available;
+#ifdef VERBOSE
+	static int frameIndex = 0;
+#endif
 
 	MD5_Init();
 

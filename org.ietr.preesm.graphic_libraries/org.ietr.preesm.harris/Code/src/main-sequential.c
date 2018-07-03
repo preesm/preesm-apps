@@ -47,6 +47,9 @@ int main(int argc, char** argv) {
 		// save it
 		yuvWrite(WIDTH, HEIGHT, yDisp, u, v);
 
+		// Md5 update
+		MD5_Update(WIDTH * HEIGHT, yDisp);
+
 		// Exit ?
 		frameIndex++;
 		if (frameIndex == NB_FRAME) {
