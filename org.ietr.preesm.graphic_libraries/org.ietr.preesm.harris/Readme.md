@@ -19,4 +19,6 @@ This project mainly contains:
 * The harris and harris-sequential executables are generated in the /bin/Release folder
 * Launch the execution
 
-Note that the yuv sequences and the ttf font are not provided.
+## Notes
+* The yuv sequence and the ttf font are not provided
+* If the nbSlice (or nbColumn) is set to 1, the sliceHeight (columnWidth) parameter should be set to height/nbSlice (width/nbColumn); otherwise, a two-pixel width border should be added, sliceHeight should be equal to (height/nbSlice+4) (and columnWidth is (width/nbColumn+4))
