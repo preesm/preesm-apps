@@ -18,7 +18,6 @@ int main(int argc, char** argv) {
 	// Declarations
 	static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
 			* WIDTH / 4];
-	static char gx[HEIGHT * WIDTH], gy[HEIGHT * WIDTH];
 	static unsigned char yDisp[HEIGHT * WIDTH];
 	unsigned int frameIndex = 1;
 

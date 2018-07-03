@@ -7,10 +7,10 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">top_display</data>
-        <node expr="352" id="width" kind="param"/>
-        <node expr="288" id="height" kind="param"/>
+        <node expr="1280" id="width" kind="param"/>
+        <node expr="720" id="height" kind="param"/>
         <node expr="0" id="index" kind="param"/>
-        <node expr="height/nbSlice+2" id="sliceHeight" kind="param"/>
+        <node expr="height/nbSlice+4" id="sliceHeight" kind="param"/>
         <node expr="8" id="nbSlice" kind="param"/>
         <node expr="width*height" id="displaySize" kind="param"/>
         <node id="Read_YUV" kind="actor">
@@ -66,9 +66,10 @@
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="sliceHeight"/>
             <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE"
-                expr="nbSlice*width*(height/nbSlice+2)" kind="output" name="output"/>
+            <port annotation="NONE" expr="nbSlice*width*sliceHeight"
+                kind="output" name="output"/>
         </node>
         <node id="Merge" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
@@ -82,8 +83,9 @@
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbSlice"/>
-            <port annotation="NONE"
-                expr="nbSlice*width*(height/nbSlice+2)" kind="input" name="input"/>
+            <port kind="cfg_input" name="sliceHeight"/>
+            <port annotation="NONE" expr="nbSlice*width*sliceHeight"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="height*width" kind="output" name="output"/>
         </node>
         <node id="Gaussian" kind="actor">
@@ -152,5 +154,7 @@
         <edge kind="dependency" source="height"
             target="Duplicate_Result" targetport="height"/>
         <edge kind="dependency" source="height" target="displaySize"/>
+        <edge kind="dependency" source="sliceHeight" target="Split" targetport="sliceHeight"/>
+        <edge kind="dependency" source="sliceHeight" target="Merge" targetport="sliceHeight"/>
     </graph>
 </graphml>
