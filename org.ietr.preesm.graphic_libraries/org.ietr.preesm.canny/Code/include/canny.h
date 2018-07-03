@@ -27,6 +27,12 @@
  */
 #define PI	3.1415926536
 
+// T1 = atan(22.5°)
+#define T1	0.414213562
+
+// T2 = atan(67.5°)
+#define T2	2.414213562
+
 /**
  * Function to apply the Canny edge detector to an image of size
  * width * height. The input gx and gy are results of Sobel filter.
@@ -34,11 +40,11 @@
  * A pixel is considered to be an edge point if its value is larger
  * than the two neighbor pixels in the perpendicular direction of
  * its derivative.
- * 				b		(neighbor pixel 1)
- * 				|
- * 				a--->	(direction of derivative)
- * 				|
- * 				c		(neighbor pixel 2)
+ * 			b		(neighbor pixel 1)
+ * 			|
+ * 			a--->	(direction of derivative)
+ * 			|
+ * 			c		(neighbor pixel 2)
  * (a is considered to be an edge if (|a| > |b| and |a| > |c|))
  *
  * Since the function is applied to digital images, only four
@@ -74,4 +80,3 @@ void canny(int width, int height, IN char *gx, IN char *gy,
 		OUT unsigned char *output);
 
 #endif	// CANNY_H
-
