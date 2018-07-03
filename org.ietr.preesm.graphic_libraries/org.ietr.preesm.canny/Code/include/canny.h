@@ -63,7 +63,9 @@
  *       	| 135°, if (112.5° <= arg < 157.5°)
  *       	|		or (-67.5° <= arg < -22.5°);
  *
- * Two thresholds are used to further refine the results.
+ * The angle is not determined directly, instead, the ratio of y and x
+ * is calculated and then classified into one of the directions. Two
+ * thresholds are used to further refine the results.
  *
  * @param width
  * 		  The width of the processed image
@@ -80,3 +82,4 @@ void canny(int width, int height, IN char *gx, IN char *gy,
 		OUT unsigned char *output);
 
 #endif	// CANNY_H
+
