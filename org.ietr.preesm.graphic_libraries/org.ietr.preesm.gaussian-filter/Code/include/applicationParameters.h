@@ -8,7 +8,7 @@
  * @copyright CECILL-C
  */
 
-#if 1
+#if 0
 #define PATH_VIDEO PROJECT_ROOT_PATH "/dat/highway_cif.yuv"
 
 #define HEIGHT 288 //!< Video height
@@ -20,7 +20,7 @@
 #define MAX_DELTA_Y 21 //!< Largest ordinate difference for block matching
 #endif
 
-#if 0
+#if 1
 #define PATH_VIDEO PROJECT_ROOT_PATH "/dat/GivingScholarlyFallowdeer1280x720-415f.yuv"
 
 #define HEIGHT 720 //!< Video height
