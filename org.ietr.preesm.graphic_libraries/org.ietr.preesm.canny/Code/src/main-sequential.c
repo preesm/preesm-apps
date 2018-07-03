@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 		yuvDisplay(0, y, u, v);
 
 		// MD5 check
-		MD5_Update(WIDTH * HEIGHT, y + WIDTH);
+		MD5_Update(WIDTH * HEIGHT, y);
 
 		// Exit ?
 		frameIndex++;
