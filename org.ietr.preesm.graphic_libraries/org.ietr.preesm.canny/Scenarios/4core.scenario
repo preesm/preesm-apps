@@ -9,44 +9,56 @@
         <constraintGroup>
             <operator name="Core0"/>
             <task name="top_display/display"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Canny"/>
             <task name="top_display"/>
             <task name="top_display/Read_YUV"/>
-            <task name="top_display/Duplicate_Y"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Sobel2"/>
+            <task name="top_display/Duplicate_Result"/>
+            <task name="top_display/Canny/Split"/>
+            <task name="top_display/Canny/Sobel2"/>
+            <task name="top_display/Canny/Calculation"/>
+            <task name="top_display/Canny/Merge"/>
+            <task name="top_display/Canny/input"/>
+            <task name="top_display/Canny/output"/>
+            <task name="top_display/Canny"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Canny"/>
             <task name="top_display"/>
-            <task name="top_display/Duplicate_Y"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Sobel2"/>
+            <task name="top_display/Duplicate_Result"/>
+            <task name="top_display/Canny/Split"/>
+            <task name="top_display/Canny/Sobel2"/>
+            <task name="top_display/Canny/Calculation"/>
+            <task name="top_display/Canny/Merge"/>
+            <task name="top_display/Canny/input"/>
+            <task name="top_display/Canny/output"/>
+            <task name="top_display/Canny"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Canny"/>
             <task name="top_display"/>
-            <task name="top_display/Duplicate_Y"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Sobel2"/>
+            <task name="top_display/Duplicate_Result"/>
+            <task name="top_display/Canny/Split"/>
+            <task name="top_display/Canny/Sobel2"/>
+            <task name="top_display/Canny/Calculation"/>
+            <task name="top_display/Canny/Merge"/>
+            <task name="top_display/Canny/input"/>
+            <task name="top_display/Canny/output"/>
+            <task name="top_display/Canny"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Canny"/>
             <task name="top_display"/>
-            <task name="top_display/Duplicate_Y"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Sobel2"/>
+            <task name="top_display/Duplicate_Result"/>
+            <task name="top_display/Canny/Split"/>
+            <task name="top_display/Canny/Sobel2"/>
+            <task name="top_display/Canny/Calculation"/>
+            <task name="top_display/Canny/Merge"/>
+            <task name="top_display/Canny/input"/>
+            <task name="top_display/Canny/output"/>
+            <task name="top_display/Canny"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
