@@ -10,47 +10,59 @@
             <operator name="Core0"/>
             <task name="top_display/Read_YUV"/>
             <task name="top_display/display"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Harris"/>
             <task name="top_display"/>
-            <task name="top_display/Sobel2"/>
-            <task name="top_display/DuplicateY"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
+            <task name="top_display/Harris/DuplicateY"/>
+            <task name="top_display/Harris/Sobel2"/>
+            <task name="top_display/Harris/Calculation"/>
+            <task name="top_display/Harris/input"/>
+            <task name="top_display/Harris/output"/>
+            <task name="top_display/Harris/Split"/>
+            <task name="top_display/Harris/Merge"/>
+            <task name="top_display/Harris"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Harris"/>
             <task name="top_display"/>
-            <task name="top_display/Sobel2"/>
-            <task name="top_display/DuplicateY"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
+            <task name="top_display/Harris/DuplicateY"/>
+            <task name="top_display/Harris/Sobel2"/>
+            <task name="top_display/Harris/Calculation"/>
+            <task name="top_display/Harris/input"/>
+            <task name="top_display/Harris/output"/>
+            <task name="top_display/Harris/Split"/>
+            <task name="top_display/Harris/Merge"/>
+            <task name="top_display/Harris"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Harris"/>
             <task name="top_display"/>
-            <task name="top_display/Sobel2"/>
-            <task name="top_display/DuplicateY"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
+            <task name="top_display/Harris/DuplicateY"/>
+            <task name="top_display/Harris/Sobel2"/>
+            <task name="top_display/Harris/Calculation"/>
+            <task name="top_display/Harris/input"/>
+            <task name="top_display/Harris/output"/>
+            <task name="top_display/Harris/Split"/>
+            <task name="top_display/Harris/Merge"/>
+            <task name="top_display/Harris"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
-            <task name="top_display/Harris"/>
             <task name="top_display"/>
-            <task name="top_display/Sobel2"/>
-            <task name="top_display/DuplicateY"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
+            <task name="top_display/Harris/DuplicateY"/>
+            <task name="top_display/Harris/Sobel2"/>
+            <task name="top_display/Harris/Calculation"/>
+            <task name="top_display/Harris/input"/>
+            <task name="top_display/Harris/output"/>
+            <task name="top_display/Harris/Split"/>
+            <task name="top_display/Harris/Merge"/>
+            <task name="top_display/Harris"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">harris</data>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="nbSlice" kind="cfg_in_iface"/>
+        <node expr="2" id="borderSize" kind="param"/>
+        <node expr="height/nbSlice+2*borderSize" id="sliceHeight" kind="param"/>
+        <node id="DuplicateY" kind="broadcast">
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height" kind="output" name="output_0"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output_1"/>
+        </node>
+        <node id="Sobel2" kind="actor">
+            <data key="graph_desc">Code/include/sobel2.h</data>
+            <loop name="sobel2">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output_x" type="char "/>
+                <param direction="OUT" isConfig="false" name="output_y" type="char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output_x"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output_y"/>
+        </node>
+        <node id="Calculation" kind="actor">
+            <data key="graph_desc">Code/include/harris.h</data>
+            <loop name="harris">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="gx" type="char "/>
+                <param direction="IN" isConfig="false" name="gy" type="char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="gx"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="gy"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="y"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+        </node>
+        <node id="input" kind="src">
+            <port annotation="NONE" expr="width*height" kind="output" name="input"/>
+        </node>
+        <node id="output" kind="snk">
+            <port annotation="NONE" expr="width*height" kind="input" name="output"/>
+        </node>
+        <node id="Split" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="split">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="borderSize"/>
+            <port kind="cfg_input" name="sliceHeight"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*nbSlice*sliceHeight"
+                kind="output" name="output"/>
+        </node>
+        <node id="Merge" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="merge">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="borderSize"/>
+            <port kind="cfg_input" name="sliceHeight"/>
+            <port annotation="NONE" expr="width*nbSlice*sliceHeight"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+        </node>
+        <edge kind="fifo" source="Sobel2" sourceport="output_x"
+            target="Calculation" targetport="gx" type="char"/>
+        <edge kind="fifo" source="Sobel2" sourceport="output_y"
+            target="Calculation" targetport="gy" type="char"/>
+        <edge kind="fifo" source="DuplicateY" sourceport="output_0"
+            target="Sobel2" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="DuplicateY" sourceport="output_1"
+            target="Calculation" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="input" sourceport="input"
+            target="Split" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Split" sourceport="output"
+            target="DuplicateY" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Calculation" sourceport="output"
+            target="Merge" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Merge" sourceport="output"
+            target="output" targetport="output" type="uchar"/>
+        <edge kind="dependency" source="width" target="DuplicateY" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight" target="DuplicateY" targetport="height"/>
+        <edge kind="dependency" source="sliceHeight" target="Sobel2" targetport="height"/>
+        <edge kind="dependency" source="width" target="Sobel2" targetport="width"/>
+        <edge kind="dependency" source="width" target="Calculation" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Calculation" targetport="height"/>
+        <edge kind="dependency" source="borderSize" target="sliceHeight"/>
+        <edge kind="dependency" source="width" target="Split" targetport="width"/>
+        <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
+        <edge kind="dependency" source="height" target="Split" targetport="height"/>
+        <edge kind="dependency" source="borderSize" target="Split" targetport="borderSize"/>
+        <edge kind="dependency" source="borderSize" target="Merge" targetport="borderSize"/>
+        <edge kind="dependency" source="nbSlice" target="Merge" targetport="nbSlice"/>
+        <edge kind="dependency" source="width" target="Merge" targetport="width"/>
+        <edge kind="dependency" source="height" target="Merge" targetport="height"/>
+        <edge kind="dependency" source="sliceHeight" target="Split" targetport="sliceHeight"/>
+        <edge kind="dependency" source="sliceHeight" target="Merge" targetport="sliceHeight"/>
+        <edge kind="dependency" source="width" target="input"/>
+        <edge kind="dependency" source="height" target="input"/>
+        <edge kind="dependency" source="width" target="output"/>
+        <edge kind="dependency" source="height" target="output"/>
+        <edge kind="dependency" source="height" target="sliceHeight"/>
+        <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
+    </graph>
+</graphml>

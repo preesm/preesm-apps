@@ -10,14 +10,17 @@
             <operator name="Core0"/>
             <task name="top_display2/Read_YUV"/>
             <task name="top_display2/display"/>
-            <task name="top_display2/Harris"/>
-            <task name="top_display2/Sobel2"/>
-            <task name="top_display2/DuplicateY"/>
-            <task name="top_display2/Split2"/>
-            <task name="top_display2/Merge2"/>
             <task name="top_display2"/>
             <task name="top_display2/Md5"/>
             <task name="top_display2/DuplicateResult"/>
+            <task name="top_display2/Harris2/DuplicateY"/>
+            <task name="top_display2/Harris2/Sobel2"/>
+            <task name="top_display2/Harris2/Harris"/>
+            <task name="top_display2/Harris2/input"/>
+            <task name="top_display2/Harris2/output"/>
+            <task name="top_display2/Harris2/Split2"/>
+            <task name="top_display2/Harris2/Merge2"/>
+            <task name="top_display2/Harris2"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
