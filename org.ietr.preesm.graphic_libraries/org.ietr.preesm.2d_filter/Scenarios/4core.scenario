@@ -13,40 +13,53 @@
             <task name="top_display/Display"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
             <task name="top_display"/>
-            <task name="top_display/FilterCoefficients"/>
+            <task name="top_display/Filter/input"/>
+            <task name="top_display/Filter/output"/>
+            <task name="top_display/Filter/Split"/>
+            <task name="top_display/Filter/Filter"/>
+            <task name="top_display/Filter/Merge"/>
+            <task name="top_display/Filter/Coefficients"/>
+            <task name="top_display/Filter/FilterCalculation"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
             <task name="top_display/Filter"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
             <task name="top_display"/>
-            <task name="top_display/FilterCoefficients"/>
+            <task name="top_display/Filter/input"/>
+            <task name="top_display/Filter/output"/>
+            <task name="top_display/Filter/Split"/>
+            <task name="top_display/Filter/Merge"/>
+            <task name="top_display/Filter/Coefficients"/>
+            <task name="top_display/Filter/Calculation"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
             <task name="top_display/Filter"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
             <task name="top_display"/>
-            <task name="top_display/FilterCoefficients"/>
+            <task name="top_display/Filter/input"/>
+            <task name="top_display/Filter/output"/>
+            <task name="top_display/Filter/Split"/>
+            <task name="top_display/Filter/Merge"/>
+            <task name="top_display/Filter/Coefficients"/>
+            <task name="top_display/Filter/Calculation"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
             <task name="top_display/Filter"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
             <task name="top_display"/>
-            <task name="top_display/FilterCoefficients"/>
+            <task name="top_display/Filter/input"/>
+            <task name="top_display/Filter/output"/>
+            <task name="top_display/Filter/Split"/>
+            <task name="top_display/Filter/Merge"/>
+            <task name="top_display/Filter/Coefficients"/>
+            <task name="top_display/Filter/Calculation"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

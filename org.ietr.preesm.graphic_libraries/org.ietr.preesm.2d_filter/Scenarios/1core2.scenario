@@ -9,14 +9,17 @@
         <constraintGroup>
             <operator name="Core0"/>
             <task name="top_display2/Read_YUV"/>
-            <task name="top_display2/Filter"/>
             <task name="top_display2/Display"/>
             <task name="top_display2/DuplicateResult"/>
             <task name="top_display2/Md5"/>
-            <task name="top_display2/Split2"/>
-            <task name="top_display2/Merge2"/>
             <task name="top_display2"/>
-            <task name="top_display2/Coefficients"/>
+            <task name="top_display2/Filter2/input"/>
+            <task name="top_display2/Filter2/Coefficients"/>
+            <task name="top_display2/Filter2/output"/>
+            <task name="top_display2/Filter2/Split2"/>
+            <task name="top_display2/Filter2/Calculation"/>
+            <task name="top_display2/Filter2/Merge2"/>
+            <task name="top_display2/Filter2"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

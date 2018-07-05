@@ -12,8 +12,8 @@
         <node expr="720" id="height" kind="param"/>
         <node expr="4" id="nbSlice" kind="param"/>
         <node expr="height/nbSlice+2*borderSize" id="sliceHeight" kind="param"/>
-        <node expr="3" id="filterSize" kind="param"/>
-        <node expr="1" id="borderSize" kind="param"/>
+        <node expr="5" id="filterSize" kind="param"/>
+        <node expr="2" id="borderSize" kind="param"/>
         <node expr="width*height" id="displaySize" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
@@ -72,78 +72,15 @@
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="data"/>
         </node>
-        <node id="Split" kind="actor">
-            <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="split">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
-            </loop>
-            <port kind="cfg_input" name="nbSlice"/>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="borderSize"/>
-            <port kind="cfg_input" name="sliceHeight"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*nbSlice*sliceHeight"
-                kind="output" name="output"/>
-        </node>
-        <node id="Merge" kind="actor">
-            <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="merge">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
-            </loop>
-            <port kind="cfg_input" name="nbSlice"/>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="borderSize"/>
-            <port kind="cfg_input" name="sliceHeight"/>
-            <port annotation="NONE" expr="width*nbSlice*sliceHeight"
-                kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
-        </node>
         <node id="Filter" kind="actor">
-            <data key="graph_desc">Code/include/filter.h</data>
-            <loop name="filter">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="filterSize" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="coefficients" type="char "/>
-                <param direction="IN" isConfig="false" name="norm" type="unsigned char "/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
-            </loop>
+            <data key="graph_desc">Algo/filter.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="filterSize"/>
             <port kind="cfg_input" name="borderSize"/>
-            <port annotation="NONE" expr="filterSize*filterSize"
-                kind="input" name="coefficients"/>
-            <port annotation="NONE" expr="1" kind="input" name="norm"/>
             <port annotation="NONE" expr="width*height" kind="input" name="input"/>
             <port annotation="NONE" expr="width*height" kind="output" name="output"/>
-        </node>
-        <node id="FilterCoefficients" kind="actor">
-            <data key="graph_desc">Code/include/coefficients.h</data>
-            <loop name="setCoefficients">
-                <param direction="OUT" isConfig="false"
-                    name="coefficients" type="char "/>
-                <param direction="OUT" isConfig="false" name="norm" type="unsigned char "/>
-            </loop>
-            <port kind="cfg_input" name="filterSize"/>
-            <port annotation="NONE" expr="filterSize*filterSize"
-                kind="output" name="coefficients"/>
-            <port annotation="NONE" expr="1" kind="output" name="norm"/>
         </node>
         <edge kind="fifo" source="DuplicateResult" sourceport="output_0"
             target="Display" targetport="y" type="uchar"/>
@@ -154,18 +91,9 @@
         <edge kind="fifo" source="Read_YUV" sourceport="v"
             target="Display" targetport="v" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="y"
-            target="Split" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Merge" sourceport="output"
-            target="DuplicateResult" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Filter" sourceport="output"
-            target="Merge" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Split" sourceport="output"
             target="Filter" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="FilterCoefficients"
-            sourceport="coefficients" target="Filter"
-            targetport="coefficients" type="char"/>
-        <edge kind="fifo" source="FilterCoefficients" sourceport="norm"
-            target="Filter" targetport="norm" type="uchar"/>
+        <edge kind="fifo" source="Filter" sourceport="output"
+            target="DuplicateResult" targetport="input" type="uchar"/>
         <edge kind="dependency" source="height" target="sliceHeight"/>
         <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
         <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
@@ -180,21 +108,10 @@
         <edge kind="dependency" source="height" target="displaySize"/>
         <edge kind="dependency" source="width" target="displaySize"/>
         <edge kind="dependency" source="displaySize" target="Md5" targetport="size"/>
-        <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
-        <edge kind="dependency" source="width" target="Split" targetport="width"/>
-        <edge kind="dependency" source="height" target="Split" targetport="height"/>
-        <edge kind="dependency" source="borderSize" target="Split" targetport="borderSize"/>
-        <edge kind="dependency" source="nbSlice" target="Merge" targetport="nbSlice"/>
-        <edge kind="dependency" source="width" target="Merge" targetport="width"/>
-        <edge kind="dependency" source="height" target="Merge" targetport="height"/>
-        <edge kind="dependency" source="borderSize" target="Merge" targetport="borderSize"/>
-        <edge kind="dependency" source="sliceHeight" target="Split" targetport="sliceHeight"/>
-        <edge kind="dependency" source="sliceHeight" target="Merge" targetport="sliceHeight"/>
         <edge kind="dependency" source="width" target="Filter" targetport="width"/>
-        <edge kind="dependency" source="sliceHeight" target="Filter" targetport="height"/>
+        <edge kind="dependency" source="height" target="Filter" targetport="height"/>
+        <edge kind="dependency" source="nbSlice" target="Filter" targetport="nbSlice"/>
         <edge kind="dependency" source="filterSize" target="Filter" targetport="filterSize"/>
         <edge kind="dependency" source="borderSize" target="Filter" targetport="borderSize"/>
-        <edge kind="dependency" source="filterSize"
-            target="FilterCoefficients" targetport="filterSize"/>
     </graph>
 </graphml>

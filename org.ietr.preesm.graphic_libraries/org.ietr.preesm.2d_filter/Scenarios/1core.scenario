@@ -13,10 +13,13 @@
             <task name="top_display/Display"/>
             <task name="top_display/DuplicateResult"/>
             <task name="top_display/Md5"/>
-            <task name="top_display/Split"/>
-            <task name="top_display/Merge"/>
             <task name="top_display"/>
-            <task name="top_display/FilterCoefficients"/>
+            <task name="top_display/Filter/input"/>
+            <task name="top_display/Filter/output"/>
+            <task name="top_display/Filter/Split"/>
+            <task name="top_display/Filter/Merge"/>
+            <task name="top_display/Filter/Coefficients"/>
+            <task name="top_display/Filter/FilterCalculation"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

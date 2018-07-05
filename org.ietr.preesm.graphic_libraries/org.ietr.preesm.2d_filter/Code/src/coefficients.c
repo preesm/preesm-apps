@@ -5,7 +5,7 @@ void setCoefficients(char *coefficients, unsigned char *norm) {
 	coefficients[1] = 0;
 	coefficients[2] = 0;
 	coefficients[3] = 0;
-	coefficients[4] = 0;
+	coefficients[4] = 1;
 	coefficients[5] = 0;
 	coefficients[6] = 0;
 	coefficients[7] = 0;
