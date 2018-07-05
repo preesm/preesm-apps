@@ -12,8 +12,6 @@
         <node expr="4" id="nbColumn" kind="param"/>
         <node expr="2" id="nbSlice" kind="param"/>
         <node expr="0" id="index" kind="param"/>
-        <node expr="width/nbColumn+4" id="columnWidth" kind="param"/>
-        <node expr="height/nbSlice+4" id="sliceHeight" kind="param"/>
         <node expr="height*width" id="displaySize" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
@@ -35,61 +33,6 @@
                 kind="output" name="u"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="v"/>
-        </node>
-        <node id="Split2" kind="actor">
-            <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="split2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="nbColumn" type="int"/>
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="nbColumn"/>
-            <port kind="cfg_input" name="nbSlice"/>
-            <port kind="cfg_input" name="columnWidth"/>
-            <port kind="cfg_input" name="sliceHeight"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE"
-                expr="nbSlice*sliceHeight*nbColumn*columnWidth"
-                kind="output" name="output"/>
-        </node>
-        <node id="Gaussian" kind="actor">
-            <data key="graph_desc">Code/include/gaussian.h</data>
-            <loop name="gaussian">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
-        </node>
-        <node id="Merge2" kind="actor">
-            <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="merge2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="nbColumn" type="int"/>
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="nbColumn"/>
-            <port kind="cfg_input" name="nbSlice"/>
-            <port kind="cfg_input" name="columnWidth"/>
-            <port kind="cfg_input" name="sliceHeight"/>
-            <port annotation="NONE"
-                expr="nbSlice*sliceHeight*nbColumn*columnWidth"
-                kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
         </node>
         <node id="DuplicateResult" kind="broadcast">
             <port kind="cfg_input" name="width"/>
@@ -127,14 +70,15 @@
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
         </node>
-        <edge kind="fifo" source="Read_YUV" sourceport="y"
-            target="Split2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Split2" sourceport="output"
-            target="Gaussian" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Gaussian" sourceport="output"
-            target="Merge2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Merge2" sourceport="output"
-            target="DuplicateResult" targetport="input" type="uchar"/>
+        <node id="Gaussian2" kind="actor">
+            <data key="graph_desc">Algo/gaussian2.pi</data>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="nbColumn"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+        </node>
         <edge kind="fifo" source="DuplicateResult" sourceport="output_1"
             target="Md5" targetport="data" type="uchar"/>
         <edge kind="fifo" source="DuplicateResult" sourceport="output_0"
@@ -143,33 +87,23 @@
             target="Display" targetport="u" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="v"
             target="Display" targetport="v" type="uchar"/>
-        <edge kind="dependency" source="width" target="columnWidth"/>
-        <edge kind="dependency" source="nbColumn" target="columnWidth"/>
-        <edge kind="dependency" source="height" target="sliceHeight"/>
-        <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
+        <edge kind="fifo" source="Read_YUV" sourceport="y"
+            target="Gaussian2" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Gaussian2" sourceport="output"
+            target="DuplicateResult" targetport="input" type="uchar"/>
         <edge kind="dependency" source="index" target="Display" targetport="id"/>
         <edge kind="dependency" source="height" target="Read_YUV" targetport="height"/>
         <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
-        <edge kind="dependency" source="height" target="Split2" targetport="height"/>
-        <edge kind="dependency" source="width" target="Split2" targetport="width"/>
-        <edge kind="dependency" source="nbColumn" target="Split2" targetport="nbColumn"/>
-        <edge kind="dependency" source="nbSlice" target="Split2" targetport="nbSlice"/>
-        <edge kind="dependency" source="sliceHeight" target="Gaussian" targetport="height"/>
-        <edge kind="dependency" source="columnWidth" target="Gaussian" targetport="width"/>
-        <edge kind="dependency" source="width" target="Merge2" targetport="width"/>
-        <edge kind="dependency" source="height" target="Merge2" targetport="height"/>
-        <edge kind="dependency" source="nbColumn" target="Merge2" targetport="nbColumn"/>
-        <edge kind="dependency" source="nbSlice" target="Merge2" targetport="nbSlice"/>
         <edge kind="dependency" source="width" target="DuplicateResult" targetport="width"/>
         <edge kind="dependency" source="height" target="DuplicateResult" targetport="height"/>
         <edge kind="dependency" source="height" target="displaySize"/>
         <edge kind="dependency" source="width" target="displaySize"/>
         <edge kind="dependency" source="displaySize" target="Md5" targetport="size"/>
-        <edge kind="dependency" source="columnWidth" target="Split2" targetport="columnWidth"/>
-        <edge kind="dependency" source="sliceHeight" target="Split2" targetport="sliceHeight"/>
-        <edge kind="dependency" source="columnWidth" target="Merge2" targetport="columnWidth"/>
-        <edge kind="dependency" source="sliceHeight" target="Merge2" targetport="sliceHeight"/>
         <edge kind="dependency" source="width" target="Display" targetport="width"/>
         <edge kind="dependency" source="height" target="Display" targetport="height"/>
+        <edge kind="dependency" source="width" target="Gaussian2" targetport="width"/>
+        <edge kind="dependency" source="nbColumn" target="Gaussian2" targetport="nbColumn"/>
+        <edge kind="dependency" source="height" target="Gaussian2" targetport="height"/>
+        <edge kind="dependency" source="nbSlice" target="Gaussian2" targetport="nbSlice"/>
     </graph>
 </graphml>

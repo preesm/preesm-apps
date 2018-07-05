@@ -16,7 +16,9 @@
 
 /**
  * Function used to split an input image of size width*height into nbSlices
- * slices of size width*(height/nbSlice+2). It is the developer responsibility
+ * slices of size width*(height/nbSlice+2*borderSize). The border is not
+ * taken into account by the calculations of the following actors, and by default,
+ * the border pixels should be given the value 0. It is the developer responsibility
  * to ensure that height is a multiple of nbSlice.
  *
  * @param nbSlice
@@ -30,12 +32,12 @@
  * @param output
  *        the output buffer of size nbSlice*[width*(height/nbSlice+2)]
  */
-void split(int nbSlice, int width, int height, IN unsigned char *input,
-		OUT unsigned char *output);
+void split(int nbSlice, int width, int height, int borderSize,
+		IN unsigned char *input, OUT unsigned char *output);
 
 /**
- * Function used to assemble nbSlices slices of size width*(height/nbSlice+2)
- * into an output image of size width*height.
+ * Function used to assemble nbSlices slices of size width*(height/nbSlice+
+ * 2*borderSize) into an output image of size width*height.
  *
  * @param nbSlice
  *        the number of slices assembled
@@ -48,14 +50,16 @@ void split(int nbSlice, int width, int height, IN unsigned char *input,
  * @param output
  *        the output image of size width*height
  */
-void merge(int nbSlice, int width, int height, IN unsigned char *input,
-		OUT unsigned char *output);
+void merge(int nbSlice, int width, int height, int borderSize,
+		IN unsigned char *input, OUT unsigned char *output);
 
 /**
  * Function used to split an input image of size width*height into nbSlices
- * slices and nbColumns columns of size (width/nbColumn+2)*(height/nbSlice+2).
- * It is developer's responsibility to ensure that height is a multiple of
- * nbSlice and width is a multiple of nbColumn;
+ * slices and nbColumns columns of size (width/nbColumn+2*borderSize)*
+ * (height/nbSlice+2*borderSize). The border is not take into account by the
+ * calculations of the following actors and by default, the border pixels
+ * should be given the value 0. It is developer's responsibility to ensure
+ * that height is a multiple of nbSlice and width is a multiple of nbColumn.
  *
  * @param nbSlice
  * 		  the number of slices produced
@@ -70,12 +74,13 @@ void merge(int nbSlice, int width, int height, IN unsigned char *input,
  * @param output
  * 		  the output buffer of size
  */
-void split2(int width, int height, int nbColumn, int nbSlice,
+void split2(int width, int height, int nbColumn, int nbSlice, int borderSize,
 		IN unsigned char *input, OUT unsigned char *output);
 
 /**
  * Function used to assemble (nbSlice * nbColumn) blocks of size
- * (width/nbColumn+2)*(height/nbSlice+2) into an output image of size width*height.
+ * (width/nbColumn+2*borderSize)*(height/nbSlice+2*borderSize) into
+ * an output image of size width*height.
  *
  * @param nbSlice
  *        the number of slices assembled
@@ -88,7 +93,7 @@ void split2(int width, int height, int nbColumn, int nbSlice,
  * @param output
  *        the output image of size width*height
  */
-void merge2(int width, int height, int nbColumn, int nbSlice,
+void merge2(int width, int height, int nbColumn, int nbSlice, int borderSize,
 		IN unsigned char *input, OUT unsigned char *output);
 
 #endif

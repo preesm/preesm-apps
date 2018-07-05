@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
     <files>
-        <algorithm url="/org.ietr.preesm.gaussian-filter/Algo/top_display.pi"/>
+        <algorithm url="/org.ietr.preesm.gaussian-filter/Algo/top_display2.pi"/>
         <architecture url="/org.ietr.preesm.gaussian-filter/Archi/1CoreX86.slam"/>
         <codegenDirectory url="/org.ietr.preesm.gaussian-filter/Code/generated"/>
     </files>
     <constraints excelUrl="">
         <constraintGroup>
             <operator name="Core0"/>
-            <task name="top_display/Read_YUV"/>
-            <task name="top_display/display"/>
-            <task name="top_display"/>
-            <task name="top_display/Md5"/>
-            <task name="top_display/Duplicate_Result"/>
-            <task name="top_display/Gaussian/Calculation"/>
-            <task name="top_display/Gaussian/input"/>
-            <task name="top_display/Gaussian/output"/>
-            <task name="top_display/Gaussian/Split"/>
-            <task name="top_display/Gaussian/Merge"/>
-            <task name="top_display/Gaussian"/>
+            <task name="top_display2/Read_YUV"/>
+            <task name="top_display2/DuplicateResult"/>
+            <task name="top_display2/Md5"/>
+            <task name="top_display2/Display"/>
+            <task name="top_display2"/>
+            <task name="top_display2/Gaussian2/Gaussian"/>
+            <task name="top_display2/Gaussian2/input"/>
+            <task name="top_display2/Gaussian2/output"/>
+            <task name="top_display2/Gaussian2/Split2"/>
+            <task name="top_display2/Gaussian2/Merge2"/>
+            <task name="top_display2/Gaussian2"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
@@ -31,7 +31,6 @@
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
             <dataType name="uchar" size="1"/>
-            <dataType name="char" size="1"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
