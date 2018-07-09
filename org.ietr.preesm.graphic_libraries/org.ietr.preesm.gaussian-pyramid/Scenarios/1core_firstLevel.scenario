@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.gaussian-pyramid/Algo/first_level.pi"/>
+        <architecture url="/org.ietr.preesm.gaussian-pyramid/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.gaussian-pyramid/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="first_level/Read_YUV"/>
+            <task name="first_level/Display"/>
+            <task name="first_level/Pyramid/Gaussian"/>
+            <task name="first_level/Pyramid/Y_Subsample"/>
+            <task name="first_level/Pyramid/U_Subsample"/>
+            <task name="first_level/Pyramid/V_Subsample"/>
+            <task name="first_level/Pyramid/y_input"/>
+            <task name="first_level/Pyramid/u_input"/>
+            <task name="first_level/Pyramid/v_input"/>
+            <task name="first_level/Pyramid/y_output"/>
+            <task name="first_level/Pyramid/u_output"/>
+            <task name="first_level/Pyramid/v_output"/>
+            <task name="first_level/Pyramid"/>
+            <task name="first_level"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>
