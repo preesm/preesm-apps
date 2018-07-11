@@ -44,6 +44,10 @@
             <task name="third_level/ThirdLevel/v_output"/>
             <task name="third_level/ThirdLevel"/>
             <task name="third_level"/>
+            <task name="third_level/FirstLevel/Split"/>
+            <task name="third_level/FirstLevel/Merge"/>
+            <task name="third_level/SecondLevel/Split"/>
+            <task name="third_level/SecondLevel/Merge"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

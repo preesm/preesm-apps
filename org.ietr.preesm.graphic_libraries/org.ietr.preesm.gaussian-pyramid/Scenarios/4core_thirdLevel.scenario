@@ -44,6 +44,12 @@
             <task name="third_level/ThirdLevel/v_output"/>
             <task name="third_level/ThirdLevel"/>
             <task name="third_level"/>
+            <task name="third_level/FirstLevel/Split"/>
+            <task name="third_level/FirstLevel/Merge"/>
+            <task name="third_level/SecondLevel/Split"/>
+            <task name="third_level/SecondLevel/Merge"/>
+            <task name="third_level/ThirdLevel/Split"/>
+            <task name="third_level/ThirdLevel/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -81,6 +87,12 @@
             <task name="third_level/ThirdLevel/v_output"/>
             <task name="third_level/ThirdLevel"/>
             <task name="third_level"/>
+            <task name="third_level/ThirdLevel/Split"/>
+            <task name="third_level/ThirdLevel/Merge"/>
+            <task name="third_level/SecondLevel/Split"/>
+            <task name="third_level/SecondLevel/Merge"/>
+            <task name="third_level/FirstLevel/Split"/>
+            <task name="third_level/FirstLevel/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -118,6 +130,12 @@
             <task name="third_level/ThirdLevel/v_output"/>
             <task name="third_level/ThirdLevel"/>
             <task name="third_level"/>
+            <task name="third_level/FirstLevel/Split"/>
+            <task name="third_level/FirstLevel/Merge"/>
+            <task name="third_level/SecondLevel/Split"/>
+            <task name="third_level/SecondLevel/Merge"/>
+            <task name="third_level/ThirdLevel/Split"/>
+            <task name="third_level/ThirdLevel/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -155,6 +173,12 @@
             <task name="third_level/ThirdLevel/v_output"/>
             <task name="third_level/ThirdLevel"/>
             <task name="third_level"/>
+            <task name="third_level/FirstLevel/Split"/>
+            <task name="third_level/FirstLevel/Merge"/>
+            <task name="third_level/SecondLevel/Split"/>
+            <task name="third_level/SecondLevel/Merge"/>
+            <task name="third_level/ThirdLevel/Split"/>
+            <task name="third_level/ThirdLevel/Merge"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

@@ -33,6 +33,10 @@
             <task name="second_level/SecondLevel/v_output"/>
             <task name="second_level/SecondLevel"/>
             <task name="second_level"/>
+            <task name="second_level/FirstLevel/Split"/>
+            <task name="second_level/FirstLevel/Merge"/>
+            <task name="second_level/SecondLevel/Split"/>
+            <task name="second_level/SecondLevel/Merge"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

@@ -53,6 +53,9 @@ void split(int nbSlice, int width, int height, int borderSize,
 void merge(int nbSlice, int width, int height, int borderSize,
 		IN unsigned char *input, OUT unsigned char *output);
 
+void copyWithoutBorder(int nbSlice, int width, int height,
+		IN unsigned char *input, OUT unsigned char *output);
+
 /**
  * Function used to split an input image of size width*height into nbSlices
  * slices and nbColumns columns of size (width/nbColumn+2*borderSize)*
@@ -94,6 +97,9 @@ void split2(int width, int height, int nbColumn, int nbSlice, int borderSize,
  *        the output image of size width*height
  */
 void merge2(int width, int height, int nbColumn, int nbSlice, int borderSize,
+		IN unsigned char *input, OUT unsigned char *output);
+
+void copy2WithoutBorder(int width, int height, int nbColumn, int nbSlice,
 		IN unsigned char *input, OUT unsigned char *output);
 
 #endif

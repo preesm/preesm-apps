@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.gaussian-pyramid/Algo/third_level_square.pi"/>
+        <architecture url="/org.ietr.preesm.gaussian-pyramid/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.gaussian-pyramid/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="third_level_square/Read_YUV"/>
+            <task name="third_level_square/Display"/>
+            <task name="third_level_square/FirstLevel/Gaussian"/>
+            <task name="third_level_square/FirstLevel/Y_Subsample"/>
+            <task name="third_level_square/FirstLevel/U_Subsample"/>
+            <task name="third_level_square/FirstLevel/V_Subsample"/>
+            <task name="third_level_square/FirstLevel/y_input"/>
+            <task name="third_level_square/FirstLevel/u_input"/>
+            <task name="third_level_square/FirstLevel/v_input"/>
+            <task name="third_level_square/FirstLevel/y_output"/>
+            <task name="third_level_square/FirstLevel/u_output"/>
+            <task name="third_level_square/FirstLevel/v_output"/>
+            <task name="third_level_square/FirstLevel/Split"/>
+            <task name="third_level_square/FirstLevel/Merge"/>
+            <task name="third_level_square/FirstLevel"/>
+            <task name="third_level_square/SecondLevel/Gaussian"/>
+            <task name="third_level_square/SecondLevel/Y_Subsample"/>
+            <task name="third_level_square/SecondLevel/U_Subsample"/>
+            <task name="third_level_square/SecondLevel/V_Subsample"/>
+            <task name="third_level_square/SecondLevel/y_input"/>
+            <task name="third_level_square/SecondLevel/u_input"/>
+            <task name="third_level_square/SecondLevel/v_input"/>
+            <task name="third_level_square/SecondLevel/y_output"/>
+            <task name="third_level_square/SecondLevel/u_output"/>
+            <task name="third_level_square/SecondLevel/v_output"/>
+            <task name="third_level_square/SecondLevel/Split"/>
+            <task name="third_level_square/SecondLevel/Merge"/>
+            <task name="third_level_square/SecondLevel"/>
+            <task name="third_level_square/ThirdLevel/Gaussian"/>
+            <task name="third_level_square/ThirdLevel/Y_Subsample"/>
+            <task name="third_level_square/ThirdLevel/U_Subsample"/>
+            <task name="third_level_square/ThirdLevel/V_Subsample"/>
+            <task name="third_level_square/ThirdLevel/y_input"/>
+            <task name="third_level_square/ThirdLevel/u_input"/>
+            <task name="third_level_square/ThirdLevel/v_input"/>
+            <task name="third_level_square/ThirdLevel/y_output"/>
+            <task name="third_level_square/ThirdLevel/u_output"/>
+            <task name="third_level_square/ThirdLevel/v_output"/>
+            <task name="third_level_square/ThirdLevel/Split"/>
+            <task name="third_level_square/ThirdLevel/Merge"/>
+            <task name="third_level_square/ThirdLevel"/>
+            <task name="third_level_square"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="third_level_square/FirstLevel/Gaussian"/>
+            <task name="third_level_square/FirstLevel/Y_Subsample"/>
+            <task name="third_level_square/FirstLevel/U_Subsample"/>
+            <task name="third_level_square/FirstLevel/V_Subsample"/>
+            <task name="third_level_square/FirstLevel/y_input"/>
+            <task name="third_level_square/FirstLevel/u_input"/>
+            <task name="third_level_square/FirstLevel/v_input"/>
+            <task name="third_level_square/FirstLevel/y_output"/>
+            <task name="third_level_square/FirstLevel/u_output"/>
+            <task name="third_level_square/FirstLevel/v_output"/>
+            <task name="third_level_square/FirstLevel/Split"/>
+            <task name="third_level_square/FirstLevel/Merge"/>
+            <task name="third_level_square/FirstLevel"/>
+            <task name="third_level_square/SecondLevel/Gaussian"/>
+            <task name="third_level_square/SecondLevel/Y_Subsample"/>
+            <task name="third_level_square/SecondLevel/U_Subsample"/>
+            <task name="third_level_square/SecondLevel/V_Subsample"/>
+            <task name="third_level_square/SecondLevel/y_input"/>
+            <task name="third_level_square/SecondLevel/u_input"/>
+            <task name="third_level_square/SecondLevel/v_input"/>
+            <task name="third_level_square/SecondLevel/y_output"/>
+            <task name="third_level_square/SecondLevel/u_output"/>
+            <task name="third_level_square/SecondLevel/v_output"/>
+            <task name="third_level_square/SecondLevel/Split"/>
+            <task name="third_level_square/SecondLevel/Merge"/>
+            <task name="third_level_square/SecondLevel"/>
+            <task name="third_level_square/ThirdLevel/Gaussian"/>
+            <task name="third_level_square/ThirdLevel/Y_Subsample"/>
+            <task name="third_level_square/ThirdLevel/U_Subsample"/>
+            <task name="third_level_square/ThirdLevel/V_Subsample"/>
+            <task name="third_level_square/ThirdLevel/y_input"/>
+            <task name="third_level_square/ThirdLevel/u_input"/>
+            <task name="third_level_square/ThirdLevel/v_input"/>
+            <task name="third_level_square/ThirdLevel/y_output"/>
+            <task name="third_level_square/ThirdLevel/u_output"/>
+            <task name="third_level_square/ThirdLevel/v_output"/>
+            <task name="third_level_square/ThirdLevel/Split"/>
+            <task name="third_level_square/ThirdLevel/Merge"/>
+            <task name="third_level_square/ThirdLevel"/>
+            <task name="third_level_square"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="third_level_square/FirstLevel/Gaussian"/>
+            <task name="third_level_square/FirstLevel/Y_Subsample"/>
+            <task name="third_level_square/FirstLevel/U_Subsample"/>
+            <task name="third_level_square/FirstLevel/V_Subsample"/>
+            <task name="third_level_square/FirstLevel/y_input"/>
+            <task name="third_level_square/FirstLevel/u_input"/>
+            <task name="third_level_square/FirstLevel/v_input"/>
+            <task name="third_level_square/FirstLevel/y_output"/>
+            <task name="third_level_square/FirstLevel/u_output"/>
+            <task name="third_level_square/FirstLevel/v_output"/>
+            <task name="third_level_square/FirstLevel/Split"/>
+            <task name="third_level_square/FirstLevel/Merge"/>
+            <task name="third_level_square/FirstLevel"/>
+            <task name="third_level_square/SecondLevel/Gaussian"/>
+            <task name="third_level_square/SecondLevel/Y_Subsample"/>
+            <task name="third_level_square/SecondLevel/U_Subsample"/>
+            <task name="third_level_square/SecondLevel/V_Subsample"/>
+            <task name="third_level_square/SecondLevel/y_input"/>
+            <task name="third_level_square/SecondLevel/u_input"/>
+            <task name="third_level_square/SecondLevel/v_input"/>
+            <task name="third_level_square/SecondLevel/y_output"/>
+            <task name="third_level_square/SecondLevel/u_output"/>
+            <task name="third_level_square/SecondLevel/v_output"/>
+            <task name="third_level_square/SecondLevel/Split"/>
+            <task name="third_level_square/SecondLevel/Merge"/>
+            <task name="third_level_square/SecondLevel"/>
+            <task name="third_level_square/ThirdLevel/Gaussian"/>
+            <task name="third_level_square/ThirdLevel/Y_Subsample"/>
+            <task name="third_level_square/ThirdLevel/U_Subsample"/>
+            <task name="third_level_square/ThirdLevel/V_Subsample"/>
+            <task name="third_level_square/ThirdLevel/y_input"/>
+            <task name="third_level_square/ThirdLevel/u_input"/>
+            <task name="third_level_square/ThirdLevel/v_input"/>
+            <task name="third_level_square/ThirdLevel/y_output"/>
+            <task name="third_level_square/ThirdLevel/u_output"/>
+            <task name="third_level_square/ThirdLevel/v_output"/>
+            <task name="third_level_square/ThirdLevel/Split"/>
+            <task name="third_level_square/ThirdLevel/Merge"/>
+            <task name="third_level_square/ThirdLevel"/>
+            <task name="third_level_square"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="third_level_square/FirstLevel/Gaussian"/>
+            <task name="third_level_square/FirstLevel/Y_Subsample"/>
+            <task name="third_level_square/FirstLevel/U_Subsample"/>
+            <task name="third_level_square/FirstLevel/V_Subsample"/>
+            <task name="third_level_square/FirstLevel/y_input"/>
+            <task name="third_level_square/FirstLevel/u_input"/>
+            <task name="third_level_square/FirstLevel/v_input"/>
+            <task name="third_level_square/FirstLevel/y_output"/>
+            <task name="third_level_square/FirstLevel/u_output"/>
+            <task name="third_level_square/FirstLevel/v_output"/>
+            <task name="third_level_square/FirstLevel/Split"/>
+            <task name="third_level_square/FirstLevel/Merge"/>
+            <task name="third_level_square/FirstLevel"/>
+            <task name="third_level_square/SecondLevel/Gaussian"/>
+            <task name="third_level_square/SecondLevel/Y_Subsample"/>
+            <task name="third_level_square/SecondLevel/U_Subsample"/>
+            <task name="third_level_square/SecondLevel/V_Subsample"/>
+            <task name="third_level_square/SecondLevel/y_input"/>
+            <task name="third_level_square/SecondLevel/u_input"/>
+            <task name="third_level_square/SecondLevel/v_input"/>
+            <task name="third_level_square/SecondLevel/y_output"/>
+            <task name="third_level_square/SecondLevel/u_output"/>
+            <task name="third_level_square/SecondLevel/v_output"/>
+            <task name="third_level_square/SecondLevel/Split"/>
+            <task name="third_level_square/SecondLevel/Merge"/>
+            <task name="third_level_square/SecondLevel"/>
+            <task name="third_level_square/ThirdLevel/Gaussian"/>
+            <task name="third_level_square/ThirdLevel/Y_Subsample"/>
+            <task name="third_level_square/ThirdLevel/U_Subsample"/>
+            <task name="third_level_square/ThirdLevel/V_Subsample"/>
+            <task name="third_level_square/ThirdLevel/y_input"/>
+            <task name="third_level_square/ThirdLevel/u_input"/>
+            <task name="third_level_square/ThirdLevel/v_input"/>
+            <task name="third_level_square/ThirdLevel/y_output"/>
+            <task name="third_level_square/ThirdLevel/u_output"/>
+            <task name="third_level_square/ThirdLevel/v_output"/>
+            <task name="third_level_square/ThirdLevel/Split"/>
+            <task name="third_level_square/ThirdLevel/Merge"/>
+            <task name="third_level_square/ThirdLevel"/>
+            <task name="third_level_square"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core3"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>

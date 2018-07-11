@@ -71,6 +71,18 @@ void merge(int nbSlice, int width, int height, int borderSize,
 
 }
 
+void copyWithoutBorder(int nbSlice, int width, int height, unsigned char *input,
+		unsigned char *output) {
+	int i, index;
+	int sliceSize = width * height / nbSlice;
+
+	index = 0;
+	for (i = 0; i < nbSlice; i++) {
+		memcpy(output + index, input + index, sliceSize);
+		index += sliceSize;
+	}
+}
+
 void split2(int width, int height, int nbColumn, int nbSlice, int borderSize,
 		unsigned char *input, unsigned char *output) {
 	int i, j, k;
@@ -183,3 +195,22 @@ void merge2(int width, int height, int nbColumn, int nbSlice, int borderSize,
 		}
 	}
 }
+
+void copy2WithoutBorder(int width, int height, int nbColumn, int nbSlice,
+		unsigned char *input, unsigned char *output) {
+	int i, j;
+	int columnWidth = width / nbColumn;
+	unsigned char *srcIndex;
+	unsigned char *destIndex;
+
+	for (i = 0; i < nbColumn; i++) {
+		srcIndex = input + i * columnWidth;
+		destIndex = output + i * columnWidth;
+		for (j = 0; j < nbSlice; j++) {
+			memcpy(destIndex, srcIndex, columnWidth);
+			srcIndex += width;
+			destIndex += width;
+		}
+	}
+}
+

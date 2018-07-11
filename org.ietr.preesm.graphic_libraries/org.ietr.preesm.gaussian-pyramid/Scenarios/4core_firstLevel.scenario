@@ -22,6 +22,8 @@
             <task name="first_level/Pyramid/v_output"/>
             <task name="first_level/Pyramid"/>
             <task name="first_level"/>
+            <task name="first_level/Pyramid/Split"/>
+            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -36,6 +38,8 @@
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
             <task name="first_level/Pyramid"/>
+            <task name="first_level/Pyramid/Split"/>
+            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -50,6 +54,8 @@
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
             <task name="first_level/Pyramid"/>
+            <task name="first_level/Pyramid/Split"/>
+            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -64,6 +70,8 @@
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
             <task name="first_level/Pyramid"/>
+            <task name="first_level/Pyramid/Split"/>
+            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

@@ -22,6 +22,8 @@
             <task name="first_level/Pyramid/v_output"/>
             <task name="first_level/Pyramid"/>
             <task name="first_level"/>
+            <task name="first_level/Pyramid/Split"/>
+            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
