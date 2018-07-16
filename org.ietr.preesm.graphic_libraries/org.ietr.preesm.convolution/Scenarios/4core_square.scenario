@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.convolution/Algo/top_display_square.pi"/>
+        <architecture url="/org.ietr.preesm.convolution/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.convolution/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display_square/Read_YUV"/>
+            <task name="top_display_square/DuplicateResult"/>
+            <task name="top_display_square/Md5"/>
+            <task name="top_display_square/Display"/>
+            <task name="top_display_square/Convolution/Coefficients"/>
+            <task name="top_display_square/Convolution/output"/>
+            <task name="top_display_square/Convolution/Calculation"/>
+            <task name="top_display_square/Convolution/input"/>
+            <task name="top_display_square/Convolution/Split2"/>
+            <task name="top_display_square/Convolution/Merge2"/>
+            <task name="top_display_square/Convolution"/>
+            <task name="top_display_square"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top_display_square/DuplicateResult"/>
+            <task name="top_display_square/Md5"/>
+            <task name="top_display_square/Convolution/Coefficients"/>
+            <task name="top_display_square/Convolution/output"/>
+            <task name="top_display_square/Convolution/Calculation"/>
+            <task name="top_display_square/Convolution/input"/>
+            <task name="top_display_square/Convolution/Split2"/>
+            <task name="top_display_square/Convolution/Merge2"/>
+            <task name="top_display_square/Convolution"/>
+            <task name="top_display_square"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top_display_square/DuplicateResult"/>
+            <task name="top_display_square/Md5"/>
+            <task name="top_display_square/Convolution/Coefficients"/>
+            <task name="top_display_square/Convolution/output"/>
+            <task name="top_display_square/Convolution/Calculation"/>
+            <task name="top_display_square/Convolution/input"/>
+            <task name="top_display_square/Convolution/Split2"/>
+            <task name="top_display_square/Convolution/Merge2"/>
+            <task name="top_display_square/Convolution"/>
+            <task name="top_display_square"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top_display_square/DuplicateResult"/>
+            <task name="top_display_square/Md5"/>
+            <task name="top_display_square/Convolution/Coefficients"/>
+            <task name="top_display_square/Convolution/output"/>
+            <task name="top_display_square/Convolution/Calculation"/>
+            <task name="top_display_square/Convolution/input"/>
+            <task name="top_display_square/Convolution/Split2"/>
+            <task name="top_display_square/Convolution/Merge2"/>
+            <task name="top_display_square/Convolution"/>
+            <task name="top_display_square"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="582792" vertexname="Coefficients"/>
+        <timing opname="x86" time="288042208" vertexname="Read_YUV"/>
+        <timing opname="x86" time="143618326" vertexname="Split2"/>
+        <timing opname="x86" time="2800930195" vertexname="Calculation"/>
+        <timing opname="x86" time="157580808" vertexname="Merge2"/>
+        <timing opname="x86" time="531580087" vertexname="Display"/>
+        <timing opname="x86" time="1429823593" vertexname="Md5"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core2"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>
