@@ -10,6 +10,9 @@
             <operator name="Core0"/>
             <task name="first_level/Read_YUV"/>
             <task name="first_level/Display"/>
+            <task name="first_level"/>
+            <task name="first_level/DuplicateResult"/>
+            <task name="first_level/Md5"/>
             <task name="first_level/Pyramid/Gaussian"/>
             <task name="first_level/Pyramid/Y_Subsample"/>
             <task name="first_level/Pyramid/U_Subsample"/>
@@ -20,13 +23,14 @@
             <task name="first_level/Pyramid/y_output"/>
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
+            <task name="first_level/Pyramid/Y_Split"/>
+            <task name="first_level/Pyramid/Y_Merge"/>
             <task name="first_level/Pyramid"/>
-            <task name="first_level"/>
-            <task name="first_level/Pyramid/Split"/>
-            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
+            <task name="first_level/DuplicateResult"/>
+            <task name="first_level/Md5"/>
             <task name="first_level/Pyramid/Gaussian"/>
             <task name="first_level/Pyramid/Y_Subsample"/>
             <task name="first_level/Pyramid/U_Subsample"/>
@@ -37,12 +41,14 @@
             <task name="first_level/Pyramid/y_output"/>
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
+            <task name="first_level/Pyramid/Y_Split"/>
+            <task name="first_level/Pyramid/Y_Merge"/>
             <task name="first_level/Pyramid"/>
-            <task name="first_level/Pyramid/Split"/>
-            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
+            <task name="first_level/DuplicateResult"/>
+            <task name="first_level/Md5"/>
             <task name="first_level/Pyramid/Gaussian"/>
             <task name="first_level/Pyramid/Y_Subsample"/>
             <task name="first_level/Pyramid/U_Subsample"/>
@@ -53,12 +59,14 @@
             <task name="first_level/Pyramid/y_output"/>
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
+            <task name="first_level/Pyramid/Y_Split"/>
+            <task name="first_level/Pyramid/Y_Merge"/>
             <task name="first_level/Pyramid"/>
-            <task name="first_level/Pyramid/Split"/>
-            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
+            <task name="first_level/DuplicateResult"/>
+            <task name="first_level/Md5"/>
             <task name="first_level/Pyramid/Gaussian"/>
             <task name="first_level/Pyramid/Y_Subsample"/>
             <task name="first_level/Pyramid/U_Subsample"/>
@@ -69,13 +77,22 @@
             <task name="first_level/Pyramid/y_output"/>
             <task name="first_level/Pyramid/u_output"/>
             <task name="first_level/Pyramid/v_output"/>
+            <task name="first_level/Pyramid/Y_Split"/>
+            <task name="first_level/Pyramid/Y_Merge"/>
             <task name="first_level/Pyramid"/>
-            <task name="first_level/Pyramid/Split"/>
-            <task name="first_level/Pyramid/Merge"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="349272804" vertexname="Read_YUV"/>
+        <timing opname="x86" time="13158959" vertexname="V_Subsample"/>
+        <timing opname="x86" time="13158959" vertexname="U_Subsample"/>
+        <timing opname="x86" time="13158959" vertexname="Y_Subsample"/>
+        <timing opname="x86" time="408191345" vertexname="Md5"/>
+        <timing opname="x86" time="290414616" vertexname="Gaussian"/>
+        <timing opname="x86" time="301912177" vertexname="Display"/>
+        <timing opname="x86" time="28820110" vertexname="Y_Merge"/>
+        <timing opname="x86" time="131165465" vertexname="Y_Split"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>

@@ -22,8 +22,11 @@
             <task name="first_level/Pyramid/v_output"/>
             <task name="first_level/Pyramid"/>
             <task name="first_level"/>
-            <task name="first_level/Pyramid/Split"/>
-            <task name="first_level/Pyramid/Merge"/>
+            <task name="first_level/DuplicateResult"/>
+            <task name="first_level/Md5"/>
+            <task name="first_level/Pyramid/Y_Split"/>
+            <task name="first_level/Pyramid/Y_Merge"/>
+            <task name="first_level/Pyramid/U_Split"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

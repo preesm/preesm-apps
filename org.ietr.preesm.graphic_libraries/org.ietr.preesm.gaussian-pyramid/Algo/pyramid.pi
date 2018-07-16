@@ -11,8 +11,12 @@
         <node id="height" kind="cfg_in_iface"/>
         <node expr="width/2" id="halfWidth" kind="param"/>
         <node expr="height/2" id="halfHeight" kind="param"/>
-        <node expr="4" id="nbSlice" kind="param"/>
-        <node expr="height/nbSlice" id="sliceHeight" kind="param"/>
+        <node expr="4*nbLevel" id="nbSlice" kind="param"/>
+        <node expr="height/nbSlice+2*borderSize" id="sliceHeight" kind="param"/>
+        <node expr="2" id="borderSize" kind="param"/>
+        <node expr="borderSize/2" id="halfBoder" kind="param"/>
+        <node id="nbLevel" kind="cfg_in_iface"/>
+        <node expr="halfHeight/nbLevel" id="halfSliceHeight" kind="param"/>
         <node id="Gaussian" kind="actor">
             <data key="graph_desc">Code/include/gaussian.h</data>
             <loop name="gaussian">
@@ -90,38 +94,54 @@
             <port annotation="NONE" expr="halfWidth/2*halfHeight/2"
                 kind="input" name="v_output"/>
         </node>
-        <node id="Split" kind="actor">
+        <node id="Y_Split" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="copyWithoutBorder">
+            <loop name="split">
                 <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
                 <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="borderSize"/>
             <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+            <port annotation="NONE"
+                expr="nbSlice*(height/nbSlice+2*borderSize)*width"
+                kind="output" name="output"/>
         </node>
-        <node id="Merge" kind="actor">
+        <node id="Y_Merge" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="copyWithoutBorder">
+            <loop name="merge">
                 <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
                 <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port kind="cfg_input" name="borderSize"/>
+            <port annotation="NONE"
+                expr="nbSlice*(height/nbSlice+2*borderSize)*width"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="width*height" kind="output" name="output"/>
         </node>
         <edge kind="fifo" source="Gaussian" sourceport="output"
             target="Y_Subsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Y_Subsample" sourceport="output"
+            target="Y_Merge" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Y_Merge" sourceport="output"
+            target="y_output" targetport="y_output" type="uchar"/>
+        <edge kind="fifo" source="Y_Split" sourceport="output"
+            target="Gaussian" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="y_input" sourceport="y_input"
+            target="Y_Split" targetport="input" type="uchar"/>
         <edge kind="fifo" source="u_input" sourceport="u_input"
             target="U_Subsample" targetport="input" type="uchar"/>
         <edge kind="fifo" source="v_input" sourceport="v_input"
@@ -130,14 +150,6 @@
             target="u_output" targetport="u_output" type="uchar"/>
         <edge kind="fifo" source="V_Subsample" sourceport="output"
             target="v_output" targetport="v_output" type="uchar"/>
-        <edge kind="fifo" source="y_input" sourceport="y_input"
-            target="Split" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Split" sourceport="output"
-            target="Gaussian" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Y_Subsample" sourceport="output"
-            target="Merge" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Merge" sourceport="output"
-            target="y_output" targetport="y_output" type="uchar"/>
         <edge kind="dependency" source="width" target="Gaussian" targetport="width"/>
         <edge kind="dependency" source="width" target="Y_Subsample" targetport="width"/>
         <edge kind="dependency" source="width" target="y_input"/>
@@ -148,10 +160,6 @@
         <edge kind="dependency" source="halfHeight" target="v_input"/>
         <edge kind="dependency" source="width" target="halfWidth"/>
         <edge kind="dependency" source="height" target="halfHeight"/>
-        <edge kind="dependency" source="halfHeight" target="U_Subsample" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="U_Subsample" targetport="width"/>
-        <edge kind="dependency" source="halfHeight" target="V_Subsample" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="V_Subsample" targetport="width"/>
         <edge kind="dependency" source="width" target="y_output"/>
         <edge kind="dependency" source="height" target="y_output"/>
         <edge kind="dependency" source="halfWidth" target="u_output"/>
@@ -163,11 +171,22 @@
         <edge kind="dependency" source="sliceHeight" target="Gaussian" targetport="height"/>
         <edge kind="dependency" source="sliceHeight"
             target="Y_Subsample" targetport="height"/>
-        <edge kind="dependency" source="nbSlice" target="Merge" targetport="nbSlice"/>
-        <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
-        <edge kind="dependency" source="width" target="Split" targetport="width"/>
-        <edge kind="dependency" source="height" target="Split" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="Merge" targetport="width"/>
-        <edge kind="dependency" source="halfHeight" target="Merge" targetport="height"/>
+        <edge kind="dependency" source="borderSize" target="Y_Split" targetport="borderSize"/>
+        <edge kind="dependency" source="nbSlice" target="Y_Split" targetport="nbSlice"/>
+        <edge kind="dependency" source="nbSlice" target="Y_Merge" targetport="nbSlice"/>
+        <edge kind="dependency" source="height" target="Y_Split" targetport="height"/>
+        <edge kind="dependency" source="width" target="Y_Split" targetport="width"/>
+        <edge kind="dependency" source="halfWidth" target="Y_Merge" targetport="width"/>
+        <edge kind="dependency" source="halfHeight" target="Y_Merge" targetport="height"/>
+        <edge kind="dependency" source="borderSize" target="sliceHeight"/>
+        <edge kind="dependency" source="borderSize" target="halfBoder"/>
+        <edge kind="dependency" source="halfBoder" target="Y_Merge" targetport="borderSize"/>
+        <edge kind="dependency" source="nbLevel" target="nbSlice"/>
+        <edge kind="dependency" source="nbLevel" target="halfSliceHeight"/>
+        <edge kind="dependency" source="halfHeight" target="halfSliceHeight"/>
+        <edge kind="dependency" source="halfWidth" target="U_Subsample" targetport="width"/>
+        <edge kind="dependency" source="halfHeight" target="U_Subsample" targetport="height"/>
+        <edge kind="dependency" source="halfWidth" target="V_Subsample" targetport="width"/>
+        <edge kind="dependency" source="halfHeight" target="V_Subsample" targetport="height"/>
     </graph>
 </graphml>

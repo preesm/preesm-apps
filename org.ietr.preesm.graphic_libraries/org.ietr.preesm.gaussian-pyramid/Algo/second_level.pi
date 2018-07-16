@@ -15,6 +15,8 @@
         <node expr="height/4" id="quarterHeight" kind="param"/>
         <node expr="width/4" id="quarterWidth" kind="param"/>
         <node expr="4" id="scale" kind="param"/>
+        <node expr="2" id="levelOne" kind="param"/>
+        <node expr="1" id="levelTwo" kind="param"/>
         <node id="Display" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
             <loop name="yuvDisplay">
@@ -41,6 +43,7 @@
             <data key="graph_desc">Algo/pyramid.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbLevel"/>
             <port annotation="NONE" expr="width*height" kind="input" name="y_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>
@@ -76,6 +79,7 @@
             <data key="graph_desc">Algo/pyramid.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbLevel"/>
             <port annotation="NONE" expr="width*height" kind="input" name="y_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>
@@ -118,5 +122,7 @@
         <edge kind="dependency" source="quarterWidth" target="Display" targetport="width"/>
         <edge kind="dependency" source="quarterHeight" target="Display" targetport="height"/>
         <edge kind="dependency" source="scale" target="Display" targetport="scale"/>
+        <edge kind="dependency" source="levelOne" target="FirstLevel" targetport="nbLevel"/>
+        <edge kind="dependency" source="levelTwo" target="SecondLevel" targetport="nbLevel"/>
     </graph>
 </graphml>

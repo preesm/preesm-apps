@@ -20,10 +20,13 @@
             <task name="first_level_square/Pyramid/y_output"/>
             <task name="first_level_square/Pyramid/u_output"/>
             <task name="first_level_square/Pyramid/v_output"/>
-            <task name="first_level_square/Pyramid/Split"/>
-            <task name="first_level_square/Pyramid/Merge"/>
             <task name="first_level_square/Pyramid"/>
             <task name="first_level_square"/>
+            <task name="first_level_square/DuplicateResult"/>
+            <task name="first_level_square/Md5"/>
+            <task name="first_level_square/Pyramid/Y_Split"/>
+            <task name="first_level_square/Pyramid/Y_Merge"/>
+            <task name="first_level_square/Pyramid/U_Split"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

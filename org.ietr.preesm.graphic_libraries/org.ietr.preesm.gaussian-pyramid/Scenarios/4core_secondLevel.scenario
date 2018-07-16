@@ -20,10 +20,9 @@
             <task name="second_level/FirstLevel/y_output"/>
             <task name="second_level/FirstLevel/u_output"/>
             <task name="second_level/FirstLevel/v_output"/>
+            <task name="second_level/FirstLevel/Y_Split"/>
+            <task name="second_level/FirstLevel/Y_Merge"/>
             <task name="second_level/FirstLevel"/>
-            <task name="second_level"/>
-            <task name="second_level/FirstLevel/Split"/>
-            <task name="second_level/FirstLevel/Merge"/>
             <task name="second_level/SecondLevel/Gaussian"/>
             <task name="second_level/SecondLevel/Y_Subsample"/>
             <task name="second_level/SecondLevel/U_Subsample"/>
@@ -34,9 +33,10 @@
             <task name="second_level/SecondLevel/y_output"/>
             <task name="second_level/SecondLevel/u_output"/>
             <task name="second_level/SecondLevel/v_output"/>
-            <task name="second_level/SecondLevel/Split"/>
-            <task name="second_level/SecondLevel/Merge"/>
+            <task name="second_level/SecondLevel/Y_Split"/>
+            <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
+            <task name="second_level"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -50,6 +50,8 @@
             <task name="second_level/FirstLevel/y_output"/>
             <task name="second_level/FirstLevel/u_output"/>
             <task name="second_level/FirstLevel/v_output"/>
+            <task name="second_level/FirstLevel/Y_Split"/>
+            <task name="second_level/FirstLevel/Y_Merge"/>
             <task name="second_level/FirstLevel"/>
             <task name="second_level/SecondLevel/Gaussian"/>
             <task name="second_level/SecondLevel/Y_Subsample"/>
@@ -61,9 +63,10 @@
             <task name="second_level/SecondLevel/y_output"/>
             <task name="second_level/SecondLevel/u_output"/>
             <task name="second_level/SecondLevel/v_output"/>
+            <task name="second_level/SecondLevel/Y_Split"/>
+            <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
-            <task name="second_level/FirstLevel/Split"/>
-            <task name="second_level/FirstLevel/Merge"/>
+            <task name="second_level"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -77,6 +80,8 @@
             <task name="second_level/FirstLevel/y_output"/>
             <task name="second_level/FirstLevel/u_output"/>
             <task name="second_level/FirstLevel/v_output"/>
+            <task name="second_level/FirstLevel/Y_Split"/>
+            <task name="second_level/FirstLevel/Y_Merge"/>
             <task name="second_level/FirstLevel"/>
             <task name="second_level/SecondLevel/Gaussian"/>
             <task name="second_level/SecondLevel/Y_Subsample"/>
@@ -88,11 +93,10 @@
             <task name="second_level/SecondLevel/y_output"/>
             <task name="second_level/SecondLevel/u_output"/>
             <task name="second_level/SecondLevel/v_output"/>
+            <task name="second_level/SecondLevel/Y_Split"/>
+            <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
-            <task name="second_level/FirstLevel/Split"/>
-            <task name="second_level/FirstLevel/Merge"/>
-            <task name="second_level/SecondLevel/Split"/>
-            <task name="second_level/SecondLevel/Merge"/>
+            <task name="second_level"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -106,6 +110,8 @@
             <task name="second_level/FirstLevel/y_output"/>
             <task name="second_level/FirstLevel/u_output"/>
             <task name="second_level/FirstLevel/v_output"/>
+            <task name="second_level/FirstLevel/Y_Split"/>
+            <task name="second_level/FirstLevel/Y_Merge"/>
             <task name="second_level/FirstLevel"/>
             <task name="second_level/SecondLevel/Gaussian"/>
             <task name="second_level/SecondLevel/Y_Subsample"/>
@@ -117,11 +123,10 @@
             <task name="second_level/SecondLevel/y_output"/>
             <task name="second_level/SecondLevel/u_output"/>
             <task name="second_level/SecondLevel/v_output"/>
+            <task name="second_level/SecondLevel/Y_Split"/>
+            <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
-            <task name="second_level/FirstLevel/Split"/>
-            <task name="second_level/FirstLevel/Merge"/>
-            <task name="second_level/SecondLevel/Split"/>
-            <task name="second_level/SecondLevel/Merge"/>
+            <task name="second_level"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
