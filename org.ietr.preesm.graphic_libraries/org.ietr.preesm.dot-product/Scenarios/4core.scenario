@@ -20,7 +20,7 @@
             <task name="top_display/Filter/Filter"/>
             <task name="top_display/Filter/Merge"/>
             <task name="top_display/Filter/Coefficients"/>
-            <task name="top_display/Filter/FilterCalculation"/>
+            <task name="top_display/Filter/DotProduct"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -33,7 +33,7 @@
             <task name="top_display/Filter/Split"/>
             <task name="top_display/Filter/Merge"/>
             <task name="top_display/Filter/Coefficients"/>
-            <task name="top_display/Filter/Calculation"/>
+            <task name="top_display/Filter/DotProduct"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -46,7 +46,7 @@
             <task name="top_display/Filter/Split"/>
             <task name="top_display/Filter/Merge"/>
             <task name="top_display/Filter/Coefficients"/>
-            <task name="top_display/Filter/Calculation"/>
+            <task name="top_display/Filter/DotProduct"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -59,11 +59,18 @@
             <task name="top_display/Filter/Split"/>
             <task name="top_display/Filter/Merge"/>
             <task name="top_display/Filter/Coefficients"/>
-            <task name="top_display/Filter/Calculation"/>
+            <task name="top_display/Filter/DotProduct"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="854205" vertexname="Coefficients"/>
+        <timing opname="x86" time="410663620" vertexname="Read_YUV"/>
+        <timing opname="x86" time="159546161" vertexname="Split"/>
+        <timing opname="x86" time="7236795251" vertexname="DotProduct"/>
+        <timing opname="x86" time="115654022" vertexname="Merge"/>
+        <timing opname="x86" time="525659506" vertexname="Display"/>
+        <timing opname="x86" time="1422609689" vertexname="Md5"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>
