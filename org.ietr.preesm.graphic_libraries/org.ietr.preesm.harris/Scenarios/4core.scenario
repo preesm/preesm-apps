@@ -67,6 +67,13 @@
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="280767782" vertexname="Read_YUV"/>
+        <timing opname="x86" time="144199923" vertexname="Split"/>
+        <timing opname="x86" time="282707997" vertexname="Sobel2"/>
+        <timing opname="x86" time="3541808151" vertexname="Calculation"/>
+        <timing opname="x86" time="108405229" vertexname="Merge"/>
+        <timing opname="x86" time="1409542868" vertexname="Md5"/>
+        <timing opname="x86" time="544647828" vertexname="display"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
     <simuParams>
