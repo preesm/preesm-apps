@@ -59,6 +59,12 @@
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="318" vertexname="Read_YUV"/>
+        <timing opname="x86" time="172" vertexname="Split2"/>
+        <timing opname="x86" time="125" vertexname="Gaussian"/>
+        <timing opname="x86" time="159" vertexname="Merge2"/>
+        <timing opname="x86" time="551" vertexname="Display"/>
+        <timing opname="x86" time="1431" vertexname="Md5"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>

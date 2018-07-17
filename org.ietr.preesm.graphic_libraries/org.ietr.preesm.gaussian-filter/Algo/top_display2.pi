@@ -12,7 +12,6 @@
         <node expr="4" id="nbColumn" kind="param"/>
         <node expr="2" id="nbSlice" kind="param"/>
         <node expr="0" id="index" kind="param"/>
-        <node expr="height*width" id="displaySize" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readYUV">
@@ -33,22 +32,6 @@
                 kind="output" name="u"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="v"/>
-        </node>
-        <node id="DuplicateResult" kind="broadcast">
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output_0"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output_1"/>
-        </node>
-        <node id="Md5" kind="actor">
-            <data key="graph_desc">Code/include/md5.h</data>
-            <loop name="MD5_Update">
-                <param direction="IN" isConfig="true" name="size" type="unsigned long"/>
-                <param direction="IN" isConfig="false" name="data" type="const void "/>
-            </loop>
-            <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size" kind="input" name="data"/>
         </node>
         <node id="Display" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
@@ -79,10 +62,6 @@
             <port annotation="NONE" expr="height*width" kind="input" name="input"/>
             <port annotation="NONE" expr="height*width" kind="output" name="output"/>
         </node>
-        <edge kind="fifo" source="DuplicateResult" sourceport="output_1"
-            target="Md5" targetport="data" type="uchar"/>
-        <edge kind="fifo" source="DuplicateResult" sourceport="output_0"
-            target="Display" targetport="y" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
             target="Display" targetport="u" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="v"
@@ -90,15 +69,10 @@
         <edge kind="fifo" source="Read_YUV" sourceport="y"
             target="Gaussian2" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Gaussian2" sourceport="output"
-            target="DuplicateResult" targetport="input" type="uchar"/>
+            target="Display" targetport="y" type="uchar"/>
         <edge kind="dependency" source="index" target="Display" targetport="id"/>
         <edge kind="dependency" source="height" target="Read_YUV" targetport="height"/>
         <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
-        <edge kind="dependency" source="width" target="DuplicateResult" targetport="width"/>
-        <edge kind="dependency" source="height" target="DuplicateResult" targetport="height"/>
-        <edge kind="dependency" source="height" target="displaySize"/>
-        <edge kind="dependency" source="width" target="displaySize"/>
-        <edge kind="dependency" source="displaySize" target="Md5" targetport="size"/>
         <edge kind="dependency" source="width" target="Display" targetport="width"/>
         <edge kind="dependency" source="height" target="Display" targetport="height"/>
         <edge kind="dependency" source="width" target="Gaussian2" targetport="width"/>
