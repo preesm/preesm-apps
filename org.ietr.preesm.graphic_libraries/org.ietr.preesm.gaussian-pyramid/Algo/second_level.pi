@@ -7,7 +7,7 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">second_level</data>
-        <node expr="0" id="index" kind="param"/>
+        <node expr="0" id="zero" kind="param"/>
         <node expr="width/2" id="halfWidth" kind="param"/>
         <node expr="height/2" id="halfHeight" kind="param"/>
         <node expr="720" id="height" kind="param"/>
@@ -15,8 +15,9 @@
         <node expr="height/4" id="quarterHeight" kind="param"/>
         <node expr="width/4" id="quarterWidth" kind="param"/>
         <node expr="4" id="scale" kind="param"/>
-        <node expr="2" id="levelOne" kind="param"/>
-        <node expr="1" id="levelTwo" kind="param"/>
+        <node expr="2" id="two" kind="param"/>
+        <node expr="1" id="one" kind="param"/>
+        <node expr="1" id="nbDisplay" kind="param"/>
         <node id="Display" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
             <loop name="yuvDisplay">
@@ -27,14 +28,20 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="nb_display" type="int"/>
+                <param direction="IN" isConfig="true" name="frame_width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="frame_height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="scale" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="scale"/>
+            <port kind="cfg_input" name="nb_display"/>
+            <port kind="cfg_input" name="frame_height"/>
+            <port kind="cfg_input" name="frame_width"/>
             <port annotation="NONE" expr="width*height" kind="input" name="y"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
@@ -112,7 +119,7 @@
         <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
         <edge kind="dependency" source="height" target="FirstLevel" targetport="height"/>
         <edge kind="dependency" source="width" target="FirstLevel" targetport="width"/>
-        <edge kind="dependency" source="index" target="Display" targetport="id"/>
+        <edge kind="dependency" source="zero" target="Display" targetport="id"/>
         <edge kind="dependency" source="width" target="halfWidth"/>
         <edge kind="dependency" source="height" target="halfHeight"/>
         <edge kind="dependency" source="width" target="quarterWidth"/>
@@ -122,7 +129,10 @@
         <edge kind="dependency" source="quarterWidth" target="Display" targetport="width"/>
         <edge kind="dependency" source="quarterHeight" target="Display" targetport="height"/>
         <edge kind="dependency" source="scale" target="Display" targetport="scale"/>
-        <edge kind="dependency" source="levelOne" target="FirstLevel" targetport="nbLevel"/>
-        <edge kind="dependency" source="levelTwo" target="SecondLevel" targetport="nbLevel"/>
+        <edge kind="dependency" source="two" target="FirstLevel" targetport="nbLevel"/>
+        <edge kind="dependency" source="one" target="SecondLevel" targetport="nbLevel"/>
+        <edge kind="dependency" source="nbDisplay" target="Display" targetport="nb_display"/>
+        <edge kind="dependency" source="quarterHeight" target="Display" targetport="frame_height"/>
+        <edge kind="dependency" source="quarterWidth" target="Display" targetport="frame_width"/>
     </graph>
 </graphml>

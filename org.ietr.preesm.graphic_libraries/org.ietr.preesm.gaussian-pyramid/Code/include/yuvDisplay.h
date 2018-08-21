@@ -12,10 +12,6 @@
 
 #include "preesm.h"
 
-#define NB_DISPLAY 1
-#define DISPLAY_W 1280*NB_DISPLAY
-#define DISPLAY_H 720
-
 #define INIT_OVERLAY {NULL} // must be se same size as NB_DISPLAY
 
 #define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
@@ -72,12 +68,19 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, IN unsigned char *y,
  *
  * @param id
  *        The ID of the initialized display.
+ * @param nb_display
+ *        The number of frames to be displayed
+ * @param frame_width
+ *        The width of a single frame
+ * @param frame_height
+ *        The height of a single frame
  * @param width
  *        the width of the initialized display
  * @param height
  *        the height of the initialized display
  */
-void yuvDisplayInit(int id, int width, int height, int scale);
+void yuvDisplayInit(int id, int nb_display, int frame_width, int frame_height,
+		int width, int height);
 
 /**
  * Function used to free a display
@@ -88,7 +91,7 @@ void yuvDisplayInit(int id, int width, int height, int scale);
 void yuvFinalize(int id);
 
 /**
- * Function used to refresh the display with the given id in the windo.
+ * Function used to refresh the display with the given id in the window.
  *
  * @param id
  *        the id of the refreshed display.

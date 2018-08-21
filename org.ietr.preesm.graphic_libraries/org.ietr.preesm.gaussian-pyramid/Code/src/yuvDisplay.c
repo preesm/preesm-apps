@@ -5,6 +5,8 @@
  Version     :
  Copyright   : CECILL-C
  Description : Displaying YUV frames one next to another in a row
+ Warning	 : This is a special implementation of YUV display for the
+ pyramid application, to use with caution
  ============================================================================
  */
 #include <stdlib.h>
@@ -20,11 +22,16 @@
 
 extern int stopThreads;
 
+int nbDisplay = 0;
+int frame_w = 0;
+int display_h = 0;
+int display_w = 0;
+
 /**
  * Structure representing one display
  */
 typedef struct YuvDisplay {
-	SDL_Texture* textures[NB_DISPLAY];	    // One overlay per frame
+	SDL_Texture **textures;	    // One overlay per frame
 	SDL_Window *screen;					    // SDL surface where to display
 	SDL_Renderer *renderer;
 	TTF_Font *text_font;
@@ -50,28 +57,51 @@ int exitCallBack(void* userdata, SDL_Event* event) {
  * Initializes a display frame. Be careful, once a window size has been chosen,
  * all videos must share the same window size
  *
- * @param id display unique identifier
- * @param width width
- * @param height heigth
+ * @param id
+ * 		  display unique identifier
+ * @param nb_display
+ * 		  number of frames to be displayed
+ * @param frame_width
+ * 		  width of a frame
+ * @param frame_height
+ * 		  height of a frame
+ * @param width
+ * 		  width of the texture to be displayed
+ * @param height
+ * 		  height of the texture to be displayed
  */
-void yuvDisplayInit(int id, int width, int height, int scale) {
+void yuvDisplayInit(int id, int nb_display, int frame_width, int frame_height,
+		int width, int height) {
+	nbDisplay = nb_display;
+	frame_w = frame_width;
+	display_h = frame_height;
+	display_w = frame_w * nbDisplay;
+
+	if (display.initialized == 0) {
+		if (nbDisplay > 0) {
+			display.textures = (SDL_Texture**) calloc(nbDisplay,
+					sizeof(SDL_Texture*));
+		} else {
+			display.textures = NULL;
+		}
+	}
 
 	if (display.initialized == 0) {
 		display.currentXMin = 0;
 	}
 
-	if (height > DISPLAY_H / scale) {
+	if (height > display_h) {
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
 		system("PAUSE");
 		exit(1);
-	} else if (id >= NB_DISPLAY) {
+	} else if (id >= nbDisplay) {
 		fprintf(stderr, "The number of displays is limited to %d.\n",
-				NB_DISPLAY);
+				nbDisplay);
 		system("PAUSE");
 		exit(1);
-	} else if (display.currentXMin + width > DISPLAY_W / scale) {
+	} else if (display.currentXMin + width > display_w) {
 		fprintf(stderr, "The number is not wide enough for display %d.\n",
-				NB_DISPLAY);
+				nbDisplay);
 		system("PAUSE");
 		exit(1);
 	}
@@ -108,8 +138,8 @@ void yuvDisplayInit(int id, int width, int height, int scale) {
 		}
 
 		display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED,
-				DISPLAY_W / scale, DISPLAY_H / scale, SDL_WINDOW_SHOWN);
+				SDL_WINDOWPOS_UNDEFINED, display_w, display_h,
+				SDL_WINDOW_SHOWN);
 		if (!display.screen) {
 			fprintf(stderr, "SDL: could not set video mode - exiting\n");
 			exit(1);
@@ -144,6 +174,8 @@ void yuvDisplayInit(int id, int width, int height, int scale) {
 
 	printf("register\n");
 	SDL_SetEventFilter(exitCallBack, NULL);
+	printf("Init - end : Address of display : %p, address of textures : %p\n",
+			(void *) &display, (void *) display.textures);
 }
 
 void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v) {
@@ -164,8 +196,8 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 
 	screen_rect.w = w;
 	screen_rect.h = h;
-	screen_rect.x = w * id;
-	screen_rect.y = 0;
+	screen_rect.x = id * frame_w + (frame_w - w) / 2;
+	screen_rect.y = (display_h - h) / 2;
 
 	SDL_RenderCopy(display.renderer, texture, NULL, &screen_rect);
 
@@ -187,8 +219,8 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 	SDL_QueryTexture(fpsTexture, NULL, NULL, &fpsWidth, &fpsHeight);
 	SDL_Rect fpsTextRect;
 
-	fpsTextRect.x = 0;
-	fpsTextRect.y = 0;
+	fpsTextRect.x = screen_rect.x;
+	fpsTextRect.y = screen_rect.y;
 	fpsTextRect.w = fpsWidth;
 	fpsTextRect.h = fpsHeight;
 	SDL_RenderCopy(display.renderer, fpsTexture, NULL, &fpsTextRect);
@@ -223,7 +255,13 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 		SDL_DestroyTexture(sliceTexture);
 	}
 
-	SDL_RenderPresent(display.renderer);
+	/**
+	 * Main difference with the original version of display : Present
+	 * the render only when (id == 0) to synchronize the two sequences
+	 */
+	if (!id) {
+		SDL_RenderPresent(display.renderer);
+	}
 
 	SDL_Event event;
 	// Grab all the events off the queue.
@@ -239,4 +277,5 @@ void yuvFinalize(int id) {
 	SDL_DestroyTexture(display.textures[id]);
 	SDL_DestroyRenderer(display.renderer);
 	SDL_DestroyWindow(display.screen);
+	free(display.textures);
 }

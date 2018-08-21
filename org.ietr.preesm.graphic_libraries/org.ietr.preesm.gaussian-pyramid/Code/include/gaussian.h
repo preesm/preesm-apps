@@ -20,7 +20,7 @@
  * @param width
  *        The width of the processed image
  * @param height
- *        The heigth of the processed image
+ *        The height of the processed image
  * @param input
  *        The input image
  * @param output

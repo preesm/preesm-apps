@@ -1,11 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "x86.h"
 #include "applicationParameters.h"
-#include "yuvDisplay.h"
-#include "yuvRead.h"
-#include "gaussian.h"
-#include "md5.h"
 
 // #define VERBOSE
 #ifdef VERBOSE
@@ -13,6 +10,10 @@
 #endif
 
 int stopThreads = 0;
+
+extern int nbDisplay;
+extern int display_h;
+extern int display_w;
 
 int main(int argc, char** argv) {
 	// Declarations
@@ -22,10 +23,9 @@ int main(int argc, char** argv) {
 	static unsigned char yDisp[HEIGHT * WIDTH / 4], uDisp[HEIGHT * WIDTH / 16],
 			vDisp[HEIGHT * WIDTH / 16];
 	unsigned int frameIndex = 1;
-	int scale = 2;
 
 	// Init display
-	yuvDisplayInit(0, DISPLAY_W / scale, DISPLAY_H / scale, scale);
+	yuvDisplayInit(0, 1, 640, 360, 640, 360);
 	// Init read
 	initReadYUV(WIDTH, HEIGHT);
 
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 		yuvDisplay(0, yDisp, uDisp, vDisp);
 
 		// MD5 check
-		MD5_Update(WIDTH * HEIGHT / 4, yDisp);
+		// MD5_Update(WIDTH * HEIGHT / 4, yDisp);
 
 		// Exit ?
 		frameIndex++;

@@ -15,6 +15,7 @@
         <node expr="0" id="index" kind="param"/>
         <node expr="width/2" id="halfWidth" kind="param"/>
         <node expr="height/4" id="quarterHeight" kind="param"/>
+        <node expr="1" id="nbDisplay" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readYUV">
@@ -46,14 +47,20 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="nb_display" type="int"/>
+                <param direction="IN" isConfig="true" name="frame_width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="frame_height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="scale" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="scale"/>
+            <port kind="cfg_input" name="nb_display"/>
+            <port kind="cfg_input" name="frame_width"/>
+            <port kind="cfg_input" name="frame_height"/>
             <port annotation="NONE" expr="width*height" kind="input" name="y"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
@@ -118,5 +125,8 @@
         <edge kind="dependency" source="height" target="FirstLevel" targetport="height"/>
         <edge kind="dependency" source="halfHeight" target="SecondLevel" targetport="height"/>
         <edge kind="dependency" source="halfWidth" target="SecondLevel" targetport="width"/>
+        <edge kind="dependency" source="nbDisplay" target="Display" targetport="nb_display"/>
+        <edge kind="dependency" source="quarterWidth" target="Display" targetport="frame_width"/>
+        <edge kind="dependency" source="quarterHeight" target="Display" targetport="frame_height"/>
     </graph>
 </graphml>

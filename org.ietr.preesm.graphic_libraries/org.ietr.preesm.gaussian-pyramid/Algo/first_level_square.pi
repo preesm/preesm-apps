@@ -13,7 +13,7 @@
         <node expr="height/2" id="displayHeight" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="720" id="height" kind="param"/>
-        <node expr="displayHeight*displayWidth" id="displaySize" kind="param"/>
+        <node expr="1" id="nbDisplay" kind="param"/>
         <node id="Display" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
             <loop name="yuvDisplay">
@@ -24,14 +24,20 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="nb_display" type="int"/>
+                <param direction="IN" isConfig="true" name="frame_width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="frame_height" type="int"/>
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="scale" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="scale"/>
+            <port kind="cfg_input" name="nb_display"/>
+            <port kind="cfg_input" name="frame_width"/>
+            <port kind="cfg_input" name="frame_height"/>
             <port annotation="NONE" expr="width*height" kind="input" name="y"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
@@ -66,15 +72,6 @@
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="output_1"/>
         </node>
-        <node id="Md5" kind="actor">
-            <data key="graph_desc">Code/include/md5.h</data>
-            <loop name="MD5_Update">
-                <param direction="IN" isConfig="true" name="size" type="unsigned long"/>
-                <param direction="IN" isConfig="false" name="data" type="const void "/>
-            </loop>
-            <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size" kind="input" name="data"/>
-        </node>
         <node id="Pyramid" kind="actor">
             <data key="graph_desc">Algo/pyramidSquare.pi</data>
             <port kind="cfg_input" name="width"/>
@@ -91,8 +88,6 @@
         </node>
         <edge kind="fifo" source="DuplicateResult" sourceport="output_0"
             target="Display" targetport="y" type="uchar"/>
-        <edge kind="fifo" source="DuplicateResult" sourceport="output_1"
-            target="Md5" targetport="data" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
             target="Pyramid" targetport="u_input" type="uchar"/>
         <edge kind="fifo" source="Pyramid" sourceport="u_output"
@@ -113,12 +108,12 @@
         <edge kind="dependency" source="width" target="displayWidth"/>
         <edge kind="dependency" source="height" target="displayHeight"/>
         <edge kind="dependency" source="scale" target="Display" targetport="scale"/>
-        <edge kind="dependency" source="displayHeight" target="displaySize"/>
-        <edge kind="dependency" source="displayWidth" target="displaySize"/>
-        <edge kind="dependency" source="displaySize" target="Md5" targetport="size"/>
         <edge kind="dependency" source="width" target="DuplicateResult" targetport="width"/>
         <edge kind="dependency" source="height" target="DuplicateResult" targetport="height"/>
         <edge kind="dependency" source="width" target="Pyramid" targetport="width"/>
         <edge kind="dependency" source="height" target="Pyramid" targetport="height"/>
+        <edge kind="dependency" source="nbDisplay" target="Display" targetport="nb_display"/>
+        <edge kind="dependency" source="displayWidth" target="Display" targetport="frame_width"/>
+        <edge kind="dependency" source="displayHeight" target="Display" targetport="frame_height"/>
     </graph>
 </graphml>
