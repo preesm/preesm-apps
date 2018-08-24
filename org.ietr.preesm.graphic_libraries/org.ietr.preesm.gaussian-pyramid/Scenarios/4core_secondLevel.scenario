@@ -37,6 +37,12 @@
             <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
             <task name="second_level"/>
+            <task name="second_level/FirstLevel/U_Upsample"/>
+            <task name="second_level/FirstLevel/V_Upsample"/>
+            <task name="second_level/FirstLevel/Y_Upsample"/>
+            <task name="second_level/SecondLevel/U_Upsample"/>
+            <task name="second_level/SecondLevel/V_Upsample"/>
+            <task name="second_level/SecondLevel/Y_Upsample"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -67,6 +73,12 @@
             <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
             <task name="second_level"/>
+            <task name="second_level/FirstLevel/U_Upsample"/>
+            <task name="second_level/FirstLevel/V_Upsample"/>
+            <task name="second_level/FirstLevel/Y_Upsample"/>
+            <task name="second_level/SecondLevel/U_Upsample"/>
+            <task name="second_level/SecondLevel/V_Upsample"/>
+            <task name="second_level/SecondLevel/Y_Upsample"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -97,6 +109,12 @@
             <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
             <task name="second_level"/>
+            <task name="second_level/FirstLevel/U_Upsample"/>
+            <task name="second_level/FirstLevel/V_Upsample"/>
+            <task name="second_level/FirstLevel/Y_Upsample"/>
+            <task name="second_level/SecondLevel/U_Upsample"/>
+            <task name="second_level/SecondLevel/V_Upsample"/>
+            <task name="second_level/SecondLevel/Y_Upsample"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -127,6 +145,12 @@
             <task name="second_level/SecondLevel/Y_Merge"/>
             <task name="second_level/SecondLevel"/>
             <task name="second_level"/>
+            <task name="second_level/FirstLevel/U_Upsample"/>
+            <task name="second_level/FirstLevel/V_Upsample"/>
+            <task name="second_level/FirstLevel/Y_Upsample"/>
+            <task name="second_level/SecondLevel/U_Upsample"/>
+            <task name="second_level/SecondLevel/V_Upsample"/>
+            <task name="second_level/SecondLevel/Y_Upsample"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

@@ -10,8 +10,6 @@
         <node expr="720" id="height" kind="param"/>
         <node expr="1280" id="width" kind="param"/>
         <node expr="0" id="index" kind="param"/>
-        <node expr="width/2" id="displayWidth" kind="param"/>
-        <node expr="height/2" id="displayHeight" kind="param"/>
         <node expr="2" id="scale" kind="param"/>
         <node expr="1" id="nbLevel" kind="param"/>
         <node expr="1" id="nbDisplay" kind="param"/>
@@ -72,11 +70,10 @@
             <port annotation="NONE" expr="width*height" kind="input" name="y_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>
+            <port annotation="NONE" expr="width*height" kind="output" name="y_output"/>
             <port annotation="NONE" expr="width/2*height/2"
-                kind="output" name="y_output"/>
-            <port annotation="NONE" expr="width/4*height/4"
                 kind="output" name="u_output"/>
-            <port annotation="NONE" expr="width/4*height/4"
+            <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="v_output"/>
         </node>
         <edge kind="fifo" source="Read_YUV" sourceport="y"
@@ -94,16 +91,14 @@
         <edge kind="dependency" source="height" target="Read_YUV" targetport="height"/>
         <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
         <edge kind="dependency" source="index" target="Display" targetport="id"/>
-        <edge kind="dependency" source="displayWidth" target="Display" targetport="width"/>
-        <edge kind="dependency" source="displayHeight" target="Display" targetport="height"/>
-        <edge kind="dependency" source="width" target="displayWidth"/>
-        <edge kind="dependency" source="height" target="displayHeight"/>
         <edge kind="dependency" source="scale" target="Display" targetport="scale"/>
         <edge kind="dependency" source="width" target="Pyramid" targetport="width"/>
         <edge kind="dependency" source="height" target="Pyramid" targetport="height"/>
         <edge kind="dependency" source="nbLevel" target="Pyramid" targetport="nbLevel"/>
         <edge kind="dependency" source="nbDisplay" target="Display" targetport="nb_display"/>
-        <edge kind="dependency" source="displayHeight" target="Display" targetport="frame_height"/>
-        <edge kind="dependency" source="displayWidth" target="Display" targetport="frame_width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="height"/>
+        <edge kind="dependency" source="width" target="Display" targetport="width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="frame_height"/>
+        <edge kind="dependency" source="width" target="Display" targetport="frame_width"/>
     </graph>
 </graphml>

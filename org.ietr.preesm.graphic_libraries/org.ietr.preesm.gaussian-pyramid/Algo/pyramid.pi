@@ -16,7 +16,8 @@
         <node expr="2" id="borderSize" kind="param"/>
         <node expr="borderSize/2" id="halfBoder" kind="param"/>
         <node id="nbLevel" kind="cfg_in_iface"/>
-        <node expr="halfHeight/nbLevel" id="halfSliceHeight" kind="param"/>
+        <node expr="width/4" id="quarterWidth" kind="param"/>
+        <node expr="height/4" id="quarterHeight" kind="param"/>
         <node id="Gaussian" kind="actor">
             <data key="graph_desc">Code/include/gaussian.h</data>
             <loop name="gaussian">
@@ -84,14 +85,14 @@
                 kind="output" name="v_input"/>
         </node>
         <node id="y_output" kind="snk">
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="y_output"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="y_output"/>
         </node>
         <node id="u_output" kind="snk">
-            <port annotation="NONE" expr="halfWidth/2*halfHeight/2"
+            <port annotation="NONE" expr="halfWidth*halfHeight"
                 kind="input" name="u_output"/>
         </node>
         <node id="v_output" kind="snk">
-            <port annotation="NONE" expr="halfWidth/2*halfHeight/2"
+            <port annotation="NONE" expr="halfWidth*halfHeight"
                 kind="input" name="v_output"/>
         </node>
         <node id="Y_Split" kind="actor">
@@ -132,12 +133,52 @@
                 kind="input" name="input"/>
             <port annotation="NONE" expr="width*height" kind="output" name="output"/>
         </node>
+        <node id="U_Upsample" kind="actor">
+            <data key="graph_desc">Code/include/upsample.h</data>
+            <loop name="upsample">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="2*width*2*height"
+                kind="output" name="output"/>
+        </node>
+        <node id="V_Upsample" kind="actor">
+            <data key="graph_desc">Code/include/upsample.h</data>
+            <loop name="upsample">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="2*width*2*height"
+                kind="output" name="output"/>
+        </node>
+        <node id="Y_Upsample" kind="actor">
+            <data key="graph_desc">Code/include/upsample.h</data>
+            <loop name="upsample">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="2*width*2*height"
+                kind="output" name="output"/>
+        </node>
         <edge kind="fifo" source="Gaussian" sourceport="output"
             target="Y_Subsample" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Y_Subsample" sourceport="output"
             target="Y_Merge" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Y_Merge" sourceport="output"
-            target="y_output" targetport="y_output" type="uchar"/>
         <edge kind="fifo" source="Y_Split" sourceport="output"
             target="Gaussian" targetport="input" type="uchar"/>
         <edge kind="fifo" source="y_input" sourceport="y_input"
@@ -146,9 +187,17 @@
             target="U_Subsample" targetport="input" type="uchar"/>
         <edge kind="fifo" source="v_input" sourceport="v_input"
             target="V_Subsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Y_Merge" sourceport="output"
+            target="Y_Upsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Y_Upsample" sourceport="output"
+            target="y_output" targetport="y_output" type="uchar"/>
         <edge kind="fifo" source="U_Subsample" sourceport="output"
+            target="U_Upsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="U_Upsample" sourceport="output"
             target="u_output" targetport="u_output" type="uchar"/>
         <edge kind="fifo" source="V_Subsample" sourceport="output"
+            target="V_Upsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="V_Upsample" sourceport="output"
             target="v_output" targetport="v_output" type="uchar"/>
         <edge kind="dependency" source="width" target="Gaussian" targetport="width"/>
         <edge kind="dependency" source="width" target="Y_Subsample" targetport="width"/>
@@ -182,11 +231,21 @@
         <edge kind="dependency" source="borderSize" target="halfBoder"/>
         <edge kind="dependency" source="halfBoder" target="Y_Merge" targetport="borderSize"/>
         <edge kind="dependency" source="nbLevel" target="nbSlice"/>
-        <edge kind="dependency" source="nbLevel" target="halfSliceHeight"/>
-        <edge kind="dependency" source="halfHeight" target="halfSliceHeight"/>
         <edge kind="dependency" source="halfWidth" target="U_Subsample" targetport="width"/>
         <edge kind="dependency" source="halfHeight" target="U_Subsample" targetport="height"/>
         <edge kind="dependency" source="halfWidth" target="V_Subsample" targetport="width"/>
         <edge kind="dependency" source="halfHeight" target="V_Subsample" targetport="height"/>
+        <edge kind="dependency" source="width" target="quarterWidth"/>
+        <edge kind="dependency" source="height" target="quarterHeight"/>
+        <edge kind="dependency" source="quarterHeight"
+            target="U_Upsample" targetport="height"/>
+        <edge kind="dependency" source="quarterHeight"
+            target="V_Upsample" targetport="height"/>
+        <edge kind="dependency" source="quarterWidth"
+            target="U_Upsample" targetport="width"/>
+        <edge kind="dependency" source="quarterWidth"
+            target="V_Upsample" targetport="width"/>
+        <edge kind="dependency" source="halfHeight" target="Y_Upsample" targetport="height"/>
+        <edge kind="dependency" source="halfWidth" target="Y_Upsample" targetport="width"/>
     </graph>
 </graphml>

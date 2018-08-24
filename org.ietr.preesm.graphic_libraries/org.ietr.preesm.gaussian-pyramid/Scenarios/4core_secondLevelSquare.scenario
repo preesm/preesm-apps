@@ -22,6 +22,9 @@
             <task name="second_level_square/FirstLevel/v_output"/>
             <task name="second_level_square/FirstLevel/Y_Split"/>
             <task name="second_level_square/FirstLevel/Y_Merge"/>
+            <task name="second_level_square/FirstLevel/U_Upsample"/>
+            <task name="second_level_square/FirstLevel/V_Upsample"/>
+            <task name="second_level_square/FirstLevel/Y_Upsample"/>
             <task name="second_level_square/FirstLevel"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
@@ -35,6 +38,9 @@
             <task name="second_level_square/SecondLevel/v_output"/>
             <task name="second_level_square/SecondLevel/Y_Split"/>
             <task name="second_level_square/SecondLevel/Y_Merge"/>
+            <task name="second_level_square/SecondLevel/U_Upsample"/>
+            <task name="second_level_square/SecondLevel/V_Upsample"/>
+            <task name="second_level_square/SecondLevel/Y_Upsample"/>
             <task name="second_level_square/SecondLevel"/>
             <task name="second_level_square"/>
         </constraintGroup>
@@ -52,6 +58,9 @@
             <task name="second_level_square/FirstLevel/v_output"/>
             <task name="second_level_square/FirstLevel/Y_Split"/>
             <task name="second_level_square/FirstLevel/Y_Merge"/>
+            <task name="second_level_square/FirstLevel/U_Upsample"/>
+            <task name="second_level_square/FirstLevel/V_Upsample"/>
+            <task name="second_level_square/FirstLevel/Y_Upsample"/>
             <task name="second_level_square/FirstLevel"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
@@ -65,6 +74,9 @@
             <task name="second_level_square/SecondLevel/v_output"/>
             <task name="second_level_square/SecondLevel/Y_Split"/>
             <task name="second_level_square/SecondLevel/Y_Merge"/>
+            <task name="second_level_square/SecondLevel/U_Upsample"/>
+            <task name="second_level_square/SecondLevel/V_Upsample"/>
+            <task name="second_level_square/SecondLevel/Y_Upsample"/>
             <task name="second_level_square/SecondLevel"/>
             <task name="second_level_square"/>
         </constraintGroup>
@@ -82,6 +94,9 @@
             <task name="second_level_square/FirstLevel/v_output"/>
             <task name="second_level_square/FirstLevel/Y_Split"/>
             <task name="second_level_square/FirstLevel/Y_Merge"/>
+            <task name="second_level_square/FirstLevel/U_Upsample"/>
+            <task name="second_level_square/FirstLevel/V_Upsample"/>
+            <task name="second_level_square/FirstLevel/Y_Upsample"/>
             <task name="second_level_square/FirstLevel"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
@@ -95,6 +110,9 @@
             <task name="second_level_square/SecondLevel/v_output"/>
             <task name="second_level_square/SecondLevel/Y_Split"/>
             <task name="second_level_square/SecondLevel/Y_Merge"/>
+            <task name="second_level_square/SecondLevel/U_Upsample"/>
+            <task name="second_level_square/SecondLevel/V_Upsample"/>
+            <task name="second_level_square/SecondLevel/Y_Upsample"/>
             <task name="second_level_square/SecondLevel"/>
             <task name="second_level_square"/>
         </constraintGroup>
@@ -112,6 +130,9 @@
             <task name="second_level_square/FirstLevel/v_output"/>
             <task name="second_level_square/FirstLevel/Y_Split"/>
             <task name="second_level_square/FirstLevel/Y_Merge"/>
+            <task name="second_level_square/FirstLevel/U_Upsample"/>
+            <task name="second_level_square/FirstLevel/V_Upsample"/>
+            <task name="second_level_square/FirstLevel/Y_Upsample"/>
             <task name="second_level_square/FirstLevel"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
@@ -125,6 +146,9 @@
             <task name="second_level_square/SecondLevel/v_output"/>
             <task name="second_level_square/SecondLevel/Y_Split"/>
             <task name="second_level_square/SecondLevel/Y_Merge"/>
+            <task name="second_level_square/SecondLevel/U_Upsample"/>
+            <task name="second_level_square/SecondLevel/V_Upsample"/>
+            <task name="second_level_square/SecondLevel/Y_Upsample"/>
             <task name="second_level_square/SecondLevel"/>
             <task name="second_level_square"/>
         </constraintGroup>

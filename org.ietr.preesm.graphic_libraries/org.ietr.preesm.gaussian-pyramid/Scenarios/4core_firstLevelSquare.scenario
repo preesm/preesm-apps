@@ -10,8 +10,6 @@
             <operator name="Core0"/>
             <task name="first_level_square/Display"/>
             <task name="first_level_square/Read_YUV"/>
-            <task name="first_level_square/DuplicateResult"/>
-            <task name="first_level_square/Md5"/>
             <task name="first_level_square/Pyramid/Gaussian"/>
             <task name="first_level_square/Pyramid/Y_Subsample"/>
             <task name="first_level_square/Pyramid/U_Subsample"/>
@@ -26,11 +24,12 @@
             <task name="first_level_square/Pyramid/Y_Merge"/>
             <task name="first_level_square/Pyramid"/>
             <task name="first_level_square"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
-            <task name="first_level_square/DuplicateResult"/>
-            <task name="first_level_square/Md5"/>
             <task name="first_level_square/Pyramid/Gaussian"/>
             <task name="first_level_square/Pyramid/Y_Subsample"/>
             <task name="first_level_square/Pyramid/U_Subsample"/>
@@ -45,11 +44,12 @@
             <task name="first_level_square/Pyramid/Y_Merge"/>
             <task name="first_level_square/Pyramid"/>
             <task name="first_level_square"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
-            <task name="first_level_square/DuplicateResult"/>
-            <task name="first_level_square/Md5"/>
             <task name="first_level_square/Pyramid/Gaussian"/>
             <task name="first_level_square/Pyramid/Y_Subsample"/>
             <task name="first_level_square/Pyramid/U_Subsample"/>
@@ -64,11 +64,12 @@
             <task name="first_level_square/Pyramid/Y_Merge"/>
             <task name="first_level_square/Pyramid"/>
             <task name="first_level_square"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
-            <task name="first_level_square/DuplicateResult"/>
-            <task name="first_level_square/Md5"/>
             <task name="first_level_square/Pyramid/Gaussian"/>
             <task name="first_level_square/Pyramid/Y_Subsample"/>
             <task name="first_level_square/Pyramid/U_Subsample"/>
@@ -83,6 +84,9 @@
             <task name="first_level_square/Pyramid/Y_Merge"/>
             <task name="first_level_square/Pyramid"/>
             <task name="first_level_square"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

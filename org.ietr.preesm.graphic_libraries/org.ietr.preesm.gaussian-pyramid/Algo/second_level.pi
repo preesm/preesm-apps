@@ -8,12 +8,8 @@
     <graph edgedefault="directed">
         <data key="name">second_level</data>
         <node expr="0" id="zero" kind="param"/>
-        <node expr="width/2" id="halfWidth" kind="param"/>
-        <node expr="height/2" id="halfHeight" kind="param"/>
         <node expr="720" id="height" kind="param"/>
         <node expr="1280" id="width" kind="param"/>
-        <node expr="height/4" id="quarterHeight" kind="param"/>
-        <node expr="width/4" id="quarterWidth" kind="param"/>
         <node expr="4" id="scale" kind="param"/>
         <node expr="2" id="two" kind="param"/>
         <node expr="1" id="one" kind="param"/>
@@ -54,11 +50,10 @@
             <port annotation="NONE" expr="width*height" kind="input" name="y_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>
+            <port annotation="NONE" expr="width*height" kind="output" name="y_output"/>
             <port annotation="NONE" expr="width/2*height/2"
-                kind="output" name="y_output"/>
-            <port annotation="NONE" expr="width/4*height/4"
                 kind="output" name="u_output"/>
-            <port annotation="NONE" expr="width/4*height/4"
+            <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="v_output"/>
         </node>
         <node id="Read_YUV" kind="actor">
@@ -90,11 +85,10 @@
             <port annotation="NONE" expr="width*height" kind="input" name="y_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u_input"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>
+            <port annotation="NONE" expr="width*height" kind="output" name="y_output"/>
             <port annotation="NONE" expr="width/2*height/2"
-                kind="output" name="y_output"/>
-            <port annotation="NONE" expr="width/4*height/4"
                 kind="output" name="u_output"/>
-            <port annotation="NONE" expr="width/4*height/4"
+            <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="v_output"/>
         </node>
         <edge kind="fifo" source="Read_YUV" sourceport="y"
@@ -120,19 +114,15 @@
         <edge kind="dependency" source="height" target="FirstLevel" targetport="height"/>
         <edge kind="dependency" source="width" target="FirstLevel" targetport="width"/>
         <edge kind="dependency" source="zero" target="Display" targetport="id"/>
-        <edge kind="dependency" source="width" target="halfWidth"/>
-        <edge kind="dependency" source="height" target="halfHeight"/>
-        <edge kind="dependency" source="width" target="quarterWidth"/>
-        <edge kind="dependency" source="height" target="quarterHeight"/>
-        <edge kind="dependency" source="halfHeight" target="SecondLevel" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="SecondLevel" targetport="width"/>
-        <edge kind="dependency" source="quarterWidth" target="Display" targetport="width"/>
-        <edge kind="dependency" source="quarterHeight" target="Display" targetport="height"/>
         <edge kind="dependency" source="scale" target="Display" targetport="scale"/>
         <edge kind="dependency" source="two" target="FirstLevel" targetport="nbLevel"/>
         <edge kind="dependency" source="one" target="SecondLevel" targetport="nbLevel"/>
         <edge kind="dependency" source="nbDisplay" target="Display" targetport="nb_display"/>
-        <edge kind="dependency" source="quarterHeight" target="Display" targetport="frame_height"/>
-        <edge kind="dependency" source="quarterWidth" target="Display" targetport="frame_width"/>
+        <edge kind="dependency" source="width" target="SecondLevel" targetport="width"/>
+        <edge kind="dependency" source="height" target="SecondLevel" targetport="height"/>
+        <edge kind="dependency" source="width" target="Display" targetport="width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="height"/>
+        <edge kind="dependency" source="width" target="Display" targetport="frame_width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="frame_height"/>
     </graph>
 </graphml>
