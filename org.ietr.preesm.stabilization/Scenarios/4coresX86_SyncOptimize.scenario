@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.stabilization/Algo/top.pi"/>
+        <architecture url="/org.ietr.preesm.stabilization/Archi/4CoreX86_zero-copy.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.stabilization/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top/ReadYUV"/>
+            <task name="top/DisplayYUV"/>
+            <task name="top/MD5"/>
+            <task name="top/DuplicateY"/>
+            <task name="top/WriteYUV"/>
+            <task name="top/DuplicateU"/>
+            <task name="top/DuplicateV"/>
+            <task name="top/Stabilization/y"/>
+            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/u"/>
+            <task name="top/Stabilization/v"/>
+            <task name="top/Stabilization/rU"/>
+            <task name="top/Stabilization/rV"/>
+            <task name="top/Stabilization/DuplicateFrame"/>
+            <task name="top/Stabilization/FindDominatingMotion"/>
+            <task name="top/Stabilization/renderFrame"/>
+            <task name="top/Stabilization/BrY"/>
+            <task name="top/Stabilization/BrU"/>
+            <task name="top/Stabilization/BrV"/>
+            <task name="top/Stabilization/delay_DuplicateFrame_out_1__ComputeBlockMotionVectorss_previousFrame"/>
+            <task name="top/Stabilization/delay_DuplicateAccumulatedMotion_out_1__AccumulateMotion_accumulatedMotionIn"/>
+            <task name="top/Stabilization/delay_BrY_out_1__renderFrame_yPrev"/>
+            <task name="top/Stabilization/delay_BrU_out_1__renderFrame_uPrev"/>
+            <task name="top/Stabilization/delay_BrV_out_1__renderFrame_vPrev"/>
+            <task name="top/Stabilization/delay_brFilteredMotion_out_1__AccumulateMotion_filteredMotionIn"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DivideBlocks"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/ComputeBlockMotionVector"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
+            <task name="top/Stabilization"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top/MD5"/>
+            <task name="top/DuplicateY"/>
+            <task name="top/WriteYUV"/>
+            <task name="top/DuplicateU"/>
+            <task name="top/DuplicateV"/>
+            <task name="top/Stabilization/y"/>
+            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/u"/>
+            <task name="top/Stabilization/v"/>
+            <task name="top/Stabilization/rU"/>
+            <task name="top/Stabilization/rV"/>
+            <task name="top/Stabilization/DuplicateFrame"/>
+            <task name="top/Stabilization/FindDominatingMotion"/>
+            <task name="top/Stabilization/renderFrame"/>
+            <task name="top/Stabilization/AccumulateMotion"/>
+            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
+            <task name="top/Stabilization/BrY"/>
+            <task name="top/Stabilization/BrU"/>
+            <task name="top/Stabilization/BrV"/>
+            <task name="top/Stabilization/brFilteredMotion"/>
+            <task name="top/Stabilization/delay_DuplicateFrame_out_1__ComputeBlockMotionVectorss_previousFrame"/>
+            <task name="top/Stabilization/delay_DuplicateAccumulatedMotion_out_1__AccumulateMotion_accumulatedMotionIn"/>
+            <task name="top/Stabilization/delay_BrY_out_1__renderFrame_yPrev"/>
+            <task name="top/Stabilization/delay_BrU_out_1__renderFrame_uPrev"/>
+            <task name="top/Stabilization/delay_BrV_out_1__renderFrame_vPrev"/>
+            <task name="top/Stabilization/delay_brFilteredMotion_out_1__AccumulateMotion_filteredMotionIn"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DivideBlocks"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/ComputeBlockMotionVector"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
+            <task name="top/Stabilization"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top/MD5"/>
+            <task name="top/DuplicateY"/>
+            <task name="top/WriteYUV"/>
+            <task name="top/DuplicateU"/>
+            <task name="top/DuplicateV"/>
+            <task name="top/Stabilization/y"/>
+            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/u"/>
+            <task name="top/Stabilization/v"/>
+            <task name="top/Stabilization/rU"/>
+            <task name="top/Stabilization/rV"/>
+            <task name="top/Stabilization/DuplicateFrame"/>
+            <task name="top/Stabilization/FindDominatingMotion"/>
+            <task name="top/Stabilization/renderFrame"/>
+            <task name="top/Stabilization/BrY"/>
+            <task name="top/Stabilization/BrU"/>
+            <task name="top/Stabilization/BrV"/>
+            <task name="top/Stabilization/delay_DuplicateFrame_out_1__ComputeBlockMotionVectorss_previousFrame"/>
+            <task name="top/Stabilization/delay_DuplicateAccumulatedMotion_out_1__AccumulateMotion_accumulatedMotionIn"/>
+            <task name="top/Stabilization/delay_BrY_out_1__renderFrame_yPrev"/>
+            <task name="top/Stabilization/delay_BrU_out_1__renderFrame_uPrev"/>
+            <task name="top/Stabilization/delay_BrV_out_1__renderFrame_vPrev"/>
+            <task name="top/Stabilization/delay_brFilteredMotion_out_1__AccumulateMotion_filteredMotionIn"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DivideBlocks"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/ComputeBlockMotionVector"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
+            <task name="top/Stabilization"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top/MD5"/>
+            <task name="top/DuplicateY"/>
+            <task name="top/WriteYUV"/>
+            <task name="top/DuplicateU"/>
+            <task name="top/DuplicateV"/>
+            <task name="top/Stabilization/y"/>
+            <task name="top/Stabilization/rY"/>
+            <task name="top/Stabilization/u"/>
+            <task name="top/Stabilization/v"/>
+            <task name="top/Stabilization/rU"/>
+            <task name="top/Stabilization/rV"/>
+            <task name="top/Stabilization/DuplicateFrame"/>
+            <task name="top/Stabilization/FindDominatingMotion"/>
+            <task name="top/Stabilization/renderFrame"/>
+            <task name="top/Stabilization/BrY"/>
+            <task name="top/Stabilization/BrU"/>
+            <task name="top/Stabilization/BrV"/>
+            <task name="top/Stabilization/delay_DuplicateFrame_out_1__ComputeBlockMotionVectorss_previousFrame"/>
+            <task name="top/Stabilization/delay_DuplicateAccumulatedMotion_out_1__AccumulateMotion_accumulatedMotionIn"/>
+            <task name="top/Stabilization/delay_BrY_out_1__renderFrame_yPrev"/>
+            <task name="top/Stabilization/delay_BrU_out_1__renderFrame_uPrev"/>
+            <task name="top/Stabilization/delay_BrV_out_1__renderFrame_vPrev"/>
+            <task name="top/Stabilization/delay_brFilteredMotion_out_1__AccumulateMotion_filteredMotionIn"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DivideBlocks"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/ComputeBlockMotionVector"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
+            <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
+            <task name="top/Stabilization"/>
+            <task name="top"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="/org.ietr.preesm.stabilization/Scenarios/timingJaguar.xls">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-7"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="coordf" size="8"/>
+            <dataType name="coord" size="8"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>
