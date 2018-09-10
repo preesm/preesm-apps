@@ -24,8 +24,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -38,7 +36,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -64,10 +61,10 @@
             <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
             <task name="top/Stabilization"/>
             <task name="top"/>
+            <task name="top/Stabilization/brFilteredMotion"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core10"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -82,8 +79,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -96,7 +91,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core11"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -111,8 +105,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -125,7 +117,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -140,8 +131,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -154,7 +143,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -169,8 +157,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -183,7 +169,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core4"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -198,8 +183,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -212,7 +195,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core5"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -227,8 +209,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -255,8 +235,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -266,11 +244,9 @@
             <task name="top/Stabilization/ComputeBlockMotionVectorss"/>
             <task name="top/Stabilization"/>
             <task name="top"/>
-            <task name="top/ReadYUV"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core7"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -285,8 +261,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -299,7 +273,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core8"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -314,8 +287,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -328,7 +299,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="Core9"/>
-            <task name="top/ReadYUV"/>
             <task name="top/MD5"/>
             <task name="top/DuplicateY"/>
             <task name="top/WriteYUV"/>
@@ -343,8 +313,6 @@
             <task name="top/Stabilization/DuplicateFrame"/>
             <task name="top/Stabilization/FindDominatingMotion"/>
             <task name="top/Stabilization/renderFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/vectors"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
@@ -396,4 +364,5 @@
     </simuParams>
     <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>
