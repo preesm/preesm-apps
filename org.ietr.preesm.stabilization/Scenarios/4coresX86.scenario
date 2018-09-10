@@ -33,6 +33,7 @@
             <task name="top/Stabilization/rU"/>
             <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
+            <task name="top/Stabilization/brFilteredMotion"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -47,7 +48,6 @@
             <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
             <task name="top/Stabilization/rY"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
             <task name="top/Stabilization"/>
             <task name="top/WriteYUV"/>
             <task name="top/Stabilization/renderFrame"/>
@@ -59,7 +59,6 @@
             <task name="top/DuplicateV"/>
             <task name="top/DuplicateU"/>
             <task name="top/Stabilization/rU"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
         </constraintGroup>
         <constraintGroup>
@@ -105,7 +104,6 @@
             <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
             <task name="top/Stabilization/rY"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
             <task name="top/Stabilization"/>
             <task name="top/WriteYUV"/>
             <task name="top/Stabilization/renderFrame"/>
@@ -117,7 +115,6 @@
             <task name="top/DuplicateV"/>
             <task name="top/DuplicateU"/>
             <task name="top/Stabilization/rU"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
         </constraintGroup>
     </constraints>
@@ -150,4 +147,5 @@
     </simuParams>
     <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>
