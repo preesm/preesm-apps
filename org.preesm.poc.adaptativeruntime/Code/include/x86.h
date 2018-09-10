@@ -45,6 +45,8 @@
 #include "communication.h"
 #include "fifo.h"
 #include "dump.h"
+#include "clock.h"
+#include "displayRGB.h"
 
 
 typedef unsigned char uchar;

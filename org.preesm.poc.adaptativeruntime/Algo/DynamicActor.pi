@@ -8,23 +8,13 @@
     <graph edgedefault="directed">
         <data key="name">DynamicActor</data>
         <node expr="1" id="decision" kind="param"/>
-        <node expr="1" id="display1" kind="param"/>
+        <node expr="0" id="display1" kind="param"/>
         <node expr="decision*4+(1-decision)" id="nbSlices" kind="param"/>
         <node expr="800" id="width" kind="param"/>
         <node expr="600" id="height" kind="param"/>
         <node expr="height/nbSlices+2" id="sliceHeight" kind="param"/>
         <node id="ReadImage" kind="src">
             <port annotation="NONE" expr="1" kind="output" name="ReadImage"/>
-        </node>
-        <node id="DisplayBlur" kind="actor">
-            <data key="graph_desc">Code/include/actors.h</data>
-            <loop name="display">
-                <param direction="IN" isConfig="false" name="img" type="rgbimg "/>
-                <param direction="IN" isConfig="true" name="displayID" type="unsigned int"/>
-            </loop>
-            <init name="initDisplays"/>
-            <port kind="cfg_input" name="displayID"/>
-            <port annotation="NONE" expr="1" kind="input" name="img"/>
         </node>
         <node id="Brightness" kind="src">
             <port annotation="NONE" expr="1" kind="output" name="Brightness"/>
@@ -254,6 +244,24 @@
             <port annotation="NONE" expr="1-decision" kind="input" name="int2"/>
             <port annotation="NONE" expr="1" kind="output" name="out"/>
         </node>
+        <node id="DisplayRGB" kind="actor">
+            <data key="graph_desc">Code/include/displayRGB.h</data>
+            <loop name="displayRGB">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="rgb" type="unsigned char "/>
+            </loop>
+            <init name="displayRGBInit">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+            </init>
+            <port kind="cfg_input" name="id"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="1" kind="input" name="rgb"/>
+        </node>
         <edge kind="fifo" source="Brightness" sourceport="Brightness"
             target="ConfigActor" targetport="brightness" type="double"/>
         <edge kind="fifo" source="Sobel" sourceport="output"
@@ -291,9 +299,9 @@
         <edge kind="fifo" source="Fork" sourceport="out2" target="Join"
             targetport="int2" type="rgbimg"/>
         <edge kind="fifo" source="Join" sourceport="out"
-            target="DisplayBlur" targetport="img" type="rgbimg"/>
+            target="DisplayRGB" targetport="rgb" type="rgbimg"/>
         <edge kind="dependency" source="decision" target="blur" targetport="decision"/>
-        <edge kind="dependency" source="display1" target="DisplayBlur" targetport="displayID"/>
+        <edge kind="dependency" source="display1" target="DisplayRGB" targetport="id"/>
         <edge kind="dependency" source="ConfigActor"
             sourceport="decision" target="decision"/>
         <edge kind="dependency" source="decision" target="nbSlices"/>
@@ -336,5 +344,7 @@
         <edge kind="dependency" source="decision" target="mergeRGB" targetport="decision"/>
         <edge kind="dependency" source="decision" target="Fork" targetport="decision"/>
         <edge kind="dependency" source="decision" target="Join" targetport="decision"/>
+        <edge kind="dependency" source="height" target="DisplayRGB" targetport="height"/>
+        <edge kind="dependency" source="width" target="DisplayRGB" targetport="width"/>
     </graph>
 </graphml>

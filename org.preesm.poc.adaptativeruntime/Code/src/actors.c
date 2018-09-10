@@ -47,12 +47,6 @@ void computeBrightness(rgbimg * img, double * b) {
 	src.release();
 }
 
-void display(rgbimg * img, unsigned int displayID) {
-	Mat m = RGBToMat(img);
-	imshow(displays[displayID], m);
-	waitKey(15);
-	m.release();
-}
 
 void computeBrightnessAndForward(IN rgbimg * img_in, OUT double * brightness, OUT rgbimg * img_out) {
 	computeBrightness(img_in, brightness);

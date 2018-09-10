@@ -30,6 +30,7 @@
             <task name="topDynamic"/>
             <task name="topDynamic/DDD/Fork"/>
             <task name="topDynamic/DDD/Join"/>
+            <task name="topDynamic/DDD/DisplayRGB"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core1"/>
@@ -164,4 +165,5 @@
     <parameterValues>
         <parameter name="decision" parent="DDD" type="ACTOR_DEPENDENT" value="[1]"/>
     </parameterValues>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

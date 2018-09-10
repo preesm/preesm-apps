@@ -8,7 +8,7 @@ GENS=$(patsubst %.cpp,%,$(wildcard generated/*.cpp))
 CC=g++
 
 INCS=-I./include -I./generated
-LIBS=$(shell pkg-config --libs opencv) -lpthread -lSpider
+LIBS=$(shell pkg-config --libs opencv) -lpthread -lSDL2 -lSDL2_ttf -lSDL2main  -lSpider
 
 CFLAGS=-fpic $(INCS) -O0
 CPPFLAGS=$(CFLAGS)
