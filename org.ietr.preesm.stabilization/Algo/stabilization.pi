@@ -183,6 +183,77 @@
             <port annotation="NONE" expr="1" kind="output" name="out_0"/>
             <port annotation="NONE" expr="1" kind="output" name="out_1"/>
         </node>
+        <node expr="height*width" getter=""
+            id="delay_DuplicateFrame_out_1__ComputeBlockMotionVectorss_previousFrame"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="height*width" kind="input" name="set"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="get"/>
+        </node>
+        <node expr="1" getter=""
+            id="delay_DuplicateAccumulatedMotion_out_1__AccumulateMotion_accumulatedMotionIn"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="1" kind="input" name="set"/>
+            <port annotation="NONE" expr="1" kind="output" name="get"/>
+        </node>
+        <node expr="displayHeight*displayWidth" getter=""
+            id="delay_BrY_out_1__renderFrame_yPrev" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="displayHeight*displayWidth"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="displayHeight*displayWidth"
+                kind="output" name="get"/>
+        </node>
+        <node expr="displayHeight/2*displayWidth/2" getter=""
+            id="delay_BrU_out_1__renderFrame_uPrev" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE"
+                expr="displayHeight/2*displayWidth/2" kind="input" name="set"/>
+            <port annotation="NONE"
+                expr="displayHeight/2*displayWidth/2" kind="output" name="get"/>
+        </node>
+        <node expr="displayHeight/2*displayWidth/2" getter=""
+            id="delay_BrV_out_1__renderFrame_vPrev" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE"
+                expr="displayHeight/2*displayWidth/2" kind="input" name="set"/>
+            <port annotation="NONE"
+                expr="displayHeight/2*displayWidth/2" kind="output" name="get"/>
+        </node>
+        <node expr="1" getter=""
+            id="delay_brFilteredMotion_out_1__AccumulateMotion_filteredMotionIn"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="1" kind="input" name="set"/>
+            <port annotation="NONE" expr="1" kind="output" name="get"/>
+        </node>
+        <edge expr="height*width" kind="fifo" source="DuplicateFrame"
+            sourceport="out_1" target="ComputeBlockMotionVectorss"
+            targetport="previousFrame" type="uchar">
+            <data key="delay">delay_DuplicateFrame_out_1__ComputeBlockMotionVectorss_previousFrame</data>
+        </edge>
+        <edge expr="1" kind="fifo" source="DuplicateAccumulatedMotion"
+            sourceport="out_1" target="AccumulateMotion"
+            targetport="accumulatedMotionIn" type="coordf">
+            <data key="delay">delay_DuplicateAccumulatedMotion_out_1__AccumulateMotion_accumulatedMotionIn</data>
+        </edge>
+        <edge expr="displayHeight*displayWidth" kind="fifo" source="BrY"
+            sourceport="out_1" target="renderFrame" targetport="yPrev" type="uchar">
+            <data key="delay">delay_BrY_out_1__renderFrame_yPrev</data>
+        </edge>
+        <edge expr="displayHeight/2*displayWidth/2" kind="fifo"
+            source="BrU" sourceport="out_1" target="renderFrame"
+            targetport="uPrev" type="uchar">
+            <data key="delay">delay_BrU_out_1__renderFrame_uPrev</data>
+        </edge>
+        <edge expr="displayHeight/2*displayWidth/2" kind="fifo"
+            source="BrV" sourceport="out_1" target="renderFrame"
+            targetport="vPrev" type="uchar">
+            <data key="delay">delay_BrV_out_1__renderFrame_vPrev</data>
+        </edge>
+        <edge expr="1" kind="fifo" source="brFilteredMotion"
+            sourceport="out_1" target="AccumulateMotion"
+            targetport="filteredMotionIn" type="coordf">
+            <data key="delay">delay_brFilteredMotion_out_1__AccumulateMotion_filteredMotionIn</data>
+        </edge>
         <edge kind="fifo" source="DuplicateFrame" sourceport="out_0"
             target="ComputeBlockMotionVectorss" targetport="frame" type="uchar"/>
         <edge kind="fifo" source="u" sourceport="u" target="renderFrame"
@@ -194,11 +265,6 @@
             targetport="vectors" type="coord"/>
         <edge kind="fifo" source="y" sourceport="y"
             target="DuplicateFrame" targetport="in" type="uchar"/>
-        <edge expr="height*width" kind="fifo" source="DuplicateFrame"
-            sourceport="out_1" target="ComputeBlockMotionVectorss"
-            targetport="previousFrame" type="uchar">
-            <data key="delay"/>
-        </edge>
         <edge kind="fifo" source="BrY" sourceport="out_0" target="rY"
             targetport="rY" type="uchar"/>
         <edge kind="fifo" source="DuplicateFrame" sourceport="out_2"
@@ -215,41 +281,17 @@
         <edge kind="fifo" source="AccumulateMotion"
             sourceport="accumulatedMotionOut"
             target="DuplicateAccumulatedMotion" targetport="in" type="coordf"/>
-        <edge expr="1" kind="fifo" source="DuplicateAccumulatedMotion"
-            sourceport="out_1" target="AccumulateMotion"
-            targetport="accumulatedMotionIn" type="coordf">
-            <data key="delay"/>
-        </edge>
         <edge kind="fifo" source="renderFrame" sourceport="yOut"
             target="BrY" targetport="in" type="uchar"/>
         <edge kind="fifo" source="renderFrame" sourceport="uOut"
             target="BrU" targetport="in" type="uchar"/>
         <edge kind="fifo" source="renderFrame" sourceport="vOut"
             target="BrV" targetport="in" type="uchar"/>
-        <edge expr="displayHeight*displayWidth" kind="fifo" source="BrY"
-            sourceport="out_1" target="renderFrame" targetport="yPrev" type="uchar">
-            <data key="delay"/>
-        </edge>
-        <edge expr="displayHeight/2*displayWidth/2" kind="fifo"
-            source="BrU" sourceport="out_1" target="renderFrame"
-            targetport="uPrev" type="uchar">
-            <data key="delay"/>
-        </edge>
-        <edge expr="displayHeight/2*displayWidth/2" kind="fifo"
-            source="BrV" sourceport="out_1" target="renderFrame"
-            targetport="vPrev" type="uchar">
-            <data key="delay"/>
-        </edge>
         <edge kind="fifo" source="AccumulateMotion"
             sourceport="filteredMotionOut" target="brFilteredMotion"
             targetport="in" type="coordf"/>
         <edge kind="fifo" source="brFilteredMotion" sourceport="out_0"
             target="renderFrame" targetport="deltaPrev" type="coordf"/>
-        <edge expr="1" kind="fifo" source="brFilteredMotion"
-            sourceport="out_1" target="AccumulateMotion"
-            targetport="filteredMotionIn" type="coordf">
-            <data key="delay"/>
-        </edge>
         <edge kind="dependency" source="width"
             target="ComputeBlockMotionVectorss" targetport="width"/>
         <edge kind="dependency" source="height"
