@@ -11,6 +11,8 @@
 #ifndef PREESM_H
 #define PREESM_H
 
+#include "mac_barrier.h"
+
 #define IN
 #define OUT
 
