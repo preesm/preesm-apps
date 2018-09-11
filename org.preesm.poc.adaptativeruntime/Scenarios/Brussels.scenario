@@ -8,43 +8,73 @@
     <constraints excelUrl="">
         <constraintGroup>
             <operator name="core0"/>
-            <task name="top/Read"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/YUVDisplay"/>
             <task name="top/ProcY/in"/>
             <task name="top/ProcY/out"/>
-            <task name="top/ProcY/Sobel"/>
             <task name="top/ProcY"/>
             <task name="top"/>
             <task name="top/ProcY/split"/>
+            <task name="top/ProcY/Sobel"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core1"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core2"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core3"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core4"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/Read"/>
+            <task name="top/YUVDisplay"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core5"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core6"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core7"/>
             <task name="top/ProcY/Sobel"/>
+            <task name="top/ProcY/split"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/ProcY/filter"/>
+            <task name="top/ProcY/coeff"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
@@ -60,6 +90,7 @@
             <dataType name="char" size="1"/>
             <dataType name="rgbimg" size="1440000"/>
             <dataType name="double" size="4"/>
+            <dataType name="int" size="4"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core3"/>
@@ -67,6 +98,13 @@
             <specialVertexOperator path="Core1"/>
             <specialVertexOperator path="Core2"/>
             <specialVertexOperator path="core0"/>
+            <specialVertexOperator path="core1"/>
+            <specialVertexOperator path="core2"/>
+            <specialVertexOperator path="core3"/>
+            <specialVertexOperator path="core4"/>
+            <specialVertexOperator path="core5"/>
+            <specialVertexOperator path="core6"/>
+            <specialVertexOperator path="core7"/>
         </specialVertexOperators>
         <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>

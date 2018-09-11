@@ -10,8 +10,12 @@
         <node id="height" kind="cfg_in_iface"/>
         <node id="width" kind="cfg_in_iface"/>
         <node expr="8" id="nbSlice" kind="param"/>
-        <node expr="1" id="overlap" kind="param"/>
-        <node expr="height/nbSlice+2*overlap" id="sobelHeight" kind="param"/>
+        <node expr="3" id="overlap" kind="param"/>
+        <node expr="height/nbSlice+2*(overlap-filterBorderSize)"
+            id="sobelHeight" kind="param"/>
+        <node expr="height/nbSlice+2*overlap" id="filterHeight" kind="param"/>
+        <node expr="5" id="filterSize" kind="param"/>
+        <node expr="2" id="filterBorderSize" kind="param"/>
         <node id="in" kind="src">
             <port annotation="NONE" expr="height*width" kind="output" name="in"/>
         </node>
@@ -51,12 +55,54 @@
                 expr="nbSlice*width*(height/nbSlice+2*overlap)"
                 kind="output" name="output"/>
         </node>
+        <node id="filter" kind="actor">
+            <data key="graph_desc">Code/include/filter.h</data>
+            <loop name="filter">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="filterSize" type="int"/>
+                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="coefficients" type="char "/>
+                <param direction="IN" isConfig="false" name="norm" type="int "/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="filterSize"/>
+            <port kind="cfg_input" name="borderSize"/>
+            <port annotation="NONE" expr="filterSize*filterSize"
+                kind="input" name="coefficients"/>
+            <port annotation="NONE" expr="1" kind="input" name="norm"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*(height-2*borderSize)"
+                kind="output" name="output"/>
+        </node>
+        <node id="coeff" kind="actor">
+            <data key="graph_desc">Code/include/coefficients.h</data>
+            <loop name="setCoefficients">
+                <param direction="OUT" isConfig="false"
+                    name="coefficients" type="char "/>
+                <param direction="OUT" isConfig="false" name="norm" type="int "/>
+            </loop>
+            <port kind="cfg_input" name="filterSize"/>
+            <port annotation="NONE" expr="filterSize*filterSize"
+                kind="output" name="coefficients"/>
+            <port annotation="NONE" expr="1" kind="output" name="norm"/>
+        </node>
         <edge kind="fifo" source="in" sourceport="in" target="split"
             targetport="input" type="uchar"/>
         <edge kind="fifo" source="Sobel" sourceport="output"
             target="out" targetport="out" type="uchar"/>
         <edge kind="fifo" source="split" sourceport="output"
+            target="filter" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="filter" sourceport="output"
             target="Sobel" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="coeff" sourceport="coefficients"
+            target="filter" targetport="coefficients" type="char"/>
+        <edge kind="fifo" source="coeff" sourceport="norm"
+            target="filter" targetport="norm" type="int"/>
         <edge kind="dependency" source="width" target="in"/>
         <edge kind="dependency" source="height" target="in"/>
         <edge kind="dependency" source="height" target="out"/>
@@ -70,5 +116,15 @@
         <edge kind="dependency" source="overlap" target="sobelHeight"/>
         <edge kind="dependency" source="nbSlice" target="sobelHeight"/>
         <edge kind="dependency" source="sobelHeight" target="Sobel" targetport="height"/>
+        <edge kind="dependency" source="width" target="filter" targetport="width"/>
+        <edge kind="dependency" source="nbSlice" target="filterHeight"/>
+        <edge kind="dependency" source="overlap" target="filterHeight"/>
+        <edge kind="dependency" source="height" target="filterHeight"/>
+        <edge kind="dependency" source="filterHeight" target="filter" targetport="height"/>
+        <edge kind="dependency" source="filterSize" target="filter" targetport="filterSize"/>
+        <edge kind="dependency" source="filterSize" target="coeff" targetport="filterSize"/>
+        <edge kind="dependency" source="filterBorderSize"
+            target="filter" targetport="borderSize"/>
+        <edge kind="dependency" source="filterBorderSize" target="sobelHeight"/>
     </graph>
 </graphml>
