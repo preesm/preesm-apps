@@ -77,7 +77,6 @@ if (WIN32)
 	endif()
 endif()
 
-
 # *******************************************
 # ************ SDL2TTF LIBRARY **************
 # ******************************************
@@ -121,6 +120,8 @@ if (WIN32)
 	file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
 	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
 	Find_Package ( THREADS REQUIRED )
+else()
+	Find_Package ( Threads )
 endif()
 
 if(NOT THREADS_FOUND)
@@ -144,15 +145,16 @@ if (WIN32)
 endif()
 
 # *******************************************
-# ************ stabilization.exe  *************
+# **************** stabilization.exe  ****************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${THREADS_PTHREADS_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} )
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
 	./src/*.c
+	./src/*.h
 	./include/*.h
-	./generated/*c
+	./generated/*.c
 )
 
 list(REMOVE_ITEM 
