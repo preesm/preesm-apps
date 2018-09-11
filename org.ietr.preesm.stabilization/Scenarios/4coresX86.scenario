@@ -76,7 +76,6 @@
             <task name="top/Stabilization/ComputeBlockMotionVectorss/DuplicatePreviousFrame"/>
             <task name="top/Stabilization/rY"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/previousFrame"/>
-            <task name="top/Stabilization/AccumulateMotion"/>
             <task name="top/Stabilization"/>
             <task name="top/WriteYUV"/>
             <task name="top/Stabilization/renderFrame"/>
@@ -88,7 +87,6 @@
             <task name="top/DuplicateV"/>
             <task name="top/DuplicateU"/>
             <task name="top/Stabilization/rU"/>
-            <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
             <task name="top/Stabilization/ComputeBlockMotionVectorss/frame"/>
         </constraintGroup>
         <constraintGroup>
