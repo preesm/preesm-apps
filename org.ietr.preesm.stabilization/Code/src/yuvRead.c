@@ -83,9 +83,9 @@ void readYUV(int width, int height, unsigned char *y, unsigned char *u, unsigned
         startTiming(0);
     }
     int res = fread(y, sizeof(char), width * height, ptfile);
-    res |= fread(u, sizeof(char), width * height / 4, ptfile);
-    res |= fread(v, sizeof(char), width * height / 4, ptfile);
-    if (res != 0) {
+    res += fread(u, sizeof(char), width * height / 4, ptfile);
+    res += fread(v, sizeof(char), width * height / 4, ptfile);
+    if (res == 0) {
       printf("Error while read file\n");
       exit(1);
     }
