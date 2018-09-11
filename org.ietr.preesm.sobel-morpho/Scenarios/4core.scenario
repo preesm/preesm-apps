@@ -9,20 +9,16 @@
         <constraintGroup>
             <operator name="Core1"/>
             <task name="sobel_morpho/Split"/>
-            <task name="sobel_morpho/display"/>
             <task name="sobel_morpho/Erosion"/>
             <task name="sobel_morpho"/>
-            <task name="sobel_morpho/Read_YUV"/>
             <task name="sobel_morpho/Sobel"/>
             <task name="sobel_morpho/Dilation"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
             <task name="sobel_morpho/Split"/>
-            <task name="sobel_morpho/display"/>
             <task name="sobel_morpho/Erosion"/>
             <task name="sobel_morpho"/>
-            <task name="sobel_morpho/Read_YUV"/>
             <task name="sobel_morpho/Sobel"/>
             <task name="sobel_morpho/Dilation"/>
         </constraintGroup>
@@ -39,10 +35,8 @@
         <constraintGroup>
             <operator name="Core2"/>
             <task name="sobel_morpho/Split"/>
-            <task name="sobel_morpho/display"/>
             <task name="sobel_morpho/Erosion"/>
             <task name="sobel_morpho"/>
-            <task name="sobel_morpho/Read_YUV"/>
             <task name="sobel_morpho/Sobel"/>
             <task name="sobel_morpho/Dilation"/>
         </constraintGroup>
@@ -74,4 +68,5 @@
     </simuParams>
     <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>
