@@ -14,6 +14,9 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
+#include <semaphore.h>
+#include <stdlib.h>
+
 /**
 * Allocation function used when a single pointer is allocated several times.
 * This method ensures that only its first call actually performs the
