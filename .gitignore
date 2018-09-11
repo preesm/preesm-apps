@@ -17,6 +17,8 @@
 *.rar
 *.tar
 *.zip
+*.ttf
+*.pub 
 
 # Logs and databases
 *.log
