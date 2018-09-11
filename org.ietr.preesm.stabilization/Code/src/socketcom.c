@@ -141,9 +141,8 @@ void preesm_set_socket_options(int socket) {
 int preesm_connect(int from, ProcessingElement * to) {
   char* host = to->host;
   int port = to->port;
-  int id = to->id;
 #ifdef _PREESM_TCP_DEBUG_
-  printf("[TCP-DEBUG] %d connects to %d (%s:%d)\n", from, id, host, port); fflush(stdout);
+  printf("[TCP-DEBUG] %d connects to %d (%s:%d)\n", from, to->id, host, port); fflush(stdout);
 #endif
 
   char portString[6];
@@ -168,7 +167,7 @@ int preesm_connect(int from, ProcessingElement * to) {
 
   while (connect(sockfd, servinfo->ai_addr, servinfo->ai_addrlen) < 0) {
 #ifdef _PREESM_TCP_DEBUG_
-  printf("[TCP-DEBUG] %d connects to %d -- Waiting %d us [%m]\n", from, id, _PREESM_WAIT_SERVER_START_US); fflush(stdout);
+  printf("[TCP-DEBUG] %d connects to %d -- Waiting %d us [%m]\n", from, to->id, _PREESM_WAIT_SERVER_START_US); fflush(stdout);
 #endif
     // wait for the server to start
     usleep(_PREESM_WAIT_SERVER_START_US);
