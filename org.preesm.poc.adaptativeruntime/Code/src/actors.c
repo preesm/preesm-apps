@@ -44,6 +44,7 @@ void read(rgbimg* img) {
 void computeBrightness(rgbimg * img, double * b) {
 	Mat src =  RGBToMat(img);
 	_getBrightness(src, *b);
+	printf("%f\n",*b);
 	src.release();
 }
 
@@ -61,8 +62,8 @@ void configActor(IN double * brightness, long * param) {
 	}
 }
 
-void blur(IN rgbimg * img_in, OUT rgbimg * img_out, int someParameter) {
-	if (someParameter) {
+void blur(IN rgbimg * img_in, OUT rgbimg * img_out, int decision) {
+	if (decision) {
 		Mat m = RGBToMat(img_in);
 	    GaussianBlur(m, m, Size(7,7), 1.5, 1.5);
 		matToRGB(m, img_out);

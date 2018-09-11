@@ -46,7 +46,8 @@
 #include "fifo.h"
 #include "dump.h"
 #include "clock.h"
-#include "displayRGB.h"
+#include "yuvDisplay.h"
+#include "rgb2YUV.h"
 
 
 typedef unsigned char uchar;
