@@ -125,12 +125,14 @@ void preesm_set_socket_options(int socket) {
     exit(_PREESM_ERROR_CREATE_SOCKET);
   }
   // set TCP_QUICKACK
+#ifndef __APPLE__
   // flag still = 1
   rv = setsockopt(socket, IPPROTO_TCP, TCP_QUICKACK,(char *) &flag, sizeof(int));
   if (rv != 0) {
     printf("[PREESM] - Could not set socket tcp_nodelay [%m]\n"); fflush(stdout);
     exit(_PREESM_ERROR_CREATE_SOCKET);
   }
+#endif
 }
 
 /**
@@ -173,7 +175,7 @@ int preesm_connect(int from, ProcessingElement * to) {
   }
   preesm_receive_ack(sockfd);
   preesm_send_ack(sockfd);
-  
+
   freeaddrinfo(servinfo);
   return sockfd;
 }
@@ -188,12 +190,12 @@ int preesm_accept(int listeningSocket) {
   struct sockaddr_in clientAddress;
   socklen_t clientAddressLength = sizeof(clientAddress);
   int connfd = accept(listeningSocket, (struct sockaddr *)&clientAddress, &clientAddressLength);
-  
+
   preesm_set_socket_options(connfd);
 
   preesm_send_ack(connfd);
   preesm_receive_ack(connfd);
-  
+
 #ifdef _PREESM_TCP_DEBUG_
   printf("[TCP-DEBUG] accepted connection\n"); fflush(stdout);
 #endif
@@ -220,7 +222,7 @@ int preesm_listen(int processingElementID, int numberOfProcessingElements, Proce
     printf("[PREESM] - Error : Could not create listen socket [%m]\n"); fflush(stdout);
     exit(_PREESM_ERROR_CREATE_SOCKET);
   }
-  
+
   int res = -1;
   do {
     port++;
@@ -230,7 +232,7 @@ int preesm_listen(int processingElementID, int numberOfProcessingElements, Proce
     listeningIPPort.sin_port = htons(port);
     res = bind(sockfd, (struct sockaddr*)&(listeningIPPort), sizeof(struct sockaddr_in));
   } while (res < 0);
-  
+
   //listen to all higher IDs
   listen(sockfd, numberOfProcessingElements - listeningProcessingElementID - 1);
 #ifdef _PREESM_TCP_DEBUG_
@@ -245,29 +247,29 @@ int preesm_listen(int processingElementID, int numberOfProcessingElements, Proce
 void preesm_open_main(int* socketFileDescriptors, int processingElementID, int numberOfProcessingElements, ProcessingElement registry[numberOfProcessingElements]) {
   // processing element 0 listens to all other, accept their connections;
   // using connection data, it populates the registry and send it back to the other PEs.
-  
-  
+
+
   int socketTmpFDs[numberOfProcessingElements];
   // 1- create listen socket, put it in local array of socket at processingElementID index
   socketTmpFDs[0] = preesm_listen(processingElementID, numberOfProcessingElements, registry);
   if (socketTmpFDs[0] == -1) {
     exit(-1);
   }
-  
+
   // 2- accept connection from all other who have higher ID
   for (int i = 1; i < numberOfProcessingElements; i++) {
     int socket = preesm_accept(socketTmpFDs[0]);
     socketTmpFDs[i] = socket;
   }
-  
+
   // 3- other PEs are opening binding socket to get the port number
-  
+
   // 4- receive PEs ID and port (and set proper indexes in socketFileDescriptors)
   socketFileDescriptors[0] = socketTmpFDs[0];
   for (int i = 1; i < numberOfProcessingElements; i++) {
     int socket = socketTmpFDs[i];
     int data[2];
-    
+
     int count = 0;
     // check how many bytes are available for read on the socket;
     ioctl(socket, FIONREAD, &count);
@@ -276,7 +278,7 @@ void preesm_open_main(int* socketFileDescriptors, int processingElementID, int n
       preesm_poll_socket_read_available(socket);
       ioctl(socket, FIONREAD, &count);
     }
-    
+
     recv(socket, data, sizeof(int)*2, 0);
     int id = data[0];
     int port = data[1];
@@ -289,7 +291,7 @@ void preesm_open_main(int* socketFileDescriptors, int processingElementID, int n
     strcpy(registry[id].host, ip);
     socketFileDescriptors[id] = socket;
   }
-  
+
   // 5- send complete registry to all other
   for (int i = 1; i < numberOfProcessingElements; i++) {
     int socket = socketFileDescriptors[i];
@@ -301,22 +303,22 @@ void preesm_open_main(int* socketFileDescriptors, int processingElementID, int n
 void preesm_open_secondaries(int* socketFileDescriptors, int processingElementID, int numberOfProcessingElements, ProcessingElement registry[numberOfProcessingElements]) {
   // secondaries processing elements connect to PE #0, then wait for the registry;
   // note: when calling the first entry of the registry is already filled using config file.
-  
+
   // 1- Main PE creates socket
-  
+
   // 2- connect to main
 	int socket = preesm_connect(processingElementID, &registry[0]);
   socketFileDescriptors[0] = socket;
-  
+
   // 3- bind port
   socketFileDescriptors[processingElementID] = preesm_listen(processingElementID, numberOfProcessingElements, registry);
-  
+
   // 4- send known ID and Port to PE #0
   int data[2];
   data[0] = processingElementID;
   data[1] = registry[processingElementID].port;
   send(socket, data, sizeof(int)*2, 0);
-  
+
 #ifdef _PREESM_TCP_DEBUG_
   printf("[TCP-DEBUG] %d receiving registry ...\n", processingElementID); fflush(stdout);
 #endif
@@ -330,14 +332,14 @@ void preesm_open_secondaries(int* socketFileDescriptors, int processingElementID
     ioctl(socket, FIONREAD, &count);
   }
   recv(socket, registry, sizeof(ProcessingElement)*numberOfProcessingElements, 0);
-  
+
   preesm_send_ack(socket);
   preesm_receive_ack(socket);
-  
+
 #ifdef _PREESM_TCP_DEBUG_
   printf("[TCP-DEBUG] %d received registry\n", processingElementID); printRegistry(numberOfProcessingElements, registry); fflush(stdout);
 #endif
-  
+
   // 6- connect to all other who have lower ID
   for (int i = processingElementID-1; i > 0 ; i--) {
     socketFileDescriptors[i] = preesm_connect(processingElementID, &registry[i]);
@@ -353,7 +355,7 @@ void preesm_open(int* socketFileDescriptors, int processingElementID, int number
   } else {
     preesm_open_secondaries(socketFileDescriptors, processingElementID, numberOfProcessingElements, registry);
   }
-  
+
 #ifdef _PREESM_TCP_DEBUG_
   // test that the processing element #i has the proper id;
   for (int i = 0; i < numberOfProcessingElements; i++) {
