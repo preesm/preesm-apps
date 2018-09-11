@@ -14,11 +14,10 @@ if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 	add_definitions( -D_CRT_SECURE_NO_WARNINGS )
 endif()
 
-project(Sobel)
-set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-
 # Add definition for relative path into project
 add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
+
+project(Sobel)
 
 # Set to 1 to activate debug compilation (0 for release)
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -41,9 +40,7 @@ else()
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
 
-if(WIN32)
-	set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-endif()
+set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/lib/cmake_modules/")
 
 # *******************************************
@@ -56,7 +53,6 @@ if(WIN32)
 	file(GLOB SDL2DIR "${LIBS_DIR}/SDL2-[\\.|0-9]*")
 	set(ENV{SDL2DIR} ${SDL2DIR})
 endif()
-
 
 Find_Package (SDL2 REQUIRED )
 
@@ -147,7 +143,6 @@ if (WIN32)
 	endif()
 endif()
 
-
 # *******************************************
 # **************** Sobel.exe  ****************
 # *******************************************
@@ -157,8 +152,8 @@ file(
 	source_files
 	./src/*.c
 	./src/*.h
-	./generated/*.c
 	./include/*.h
+	./generated/*.c
 )
 
 add_executable( sobel ${source_files} ${header_files})
