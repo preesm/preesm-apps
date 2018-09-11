@@ -36,7 +36,7 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 			set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 	endif()
 	#add libmath during non visual studio builds
-	set(CMAKE_EXTRA_LIB lm)
+	set(CMAKE_EXTRA_LIB m)
 else()
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
@@ -123,6 +123,8 @@ if (WIN32)
 	file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
 	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
 	Find_Package ( THREADS REQUIRED )
+else()
+	Find_Package ( Threads )
 endif()
 
 if(NOT THREADS_FOUND)
@@ -161,4 +163,4 @@ file(
 
 add_executable( sobel ${source_files} ${header_files})
 target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-set(CMAKE_C_FLAGS "-std=gnu99")
+set(CMAKE_C_FLAGS "-std=c99")
