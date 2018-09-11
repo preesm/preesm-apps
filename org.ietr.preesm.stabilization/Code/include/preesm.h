@@ -15,5 +15,6 @@
 #define OUT
 
 #include "communication.h"
+#include "mac_barrier.h"
 
 #endif
