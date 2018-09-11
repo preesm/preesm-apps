@@ -11,7 +11,40 @@
             <task name="top/Read"/>
             <task name="top/RGB2YUV"/>
             <task name="top/YUVDisplay"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/Sobel"/>
+            <task name="top/ProcY"/>
             <task name="top"/>
+            <task name="top/ProcY/split"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core1"/>
+            <task name="top/ProcY/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core2"/>
+            <task name="top/ProcY/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core3"/>
+            <task name="top/ProcY/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core4"/>
+            <task name="top/ProcY/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core5"/>
+            <task name="top/ProcY/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core6"/>
+            <task name="top/ProcY/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core7"/>
+            <task name="top/ProcY/Sobel"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>

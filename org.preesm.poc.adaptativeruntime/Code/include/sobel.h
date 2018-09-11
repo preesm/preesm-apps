@@ -12,7 +12,6 @@
 #define SOBEL_H
 
 #include "preesm.h"
-#include <math.h>
 
 /**
 * Function to apply the sobel filter to an image of size width*height.
@@ -23,9 +22,9 @@
 * @param width
 *        The heigth of the processed image
 * @param input
-*        The input image
+*        The input image of size height*width
 * @param output
-*        The output image
+*        The output image of size (height-2)*width
 */
 void sobel(int width, int height, IN unsigned char *input, OUT unsigned char *output);
 
