@@ -13,6 +13,12 @@ communications.
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
+#ifdef __APPLE__
+#include <dispatch/dispatch.h>
+#else
+#include <semaphore.h>
+#endif
+
 /**
 * Maximum number of core supported by the communication library.
 * This number is used to allocate the table of semaphores used for intercore
