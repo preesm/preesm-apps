@@ -32,7 +32,6 @@ void initNbExec(int* nbExec, int nbDump){
     if((ptfile = fopen(DUMP_FILE, "a+")) == NULL )
     {
         fprintf(stderr,"ERROR: Cannot open dump file '%s'\n", DUMP_FILE);
-        system("PAUSE");
         exit(1);
     }
 
@@ -53,7 +52,7 @@ void writeTime(long* dumpBuffer, int nbDump, int* nbExec){
     int i ;
     int changed = 0;
 	int nbNotReady = 0;
-	
+
     if(stable != 0) {
         printf("--\n");
         for(i=1;i< nbDump;i++){
