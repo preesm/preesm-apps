@@ -8,8 +8,7 @@
 	============================================================================
  */
 
-#include "ARM.h"
-#include <math.h>
+#include "testcom.h"
 
 #define STRESS_SIZE 5000
 int sensorIncrement = 0;
@@ -199,7 +198,7 @@ void actuator(char* i1,char* i2,char* i3, char* i4,char* i5,char* i6, char* i7,c
 			break;
 		}
 	}
-	
+
 	for(i=0;i<5*size;i++){
 		if(ip[i] != (char)((-i) & 0x7f)){
 			bSuccess = 0;

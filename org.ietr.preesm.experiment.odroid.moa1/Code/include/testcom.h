@@ -11,8 +11,8 @@
 #ifndef TESTCOMSOURCE_H_
 #define TESTCOMSOURCE_H_
 
-#define IN
-#define OUT
+#include "preesm.h"
+#include <math.h>
 
 void sensor_init(int size, int N, int stressN);
 void sensor2_init(int size, int stressN);
