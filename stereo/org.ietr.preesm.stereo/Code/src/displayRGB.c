@@ -59,19 +59,16 @@ void displayRGBInit(int id, int height, int width){
 	if (height > DISPLAY_H)
 	{
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (id >= NB_DISPLAY)
 	{
 		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (display.currentXMin + width > DISPLAY_W)
 	{
 		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 
@@ -205,7 +202,7 @@ void refreshDisplayRGB(int id)
 	SDL_Texture* texture = display.textures[id];
 	SDL_Event event;
 	SDL_Rect screen_rect;
-	
+
 	SDL_QueryTexture(texture, NULL, NULL, &(screen_rect.w), &(screen_rect.h));
 
 	SDL_UpdateTexture(texture, NULL, display.surface[id]->pixels, screen_rect.w*4);
