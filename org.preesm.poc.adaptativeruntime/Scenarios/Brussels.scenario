@@ -9,76 +9,179 @@
         <constraintGroup>
             <operator name="core0"/>
             <task name="top/RGB2YUV"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
             <task name="top/ProcY/in"/>
             <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
             <task name="top/ProcY"/>
-            <task name="top"/>
-            <task name="top/ProcY/split"/>
-            <task name="top/ProcY/Sobel"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core1"/>
-            <task name="top/ProcY/Sobel"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/split"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core2"/>
-            <task name="top/ProcY/Sobel"/>
-            <task name="top/ProcY/split"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core3"/>
-            <task name="top/ProcY/Sobel"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/split"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core4"/>
-            <task name="top/ProcY/Sobel"/>
             <task name="top/Read"/>
-            <task name="top/YUVDisplay"/>
-            <task name="top/ProcY/split"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top/YUVDisplay"/>
+            <task name="top/brightnessY"/>
+            <task name="top"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core5"/>
-            <task name="top/ProcY/Sobel"/>
-            <task name="top/ProcY/split"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core6"/>
-            <task name="top/ProcY/Sobel"/>
-            <task name="top/ProcY/split"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core7"/>
-            <task name="top/ProcY/Sobel"/>
-            <task name="top/ProcY/split"/>
             <task name="top/RGB2YUV"/>
-            <task name="top/ProcY/filter"/>
-            <task name="top/ProcY/coeff"/>
+            <task name="top"/>
+            <task name="top/brightnessY"/>
+            <task name="top/ProcY/in"/>
+            <task name="top/ProcY/out"/>
+            <task name="top/ProcY/brightness"/>
+            <task name="top/ProcY/makeDecision"/>
+            <task name="top/ProcY/switch"/>
+            <task name="top/ProcY/select"/>
+            <task name="top/ProcY/generateNothing"/>
+            <task name="top/ProcY/imgProcessing/in"/>
+            <task name="top/ProcY/imgProcessing/out"/>
+            <task name="top/ProcY/imgProcessing/Sobel"/>
+            <task name="top/ProcY/imgProcessing/split"/>
+            <task name="top/ProcY/imgProcessing/filter"/>
+            <task name="top/ProcY/imgProcessing/coeff"/>
+            <task name="top/ProcY/imgProcessing"/>
+            <task name="top/ProcY"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="ARM_CortexA7" time="100" vertexname="RGB2YUV"/>
+        <timing opname="ARM_CortexA7" time="100" vertexname="coeff"/>
+        <timing opname="ARM_CortexA7" time="100" vertexname="split"/>
         <memcpyspeed opname="ARM_CortexA7" setuptime="1" timeperunit="1.0"/>
     </timings>
     <simuParams>
@@ -89,8 +192,9 @@
             <dataType name="uchar" size="1"/>
             <dataType name="char" size="1"/>
             <dataType name="rgbimg" size="1440000"/>
-            <dataType name="double" size="4"/>
+            <dataType name="double" size="8"/>
             <dataType name="int" size="4"/>
+            <dataType name="float" size="4"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core3"/>
@@ -109,6 +213,8 @@
         <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
     <variables excelUrl=""/>
-    <parameterValues/>
+    <parameterValues>
+        <parameter name="decision" parent="ProcY" type="ACTOR_DEPENDENT" value="[1]"/>
+    </parameterValues>
     <papifyConfigs xmlUrl=""/>
 </scenario>

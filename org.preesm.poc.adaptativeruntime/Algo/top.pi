@@ -58,28 +58,51 @@
             <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
         </node>
         <node id="ProcY" kind="actor">
-            <data key="graph_desc">Algo/imgProcessing.pi</data>
+            <data key="graph_desc">Algo/dynamicWrapper.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="1" kind="input" name="brightness"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="in"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="out"/>
+        </node>
+        <node id="brightnessY" kind="actor">
+            <data key="graph_desc">Code/include/brightnessEvaluation.h</data>
+            <loop name="evalBrightness">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="brightness" type="float "/>
+                <param direction="OUT" isConfig="false" name="out" type="unsigned char "/>
+            </loop>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port annotation="NONE" expr="height*width" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="brightness"/>
             <port annotation="NONE" expr="height*width" kind="output" name="out"/>
         </node>
         <edge kind="fifo" source="Read" sourceport="img"
             target="RGB2YUV" targetport="rgb" type="rgbimg"/>
-        <edge kind="fifo" source="RGB2YUV" sourceport="y" target="ProcY"
-            targetport="in" type="uchar"/>
         <edge kind="fifo" source="RGB2YUV" sourceport="u"
             target="YUVDisplay" targetport="u" type="uchar"/>
         <edge kind="fifo" source="RGB2YUV" sourceport="v"
             target="YUVDisplay" targetport="v" type="uchar"/>
         <edge kind="fifo" source="ProcY" sourceport="out"
             target="YUVDisplay" targetport="y" type="uchar"/>
-        <edge kind="dependency" source="width" target="RGB2YUV" targetport="width"/>
-        <edge kind="dependency" source="height" target="RGB2YUV" targetport="height"/>
+        <edge kind="fifo" source="RGB2YUV" sourceport="y"
+            target="brightnessY" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="brightnessY" sourceport="out"
+            target="ProcY" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="brightnessY" sourceport="brightness"
+            target="ProcY" targetport="brightness" type="float"/>
         <edge kind="dependency" source="id" target="YUVDisplay" targetport="id"/>
         <edge kind="dependency" source="height" target="YUVDisplay" targetport="height"/>
         <edge kind="dependency" source="width" target="YUVDisplay" targetport="width"/>
         <edge kind="dependency" source="height" target="ProcY" targetport="height"/>
         <edge kind="dependency" source="width" target="ProcY" targetport="width"/>
+        <edge kind="dependency" source="height" target="RGB2YUV" targetport="height"/>
+        <edge kind="dependency" source="width" target="RGB2YUV" targetport="width"/>
+        <edge kind="dependency" source="height" target="brightnessY" targetport="height"/>
+        <edge kind="dependency" source="width" target="brightnessY" targetport="width"/>
     </graph>
 </graphml>

@@ -16,11 +16,14 @@
         <node expr="height/nbSlice+2*overlap" id="filterHeight" kind="param"/>
         <node expr="5" id="filterSize" kind="param"/>
         <node expr="2" id="filterBorderSize" kind="param"/>
+        <node id="decision" kind="cfg_in_iface"/>
         <node id="in" kind="src">
-            <port annotation="NONE" expr="height*width" kind="output" name="in"/>
+            <port annotation="NONE" expr="height*width*decision"
+                kind="output" name="in"/>
         </node>
         <node id="out" kind="snk">
-            <port annotation="NONE" expr="height*width" kind="input" name="out"/>
+            <port annotation="NONE" expr="height*width*decision"
+                kind="input" name="out"/>
         </node>
         <node id="Sobel" kind="actor">
             <data key="graph_desc">Code/include/sobel.h</data>
@@ -126,5 +129,7 @@
         <edge kind="dependency" source="filterBorderSize"
             target="filter" targetport="borderSize"/>
         <edge kind="dependency" source="filterBorderSize" target="sobelHeight"/>
+        <edge kind="dependency" source="decision" target="in"/>
+        <edge kind="dependency" source="decision" target="out"/>
     </graph>
 </graphml>
