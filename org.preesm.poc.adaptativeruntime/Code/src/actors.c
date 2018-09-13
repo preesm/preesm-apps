@@ -33,7 +33,11 @@ void initRead() {
 
 void read(rgbimg* img) {
 	Mat inputFrame;
-	(*cap) >> inputFrame;
+	// Fix the the lag between camera and grabbed frame by "flushing" the frame buffer.
+	// It looks like there is no real "clean" solution to this issue.
+	for(int i = 0; i< 5; i++){
+		(*cap) >> inputFrame;
+	}
 	Mat resizedFrame;
 	resize(inputFrame, resizedFrame, Size(XSAMPLING, YSAMPLING), INTER_LINEAR);
 	matToRGB(resizedFrame, img);
