@@ -15,6 +15,7 @@ Description : Displaying YUV frames one next to another in a row
 #include "clock.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <semaphore.h>
 
 #define FPS_MEAN 5
 
@@ -37,6 +38,7 @@ typedef struct YuvDisplay
 
 // Initialize
 static YuvDisplay display;
+static sem_t framerate_controller;
 
 int exitCallBack(void* userdata, SDL_Event* event){
 	if (event->type == SDL_QUIT){
@@ -46,6 +48,13 @@ int exitCallBack(void* userdata, SDL_Event* event){
 	}
 
 	return 1;
+}
+
+static SDL_TimerID timerID;
+
+unsigned int timerCallBack(unsigned int interval, void* param){
+  sem_post(&framerate_controller);
+  return interval;
 }
 
 /**
@@ -96,7 +105,7 @@ void yuvDisplayInit(int id, int width, int height)
 
 		printf("SDL_Init_Start\n");
 
-		if (SDL_Init(SDL_INIT_VIDEO))
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER))
 		{
 			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
 			exit(1);
@@ -159,6 +168,9 @@ void yuvDisplayInit(int id, int width, int height)
 
 	printf("register\n");
 	SDL_SetEventFilter(exitCallBack, NULL);
+
+	sem_init(&framerate_controller, 0, 0);
+	timerID = SDL_AddTimer(500, timerCallBack, (void*)NULL);
 }
 
 void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v){
@@ -239,6 +251,7 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
 		SDL_DestroyTexture(sliceTexture);
 	}
 
+	sem_wait(&framerate_controller);
 	SDL_RenderPresent(display.renderer);
 
 	SDL_Event event;
@@ -251,11 +264,14 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
 			break;
 		}
 	}
+
+
 }
 
 
 void yuvFinalize(int id)
 {
+	SDL_RemoveTimer(timerID);
 	SDL_DestroyTexture(display.textures[id]);
 	SDL_DestroyRenderer(display.renderer);
 	SDL_DestroyWindow(display.screen);
