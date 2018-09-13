@@ -2,9 +2,9 @@
 	============================================================================
 	Name        : sobel.h
 	Author      : kdesnos
-	Version     : 1.1
+	Version     : 1.2
 	Copyright   : CeCILL-C
-	Description : 2D Sobel filtering function
+	Description : 2D Sobel filtering function (tailored for the PoC)
 	============================================================================
 */
 
@@ -26,6 +26,6 @@
 * @param output
 *        The output image of size (height-2)*width
 */
-void sobel(int width, int height, IN unsigned char *input, OUT unsigned char *output);
+void sobel(int width, int height, int background, IN unsigned char *input, OUT unsigned char *output);
 
 #endif

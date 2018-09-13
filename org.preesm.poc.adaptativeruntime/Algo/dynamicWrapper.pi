@@ -10,7 +10,7 @@
         <node id="width" kind="cfg_in_iface"/>
         <node id="height" kind="cfg_in_iface"/>
         <node expr="1" id="decision" kind="param"/>
-        <node expr="0" id="background" kind="param"/>
+        <node id="background" kind="cfg_in_iface"/>
         <node id="in" kind="src">
             <port annotation="NONE" expr="height*width" kind="output" name="in"/>
         </node>
@@ -22,6 +22,7 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="decision"/>
+            <port kind="cfg_input" name="background"/>
             <port annotation="NONE" expr="height*width*decision"
                 kind="input" name="in"/>
             <port annotation="NONE" expr="height*width*decision"
@@ -105,5 +106,7 @@
         <edge kind="dependency" source="width" target="generateNothing" targetport="width"/>
         <edge kind="dependency" source="decision"
             target="generateNothing" targetport="decision"/>
+        <edge kind="dependency" source="background"
+            target="imgProcessing" targetport="background"/>
     </graph>
 </graphml>

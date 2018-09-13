@@ -52,9 +52,9 @@ scheduler_set_ondemand:
 	echo "ondemand" | sudo tee /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
 
 scheduler_set_performance:
-	echo "performance" > /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
-	echo "performance" > /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
+	echo "performance" | sudo tee /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
+	echo "performance" | sudo tee /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
 
-demo: scheduler_set_ondemand proper
+demo: scheduler_set_performance proper
 	EnergyMonitor &
 	$(MAKE) test

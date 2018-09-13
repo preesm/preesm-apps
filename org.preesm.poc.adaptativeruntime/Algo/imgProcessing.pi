@@ -9,14 +9,15 @@
         <data key="name">imgProcessing</data>
         <node id="height" kind="cfg_in_iface"/>
         <node id="width" kind="cfg_in_iface"/>
-        <node expr="8" id="nbSlice" kind="param"/>
-        <node expr="3" id="overlap" kind="param"/>
-        <node expr="height/nbSlice+2*(overlap-filterBorderSize)"
-            id="sobelHeight" kind="param"/>
+        <node expr="4" id="nbSlice" kind="param"/>
+        <node expr="4" id="overlap" kind="param"/>
+        <node expr="filterHeight-2*filterBorderSize" id="sobelHeight" kind="param"/>
         <node expr="height/nbSlice+2*overlap" id="filterHeight" kind="param"/>
         <node expr="5" id="filterSize" kind="param"/>
         <node expr="2" id="filterBorderSize" kind="param"/>
         <node id="decision" kind="cfg_in_iface"/>
+        <node id="background" kind="cfg_in_iface"/>
+        <node expr="sobelHeight-2" id="medianHeight" kind="param"/>
         <node id="in" kind="src">
             <port annotation="NONE" expr="height*width*decision"
                 kind="output" name="in"/>
@@ -30,11 +31,13 @@
             <loop name="sobel">
                 <param direction="IN" isConfig="true" name="width" type="int"/>
                 <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="background" type="int"/>
                 <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="background"/>
             <port annotation="NONE" expr="width*height" kind="input" name="input"/>
             <port annotation="NONE" expr="width*(height-2)"
                 kind="output" name="output"/>
@@ -94,10 +97,26 @@
                 kind="output" name="coefficients"/>
             <port annotation="NONE" expr="1" kind="output" name="norm"/>
         </node>
+        <node id="MedianFilter" kind="actor">
+            <data key="graph_desc">Code/include/medianFilter.h</data>
+            <loop name="medianFilter">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="rawDisparity" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="filteredDisparity" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="rawDisparity"/>
+            <port annotation="NONE" expr="width*(height-2)"
+                kind="output" name="filteredDisparity"/>
+        </node>
         <edge kind="fifo" source="in" sourceport="in" target="split"
             targetport="input" type="uchar"/>
         <edge kind="fifo" source="Sobel" sourceport="output"
-            target="out" targetport="out" type="uchar"/>
+            target="MedianFilter" targetport="rawDisparity" type="uchar"/>
         <edge kind="fifo" source="split" sourceport="output"
             target="filter" targetport="input" type="uchar"/>
         <edge kind="fifo" source="filter" sourceport="output"
@@ -106,6 +125,8 @@
             target="filter" targetport="coefficients" type="char"/>
         <edge kind="fifo" source="coeff" sourceport="norm"
             target="filter" targetport="norm" type="int"/>
+        <edge kind="fifo" source="MedianFilter"
+            sourceport="filteredDisparity" target="out" targetport="out" type="uchar"/>
         <edge kind="dependency" source="width" target="in"/>
         <edge kind="dependency" source="height" target="in"/>
         <edge kind="dependency" source="height" target="out"/>
@@ -131,5 +152,11 @@
         <edge kind="dependency" source="filterBorderSize" target="sobelHeight"/>
         <edge kind="dependency" source="decision" target="in"/>
         <edge kind="dependency" source="decision" target="out"/>
+        <edge kind="dependency" source="background" target="Sobel" targetport="background"/>
+        <edge kind="dependency" source="medianHeight"
+            target="MedianFilter" targetport="height"/>
+        <edge kind="dependency" source="width" target="MedianFilter" targetport="width"/>
+        <edge kind="dependency" source="sobelHeight" target="medianHeight"/>
+        <edge kind="dependency" source="filterHeight" target="sobelHeight"/>
     </graph>
 </graphml>

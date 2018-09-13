@@ -32,25 +32,25 @@
         <spirit:componentInstance>
             <spirit:instanceName>core4</spirit:instanceName>
             <spirit:componentRef spirit:library=""
-                spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
+                spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>core5</spirit:instanceName>
             <spirit:componentRef spirit:library=""
-                spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
+                spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>core6</spirit:instanceName>
             <spirit:componentRef spirit:library=""
-                spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
+                spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>core7</spirit:instanceName>
             <spirit:componentRef spirit:library=""
-                spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
+                spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
@@ -106,6 +106,8 @@
     <spirit:vendorExtensions>
         <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:componentDescription slam:componentRef="ARM_CortexA7"
+                slam:componentType="Operator" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="ARM_CortexA15"
                 slam:componentType="Operator" slam:refinement=""/>
             <slam:componentDescription slam:componentRef="SHARED_MEM"
                 slam:componentType="parallelComNode" slam:refinement="" slam:speed="1000000000"/>

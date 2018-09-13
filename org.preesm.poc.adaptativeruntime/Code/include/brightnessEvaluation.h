@@ -21,7 +21,7 @@ typedef long Param;
 /*
  * TODO
  */
-void evalBrightness(int height, int width, IN unsigned char * in, OUT float * brightness, OUT unsigned char * out);
+void evalBrightness(int height, int width, int background, IN unsigned char * in, OUT float * brightness, OUT unsigned char * out);
 
 void makeDecision(IN float* brightness, Param * decision);
 
