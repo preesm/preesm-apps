@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">Constr_SAD</data>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node id="ndisp" kind="cfg_in_iface"/>
+        <node expr="20" id="thres" kind="param"/>
+        <node id="lgray" kind="src">
+            <port annotation="NONE" expr="height*width" kind="output" name="lgray"/>
+        </node>
+        <node id="rgray" kind="src">
+            <port annotation="NONE" expr="height*width" kind="output" name="rgray"/>
+        </node>
+        <node id="CostOUT" kind="snk">
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="input" name="CostOUT"/>
+        </node>
+        <node id="SAD" kind="actor">
+            <data key="graph_desc">Code/include/sad.h</data>
+            <loop name="sad_cost_d">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false" name="iml" type="const uint8_t "/>
+                <param direction="IN" isConfig="false" name="imr" type="const uint8_t "/>
+                <param direction="IN" isConfig="false" name="disp" type="int "/>
+                <param direction="IN" isConfig="true" name="thres" type="uint8_t"/>
+                <param direction="OUT" isConfig="false" name="out" type="uint8_t "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="thres"/>
+            <port annotation="NONE" expr="1" kind="input" name="disp"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="iml"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="imr"/>
+            <port annotation="NONE" expr="height*width" kind="output" name="out"/>
+        </node>
+        <node id="genDispLvl" kind="actor">
+            <data key="graph_desc">Code/include/genDispLvl.h</data>
+            <loop name="genDispLvl">
+                <param direction="IN" isConfig="true" name="ndisp" type="int"/>
+                <param direction="OUT" isConfig="false" name="disp" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="NONE" expr="ndisp" kind="output" name="disp"/>
+        </node>
+        <node id="BroadcastL" kind="broadcast">
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="in"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="out"/>
+        </node>
+        <node id="BroadcastR" kind="broadcast">
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="ndisp"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="in"/>
+            <port annotation="NONE" expr="height*width*ndisp"
+                kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="lgray" sourceport="lgray"
+            target="BroadcastL" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="BroadcastL" sourceport="out"
+            target="SAD" targetport="iml" type="uchar"/>
+        <edge kind="fifo" source="rgray" sourceport="rgray"
+            target="BroadcastR" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="BroadcastR" sourceport="out"
+            target="SAD" targetport="imr" type="uchar"/>
+        <edge kind="fifo" source="genDispLvl" sourceport="disp"
+            target="SAD" targetport="disp" type="uchar"/>
+        <edge kind="fifo" source="SAD" sourceport="out" target="CostOUT"
+            targetport="CostOUT" type="uchar"/>
+        <edge kind="dependency" source="thres" target="SAD" targetport="thres"/>
+        <edge kind="dependency" source="height" target="SAD" targetport="height"/>
+        <edge kind="dependency" source="height" target="BroadcastL" targetport="height"/>
+        <edge kind="dependency" source="height" target="BroadcastR" targetport="height"/>
+        <edge kind="dependency" source="height" target="lgray"/>
+        <edge kind="dependency" source="height" target="rgray"/>
+        <edge kind="dependency" source="height" target="CostOUT"/>
+        <edge kind="dependency" source="width" target="SAD" targetport="width"/>
+        <edge kind="dependency" source="width" target="BroadcastL" targetport="width"/>
+        <edge kind="dependency" source="width" target="BroadcastR" targetport="width"/>
+        <edge kind="dependency" source="width" target="lgray"/>
+        <edge kind="dependency" source="width" target="rgray"/>
+        <edge kind="dependency" source="ndisp" target="BroadcastL" targetport="ndisp"/>
+        <edge kind="dependency" source="ndisp" target="BroadcastR" targetport="ndisp"/>
+        <edge kind="dependency" source="ndisp" target="CostOUT"/>
+        <edge kind="dependency" source="ndisp" target="genDispLvl" targetport="ndisp"/>
+        <edge kind="dependency" source="width" target="CostOUT"/>
+    </graph>
+</graphml>
