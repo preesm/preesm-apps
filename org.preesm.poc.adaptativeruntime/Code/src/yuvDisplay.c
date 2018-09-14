@@ -13,12 +13,17 @@
 
 #include "yuvDisplay.h"
 #include "clock.h"
+#include "energyMonitor.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <semaphore.h>
 
 #define FPS_MEAN 1
 #define FPS_LIMIT 1.8
+
+#define ENERGY_MEAN 30
+static float energyMeasuresA15[ENERGY_MEAN];
+static float energyMeasuresA7[ENERGY_MEAN];
 
 extern int stopThreads;
 
@@ -82,12 +87,12 @@ void yuvDisplayInit(int id, int width, int height) {
 		exit(1);
 	} else if (id >= NB_DISPLAY) {
 		fprintf(stderr, "The number of displays is limited to %d.\n",
-				NB_DISPLAY);
+		NB_DISPLAY);
 		system("PAUSE");
 		exit(1);
 	} else if (display.currentXMin + width > DISPLAY_W) {
 		fprintf(stderr, "The number is not wide enough for display %d.\n",
-				NB_DISPLAY);
+		NB_DISPLAY);
 		system("PAUSE");
 		exit(1);
 	}
@@ -98,7 +103,7 @@ void yuvDisplayInit(int id, int width, int height) {
 
 	if (display.initialized == 0) {
 		// Generating window name
-		char* name = "Display";
+		const char* name = "Display";
 		display.initialized = 1;
 
 		printf("SDL_Init_Start\n");
@@ -158,21 +163,55 @@ void yuvDisplayInit(int id, int width, int height) {
 		startTiming(i + 1);
 	}
 
+	for (int i = 0; i < ENERGY_MEAN; i++) {
+		energyMeasuresA15[i] = 0.0;
+		energyMeasuresA7[i] = 0.0;
+	}
+
 	printf("register\n");
 	SDL_SetEventFilter(exitCallBack, NULL);
 
+	// Initialize Energy Monitoring
+	initEnergyMonitoring();
+
+	// Set timer for framerate limitation
 	sem_init(&framerate_controller, 0, 0);
-	timerID = SDL_AddTimer(1000/FPS_LIMIT, timerCallBack, (void*) NULL);
+	timerID = SDL_AddTimer(1000 / FPS_LIMIT, timerCallBack, (void*) NULL);
 }
 
 void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v) {
 	yuvDisplayWithNbSlice(id, -1, y, u, v);
 }
 
+void displayText(const char * text, int posX, int posY){
+	SDL_Color colorWhite = { 255, 255, 255, 255 };
+
+	SDL_Surface* textSurf = TTF_RenderText_Blended(display.text_font, text,
+			colorWhite);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(display.renderer,
+			textSurf);
+
+	int width, height;
+	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+	SDL_Rect textRect;
+
+	textRect.x = posX;
+	textRect.y = posY;
+	textRect.w = width;
+	textRect.h = height;
+	SDL_RenderCopy(display.renderer, texture, NULL, &textRect);
+
+	/* Free resources */
+	SDL_FreeSurface(textSurf);
+	SDL_DestroyTexture(texture);
+}
+
 void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 		unsigned char *u, unsigned char *v) {
 	SDL_Texture* texture = display.textures[id];
 	int w, h;
+	sensors data;
+	static int energyIdx = 0;
 
 	// Retrieve texture attribute
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -190,60 +229,43 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 
 	/* Draw FPS text */
 	char fps_text[20];
-	SDL_Color colorWhite = { 255, 255, 255, 255 };
+
 
 	sem_wait(&framerate_controller);
-	timerID = SDL_AddTimer(1000/FPS_LIMIT, timerCallBack, (void*) NULL);
+	timerID = SDL_AddTimer(1000 / FPS_LIMIT, timerCallBack, (void*) NULL);
 
 	int time = stopTiming(display.stampId + 1);
-	sprintf(fps_text, "FPS: %.2f", 1. / (time / 1000000. / FPS_MEAN));
+	sprintf(fps_text, "%.2f", 1. / (time / 1000000. / FPS_MEAN));
 	startTiming(display.stampId + 1);
 	display.stampId = (display.stampId + 1) % FPS_MEAN;
 
-	SDL_Surface* fpsText = TTF_RenderText_Blended(display.text_font, fps_text,
-			colorWhite);
-	SDL_Texture* fpsTexture = SDL_CreateTextureFromSurface(display.renderer,
-			fpsText);
+	displayText("FPS:", 4, 2);
+	displayText(fps_text, 55, 2);
 
-	int fpsWidth, fpsHeight;
-	SDL_QueryTexture(fpsTexture, NULL, NULL, &fpsWidth, &fpsHeight);
-	SDL_Rect fpsTextRect;
+	// Get power info
+	getSensorsData(&data);
 
-	fpsTextRect.x = 0;
-	fpsTextRect.y = 0;
-	fpsTextRect.w = fpsWidth;
-	fpsTextRect.h = fpsHeight;
-	SDL_RenderCopy(display.renderer, fpsTexture, NULL, &fpsTextRect);
-
-	/* Free resources */
-	SDL_FreeSurface(fpsText);
-	SDL_DestroyTexture(fpsTexture);
-
-	/* Draw NbSlice Text */
-	if (nbSlice > 0) {
-		char slice_text[20];
-
-		sprintf(slice_text, "nbSlice: %d", nbSlice);
-
-		SDL_Surface* sliceText = TTF_RenderText_Blended(display.text_font,
-				slice_text, colorWhite);
-		SDL_Texture* sliceTexture = SDL_CreateTextureFromSurface(
-				display.renderer, sliceText);
-
-		int sliceWidth, sliceHeight;
-		SDL_QueryTexture(sliceTexture, NULL, NULL, &sliceWidth, &sliceHeight);
-		SDL_Rect sliceTextRect;
-
-		sliceTextRect.x = 0;
-		sliceTextRect.y = fpsHeight;
-		sliceTextRect.w = sliceWidth;
-		sliceTextRect.h = sliceHeight;
-		SDL_RenderCopy(display.renderer, sliceTexture, NULL, &sliceTextRect);
-
-		/* Free resources */
-		SDL_FreeSurface(sliceText);
-		SDL_DestroyTexture(sliceTexture);
+	energyMeasuresA15[energyIdx] = data.a15.w;
+	energyMeasuresA7[energyIdx] = data.a7.w;
+	energyIdx = (energyIdx + 1) % ENERGY_MEAN;
+	float a15w = 0;
+	float a7w = 0;
+	for (int i = 0; i < ENERGY_MEAN; i++) {
+		a15w += energyMeasuresA15[i] / ENERGY_MEAN;
+		a7w += energyMeasuresA7[i] / ENERGY_MEAN;
 	}
+
+	char wtext[40];
+
+
+	sprintf(wtext, "%1.2f", a15w);
+	displayText("A15:", 4, 22);
+	displayText(wtext, 55, 22);
+	sprintf(wtext, "%1.2f", a7w);
+	displayText("A7:", 4, 42);
+	displayText(wtext, 55, 42);
+
+	//printf("A15: %f A7: %f\n", a15w, a7w);
 
 	SDL_RenderPresent(display.renderer);
 
@@ -258,7 +280,10 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 
 }
 
+
+
 void yuvFinalize(int id) {
+	stopEnergyMonitoring();
 	SDL_RemoveTimer(timerID);
 	SDL_DestroyTexture(display.textures[id]);
 	SDL_DestroyRenderer(display.renderer);

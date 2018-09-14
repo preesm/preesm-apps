@@ -44,16 +44,6 @@ void evalBrightness(int height, int width, int background, unsigned char * in,
 	*brightness = var / (255.0 - background);
 
 	memcpy(out, in, height * width * sizeof(unsigned char));
-
-	Param decision;
-	makeDecision(brightness, &decision);
-	if (decision) {
-		for (i = height - height /10; i < height ; i++) {
-			for(j=0;j<width /10; j+=4){
-				*(int*)(out+i*width+j) = 0x0000FF00;
-			}
-		}
-	}
 }
 
 void makeDecision(float* brightness, Param * decision) {

@@ -2,12 +2,12 @@
 
 
 TARGET=main
-DEPS=$(patsubst %.c,%,$(wildcard src/*.c))
+DEPS=$(patsubst %.c,%,$(wildcard src/*.c)) $(patsubst %.cpp,%,$(wildcard src/*.cpp)) $(patsubst %.cpp,%,$(wildcard src/energyMonitor/*.cpp))
 GENS=$(patsubst %.cpp,%,$(wildcard generated/*.cpp))
 
 CC=g++
 
-INCS=-I./include -I./generated
+INCS=-I./include -I./generated -I./src/energyMonitor
 LIBS=$(shell pkg-config --libs opencv) -lpthread -lSDL2 -lSDL2_ttf -lSDL2main  -lSpider
 
 CFLAGS=-fpic $(INCS) -O0
@@ -30,7 +30,7 @@ src/%.o: %.c $(wildcard include/*.h)
 
 
 clean:
-	rm -rfv *.o src/*.o generated/*.o
+	rm -rfv *.o src/*.o generated/*.o src/energyMonitor/*.o
 
 proper: clean
 	rm -rfv $(TARGET)

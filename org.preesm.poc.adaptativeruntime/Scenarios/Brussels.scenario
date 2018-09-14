@@ -232,60 +232,8 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="core4"/>
-            <task name="top/RGB2YUV"/>
-            <task name="top/brightnessY"/>
-            <task name="top/BrightnessU"/>
-            <task name="top/brightnessV"/>
-            <task name="top/ProcY/in"/>
-            <task name="top/ProcY/out"/>
-            <task name="top/ProcY/brightness"/>
-            <task name="top/ProcY/makeDecision"/>
-            <task name="top/ProcY/switch"/>
-            <task name="top/ProcY/select"/>
-            <task name="top/ProcY/generateNothing"/>
-            <task name="top/ProcY/imgProcessing/in"/>
-            <task name="top/ProcY/imgProcessing/out"/>
-            <task name="top/ProcY/imgProcessing/Sobel"/>
-            <task name="top/ProcY/imgProcessing/split"/>
-            <task name="top/ProcY/imgProcessing/filter"/>
-            <task name="top/ProcY/imgProcessing/coeff"/>
-            <task name="top/ProcY/imgProcessing/MedianFilter"/>
-            <task name="top/ProcY/imgProcessing"/>
-            <task name="top/ProcY"/>
-            <task name="top/ProcU/in"/>
-            <task name="top/ProcU/out"/>
-            <task name="top/ProcU/brightness"/>
-            <task name="top/ProcU/makeDecision"/>
-            <task name="top/ProcU/switch"/>
-            <task name="top/ProcU/select"/>
-            <task name="top/ProcU/generateNothing"/>
-            <task name="top/ProcU/imgProcessing/in"/>
-            <task name="top/ProcU/imgProcessing/out"/>
-            <task name="top/ProcU/imgProcessing/Sobel"/>
-            <task name="top/ProcU/imgProcessing/split"/>
-            <task name="top/ProcU/imgProcessing/filter"/>
-            <task name="top/ProcU/imgProcessing/coeff"/>
-            <task name="top/ProcU/imgProcessing/MedianFilter"/>
-            <task name="top/ProcU/imgProcessing"/>
-            <task name="top/ProcU"/>
-            <task name="top/ProcV/in"/>
-            <task name="top/ProcV/out"/>
-            <task name="top/ProcV/brightness"/>
-            <task name="top/ProcV/makeDecision"/>
-            <task name="top/ProcV/switch"/>
-            <task name="top/ProcV/select"/>
-            <task name="top/ProcV/generateNothing"/>
-            <task name="top/ProcV/imgProcessing/in"/>
-            <task name="top/ProcV/imgProcessing/out"/>
-            <task name="top/ProcV/imgProcessing/Sobel"/>
-            <task name="top/ProcV/imgProcessing/split"/>
-            <task name="top/ProcV/imgProcessing/filter"/>
-            <task name="top/ProcV/imgProcessing/coeff"/>
-            <task name="top/ProcV/imgProcessing/MedianFilter"/>
-            <task name="top/ProcV/imgProcessing"/>
-            <task name="top/ProcV"/>
-            <task name="top"/>
             <task name="top/Read"/>
+            <task name="top/YUVDisplay"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core5"/>
@@ -342,7 +290,6 @@
             <task name="top/ProcV/imgProcessing"/>
             <task name="top/ProcV"/>
             <task name="top"/>
-            <task name="top/YUVDisplay"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core6"/>
@@ -461,8 +408,8 @@
     <timings excelUrl="">
         <timing opname="ARM_CortexA7" time="100" vertexname="RGB2YUV"/>
         <timing opname="ARM_CortexA15" time="100" vertexname="Sobel"/>
-        <timing opname="ARM_CortexA15" time="100" vertexname="MedianFilter"/>
-        <timing opname="ARM_CortexA7" time="240" vertexname="MedianFilter"/>
+        <timing opname="ARM_CortexA15" time="400" vertexname="MedianFilter"/>
+        <timing opname="ARM_CortexA7" time="960" vertexname="MedianFilter"/>
         <timing opname="ARM_CortexA7" time="400" vertexname="filter"/>
         <timing opname="ARM_CortexA7" time="150" vertexname="Sobel"/>
         <memcpyspeed opname="ARM_CortexA7" setuptime="1" timeperunit="1.0"/>
