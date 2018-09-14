@@ -8,7 +8,7 @@
 	============================================================================
  */
 
-#include "x86.h"
+#include "testcom.h"
 
 int sensorIncrement = 0;
 int actuatorIncrement = 0;

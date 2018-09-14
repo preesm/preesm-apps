@@ -9,7 +9,7 @@
         <data key="name">TestCom</data>
         <node expr="1024" id="size" kind="param"/>
         <node id="Sensor" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="sensor">
                 <param direction="OUT" isConfig="false" name="o1" type="char* "/>
                 <param direction="OUT" isConfig="false" name="o2" type=" char* "/>
@@ -28,7 +28,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o3"/>
         </node>
         <node id="Sensor2" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="sensor2">
                 <param direction="OUT" isConfig="false" name="o1" type="char* "/>
                 <param direction="IN" isConfig="true" name="size" type=" int "/>
@@ -41,7 +41,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
         <node id="Gen_int" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="gen_int">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
                 <param direction="IN" isConfig="false" name="i2" type="char* "/>
@@ -62,7 +62,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o2"/>
         </node>
         <node id="X2InputParallelTest" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="parallel2">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
                 <param direction="IN" isConfig="false" name="i2" type=" char* "/>
@@ -80,7 +80,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
         <node id="Copy" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="copy">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
                 <param direction="OUT" isConfig="false" name="o1" type=" char* "/>
@@ -96,7 +96,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
         <node id="ParallelTest1" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="parallel">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
                 <param direction="OUT" isConfig="false" name="o1" type=" char* "/>
@@ -112,7 +112,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
         <node id="ParallelTest2" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="parallel">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
                 <param direction="OUT" isConfig="false" name="o1" type=" char* "/>
@@ -128,7 +128,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
         <node id="Actuator" kind="actor">
-            <data key="graph_desc">org.ietr.preesm.tutorials.tutorial1/Code/include/testcom.h</data>
+            <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="actuator">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
                 <param direction="IN" isConfig="false" name="i2" type="char* "/>
