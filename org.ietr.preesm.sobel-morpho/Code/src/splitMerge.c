@@ -7,15 +7,11 @@ Copyright   : CECILL-C
 Description :
 ============================================================================
 */
-
-#include <string.h>
-#include <stdlib.h>
-
 #include "splitMerge.h"
 
 void split(int nbSlice, int width, int height, int overlap, unsigned char *input, unsigned char *output){
 	if(output != NULL){
-		int i,j;
+		int i;
 		int sliceSize =  width*height/nbSlice;
 		// Fill first and last line(s) with 0
 		memset(output,0,width*overlap);
