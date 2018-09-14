@@ -18,10 +18,10 @@
 #include <SDL2/SDL_ttf.h>
 #include <semaphore.h>
 
-#define FPS_MEAN 1
-#define FPS_LIMIT 1.8
+#define FPS_MEAN 20
+#define FPS_LIMIT 2.4
 
-#define ENERGY_MEAN 30
+#define ENERGY_MEAN FPS_MEAN
 static float energyMeasuresA15[ENERGY_MEAN];
 static float energyMeasuresA7[ENERGY_MEAN];
 
@@ -265,6 +265,10 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 	displayText("A7:", 4, 42);
 	displayText(wtext, 55, 42);
 
+	float t = (time / 1000000.0 / FPS_MEAN);
+	displayText("J:", 4, 62);
+	sprintf(wtext,"%1.2f", (a15w + a7w) * t);
+	displayText(wtext, 55, 62);
 	//printf("A15: %f A7: %f\n", a15w, a7w);
 
 	SDL_RenderPresent(display.renderer);
