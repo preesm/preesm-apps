@@ -6,7 +6,7 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">convolutionSquare</data>
+        <data key="name">convolution_square</data>
         <node id="borderSize" kind="cfg_in_iface"/>
         <node id="width" kind="cfg_in_iface"/>
         <node expr="height/nbSlice+2*borderSize" id="sliceHeight" kind="param"/>

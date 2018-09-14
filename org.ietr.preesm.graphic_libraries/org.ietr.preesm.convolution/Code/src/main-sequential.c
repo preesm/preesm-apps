@@ -2,11 +2,7 @@
 #include <string.h>
 
 #include "applicationParameters.h"
-#include "yuvDisplay.h"
-#include "yuvRead.h"
-#include "coefficients.h"
-#include "convolution.h"
-#include "md5.h"
+#include "preesm.h"
 
 // #define VERBOSE
 #ifdef VERBOSE
@@ -42,9 +38,6 @@ int main(int argc, char** argv) {
 
 		// Display filtered image
 		yuvDisplay(0, yDisp, u, v);
-
-		// MD5 check
-		MD5_Update(WIDTH * HEIGHT, yDisp);
 
 		// Exit ?
 		frameIndex++;

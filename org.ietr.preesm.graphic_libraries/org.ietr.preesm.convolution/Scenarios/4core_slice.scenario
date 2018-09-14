@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.convolution/Algo/top_display_slice.pi"/>
+        <architecture url="/org.ietr.preesm.convolution/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.convolution/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display_slice/Read_YUV"/>
+            <task name="top_display_slice/Display"/>
+            <task name="top_display_slice/Convolution/input"/>
+            <task name="top_display_slice/Convolution/output"/>
+            <task name="top_display_slice/Convolution/Split"/>
+            <task name="top_display_slice/Convolution/Merge"/>
+            <task name="top_display_slice/Convolution/Coefficients"/>
+            <task name="top_display_slice/Convolution/Calculation"/>
+            <task name="top_display_slice/Convolution"/>
+            <task name="top_display_slice"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top_display_slice/Convolution/input"/>
+            <task name="top_display_slice/Convolution/output"/>
+            <task name="top_display_slice/Convolution/Split"/>
+            <task name="top_display_slice/Convolution/Merge"/>
+            <task name="top_display_slice/Convolution/Coefficients"/>
+            <task name="top_display_slice/Convolution/Calculation"/>
+            <task name="top_display_slice/Convolution"/>
+            <task name="top_display_slice"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top_display_slice/Convolution/input"/>
+            <task name="top_display_slice/Convolution/output"/>
+            <task name="top_display_slice/Convolution/Split"/>
+            <task name="top_display_slice/Convolution/Merge"/>
+            <task name="top_display_slice/Convolution/Coefficients"/>
+            <task name="top_display_slice/Convolution/Calculation"/>
+            <task name="top_display_slice/Convolution"/>
+            <task name="top_display_slice"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top_display_slice/Convolution/input"/>
+            <task name="top_display_slice/Convolution/output"/>
+            <task name="top_display_slice/Convolution/Split"/>
+            <task name="top_display_slice/Convolution/Merge"/>
+            <task name="top_display_slice/Convolution/Coefficients"/>
+            <task name="top_display_slice/Convolution/Calculation"/>
+            <task name="top_display_slice/Convolution"/>
+            <task name="top_display_slice"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="353382917" vertexname="Read_YUV"/>
+        <timing opname="x86" time="149812284" vertexname="Split"/>
+        <timing opname="x86" time="7726701967" vertexname="Calculation"/>
+        <timing opname="x86" time="127431094" vertexname="Merge"/>
+        <timing opname="x86" time="431955854" vertexname="Display"/>
+        <timing opname="x86" time="2816506" vertexname="Coefficients"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core3"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>

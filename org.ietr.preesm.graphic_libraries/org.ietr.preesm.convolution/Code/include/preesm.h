@@ -14,4 +14,16 @@
 #define IN
 #define OUT
 
+// Include this file to run the Instrumented Workflow
+// #include <stdint.h>
+
+#include "yuvRead.h"
+#include "yuvDisplay.h"
+#include "splitMerge.h"
+#include "coefficients.h"
+#include "convolution.h"
+#include "md5.h"
+
+typedef unsigned char uchar;
+
 #endif
