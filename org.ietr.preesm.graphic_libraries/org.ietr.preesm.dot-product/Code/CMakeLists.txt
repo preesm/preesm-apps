@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.6)
 # This CMake create a workspace containing the following projects
 # 
 # Programs
-#  - dot-product
+#  - filter
 
 # IDE dependent config
 if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -14,7 +14,7 @@ if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 	add_definitions( -D_CRT_SECURE_NO_WARNINGS )
 endif()
 
-project(Dot-product)
+project(Filter)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 # Add definition for relative path into project
@@ -145,9 +145,9 @@ endif()
 
 
 # *******************************************
-# ************ dot-product.exe  *************
+# *************** filter.exe  ***************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -163,8 +163,8 @@ list(REMOVE_ITEM
 	"${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	)
 
-add_executable( dot-product ${source_files} ${header_files})
-target_link_libraries(dot-product ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+add_executable( filter ${source_files} ${header_files})
+target_link_libraries(filter ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
 
 file(
@@ -192,6 +192,6 @@ list(APPEND
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 
-add_executable( dot-product-sequential ${source_files} ${header_files})
-target_link_libraries(dot-product-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY})
+add_executable( filter-sequential ${source_files} ${header_files})
+target_link_libraries(filter-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY})
 

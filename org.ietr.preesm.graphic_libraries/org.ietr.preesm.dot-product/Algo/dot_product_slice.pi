@@ -6,7 +6,7 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">filter</data>
+        <data key="name">dot_product_slice</data>
         <node id="width" kind="cfg_in_iface"/>
         <node id="height" kind="cfg_in_iface"/>
         <node id="nbSlice" kind="cfg_in_iface"/>
@@ -69,7 +69,7 @@
                 kind="output" name="coefficients"/>
             <port annotation="NONE" expr="1" kind="output" name="norm"/>
         </node>
-        <node id="Calculation" kind="actor">
+        <node id="DotProduct" kind="actor">
             <data key="graph_desc">Code/include/filter.h</data>
             <loop name="filter">
                 <param direction="IN" isConfig="true" name="width" type="int"/>
@@ -96,15 +96,15 @@
             target="Split" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Merge" sourceport="output"
             target="output" targetport="output" type="uchar"/>
-        <edge kind="fifo" source="Calculation" sourceport="output"
+        <edge kind="fifo" source="DotProduct" sourceport="output"
             target="Merge" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Coefficients"
-            sourceport="coefficients" target="Calculation"
+            sourceport="coefficients" target="DotProduct"
             targetport="coefficients" type="char"/>
         <edge kind="fifo" source="Coefficients" sourceport="norm"
-            target="Calculation" targetport="norm" type="uchar"/>
+            target="DotProduct" targetport="norm" type="uchar"/>
         <edge kind="fifo" source="Split" sourceport="output"
-            target="Calculation" targetport="input" type="uchar"/>
+            target="DotProduct" targetport="input" type="uchar"/>
         <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
         <edge kind="dependency" source="height" target="sliceHeight"/>
         <edge kind="dependency" source="borderSize" target="sliceHeight"/>
@@ -124,10 +124,9 @@
         <edge kind="dependency" source="width" target="output"/>
         <edge kind="dependency" source="sliceHeight" target="Merge" targetport="sliceHeight"/>
         <edge kind="dependency" source="sliceHeight" target="Split" targetport="sliceHeight"/>
-        <edge kind="dependency" source="width" target="Calculation" targetport="width"/>
-        <edge kind="dependency" source="filterSize" target="Calculation" targetport="filterSize"/>
-        <edge kind="dependency" source="borderSize" target="Calculation" targetport="borderSize"/>
-        <edge kind="dependency" source="sliceHeight"
-            target="Calculation" targetport="height"/>
+        <edge kind="dependency" source="width" target="DotProduct" targetport="width"/>
+        <edge kind="dependency" source="filterSize" target="DotProduct" targetport="filterSize"/>
+        <edge kind="dependency" source="borderSize" target="DotProduct" targetport="borderSize"/>
+        <edge kind="dependency" source="sliceHeight" target="DotProduct" targetport="height"/>
     </graph>
 </graphml>

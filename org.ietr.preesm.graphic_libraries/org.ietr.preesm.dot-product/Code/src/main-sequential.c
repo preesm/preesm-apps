@@ -2,11 +2,7 @@
 #include <string.h>
 
 #include "applicationParameters.h"
-#include "yuvDisplay.h"
-#include "yuvRead.h"
-#include "filter.h"
-#include "coefficients.h"
-#include "md5.h"
+#include "preesm.h"
 
 // #define VERBOSE
 #ifdef VERBOSE

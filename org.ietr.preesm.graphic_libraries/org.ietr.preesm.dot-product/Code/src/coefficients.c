@@ -14,7 +14,7 @@ void setCoefficients(char *coefficients, unsigned char *norm) {
 	coefficients[9] = 0;
 	coefficients[10] = 0;
 	coefficients[11] = 0;
-	coefficients[12] = 0;
+	coefficients[12] = 1;
 	coefficients[13] = 0;
 	coefficients[14] = 0;
 	coefficients[15] = 0;
@@ -26,7 +26,7 @@ void setCoefficients(char *coefficients, unsigned char *norm) {
 	coefficients[21] = 0;
 	coefficients[22] = 0;
 	coefficients[23] = 0;
-	coefficients[24] = 1;
+	coefficients[24] = 0;
 
 	coefficients[25] = 0;
 	coefficients[26] = 0;
