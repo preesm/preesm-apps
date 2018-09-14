@@ -5,3 +5,5 @@
 /DAG
 /Algo/generated
 .settings
+**/out.ppm
+
