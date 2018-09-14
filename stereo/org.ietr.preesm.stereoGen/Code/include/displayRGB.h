@@ -9,29 +9,14 @@
 */
 #ifndef DISPLAY_RGB
 #define DISPLAY_RGB
+
 #include "preesm.h"
 
-#define NB_DISPLAY 3
-#define DISPLAY_W 434*NB_DISPLAY
+#define NB_DISPLAY 2
+#define DISPLAY_W 450*NB_DISPLAY
 #define DISPLAY_H 380
 
-#define INIT_OVERLAY {NULL, NULL, NULL} // must be se same size as NB_DISPLAY
-
-/**
-* Function used to display an RGB image
-*
-* @param id
-*        The id of the displayed frame in the window.
-* @param r
-*        Array containing the red component of the displayed image.
-* @param g
-*        Array containing the green component of the displayed image.
-* @param b
-*        Array containing the blue component of the displayed image.
-* @param pixelStride
-		 nb of bytes between successive pixels
-*/
-void display3Components(int id, unsigned char *r, unsigned char *g, unsigned char *b, int pixelStride);
+#define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
 
 /**
 * Function used to display an RGB image

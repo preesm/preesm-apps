@@ -169,6 +169,16 @@
             <port annotation="NONE" expr="size*ndisp*nbIterations"
                 kind="output" name="out"/>
         </node>
+        <node expr="size" getter=""
+            id="delay_BroadcastAggreg_back__AggregV_back" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="size" kind="input" name="set"/>
+            <port annotation="NONE" expr="size" kind="output" name="get"/>
+        </node>
+        <edge expr="size" kind="fifo" source="BroadcastAggreg"
+            sourceport="back" target="AggregV" targetport="back" type="uchar">
+            <data key="delay">delay_BroadcastAggreg_back__AggregV_back</data>
+        </edge>
         <edge kind="fifo" source="AggregV" sourceport="CostOUT"
             target="AggregH" targetport="CostIN" type="uchar"/>
         <edge kind="fifo" source="iml" sourceport="iml"
@@ -191,10 +201,6 @@
             target="BroadcastAggreg" targetport="input" type="uchar"/>
         <edge kind="fifo" source="BroadcastAggreg" sourceport="out"
             target="AggregBuff" targetport="in" type="uchar"/>
-        <edge expr="size" kind="fifo" source="BroadcastAggreg"
-            sourceport="back" target="AggregV" targetport="back" type="uchar">
-            <data key="delay"/>
-        </edge>
         <edge kind="fifo" source="BroadcastDispCost" sourceport="out"
             target="AggregV" targetport="CostIN" type="uchar"/>
         <edge kind="fifo" source="compute_Vweight" sourceport="out"

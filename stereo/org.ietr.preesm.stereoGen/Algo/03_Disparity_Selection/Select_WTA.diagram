@@ -1,358 +1,358 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="Select_WTA" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.0/@anchors.0/@link //@children.0/@anchors.1/@link //@children.0/@anchors.2/@link //@children.1/@anchors.0/@link //@children.1/@children.0/@link //@children.1/@link //@children.1/@anchors.1/@link //@children.2/@anchors.0/@link //@children.2/@children.0/@link //@children.2/@link //@children.2/@anchors.1/@link //@children.3/@anchors.0/@link //@children.3/@children.0/@link //@children.3/@link //@children.4/@anchors.0/@link //@children.4/@children.0/@link //@children.4/@link //@children.5/@anchors.0/@link //@children.5/@children.0/@link //@children.5/@link //@children.0/@anchors.3/@link //@connections.0/@link //@children.0/@anchors.4/@link //@connections.1/@link //@children.0/@anchors.5/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link" version="0.13.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="Select_WTA" snapToGrid="true" pictogramLinks="//@children.0/@anchors.0/@link //@children.0/@children.0/@link //@children.0/@link //@children.1/@anchors.0/@link //@children.1/@children.0/@link //@children.1/@link //@children.2/@anchors.0/@link //@children.2/@children.0/@link //@children.2/@link //@children.3/@link //@children.3/@children.0/@link //@children.3/@anchors.0/@link //@children.3/@anchors.1/@link //@children.3/@anchors.2/@link //@children.3/@anchors.3/@link //@children.3/@anchors.4/@link //@children.3/@anchors.5/@link //@children.4/@anchors.0/@link //@children.4/@children.0/@link //@children.4/@link //@children.4/@anchors.1/@link //@children.5/@anchors.0/@link //@children.5/@children.0/@link //@children.5/@link //@children.5/@anchors.1/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link" version="0.15.0">
   <properties key="editor_version" value="3"/>
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <link>
     <businessObjects href="Select_WTA.pi#/"/>
   </link>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="76" height="65" x="205" y="250" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="29" height="28" x="351" y="76"/>
     <link>
       <businessObjects href="Select_WTA.pi#//@vertices.0"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.2 //@connections.5 //@connections.7" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
+        <points x="8"/>
+        <points x="16" y="16"/>
+        <points y="16"/>
+      </graphicsAlgorithm>
       <link>
         <businessObjects href="Select_WTA.pi#//@vertices.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.3" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeHeight="0.8153846153846154">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="40" height="12">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="32" height="12" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="costIn"/>
-        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.5" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
-      </graphicsAlgorithm>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.0/@dataInputPorts.0"/>
-      </link>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.4" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.8153846153846154">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="28" height="12" x="-28">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="20" height="12" font="//@fonts.1" value="raw"/>
-        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.6" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="20" y="2"/>
-      </graphicsAlgorithm>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.0/@dataOutputPorts.0"/>
-      </link>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.0" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeHeight="0.26153846153846155">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="39" height="12">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="31" height="12" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="height"/>
-        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.2" lineWidth="0" filled="true" transparency="0.0" y="1">
-          <points/>
-          <points x="8" y="5"/>
-          <points y="10"/>
-        </graphicsAlgorithmChildren>
-      </graphicsAlgorithm>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.0/@configInputPorts.0"/>
-      </link>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.1" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeHeight="0.4461538461538462">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="35" height="12">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="27" height="12" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="width"/>
-        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.2" lineWidth="0" filled="true" transparency="0.0" y="1">
-          <points/>
-          <points x="8" y="5"/>
-          <points y="10"/>
-        </graphicsAlgorithmChildren>
-      </graphicsAlgorithm>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.0/@configInputPorts.1"/>
-      </link>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.2" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeHeight="0.6307692307692307">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="12">
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="12" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="ndisp"/>
-        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.2" lineWidth="0" filled="true" transparency="0.0" y="1">
-          <points/>
-          <points x="8" y="5"/>
-          <points y="10"/>
-        </graphicsAlgorithmChildren>
-      </graphicsAlgorithm>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.0/@configInputPorts.2"/>
-      </link>
-    </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="76" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="wta"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="29" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="height"/>
       <link>
         <businessObjects href="Select_WTA.pi#//@vertices.0"/>
       </link>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="20" x="50" y="250"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="25" height="28" x="200" y="76"/>
     <link>
       <businessObjects href="Select_WTA.pi#//@vertices.1"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.3" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.5" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="16" height="16" x="-16" cornerHeight="5" cornerWidth="5"/>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.1/@dataOutputPorts.0"/>
-      </link>
-    </anchors>
-    <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7 //@connections.8 //@connections.9">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.3 //@connections.6 //@connections.8" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
+        <points x="8"/>
+        <points x="16" y="16"/>
+        <points y="16"/>
+      </graphicsAlgorithm>
       <link>
         <businessObjects href="Select_WTA.pi#//@vertices.1"/>
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="36" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="CostIN"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="25" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="width"/>
       <link>
         <businessObjects href="Select_WTA.pi#//@vertices.1"/>
       </link>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="20" x="381" y="250"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="26" height="28" x="275" y="76"/>
     <link>
       <businessObjects href="Select_WTA.pi#//@vertices.2"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.4" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm" relativeHeight="0.1">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
-      <link>
-        <businessObjects href="Select_WTA.pi#//@vertices.2/@dataInputPorts.0"/>
-      </link>
-    </anchors>
-    <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.5 //@connections.6">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.4 //@connections.9" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
+        <points x="8"/>
+        <points x="16" y="16"/>
+        <points y="16"/>
+      </graphicsAlgorithm>
       <link>
         <businessObjects href="Select_WTA.pi#//@vertices.2"/>
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="20" x="19" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="disparity_map"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="26" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="ndisp"/>
       <link>
         <businessObjects href="Select_WTA.pi#//@vertices.2"/>
       </link>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="34" height="30" x="365" y="76"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="69" height="68" x="200" y="250" cornerHeight="5" cornerWidth="5"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@parameters.0"/>
+      <businessObjects href="Select_WTA.pi#//@vertices.3"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.0 //@connections.5 //@connections.7" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
-      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.7" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
-        <points x="8"/>
-        <points x="16" y="16"/>
-        <points y="16"/>
+    <anchors xsi:type="pi:ChopboxAnchor">
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.3"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.2" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeHeight="0.25">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="35" height="10">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="27" height="10" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="height"/>
+        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0">
+          <points/>
+          <points x="8" y="5"/>
+          <points y="10"/>
+        </graphicsAlgorithmChildren>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="Select_WTA.pi#//@parameters.0"/>
+        <businessObjects href="Select_WTA.pi#//@vertices.3/@configInputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.3" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeHeight="0.4264705882352941">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="32" height="10">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="24" height="10" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="width"/>
+        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0">
+          <points/>
+          <points x="8" y="5"/>
+          <points y="10"/>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.3/@configInputPorts.1"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.4" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeHeight="0.6029411764705882">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="32" height="10">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="24" height="10" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="ndisp"/>
+        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0">
+          <points/>
+          <points x="8" y="5"/>
+          <points y="10"/>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.3/@configInputPorts.2"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.0" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeHeight="0.7794117647058824">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="10">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="10" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="costIn"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="1"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.3/@dataInputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.7794117647058824">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="25" height="10" x="-25">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="17" height="10" font="//@fonts.1" value="raw"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="17" y="1"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.3/@dataOutputPorts.0"/>
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="34" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="height"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="69" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="wta"/>
       <link>
-        <businessObjects href="Select_WTA.pi#//@parameters.0"/>
+        <businessObjects href="Select_WTA.pi#//@vertices.3"/>
       </link>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="30" height="30" x="205" y="76"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="50" height="20" x="50" y="250"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@parameters.1"/>
+      <businessObjects href="Select_WTA.pi#//@vertices.4"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1 //@connections.6 //@connections.8" referencedGraphicsAlgorithm="//@children.4/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
-      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.7" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
-        <points x="8"/>
-        <points x="16" y="16"/>
-        <points y="16"/>
-      </graphicsAlgorithm>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.0" incomingConnections="//@connections.7 //@connections.8 //@connections.9" referencedGraphicsAlgorithm="//@children.4/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" x="-16" cornerHeight="5" cornerWidth="5"/>
       <link>
-        <businessObjects href="Select_WTA.pi#//@parameters.1"/>
+        <businessObjects href="Select_WTA.pi#//@vertices.4/@dataOutputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:ChopboxAnchor">
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.4"/>
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="30" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="width"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="31" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="CostIN"/>
       <link>
-        <businessObjects href="Select_WTA.pi#//@parameters.1"/>
+        <businessObjects href="Select_WTA.pi#//@vertices.4"/>
       </link>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="30" height="30" x="285" y="76"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="83" height="20" x="369" y="250"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@parameters.2"/>
+      <businessObjects href="Select_WTA.pi#//@vertices.5"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.2 //@connections.9" referencedGraphicsAlgorithm="//@children.5/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
-      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.7" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
-        <points x="8"/>
-        <points x="16" y="16"/>
-        <points y="16"/>
-      </graphicsAlgorithm>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.1 //@connections.5 //@connections.6" referencedGraphicsAlgorithm="//@children.5/@graphicsAlgorithm" relativeHeight="0.1">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
       <link>
-        <businessObjects href="Select_WTA.pi#//@parameters.2"/>
+        <businessObjects href="Select_WTA.pi#//@vertices.5/@dataInputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:ChopboxAnchor">
+      <link>
+        <businessObjects href="Select_WTA.pi#//@vertices.5"/>
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="30" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="ndisp"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="64" height="20" x="19" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="disparity_map"/>
       <link>
-        <businessObjects href="Select_WTA.pi#//@parameters.2"/>
+        <businessObjects href="Select_WTA.pi#//@vertices.5"/>
       </link>
     </children>
   </children>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.0/@anchors.3">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.3/@anchors.4">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.0"/>
+      <businessObjects href="Select_WTA.pi#//@edges.0"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.5" foreground="//@colors.5" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="382" y="200"/>
-    <bendpoints x="177" y="200"/>
-    <bendpoints x="177" y="272"/>
+    <bendpoints x="120" y="259"/>
+    <bendpoints x="180" y="307"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.0/@anchors.4">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.5" end="//@children.5/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.1"/>
+      <businessObjects href="Select_WTA.pi#//@edges.1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.5" foreground="//@colors.5" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="220" y="184"/>
-    <bendpoints x="185" y="184"/>
-    <bendpoints x="185" y="284"/>
+    <bendpoints x="289" y="307"/>
+    <bendpoints x="349" y="259"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.0/@anchors.5">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.3/@anchors.1">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.2"/>
+      <businessObjects href="Select_WTA.pi#//@edges.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="300" y="192"/>
-    <bendpoints x="181" y="192"/>
-    <bendpoints x="181" y="296"/>
+    <bendpoints x="365" y="200"/>
+    <bendpoints x="172" y="200"/>
+    <bendpoints x="172" y="271"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.0/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.3/@anchors.2">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@fifos.0"/>
+      <businessObjects href="Select_WTA.pi#//@edges.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="125" y="259"/>
-    <bendpoints x="185" y="308"/>
+    <bendpoints x="212" y="184"/>
+    <bendpoints x="180" y="184"/>
+    <bendpoints x="180" y="283"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.2" end="//@children.2/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.3/@anchors.3">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@fifos.1"/>
+      <businessObjects href="Select_WTA.pi#//@edges.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="301" y="308"/>
-    <bendpoints x="361" y="259"/>
+    <bendpoints x="288" y="192"/>
+    <bendpoints x="176" y="192"/>
+    <bendpoints x="176" y="295"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.2/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.5/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.3"/>
+      <businessObjects href="Select_WTA.pi#//@edges.5"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="382" y="200"/>
-    <bendpoints x="428" y="200"/>
+    <bendpoints x="365" y="200"/>
+    <bendpoints x="410" y="200"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.2/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.5/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.4"/>
+      <businessObjects href="Select_WTA.pi#//@edges.6"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="220" y="184"/>
-    <bendpoints x="428" y="184"/>
+    <bendpoints x="212" y="184"/>
+    <bendpoints x="410" y="184"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.1/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.4/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.5"/>
+      <businessObjects href="Select_WTA.pi#//@edges.7"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="382" y="200"/>
-    <bendpoints x="77" y="200"/>
+    <bendpoints x="365" y="200"/>
+    <bendpoints x="75" y="200"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.1/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.4/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.6"/>
+      <businessObjects href="Select_WTA.pi#//@edges.8"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="220" y="184"/>
-    <bendpoints x="77" y="184"/>
+    <bendpoints x="212" y="184"/>
+    <bendpoints x="75" y="184"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.1/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.4/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="Select_WTA.pi#//@dependencies.7"/>
+      <businessObjects href="Select_WTA.pi#//@edges.9"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
         <points x="-10" y="5"/>
         <points/>
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="300" y="192"/>
-    <bendpoints x="77" y="192"/>
+    <bendpoints x="288" y="192"/>
+    <bendpoints x="75" y="192"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>
-  <colors red="100" green="100" blue="100"/>
-  <colors red="237" green="237" blue="237"/>
-  <colors/>
-  <colors red="182" green="215" blue="122"/>
-  <colors red="234" green="153" blue="153"/>
   <colors red="98" green="131" blue="167"/>
   <colors red="187" green="218" blue="247"/>
+  <colors/>
+  <colors red="100" green="100" blue="100"/>
+  <colors red="237" green="237" blue="237"/>
+  <colors red="182" green="215" blue="122"/>
+  <colors red="234" green="153" blue="153"/>
   <fonts name="Arial" size="8" bold="true"/>
   <fonts name="Arial" size="8"/>
 </pi:Diagram>

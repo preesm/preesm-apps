@@ -14,4 +14,27 @@
 #define IN
 #define OUT
 
+#include "clock.h"
+
+#include "ppm.h"
+#include "displayRGB.h"
+#include "rgb2Gray.h"
+#include "census.h"
+#include "genDispLvl.h"
+#include "offsetGen.h"
+#include "bfa.h"
+#include "BP1D.h"
+#include "medianFilter.h"
+#include "splitMerge.h"
+#include "costMatrix.h"
+#include "scale.h"
+#include "wta.h"
+#include "sad.h"
+#include "mi.h"
+
+#include "sink.h"
+
+typedef unsigned char uchar;
+
+
 #endif
