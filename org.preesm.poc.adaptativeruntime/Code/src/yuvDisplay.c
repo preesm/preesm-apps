@@ -19,7 +19,7 @@
 #include <semaphore.h>
 
 #define FPS_MEAN 20
-#define FPS_LIMIT 2.5
+#define FPS_LIMIT 2.4
 
 #define ENERGY_MEAN FPS_MEAN
 static float energyMeasuresA15[ENERGY_MEAN];
