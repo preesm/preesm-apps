@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.canny/Algo/compare.pi"/>
+        <architecture url="/org.ietr.preesm.canny/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.canny/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="compare/Read_Y"/>
+            <task name="compare/Split"/>
+            <task name="compare/Split2"/>
+            <task name="compare/Duplicate_Y"/>
+            <task name="compare/Duplicate_Split"/>
+            <task name="compare/Duplicate_Split2"/>
+            <task name="compare/Sobel"/>
+            <task name="compare/Sobel2"/>
+            <task name="compare/Canny"/>
+            <task name="compare/Canny2"/>
+            <task name="compare/Merge"/>
+            <task name="compare/Merge2"/>
+            <task name="compare/D1"/>
+            <task name="compare/BRU"/>
+            <task name="compare/BrV"/>
+            <task name="compare"/>
+            <task name="compare/D2"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="compare/Split"/>
+            <task name="compare/Split2"/>
+            <task name="compare/Duplicate_Y"/>
+            <task name="compare/Duplicate_Split"/>
+            <task name="compare/Duplicate_Split2"/>
+            <task name="compare/Sobel"/>
+            <task name="compare/Sobel2"/>
+            <task name="compare/Canny"/>
+            <task name="compare/Canny2"/>
+            <task name="compare/Merge"/>
+            <task name="compare/Merge2"/>
+            <task name="compare/BRU"/>
+            <task name="compare/BrV"/>
+            <task name="compare"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="compare/Split"/>
+            <task name="compare/Split2"/>
+            <task name="compare/Duplicate_Y"/>
+            <task name="compare/Duplicate_Split"/>
+            <task name="compare/Duplicate_Split2"/>
+            <task name="compare/Sobel"/>
+            <task name="compare/Sobel2"/>
+            <task name="compare/Canny"/>
+            <task name="compare/Canny2"/>
+            <task name="compare/Merge"/>
+            <task name="compare/Merge2"/>
+            <task name="compare/BRU"/>
+            <task name="compare/BrV"/>
+            <task name="compare"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="compare/Split"/>
+            <task name="compare/Split2"/>
+            <task name="compare/Duplicate_Y"/>
+            <task name="compare/Duplicate_Split"/>
+            <task name="compare/Duplicate_Split2"/>
+            <task name="compare/Sobel"/>
+            <task name="compare/Sobel2"/>
+            <task name="compare/Canny"/>
+            <task name="compare/Canny2"/>
+            <task name="compare/Merge"/>
+            <task name="compare/Merge2"/>
+            <task name="compare/BRU"/>
+            <task name="compare/BrV"/>
+            <task name="compare"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>

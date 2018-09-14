@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : sobel.h
- Author      : kdesnos
+ Author      : zhzhang
  Version     : 1.1
  Copyright   : CeCILL-C
  Description : 2D Sobel filtering function

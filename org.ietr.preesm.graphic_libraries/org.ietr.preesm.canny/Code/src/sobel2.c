@@ -50,4 +50,3 @@ void sobel2(int width, int height, unsigned char *input, char *output_x,
 	memset(output_x + k, 0, width);
 	memset(output_y + k, 0, width);
 }
-

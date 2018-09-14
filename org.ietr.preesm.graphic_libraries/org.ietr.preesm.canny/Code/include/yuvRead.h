@@ -13,9 +13,9 @@
 
 #include "preesm.h"
 
-#define PATH PROJECT_ROOT_PATH "/dat/akiyo_cif.yuv"
+#define PATH PROJECT_ROOT_PATH "/dat/GivingScholarlyFallowdeer1280x720-415f.yuv"
 
-#define NB_FRAME 300
+#define NB_FRAME 415
 
 /**
  * Initialize the readYUV actor.

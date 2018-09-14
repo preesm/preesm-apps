@@ -82,4 +82,3 @@ void canny(int width, int height, IN char *gx, IN char *gy,
 		OUT unsigned char *output);
 
 #endif	// CANNY_H
-
