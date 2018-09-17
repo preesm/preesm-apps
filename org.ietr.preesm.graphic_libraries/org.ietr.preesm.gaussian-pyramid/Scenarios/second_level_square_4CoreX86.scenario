@@ -10,6 +10,8 @@
             <operator name="Core0"/>
             <task name="second_level_square/Read_YUV"/>
             <task name="second_level_square/Display"/>
+            <task name="second_level_square/FirstLevel"/>
+            <task name="second_level_square/SecondLevel"/>
             <task name="second_level_square/FirstLevel/v_input"/>
             <task name="second_level_square/FirstLevel/u_input"/>
             <task name="second_level_square/FirstLevel/u_output"/>
@@ -25,7 +27,6 @@
             <task name="second_level_square/FirstLevel/U_Upsample"/>
             <task name="second_level_square/FirstLevel/V_Upsample"/>
             <task name="second_level_square/FirstLevel/Y_Upsample"/>
-            <task name="second_level_square/FirstLevel"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
             <task name="second_level_square/SecondLevel/u_output"/>
@@ -41,11 +42,11 @@
             <task name="second_level_square/SecondLevel/U_Upsample"/>
             <task name="second_level_square/SecondLevel/V_Upsample"/>
             <task name="second_level_square/SecondLevel/Y_Upsample"/>
-            <task name="second_level_square/SecondLevel"/>
-            <task name="second_level_square"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
+            <task name="second_level_square/FirstLevel"/>
+            <task name="second_level_square/SecondLevel"/>
             <task name="second_level_square/FirstLevel/v_input"/>
             <task name="second_level_square/FirstLevel/u_input"/>
             <task name="second_level_square/FirstLevel/u_output"/>
@@ -61,7 +62,6 @@
             <task name="second_level_square/FirstLevel/U_Upsample"/>
             <task name="second_level_square/FirstLevel/V_Upsample"/>
             <task name="second_level_square/FirstLevel/Y_Upsample"/>
-            <task name="second_level_square/FirstLevel"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
             <task name="second_level_square/SecondLevel/u_output"/>
@@ -77,44 +77,6 @@
             <task name="second_level_square/SecondLevel/U_Upsample"/>
             <task name="second_level_square/SecondLevel/V_Upsample"/>
             <task name="second_level_square/SecondLevel/Y_Upsample"/>
-            <task name="second_level_square/SecondLevel"/>
-            <task name="second_level_square"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core2"/>
-            <task name="second_level_square/FirstLevel/v_input"/>
-            <task name="second_level_square/FirstLevel/u_input"/>
-            <task name="second_level_square/FirstLevel/u_output"/>
-            <task name="second_level_square/FirstLevel/Y_Subsample"/>
-            <task name="second_level_square/FirstLevel/V_Subsample"/>
-            <task name="second_level_square/FirstLevel/Gaussian"/>
-            <task name="second_level_square/FirstLevel/U_Subsample"/>
-            <task name="second_level_square/FirstLevel/y_output"/>
-            <task name="second_level_square/FirstLevel/y_input"/>
-            <task name="second_level_square/FirstLevel/v_output"/>
-            <task name="second_level_square/FirstLevel/Y_Split"/>
-            <task name="second_level_square/FirstLevel/Y_Merge"/>
-            <task name="second_level_square/FirstLevel/U_Upsample"/>
-            <task name="second_level_square/FirstLevel/V_Upsample"/>
-            <task name="second_level_square/FirstLevel/Y_Upsample"/>
-            <task name="second_level_square/FirstLevel"/>
-            <task name="second_level_square/SecondLevel/v_input"/>
-            <task name="second_level_square/SecondLevel/u_input"/>
-            <task name="second_level_square/SecondLevel/u_output"/>
-            <task name="second_level_square/SecondLevel/Y_Subsample"/>
-            <task name="second_level_square/SecondLevel/V_Subsample"/>
-            <task name="second_level_square/SecondLevel/Gaussian"/>
-            <task name="second_level_square/SecondLevel/U_Subsample"/>
-            <task name="second_level_square/SecondLevel/y_output"/>
-            <task name="second_level_square/SecondLevel/y_input"/>
-            <task name="second_level_square/SecondLevel/v_output"/>
-            <task name="second_level_square/SecondLevel/Y_Split"/>
-            <task name="second_level_square/SecondLevel/Y_Merge"/>
-            <task name="second_level_square/SecondLevel/U_Upsample"/>
-            <task name="second_level_square/SecondLevel/V_Upsample"/>
-            <task name="second_level_square/SecondLevel/Y_Upsample"/>
-            <task name="second_level_square/SecondLevel"/>
-            <task name="second_level_square"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -134,6 +96,26 @@
             <task name="second_level_square/FirstLevel/V_Upsample"/>
             <task name="second_level_square/FirstLevel/Y_Upsample"/>
             <task name="second_level_square/FirstLevel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="second_level_square/FirstLevel"/>
+            <task name="second_level_square/SecondLevel"/>
+            <task name="second_level_square/FirstLevel/v_input"/>
+            <task name="second_level_square/FirstLevel/u_input"/>
+            <task name="second_level_square/FirstLevel/u_output"/>
+            <task name="second_level_square/FirstLevel/Y_Subsample"/>
+            <task name="second_level_square/FirstLevel/V_Subsample"/>
+            <task name="second_level_square/FirstLevel/Gaussian"/>
+            <task name="second_level_square/FirstLevel/U_Subsample"/>
+            <task name="second_level_square/FirstLevel/y_output"/>
+            <task name="second_level_square/FirstLevel/y_input"/>
+            <task name="second_level_square/FirstLevel/v_output"/>
+            <task name="second_level_square/FirstLevel/Y_Split"/>
+            <task name="second_level_square/FirstLevel/Y_Merge"/>
+            <task name="second_level_square/FirstLevel/U_Upsample"/>
+            <task name="second_level_square/FirstLevel/V_Upsample"/>
+            <task name="second_level_square/FirstLevel/Y_Upsample"/>
             <task name="second_level_square/SecondLevel/v_input"/>
             <task name="second_level_square/SecondLevel/u_input"/>
             <task name="second_level_square/SecondLevel/u_output"/>
@@ -149,12 +131,29 @@
             <task name="second_level_square/SecondLevel/U_Upsample"/>
             <task name="second_level_square/SecondLevel/V_Upsample"/>
             <task name="second_level_square/SecondLevel/Y_Upsample"/>
-            <task name="second_level_square/SecondLevel"/>
-            <task name="second_level_square"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="318199007" vertexname="Read_YUV"/>
+        <timing opname="x86" time="393881153" vertexname="Display"/>
+        <timing opname="x86" time="10000" vertexname="FirstLevel"/>
+        <timing opname="x86" time="10000" vertexname="SecondLevel"/>
+        <timing opname="x86" time="10000" vertexname="v_input"/>
+        <timing opname="x86" time="10000" vertexname="u_input"/>
+        <timing opname="x86" time="10000" vertexname="u_output"/>
+        <timing opname="x86" time="36757073" vertexname="Y_Subsample"/>
+        <timing opname="x86" time="36757073" vertexname="V_Subsample"/>
+        <timing opname="x86" time="618481308" vertexname="Gaussian"/>
+        <timing opname="x86" time="36757073" vertexname="U_Subsample"/>
+        <timing opname="x86" time="10000" vertexname="y_output"/>
+        <timing opname="x86" time="10000" vertexname="y_input"/>
+        <timing opname="x86" time="10000" vertexname="v_output"/>
+        <timing opname="x86" time="191125369" vertexname="Y_Split"/>
+        <timing opname="x86" time="38838160" vertexname="Y_Merge"/>
+        <timing opname="x86" time="80230117" vertexname="U_Upsample"/>
+        <timing opname="x86" time="80230117" vertexname="V_Upsample"/>
+        <timing opname="x86" time="80230117" vertexname="Y_Upsample"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>
@@ -162,6 +161,7 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
+            <dataType name="uint" size="1"/>
             <dataType name="char" size="1"/>
             <dataType name="uchar" size="1"/>
         </dataTypes>

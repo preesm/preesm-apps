@@ -6,7 +6,7 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">second_level</data>
+        <data key="name">second_level_slice</data>
         <node expr="0" id="zero" kind="param"/>
         <node expr="720" id="height" kind="param"/>
         <node expr="1280" id="width" kind="param"/>
@@ -43,7 +43,7 @@
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
         </node>
         <node id="FirstLevel" kind="actor">
-            <data key="graph_desc">Algo/pyramid.pi</data>
+            <data key="graph_desc">Algo/pyramid_slice.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbLevel"/>
@@ -78,7 +78,7 @@
                 kind="output" name="v"/>
         </node>
         <node id="SecondLevel" kind="actor">
-            <data key="graph_desc">Algo/pyramid.pi</data>
+            <data key="graph_desc">Algo/pyramid_slice.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbLevel"/>

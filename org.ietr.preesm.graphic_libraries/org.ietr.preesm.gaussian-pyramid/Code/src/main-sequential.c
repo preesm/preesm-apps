@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "x86.h"
+#include "preesm.h"
 #include "applicationParameters.h"
 
 // #define VERBOSE
@@ -20,12 +20,14 @@ int main(int argc, char** argv) {
 	static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
 			* WIDTH / 4];
 	static unsigned char yFiltered[HEIGHT * WIDTH];
-	static unsigned char yDisp[HEIGHT * WIDTH / 4], uDisp[HEIGHT * WIDTH / 16],
-			vDisp[HEIGHT * WIDTH / 16];
+	static unsigned char ySub[HEIGHT * WIDTH / 4], uSub[HEIGHT * WIDTH / 16],
+			vSub[HEIGHT * WIDTH / 16];
+	static unsigned char yDisp[HEIGHT * WIDTH], uDisp[HEIGHT * WIDTH],
+			vDisp[HEIGHT * WIDTH];
 	unsigned int frameIndex = 1;
 
 	// Init display
-	yuvDisplayInit(0, 1, 640, 360, 640, 360);
+	yuvDisplayInit(0, 1, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	// Init read
 	initReadYUV(WIDTH, HEIGHT);
 
@@ -36,16 +38,18 @@ int main(int argc, char** argv) {
 		// Apply Gaussian filter
 		gaussian(WIDTH, HEIGHT, y, yFiltered);
 
-		// Sampling
-		subsample(WIDTH, HEIGHT, yFiltered, yDisp);
-		subsample(WIDTH / 2, HEIGHT / 2, u, uDisp);
-		subsample(WIDTH / 2, HEIGHT / 2, v, vDisp);
+		// Sub-Sampling
+		subsample(WIDTH, HEIGHT, yFiltered, ySub);
+		subsample(WIDTH / 2, HEIGHT / 2, u, uSub);
+		subsample(WIDTH / 2, HEIGHT / 2, v, vSub);
+
+		// Up-Sampling
+		upsample(WIDTH / 2, HEIGHT / 2, ySub, yDisp);
+		upsample(WIDTH / 4, HEIGHT / 4, uSub, uDisp);
+		upsample(WIDTH / 4, HEIGHT / 4, vSub, vDisp);
 
 		// Display sampled image
 		yuvDisplay(0, yDisp, uDisp, vDisp);
-
-		// MD5 check
-		// MD5_Update(WIDTH * HEIGHT / 4, yDisp);
 
 		// Exit ?
 		frameIndex++;

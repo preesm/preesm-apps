@@ -4,7 +4,7 @@
  Author      : zhzhang
  Version     : 1.1
  Copyright   : CeCILL-C
- Description : image sampling
+ Description : image sub-sampling
  ============================================================================
  */
 
@@ -21,13 +21,13 @@
  * that the width and the height of the input image are even numbers.
  *
  * @param width
- *        The width of the processed image
+ *        The width of the input image
  * @param height
- *        The height of the processed image
+ *        The height of the input image
  * @param input
- *        The input image
+ *        The pointer to the input y sequence
  * @param output
- *        The output image
+ *        The pointer to the output y sequence
  */
 void subsample(int width, int height, IN unsigned char *input,
 		OUT unsigned char *output);

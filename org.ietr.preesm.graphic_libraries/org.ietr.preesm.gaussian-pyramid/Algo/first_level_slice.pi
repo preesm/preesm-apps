@@ -6,13 +6,13 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">first_level</data>
-        <node expr="720" id="height" kind="param"/>
-        <node expr="1280" id="width" kind="param"/>
+        <data key="name">first_level_slice</data>
         <node expr="0" id="index" kind="param"/>
         <node expr="2" id="scale" kind="param"/>
-        <node expr="1" id="nbLevel" kind="param"/>
+        <node expr="1280" id="width" kind="param"/>
         <node expr="1" id="nbDisplay" kind="param"/>
+        <node expr="720" id="height" kind="param"/>
+        <node expr="1" id="one" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readYUV">
@@ -56,14 +56,14 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="scale"/>
             <port kind="cfg_input" name="nb_display"/>
-            <port kind="cfg_input" name="frame_height"/>
             <port kind="cfg_input" name="frame_width"/>
+            <port kind="cfg_input" name="frame_height"/>
             <port annotation="NONE" expr="width*height" kind="input" name="y"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
         </node>
         <node id="Pyramid" kind="actor">
-            <data key="graph_desc">Algo/pyramid.pi</data>
+            <data key="graph_desc">Algo/pyramid_slice.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbLevel"/>
@@ -82,23 +82,23 @@
             target="Pyramid" targetport="u_input" type="uchar"/>
         <edge kind="fifo" source="Read_YUV" sourceport="v"
             target="Pyramid" targetport="v_input" type="uchar"/>
+        <edge kind="fifo" source="Pyramid" sourceport="y_output"
+            target="Display" targetport="y" type="uchar"/>
         <edge kind="fifo" source="Pyramid" sourceport="u_output"
             target="Display" targetport="u" type="uchar"/>
         <edge kind="fifo" source="Pyramid" sourceport="v_output"
             target="Display" targetport="v" type="uchar"/>
-        <edge kind="fifo" source="Pyramid" sourceport="y_output"
-            target="Display" targetport="y" type="uchar"/>
         <edge kind="dependency" source="height" target="Read_YUV" targetport="height"/>
         <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
         <edge kind="dependency" source="index" target="Display" targetport="id"/>
         <edge kind="dependency" source="scale" target="Display" targetport="scale"/>
-        <edge kind="dependency" source="width" target="Pyramid" targetport="width"/>
-        <edge kind="dependency" source="height" target="Pyramid" targetport="height"/>
-        <edge kind="dependency" source="nbLevel" target="Pyramid" targetport="nbLevel"/>
         <edge kind="dependency" source="nbDisplay" target="Display" targetport="nb_display"/>
         <edge kind="dependency" source="height" target="Display" targetport="height"/>
         <edge kind="dependency" source="width" target="Display" targetport="width"/>
-        <edge kind="dependency" source="height" target="Display" targetport="frame_height"/>
         <edge kind="dependency" source="width" target="Display" targetport="frame_width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="frame_height"/>
+        <edge kind="dependency" source="width" target="Pyramid" targetport="width"/>
+        <edge kind="dependency" source="height" target="Pyramid" targetport="height"/>
+        <edge kind="dependency" source="one" target="Pyramid" targetport="nbLevel"/>
     </graph>
 </graphml>

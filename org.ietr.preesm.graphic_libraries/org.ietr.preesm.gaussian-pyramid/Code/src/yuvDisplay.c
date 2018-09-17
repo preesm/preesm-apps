@@ -174,8 +174,6 @@ void yuvDisplayInit(int id, int nb_display, int frame_width, int frame_height,
 
 	printf("register\n");
 	SDL_SetEventFilter(exitCallBack, NULL);
-	printf("Init - end : Address of display : %p, address of textures : %p\n",
-			(void *) &display, (void *) display.textures);
 }
 
 void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v) {

@@ -62,7 +62,7 @@
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
         </node>
         <node id="FirstLevel" kind="actor">
-            <data key="graph_desc">Algo/pyramidSquare.pi</data>
+            <data key="graph_desc">Algo/pyramid_square.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>
@@ -75,7 +75,7 @@
                 kind="output" name="v_output"/>
         </node>
         <node id="SecondLevel" kind="actor">
-            <data key="graph_desc">Algo/pyramidSquare.pi</data>
+            <data key="graph_desc">Algo/pyramid_square.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v_input"/>

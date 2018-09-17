@@ -26,7 +26,7 @@ void gaussian(int width, int height, unsigned char *input,
 		for (i = 1; i < width - 1; i++) {
 			res = input[a + i - 1] + 2 * input[a + i] + input[a + i + 1]
 					+ 2 * input[b + i - 1] + 4 * input[b + i]
-					+ 2 * input[b + i + 1] + input[c + i - 1] + input[c + i]
+					+ 2 * input[b + i + 1] + input[c + i - 1] + 2 * input[c + i]
 					+ input[c + i + 1];
 			res /= 16;
 			output[b + i] = res;

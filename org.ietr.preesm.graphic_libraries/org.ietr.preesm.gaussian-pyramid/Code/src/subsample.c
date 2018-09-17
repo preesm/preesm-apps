@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "subsample.h"
 
 void subsample(int width, int height, unsigned char *input, unsigned char *output) {
