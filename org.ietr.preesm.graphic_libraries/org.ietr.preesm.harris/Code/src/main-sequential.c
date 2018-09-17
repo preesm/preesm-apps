@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 		yuvWrite(WIDTH, HEIGHT, yDisp, u, v);
 
 		// Md5 update
-		MD5_Update(WIDTH * HEIGHT, yDisp);
+		// MD5_Update(WIDTH * HEIGHT, yDisp);
 
 		// Exit ?
 		frameIndex++;
@@ -57,11 +57,12 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	yuvFinalize(0);
+	endYUVWrite();
+
 #ifdef VERBOSE
 	printf("Exit program\n");
 #endif
-	yuvFinalize(0);
-	endYUVWrite();
 
 	return 0;
 }

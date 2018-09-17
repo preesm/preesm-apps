@@ -81,8 +81,7 @@ void readY(int width, int height, unsigned char *y, unsigned char *u,
 	if (uvInitialized == 0) {
 		for (int i = 0; i < width * height / 4; i++) {
 			// Both black and white have u and v equal to 128 in YUV representation
-			u[i] = 128;
-			v[i] = 128;
+			u[i] = v[i] = 128;
 		}
 		uvInitialized++;
 	}
