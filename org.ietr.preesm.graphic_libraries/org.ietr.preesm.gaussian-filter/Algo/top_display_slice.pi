@@ -6,11 +6,11 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">top_display</data>
+        <data key="name">top_display_slice</data>
         <node expr="1280" id="width" kind="param"/>
         <node expr="720" id="height" kind="param"/>
         <node expr="0" id="index" kind="param"/>
-        <node expr="8" id="nbSlice" kind="param"/>
+        <node expr="4" id="nbSlice" kind="param"/>
         <node expr="width*height" id="displaySize" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
@@ -54,7 +54,7 @@
             <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
         </node>
         <node id="Gaussian" kind="actor">
-            <data key="graph_desc">Algo/gaussian.pi</data>
+            <data key="graph_desc">Algo/gaussian_slice.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbSlice"/>

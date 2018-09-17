@@ -6,7 +6,7 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">top_display2</data>
+        <data key="name">top_display_square</data>
         <node expr="1280" id="width" kind="param"/>
         <node expr="720" id="height" kind="param"/>
         <node expr="4" id="nbColumn" kind="param"/>
@@ -54,7 +54,7 @@
             <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
         </node>
         <node id="Gaussian2" kind="actor">
-            <data key="graph_desc">Algo/gaussian2.pi</data>
+            <data key="graph_desc">Algo/gaussian_square.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="nbColumn"/>
             <port kind="cfg_input" name="height"/>

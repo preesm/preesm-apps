@@ -14,4 +14,14 @@
 #define IN
 #define OUT
 
+#include <stdint.h>
+
+#include "yuvRead.h"
+#include "yuvDisplay.h"
+#include "splitMerge.h"
+#include "gaussian.h"
+#include "md5.h"
+
+typedef unsigned char uchar;
+
 #endif

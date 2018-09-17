@@ -13,7 +13,7 @@
 
 #include "preesm.h"
 
-#define PATH PROJECT_ROOT_PATH "/dat/highway_cif.yuv"
+#define PATH PROJECT_ROOT_PATH "/dat/GivingScholarlyFallowdeer1280x720-415f.yuv"
 
 #define NB_FRAME 300
 
