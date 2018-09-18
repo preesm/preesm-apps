@@ -1,11 +1,10 @@
 #!/bin/bash -eu
 
-STEPBYSTEPDIR=$(dirname $0)
-PROJECTDIR=${STEPBYSTEPDIR}/..
-ARCHIVEDIR=${STEPBYSTEPDIR}/
+PROJECTDIR=$(dirname $0)
+ARCHIVEDIR=${PROJECTDIR}/archives/
 
+mkdir -p ${ARCHIVEDIR}
 rm -rf ${ARCHIVEDIR}/org.ietr.preesm.sobel
-
 mkdir -p \
 	${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/ \
 	${ARCHIVEDIR}/org.ietr.preesm.sobel/Archi/ \
@@ -34,11 +33,11 @@ cp -R ${PROJECTDIR}/Code/include_beforesobel/* ${ARCHIVEDIR}/org.ietr.preesm.sob
 
 #zip initial project
 rm -f ${ARCHIVEDIR}/org.ietr.preesm.sobel.zip
-zip -r ${ARCHIVEDIR}/org.ietr.preesm.sobel.zip ${ARCHIVEDIR}/org.ietr.preesm.sobel
+(cd ${ARCHIVEDIR} && zip -r org.ietr.preesm.sobel.zip org.ietr.preesm.sobel)
 
 #update to tutorial 1 result files
 rm ${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/*
-cp ${PROJECTDIR}/Algo/top_sobel* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/
+cp ${PROJECTDIR}/Algo/top_sobel.* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/
 cp ${PROJECTDIR}/Archi/4CoreX86.slam ${ARCHIVEDIR}/org.ietr.preesm.sobel/Archi/
 cp ${PROJECTDIR}/Scenarios/1core_sobel.scenario ${ARCHIVEDIR}/org.ietr.preesm.sobel/Scenarios/1core.scenario
 cp ${PROJECTDIR}/Scenarios/4core_sobel.scenario ${ARCHIVEDIR}/org.ietr.preesm.sobel/Scenarios/4core.scenario
@@ -48,7 +47,7 @@ cp -R ${PROJECTDIR}/Code/src_beforemem/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Cod
 
 #zip result project
 rm -f ${ARCHIVEDIR}/tutorial1_result.zip
-zip -r ${ARCHIVEDIR}/tutorial1_result.zip ${ARCHIVEDIR}/org.ietr.preesm.sobel
+(cd ${ARCHIVEDIR} && zip -r tutorial1_result.zip org.ietr.preesm.sobel)
 
 
 #zip  sobel sources
