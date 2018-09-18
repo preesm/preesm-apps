@@ -14,4 +14,6 @@
 #define IN
 #define OUT
 
+typedef char uchar;
+
 #endif
