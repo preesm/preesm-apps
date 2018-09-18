@@ -3,7 +3,7 @@ preesm-apps
 
 Repository for PREESM applications.
 
-*Tutorials* folder contains projects for the different tutorials proposed on the PREESM website (http://preesm.sourceforge.net/website/index.php?id=tutorials).
+*Tutorials* folder contains projects for the different tutorials proposed on the PREESM website (https://preesm.github.io/tutos/).
 
 *.library* projects contain files (architecture descriptions, algorithm descriptions, code and workflows) you can reuse in your own project, enabling rapid start.
 

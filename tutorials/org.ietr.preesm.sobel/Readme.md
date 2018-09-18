@@ -16,4 +16,4 @@ To launch PREESM on this tutorial:
 * Wait for the end of the mapping
 * Use CMakeLists to generate your C project
 * Launch the execution
-* Check tutorials on http://preesm.sf.net for a more detailed tutorials
+* Check tutorials on http://preesm.github.io/ for a more detailed tutorials
