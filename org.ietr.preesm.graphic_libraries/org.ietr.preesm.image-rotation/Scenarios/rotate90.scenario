@@ -39,6 +39,11 @@
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="203229648" vertexname="Read_YUV"/>
+        <timing opname="x86" time="567806981" vertexname="RotateV"/>
+        <timing opname="x86" time="567806981" vertexname="RotateU"/>
+        <timing opname="x86" time="567806981" vertexname="RotateY"/>
+        <timing opname="x86" time="284793120" vertexname="Display"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>

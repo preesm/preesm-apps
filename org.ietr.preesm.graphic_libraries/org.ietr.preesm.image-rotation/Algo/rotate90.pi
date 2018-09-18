@@ -8,8 +8,8 @@
     <graph edgedefault="directed">
         <data key="name">rotate90</data>
         <node expr="0" id="index" kind="param"/>
-        <node expr="352" id="width" kind="param"/>
-        <node expr="288" id="height" kind="param"/>
+        <node expr="1280" id="width" kind="param"/>
+        <node expr="720" id="height" kind="param"/>
         <node expr="width/2" id="half_w" kind="param"/>
         <node expr="height/2" id="half_h" kind="param"/>
         <node id="Read_YUV" kind="actor">

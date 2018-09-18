@@ -14,4 +14,13 @@
 #define IN
 #define OUT
 
+#include <stdint.h>
+
+#include "yuvRead.h"
+#include "yuvDisplay.h"
+#include "rotate.h"
+#include "splitMerge.h"
+
+typedef unsigned char uchar;
+
 #endif

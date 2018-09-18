@@ -9,12 +9,12 @@
  */
 
 #if 0
-#define PATH_VIDEO PROJECT_ROOT_PATH "/dat/JaguarAndCroco360x202-375f.yuv"
+#define PATH_VIDEO PROJECT_ROOT_PATH "/dat/highway_cif.yuv"
 
-#define HEIGHT 202 //!< Video height
-#define WIDTH 360 //!< Video width
+#define HEIGHT 288 //!< Video height
+#define WIDTH 352 //!< Video width
 
-#define NB_FRAME 375 //!< Number of frames in the video
+#define NB_FRAME 2000 //!< Number of frames in the video
 
 #define MAX_DELTA_X 38 //!< Largest abscissa difference for block matching
 #define MAX_DELTA_Y 21 //!< Largest ordinate difference for block matching

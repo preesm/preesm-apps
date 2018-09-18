@@ -147,7 +147,7 @@ endif()
 # *******************************************
 # *********** image-rotaion.exe  ************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -158,6 +158,40 @@ file(
 	./include/*.h
 )
 
-add_executable( image-rotation ${source_files} ${header_files})
-target_link_libraries(image-rotation ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+list(REMOVE_ITEM
+	source_files 5da8aa7126701c9840f99f8e9fa54976
+	"${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
+)
+
+add_executable(rotation ${source_files} ${header_files})
+target_link_libraries(rotation ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+
+file(
+	GLOB_RECURSE
+	source_files
+	./src/*;c
+	./include/*.h
+)
+
+list(REMOVE_ITEM 
+     source_files 
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/fifo.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/communication.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/memory.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/dump.c"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/fifo.h"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/communication.h"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/memory.h"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/dump.h"
+)
+
+list(APPEND  
+     source_files 
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
+)
+
+add_executable(rotation-sequential ${source_files} ${header_files})
+target_link_libraries(rotation-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY})
+
 
