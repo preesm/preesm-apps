@@ -18,6 +18,9 @@
 #include "yuvRead.h"
 #include "yuvDisplay.h"
 
+#include "sobel.h"
+#include "splitMerge.h"
+
 typedef unsigned char uchar;
 
 #endif
