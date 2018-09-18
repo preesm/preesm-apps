@@ -18,7 +18,7 @@ mkdir -p \
 
 cp ${PROJECTDIR}/Algo/top_display* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/
 cp ${PROJECTDIR}/Archi/1CoreX86.slam ${ARCHIVEDIR}/org.ietr.preesm.sobel/Archi/
-cp ${PROJECTDIR}/Scenarios/1core_display.scenario ${ARCHIVEDIR}/org.ietr.preesm.sobel/Scenarios/
+cp ${PROJECTDIR}/Scenarios/1core_display.scenario ${ARCHIVEDIR}/org.ietr.preesm.sobel/Scenarios/1core.scenario
 cp ${PROJECTDIR}/Workflows/Codegen.workflow ${ARCHIVEDIR}/org.ietr.preesm.sobel/Workflows/
 cp ${PROJECTDIR}/.project ${PROJECTDIR}/Readme.md ${ARCHIVEDIR}/org.ietr.preesm.sobel/
 cp ${PROJECTDIR}/Code/dat/ReadMe.md ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/dat/
@@ -32,9 +32,22 @@ rm ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/include/sobel.h ${ARCHIVEDIR}/org.ie
 rm ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/src/sobel.c ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/src/splitMerge.c
 cp -R ${PROJECTDIR}/Code/include_beforesobel/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/include/
 
+#zip initial project
 rm -f ${ARCHIVEDIR}/org.ietr.preesm.sobel.zip
 zip -r ${ARCHIVEDIR}/org.ietr.preesm.sobel.zip ${ARCHIVEDIR}/org.ietr.preesm.sobel
 
+#update to tutorial 1 result files
+rm ${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/*
+cp ${PROJECTDIR}/Algo/top_sobel* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Algo/
+cp ${PROJECTDIR}/Archi/4CoreX86.slam ${ARCHIVEDIR}/org.ietr.preesm.sobel/Archi/
+cp ${PROJECTDIR}/Scenarios/1core_sobel.scenario ${ARCHIVEDIR}/org.ietr.preesm.sobel/Scenarios/1core.scenario
+cp ${PROJECTDIR}/Scenarios/4core_sobel.scenario ${ARCHIVEDIR}/org.ietr.preesm.sobel/Scenarios/4core.scenario
+cp -R ${PROJECTDIR}/Code/include/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/include/
+cp -R ${PROJECTDIR}/Code/src/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/src/
+cp -R ${PROJECTDIR}/Code/src_beforemem/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/src/
 
+#zip result project
+rm -f ${ARCHIVEDIR}/tutorial1_result.zip
+zip -r ${ARCHIVEDIR}/tutorial1_result.zip ${ARCHIVEDIR}/org.ietr.preesm.sobel
 
 rm -rf ${ARCHIVEDIR}/org.ietr.preesm.sobel
