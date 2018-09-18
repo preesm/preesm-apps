@@ -50,4 +50,26 @@ cp -R ${PROJECTDIR}/Code/src_beforemem/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Cod
 rm -f ${ARCHIVEDIR}/tutorial1_result.zip
 zip -r ${ARCHIVEDIR}/tutorial1_result.zip ${ARCHIVEDIR}/org.ietr.preesm.sobel
 
+
+#zip  sobel sources
+rm -f ${ARCHIVEDIR}/sobel_sources.zip
+zip -j ${ARCHIVEDIR}/sobel_sources.zip \
+	${PROJECTDIR}/Code/include/sobel.h \
+	${PROJECTDIR}/Code/src/sobel.c
+
+#zip splitMerge sources
+rm -f ${ARCHIVEDIR}/splitMerge_sources.zip
+zip -j ${ARCHIVEDIR}/splitMerge_sources.zip \
+	${PROJECTDIR}/Code/include/splitMerge.h \
+	${PROJECTDIR}/Code/src_beforemem/splitMerge.c
+
+#zip C6678 source
+rm -f ${ARCHIVEDIR}/sobel_6678_sources.zip
+zip ${ARCHIVEDIR}/sobel_6678_sources.zip \
+	${PROJECTDIR}/CodeC6678/image_analyzer/* \
+	${PROJECTDIR}/CodeC6678/include/* \
+	${PROJECTDIR}/CodeC6678/src/* \
+	${PROJECTDIR}/CodeC6678/modelPreesm.cfg
+
+
 rm -rf ${ARCHIVEDIR}/org.ietr.preesm.sobel
