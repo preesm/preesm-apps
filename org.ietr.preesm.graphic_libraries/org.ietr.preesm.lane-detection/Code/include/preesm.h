@@ -14,4 +14,16 @@
 #define IN
 #define OUT
 
+#include <stdint.h>
+
+#include "yuvRead.h"
+#include "yuvDisplay.h"
+#include "splitMerge.h"
+#include "ipm.h"
+#include "laneFilter.h"
+#include "sample.h"
+#include "pixelSel.h"
+
+typedef unsigned char uchar;
+
 #endif

@@ -20,8 +20,6 @@
             <task name="top_display/SubsampleU"/>
             <task name="top_display/SubsampleV"/>
             <task name="top_display"/>
-            <task name="top_display/InterpolateU"/>
-            <task name="top_display/InterpolateV"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -35,8 +33,6 @@
             <task name="top_display/SubsampleU"/>
             <task name="top_display/SubsampleV"/>
             <task name="top_display"/>
-            <task name="top_display/InterpolateU"/>
-            <task name="top_display/InterpolateV"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -50,8 +46,6 @@
             <task name="top_display/SubsampleU"/>
             <task name="top_display/SubsampleV"/>
             <task name="top_display"/>
-            <task name="top_display/InterpolateU"/>
-            <task name="top_display/InterpolateV"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -65,12 +59,20 @@
             <task name="top_display/SubsampleU"/>
             <task name="top_display/SubsampleV"/>
             <task name="top_display"/>
-            <task name="top_display/InterpolateU"/>
-            <task name="top_display/InterpolateV"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="x86" time="38898350" vertexname="Read_YUV"/>
+        <timing opname="x86" time="312231111" vertexname="IPM"/>
+        <timing opname="x86" time="77937790" vertexname="LaneFilter"/>
+        <timing opname="x86" time="286202035" vertexname="IPM_Reverse"/>
+        <timing opname="x86" time="122063771" vertexname="PixelSel"/>
+        <timing opname="x86" time="6828204" vertexname="SubsampleU"/>
+        <timing opname="x86" time="79528569" vertexname="Display"/>
+        <timing opname="x86" time="19574930" vertexname="UpsampleU"/>
+        <timing opname="x86" time="6828204" vertexname="UpsampleV"/>
+        <timing opname="x86" time="6828204" vertexname="SubsampleV"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
     </timings>
     <simuParams>
