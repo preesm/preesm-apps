@@ -17,4 +17,4 @@ To launch PREESM on this tutorial:
 * Make sure all libraries are available: Pthread (>2.10.0), SDL 2.0, Spider
 * Use CMakeLists to generate your C project
 * Launch the execution
-* Check tutorials on http://preesm.sf.net for a more detailed tutorials
+* Check tutorials on http://preesm.github.io/ for a more detailed tutorials

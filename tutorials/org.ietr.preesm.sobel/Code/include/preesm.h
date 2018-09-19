@@ -13,13 +13,13 @@
 
 #define IN
 #define OUT
-
-#include "communication.h"
-#include "fifo.h"
-#include "dump.h"
+#define VERBOSE
 
 #include "yuvRead.h"
 #include "yuvDisplay.h"
+
+#include "sobel.h"
+#include "splitMerge.h"
 
 typedef unsigned char uchar;
 

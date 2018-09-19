@@ -11,9 +11,15 @@
 #ifndef PREESM_H
 #define PREESM_H
 
-#include "mac_barrier.h"
-
 #define IN
 #define OUT
+
+typedef unsigned char uchar;
+
+#include "yuvRead.h"
+#include "yuvDisplay.h"
+#include "sobel.h"
+#include "splitMerge.h"
+#include "morph.h"
 
 #endif

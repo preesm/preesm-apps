@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 # ************* CMake Content ***************
 # *******************************************
 # This CMake create a workspace containing the following projects
-# 
+#
 # Programs
 #  - stabilization
 
@@ -67,7 +67,7 @@ if (WIN32)
 		${SDL2DIR}/bin/*.dll
 		${SDL2DIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -101,7 +101,7 @@ if (WIN32)
 		${SDL2TTFDIR}/bin/*.dll
 		${SDL2TTFDIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL2_ttf DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -147,7 +147,7 @@ endif()
 # *******************************************
 # **************** stabilization.exe  ****************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -157,8 +157,8 @@ file(
 	./generated/*.c
 )
 
-list(REMOVE_ITEM 
-     source_files 
+list(REMOVE_ITEM
+     source_files
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 
@@ -172,21 +172,13 @@ file(
 	./include/*.h
 )
 
-list(REMOVE_ITEM 
-     source_files 
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/fifo.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/communication.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/memory.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/dump.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/fifo.h"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/communication.h"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/memory.h"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/dump.h"
+list(REMOVE_ITEM
+     source_files
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./generated/main.c"
 	 )
-	 
-list(APPEND  
-     source_files 
+
+list(APPEND
+     source_files
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 add_executable( stabilization-sequential ${source_files} ${header_files})

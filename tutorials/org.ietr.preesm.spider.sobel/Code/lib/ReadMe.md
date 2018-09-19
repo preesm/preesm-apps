@@ -18,7 +18,7 @@ The project compilation requires the following libraries:
 
 ## pthread 
 1. Download the pthread library:   
-   [pthread-w32-2-8-0-release.exe](ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-8-0-release.exe)
+   [pthread 2.10.0](https://preesm.github.io/assets/downloads/pthread-2.10.0.zip)
 2. Execute the downloaded executable to decompress its content in a temporary directory.
 3. Copy the content of the decompressed /Pre-built.2/ directory into a folder named exactly as follows:  
   ```/<project-path>/lib/pthread-2.8.0/```  
@@ -59,4 +59,4 @@ The project compilation requires the following libraries:
    where `<xx>` is replaced with your version number.
 
 ## Spider
-Follow steps listed in the [following tutorial](http://preesm.sourceforge.net/website/index.php?id=tuto-spider#4)
+Follow steps listed in the [following tutorial](https://preesm.github.io/tutos/spider/)

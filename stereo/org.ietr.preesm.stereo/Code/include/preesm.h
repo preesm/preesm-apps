@@ -18,4 +18,26 @@
 // FPS: number of frame between two FPS measures
 #define FPS 10
 
+typedef unsigned char uchar;
+
+#include "clock.h"
+
+#include "ppm.h"
+#include "displayRGB.h"
+#include "rgb2Gray.h"
+#include "census.h"
+#include "costConstruction.h"
+#include "disparityGen.h"
+#include "offsetGen.h"
+#include "aggregateCost.h"
+#include "computeWeights.h"
+#include "disparitySelect.h"
+#include "medianFilter.h"
+#include "splitMerge.h"
+#include "yuv2RGB.h"
+#include "yuvRead.h"
+
+#include "sink.h"
+
+
 #endif

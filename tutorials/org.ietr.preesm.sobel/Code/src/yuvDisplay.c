@@ -67,25 +67,22 @@ void yuvDisplayInit(int id, int width, int height)
 	if (height > DISPLAY_H)
 	{
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (id >= NB_DISPLAY)
 	{
 		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (display.currentXMin + width > DISPLAY_W)
 	{
 		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 
 
 #ifdef VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+	printf("SDL screen height OK, width OK, number of displays OK.\n");
 #endif
 
 	if (display.initialized == 0)

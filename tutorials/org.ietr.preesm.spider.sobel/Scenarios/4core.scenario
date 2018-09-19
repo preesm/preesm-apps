@@ -19,26 +19,26 @@
         <constraintGroup>
             <operator name="Core1"/>
             <task name="top_display/Merge"/>
-            <task name="top_display/Read_YUV"/>
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
+            <task name="top_display/nbSliceSetter"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
             <task name="top_display/Merge"/>
-            <task name="top_display/Read_YUV"/>
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
+            <task name="top_display/nbSliceSetter"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
             <task name="top_display/Merge"/>
-            <task name="top_display/Read_YUV"/>
             <task name="top_display"/>
             <task name="top_display/Split"/>
             <task name="top_display/Sobel"/>
+            <task name="top_display/nbSliceSetter"/>
         </constraintGroup>
     </constraints>
     <relativeconstraints excelUrl=""/>
@@ -66,4 +66,5 @@
         <parameter name="nbSlice" parent="top_display"
             type="ACTOR_DEPENDENT" value="[1]"/>
     </parameterValues>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

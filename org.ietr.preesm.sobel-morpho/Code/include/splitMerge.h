@@ -14,6 +14,11 @@
 
 #include "preesm.h"
 
+
+#include <string.h>
+#include <stdlib.h>
+
+
 /**
 * Function used to split an input image of size width*height into nbSlices
 * slices of size width*(height/nbSlice+2). It is the developper responsibility
@@ -26,7 +31,7 @@
 * @param height
 *        the height of the input image
 * @param overlap
-*        the number of pixel lines that overlaps between successive slices	
+*        the number of pixel lines that overlaps between successive slices
 * @param input
 *        the input image of size width*height
 * @param output

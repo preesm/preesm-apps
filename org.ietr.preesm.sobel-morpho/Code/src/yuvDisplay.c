@@ -16,7 +16,7 @@ Description : Displaying YUV frames one next to another in a row
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#define FPS_MEAN 50
+#define FPS_MEAN 5
 
 extern int stopThreads;
 
@@ -67,19 +67,25 @@ void yuvDisplayInit(int id, int width, int height)
 	if (height > DISPLAY_H)
 	{
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
-		system("PAUSE");
+#ifdef _WIN32
+        system("PAUSE");
+#endif
 		exit(1);
 	}
 	else if (id >= NB_DISPLAY)
 	{
 		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
-		system("PAUSE");
+#ifdef _WIN32
+        system("PAUSE");
+#endif
 		exit(1);
 	}
 	else if (display.currentXMin + width > DISPLAY_W)
 	{
 		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
+#ifdef _WIN32
 		system("PAUSE");
+#endif
 		exit(1);
 	}
 
@@ -113,6 +119,7 @@ void yuvDisplayInit(int id, int width, int height)
 		printf("TTF_Init\n");
 
 		/* Initialize Font for text display */
+		//display.text_font = TTF_OpenFont("./arial.ttf", 20);
 		display.text_font = TTF_OpenFont(PATH_TTF, 20);
 		if (!display.text_font)
 		{
@@ -154,7 +161,7 @@ void yuvDisplayInit(int id, int width, int height)
 
 	display.stampId = 0;
 	for (int i = 0; i<FPS_MEAN; i++){
-		startTiming(i+1);
+		startTiming(i + 1);
 	}
 
 	printf("register\n");
@@ -193,9 +200,9 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
 	char fps_text[20];
 	SDL_Color colorWhite = { 255, 255, 255, 255 };
 
-	int time = stopTiming(display.stampId +1);
+	int time = stopTiming(display.stampId + 1);
 	sprintf(fps_text, "FPS: %.2f", 1. / (time / 1000000. / FPS_MEAN));
-	startTiming(display.stampId +1);
+	startTiming(display.stampId + 1);
 	display.stampId = (display.stampId + 1) % FPS_MEAN;
 
 	SDL_Surface* fpsText = TTF_RenderText_Blended(display.text_font, fps_text, colorWhite);

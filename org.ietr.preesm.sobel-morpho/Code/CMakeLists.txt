@@ -66,7 +66,7 @@ if (WIN32)
 		${SDL2DIR}/bin/*.dll
 		${SDL2DIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -100,7 +100,7 @@ if (WIN32)
 		${SDL2TTFDIR}/bin/*.dll
 		${SDL2TTFDIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL2_ttf DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -146,7 +146,7 @@ endif()
 # *******************************************
 # **************** Sobel.exe  ****************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
@@ -157,5 +157,5 @@ file(
 )
 
 add_executable( sobel ${source_files} ${header_files})
-target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
 set(CMAKE_C_FLAGS "-std=c99")

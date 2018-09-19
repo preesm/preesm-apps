@@ -2,4 +2,4 @@
 
 The files in this folder are used when following the tutorial on generating code for the ZedBoard (with SDSoC). 
 
-You can find the directives at this URL : http://preesm.insa-rennes.fr/website/index.php?id=sdsoc-tuto
+You can find the directives at this URL : https://preesm.github.io/tutos/sdsoc/

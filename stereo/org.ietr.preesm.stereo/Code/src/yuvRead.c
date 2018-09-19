@@ -36,7 +36,6 @@ void initReadYUV(int id, int xSize, int ySize) {
     if((ptfile[id] = fopen(path[id], "rb")) == NULL )
     {
         fprintf(stderr,"ERROR: Task read cannot open yuv_file '%s'\n", path[id]);
-        system("PAUSE");
         return;
     }
 
@@ -73,7 +72,7 @@ void readYUV(int id, int xSize, int ySize, unsigned char *y, unsigned char *u, u
     if( ftell(ptfile[id])/(xSize*ySize + xSize*ySize/2) >=NB_FRAME){
         rewind(ptfile[id]);
     }
-	
+
 	if(id == 1 && ftell(ptfile[id])%(FPS*(xSize*ySize + xSize*ySize/2)) == 0){
 			unsigned int time = 0;
             time = stopTiming(0);
@@ -81,7 +80,10 @@ void readYUV(int id, int xSize, int ySize, unsigned char *y, unsigned char *u, u
             startTiming(0);
     }
 
-    fread(y, sizeof(char), xSize * ySize, ptfile[id]);
-    fread(u, sizeof(char), xSize * ySize / 4, ptfile[id]);
-    fread(v, sizeof(char), xSize * ySize / 4, ptfile[id]);
+    int res = fread(y, sizeof(char), xSize * ySize, ptfile[id]);
+    res += fread(u, sizeof(char), xSize * ySize / 4, ptfile[id]);
+    res += fread(v, sizeof(char), xSize * ySize / 4, ptfile[id]);
+    if (res <= 0) {
+    	printf("Error while reading input file\n");
+    }
 }
