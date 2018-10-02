@@ -7,7 +7,7 @@
     </files>
     <constraints excelUrl="">
         <constraintGroup>
-            <operator name="A7_0"/>
+            <operator name="A07_0"/>
             <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
@@ -63,7 +63,7 @@
             <task name="top"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_1"/>
+            <operator name="A07_1"/>
             <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
@@ -119,7 +119,7 @@
             <task name="top"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_2"/>
+            <operator name="A07_2"/>
             <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
@@ -175,7 +175,7 @@
             <task name="top"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_3"/>
+            <operator name="A07_3"/>
             <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
@@ -232,8 +232,6 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="A15_0"/>
-            <task name="top/Read"/>
-            <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
             <task name="top/brightnessV"/>
@@ -286,6 +284,8 @@
             <task name="top/ProcV/imgProcessing"/>
             <task name="top/ProcV"/>
             <task name="top"/>
+            <task name="top/RGB2YUV"/>
+            <task name="top/Read"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="A15_1"/>
@@ -459,7 +459,7 @@
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <timing opname="ARM_CortexA7" time="100" vertexname="RGB2YUV"/>
+        <timing opname="ARM_CortexA7" time="150" vertexname="RGB2YUV"/>
         <timing opname="ARM_CortexA15" time="100" vertexname="Sobel"/>
         <timing opname="ARM_CortexA15" time="400" vertexname="MedianFilter"/>
         <timing opname="ARM_CortexA7" time="960" vertexname="MedianFilter"/>
@@ -469,7 +469,7 @@
         <memcpyspeed opname="ARM_CortexA15" setuptime="1" timeperunit="1.0"/>
     </timings>
     <simuParams>
-        <mainCore>core0</mainCore>
+        <mainCore>A07_0</mainCore>
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
@@ -493,6 +493,10 @@
             <specialVertexOperator path="core5"/>
             <specialVertexOperator path="core6"/>
             <specialVertexOperator path="core7"/>
+            <specialVertexOperator path="A15_3"/>
+            <specialVertexOperator path="A15_2"/>
+            <specialVertexOperator path="A15_1"/>
+            <specialVertexOperator path="A15_0"/>
         </specialVertexOperators>
         <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>

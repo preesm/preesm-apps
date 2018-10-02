@@ -233,7 +233,7 @@
             <task name="top"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_0"/>
+            <operator name="A07_0"/>
             <task name="top/Read"/>
             <task name="top/RGB2YUV"/>
             <task name="top/YUVDisplay"/>
@@ -291,7 +291,7 @@
             <task name="top"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_1"/>
+            <operator name="A07_1"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
             <task name="top/brightnessV"/>
@@ -347,7 +347,7 @@
             <task name="top/RGB2YUV"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_2"/>
+            <operator name="A07_2"/>
             <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>
@@ -403,7 +403,7 @@
             <task name="top"/>
         </constraintGroup>
         <constraintGroup>
-            <operator name="A7_3"/>
+            <operator name="A07_3"/>
             <task name="top/RGB2YUV"/>
             <task name="top/brightnessY"/>
             <task name="top/BrightnessU"/>

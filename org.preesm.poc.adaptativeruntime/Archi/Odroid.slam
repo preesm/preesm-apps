@@ -6,25 +6,25 @@
     <spirit:version>1</spirit:version>
     <spirit:componentInstances>
         <spirit:componentInstance>
-            <spirit:instanceName>A7_0</spirit:instanceName>
+            <spirit:instanceName>A07_0</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>A7_1</spirit:instanceName>
+            <spirit:instanceName>A07_1</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>A7_2</spirit:instanceName>
+            <spirit:instanceName>A07_2</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>A7_3</spirit:instanceName>
+            <spirit:instanceName>A07_3</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
@@ -63,22 +63,22 @@
     <spirit:interconnections>
         <spirit:interconnection>
             <spirit:name>core0|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A7_0"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_0"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>core1|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A7_1"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_1"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>core2|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A7_2"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_2"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>core3|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A7_3"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_3"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
