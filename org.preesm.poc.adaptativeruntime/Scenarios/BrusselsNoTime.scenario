@@ -2,7 +2,7 @@
 <scenario>
     <files>
         <algorithm url="/org.preesm.poc.adaptativeruntime/Algo/top.pi"/>
-        <architecture url="\org.preesm.poc.adaptativeruntime\Archi\Odroid.slam"/>
+        <architecture url="/org.preesm.poc.adaptativeruntime/Archi/Odroid.slam"/>
         <codegenDirectory url="/org.preesm.poc.adaptativeruntime/Code/generated"/>
     </files>
     <constraints excelUrl="">
@@ -465,7 +465,7 @@
         <memcpyspeed opname="ARM_CortexA15" setuptime="1" timeperunit="1.0"/>
     </timings>
     <simuParams>
-        <mainCore>core0</mainCore>
+        <mainCore>A07_0</mainCore>
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>

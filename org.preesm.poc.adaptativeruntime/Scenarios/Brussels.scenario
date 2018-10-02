@@ -2,7 +2,7 @@
 <scenario>
     <files>
         <algorithm url="/org.preesm.poc.adaptativeruntime/Algo/top.pi"/>
-        <architecture url="\org.preesm.poc.adaptativeruntime\Archi\Odroid.slam"/>
+        <architecture url="/org.preesm.poc.adaptativeruntime/Archi/Odroid.slam"/>
         <codegenDirectory url="/org.preesm.poc.adaptativeruntime/Code/generated"/>
     </files>
     <constraints excelUrl="">
