@@ -258,16 +258,16 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y,
 	char wtext[40];
 
 
-	sprintf(wtext, "%1.2f", a15w);
+	sprintf(wtext, "%1.2f W", a15w);
 	displayText("A15:", 4, 22);
 	displayText(wtext, 55, 22);
-	sprintf(wtext, "%1.2f", a7w);
+	sprintf(wtext, "%1.2f W", a7w);
 	displayText("A7:", 4, 42);
 	displayText(wtext, 55, 42);
 
 	float t = (time / 1000000.0 / FPS_MEAN);
-	displayText("J:", 4, 62);
-	sprintf(wtext,"%1.2f", (a15w + a7w) * t);
+	displayText("E:", 4, 62);
+	sprintf(wtext,"%1.2f J", (a15w + a7w) * t);
 	displayText(wtext, 55, 62);
 	//printf("A15: %f A7: %f\n", a15w, a7w);
 
