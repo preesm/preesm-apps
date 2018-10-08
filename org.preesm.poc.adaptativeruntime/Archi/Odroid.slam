@@ -6,49 +6,49 @@
     <spirit:version>1</spirit:version>
     <spirit:componentInstances>
         <spirit:componentInstance>
-            <spirit:instanceName>core0</spirit:instanceName>
+            <spirit:instanceName>A07_0</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core1</spirit:instanceName>
+            <spirit:instanceName>A07_1</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core2</spirit:instanceName>
+            <spirit:instanceName>A07_2</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core3</spirit:instanceName>
+            <spirit:instanceName>A07_3</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA7" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core4</spirit:instanceName>
+            <spirit:instanceName>A15_0</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core5</spirit:instanceName>
+            <spirit:instanceName>A15_1</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core6</spirit:instanceName>
+            <spirit:instanceName>A15_2</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>core7</spirit:instanceName>
+            <spirit:instanceName>A15_3</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="ARM_CortexA15" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
@@ -63,43 +63,43 @@
     <spirit:interconnections>
         <spirit:interconnection>
             <spirit:name>core0|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core0"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_0"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>core1|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core1"/>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
-        </spirit:interconnection>
-        <spirit:interconnection>
-            <spirit:name>core6|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core6"/>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
-        </spirit:interconnection>
-        <spirit:interconnection>
-            <spirit:name>core7|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core7"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_1"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>core2|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core2"/>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
-        </spirit:interconnection>
-        <spirit:interconnection>
-            <spirit:name>core5|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core5"/>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
-        </spirit:interconnection>
-        <spirit:interconnection>
-            <spirit:name>core4|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core4"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_2"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>core3|shared_mem|shared_mem|shared_mem</spirit:name>
-            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="core3"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A07_3"/>
             <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>shared_mem|shared_mem|A15_0|shared_mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A15_0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>shared_mem|shared_mem|A15_1|shared_mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A15_1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>shared_mem|shared_mem|A15_2|shared_mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A15_2"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>shared_mem|shared_mem|A15_3|shared_mem</spirit:name>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="shared_mem"/>
+            <spirit:activeInterface spirit:busRef="shared_mem" spirit:componentRef="A15_3"/>
         </spirit:interconnection>
     </spirit:interconnections>
     <spirit:hierConnections/>
@@ -118,17 +118,17 @@
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="core1|shared_mem|shared_mem|shared_mem"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="core6|shared_mem|shared_mem|shared_mem"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="core7|shared_mem|shared_mem|shared_mem"/>
-            <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="core2|shared_mem|shared_mem|shared_mem"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="core5|shared_mem|shared_mem|shared_mem"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="core4|shared_mem|shared_mem|shared_mem"/>
-            <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="core3|shared_mem|shared_mem|shared_mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="shared_mem|shared_mem|A15_0|shared_mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="shared_mem|shared_mem|A15_1|shared_mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="shared_mem|shared_mem|A15_2|shared_mem"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="shared_mem|shared_mem|A15_3|shared_mem"/>
         </slam:linkDescriptions>
         <slam:designDescription xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:parameters/>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">imgProcessing</data>
+        <node id="height" kind="cfg_in_iface"/>
+        <node id="width" kind="cfg_in_iface"/>
+        <node expr="4" id="nbSlice" kind="param"/>
+        <node expr="4" id="overlap" kind="param"/>
+        <node expr="filterHeight-2*filterBorderSize" id="sobelHeight" kind="param"/>
+        <node expr="height/nbSlice+2*overlap" id="filterHeight" kind="param"/>
+        <node expr="5" id="filterSize" kind="param"/>
+        <node expr="2" id="filterBorderSize" kind="param"/>
+        <node id="decision" kind="cfg_in_iface"/>
+        <node id="background" kind="cfg_in_iface"/>
+        <node expr="sobelHeight-2" id="medianHeight" kind="param"/>
+        <node id="in" kind="src">
+            <port annotation="NONE" expr="height*width*decision"
+                kind="output" name="in"/>
+        </node>
+        <node id="out" kind="snk">
+            <port annotation="NONE" expr="height*width*decision"
+                kind="input" name="out"/>
+        </node>
+        <node id="Sobel" kind="actor">
+            <data key="graph_desc">Code/include/sobel.h</data>
+            <loop name="sobel">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="background" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*(height-2)"
+                kind="output" name="output"/>
+        </node>
+        <node id="split" kind="actor">
+            <data key="graph_desc">Code/include/splitMerge.h</data>
+            <loop name="split">
+                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="overlap" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="overlap"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="nbSlice*width*(height/nbSlice+2*overlap)"
+                kind="output" name="output"/>
+        </node>
+        <node id="filter" kind="actor">
+            <data key="graph_desc">Code/include/filter.h</data>
+            <loop name="filter">
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="filterSize" type="int"/>
+                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="coefficients" type="char "/>
+                <param direction="IN" isConfig="false" name="norm" type="int "/>
+                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="filterSize"/>
+            <port kind="cfg_input" name="borderSize"/>
+            <port annotation="NONE" expr="filterSize*filterSize"
+                kind="input" name="coefficients"/>
+            <port annotation="NONE" expr="1" kind="input" name="norm"/>
+            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*(height-2*borderSize)"
+                kind="output" name="output"/>
+        </node>
+        <node id="coeff" kind="actor">
+            <data key="graph_desc">Code/include/coefficients.h</data>
+            <loop name="setCoefficients">
+                <param direction="OUT" isConfig="false"
+                    name="coefficients" type="char "/>
+                <param direction="OUT" isConfig="false" name="norm" type="int "/>
+            </loop>
+            <port kind="cfg_input" name="filterSize"/>
+            <port annotation="NONE" expr="filterSize*filterSize"
+                kind="output" name="coefficients"/>
+            <port annotation="NONE" expr="1" kind="output" name="norm"/>
+        </node>
+        <node id="MedianFilter" kind="actor">
+            <data key="graph_desc">Code/include/medianFilter.h</data>
+            <loop name="medianFilter">
+                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="width" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="rawDisparity" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="filteredDisparity" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="NONE" expr="height*width" kind="input" name="rawDisparity"/>
+            <port annotation="NONE" expr="width*(height-2)"
+                kind="output" name="filteredDisparity"/>
+        </node>
+        <edge kind="fifo" source="in" sourceport="in" target="split"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Sobel" sourceport="output"
+            target="MedianFilter" targetport="rawDisparity" type="uchar"/>
+        <edge kind="fifo" source="split" sourceport="output"
+            target="filter" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="filter" sourceport="output"
+            target="Sobel" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="coeff" sourceport="coefficients"
+            target="filter" targetport="coefficients" type="char"/>
+        <edge kind="fifo" source="coeff" sourceport="norm"
+            target="filter" targetport="norm" type="int"/>
+        <edge kind="fifo" source="MedianFilter"
+            sourceport="filteredDisparity" target="out" targetport="out" type="uchar"/>
+        <edge kind="dependency" source="width" target="in"/>
+        <edge kind="dependency" source="height" target="in"/>
+        <edge kind="dependency" source="height" target="out"/>
+        <edge kind="dependency" source="width" target="out"/>
+        <edge kind="dependency" source="width" target="Sobel" targetport="width"/>
+        <edge kind="dependency" source="width" target="split" targetport="width"/>
+        <edge kind="dependency" source="height" target="split" targetport="height"/>
+        <edge kind="dependency" source="nbSlice" target="split" targetport="nbSlice"/>
+        <edge kind="dependency" source="overlap" target="split" targetport="overlap"/>
+        <edge kind="dependency" source="height" target="sobelHeight"/>
+        <edge kind="dependency" source="overlap" target="sobelHeight"/>
+        <edge kind="dependency" source="nbSlice" target="sobelHeight"/>
+        <edge kind="dependency" source="sobelHeight" target="Sobel" targetport="height"/>
+        <edge kind="dependency" source="width" target="filter" targetport="width"/>
+        <edge kind="dependency" source="nbSlice" target="filterHeight"/>
+        <edge kind="dependency" source="overlap" target="filterHeight"/>
+        <edge kind="dependency" source="height" target="filterHeight"/>
+        <edge kind="dependency" source="filterHeight" target="filter" targetport="height"/>
+        <edge kind="dependency" source="filterSize" target="filter" targetport="filterSize"/>
+        <edge kind="dependency" source="filterSize" target="coeff" targetport="filterSize"/>
+        <edge kind="dependency" source="filterBorderSize"
+            target="filter" targetport="borderSize"/>
+        <edge kind="dependency" source="filterBorderSize" target="sobelHeight"/>
+        <edge kind="dependency" source="decision" target="in"/>
+        <edge kind="dependency" source="decision" target="out"/>
+        <edge kind="dependency" source="background" target="Sobel" targetport="background"/>
+        <edge kind="dependency" source="medianHeight"
+            target="MedianFilter" targetport="height"/>
+        <edge kind="dependency" source="width" target="MedianFilter" targetport="width"/>
+        <edge kind="dependency" source="sobelHeight" target="medianHeight"/>
+        <edge kind="dependency" source="filterHeight" target="sobelHeight"/>
+    </graph>
+</graphml>

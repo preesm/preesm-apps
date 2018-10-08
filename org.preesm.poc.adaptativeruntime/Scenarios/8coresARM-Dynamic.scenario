@@ -11,7 +11,6 @@
             <task name="topDynamic/Read"/>
             <task name="topDynamic/ComputeBrightnessAndFW"/>
             <task name="topDynamic/DDD/ReadImage"/>
-            <task name="topDynamic/DDD/DisplayBlur"/>
             <task name="topDynamic/DDD/Brightness"/>
             <task name="topDynamic/DDD/ConfigActor"/>
             <task name="topDynamic/DDD/blur"/>
@@ -30,6 +29,7 @@
             <task name="topDynamic"/>
             <task name="topDynamic/DDD/Fork"/>
             <task name="topDynamic/DDD/Join"/>
+            <task name="topDynamic/DDD/DisplayRGB"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="core1"/>
@@ -139,7 +139,11 @@
     </constraints>
     <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
+        <timing opname="ARM_CortexA15" time="10" vertexname="Sobel_1"/>
+        <timing opname="ARM_CortexA15" time="10" vertexname="Sobel_0"/>
+        <timing opname="ARM_CortexA15" time="10" vertexname="Sobel"/>
         <memcpyspeed opname="ARM_CortexA7" setuptime="1" timeperunit="1.0"/>
+        <memcpyspeed opname="ARM_CortexA15" setuptime="1" timeperunit="1.0"/>
     </timings>
     <simuParams>
         <mainCore>core0</mainCore>
@@ -164,4 +168,5 @@
     <parameterValues>
         <parameter name="decision" parent="DDD" type="ACTOR_DEPENDENT" value="[1]"/>
     </parameterValues>
+    <papifyConfigs xmlUrl=""/>
 </scenario>
