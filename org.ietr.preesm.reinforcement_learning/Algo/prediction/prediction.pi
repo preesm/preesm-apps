@@ -11,7 +11,7 @@
         <node expr="3" id="state_space_size" kind="param"/>
         <node expr="1" id="action_space_size" kind="param"/>
         <node expr="2" id="state_angular_size" kind="param"/>
-        <node id="Environment" kind="actor">
+        <node id="Environment" kind="actor" period="0">
             <data key="graph_desc">Code/include/environment.h</data>
             <loop name="step_noreward">
                 <param direction="IN" isConfig="true"
@@ -41,7 +41,7 @@
             <port annotation="NONE" expr="state_angular_size"
                 kind="output" name="state_angular_out"/>
         </node>
-        <node id="Actor_MLP" kind="actor">
+        <node id="Actor_MLP" kind="actor" period="0">
             <data key="graph_desc">Algo/prediction/actor_mlp.pi</data>
             <port kind="cfg_input" name="state_space_size"/>
             <port kind="cfg_input" name="action_space_size"/>
@@ -49,7 +49,7 @@
             <port annotation="NONE" expr="action_space_size"
                 kind="output" name="action"/>
         </node>
-        <node id="renderEnv" kind="actor">
+        <node id="renderEnv" kind="actor" period="0">
             <data key="graph_desc">Code/include/render.h</data>
             <loop name="renderEnv">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
@@ -65,24 +65,39 @@
             <port annotation="NONE" expr="size" kind="output" name="state_out0"/>
             <port annotation="NONE" expr="size" kind="output" name="state_out1"/>
         </node>
+        <node expr="state_space_size" getter=""
+            id="delay_Environment_state_observation__Actor_MLP_state"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="state_space_size" kind="input" name="set"/>
+            <port annotation="NONE" expr="state_space_size"
+                kind="output" name="get"/>
+        </node>
+        <node expr="state_angular_size" getter=""
+            id="delay_broadcastState_state_out1__Environment_state_angular_in"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="state_angular_size"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="state_angular_size"
+                kind="output" name="get"/>
+        </node>
+        <edge expr="state_space_size" kind="fifo" source="Environment"
+            sourceport="state_observation" target="Actor_MLP"
+            targetport="state" type="float">
+            <data key="delay">delay_Environment_state_observation__Actor_MLP_state</data>
+        </edge>
+        <edge expr="state_angular_size" kind="fifo"
+            source="broadcastState" sourceport="state_out1"
+            target="Environment" targetport="state_angular_in" type="float">
+            <data key="delay">delay_broadcastState_state_out1__Environment_state_angular_in</data>
+        </edge>
         <edge kind="fifo" source="Actor_MLP" sourceport="action"
             target="Environment" targetport="input_actions" type="float"/>
         <edge kind="fifo" source="broadcastState"
             sourceport="state_out0" target="renderEnv"
             targetport="state" type="float"/>
-        <edge expr="state_space_size" kind="fifo" source="Environment"
-            sourceport="state_observation" target="Actor_MLP"
-            targetport="state" type="float">
-            <data key="delay"/>
-        </edge>
         <edge kind="fifo" source="Environment"
             sourceport="state_angular_out" target="broadcastState"
             targetport="state" type="float"/>
-        <edge expr="state_angular_size" kind="fifo"
-            source="broadcastState" sourceport="state_out1"
-            target="Environment" targetport="state_angular_in" type="float">
-            <data key="delay"/>
-        </edge>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="state_space_size"

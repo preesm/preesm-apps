@@ -16,7 +16,7 @@
         <node id="input" kind="src">
             <port annotation="NONE" expr="input_size" kind="output" name="input"/>
         </node>
-        <node id="weights_hidden" kind="actor">
+        <node id="weights_hidden" kind="actor" period="0">
             <data key="graph_desc">Algo/prediction/weight_generator.pi</data>
             <port kind="cfg_input" name="layer_size"/>
             <port kind="cfg_input" name="input_size"/>
@@ -24,7 +24,7 @@
                 kind="output" name="weights_out"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="bias_out"/>
         </node>
-        <node id="Hidden_layer" kind="actor">
+        <node id="Hidden_layer" kind="actor" period="0">
             <data key="graph_desc">Algo/common/neuron.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
@@ -35,7 +35,7 @@
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
-        <node id="Output_layer" kind="actor">
+        <node id="Output_layer" kind="actor" period="0">
             <data key="graph_desc">Algo/common/neuron.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="layer_size"/>
@@ -46,7 +46,7 @@
             <port annotation="NONE" expr="layer_size" kind="input" name="bias_values"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="output"/>
         </node>
-        <node id="weights_output" kind="actor">
+        <node id="weights_output" kind="actor" period="0">
             <data key="graph_desc">Algo/prediction/weight_generator.pi</data>
             <port kind="cfg_input" name="layer_size"/>
             <port kind="cfg_input" name="input_size"/>
@@ -54,7 +54,7 @@
                 kind="output" name="weights_out"/>
             <port annotation="NONE" expr="layer_size" kind="output" name="bias_out"/>
         </node>
-        <node id="activationFunction" kind="actor">
+        <node id="activationFunction" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="activateTanHyperbolic">
                 <param direction="IN" isConfig="false" name="input" type="float "/>
@@ -72,7 +72,7 @@
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
             <port annotation="NONE" expr="1" kind="output" name="out_2"/>
         </node>
-        <node id="valid" kind="actor">
+        <node id="valid" kind="actor" period="0">
             <data key="graph_desc">Code/include/common.h</data>
             <loop name="valid">
                 <param direction="OUT" isConfig="false" name="valid" type="int "/>

@@ -18,7 +18,7 @@
             <port annotation="NONE" expr="action_space_size"
                 kind="input" name="action"/>
         </node>
-        <node id="action_predictor" kind="actor">
+        <node id="action_predictor" kind="actor" period="0">
             <data key="graph_desc">Algo/prediction/mlp.pi</data>
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="output_size"/>
