@@ -16,7 +16,7 @@ Description : Displaying YUV frames one next to another in a row
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#define FPS_MEAN 50
+#define FPS_MEAN 49
 
 extern int stopThreads;
 
