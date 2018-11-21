@@ -26,17 +26,26 @@ extern int stopThreads;
 static int render = 0;
 
 int exitCallBack(void* userdata, SDL_Event* event){
-  if (event->type == SDL_MOUSEBUTTONDOWN) {
-    printf("Toggle rendering.\n");
-    render ^= 1;
-    return 0;
-  }
-  if (event->type == SDL_QUIT) {
-    printf("Exit request from GUI.\n");
-    stopThreads = 1;
-    return 0;
-  }
-  return 1;
+    if (event->type == SDL_QUIT) {
+        fprintf(stderr, "What action do you wish to perform ?\n");
+        fprintf(stderr, "\t- Quit (q)\n");
+        fprintf(stderr, "\t- Toggle rendering (r)\n");
+        fprintf(stderr, "answer: \n");
+        char ans = (char)getchar();
+        // Clear stdin buffer
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+        if (ans == 'r') {
+            render ^= 1;
+        } else if (ans == 'q') {
+            printf("Exit request from GUI.\n");
+            stopThreads = 1;
+            return 0;
+        }
+        return 1;
+    }
+
+    return 1;
 }
 
 typedef struct sdlDisplay {
@@ -112,7 +121,6 @@ void renderInit(void) {
 
     fprintf(stderr, "register exit callback\n");
     SDL_SetEventFilter(exitCallBack, NULL);
-    printf("Click with the mouse to toggle rendering.\n");
 }
 
 void renderEnv(int size, float *state) {
