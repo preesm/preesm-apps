@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <critic_mlp.h>
 #include <memory.h>
+#include <string.h>
 
 #define CACLA_train
 int stopThreads = 0;
@@ -386,9 +387,6 @@ int main(void) {
     // Exit render
     renderFinalize();
 
-    // Waiting for the user to end the procedure
-    printf("Press any key to stop application\n");
-    getchar();
     exit(0);
 }
 
@@ -457,10 +455,6 @@ int main(void) {
     // Exit render
     renderFinalize();
 
-    // Waiting for the user to end the procedure
-    printf("Press any key to stop application\n");
-    getchar();
-    exit(0);
 }
 #elif defined(BENCH)
 
