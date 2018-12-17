@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">convolution2D</data>
+        <node id="stride" kind="cfg_in_iface"/>
+        <node id="depthInput" kind="cfg_in_iface"/>
+        <node id="depthOutput" kind="cfg_in_iface"/>
+        <node id="widthOutput" kind="cfg_in_iface"/>
+        <node id="widthInput" kind="cfg_in_iface"/>
+        <node id="heightOutput" kind="cfg_in_iface"/>
+        <node id="heightInput" kind="cfg_in_iface"/>
+        <node id="sizeKernel" kind="cfg_in_iface"/>
+        <node id="out" kind="snk">
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depthOutput"
+                kind="input" name="out"/>
+        </node>
+        <node id="in" kind="src">
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depthInput"
+                kind="output" name="in"/>
+        </node>
+        <node id="weights" kind="src">
+            <port annotation="NONE"
+                expr="sizeKernel * sizeKernel * depthOutput * depthInput"
+                kind="output" name="weights"/>
+        </node>
+        <node id="bias" kind="src">
+            <port annotation="NONE" expr="depthOutput" kind="output" name="bias"/>
+        </node>
+        <node id="convolution2D" kind="actor" period="0">
+            <data key="graph_desc">Code/include/convolution.h</data>
+            <loop name="convolution2DPaddingSame">
+                <param direction="IN" isConfig="true" name="widthInput" type="int"/>
+                <param direction="IN" isConfig="true" name="heightInput" type="int"/>
+                <param direction="IN" isConfig="true" name="depthInput" type="int"/>
+                <param direction="IN" isConfig="true" name="widthOutput" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="heightOutput" type="int"/>
+                <param direction="IN" isConfig="true" name="sizeKernel" type="int"/>
+                <param direction="IN" isConfig="true" name="stride" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="IN" isConfig="false" name="weights" type="float "/>
+                <param direction="IN" isConfig="false" name="bias" type="float "/>
+                <param direction="OUT" isConfig="false" name="out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port kind="cfg_input" name="stride"/>
+            <port kind="cfg_input" name="sizeKernel"/>
+            <port annotation="NONE" expr="1" kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depthInput"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="sizeKernel * sizeKernel * depthInput" kind="input" name="weights"/>
+            <port annotation="NONE" expr="widthOutput * heightOutput"
+                kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="convolution2D" sourceport="out"
+            target="out" targetport="out" type="float"/>
+        <edge kind="fifo" source="in" sourceport="in"
+            target="convolution2D" targetport="input" type="float"/>
+        <edge kind="fifo" source="weights" sourceport="weights"
+            target="convolution2D" targetport="weights" type="float"/>
+        <edge kind="fifo" source="bias" sourceport="bias"
+            target="convolution2D" targetport="bias" type="float"/>
+        <edge kind="dependency" source="widthOutput"
+            target="convolution2D" targetport="widthOutput"/>
+        <edge kind="dependency" source="heightOutput"
+            target="convolution2D" targetport="heightOutput"/>
+        <edge kind="dependency" source="widthOutput" target="out"/>
+        <edge kind="dependency" source="heightOutput" target="out"/>
+        <edge kind="dependency" source="depthOutput" target="out"/>
+        <edge kind="dependency" source="depthInput" target="in"/>
+        <edge kind="dependency" source="widthInput" target="in"/>
+        <edge kind="dependency" source="heightInput" target="in"/>
+        <edge kind="dependency" source="depthInput"
+            target="convolution2D" targetport="depthInput"/>
+        <edge kind="dependency" source="widthInput"
+            target="convolution2D" targetport="widthInput"/>
+        <edge kind="dependency" source="heightInput"
+            target="convolution2D" targetport="heightInput"/>
+        <edge kind="dependency" source="stride" target="convolution2D" targetport="stride"/>
+        <edge kind="dependency" source="sizeKernel"
+            target="convolution2D" targetport="sizeKernel"/>
+        <edge kind="dependency" source="sizeKernel" target="weights"/>
+        <edge kind="dependency" source="depthOutput" target="weights"/>
+        <edge kind="dependency" source="depthInput" target="weights"/>
+        <edge kind="dependency" source="depthOutput" target="bias"/>
+    </graph>
+</graphml>

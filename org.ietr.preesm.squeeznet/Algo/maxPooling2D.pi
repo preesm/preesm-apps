@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">maxPooling2D</data>
+        <node id="poolHeight" kind="cfg_in_iface"/>
+        <node id="depth" kind="cfg_in_iface"/>
+        <node id="widthInput" kind="cfg_in_iface"/>
+        <node id="heightInput" kind="cfg_in_iface"/>
+        <node id="poolWidth" kind="cfg_in_iface"/>
+        <node id="heightOutput" kind="cfg_in_iface"/>
+        <node id="widthOutput" kind="cfg_in_iface"/>
+        <node id="stride" kind="cfg_in_iface"/>
+        <node id="maxPool2D" kind="actor" period="0">
+            <data key="graph_desc">Code/include/convolution.h</data>
+            <loop name="maxPooling2D">
+                <param direction="IN" isConfig="true" name="widthInput" type="int"/>
+                <param direction="IN" isConfig="true" name="heightInput" type="int"/>
+                <param direction="IN" isConfig="true" name="depth" type="int"/>
+                <param direction="IN" isConfig="true" name="widthOutput" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="heightOutput" type="int"/>
+                <param direction="IN" isConfig="true" name="poolWidth" type="int"/>
+                <param direction="IN" isConfig="true" name="poolHeight" type="int"/>
+                <param direction="IN" isConfig="true" name="stride" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="OUT" isConfig="false" name="out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port kind="cfg_input" name="depth"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="poolWidth"/>
+            <port kind="cfg_input" name="poolHeight"/>
+            <port kind="cfg_input" name="stride"/>
+            <port annotation="NONE" expr="widthInput * heightInput"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="widthOutput * heightOutput"
+                kind="output" name="out"/>
+        </node>
+        <node id="out" kind="snk">
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depth" kind="input" name="out"/>
+        </node>
+        <node id="input" kind="src">
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depth" kind="output" name="input"/>
+        </node>
+        <edge kind="fifo" source="maxPool2D" sourceport="out"
+            target="out" targetport="out" type="float"/>
+        <edge kind="fifo" source="input" sourceport="input"
+            target="maxPool2D" targetport="input" type="float"/>
+        <edge kind="dependency" source="poolHeight" target="maxPool2D" targetport="poolHeight"/>
+        <edge kind="dependency" source="poolWidth" target="maxPool2D" targetport="poolWidth"/>
+        <edge kind="dependency" source="depth" target="maxPool2D" targetport="depth"/>
+        <edge kind="dependency" source="heightInput" target="maxPool2D" targetport="heightInput"/>
+        <edge kind="dependency" source="heightOutput" target="maxPool2D" targetport="heightOutput"/>
+        <edge kind="dependency" source="widthInput" target="maxPool2D" targetport="widthInput"/>
+        <edge kind="dependency" source="widthOutput" target="maxPool2D" targetport="widthOutput"/>
+        <edge kind="dependency" source="stride" target="maxPool2D" targetport="stride"/>
+        <edge kind="dependency" source="widthOutput" target="out"/>
+        <edge kind="dependency" source="heightOutput" target="out"/>
+        <edge kind="dependency" source="depth" target="out"/>
+        <edge kind="dependency" source="heightInput" target="input"/>
+        <edge kind="dependency" source="widthInput" target="input"/>
+        <edge kind="dependency" source="depth" target="input"/>
+    </graph>
+</graphml>
