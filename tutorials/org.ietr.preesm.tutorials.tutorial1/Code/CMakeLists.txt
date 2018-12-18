@@ -84,6 +84,7 @@ file(
 	./src/*.c
 	./src/*.h
 	./generated/*.c
+	./generated/*.h
 	./include/*.h
 )
 
