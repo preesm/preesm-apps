@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <common.h>
-#include "convolution.h"
+#include <convolution.h>
 
 static inline float activationReLU(float x) {
     return x > 0 ? x : 0;
@@ -15,141 +15,9 @@ static inline float activationLinear(float x) {
     return x;
 }
 
-static float
-convolutionFilterNoPadding(const float *input, int x, int y, int input_width, const float *weights, int filter_size,
-                           int padding_size) {
-    float value = 0;
-    for (int j = 0; j < filter_size; ++j) {
-        for (int i = 0; i < filter_size; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[(i) + (j) * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterLeftPadding(const float *input, int x, int y, int input_width, const float *weights, int filter_size,
-                             int padding_size) {
-    float value = 0;
-    int padding_offset = padding_size - x;
-    for (int j = 0; j < filter_size; ++j) {
-        for (int i = 0; i < filter_size - padding_offset; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[(i + padding_offset) + j * filter_size];
-        }
-    }
-    return value;
-}
-
-
-static float
-convolutionFilterRightPadding(const float *input, int x, int y, int input_width, const float *weights, int filter_size,
-                             int padding_size) {
-    float value = 0;
-    for (int j = 0; j < filter_size; ++j) {
-        for (int i = 0; i < filter_size - padding_size; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[i + j * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterTopPadding(const float *input, int x, int y, int input_width, const float *weights,
-                            int filter_size,
-                            int padding_size) {
-    float value = 0;
-    int padding_offset = padding_size - y;
-    for (int j = 0; j < filter_size - padding_offset; ++j) {
-        for (int i = 0; i < filter_size; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[i + (j + padding_offset) * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterTopLeftPadding(const float *input, int x, int y, int input_width, const float *weights,
-                                int filter_size,
-                                int padding_size) {
-    float value = 0;
-    int padding_offset_x = padding_size - x;
-    int padding_offset_y = padding_size - y;
-    for (int j = 0; j < filter_size - padding_offset_y; ++j) {
-        for (int i = 0; i < filter_size - padding_offset_x; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[(i + padding_offset_x) + (j + padding_offset_y) * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterTopRightPadding(const float *input, int x, int y, int input_width, const float *weights,
-                                int filter_size,
-                                int padding_size) {
-    float value = 0;
-    int padding_offset_y = padding_size - y;
-    for (int j = 0; j < filter_size - padding_offset_y; ++j) {
-        for (int i = 0; i < filter_size - padding_size; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[i + (j + padding_offset_y) * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterBottomPadding(const float *input, int x, int y, int input_width, const float *weights,
-                            int filter_size,
-                            int padding_size) {
-    float value = 0;
-    for (int j = 0; j < filter_size - padding_size; ++j) {
-        for (int i = 0; i < filter_size; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[i + j * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterBottomLeftPadding(const float *input, int x, int y, int input_width, const float *weights,
-                                int filter_size,
-                                int padding_size) {
-    float value = 0;
-    int padding_offset_x = padding_size - x;
-    for (int j = 0; j < filter_size - padding_size; ++j) {
-        for (int i = 0; i < filter_size - padding_offset_x; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[(i + padding_offset_x) + j * filter_size];
-        }
-    }
-    return value;
-}
-
-static float
-convolutionFilterBottomRightPadding(const float *input, int x, int y, int input_width, const float *weights,
-                                 int filter_size,
-                                 int padding_size) {
-    float value = 0;
-    for (int j = 0; j < filter_size - padding_size; ++j) {
-        for (int i = 0; i < filter_size - padding_size; ++i) {
-            value += input[(x + i) + (y + j) * input_width] *
-                     weights[i + j * filter_size];
-        }
-    }
-    return value;
-}
-
-
-
-int maxPooling2D(IN int widthInput, IN int heightInput, IN int depth, 
-                 IN int widthOutput, IN int heightOutput, 
-                 IN int poolWidth, IN int poolHeight, IN int stride, 
+int maxPooling2D(IN int widthInput, IN int heightInput,
+                 IN int widthOutput, IN int heightOutput,
+                 IN int poolWidth, IN int poolHeight, IN int stride,
                  IN float *input, OUT float *out) {
     if (!input || !out) {
         fprintf(stderr, "ERROR: Null pointer passed as input.\n");
@@ -190,8 +58,8 @@ int maxPooling2D(IN int widthInput, IN int heightInput, IN int depth,
 
 
 int averagePooling2D(IN int widthInput, IN int heightInput,
-                     IN int widthOutput, IN int heightOutput, 
-                     IN int averageWidth, IN int averageHeight, 
+                     IN int widthOutput, IN int heightOutput,
+                     IN int avgWidth, IN int avgHeight,
                      IN float *input, OUT float *out) {
     if (!input || !out) {
         fprintf(stderr, "ERROR: Null pointer passed as input.\n");
@@ -210,14 +78,14 @@ int averagePooling2D(IN int widthInput, IN int heightInput,
     }
 
     /* Going though input / output layer channels */
-    float averageFactor = averageWidth * averageHeight;
+    float averageFactor = avgWidth * avgHeight;
     for (int y = 0; y < heightOutput; ++y) {
         for (int x = 0; x < widthOutput; ++x) {
             int currentOutputPixel = x + y * widthOutput;
             out[currentOutputPixel] = 0.f;
             /* Averaging over the kernel size */
-            for (int aj = 0; aj < averageHeight; ++aj) {
-                for (int ai = 0; ai < averageWidth; ++ai) {
+            for (int aj = 0; aj < avgHeight; ++aj) {
+                for (int ai = 0; ai < avgWidth; ++ai) {
                     out[currentOutputPixel] += input[ai + aj * widthInput];
                 }
             }
@@ -250,11 +118,11 @@ int softmaxActivation(IN int size, IN float *input, OUT double *output) {
 }
 
 
-void convolution2DPaddingSame(IN int widthInput, IN int heightInput, IN int depthInput, 
-                              IN int widthOutput, IN int heightOutput,
-                              IN int sizeKernel, IN int stride, 
-                              IN float *input, IN float *weights, IN float *bias, 
-                              OUT float *out) {
+void convolution2D(IN int widthInput, IN int heightInput, IN int depthInput,
+                   IN int widthOutput, IN int heightOutput,
+                   IN int sizeKernel, IN int stride,
+                   IN float *input, IN float *weights, IN float *bias,
+                   OUT float *out) {
     /* Offset between the different filter kernels */
     long weightsOffset = sizeKernel * sizeKernel;
     /* Offset between the different channel of the input layer */
@@ -268,36 +136,18 @@ void convolution2DPaddingSame(IN int widthInput, IN int heightInput, IN int dept
     int iStart = paddingLeftNeeded ? -paddingSize : 0;
     int jStart = paddingTopNeeded ? -paddingSize : 0;
 
+    int convolutionParameters[6] = {0};
+
     // 1. We iterate over the pixels
     for (int i = iStart; i < widthInput + iStart; i += stride) {
         for (int j = jStart; j < heightInput + jStart; j += stride) {
             /* Convolution function used */
-            float (*convolutionFilter)(const float *, int, int, int, const float *, int,
-                                       int) = convolutionFilterNoPadding;
-            if (i < 0) {
-                convolutionFilter = convolutionFilterLeftPadding;
-            } else if (i + sizeKernel > widthInput) {
-                convolutionFilter = convolutionFilterRightPadding;
-            }
-            if (j < 0) {
-                if (convolutionFilter == convolutionFilterLeftPadding) {
-                    convolutionFilter = convolutionFilterTopLeftPadding;
-                } else if (convolutionFilter == convolutionFilterRightPadding) {
-                    convolutionFilter = convolutionFilterTopRightPadding;
-                } else {
-                    convolutionFilter = convolutionFilterTopPadding;
-                }
-            } else if (j + sizeKernel > heightInput) {
-                if (convolutionFilter == convolutionFilterLeftPadding) {
-                    convolutionFilter = convolutionFilterBottomLeftPadding;
-                } else if (convolutionFilter == convolutionFilterRightPadding) {
-                    convolutionFilter = convolutionFilterBottomRightPadding;
-                } else {
-                    convolutionFilter = convolutionFilterBottomPadding;
-                }
-            }
+            getConvolutionParameters(i, j, sizeKernel, widthInput, heightInput, paddingSize,
+                                     convolutionParameters);
+
+
             /* Raw value result of the convolution before activation */
-            float convolutionResult = 0.f;
+            float convolutionValue = 0.f;
             // 3. We iterate over the input layer depth
             for (int l = 0; l < depthInput; ++l) {
                 /* Current input layer channel */
@@ -305,16 +155,16 @@ void convolution2DPaddingSame(IN int widthInput, IN int heightInput, IN int dept
                 /* Current kernel weights */
                 float *currentWeights = weights + weightsOffset * (l);
                 /* Doing the actual convolution */
-                convolutionResult += convolutionFilter(currentInput, max(i, 0), max(j, 0),
-                                                       widthInput,
-                                                       currentWeights, sizeKernel, paddingSize);
+                convolutionValue += convolutionFilterGeneric(currentInput, currentWeights,
+                                                             convolutionParameters, widthInput,
+                                                             sizeKernel);
 
             }
             /* Adding the bias */
-            convolutionResult = convolutionResult + bias[0];
+            convolutionValue = convolutionValue + bias[0];
             float (*activationFunction)(float) = activationReLU;
             // 4. We save the result of the output layer
-            out[(i - iStart) / stride + ((j - jStart) / stride) * widthOutput] = activationFunction(convolutionResult);
+            out[(i - iStart) / stride + ((j - jStart) / stride) * widthOutput] = activationFunction(convolutionValue);
         }
     }
 }

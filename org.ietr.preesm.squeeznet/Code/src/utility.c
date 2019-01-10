@@ -118,64 +118,75 @@ int readImageRawF32(IN int width, IN int height, OUT float *out) {
     return 0;
 }
 
-int loadRawWeightsAndBiases(const char *path_weights, const char *path_biases, float **weights, float **biases) {
-    if (!path_weights || !path_biases || !weights || !biases) {
+int loadRawWeightsAndBiases(const char *pathWeights, const char *pathBiases, const float **weights, const float **biases) {
+    if (!pathWeights || !pathBiases || !weights || !biases) {
         fprintf(stderr, "ERROR: Null pointer passed as input.\n");
         return -1;
     }
     // 0. Try to open files
-    FILE *weights_file = fopen(path_weights, "rb");
-    if (!weights_file) {
+    FILE *fileWeights = fopen(pathWeights, "rb");
+    if (!fileWeights) {
         fprintf(stderr, "ERROR: Failed to open weights file with path:\n");
-        fprintf(stderr, "       %s\n", path_weights);
+        fprintf(stderr, "       %s\n", pathWeights);
         return -1;
     }
-    printINFOVerbose("fopen weights_file --> SUCCESS\n");
-    FILE *biases_file = fopen(path_biases, "rb");
-    if (!biases_file) {
-        fclose(weights_file);
+    printINFOVerbose("fopen fileWeights --> SUCCESS\n");
+    FILE *fileBiases = fopen(pathBiases, "rb");
+    if (!fileBiases) {
+        fclose(fileWeights);
         fprintf(stderr, "ERROR: Failed to open biases file with path:\n");
-        fprintf(stderr, "       %s\n", path_biases);
+        fprintf(stderr, "       %s\n", pathBiases);
         return -1;
     }
-    printINFOVerbose("fopen biases_file --> SUCCESS\n");
+    printINFOVerbose("fopen fileBiases --> SUCCESS\n");
     // 1. Load raw weights
     /* Structure is as follows */
     /* weights_layer_input_0_layer_output_0 | weights_layer_input_1_layer_output_0 | .. | weights_layer_input_M_layer_output_N */
-    fseek(weights_file, 0, SEEK_END);
-    long size_weights_file = ftell(weights_file);
-    fseek(weights_file, 0, SEEK_SET);
-    (*weights) = malloc(size_weights_file);
+    fseek(fileWeights, 0, SEEK_END);
+    size_t sizeWeightsFile = (size_t) ftell(fileWeights);
+    fseek(fileWeights, 0, SEEK_SET);
+    (*weights) = malloc(sizeWeightsFile);
     if (!(*weights)) {
         fprintf(stderr, "ERROR: Failed to allocate memory for weights.\n");
-        fclose(weights_file);
-        fclose(biases_file);
+        fclose(fileWeights);
+        fclose(fileBiases);
         return -1;
     }
-    fread((*weights), sizeof(float), size_weights_file / 4, weights_file);
+    if (fread((void *) (*weights), sizeof(float), sizeWeightsFile / 4, fileWeights) != (sizeWeightsFile / 4)) {
+        printINFOVerbose("reading weights --> FAILURE\n");
+        fclose(fileWeights);
+        fclose(fileBiases);
+        return -1;
+    }
     printINFOVerbose("reading weights --> SUCCESS\n");
-    fprintf(stderr, "size_weights_file: %ld\n", size_weights_file / 4);
+    char strSize[40];
+    sprintf(strSize, "sizeWeightsFile: %ld\n", sizeWeightsFile / 4);
+    printINFOVerbose(strSize);
 
     // 2. Load raw biases
-    fseek(biases_file, 0, SEEK_END);
-    long size_biases_file = ftell(biases_file);
-    fseek(biases_file, 0, SEEK_SET);
-    (*biases) = malloc(size_biases_file);
+    fseek(fileBiases, 0, SEEK_END);
+    size_t sizeBiasesFile = (size_t) ftell(fileBiases);
+    fseek(fileBiases, 0, SEEK_SET);
+    (*biases) = malloc(sizeBiasesFile);
     if (!(*biases)) {
-        fprintf(stderr, "ERROR: Failed to allocate memory for weights.\n");
-        fclose(weights_file);
-        fclose(biases_file);
-        free((*weights));
-        (*weights) = NULL;
+        fprintf(stderr, "ERROR: Failed to allocate memory for biases.\n");
+        fclose(fileWeights);
+        fclose(fileBiases);
         return -1;
     }
-    fread((*biases), sizeof(float), size_biases_file / 4, biases_file);
+    if (fread((void *) (*biases), sizeof(float), sizeBiasesFile / 4, fileBiases) != sizeBiasesFile / 4) {
+        printINFOVerbose("reading biases --> FAILURE\n");
+        fclose(fileWeights);
+        fclose(fileBiases);
+        return -1;
+    }
     printINFOVerbose("reading biases --> SUCCESS\n");
-    fprintf(stderr, "size_biases_file: %ld\n", size_biases_file / 4);
+    sprintf(strSize, "sizeBiasesFile: %ld\n", sizeBiasesFile / 4);
+    printINFOVerbose(strSize);
 
     // 3. Close files
-    fclose(weights_file);
-    fclose(biases_file);
+    fclose(fileWeights);
+    fclose(fileBiases);
     return 0;
 }
 
@@ -203,12 +214,12 @@ int genRawWeightsAndBiases(IN long sizeWeights, IN long sizeBiases,
     fseek(fileWeights, 0, SEEK_END);
     size_t realSizeWeights = (size_t) ftell(fileWeights) / 4;
     fseek(fileWeights, 0, SEEK_SET);
-    /*if (realSizeWeights != sizeWeights) {
-        fprintf(stderr, "ERROR: Expected size of [%ld] for weights file, got [%ld].\n", sizeWeights, realSizeWeights);
-        fclose(fileWeights);
-        fclose(fileBiases);
-        return -1;
-    }*/
+//    if (realSizeWeights != sizeWeights) {
+//        fprintf(stderr, "ERROR: Expected size of [%ld] for weights file, got [%ld].\n", sizeWeights, realSizeWeights);
+//        fclose(fileWeights);
+//        fclose(fileBiases);
+//        return -1;
+//    }
     if (fread(weights, sizeof(float), (size_t) sizeWeights, fileWeights) != (sizeWeights)) {
         printINFOVerbose("reading weights --> FAILURE\n");
         fclose(fileWeights);
@@ -221,12 +232,12 @@ int genRawWeightsAndBiases(IN long sizeWeights, IN long sizeBiases,
     fseek(fileBiases, 0, SEEK_END);
     size_t realSizeBiases = (size_t) ftell(fileBiases) / 4;
     fseek(fileBiases, 0, SEEK_SET);
-    /*if (realSizeBiases != sizeBiases) {
-        fprintf(stderr, "ERROR: Expected size of [%ld] for biases file, got [%ld].\n", sizeBiases, realSizeBiases);
-        fclose(fileWeights);
-        fclose(fileBiases);
-        return -1;
-    }*/
+//    if (realSizeBiases != sizeBiases) {
+//        fprintf(stderr, "ERROR: Expected size of [%ld] for biases file, got [%ld].\n", sizeBiases, realSizeBiases);
+//        fclose(fileWeights);
+//        fclose(fileBiases);
+//        return -1;
+//    }
     if (fread(biases, sizeof(float), (size_t) sizeBiases, fileBiases) != sizeBiases) {
         printINFOVerbose("reading biases --> FAILURE\n");
         fclose(fileWeights);

@@ -35,7 +35,7 @@
         </node>
         <node id="convolution2D" kind="actor" period="0">
             <data key="graph_desc">Code/include/convolution.h</data>
-            <loop name="convolution2DPaddingSame">
+            <loop name="convolution2D">
                 <param direction="IN" isConfig="true" name="widthInput" type="int"/>
                 <param direction="IN" isConfig="true" name="heightInput" type="int"/>
                 <param direction="IN" isConfig="true" name="depthInput" type="int"/>

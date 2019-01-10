@@ -20,7 +20,6 @@
             <loop name="maxPooling2D">
                 <param direction="IN" isConfig="true" name="widthInput" type="int"/>
                 <param direction="IN" isConfig="true" name="heightInput" type="int"/>
-                <param direction="IN" isConfig="true" name="depth" type="int"/>
                 <param direction="IN" isConfig="true" name="widthOutput" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="heightOutput" type="int"/>
@@ -32,7 +31,6 @@
             </loop>
             <port kind="cfg_input" name="widthInput"/>
             <port kind="cfg_input" name="heightInput"/>
-            <port kind="cfg_input" name="depth"/>
             <port kind="cfg_input" name="widthOutput"/>
             <port kind="cfg_input" name="heightOutput"/>
             <port kind="cfg_input" name="poolWidth"/>
@@ -57,7 +55,6 @@
             target="maxPool2D" targetport="input" type="float"/>
         <edge kind="dependency" source="poolHeight" target="maxPool2D" targetport="poolHeight"/>
         <edge kind="dependency" source="poolWidth" target="maxPool2D" targetport="poolWidth"/>
-        <edge kind="dependency" source="depth" target="maxPool2D" targetport="depth"/>
         <edge kind="dependency" source="heightInput" target="maxPool2D" targetport="heightInput"/>
         <edge kind="dependency" source="heightOutput" target="maxPool2D" targetport="heightOutput"/>
         <edge kind="dependency" source="widthInput" target="maxPool2D" targetport="widthInput"/>
