@@ -9,21 +9,17 @@ Instructions have been tested for:
 * Windows 7 
   * Code::Blocks (MinGW)
   * Visual Studio 2013
+* Linux (Ubuntu 16.04)
   
 The project compilation requires the following libraries:
 
 * pthread 
 * SDL2
 
+
 ## pthread 
-1. Download the pthread library:   
-   [pthread-w32-2-8-0-release.exe](ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-8-0-release.exe)
-2. Execute te downloaded executable to decompress its content in a temporary directory.
-3. Copy the content of the decompressed /Pre-built.2/ directory into a folder named exactly as follows:  
-  ```/<project-path>/lib/pthread-2.8.0/```  
-  (where <project-path> is replaced with your project path).
-4. Your directory /<project-path>/lib/pthread-2.8.0/ should contain:
+1. Download appropriate version of PThread following [our guide](https://preesm.github.io/tutos/intro/#pthread)
+2. On windows, unzip the archive and compy its content to ```/<project-path>/lib/pthread-2.X.Y/```
+3. Your directory /<project-path>/lib/pthread-2.X.Y/ should contain:
    - include/
    - lib/
-   - README
-   - ...
