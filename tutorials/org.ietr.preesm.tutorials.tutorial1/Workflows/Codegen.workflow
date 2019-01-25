@@ -76,7 +76,7 @@
     </dftools:task>
     <dftools:task pluginId="pisdf-export" taskId="PiSDF Export">
         <dftools:data key="variables">
-            <dftools:variable name="path" value="/Algo/generated/pisdf"/>
+            <dftools:variable name="path" value="/Algo/generated/srdag"/>
         </dftools:data>
     </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
