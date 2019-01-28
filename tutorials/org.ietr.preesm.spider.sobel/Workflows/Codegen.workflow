@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dftools:workflow xmlns:dftools="http://net.sf.dftools">
+<dftools:workflow errorOnWarning="true" verboseLevel="INFO" xmlns:dftools="http://net.sf.dftools">
     <dftools:scenario pluginId="org.ietr.preesm.scenario.task"/>
     <dftools:task pluginId="org.ietr.preesm.plugin.mapper.plot" taskId="Display Gantt">
         <dftools:data key="variables"/>
@@ -62,36 +62,36 @@
         targetport="scenario" to="Display Gantt"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MEG Builder"/>
-    <dftools:dataTransfer from="Memory Allocation" sourceport="MEGs"
-        targetport="MEGs" to="Code Generation"/>
+    <dftools:dataTransfer from="Memory Allocation"
+        sourceport="MEGs" targetport="MEGs" to="Code Generation"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Code Generation"/>
-    <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="Code Generation"/>
+    <dftools:dataTransfer from="scenario"
+        sourceport="architecture" targetport="architecture" to="Code Generation"/>
     <dftools:dataTransfer from="DAG Exporter" sourceport="void"
         targetport="void" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Gantt Exporter"/>
-    <dftools:dataTransfer from="Sceduling FromDAG" sourceport="ABC"
-        targetport="ABC" to="Display Gantt"/>
-    <dftools:dataTransfer from="Sceduling FromDAG" sourceport="ABC"
-        targetport="ABC" to="Gantt Exporter"/>
-    <dftools:dataTransfer from="Sceduling FromDAG" sourceport="DAG"
-        targetport="DAG" to="DAG Exporter"/>
-    <dftools:dataTransfer from="Sceduling FromDAG" sourceport="DAG"
-        targetport="DAG" to="MEG Builder"/>
-    <dftools:dataTransfer from="Sceduling FromDAG" sourceport="DAG"
-        targetport="DAG" to="Code Generation"/>
+    <dftools:dataTransfer from="Sceduling FromDAG"
+        sourceport="ABC" targetport="ABC" to="Display Gantt"/>
+    <dftools:dataTransfer from="Sceduling FromDAG"
+        sourceport="ABC" targetport="ABC" to="Gantt Exporter"/>
+    <dftools:dataTransfer from="Sceduling FromDAG"
+        sourceport="DAG" targetport="DAG" to="DAG Exporter"/>
+    <dftools:dataTransfer from="Sceduling FromDAG"
+        sourceport="DAG" targetport="DAG" to="MEG Builder"/>
+    <dftools:dataTransfer from="Sceduling FromDAG"
+        sourceport="DAG" targetport="DAG" to="Code Generation"/>
     <dftools:dataTransfer from="PiMM2SrDAG" sourceport="DAG"
         targetport="DAG" to="Sceduling FromDAG"/>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
         targetport="PiMM" to="PiMM2SrDAG"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="PiMM2SrDAG"/>
-    <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="PiMM2SrDAG"/>
-    <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="Sceduling FromDAG"/>
+    <dftools:dataTransfer from="scenario"
+        sourceport="architecture" targetport="architecture" to="PiMM2SrDAG"/>
+    <dftools:dataTransfer from="scenario"
+        sourceport="architecture" targetport="architecture" to="Sceduling FromDAG"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Sceduling FromDAG"/>
     <dftools:dataTransfer from="MEG Builder" sourceport="MemEx"

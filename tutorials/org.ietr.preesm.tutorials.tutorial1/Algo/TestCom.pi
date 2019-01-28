@@ -8,7 +8,7 @@
     <graph edgedefault="directed">
         <data key="name">TestCom</data>
         <node expr="1024" id="size" kind="param"/>
-        <node id="Sensor" kind="actor">
+        <node id="Sensor" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="sensor">
                 <param direction="OUT" isConfig="false" name="o1" type="char* "/>
@@ -27,7 +27,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o2"/>
             <port annotation="NONE" expr="size" kind="output" name="o3"/>
         </node>
-        <node id="Sensor2" kind="actor">
+        <node id="Sensor2" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="sensor2">
                 <param direction="OUT" isConfig="false" name="o1" type="char* "/>
@@ -40,7 +40,7 @@
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
-        <node id="Gen_int" kind="actor">
+        <node id="Gen_int" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="gen_int">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
@@ -61,7 +61,7 @@
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
             <port annotation="NONE" expr="size" kind="output" name="o2"/>
         </node>
-        <node id="X2InputParallelTest" kind="actor">
+        <node id="X2InputParallelTest" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="parallel2">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
@@ -79,7 +79,7 @@
             <port annotation="NONE" expr="size" kind="input" name="i2"/>
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
-        <node id="Copy" kind="actor">
+        <node id="Copy" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="copy">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
@@ -95,7 +95,7 @@
             <port annotation="NONE" expr="size" kind="input" name="i1"/>
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
-        <node id="ParallelTest1" kind="actor">
+        <node id="ParallelTest1" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="parallel">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
@@ -111,7 +111,7 @@
             <port annotation="NONE" expr="size" kind="input" name="i1"/>
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
-        <node id="ParallelTest2" kind="actor">
+        <node id="ParallelTest2" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="parallel">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
@@ -127,7 +127,7 @@
             <port annotation="NONE" expr="size" kind="input" name="i1"/>
             <port annotation="NONE" expr="size" kind="output" name="o1"/>
         </node>
-        <node id="Actuator" kind="actor">
+        <node id="Actuator" kind="actor" period="0">
             <data key="graph_desc">Code/include/testcom.h</data>
             <loop name="actuator">
                 <param direction="IN" isConfig="false" name="i1" type="char* "/>
@@ -154,14 +154,15 @@
             target="X2InputParallelTest" targetport="i1" type="char"/>
         <edge kind="fifo" source="Sensor" sourceport="o3"
             target="X2InputParallelTest" targetport="i2" type="char"/>
-        <edge kind="fifo" source="Gen_int" sourceport="o1" target="Copy"
-            targetport="i1" type="char"/>
+        <edge kind="fifo" source="Gen_int" sourceport="o1"
+            target="Copy" targetport="i1" type="char"/>
         <edge kind="fifo" source="Copy" sourceport="o1"
             target="Actuator" targetport="i1" type="char"/>
         <edge kind="fifo" source="Gen_int" sourceport="o2"
             target="Actuator" targetport="i2" type="char"/>
-        <edge kind="fifo" source="X2InputParallelTest" sourceport="o1"
-            target="ParallelTest1" targetport="i1" type="char"/>
+        <edge kind="fifo" source="X2InputParallelTest"
+            sourceport="o1" target="ParallelTest1"
+            targetport="i1" type="char"/>
         <edge kind="fifo" source="ParallelTest1" sourceport="o1"
             target="ParallelTest2" targetport="i1" type="char"/>
         <edge kind="fifo" source="ParallelTest2" sourceport="o1"
@@ -173,7 +174,9 @@
         <edge kind="dependency" source="size" target="Sensor2" targetport="size"/>
         <edge kind="dependency" source="size"
             target="X2InputParallelTest" targetport="size"/>
-        <edge kind="dependency" source="size" target="ParallelTest1" targetport="size"/>
-        <edge kind="dependency" source="size" target="ParallelTest2" targetport="size"/>
+        <edge kind="dependency" source="size"
+            target="ParallelTest1" targetport="size"/>
+        <edge kind="dependency" source="size"
+            target="ParallelTest2" targetport="size"/>
     </graph>
 </graphml>

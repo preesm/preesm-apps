@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dftools:workflow xmlns:dftools="http://net.sf.dftools">
+<dftools:workflow errorOnWarning="true" verboseLevel="INFO" xmlns:dftools="http://net.sf.dftools">
     <dftools:scenario pluginId="org.ietr.preesm.scenario.task"/>
     <dftools:task
         pluginId="org.ietr.preesm.experiment.pimm2sdf.StaticPiMM2SDFTask" taskId="PiMM2SDF">
@@ -11,7 +11,8 @@
             <dftools:variable name="depth" value="3"/>
         </dftools:data>
     </dftools:task>
-    <dftools:task pluginId="org.ietr.preesm.plugin.transforms.sdf2hsdf" taskId="Single-rate transformation">
+    <dftools:task
+        pluginId="org.ietr.preesm.plugin.transforms.sdf2hsdf" taskId="Single-rate transformation">
         <dftools:data key="variables">
             <dftools:variable name="ExplodeImplodeSuppr" value="false"/>
         </dftools:data>
@@ -20,6 +21,7 @@
         pluginId="org.ietr.preesm.plugin.mapper.listscheduling" taskId="Scheduling">
         <dftools:data key="variables">
             <dftools:variable name="Check" value="True"/>
+            <dftools:variable name="Optimize synchronization" value="False"/>
             <dftools:variable name="balanceLoads" value="true"/>
             <dftools:variable name="edgeSchedType" value="Simple"/>
             <dftools:variable name="simulatorType" value="ApproximatelyTimed"/>
@@ -59,14 +61,14 @@
         targetport="PiMM" to="PiMM2SDF"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Scheduling"/>
-    <dftools:dataTransfer from="scenario" sourceport="architecture"
-        targetport="architecture" to="Scheduling"/>
+    <dftools:dataTransfer from="scenario"
+        sourceport="architecture" targetport="architecture" to="Scheduling"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Stat Exporter"/>
     <dftools:dataTransfer from="PiMM2SDF" sourceport="SDF"
         targetport="SDF" to="Hierarchy Flattening"/>
-    <dftools:dataTransfer from="Hierarchy Flattening" sourceport="SDF"
-        targetport="SDF" to="Single-rate transformation"/>
+    <dftools:dataTransfer from="Hierarchy Flattening"
+        sourceport="SDF" targetport="SDF" to="Single-rate transformation"/>
     <dftools:dataTransfer from="Single-rate transformation"
         sourceport="SDF" targetport="SDF" to="Scheduling"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
