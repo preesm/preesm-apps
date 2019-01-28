@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dftools:workflow errorOnWarning="true" verboseLevel="FINEST" xmlns:dftools="http://net.sf.dftools">
+<dftools:workflow errorOnWarning="true" verboseLevel="INFO" xmlns:dftools="http://net.sf.dftools">
     <dftools:scenario pluginId="org.ietr.preesm.scenario.task"/>
     <dftools:task pluginId="org.ietr.preesm.plugin.mapper.plot" taskId="Display Gantt">
         <dftools:data key="variables"/>
