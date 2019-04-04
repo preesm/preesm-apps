@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">averagePooling2D</data>
+        <node id="widthInput" kind="cfg_in_iface"/>
+        <node id="heightInput" kind="cfg_in_iface"/>
+        <node id="depth" kind="cfg_in_iface"/>
+        <node id="averageWidth" kind="cfg_in_iface"/>
+        <node id="heightOutput" kind="cfg_in_iface"/>
+        <node id="widthOutput" kind="cfg_in_iface"/>
+        <node id="averageHeight" kind="cfg_in_iface"/>
+        <node id="out" kind="snk">
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depth" kind="input" name="out"/>
+        </node>
+        <node id="input" kind="src">
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depth" kind="output" name="input"/>
+        </node>
+        <node id="average2D" kind="actor" period="0">
+            <data key="graph_desc">Code/include/convolution.h</data>
+            <loop name="averagePooling2D">
+                <param direction="IN" isConfig="true" name="widthInput" type="int"/>
+                <param direction="IN" isConfig="true" name="heightInput" type="int"/>
+                <param direction="IN" isConfig="true" name="widthOutput" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="heightOutput" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="averageWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="averageHeight" type="int"/>
+                <param direction="IN" isConfig="false" name="input" type="float "/>
+                <param direction="OUT" isConfig="false" name="out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="averageWidth"/>
+            <port kind="cfg_input" name="averageHeight"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port annotation="NONE" expr="widthInput * heightInput"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="widthOutput * heightOutput"
+                kind="output" name="out"/>
+        </node>
+        <edge kind="fifo" source="input" sourceport="input"
+            target="average2D" targetport="input" type="float"/>
+        <edge kind="fifo" source="average2D" sourceport="out"
+            target="out" targetport="out" type="float"/>
+        <edge kind="dependency" source="heightInput" target="average2D" targetport="heightInput"/>
+        <edge kind="dependency" source="widthInput" target="average2D" targetport="widthInput"/>
+        <edge kind="dependency" source="widthInput" target="input"/>
+        <edge kind="dependency" source="heightInput" target="input"/>
+        <edge kind="dependency" source="depth" target="out"/>
+        <edge kind="dependency" source="widthOutput" target="out"/>
+        <edge kind="dependency" source="heightOutput" target="out"/>
+        <edge kind="dependency" source="heightOutput" target="average2D" targetport="heightOutput"/>
+        <edge kind="dependency" source="widthOutput" target="average2D" targetport="widthOutput"/>
+        <edge kind="dependency" source="averageWidth" target="average2D" targetport="averageWidth"/>
+        <edge kind="dependency" source="averageHeight"
+            target="average2D" targetport="averageHeight"/>
+        <edge kind="dependency" source="depth" target="input"/>
+    </graph>
+</graphml>
