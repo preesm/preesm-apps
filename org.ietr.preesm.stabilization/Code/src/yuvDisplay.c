@@ -91,7 +91,7 @@ void yuvDisplayInit(int id, int width, int height)
 
 
 #ifdef VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+	printf("SDL screen height OK, width OK, number of displays OK.\n");
 #endif
 
 	if (display.initialized == 0)

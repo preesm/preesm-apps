@@ -37,6 +37,10 @@
 
 #ifndef HAVE_OPENSSL
 
+#ifdef VERBOSE
+#include <stdio.h>
+int frameIndex = 0;
+#endif
 #include <string.h>
 
 #include "md5.h"
