@@ -17,7 +17,7 @@
 
 
 // Stopping the main loop after N iterations
-#define LOOP_SIZE 1000
+#define PREESM_LOOP_SIZE 1000
 typedef unsigned char uchar;
 
 #include "clock.h"

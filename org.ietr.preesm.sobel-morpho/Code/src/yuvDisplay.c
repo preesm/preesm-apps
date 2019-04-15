@@ -90,7 +90,7 @@ void yuvDisplayInit(int id, int width, int height)
 	}
 
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
 	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
 #endif
 

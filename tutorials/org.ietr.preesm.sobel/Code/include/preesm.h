@@ -13,7 +13,7 @@
 
 #define IN
 #define OUT
-#define VERBOSE
+#define PREESM_VERBOSE
 
 #include "yuvRead.h"
 #include "yuvDisplay.h"

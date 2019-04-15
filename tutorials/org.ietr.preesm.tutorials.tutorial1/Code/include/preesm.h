@@ -4,7 +4,7 @@
 
 #include "testcom.h"
 
-#define LOOP_SIZE 20
+#define PREESM_LOOP_SIZE 20
 
 typedef unsigned char uchar;
 

@@ -37,7 +37,7 @@
 
 #ifndef HAVE_OPENSSL
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
 #include <stdio.h>
 int frameIndex = 0;
 #endif
@@ -298,7 +298,7 @@ void MD5_Update(unsigned long size, const void *data)
 
 	MD5_Final(hash);
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
 	// Print MD5
 	printf("MD5 %3d: ", frameIndex++);
 	for (int i = 16; i > 0; i -= 1){

@@ -9,8 +9,8 @@
 #include "stabilization.h"
 #include "md5.h"
 
-// #define VERBOSE
-#ifdef VERBOSE
+// #define PREESM_VERBOSE
+#ifdef PREESM_VERBOSE
 #include <stdio.h>
 #endif
 
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 		const int nbVectors = (HEIGHT / BLOCK_HEIGHT)*(WIDTH / BLOCK_WIDTH);
 		findDominatingMotionVector(nbVectors,
 								   motionVectors, &dominatingMotionVector);
-		#ifdef VERBOSE
+		#ifdef PREESM_VERBOSE
 		// Print motion vector
 		printf("Frame %3d: %2.2f, %2.2f\n", frameIndex,
 			   dominatingMotionVector.x, dominatingMotionVector.y);
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 		}
 	}
 
-	#ifdef VERBOSE
+	#ifdef PREESM_VERBOSE
 	printf("Exit program\n");
 	#endif 
 	yuvFinalize(0);

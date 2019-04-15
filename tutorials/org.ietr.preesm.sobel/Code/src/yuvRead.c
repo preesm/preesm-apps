@@ -35,7 +35,7 @@ void initReadYUV(int width, int height) {
         return;
     }
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
     printf("Opened file '%s'\n", PATH);
 #endif
 
@@ -49,7 +49,7 @@ void initReadYUV(int width, int height) {
         return;
     }
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
     printf("Correct size for yuv_file '%s'\n", PATH);
 #endif
 

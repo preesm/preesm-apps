@@ -73,7 +73,7 @@ void displayRGBInit(int id, int height, int width){
 	}
 
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
 	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
 #endif
 

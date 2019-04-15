@@ -11,9 +11,9 @@
 #define DEFAULT_PATH_BIASES  PROJECT_ROOT_PATH "/dat/biases.bin"
 #define DEFAULT_PATH_IMG     PROJECT_ROOT_PATH "/dat/cat.jpg"
 
-//#define VERBOSE
+//#define PREESM_VERBOSE
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
 #define printINFOVerbose(message) fprintf(stdout, "INFO: %s", message)
 #else
 #define printINFOVerbose(message)
