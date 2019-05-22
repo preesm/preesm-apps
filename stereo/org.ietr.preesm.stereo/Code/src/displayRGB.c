@@ -19,7 +19,7 @@
 
 #define FPS_MEAN 5
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
 * Structure representing one display
@@ -43,7 +43,7 @@ static RGBDisplay display ;
 int exitCallBack(void* userdata, SDL_Event* event){
 	if (event->type == SDL_QUIT){
 		printf("Exit request from GUI.\n");
-		stopThreads = 1;
+		preesmStopThreads = 1;
 		return 0;
 	}
 

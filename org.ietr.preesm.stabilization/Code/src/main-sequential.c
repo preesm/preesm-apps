@@ -14,7 +14,7 @@
 #include <stdio.h>
 #endif
 
-int stopThreads = 0;
+int preesmStopThreads = 0;
 
 int main(int argc, char** argv)
 {
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	initYUVWrite();
 
 	unsigned int frameIndex = 1;
-	while (!stopThreads)
+	while (!preesmStopThreads)
 	{
 		// Backup previous frame
 		memcpy(yPrevious, y, HEIGHT*WIDTH);
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
 		// Exit ?
 		frameIndex++;
 		if (frameIndex == NB_FRAME){
-			stopThreads = 1;
+			preesmStopThreads = 1;
 		}
 	}
 

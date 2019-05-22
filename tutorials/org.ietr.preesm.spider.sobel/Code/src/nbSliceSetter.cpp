@@ -16,7 +16,7 @@
 
 #define MAX_NB_CONFIG 20
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 int configs[MAX_NB_CONFIG];
 int nbConfigs = 0;
@@ -68,7 +68,7 @@ void nbSliceSetter (Param height, Param* nbSlice){
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			stopThreads = 1;
+			preesmStopThreads = 1;
 			break;
 		case SDL_KEYDOWN:
 			

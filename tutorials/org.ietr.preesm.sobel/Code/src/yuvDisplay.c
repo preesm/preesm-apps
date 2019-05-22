@@ -18,7 +18,7 @@ Description : Displaying YUV frames one next to another in a row
 
 #define FPS_MEAN 49
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
 * Structure representing one display
@@ -41,7 +41,7 @@ static YuvDisplay display;
 int exitCallBack(void* userdata, SDL_Event* event){
 	if (event->type == SDL_QUIT){
 		printf("Exit request from GUI.\n");
-		stopThreads = 1;
+		preesmStopThreads = 1;
 		return 0;
 	}
 

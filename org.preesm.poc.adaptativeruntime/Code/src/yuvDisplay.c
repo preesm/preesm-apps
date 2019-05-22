@@ -25,7 +25,7 @@
 static float energyMeasuresA15[ENERGY_MEAN];
 static float energyMeasuresA7[ENERGY_MEAN];
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
  * Structure representing one display
@@ -47,7 +47,7 @@ static sem_t framerate_controller;
 int exitCallBack(void* userdata, SDL_Event* event) {
 	if (event->type == SDL_QUIT) {
 		printf("Exit request from GUI.\n");
-		stopThreads = 1;
+		preesmStopThreads = 1;
 		return 0;
 	}
 
