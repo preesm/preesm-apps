@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dftools:workflow errorOnWarning="true" verboseLevel="INFO" xmlns:dftools="http://net.sf.dftools">
     <dftools:scenario pluginId="org.ietr.preesm.scenario.task"/>
-    <dftools:task
-        pluginId="org.ietr.preesm.experiment.pimm2sdf.StaticPiMM2SDFTask" taskId="PiMM2SDF">
-        <dftools:data key="variables"/>
-    </dftools:task>
-    <dftools:task
-        pluginId="org.ietr.preesm.plugin.transforms.flathierarchy" taskId="Hierarchy Flattening">
+    <dftools:task pluginId="pisdf-srdag" taskId="PiMM2SrDAG">
         <dftools:data key="variables">
-            <dftools:variable name="depth" value="3"/>
+            <dftools:variable name="Consistency_Method" value="LCM"/>
         </dftools:data>
     </dftools:task>
-    <dftools:task
-        pluginId="org.ietr.preesm.plugin.transforms.sdf2hsdf" taskId="Single-rate transformation">
-        <dftools:data key="variables">
-            <dftools:variable name="ExplodeImplodeSuppr" value="false"/>
-        </dftools:data>
-    </dftools:task>
-    <dftools:task
-        pluginId="org.ietr.preesm.plugin.mapper.listscheduling" taskId="Scheduling">
+    <dftools:task pluginId="pisdf-mapper.list" taskId="Scheduling">
         <dftools:data key="variables">
             <dftools:variable name="Check" value="True"/>
             <dftools:variable name="Optimize synchronization" value="False"/>
@@ -98,22 +86,14 @@
             <dftools:variable name="Verbose" value="False"/>
         </dftools:data>
     </dftools:task>
-    <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="PiMM2SDF"/>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
-        targetport="PiMM" to="PiMM2SDF"/>
+        targetport="PiMM" to="PiMM2SrDAG"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Scheduling"/>
     <dftools:dataTransfer from="scenario"
         sourceport="architecture" targetport="architecture" to="Scheduling"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Stat Exporter"/>
-    <dftools:dataTransfer from="PiMM2SDF" sourceport="SDF"
-        targetport="SDF" to="Hierarchy Flattening"/>
-    <dftools:dataTransfer from="Hierarchy Flattening"
-        sourceport="SDF" targetport="SDF" to="Single-rate transformation"/>
-    <dftools:dataTransfer from="Single-rate transformation"
-        sourceport="SDF" targetport="SDF" to="Scheduling"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
         targetport="ABC" to="Stat Exporter"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
@@ -146,4 +126,6 @@
         sourceport="architecture" targetport="architecture" to="Code Generation"/>
     <dftools:dataTransfer from="Scheduling" sourceport="DAG"
         targetport="DAG" to="Code Generation"/>
+    <dftools:dataTransfer from="PiMM2SrDAG" sourceport="PiMM"
+        targetport="PiMM" to="Scheduling"/>
 </dftools:workflow>

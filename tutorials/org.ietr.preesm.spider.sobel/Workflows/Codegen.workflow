@@ -42,14 +42,12 @@
             <dftools:variable name="path" value="/Code/generated"/>
         </dftools:data>
     </dftools:task>
-    <dftools:task
-        pluginId="org.ietr.preesm.experiment.pimm2srdag.StaticPiMM2SrDAGTask" taskId="PiMM2SrDAG">
+    <dftools:task pluginId="pisdf-srdag" taskId="PiMM2SrDAG">
         <dftools:data key="variables">
             <dftools:variable name="Consistency_Method" value="LCM"/>
         </dftools:data>
     </dftools:task>
-    <dftools:task
-        pluginId="org.ietr.preesm.plugin.mapper.listschedulingfromdag" taskId="Sceduling FromDAG">
+    <dftools:task pluginId="pisdf-mapper.list" taskId="Sceduling">
         <dftools:data key="variables">
             <dftools:variable name="Check" value="True"/>
             <dftools:variable name="Optimize synchronization" value="True"/>
@@ -72,28 +70,24 @@
         targetport="void" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Gantt Exporter"/>
-    <dftools:dataTransfer from="Sceduling FromDAG"
-        sourceport="ABC" targetport="ABC" to="Display Gantt"/>
-    <dftools:dataTransfer from="Sceduling FromDAG"
-        sourceport="ABC" targetport="ABC" to="Gantt Exporter"/>
-    <dftools:dataTransfer from="Sceduling FromDAG"
-        sourceport="DAG" targetport="DAG" to="DAG Exporter"/>
-    <dftools:dataTransfer from="Sceduling FromDAG"
-        sourceport="DAG" targetport="DAG" to="MEG Builder"/>
-    <dftools:dataTransfer from="Sceduling FromDAG"
-        sourceport="DAG" targetport="DAG" to="Code Generation"/>
-    <dftools:dataTransfer from="PiMM2SrDAG" sourceport="DAG"
-        targetport="DAG" to="Sceduling FromDAG"/>
+    <dftools:dataTransfer from="Sceduling" sourceport="ABC"
+        targetport="ABC" to="Display Gantt"/>
+    <dftools:dataTransfer from="Sceduling" sourceport="ABC"
+        targetport="ABC" to="Gantt Exporter"/>
+    <dftools:dataTransfer from="Sceduling" sourceport="DAG"
+        targetport="DAG" to="DAG Exporter"/>
+    <dftools:dataTransfer from="Sceduling" sourceport="DAG"
+        targetport="DAG" to="MEG Builder"/>
+    <dftools:dataTransfer from="Sceduling" sourceport="DAG"
+        targetport="DAG" to="Code Generation"/>
+    <dftools:dataTransfer from="PiMM2SrDAG" sourceport="PiMM"
+        targetport="PiMM" to="Sceduling"/>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
         targetport="PiMM" to="PiMM2SrDAG"/>
-    <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="PiMM2SrDAG"/>
     <dftools:dataTransfer from="scenario"
-        sourceport="architecture" targetport="architecture" to="PiMM2SrDAG"/>
-    <dftools:dataTransfer from="scenario"
-        sourceport="architecture" targetport="architecture" to="Sceduling FromDAG"/>
+        sourceport="architecture" targetport="architecture" to="Sceduling"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="Sceduling FromDAG"/>
+        targetport="scenario" to="Sceduling"/>
     <dftools:dataTransfer from="MEG Builder" sourceport="MemEx"
         targetport="MemEx" to="Memory Allocation"/>
 </dftools:workflow>
