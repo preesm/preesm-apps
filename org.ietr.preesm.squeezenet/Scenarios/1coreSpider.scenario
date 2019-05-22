@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
     <files>
-        <algorithm url="/org.ietr.preesm.squeeznet/Algo/top_squeezenet.pi"/>
-        <architecture url="/org.ietr.preesm.squeeznet/Archi/1CoreX86.slam"/>
-        <codegenDirectory url="/org.ietr.preesm.squeeznet/spider/generated"/>
+        <algorithm url="/org.ietr.preesm.squeezenet/Algo/top_squeezenet.pi"/>
+        <architecture url="/org.ietr.preesm.squeezenet/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.squeezenet/spider/generated"/>
     </files>
     <constraints excelUrl="">
         <constraintGroup>
