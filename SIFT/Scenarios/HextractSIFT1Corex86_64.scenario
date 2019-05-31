@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
     <files>
-        <algorithm url="/SIFTpreesm/Algo/Hextract.pi"/>
-        <architecture url="/SIFTpreesm/Archi/1CoreX86.slam"/>
-        <codegenDirectory url="/SIFTpreesm/Code/generated"/>
+        <algorithm url="/SIFTapp/Algo/Hextract.pi"/>
+        <architecture url="/SIFTapp/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/SIFTapp/Code/generated"/>
     </files>
     <constraints excelUrl="">
         <constraintGroup>
