@@ -7,8 +7,10 @@ Original URL: https://sourceforge.net/projects/ezsift/
 
 Created on 9/16/2013.
 Modified on 3/27/2015: re-organized the projects, use git to manage the code and project. 
-The latest code can be pulled from here:
-[git clone git://git.code.sf.net/p/ezsift/code ezsift-code](git clone git://git.code.sf.net/p/ezsift/code ezsift-code)
+The latest code can be pulled with following command:
+```git clone https://git.code.sf.net/p/ezsift/code ezsift-code```
+
+Now the original repo has been moved to https://github.com/robertwgh/ezSIFT
 
 
 ## New versions
