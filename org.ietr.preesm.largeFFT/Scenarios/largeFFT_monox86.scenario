@@ -23,7 +23,6 @@
             <task name="top"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-5"/>
     </timings>
@@ -37,13 +36,10 @@
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues>
-        <parameter name="NR" parent="largeFFT"
-            type="PARAMETER_DEPENDENT" value="8"/>
-        <parameter name="NC" parent="largeFFT"
-            type="PARAMETER_DEPENDENT" value="8"/>
+        <parameter name="NR" parent="largeFFT" value="8"/>
+        <parameter name="NC" parent="largeFFT" value="8"/>
     </parameterValues>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

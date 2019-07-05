@@ -335,7 +335,6 @@
             <task name="extract/BdNbKeypoints"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <timing opname="x86" time="4540" vertexname="extract/SIFT/compute_gaussian_coefs"/>
         <timing opname="x86" time="1760000" vertexname="extract/draw_keypoints_to_ppm_file"/>
@@ -370,7 +369,7 @@
         <timing opname="x86" time="1010000" vertexname="extract/SIFT/Blur2x/BarrierTranspose2x_2"/>
         <timing opname="x86" time="3470000" vertexname="extract/SIFT/Blur2x/row_filter_transpose2x_1"/>
         <timing opname="x86" time="3460000" vertexname="extract/SIFT/Blur2x/row_filter_transpose2x_2"/>
-        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-2"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="0.01"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
@@ -384,12 +383,11 @@
             <dataType name="int" size="4"/>
         </dataTypes>
         <specialVertexOperators>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core1"/>
             <specialVertexOperator path="Core2"/>
             <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>

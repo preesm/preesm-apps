@@ -87,10 +87,8 @@
             <task name="sobel_morpho/Dilation"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <timing opname="c6678" time="50" vertexname="Sobel"/>
-        <timing opname="c6678" time="500" vertexname="Median"/>
+        <timing opname="c6678" time="50" vertexname="sobel_morpho/Sobel"/>
         <memcpyspeed opname="c6678" setuptime="1" timeperunit="5.0E-5"/>
     </timings>
     <simuParams>
@@ -106,13 +104,12 @@
             <specialVertexOperator path="Core4"/>
             <specialVertexOperator path="Core5"/>
             <specialVertexOperator path="Core6"/>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core1"/>
             <specialVertexOperator path="Core2"/>
             <specialVertexOperator path="Core7"/>
+            <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

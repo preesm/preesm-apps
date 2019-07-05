@@ -37,7 +37,6 @@
             <task name="top_sobel_memory"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
@@ -51,13 +50,11 @@
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core3"/>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core1"/>
             <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>
 </scenario>

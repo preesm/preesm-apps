@@ -195,22 +195,7 @@
             <task name="top"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <timing opname="CortexA15" time="13020" vertexname="FFT_2"/>
-        <timing opname="CortexA15" time="13020" vertexname="FFT_5"/>
-        <timing opname="CortexA15" time="100000" vertexname="Transpose_1"/>
-        <timing opname="CortexA15" time="100000" vertexname="Transpose_3"/>
-        <timing opname="CortexA15" time="100000" vertexname="Transpose_6"/>
-        <timing opname="CortexA15" time="2460" vertexname="Twiddle_4"/>
-        <timing opname="c6678" time="246" vertexname="Twiddle_4"/>
-        <timing opname="c6678" time="1302" vertexname="FFT_2"/>
-        <timing opname="c6678" time="1302" vertexname="FFT_5"/>
-        <timing opname="c6678" time="10000" vertexname="Transpose_1"/>
-        <timing opname="c6678" time="10000" vertexname="Transpose_3"/>
-        <timing opname="c6678" time="10000" vertexname="Transpose_6"/>
-        <timing opname="fftc" time="488" vertexname="FFT_2"/>
-        <timing opname="fftc" time="488" vertexname="FFT_5"/>
         <memcpyspeed opname="c6678" setuptime="1" timeperunit="1.0E-5"/>
         <memcpyspeed opname="CortexA15" setuptime="1" timeperunit="1.0E-5"/>
         <memcpyspeed opname="fftc" setuptime="1" timeperunit="1.0E-5"/>
@@ -223,7 +208,6 @@
             <dataType name="char" size="1"/>
         </dataTypes>
         <specialVertexOperators>
-            <specialVertexOperator path="Arm0"/>
             <specialVertexOperator path="Arm1"/>
             <specialVertexOperator path="Arm2"/>
             <specialVertexOperator path="Arm3"/>
@@ -233,12 +217,11 @@
             <specialVertexOperator path="Dsp1"/>
             <specialVertexOperator path="Dsp2"/>
             <specialVertexOperator path="Dsp7"/>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Dsp5"/>
             <specialVertexOperator path="Dsp6"/>
+            <specialVertexOperator path="Arm0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>
