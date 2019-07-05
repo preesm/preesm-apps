@@ -29,12 +29,6 @@
         </dftools:data>
     </dftools:task>
     <dftools:task
-        pluginId="org.ietr.preesm.codegen.xtend.task.CodegenTask" taskId="Code Generation">
-        <dftools:data key="variables">
-            <dftools:variable name="Printer" value="C"/>
-        </dftools:data>
-    </dftools:task>
-    <dftools:task
         pluginId="org.ietr.preesm.memory.exclusiongraph.MemoryExclusionGraphBuilder" taskId="MEG Builder">
         <dftools:data key="variables">
             <dftools:variable name="Suppr Fork/Join" value="False"/>
@@ -88,14 +82,6 @@
         targetport="DAG" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="MEG Builder"/>
-    <dftools:dataTransfer from="Scheduling" sourceport="DAG"
-        targetport="DAG" to="Code Generation"/>
-    <dftools:dataTransfer from="Memory Allocation"
-        sourceport="MEGs" targetport="MEGs" to="Code Generation"/>
-    <dftools:dataTransfer from="scenario" sourceport="scenario"
-        targetport="scenario" to="Code Generation"/>
-    <dftools:dataTransfer from="scenario"
-        sourceport="architecture" targetport="architecture" to="Code Generation"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
         targetport="ABC" to="Display Gantt"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"

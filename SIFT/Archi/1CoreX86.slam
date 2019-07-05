@@ -7,12 +7,14 @@
     <spirit:componentInstances>
         <spirit:componentInstance>
             <spirit:instanceName>Core0</spirit:instanceName>
-            <spirit:componentRef spirit:library="" spirit:name="x86"
-                spirit:vendor="" spirit:version=""/>
+            <spirit:hardwareId>0</spirit:hardwareId>
+            <spirit:componentRef spirit:library=""
+                spirit:name="x86" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
             <spirit:instanceName>shared_mem</spirit:instanceName>
+            <spirit:hardwareId>0</spirit:hardwareId>
             <spirit:componentRef spirit:library=""
                 spirit:name="SHARED_MEM" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
@@ -30,8 +32,10 @@
         <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:componentDescription slam:componentRef="x86"
                 slam:componentType="Operator" slam:refinement=""/>
-            <slam:componentDescription slam:componentRef="SHARED_MEM"
-                slam:componentType="parallelComNode" slam:refinement="" slam:speed="1000000000"/>
+            <slam:componentDescription
+                slam:componentRef="SHARED_MEM"
+                slam:componentType="parallelComNode"
+                slam:refinement="" slam:speed="1000000000"/>
         </slam:componentDescriptions>
         <slam:linkDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:linkDescription slam:directedLink="undirected"
