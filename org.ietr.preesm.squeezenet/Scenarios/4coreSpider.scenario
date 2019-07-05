@@ -1031,10 +1031,8 @@
             <task name="top_squeezenet"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
-        <memcpyspeed opname="arm" setuptime="1" timeperunit="1.0"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
@@ -1048,11 +1046,10 @@
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core3"/>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core1"/>
             <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
     <parameterValues/>
     <papifyConfigs xmlUrl="/org.ietr.preesm.sobel/papi_ultrascale.xml"/>

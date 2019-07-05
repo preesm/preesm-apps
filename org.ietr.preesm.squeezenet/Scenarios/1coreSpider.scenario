@@ -263,7 +263,6 @@
             <task name="top_squeezenet"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
@@ -280,7 +279,6 @@
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>

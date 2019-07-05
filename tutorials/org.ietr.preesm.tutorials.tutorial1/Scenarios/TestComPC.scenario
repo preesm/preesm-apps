@@ -31,7 +31,6 @@
             <task name="TestCom/X2InputParallelTest"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
     </timings>
@@ -43,13 +42,12 @@
             <dataType name="char" size="1"/>
         </dataTypes>
         <specialVertexOperators>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues>
-        <parameter name="size" parent="TestCom" type="INDEPENDENT" value="100"/>
+        <parameter name="size" parent="TestCom" value="100"/>
     </parameterValues>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

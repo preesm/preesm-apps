@@ -46,36 +46,35 @@
             <operator name="A7_Core0"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="/org.ietr.preesm.experiment.odroid.moa1/Scenarios/TestComPCAll.xls">
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Sensor"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Sensor"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Sensor2"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Sensor2"/>
-        <timing opname="ARM_CortexA15" time="1545000000" vertexname="Gen_int"/>
-        <timing opname="ARM_CortexA7" time="1545000000" vertexname="Gen_int"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="X2InputParallelTest"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="X2InputParallelTest"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Copy"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Copy"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="ParallelTest2"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="ParallelTest2"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Actuator"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Actuator"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="ParallelTest1"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="ParallelTest1"/>
-        <timing opname="ARM_CortexA15" time="1545000000" vertexname="Gen_int2"/>
-        <timing opname="ARM_CortexA7" time="1545000000" vertexname="Gen_int2"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Copy2"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Copy2"/>
-        <timing opname="ARM_CortexA15" time="1545000000" vertexname="Gen_int3"/>
-        <timing opname="ARM_CortexA7" time="1545000000" vertexname="Gen_int3"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Copy3"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Copy3"/>
-        <timing opname="ARM_CortexA15" time="1545000000" vertexname="Gen_int4"/>
-        <timing opname="ARM_CortexA7" time="1545000000" vertexname="Gen_int4"/>
-        <timing opname="ARM_CortexA15" time="515000000" vertexname="Copy4"/>
-        <timing opname="ARM_CortexA7" time="515000000" vertexname="Copy4"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Sensor"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Sensor"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Sensor2"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Sensor2"/>
+        <timing opname="ARM_CortexA15" time="1545000000" vertexname="TestCom/Gen_int"/>
+        <timing opname="ARM_CortexA7" time="1545000000" vertexname="TestCom/Gen_int"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/X2InputParallelTest"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/X2InputParallelTest"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Copy"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Copy"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/ParallelTest2"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/ParallelTest2"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Actuator"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Actuator"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/ParallelTest1"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/ParallelTest1"/>
+        <timing opname="ARM_CortexA15" time="1545000000" vertexname="TestCom/Gen_int2"/>
+        <timing opname="ARM_CortexA7" time="1545000000" vertexname="TestCom/Gen_int2"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Copy2"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Copy2"/>
+        <timing opname="ARM_CortexA15" time="1545000000" vertexname="TestCom/Gen_int3"/>
+        <timing opname="ARM_CortexA7" time="1545000000" vertexname="TestCom/Gen_int3"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Copy3"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Copy3"/>
+        <timing opname="ARM_CortexA15" time="1545000000" vertexname="TestCom/Gen_int4"/>
+        <timing opname="ARM_CortexA7" time="1545000000" vertexname="TestCom/Gen_int4"/>
+        <timing opname="ARM_CortexA15" time="515000000" vertexname="TestCom/Copy4"/>
+        <timing opname="ARM_CortexA7" time="515000000" vertexname="TestCom/Copy4"/>
         <memcpyspeed opname="ARM_CortexA15" setuptime="1" timeperunit="1.0"/>
         <memcpyspeed opname="ARM_CortexA7" setuptime="1" timeperunit="1.0"/>
     </timings>
@@ -87,12 +86,9 @@
             <dataType name="char" size="1"/>
         </dataTypes>
         <specialVertexOperators>
-            <specialVertexOperator path="Core0"/>
-            <specialVertexOperator path="Core1"/>
             <specialVertexOperator path="A15_Core4"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>
