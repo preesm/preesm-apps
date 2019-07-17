@@ -3,6 +3,7 @@
 
 #include "preesm.h"
 
+#define MAX_TORQUE 10
 
 /**
  * @brief Initializes the angular state of the system to random values
