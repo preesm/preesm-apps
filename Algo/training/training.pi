@@ -8,9 +8,9 @@
     <key attr.name="delay" attr.type="string" for="edge"/>
     <graph edgedefault="directed">
         <data key="name">training</data>
-        <node expr="2" id="action_space_size" kind="param"/>
-        <node expr="2" id="state_angular_size" kind="param"/>
-        <node expr="4" id="state_space_size" kind="param"/>
+        <node expr="3" id="action_space_size" kind="param"/>
+        <node expr="3" id="state_angular_size" kind="param"/>
+        <node expr="5" id="state_space_size" kind="param"/>
         <node expr="1" id="value_space_size" kind="param"/>
         <node expr="20" id="critic_hidden_size" kind="param"/>
         <node
@@ -18,7 +18,7 @@
             id="critic_weights_size" kind="param"/>
         <node expr="critic_hidden_size + value_space_size"
             id="critic_bias_size" kind="param"/>
-        <node expr="400" id="actor_hidden_size" kind="param"/>
+        <node expr="20" id="actor_hidden_size" kind="param"/>
         <node
             expr="state_space_size * actor_hidden_size + actor_hidden_size * action_space_size"
             id="actor_weights_size" kind="param"/>

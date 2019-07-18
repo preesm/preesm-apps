@@ -8,6 +8,7 @@ cmake_minimum_required(VERSION 2.8)
 # Programs
 #  - renforcement learning (CACLA)
 
+
 # IDE dependent config
 if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 	MESSAGE("Add definition for ${CMAKE_GENERATOR}")
@@ -125,7 +126,9 @@ file(
 	./include/*.h
 	./codegen/*.c
 )
- 
-add_executable( cacla ${source_files} ${header_files})
-target_link_libraries(cacla ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
+
+SET_SOURCE_FILES_PROPERTIES( ${source_files} PROPERTIES LANGUAGE CXX ) # Use cxx compiler
+
+link_libraries(${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
+add_executable( cacla ${source_files} ${SOURCES})
 set(CMAKE_C_FLAGS "-std=gnu99")
