@@ -115,15 +115,13 @@ endif()
 
 
 # *******************************************
-# **************** Sobel.exe  ****************
+# **************** Sobel.exe  ***************
 # *******************************************
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/codegen ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
 	./src/*.c
-	./src/*.h
-	./include/*.h
 	./codegen/*.c
 )
 
