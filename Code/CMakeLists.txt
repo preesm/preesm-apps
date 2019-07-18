@@ -118,14 +118,28 @@ endif()
 # **************** Sobel.exe  ***************
 # *******************************************
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/codegen ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
+
+
+execute_process( 
+	COMMAND bash "-c" "cd ${CMAKE_SOURCE_DIR}/preesm/org.ietr.preesm.reinforcement_learning/Code && ./cToCpp.sh codegen c cpp"
+	OUTPUT_VARIABLE RESULT)
+message("${RESULT}")
+
 file(
 	GLOB_RECURSE
 	source_files
-	./src/*.c
-	./codegen/*.c
+	./src/*.cpp
+	./codegen/*.cpp
 )
 
-SET_SOURCE_FILES_PROPERTIES( ${source_files} PROPERTIES LANGUAGE CXX ) # Use cxx compiler
+file(
+	GLOB_RECURSE
+	header_files
+	./include/*.h
+	./codegen/*.h
+)
+
+SET_SOURCE_FILES_PROPERTIES( ${source_files} ${header_files} PROPERTIES LANGUAGE CXX ) # Use cxx compiler
 
 link_libraries(${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
 add_executable( cacla ${source_files} ${SOURCES})
