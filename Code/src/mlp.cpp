@@ -145,7 +145,7 @@ void derivativeLinear(IN float *input,
 }
 
 void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
-		IN float *input, IN float *network_weights, OUT float *output){
+		IN float *input, IN float *network_weights, IN float *network_bias, OUT float *output){
 
 	float resultLayer[output_size];
 	float hiddenLayer1[hidden_size_1];
@@ -153,10 +153,11 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 
 	int step = 4;
 	int count = 0;
+	int biasPassed = 0;
 	int sizes[] = {
 			input_size,
 			hidden_size_0,
-			hiden_size_1,
+			hidden_size_1,
 			output_size
 	};
 
@@ -167,21 +168,77 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 			resultLayer
 	};
 
+	float* corrected_weights[] = {
+			corrected_weights_1,
+			corrected_weights_2,
+			corrected_weights_3
+	};
+
+	float corrected_weights_1[input_size * hidden_size_0];
+	matrixCopy(input_size * hidden_size_0, network_weights[0], corrected_weights_1);
+
+	float corrected_weights_2[hidden_size_0 * hidden_size_1];
+	matrixCopy(hidden_size_0 * hidden_size_1, network_weights[input_size * hidden_size_0], corrected_weights_2);
+
+	float corrected_weights_3[hidden_size_1 * output_size];
+	matrixCopy(hidden_size_1 * output_size, network_weights[input_size * hidden_size_0 + hidden_size_0 * hidden_size_1], corrected_weights_3);
+
 
 	for(int i = 0; i < step-1; i++){
 		for(int j = 0; j < sizes[i+1]; j++){
 					layers[i+1][j] = 0;
-					for(int j=0; k < sizes[i]; k++){
+					for(int k=0; k < sizes[i]; k++){
 						layers[i+1][j] += layers[i][k] * network_weights[count];
 						count++;
 					}
-					if (layers[i+1][j] < 0) layers[i+1][j] = 0;
+					layer[i+1][j] += network_bias[biasPassed + j];
+
+					if (layers[i+1][j] < 0){
+						layers[i+1][j] = 0;
+
+						for(int l=0; l < sizes[i+1]; l++){
+							corrected_weights[i][l * sizes[i] + j] = 0;
+						}
+					}
 			}
+		biasPassed += sizes[i+1];
 	}
 
 
+	float weights_temp[hidden_size_1 * output_size];
 
+	matrixMul(input_size, hidden_size_0, hidden_size_1, corrected_weights_1, corrected_weights_2, weights_temp);
+	matrixMul(hidden_size_0, hidden_size_1, output_size, weights_temp_1, corrected_weights_3, output);
 
+}
+
+void matrixMul(int size_input, int size_common, int size_output,
+        float *letfMatrix, float *rightMatrix, float *resultMatrix){
+    
+    int count = 0;
+    for(int i=0; i < size_input; i++){
+        for(int j=0; j < size_output; j++){
+            resultMatrix[count] = 0;
+
+            for(int k=0; k < size_common; k++){
+                resultMatrix[count] += letfMatrix[i * size_common + k] * rightMatrix[k * size_output + j];
+            }
+            count++;
+        }
+    }
+
+}
+
+void matrixCopy(int size, float *input, float *output){
+	for(int i=0; i < size; i++){
+		output[i] = input[i];
+	}
+}
+
+void genZero(int size, OUT float *target){
+	for(int i=0; i < size; i++){
+		target[i] = 0;
+	}
 }
 
 

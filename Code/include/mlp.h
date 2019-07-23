@@ -195,11 +195,41 @@ void derivativeLinear(IN float *input,
  * @param hidden_size_1 size of the second hidden layer
  * @param input  Raw output of a neuron
  * @param network_weights weights of the neural network
+ * @param network_bias bias of the neural network
  * @param output Activated output of a neuron
  */
 void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
-		IN float *input, IN float *network_weights, OUT float *output);
+		IN float *input, IN float *network_weights, IN float *network_bias, OUT float *output);
 
+/**
+ * @brief Function for matrix multiplication
+ *
+ * @param size_input size of the first matrix columns
+ * @param size_common size of the common columns
+ * @param size_output size of the second matrix lines
+ * @param leftMatrix First matrix to multiply
+ * @param rightMatrix Second matrix to multiply
+ * @param resultMatrix Matrix storing the results of the computation
+ */
+void matrixMul(int size_input, int size_common, int size_output,
+        float *letfMatrix, float *rightMatrix, float *resultMatrix);
+
+/**
+ * @brief Function for matrix copy
+ *
+ * @param size size of matrix
+ * @param input pointer to the matrix to copy
+ * @param output pointer to the matrix storing the results
+ */
+void matrixCopy(int size, float *input, float *output);
+
+/**
+ * @brief Function generating target composed of zeros
+ *
+ * @param size size of target
+ * @param target pointer to the target
+ */
+void genZero(int size, OUT float *target);
 
 /**
  * @brief Compute sigma values of a layer. The sigma value is used to compute the gradient

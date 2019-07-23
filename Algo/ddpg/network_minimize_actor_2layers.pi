@@ -24,6 +24,7 @@
         <node expr="input_size * hidden_size_0"
             id="hidden_weights_size_0" kind="param"/>
         <node id="critic_output_size" kind="cfg_in_iface"/>
+        <node id="critic_input_size" kind="cfg_in_iface"/>
         <node id="weights" kind="src">
             <port annotation="NONE" expr="weights_size"
                 kind="output" name="weights"/>
@@ -216,6 +217,7 @@
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size_0"/>
             <port kind="cfg_input" name="hidden_size_1"/>
+            <port kind="cfg_input" name="critic_input_size"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE" expr="output_size"
@@ -292,10 +294,6 @@
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
-        </node>
-        <node id="targets" kind="src">
-            <port annotation="NONE" expr="output_size"
-                kind="output" name="targets"/>
         </node>
         <node id="learning_rate" kind="src">
             <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
@@ -442,6 +440,16 @@
             <port annotation="NONE" expr="0" kind="input" name="in"/>
             <port annotation="NONE" expr="0" kind="output" name="out_0"/>
             <port annotation="NONE" expr="0" kind="output" name="out_1"/>
+        </node>
+        <node id="GenerateTarget" kind="actor" period="0">
+            <data key="graph_desc">Code/include/mlp.h</data>
+            <loop name="genZero">
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="target" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="0" kind="output" name="target"/>
         </node>
         <node expr="hidden_weights_size_1 + hidden_size_1"
             getter=""
@@ -623,8 +631,6 @@
         <edge kind="fifo" source="BroadcastErrors_output"
             sourceport="out_0" target="GradientsHidden_1"
             targetport="next_layer_errors" type="float"/>
-        <edge kind="fifo" source="targets" sourceport="targets"
-            target="GradientsOutput" targetport="target" type="float"/>
         <edge kind="fifo" source="learning_rate"
             sourceport="learning_rate"
             target="BroadcastLearningRate" targetport="in" type="float"/>
@@ -761,6 +767,9 @@
         <edge kind="fifo" source="BroadcastCriticBias"
             sourceport="out_1" target="GradientsOutput"
             targetport="critic_bias" type="void"/>
+        <edge kind="fifo" source="GenerateTarget"
+            sourceport="target" target="GradientsOutput"
+            targetport="target" type="void"/>
         <edge kind="dependency" source="hidden_size_1" target="bias_size"/>
         <edge kind="dependency" source="output_size" target="bias_size"/>
         <edge kind="dependency" source="weights_size" target="weights"/>
@@ -819,8 +828,6 @@
             target="GradientsHidden_1" targetport="next_layer_size"/>
         <edge kind="dependency" source="hidden_size_1"
             target="GradientsOutput" targetport="input_size"/>
-        <edge kind="dependency" source="output_size"
-            target="GradientsOutput" targetport="output_size"/>
         <edge kind="dependency" source="weights_size"
             target="BroadcastWeights" targetport="size"/>
         <edge kind="dependency" source="bias_size"
@@ -837,7 +844,6 @@
             target="JoinGradients_output" targetport="layer_size"/>
         <edge kind="dependency" source="output_size"
             target="BroadcastErrors_output" targetport="size"/>
-        <edge kind="dependency" source="output_size" target="targets"/>
         <edge kind="dependency" source="hidden_weights_size_1"
             target="JoinGradients_hidden_1" targetport="weights_size"/>
         <edge kind="dependency" source="input_size"
@@ -899,5 +905,11 @@
             target="GradientsOutput" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
             target="GradientsOutput" targetport="hidden_size_1"/>
+        <edge kind="dependency" source="critic_output_size"
+            target="GradientsOutput" targetport="output_size"/>
+        <edge kind="dependency" source="critic_output_size"
+            target="GenerateTarget" targetport="size"/>
+        <edge kind="dependency" source="critic_input_size"
+            target="GradientsOutput" targetport="critic_input_size"/>
     </graph>
 </graphml>

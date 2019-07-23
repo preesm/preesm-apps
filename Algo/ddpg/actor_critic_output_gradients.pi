@@ -11,6 +11,7 @@
         <node id="input_size" kind="cfg_in_iface"/>
         <node id="hidden_size_0" kind="cfg_in_iface"/>
         <node id="hidden_size_1" kind="cfg_in_iface"/>
+        <node id="critic_input_size" kind="cfg_in_iface"/>
         <node id="target" kind="src">
             <port annotation="NONE" expr="output_size"
                 kind="output" name="target"/>
@@ -78,9 +79,21 @@
         </node>
         <node id="Derivative_Function" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
-            <loop name="derivativeLinear">
+            <loop name="derivativeNeuralNetwork">
+                <param direction="IN" isConfig="true"
+                    name="input_size" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="output_size" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="hidden_size_0" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="hidden_size_1" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="input" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="network_weights" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="network_bias" type="float "/>
                 <param direction="OUT" isConfig="false"
                     name="output" type="float "/>
             </loop>
@@ -89,7 +102,8 @@
             <port kind="cfg_input" name="hidden_size_0"/>
             <port kind="cfg_input" name="hidden_size_1"/>
             <port annotation="NONE" expr="1" kind="input" name="input"/>
-            <port annotation="NONE" expr="0" kind="input" name="critic_weights"/>
+            <port annotation="NONE" expr="0" kind="input" name="network_weights"/>
+            <port annotation="NONE" expr="0" kind="input" name="network_bias"/>
             <port annotation="NONE" expr="1" kind="output" name="output"/>
         </node>
         <node id="bias_gradient" kind="snk">
@@ -120,6 +134,9 @@
         </node>
         <node id="critic_weights" kind="src">
             <port annotation="NONE" expr="0" kind="output" name="critic_weights"/>
+        </node>
+        <node id="critic_bias" kind="src">
+            <port annotation="NONE" expr="0" kind="output" name="critic_bias"/>
         </node>
         <edge kind="fifo" source="target" sourceport="target"
             target="Output_Error" targetport="target" type="float"/>
@@ -156,7 +173,10 @@
         <edge kind="fifo" source="critic_weights"
             sourceport="critic_weights"
             target="Derivative_Function"
-            targetport="critic_weights" type="void"/>
+            targetport="network_weights" type="void"/>
+        <edge kind="fifo" source="critic_bias"
+            sourceport="critic_bias" target="Derivative_Function"
+            targetport="network_bias" type="void"/>
         <edge kind="dependency" source="output_size"
             target="Output_Error" targetport="output_size"/>
         <edge kind="dependency" source="output_size" target="target"/>
@@ -174,11 +194,11 @@
         <edge kind="dependency" source="output_size" target="output"/>
         <edge kind="dependency" source="output_size"
             target="Derivative_Function" targetport="output_size"/>
-        <edge kind="dependency" source="input_size"
-            target="Derivative_Function" targetport="input_size"/>
         <edge kind="dependency" source="hidden_size_0"
             target="Derivative_Function" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
             target="Derivative_Function" targetport="hidden_size_1"/>
+        <edge kind="dependency" source="critic_input_size"
+            target="Derivative_Function" targetport="input_size"/>
     </graph>
 </graphml>
