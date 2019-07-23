@@ -144,6 +144,46 @@ void derivativeLinear(IN float *input,
     output[0] = 1;
 }
 
+void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
+		IN float *input, IN float *network_weights, OUT float *output){
+
+	float resultLayer[output_size];
+	float hiddenLayer1[hidden_size_1];
+	float hiddenLayer0[hidden_size_0];
+
+	int step = 4;
+	int count = 0;
+	int sizes[] = {
+			input_size,
+			hidden_size_0,
+			hiden_size_1,
+			output_size
+	};
+
+	float* layers[] = {
+			input,
+			hiddenLayer0,
+			hiddenLayer1,
+			resultLayer
+	};
+
+
+	for(int i = 0; i < step-1; i++){
+		for(int j = 0; j < sizes[i+1]; j++){
+					layers[i+1][j] = 0;
+					for(int j=0; k < sizes[i]; k++){
+						layers[i+1][j] += layers[i][k] * network_weights[count];
+						count++;
+					}
+					if (layers[i+1][j] < 0) layers[i+1][j] = 0;
+			}
+	}
+
+
+
+
+}
+
 
 
 

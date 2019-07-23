@@ -7,6 +7,7 @@
 
 #include "preesm.h"
 
+
 /**
  * @brief Generic layer actor for a MLP.
  *        This generates the raw output (i.e before activation) of each neuron.
@@ -178,6 +179,26 @@ void activateLinear(IN float *input,
  */
 void derivativeLinear(IN float *input,
                       OUT float *output);
+
+/**
+ * @brief Neural derivative function
+ *
+ *     f(x) = NN(x)
+ *
+ *     f'(x) = W1 * W2 * ... * Wn (Ws are the weights of each layer, without bias)
+ *
+ *		It is supposed that activation function of each layer is a ReLU function and the network has two hidden layers
+ *
+ * @param input_size size of the input layer
+ * @param output_size size of the output layer
+ * @param hidden_size_0 size of the first hidden layer
+ * @param hidden_size_1 size of the second hidden layer
+ * @param input  Raw output of a neuron
+ * @param network_weights weights of the neural network
+ * @param output Activated output of a neuron
+ */
+void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
+		IN float *input, IN float *network_weights, OUT float *output);
 
 
 /**
