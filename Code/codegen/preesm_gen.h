@@ -47,7 +47,21 @@
 #ifndef _PREESM_PREESM_GEN_H
 #define _PREESM_PREESM_GEN_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * This _GNU_SOURCE actually creates possible incompatibilities
+ * and a few requirements due to the dump.c/.c source files.
+ *
+ * To not face problems, preesm_gen.h must be included before everything else
+ * (as the definition of _GNU_SOURCE). When needed, preesm_gen.h should be included in the .c,
+ * indeed the inclusion in the .h creates a cyclic inclusion.
+ */
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
 
 #include <stdio.h>
 #include <string.h>
@@ -91,7 +105,11 @@
 #include "critic.h"
 #include "actor.h"
 
-#define NB_DESIGN_ELTS 2
-#define NB_CORES 1
+#define NB_DESIGN_ELTS 5
+#define NB_CORES 4
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
