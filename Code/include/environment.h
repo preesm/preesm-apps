@@ -15,6 +15,15 @@
 void envInit(float *state_angular, int state_angular_size, float *state_observation, int state_space_size, float x_target, float y_target);
 
 
+void step_noreward(int state_space_size, int action_space_size, int state_angular_size, float x_target, float y_target,
+                   IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation);
+
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Performs a step in the dynamic of the environment
  *
@@ -28,9 +37,10 @@ void step(int state_space_size, int action_space_size, int state_angular_size, f
 IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation, OUT float *reward);
 
 
-void step_noreward(int state_space_size, int action_space_size, int state_angular_size, float x_target, float y_target,
-                   IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation);
-
 void envActionLimits(OUT float *limits);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
