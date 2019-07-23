@@ -151,6 +151,17 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 	float hiddenLayer1[hidden_size_1];
 	float hiddenLayer0[hidden_size_0];
 
+
+	float corrected_weights_1[input_size * hidden_size_0];
+	matrixCopy(input_size * hidden_size_0, &network_weights[0], corrected_weights_1);
+
+	float corrected_weights_2[hidden_size_0 * hidden_size_1];
+	matrixCopy(hidden_size_0 * hidden_size_1, &network_weights[input_size * hidden_size_0], corrected_weights_2);
+
+	float corrected_weights_3[hidden_size_1 * output_size];
+	matrixCopy(hidden_size_1 * output_size, &network_weights[input_size * hidden_size_0 + hidden_size_0 * hidden_size_1], corrected_weights_3);
+
+
 	int step = 4;
 	int count = 0;
 	int biasPassed = 0;
@@ -174,15 +185,6 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 			corrected_weights_3
 	};
 
-	float corrected_weights_1[input_size * hidden_size_0];
-	matrixCopy(input_size * hidden_size_0, network_weights[0], corrected_weights_1);
-
-	float corrected_weights_2[hidden_size_0 * hidden_size_1];
-	matrixCopy(hidden_size_0 * hidden_size_1, network_weights[input_size * hidden_size_0], corrected_weights_2);
-
-	float corrected_weights_3[hidden_size_1 * output_size];
-	matrixCopy(hidden_size_1 * output_size, network_weights[input_size * hidden_size_0 + hidden_size_0 * hidden_size_1], corrected_weights_3);
-
 
 	for(int i = 0; i < step-1; i++){
 		for(int j = 0; j < sizes[i+1]; j++){
@@ -191,7 +193,7 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 						layers[i+1][j] += layers[i][k] * network_weights[count];
 						count++;
 					}
-					layer[i+1][j] += network_bias[biasPassed + j];
+					layers[i+1][j] += network_bias[biasPassed + j];
 
 					if (layers[i+1][j] < 0){
 						layers[i+1][j] = 0;
@@ -208,7 +210,7 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 	float weights_temp[hidden_size_1 * output_size];
 
 	matrixMul(input_size, hidden_size_0, hidden_size_1, corrected_weights_1, corrected_weights_2, weights_temp);
-	matrixMul(hidden_size_0, hidden_size_1, output_size, weights_temp_1, corrected_weights_3, output);
+	matrixMul(hidden_size_0, hidden_size_1, output_size, weights_temp, corrected_weights_3, output);
 
 }
 
