@@ -146,8 +146,12 @@ file(
 	./codegen/*.h
 )
 
+file(GLOB_RECURSE to_remove "${CMAKE_SOURCE_DIR}/src/devices/serialcontroller.cpp" "${CMAKE_SOURCE_DIR}/include/devices/serialcontroller.h")
+message(${to_remove})
+list(REMOVE_ITEM SOURCES ${to_remove})
+
 SET_SOURCE_FILES_PROPERTIES( ${source_files} ${header_files} PROPERTIES LANGUAGE CXX ) # Use cxx compiler
 
 link_libraries(${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
-add_executable( cacla ${source_files} ${SOURCES})
+add_executable( cacla ${source_files} ${header_files} ${SOURCES})
 set(CMAKE_C_FLAGS "-std=gnu99")
