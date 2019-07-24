@@ -5,7 +5,6 @@
     <key attr.name="arguments" for="node" id="arguments"/>
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
-    <key attr.name="delay" attr.type="string" for="edge"/>
     <graph edgedefault="directed">
         <data key="name">update_actor_critic</data>
         <node id="sampleSize" kind="cfg_in_iface"/>
@@ -151,7 +150,8 @@
                 kind="input" name="weights_in"/>
             <port annotation="NONE" expr="critic_weights_size"
                 kind="output" name="weights_out_0"/>
-            <port annotation="NONE" expr="critic_weights_size" kind="output" name="weights_out_1"/>
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="output" name="weights_out_1"/>
         </node>
         <node id="BroadcastCriticBias" kind="broadcast">
             <port kind="cfg_input" name="critic_bias_size"/>
@@ -159,25 +159,9 @@
                 kind="input" name="bias_in"/>
             <port annotation="NONE" expr="critic_bias_size"
                 kind="output" name="bias_out_0"/>
-            <port annotation="NONE" expr="critic_bias_size" kind="output" name="bias_out_1"/>
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="output" name="bias_out_1"/>
         </node>
-        <edge expr="0" kind="fifo" source="Update_Critic"
-            sourceport="weights_out"
-            target="BroadcastCriticWeights"
-            targetport="weights_in" type="float">
-        </edge>
-        <edge expr="0" kind="fifo" source="Update_Critic"
-            sourceport="bias_out" target="BroadcastCriticBias"
-            targetport="bias_in" type="float">
-        </edge>
-        <edge expr="0" kind="fifo" source="Update_Actor"
-            sourceport="weights_out" target="Update_Actor"
-            targetport="weights" type="float">
-        </edge>
-        <edge expr="0" kind="fifo" source="Update_Actor"
-            sourceport="bias_out" target="Update_Actor"
-            targetport="bias" type="float">
-        </edge>
         <edge kind="fifo" source="valid_actor"
             sourceport="valid_actor" target="Update_Actor"
             targetport="valid" type="int"/>
