@@ -9,8 +9,6 @@
         <constraintGroup>
             <operator name="Core0"/>
             <task name="training/Environment"/>
-            <task name="training/broadcastState"/>
-            <task name="training/renderEnv"/>
             <task name="training/BroadcastStateFeature"/>
             <task name="training/Temporal_Difference_Error"/>
             <task name="training/BroadcastWeightsCritic"/>
@@ -373,7 +371,6 @@
         <constraintGroup>
             <operator name="Core1"/>
             <task name="training/Environment"/>
-            <task name="training/broadcastState"/>
             <task name="training/BroadcastStateFeature"/>
             <task name="training/Temporal_Difference_Error"/>
             <task name="training/BroadcastWeightsCritic"/>
@@ -736,7 +733,6 @@
         <constraintGroup>
             <operator name="Core2"/>
             <task name="training/Environment"/>
-            <task name="training/broadcastState"/>
             <task name="training/BroadcastStateFeature"/>
             <task name="training/Temporal_Difference_Error"/>
             <task name="training/BroadcastWeightsCritic"/>
@@ -1099,7 +1095,6 @@
         <constraintGroup>
             <operator name="Core3"/>
             <task name="training/Environment"/>
-            <task name="training/broadcastState"/>
             <task name="training/BroadcastStateFeature"/>
             <task name="training/Temporal_Difference_Error"/>
             <task name="training/BroadcastWeightsCritic"/>
@@ -1478,4 +1473,7 @@
     </simuParams>
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0" toleranceEPS="0.0"/>
+    </energyConfigs>
 </scenario>

@@ -28,10 +28,13 @@
         <node expr="4" id="y_target" kind="param"/>
         <node expr="0" id="z_target" kind="param"/>
         <node expr="300" id="hidden_size_1" kind="param"/>
-        <node expr="0" id="sampleSize" kind="param"/>
-        <node expr="0" id="bufferSize" kind="param"/>
+        <node expr="64" id="sampleSize" kind="param"/>
+        <node expr="5000" id="bufferSize" kind="param"/>
         <node expr="action_space_size + state_space_size"
             id="actionState_space_size" kind="param"/>
+        <node expr="bufferSize-sampleSize"
+            id="remainingSampleSize" kind="param"/>
+        <node expr="0" id="nbFireActor" kind="param"/>
         <node id="Environment" kind="actor" period="0">
             <data key="graph_desc">Code/include/environment.h</data>
             <loop name="step">
@@ -70,11 +73,9 @@
         <node id="BroadcastStateFeature" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="state"/>
-            <port annotation="NONE" expr="size" kind="output" name="state_out3"/>
-            <port annotation="NONE" expr="size" kind="output" name="state_out4"/>
             <port annotation="NONE" expr="size" kind="output" name="state_out1"/>
-            <port annotation="NONE" expr="0" kind="output" name="state_out5"/>
-            <port annotation="NONE" expr="0" kind="output" name="state_out6"/>
+            <port annotation="NONE" expr="size" kind="output" name="state_out5"/>
+            <port annotation="NONE" expr="size" kind="output" name="state_out6"/>
         </node>
         <node id="Temporal_Difference_Error" kind="actor" period="0">
             <data key="graph_desc">Code/include/critic.h</data>
@@ -94,7 +95,6 @@
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="value_next_state"/>
             <port annotation="NONE" expr="1" kind="input" name="reward"/>
-            <port annotation="NONE" expr="1" kind="input" name="value_state"/>
             <port annotation="NONE" expr="1" kind="input" name="gamma_in"/>
             <port annotation="NONE" expr="1" kind="output" name="delta"/>
             <port annotation="NONE" expr="1" kind="output" name="target"/>
@@ -120,9 +120,10 @@
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size_1"/>
             <port annotation="NONE"
-                expr="hidden_size + output_size" kind="input" name="bias"/>
+                expr="hidden_size_0 + hidden_size_1 + output_size"
+                kind="input" name="bias"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="input"/>
@@ -165,12 +166,12 @@
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size_0 + hidden_size_0* output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="output" name="weights_out"/>
             <port annotation="NONE"
                 expr="output_size + hidden_size_1 + hidden_size_0"
@@ -192,6 +193,8 @@
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="0" kind="input" name="weights_critic"/>
+            <port annotation="NONE" expr="0" kind="input" name="bias_critic"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="output" name="weights_out"/>
@@ -298,6 +301,11 @@
                 expr="bufferSize * state_space_size" kind="input" name="state"/>
             <port annotation="NONE"
                 expr="bufferSize * state_space_size" kind="input" name="next_state"/>
+            <port annotation="NONE" expr="0" kind="input" name="reward_save"/>
+            <port annotation="NONE" expr="0" kind="input" name="state_save"/>
+            <port annotation="NONE" expr="0" kind="input" name="next_state_save"/>
+            <port annotation="NONE" expr="0" kind="input" name="action"/>
+            <port annotation="NONE" expr="0" kind="input" name="action_save"/>
             <port annotation="NONE" expr="sampleSize"
                 kind="output" name="reward_out"/>
             <port annotation="NONE"
@@ -306,6 +314,11 @@
             <port annotation="NONE"
                 expr="sampleSize * state_space_size"
                 kind="output" name="state_out"/>
+            <port annotation="NONE" expr="0" kind="output" name="reward_toSave"/>
+            <port annotation="NONE" expr="0" kind="output" name="state_toSave"/>
+            <port annotation="NONE" expr="0" kind="output" name="next_state_toSave"/>
+            <port annotation="NONE" expr="0" kind="output" name="action_toSave"/>
+            <port annotation="NONE" expr="0" kind="output" name="action_out"/>
         </node>
         <node id="BroadcastWeightsTargetActor" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -338,9 +351,10 @@
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size_1"/>
             <port annotation="NONE"
-                expr="hidden_size + output_size" kind="input" name="bias"/>
+                expr="hidden_size_0 + hidden_size_1 + output_size"
+                kind="input" name="bias"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="input"/>
@@ -354,9 +368,10 @@
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size_1"/>
             <port annotation="NONE"
-                expr="hidden_size + output_size" kind="input" name="bias"/>
+                expr="hidden_size_0 + hidden_size_1 + output_size"
+                kind="input" name="bias"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="input"/>
@@ -379,7 +394,7 @@
             <port annotation="NONE" expr="0" kind="output" name="weights_out"/>
             <port annotation="NONE" expr="0" kind="output" name="bias_out"/>
         </node>
-        <node id="JoinActionState" kind="join">
+        <node id="JoinTargetActionState" kind="join">
             <port annotation="NONE" expr="0" kind="input" name="action"/>
             <port annotation="NONE" expr="0" kind="input" name="state"/>
             <port annotation="NONE" expr="0" kind="output" name="output"/>
@@ -389,103 +404,99 @@
             <port annotation="NONE" expr="0" kind="output" name="out_0"/>
             <port annotation="NONE" expr="0" kind="output" name="out_1"/>
         </node>
-        <node expr="state_space_size" getter=""
-            id="delay_BroadcastStateFeature_state_out1__Actor_MLP_input"
-            kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="state_space_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="state_space_size"
-                kind="output" name="get"/>
+        <node id="BroadcastSampledState" kind="broadcast">
+            <port annotation="NONE" expr="0" kind="input" name="in"/>
+            <port annotation="NONE" expr="0" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="0" kind="output" name="out_1"/>
         </node>
-        <node expr="state_space_size" getter=""
-            id="delay_BroadcastStateFeature_state_out3__Update_Critic_inputs"
-            kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="state_space_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="state_space_size"
-                kind="output" name="get"/>
+        <node id="Set_FillSize" kind="actor" period="0">
+            <port kind="cfg_input" name="NextSize"/>
+            <port kind="cfg_input" name="initSize"/>
+            <port annotation="NONE" kind="cfg_output" name="out"/>
         </node>
-        <node expr="critic_weights_size" getter=""
-            id="delay_Update_Critic_weights_out__BroadcastWeightsCritic_input"
-            kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="critic_weights_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="critic_weights_size"
-                kind="output" name="get"/>
+        <node id="JoinActionState" kind="join">
+            <port annotation="NONE" expr="0" kind="input" name="action"/>
+            <port annotation="NONE" expr="0" kind="input" name="state"/>
+            <port annotation="NONE" expr="0" kind="output" name="output"/>
         </node>
-        <node expr="critic_bias_size" getter=""
-            id="delay_Update_Critic_bias_out__BroadcastBiasCritic_input"
+        <node expr="0" getter=""
+            id="Update_Actor_bias_out__BroadcastBiasActor_input"
             kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="critic_bias_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="critic_bias_size"
-                kind="output" name="get"/>
+            <port annotation="NONE" expr="0" kind="input" name="set"/>
+            <port annotation="NONE" expr="0" kind="output" name="get"/>
         </node>
-        <node expr="state_space_size" getter=""
-            id="delay_BroadcastStateFeature_state_out4__Update_Actor_inputs"
+        <node expr="0" getter=""
+            id="Fill_Buffer_state_toSave__Fill_Buffer_state_save"
             kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="state_space_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="state_space_size"
-                kind="output" name="get"/>
+            <port annotation="NONE" expr="0" kind="input" name="set"/>
+            <port annotation="NONE" expr="0" kind="output" name="get"/>
         </node>
-        <node expr="actor_weights_size" getter=""
-            id="delay_Update_Actor_weights_out__BroadcastWeightsActor_input"
+        <node expr="0" getter=""
+            id="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"
             kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="actor_weights_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="actor_weights_size"
-                kind="output" name="get"/>
+            <port annotation="NONE" expr="0" kind="input" name="set"/>
+            <port annotation="NONE" expr="0" kind="output" name="get"/>
         </node>
-        <node expr="actor_bias_size" getter=""
-            id="delay_Update_Actor_bias_out__BroadcastBiasActor_input"
+        <node expr="0" getter=""
+            id="Fill_Buffer_reward_toSave__Fill_Buffer_reward_save"
             kind="delay" level="permanent" setter="">
-            <port annotation="NONE" expr="actor_bias_size"
-                kind="input" name="set"/>
-            <port annotation="NONE" expr="actor_bias_size"
-                kind="output" name="get"/>
+            <port annotation="NONE" expr="0" kind="input" name="set"/>
+            <port annotation="NONE" expr="0" kind="output" name="get"/>
         </node>
-        <edge expr="state_space_size" kind="fifo"
-            source="BroadcastStateFeature"
-            sourceport="state_out1" target="Actor_MLP"
+        <node expr="0" getter=""
+            id="Fill_Buffer_action_toSave__Fill_Buffer_action_save"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="0" kind="input" name="set"/>
+            <port annotation="NONE" expr="0" kind="output" name="get"/>
+        </node>
+        <node expr="0" getter=""
+            id="Environment_state_observation__BroadcastStateFeature_state"
+            kind="delay" level="permanent" setter="">
+            <port annotation="NONE" expr="0" kind="input" name="set"/>
+            <port annotation="NONE" expr="0" kind="output" name="get"/>
+        </node>
+        <edge expr="0" kind="fifo" source="Update_Actor"
+            sourceport="bias_out" target="BroadcastBiasActor"
             targetport="input" type="float">
-            <data key="delay">delay_BroadcastStateFeature_state_out1__Actor_MLP_input</data>
+            <data key="delay">Update_Actor_bias_out__BroadcastBiasActor_input</data>
         </edge>
-        <edge expr="state_space_size" kind="fifo"
-            source="BroadcastStateFeature"
-            sourceport="state_out3" target="Update_Critic"
-            targetport="inputs" type="float">
-            <data key="delay">delay_BroadcastStateFeature_state_out3__Update_Critic_inputs</data>
+        <edge expr="0" kind="fifo" source="Fill_Buffer"
+            sourceport="reward_toSave" target="Fill_Buffer"
+            targetport="reward_save" type="void">
+            <data key="delay">Fill_Buffer_reward_toSave__Fill_Buffer_reward_save</data>
         </edge>
-        <edge expr="critic_weights_size" kind="fifo"
-            source="Update_Critic" sourceport="weights_out"
-            target="BroadcastWeightsCritic" targetport="input" type="float">
-            <data key="delay">delay_Update_Critic_weights_out__BroadcastWeightsCritic_input</data>
+        <edge expr="0" kind="fifo" source="Fill_Buffer"
+            sourceport="state_toSave" target="Fill_Buffer"
+            targetport="state_save" type="void">
+            <data key="delay">Fill_Buffer_state_toSave__Fill_Buffer_state_save</data>
         </edge>
-        <edge expr="critic_bias_size" kind="fifo"
-            source="Update_Critic" sourceport="bias_out"
-            target="BroadcastBiasCritic" targetport="input" type="float">
-            <data key="delay">delay_Update_Critic_bias_out__BroadcastBiasCritic_input</data>
+        <edge expr="0" kind="fifo" source="Fill_Buffer"
+            sourceport="next_state_toSave" target="Fill_Buffer"
+            targetport="next_state_save" type="void">
+            <data key="delay">Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save</data>
         </edge>
-        <edge expr="state_space_size" kind="fifo"
-            source="BroadcastStateFeature"
-            sourceport="state_out4" target="Update_Actor"
-            targetport="inputs" type="float">
-            <data key="delay">delay_BroadcastStateFeature_state_out4__Update_Actor_inputs</data>
-        </edge>
-        <edge expr="actor_weights_size" kind="fifo"
-            source="Update_Actor" sourceport="weights_out"
-            target="BroadcastWeightsActor" targetport="input" type="float">
-            <data key="delay">delay_Update_Actor_weights_out__BroadcastWeightsActor_input</data>
-        </edge>
-        <edge expr="actor_bias_size" kind="fifo"
-            source="Update_Actor" sourceport="bias_out"
-            target="BroadcastBiasActor" targetport="input" type="float">
-            <data key="delay">delay_Update_Actor_bias_out__BroadcastBiasActor_input</data>
-        </edge>
-        <edge kind="fifo" source="Environment"
+        <edge expr="0" kind="fifo" source="Environment"
             sourceport="state_observation"
-            target="BroadcastStateFeature" targetport="state" type="float"/>
+            target="BroadcastStateFeature" targetport="state" type="float">
+            <data key="delay">Environment_state_observation__BroadcastStateFeature_state</data>
+        </edge>
+        <edge expr="0" kind="fifo" source="Fill_Buffer"
+            sourceport="action_toSave" target="Fill_Buffer"
+            targetport="action_save" type="void">
+            <data key="delay">Fill_Buffer_action_toSave__Fill_Buffer_action_save</data>
+        </edge>
+        <edge kind="fifo" source="BroadcastStateFeature"
+            sourceport="state_out1" target="Actor_MLP"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="Update_Critic"
+            sourceport="weights_out"
+            target="BroadcastWeightsCritic" targetport="input" type="float"/>
+        <edge kind="fifo" source="Update_Critic"
+            sourceport="bias_out" target="BroadcastBiasCritic"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="Update_Actor"
+            sourceport="weights_out"
+            target="BroadcastWeightsActor" targetport="input" type="float"/>
         <edge kind="fifo" source="broadcastAction"
             sourceport="action_out0" target="Environment"
             targetport="input_actions" type="float"/>
@@ -552,10 +563,6 @@
         <edge kind="fifo" source="BroadcastStateFeature"
             sourceport="state_out6" target="Fill_Buffer"
             targetport="next_state" type="void"/>
-        <edge kind="fifo" source="Fill_Buffer"
-            sourceport="state_out"
-            target="Temporal_Difference_Error"
-            targetport="value_state" type="void"/>
         <edge kind="fifo" source="BroadcastWeightsTargetCritic"
             sourceport="out_0" target="Set_TargetCritic"
             targetport="weights_network" type="void"/>
@@ -606,11 +613,11 @@
         <edge kind="fifo" source="BroadcastBiasTargetCritic"
             sourceport="out_1" target="TargetCritic_MLP"
             targetport="bias" type="void"/>
-        <edge kind="fifo" source="JoinActionState"
+        <edge kind="fifo" source="JoinTargetActionState"
             sourceport="output" target="TargetCritic_MLP"
             targetport="input" type="void"/>
         <edge kind="fifo" source="TargetActor_MLP"
-            sourceport="output" target="JoinActionState"
+            sourceport="output" target="JoinTargetActionState"
             targetport="action" type="void"/>
         <edge kind="fifo" source="Fill_Buffer"
             sourceport="next_state_out" target="ForkNextState"
@@ -619,12 +626,36 @@
             sourceport="out_0" target="TargetActor_MLP"
             targetport="input" type="void"/>
         <edge kind="fifo" source="ForkNextState"
-            sourceport="out_1" target="JoinActionState"
+            sourceport="out_1" target="JoinTargetActionState"
             targetport="state" type="void"/>
         <edge kind="fifo" source="TargetCritic_MLP"
             sourceport="output"
             target="Temporal_Difference_Error"
             targetport="value_next_state" type="void"/>
+        <edge kind="fifo" source="BroadcastWeightsCritic"
+            sourceport="out_0" target="Update_Actor"
+            targetport="weights_critic" type="void"/>
+        <edge kind="fifo" source="BroadcastBiasCritic"
+            sourceport="out_0" target="Update_Actor"
+            targetport="bias_critic" type="void"/>
+        <edge kind="fifo" source="Fill_Buffer"
+            sourceport="state_out" target="BroadcastSampledState"
+            targetport="in" type="void"/>
+        <edge kind="fifo" source="BroadcastSampledState"
+            sourceport="out_1" target="Update_Actor"
+            targetport="inputs" type="void"/>
+        <edge kind="fifo" source="broadcastAction"
+            sourceport="action_out1" target="Fill_Buffer"
+            targetport="action" type="void"/>
+        <edge kind="fifo" source="Fill_Buffer"
+            sourceport="action_out" target="JoinActionState"
+            targetport="action" type="void"/>
+        <edge kind="fifo" source="BroadcastSampledState"
+            sourceport="out_0" target="JoinActionState"
+            targetport="state" type="void"/>
+        <edge kind="fifo" source="JoinActionState"
+            sourceport="output" target="Update_Critic"
+            targetport="inputs" type="void"/>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="action_space_size"
@@ -648,7 +679,6 @@
             target="Actor_MLP" targetport="hidden_size_0"/>
         <edge kind="dependency" source="action_space_size"
             target="Actor_MLP" targetport="output_size"/>
-        <edge kind="dependency" source="state_space_size" target="delay_BroadcastStateFeature_state_out1__Actor_MLP_input"/>
         <edge kind="dependency" source="state_space_size"
             target="Update_Critic" targetport="input_size"/>
         <edge kind="dependency" source="value_space_size"
@@ -672,14 +702,8 @@
             target="BroadcastBiasActor" targetport="size"/>
         <edge kind="dependency" source="hidden_size_0" target="actor_bias_size"/>
         <edge kind="dependency" source="action_space_size" target="actor_bias_size"/>
-        <edge kind="dependency" source="state_space_size" target="delay_BroadcastStateFeature_state_out3__Update_Critic_inputs"/>
-        <edge kind="dependency" source="state_space_size" target="delay_BroadcastStateFeature_state_out4__Update_Actor_inputs"/>
         <edge kind="dependency" source="action_space_size"
             target="ClipAction" targetport="size"/>
-        <edge kind="dependency" source="actor_bias_size" target="delay_Update_Actor_bias_out__BroadcastBiasActor_input"/>
-        <edge kind="dependency" source="actor_weights_size" target="delay_Update_Actor_weights_out__BroadcastWeightsActor_input"/>
-        <edge kind="dependency" source="critic_weights_size" target="delay_Update_Critic_weights_out__BroadcastWeightsCritic_input"/>
-        <edge kind="dependency" source="critic_bias_size" target="delay_Update_Critic_bias_out__BroadcastBiasCritic_input"/>
         <edge kind="dependency" source="x_target"
             target="Environment" targetport="x_target"/>
         <edge kind="dependency" source="y_target"
@@ -729,5 +753,14 @@
             target="TargetActor_MLP" targetport="hidden_size_1"/>
         <edge kind="dependency" source="hidden_size_1"
             target="Update_Actor" targetport="hidden_size_1"/>
+        <edge kind="dependency" source="bufferSize" target="remainingSampleSize"/>
+        <edge kind="dependency" source="sampleSize" target="remainingSampleSize"/>
+        <edge kind="dependency" source="bufferSize"
+            target="Set_FillSize" targetport="initSize"/>
+        <edge kind="dependency" source="sampleSize"
+            target="Set_FillSize" targetport="NextSize"/>
+        <edge kind="dependency" source="Set_FillSize"
+            sourceport="out" target="nbFireActor"/>
+        <edge kind="dependency" source="nbFireActor" target="Environment_state_observation__BroadcastStateFeature_state"/>
     </graph>
 </graphml>

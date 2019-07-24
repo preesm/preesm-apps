@@ -25,7 +25,8 @@
             id="hidden_weights_size_0" kind="param"/>
         <node id="critic_output_size" kind="cfg_in_iface"/>
         <node id="critic_input_size" kind="cfg_in_iface"/>
-        <node expr="critic_output_size + critic_input_size"
+        <node
+            expr="hidden_size_0 + hidden_size_1 + critic_output_size"
             id="critic_bias_size" kind="param"/>
         <node
             expr="critic_input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * critic_output_size"
@@ -479,7 +480,6 @@
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="output" name="target"/>
         </node>
-        <node id="JoinCriticInput" kind="join"/>
         <node expr="hidden_weights_size_1 + hidden_size_1"
             getter=""
             id="delay_AdamHidden_second_order_moments_out__AdamHidden_second_order_moments"
@@ -504,7 +504,7 @@
         </node>
         <node expr="output_weights_size + output_size" getter=""
             id="delay_AdamOutput_first_order_moments_out__AdamOutput_first_order_moments"
-            kind="delay" level="permanent" setter="">
+            kind="delay" level="none" setter="">
             <port annotation="NONE"
                 expr="output_weights_size + output_size"
                 kind="input" name="set"/>
@@ -956,5 +956,7 @@
             target="GradientsOutput" targetport="critic_bias_size"/>
         <edge kind="dependency" source="critic_weights_size"
             target="GradientsOutput" targetport="critic_weights_size"/>
+        <edge kind="dependency" source="hidden_size_0" target="critic_bias_size"/>
+        <edge kind="dependency" source="hidden_size_1" target="critic_bias_size"/>
     </graph>
 </graphml>

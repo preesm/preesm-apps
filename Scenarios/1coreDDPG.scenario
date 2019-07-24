@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.reinforcement_learning/Algo/ddpg/ddpg.pi"/>
+        <architecture url="/org.ietr.preesm.reinforcement_learning/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.reinforcement_learning/Spider/codegen"/>
+    </files>
+    <constraints excelUrl=""/>
+    <timings excelUrl="/org.ietr.preesm.reinforcement_learning/Code/codegen/analysis.csv">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="float" size="4"/>
+            <dataType name="int" size="4"/>
+            <dataType name="double" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0" toleranceEPS="0.0"/>
+    </energyConfigs>
+</scenario>

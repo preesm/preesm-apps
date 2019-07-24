@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="network_minimize_actor_2layers" snapToGrid="true" pictogramLinks="//@children.0/@anchors.0/@link //@children.0/@children.0/@link //@children.0/@link //@children.1/@anchors.0/@link //@children.1/@children.0/@link //@children.1/@link //@children.2/@anchors.0/@link //@children.2/@children.0/@link //@children.2/@link //@children.3/@link //@children.3/@children.0/@link //@children.3/@anchors.0/@link //@children.4/@link //@children.4/@children.0/@link //@children.4/@anchors.0/@link //@children.5/@link //@children.5/@children.0/@link //@children.5/@anchors.0/@link //@children.6/@link //@children.6/@children.0/@link //@children.6/@anchors.0/@link //@children.7/@anchors.0/@link //@children.7/@children.0/@link //@children.7/@link //@children.8/@link //@children.8/@children.0/@link //@children.8/@anchors.0/@link //@children.9/@anchors.0/@link //@children.9/@children.0/@link //@children.9/@link //@children.10/@anchors.0/@link //@children.10/@children.0/@link //@children.10/@link //@children.11/@link //@children.11/@children.0/@link //@children.11/@anchors.0/@link //@children.12/@link //@children.12/@children.0/@link //@children.12/@anchors.0/@link //@children.13/@anchors.0/@link //@children.13/@children.0/@link //@children.13/@link //@children.13/@anchors.1/@link //@children.14/@anchors.0/@link //@children.14/@children.0/@link //@children.14/@link //@children.14/@anchors.1/@link //@children.15/@anchors.0/@link //@children.15/@children.0/@link //@children.15/@link //@children.15/@anchors.1/@link //@children.16/@anchors.0/@link //@children.16/@children.0/@link //@children.16/@link //@children.16/@anchors.1/@link //@children.17/@anchors.0/@link //@children.17/@children.0/@link //@children.17/@link //@children.17/@anchors.1/@link //@children.18/@anchors.0/@link //@children.18/@children.0/@link //@children.18/@link //@children.18/@anchors.1/@link //@children.19/@link //@children.19/@children.0/@link //@children.19/@anchors.0/@link //@children.19/@anchors.1/@link //@children.19/@anchors.2/@link //@children.19/@anchors.3/@link //@children.19/@anchors.4/@link //@children.19/@anchors.5/@link //@children.19/@anchors.6/@link //@children.19/@anchors.7/@link //@children.19/@anchors.8/@link //@children.20/@link //@children.20/@children.0/@link //@children.20/@anchors.0/@link //@children.20/@anchors.1/@link //@children.20/@anchors.2/@link //@children.20/@anchors.3/@link //@children.20/@anchors.4/@link //@children.20/@anchors.5/@link //@children.20/@anchors.6/@link //@children.20/@anchors.7/@link //@children.20/@anchors.8/@link //@children.21/@link //@children.21/@children.0/@link //@children.21/@anchors.0/@link //@children.21/@anchors.1/@link //@children.21/@anchors.2/@link //@children.21/@anchors.3/@link //@children.21/@anchors.4/@link //@children.21/@anchors.5/@link //@children.21/@anchors.6/@link //@children.21/@anchors.7/@link //@children.21/@anchors.8/@link //@children.21/@anchors.9/@link //@children.21/@anchors.10/@link //@children.21/@anchors.11/@link //@children.21/@anchors.12/@link //@children.21/@anchors.13/@link //@children.21/@anchors.14/@link //@children.21/@anchors.15/@link //@children.22/@link //@children.22/@children.0/@link //@children.22/@anchors.0/@link //@children.22/@anchors.1/@link //@children.22/@anchors.2/@link //@children.22/@anchors.3/@link //@children.22/@anchors.4/@link //@children.22/@anchors.5/@link //@children.22/@anchors.6/@link //@children.22/@anchors.7/@link //@children.22/@anchors.8/@link //@children.22/@anchors.9/@link //@children.22/@anchors.10/@link //@children.22/@anchors.11/@link //@children.22/@anchors.12/@link //@children.22/@anchors.13/@link //@children.22/@anchors.14/@link //@children.22/@anchors.15/@link //@children.23/@link //@children.23/@children.0/@link //@children.23/@anchors.0/@link //@children.23/@anchors.1/@link //@children.23/@anchors.2/@link //@children.23/@anchors.3/@link //@children.23/@anchors.4/@link //@children.23/@anchors.5/@link //@children.23/@anchors.6/@link //@children.23/@anchors.7/@link //@children.23/@anchors.8/@link //@children.24/@link //@children.24/@children.0/@link //@children.24/@anchors.0/@link //@children.24/@anchors.1/@link //@children.24/@anchors.2/@link //@children.24/@anchors.3/@link //@children.24/@anchors.4/@link //@children.24/@anchors.5/@link //@children.24/@anchors.6/@link //@children.24/@anchors.7/@link //@children.24/@anchors.8/@link //@children.25/@link //@children.25/@children.0/@link //@children.25/@anchors.0/@link //@children.25/@anchors.1/@link //@children.25/@anchors.2/@link //@children.25/@anchors.3/@link //@children.25/@anchors.4/@link //@children.25/@anchors.5/@link //@children.25/@anchors.6/@link //@children.25/@anchors.7/@link //@children.25/@anchors.8/@link //@children.25/@anchors.9/@link //@children.25/@anchors.10/@link //@children.25/@anchors.11/@link //@children.25/@anchors.12/@link //@children.25/@anchors.13/@link //@children.26/@link //@children.26/@children.0/@link //@children.26/@anchors.0/@link //@children.26/@anchors.1/@link //@children.26/@anchors.2/@link //@children.26/@anchors.3/@link //@children.26/@anchors.4/@link //@children.26/@anchors.5/@link //@children.26/@anchors.6/@link //@children.26/@anchors.7/@link //@children.26/@anchors.8/@link //@children.26/@anchors.9/@link //@children.26/@anchors.10/@link //@children.27/@link //@children.27/@children.0/@link //@children.27/@anchors.0/@link //@children.27/@anchors.1/@link //@children.27/@anchors.2/@link //@children.27/@anchors.3/@link //@children.27/@anchors.4/@link //@children.27/@anchors.5/@link //@children.27/@anchors.6/@link //@children.27/@anchors.7/@link //@children.27/@anchors.8/@link //@children.27/@anchors.9/@link //@children.27/@anchors.10/@link //@children.27/@anchors.11/@link //@children.27/@anchors.12/@link //@children.27/@anchors.13/@link //@children.27/@anchors.14/@link //@children.27/@anchors.15/@link //@children.27/@anchors.16/@link //@children.28/@link //@children.28/@children.0/@link //@children.28/@anchors.0/@link //@children.28/@anchors.1/@link //@children.28/@anchors.2/@link //@children.28/@anchors.3/@link //@children.28/@anchors.4/@link //@children.29/@link //@children.29/@children.0/@link //@children.29/@anchors.0/@link //@children.29/@anchors.1/@link //@children.29/@anchors.2/@link //@children.29/@anchors.3/@link //@children.29/@anchors.4/@link //@children.30/@link //@children.30/@children.0/@link //@children.30/@anchors.0/@link //@children.30/@anchors.1/@link //@children.30/@anchors.2/@link //@children.30/@anchors.3/@link //@children.30/@anchors.4/@link //@children.30/@anchors.5/@link //@children.31/@link //@children.31/@children.0/@link //@children.31/@anchors.0/@link //@children.31/@anchors.1/@link //@children.31/@anchors.2/@link //@children.31/@anchors.3/@link //@children.31/@anchors.4/@link //@children.31/@anchors.5/@link //@children.31/@anchors.6/@link //@children.31/@anchors.7/@link //@children.31/@anchors.8/@link //@children.32/@link //@children.32/@children.0/@link //@children.32/@anchors.0/@link //@children.32/@anchors.1/@link //@children.32/@anchors.2/@link //@children.32/@anchors.3/@link //@children.32/@anchors.4/@link //@children.33/@link //@children.33/@children.0/@link //@children.33/@anchors.0/@link //@children.33/@anchors.1/@link //@children.33/@anchors.2/@link //@children.33/@anchors.3/@link //@children.33/@anchors.4/@link //@children.33/@anchors.5/@link //@children.34/@link //@children.34/@children.0/@link //@children.34/@anchors.0/@link //@children.34/@anchors.1/@link //@children.34/@anchors.2/@link //@children.34/@anchors.3/@link //@children.34/@anchors.4/@link //@children.34/@anchors.5/@link //@children.35/@link //@children.35/@children.0/@link //@children.35/@anchors.0/@link //@children.35/@anchors.1/@link //@children.35/@anchors.2/@link //@children.35/@anchors.3/@link //@children.35/@anchors.4/@link //@children.36/@anchors.0/@link //@children.36/@children.0/@link //@children.36/@link //@children.36/@anchors.1/@link //@children.37/@link //@children.37/@children.0/@link //@children.37/@anchors.0/@link //@children.37/@anchors.1/@link //@children.37/@anchors.2/@link //@children.37/@anchors.3/@link //@children.37/@anchors.4/@link //@children.38/@link //@children.38/@children.0/@link //@children.38/@anchors.0/@link //@children.38/@anchors.1/@link //@children.39/@link //@children.39/@children.0/@link //@children.39/@anchors.0/@link //@children.39/@anchors.1/@link //@children.39/@anchors.2/@link //@children.39/@anchors.3/@link //@children.39/@anchors.4/@link //@children.40/@link //@children.40/@children.0/@link //@children.40/@anchors.0/@link //@children.40/@anchors.1/@link //@children.40/@anchors.2/@link //@children.40/@anchors.3/@link //@children.41/@link //@children.41/@children.0/@link //@children.41/@anchors.0/@link //@children.41/@anchors.1/@link //@children.41/@anchors.2/@link //@children.41/@anchors.3/@link //@children.41/@anchors.4/@link //@children.41/@anchors.5/@link //@children.42/@link //@children.42/@children.0/@link //@children.42/@anchors.0/@link //@children.42/@anchors.1/@link //@children.42/@anchors.2/@link //@children.42/@anchors.3/@link //@children.42/@anchors.4/@link //@children.42/@anchors.5/@link //@children.42/@anchors.6/@link //@children.42/@anchors.7/@link //@children.42/@anchors.8/@link //@children.42/@anchors.9/@link //@children.42/@anchors.10/@link //@children.43/@link //@children.43/@children.0/@link //@children.43/@anchors.0/@link //@children.43/@anchors.1/@link //@children.43/@anchors.2/@link //@children.43/@anchors.3/@link //@children.43/@anchors.4/@link //@children.44/@link //@children.44/@children.0/@link //@children.44/@anchors.0/@link //@children.44/@anchors.1/@link //@children.44/@anchors.2/@link //@children.44/@anchors.3/@link //@children.44/@anchors.4/@link //@children.45/@link //@children.45/@children.0/@link //@children.45/@anchors.0/@link //@children.45/@anchors.1/@link //@children.45/@anchors.2/@link //@children.45/@anchors.3/@link //@children.45/@anchors.4/@link //@children.45/@anchors.5/@link //@children.45/@anchors.6/@link //@children.45/@anchors.7/@link //@children.45/@anchors.8/@link //@children.45/@anchors.9/@link //@children.45/@anchors.10/@link //@children.45/@anchors.11/@link //@children.45/@anchors.12/@link //@children.45/@anchors.13/@link //@children.45/@anchors.14/@link //@children.45/@anchors.15/@link //@children.46/@link //@children.46/@children.0/@link //@children.46/@anchors.0/@link //@children.46/@anchors.1/@link //@children.46/@anchors.2/@link //@children.46/@anchors.3/@link //@children.46/@anchors.4/@link //@children.46/@anchors.5/@link //@children.47/@anchors.0/@link //@children.47/@children.0/@link //@children.47/@link //@children.47/@anchors.1/@link //@children.48/@anchors.0/@link //@children.48/@children.0/@link //@children.48/@link //@children.48/@anchors.1/@link //@children.49/@link //@children.49/@children.0/@link //@children.49/@anchors.0/@link //@children.49/@anchors.1/@link //@children.49/@anchors.2/@link //@children.49/@anchors.3/@link //@children.49/@anchors.4/@link //@children.49/@anchors.5/@link //@children.49/@anchors.6/@link //@children.49/@anchors.7/@link //@children.49/@anchors.8/@link //@children.50/@link //@children.50/@children.0/@link //@children.50/@anchors.0/@link //@children.50/@anchors.1/@link //@children.50/@anchors.2/@link //@children.50/@anchors.3/@link //@children.50/@anchors.4/@link //@children.50/@anchors.5/@link //@children.51/@link //@children.51/@children.0/@link //@children.51/@anchors.0/@link //@children.51/@anchors.1/@link //@children.51/@anchors.2/@link //@children.51/@anchors.3/@link //@children.51/@anchors.4/@link //@children.52/@link //@children.52/@children.0/@link //@children.52/@anchors.0/@link //@children.52/@anchors.1/@link //@children.52/@anchors.2/@link //@children.52/@anchors.3/@link //@children.52/@anchors.4/@link //@children.53/@link //@children.53/@children.0/@link //@children.53/@anchors.0/@link //@children.53/@anchors.1/@link //@children.53/@anchors.2/@link //@children.54/@link //@children.54/@children.0/@link //@children.54/@anchors.0/@link //@connections.0/@link //@children.55/@link //@children.55/@anchors.0/@link //@connections.1/@link //@children.56/@link //@children.56/@anchors.0/@link //@connections.2/@link //@children.57/@link //@children.57/@anchors.0/@link //@connections.3/@link //@children.58/@link //@children.58/@anchors.0/@link //@connections.4/@link //@children.59/@link //@children.59/@anchors.0/@link //@connections.5/@link //@children.60/@link //@children.60/@anchors.0/@link //@connections.6/@link //@children.61/@link //@children.61/@anchors.0/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link //@connections.34/@link //@connections.35/@link //@connections.36/@link //@connections.37/@link //@connections.38/@link //@connections.39/@link //@connections.40/@link //@connections.41/@link //@connections.42/@link //@connections.43/@link //@connections.44/@link //@connections.45/@link //@connections.46/@link //@connections.47/@link //@connections.48/@link //@connections.49/@link //@connections.50/@link //@connections.51/@link //@connections.52/@link //@connections.53/@link //@connections.54/@link //@connections.55/@link //@connections.56/@link //@connections.57/@link //@connections.58/@link //@connections.59/@link //@connections.60/@link //@connections.61/@link //@connections.62/@link //@connections.63/@link //@connections.64/@link //@connections.65/@link //@connections.66/@link //@connections.67/@link //@connections.68/@link //@connections.69/@link //@connections.70/@link //@connections.71/@link //@connections.72/@link //@connections.73/@link //@connections.74/@link //@connections.75/@link //@connections.76/@link //@connections.77/@link //@connections.78/@link //@connections.79/@link //@connections.80/@link //@connections.81/@link //@connections.82/@link //@connections.83/@link //@connections.84/@link //@connections.85/@link //@connections.86/@link //@connections.87/@link //@connections.88/@link //@connections.89/@link //@connections.90/@link //@connections.91/@link //@connections.92/@link //@connections.93/@link //@connections.94/@link //@connections.95/@link //@connections.96/@link //@connections.97/@link //@connections.98/@link //@connections.99/@link //@connections.100/@link //@connections.101/@link //@connections.102/@link //@connections.103/@link //@connections.104/@link //@connections.105/@link //@connections.106/@link //@connections.107/@link //@connections.108/@link //@connections.109/@link //@connections.110/@link //@connections.111/@link //@connections.112/@link //@connections.113/@link //@connections.114/@link //@connections.115/@link //@connections.116/@link //@connections.117/@link //@connections.118/@link //@connections.119/@link //@connections.120/@link //@connections.121/@link //@connections.122/@link //@connections.123/@link //@connections.124/@link //@connections.125/@link //@connections.126/@link //@connections.127/@link //@connections.128/@link //@connections.129/@link //@connections.130/@link //@connections.131/@link //@connections.132/@link //@connections.133/@link //@connections.134/@link //@connections.135/@link //@connections.136/@link //@connections.137/@link //@connections.138/@link //@connections.139/@link //@connections.140/@link //@connections.141/@link //@connections.142/@link //@connections.143/@link //@connections.144/@link //@connections.145/@link //@connections.146/@link //@connections.147/@link //@connections.148/@link //@connections.149/@link //@connections.150/@link //@connections.151/@link //@connections.152/@link //@connections.153/@link //@connections.154/@link //@connections.155/@link //@connections.156/@link //@connections.157/@link //@connections.158/@link //@connections.159/@link //@connections.160/@link //@connections.161/@link //@connections.162/@link //@connections.163/@link //@connections.164/@link //@connections.165/@link //@connections.166/@link //@connections.167/@link //@connections.168/@link //@connections.169/@link //@connections.170/@link //@connections.171/@link //@connections.172/@link //@connections.173/@link //@connections.174/@link //@connections.175/@link //@connections.176/@link //@connections.177/@link //@connections.178/@link //@connections.179/@link //@connections.180/@link //@connections.181/@link //@connections.182/@link //@connections.183/@link //@connections.184/@link //@connections.185/@link //@connections.186/@link //@connections.187/@link" version="0.15.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="network_minimize_actor_2layers" snapToGrid="true" pictogramLinks="//@children.0/@anchors.0/@link //@children.0/@children.0/@link //@children.0/@link //@children.1/@anchors.0/@link //@children.1/@children.0/@link //@children.1/@link //@children.2/@anchors.0/@link //@children.2/@children.0/@link //@children.2/@link //@children.3/@link //@children.3/@children.0/@link //@children.3/@anchors.0/@link //@children.4/@link //@children.4/@children.0/@link //@children.4/@anchors.0/@link //@children.5/@link //@children.5/@children.0/@link //@children.5/@anchors.0/@link //@children.6/@link //@children.6/@children.0/@link //@children.6/@anchors.0/@link //@children.7/@anchors.0/@link //@children.7/@children.0/@link //@children.7/@link //@children.8/@link //@children.8/@children.0/@link //@children.8/@anchors.0/@link //@children.9/@anchors.0/@link //@children.9/@children.0/@link //@children.9/@link //@children.10/@anchors.0/@link //@children.10/@children.0/@link //@children.10/@link //@children.11/@link //@children.11/@children.0/@link //@children.11/@anchors.0/@link //@children.12/@link //@children.12/@children.0/@link //@children.12/@anchors.0/@link //@children.13/@anchors.0/@link //@children.13/@children.0/@link //@children.13/@link //@children.13/@anchors.1/@link //@children.14/@anchors.0/@link //@children.14/@children.0/@link //@children.14/@link //@children.14/@anchors.1/@link //@children.15/@anchors.0/@link //@children.15/@children.0/@link //@children.15/@link //@children.15/@anchors.1/@link //@children.16/@anchors.0/@link //@children.16/@children.0/@link //@children.16/@link //@children.16/@anchors.1/@link //@children.17/@anchors.0/@link //@children.17/@children.0/@link //@children.17/@link //@children.17/@anchors.1/@link //@children.18/@anchors.0/@link //@children.18/@children.0/@link //@children.18/@link //@children.18/@anchors.1/@link //@children.19/@link //@children.19/@children.0/@link //@children.19/@anchors.0/@link //@children.19/@anchors.1/@link //@children.19/@anchors.2/@link //@children.19/@anchors.3/@link //@children.19/@anchors.4/@link //@children.19/@anchors.5/@link //@children.19/@anchors.6/@link //@children.19/@anchors.7/@link //@children.19/@anchors.8/@link //@children.20/@link //@children.20/@children.0/@link //@children.20/@anchors.0/@link //@children.20/@anchors.1/@link //@children.20/@anchors.2/@link //@children.20/@anchors.3/@link //@children.20/@anchors.4/@link //@children.20/@anchors.5/@link //@children.20/@anchors.6/@link //@children.20/@anchors.7/@link //@children.20/@anchors.8/@link //@children.21/@link //@children.21/@children.0/@link //@children.21/@anchors.0/@link //@children.21/@anchors.1/@link //@children.21/@anchors.2/@link //@children.21/@anchors.3/@link //@children.21/@anchors.4/@link //@children.21/@anchors.5/@link //@children.21/@anchors.6/@link //@children.21/@anchors.7/@link //@children.21/@anchors.8/@link //@children.21/@anchors.9/@link //@children.21/@anchors.10/@link //@children.21/@anchors.11/@link //@children.21/@anchors.12/@link //@children.21/@anchors.13/@link //@children.21/@anchors.14/@link //@children.21/@anchors.15/@link //@children.22/@link //@children.22/@children.0/@link //@children.22/@anchors.0/@link //@children.22/@anchors.1/@link //@children.22/@anchors.2/@link //@children.22/@anchors.3/@link //@children.22/@anchors.4/@link //@children.22/@anchors.5/@link //@children.22/@anchors.6/@link //@children.22/@anchors.7/@link //@children.22/@anchors.8/@link //@children.22/@anchors.9/@link //@children.22/@anchors.10/@link //@children.22/@anchors.11/@link //@children.22/@anchors.12/@link //@children.22/@anchors.13/@link //@children.22/@anchors.14/@link //@children.22/@anchors.15/@link //@children.23/@link //@children.23/@children.0/@link //@children.23/@anchors.0/@link //@children.23/@anchors.1/@link //@children.23/@anchors.2/@link //@children.23/@anchors.3/@link //@children.23/@anchors.4/@link //@children.23/@anchors.5/@link //@children.23/@anchors.6/@link //@children.23/@anchors.7/@link //@children.23/@anchors.8/@link //@children.24/@link //@children.24/@children.0/@link //@children.24/@anchors.0/@link //@children.24/@anchors.1/@link //@children.24/@anchors.2/@link //@children.24/@anchors.3/@link //@children.24/@anchors.4/@link //@children.24/@anchors.5/@link //@children.24/@anchors.6/@link //@children.24/@anchors.7/@link //@children.24/@anchors.8/@link //@children.25/@link //@children.25/@children.0/@link //@children.25/@anchors.0/@link //@children.25/@anchors.1/@link //@children.25/@anchors.2/@link //@children.25/@anchors.3/@link //@children.25/@anchors.4/@link //@children.25/@anchors.5/@link //@children.25/@anchors.6/@link //@children.25/@anchors.7/@link //@children.25/@anchors.8/@link //@children.25/@anchors.9/@link //@children.25/@anchors.10/@link //@children.25/@anchors.11/@link //@children.25/@anchors.12/@link //@children.25/@anchors.13/@link //@children.26/@link //@children.26/@children.0/@link //@children.26/@anchors.0/@link //@children.26/@anchors.1/@link //@children.26/@anchors.2/@link //@children.26/@anchors.3/@link //@children.26/@anchors.4/@link //@children.26/@anchors.5/@link //@children.26/@anchors.6/@link //@children.26/@anchors.7/@link //@children.26/@anchors.8/@link //@children.26/@anchors.9/@link //@children.26/@anchors.10/@link //@children.27/@link //@children.27/@children.0/@link //@children.27/@anchors.0/@link //@children.27/@anchors.1/@link //@children.27/@anchors.2/@link //@children.27/@anchors.3/@link //@children.27/@anchors.4/@link //@children.27/@anchors.5/@link //@children.27/@anchors.6/@link //@children.27/@anchors.7/@link //@children.27/@anchors.8/@link //@children.27/@anchors.9/@link //@children.27/@anchors.10/@link //@children.27/@anchors.11/@link //@children.27/@anchors.12/@link //@children.27/@anchors.13/@link //@children.27/@anchors.14/@link //@children.27/@anchors.15/@link //@children.27/@anchors.16/@link //@children.28/@link //@children.28/@children.0/@link //@children.28/@anchors.0/@link //@children.28/@anchors.1/@link //@children.28/@anchors.2/@link //@children.28/@anchors.3/@link //@children.28/@anchors.4/@link //@children.29/@link //@children.29/@children.0/@link //@children.29/@anchors.0/@link //@children.29/@anchors.1/@link //@children.29/@anchors.2/@link //@children.29/@anchors.3/@link //@children.29/@anchors.4/@link //@children.30/@link //@children.30/@children.0/@link //@children.30/@anchors.0/@link //@children.30/@anchors.1/@link //@children.30/@anchors.2/@link //@children.30/@anchors.3/@link //@children.30/@anchors.4/@link //@children.30/@anchors.5/@link //@children.31/@link //@children.31/@children.0/@link //@children.31/@anchors.0/@link //@children.31/@anchors.1/@link //@children.31/@anchors.2/@link //@children.31/@anchors.3/@link //@children.31/@anchors.4/@link //@children.31/@anchors.5/@link //@children.31/@anchors.6/@link //@children.31/@anchors.7/@link //@children.31/@anchors.8/@link //@children.32/@link //@children.32/@children.0/@link //@children.32/@anchors.0/@link //@children.32/@anchors.1/@link //@children.32/@anchors.2/@link //@children.32/@anchors.3/@link //@children.32/@anchors.4/@link //@children.33/@link //@children.33/@children.0/@link //@children.33/@anchors.0/@link //@children.33/@anchors.1/@link //@children.33/@anchors.2/@link //@children.33/@anchors.3/@link //@children.33/@anchors.4/@link //@children.33/@anchors.5/@link //@children.34/@link //@children.34/@children.0/@link //@children.34/@anchors.0/@link //@children.34/@anchors.1/@link //@children.34/@anchors.2/@link //@children.34/@anchors.3/@link //@children.34/@anchors.4/@link //@children.34/@anchors.5/@link //@children.35/@link //@children.35/@children.0/@link //@children.35/@anchors.0/@link //@children.35/@anchors.1/@link //@children.35/@anchors.2/@link //@children.35/@anchors.3/@link //@children.35/@anchors.4/@link //@children.36/@anchors.0/@link //@children.36/@children.0/@link //@children.36/@link //@children.36/@anchors.1/@link //@children.37/@link //@children.37/@children.0/@link //@children.37/@anchors.0/@link //@children.37/@anchors.1/@link //@children.37/@anchors.2/@link //@children.37/@anchors.3/@link //@children.37/@anchors.4/@link //@children.38/@link //@children.38/@children.0/@link //@children.38/@anchors.0/@link //@children.38/@anchors.1/@link //@children.39/@link //@children.39/@children.0/@link //@children.39/@anchors.0/@link //@children.39/@anchors.1/@link //@children.39/@anchors.2/@link //@children.39/@anchors.3/@link //@children.39/@anchors.4/@link //@children.40/@link //@children.40/@children.0/@link //@children.40/@anchors.0/@link //@children.40/@anchors.1/@link //@children.40/@anchors.2/@link //@children.40/@anchors.3/@link //@children.41/@link //@children.41/@children.0/@link //@children.41/@anchors.0/@link //@children.41/@anchors.1/@link //@children.41/@anchors.2/@link //@children.41/@anchors.3/@link //@children.41/@anchors.4/@link //@children.41/@anchors.5/@link //@children.42/@link //@children.42/@children.0/@link //@children.42/@anchors.0/@link //@children.42/@anchors.1/@link //@children.42/@anchors.2/@link //@children.42/@anchors.3/@link //@children.42/@anchors.4/@link //@children.42/@anchors.5/@link //@children.42/@anchors.6/@link //@children.42/@anchors.7/@link //@children.42/@anchors.8/@link //@children.42/@anchors.9/@link //@children.42/@anchors.10/@link //@children.43/@link //@children.43/@children.0/@link //@children.43/@anchors.0/@link //@children.43/@anchors.1/@link //@children.43/@anchors.2/@link //@children.43/@anchors.3/@link //@children.43/@anchors.4/@link //@children.44/@link //@children.44/@children.0/@link //@children.44/@anchors.0/@link //@children.44/@anchors.1/@link //@children.44/@anchors.2/@link //@children.44/@anchors.3/@link //@children.44/@anchors.4/@link //@children.45/@link //@children.45/@children.0/@link //@children.45/@anchors.0/@link //@children.45/@anchors.1/@link //@children.45/@anchors.2/@link //@children.45/@anchors.3/@link //@children.45/@anchors.4/@link //@children.45/@anchors.5/@link //@children.45/@anchors.6/@link //@children.45/@anchors.7/@link //@children.45/@anchors.8/@link //@children.45/@anchors.9/@link //@children.45/@anchors.10/@link //@children.45/@anchors.11/@link //@children.45/@anchors.12/@link //@children.45/@anchors.13/@link //@children.45/@anchors.14/@link //@children.45/@anchors.15/@link //@children.46/@link //@children.46/@children.0/@link //@children.46/@anchors.0/@link //@children.46/@anchors.1/@link //@children.46/@anchors.2/@link //@children.46/@anchors.3/@link //@children.46/@anchors.4/@link //@children.46/@anchors.5/@link //@children.47/@anchors.0/@link //@children.47/@children.0/@link //@children.47/@link //@children.47/@anchors.1/@link //@children.48/@anchors.0/@link //@children.48/@children.0/@link //@children.48/@link //@children.48/@anchors.1/@link //@children.49/@link //@children.49/@children.0/@link //@children.49/@anchors.0/@link //@children.49/@anchors.1/@link //@children.49/@anchors.2/@link //@children.49/@anchors.3/@link //@children.49/@anchors.4/@link //@children.49/@anchors.5/@link //@children.49/@anchors.6/@link //@children.49/@anchors.7/@link //@children.49/@anchors.8/@link //@children.50/@link //@children.50/@children.0/@link //@children.50/@anchors.0/@link //@children.50/@anchors.1/@link //@children.50/@anchors.2/@link //@children.50/@anchors.3/@link //@children.50/@anchors.4/@link //@children.50/@anchors.5/@link //@children.51/@link //@children.51/@children.0/@link //@children.51/@anchors.0/@link //@children.51/@anchors.1/@link //@children.51/@anchors.2/@link //@children.51/@anchors.3/@link //@children.51/@anchors.4/@link //@children.52/@link //@children.52/@children.0/@link //@children.52/@anchors.0/@link //@children.52/@anchors.1/@link //@children.52/@anchors.2/@link //@children.52/@anchors.3/@link //@children.52/@anchors.4/@link //@children.53/@link //@children.53/@children.0/@link //@children.53/@anchors.0/@link //@children.53/@anchors.1/@link //@children.53/@anchors.2/@link //@connections.0/@link //@children.54/@link //@children.54/@anchors.0/@link //@connections.1/@link //@children.55/@link //@children.55/@anchors.0/@link //@connections.2/@link //@children.56/@link //@children.56/@anchors.0/@link //@connections.3/@link //@children.57/@link //@children.57/@anchors.0/@link //@connections.4/@link //@children.58/@link //@children.58/@anchors.0/@link //@connections.5/@link //@children.59/@link //@children.59/@anchors.0/@link //@connections.6/@link //@children.60/@link //@children.60/@anchors.0/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link //@connections.34/@link //@connections.35/@link //@connections.36/@link //@connections.37/@link //@connections.38/@link //@connections.39/@link //@connections.40/@link //@connections.41/@link //@connections.42/@link //@connections.43/@link //@connections.44/@link //@connections.45/@link //@connections.46/@link //@connections.47/@link //@connections.48/@link //@connections.49/@link //@connections.50/@link //@connections.51/@link //@connections.52/@link //@connections.53/@link //@connections.54/@link //@connections.55/@link //@connections.56/@link //@connections.57/@link //@connections.58/@link //@connections.59/@link //@connections.60/@link //@connections.61/@link //@connections.62/@link //@connections.63/@link //@connections.64/@link //@connections.65/@link //@connections.66/@link //@connections.67/@link //@connections.68/@link //@connections.69/@link //@connections.70/@link //@connections.71/@link //@connections.72/@link //@connections.73/@link //@connections.74/@link //@connections.75/@link //@connections.76/@link //@connections.77/@link //@connections.78/@link //@connections.79/@link //@connections.80/@link //@connections.81/@link //@connections.82/@link //@connections.83/@link //@connections.84/@link //@connections.85/@link //@connections.86/@link //@connections.87/@link //@connections.88/@link //@connections.89/@link //@connections.90/@link //@connections.91/@link //@connections.92/@link //@connections.93/@link //@connections.94/@link //@connections.95/@link //@connections.96/@link //@connections.97/@link //@connections.98/@link //@connections.99/@link //@connections.100/@link //@connections.101/@link //@connections.102/@link //@connections.103/@link //@connections.104/@link //@connections.105/@link //@connections.106/@link //@connections.107/@link //@connections.108/@link //@connections.109/@link //@connections.110/@link //@connections.111/@link //@connections.112/@link //@connections.113/@link //@connections.114/@link //@connections.115/@link //@connections.116/@link //@connections.117/@link //@connections.118/@link //@connections.119/@link //@connections.120/@link //@connections.121/@link //@connections.122/@link //@connections.123/@link //@connections.124/@link //@connections.125/@link //@connections.126/@link //@connections.127/@link //@connections.128/@link //@connections.129/@link //@connections.130/@link //@connections.131/@link //@connections.132/@link //@connections.133/@link //@connections.134/@link //@connections.135/@link //@connections.136/@link //@connections.137/@link //@connections.138/@link //@connections.139/@link //@connections.140/@link //@connections.141/@link //@connections.142/@link //@connections.143/@link //@connections.144/@link //@connections.145/@link //@connections.146/@link //@connections.147/@link //@connections.148/@link //@connections.149/@link //@connections.150/@link //@connections.151/@link //@connections.152/@link //@connections.153/@link //@connections.154/@link //@connections.155/@link //@connections.156/@link //@connections.157/@link //@connections.158/@link //@connections.159/@link //@connections.160/@link //@connections.161/@link //@connections.162/@link //@connections.163/@link //@connections.164/@link //@connections.165/@link //@connections.166/@link //@connections.167/@link //@connections.168/@link //@connections.169/@link //@connections.170/@link //@connections.171/@link //@connections.172/@link //@connections.173/@link //@connections.174/@link //@connections.175/@link //@connections.176/@link //@connections.177/@link //@connections.178/@link //@connections.179/@link //@connections.180/@link //@connections.181/@link //@connections.182/@link //@connections.183/@link //@connections.184/@link //@connections.185/@link //@connections.186/@link //@connections.187/@link //@connections.188/@link //@connections.189/@link" version="0.15.0">
   <properties key="editor_version" value="3"/>
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <link>
@@ -32,7 +32,7 @@
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.1"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.83 //@connections.91 //@connections.94 //@connections.96 //@connections.97 //@connections.99 //@connections.106 //@connections.107 //@connections.110 //@connections.117 //@connections.119 //@connections.124 //@connections.125 //@connections.130 //@connections.142 //@connections.150 //@connections.157 //@connections.162 //@connections.175" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.83 //@connections.91 //@connections.94 //@connections.96 //@connections.97 //@connections.99 //@connections.106 //@connections.107 //@connections.110 //@connections.117 //@connections.119 //@connections.124 //@connections.125 //@connections.130 //@connections.142 //@connections.150 //@connections.157 //@connections.162 //@connections.175 //@connections.182" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
         <points x="8"/>
         <points x="16" y="16"/>
@@ -168,7 +168,7 @@
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.7"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.131 //@connections.132 //@connections.133 //@connections.134 //@connections.140 //@connections.141 //@connections.143 //@connections.144 //@connections.147 //@connections.149 //@connections.152 //@connections.154 //@connections.158 //@connections.161 //@connections.174" referencedGraphicsAlgorithm="//@children.7/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.131 //@connections.132 //@connections.133 //@connections.134 //@connections.140 //@connections.141 //@connections.143 //@connections.144 //@connections.147 //@connections.149 //@connections.152 //@connections.154 //@connections.158 //@connections.161 //@connections.174 //@connections.181" referencedGraphicsAlgorithm="//@children.7/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
         <points x="8"/>
         <points x="16" y="16"/>
@@ -263,7 +263,7 @@
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.11"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.171 //@connections.178 //@connections.179" incomingConnections="//@connections.169 //@connections.170" referencedGraphicsAlgorithm="//@children.11/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.171 //@connections.178 //@connections.179" incomingConnections="//@connections.169 //@connections.170 //@connections.181 //@connections.182" referencedGraphicsAlgorithm="//@children.11/@graphicsAlgorithm">
       <link>
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.11"/>
       </link>
@@ -781,7 +781,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.21/@dataOutputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.184" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.425531914893617">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.186" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.425531914893617">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="147" height="13" x="-147">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="139" height="13" font="//@fonts.1" value="second_order_moments_out"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="139" y="2"/>
@@ -790,7 +790,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.21/@dataOutputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.183" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5053191489361702">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.185" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5053191489361702">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="130" height="13" x="-130">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="122" height="13" font="//@fonts.1" value="first_order_moments_out"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="122" y="2"/>
@@ -941,7 +941,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.22/@dataOutputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.181" referencedGraphicsAlgorithm="//@children.22/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.425531914893617">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.183" referencedGraphicsAlgorithm="//@children.22/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.425531914893617">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="147" height="13" x="-147">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="139" height="13" font="//@fonts.1" value="second_order_moments_out"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="139" y="2"/>
@@ -950,7 +950,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.22/@dataOutputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.182" referencedGraphicsAlgorithm="//@children.22/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5053191489361702">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.184" referencedGraphicsAlgorithm="//@children.22/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5053191489361702">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="130" height="13" x="-130">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="122" height="13" font="//@fonts.1" value="first_order_moments_out"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="122" y="2"/>
@@ -1635,7 +1635,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="127" height="68" x="242" y="1641" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="127" height="68" x="242" y="1568" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.28"/>
     </link>
@@ -1692,7 +1692,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="107" height="68" x="242" y="976" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="107" height="68" x="242" y="903" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.29"/>
     </link>
@@ -1749,7 +1749,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="112" height="83" x="242" y="1212" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="112" height="83" x="242" y="1139" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.30"/>
     </link>
@@ -1815,7 +1815,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="110" height="128" x="242" y="1463" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="110" height="128" x="242" y="1390" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.31"/>
     </link>
@@ -2181,7 +2181,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="155" height="68" x="242" y="1345" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="155" height="68" x="242" y="1272" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.37"/>
     </link>
@@ -2234,7 +2234,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="95" height="38" x="242" y="888" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="95" height="38" x="242" y="815" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.38"/>
     </link>
@@ -2393,7 +2393,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.41/@dataOutputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.185" referencedGraphicsAlgorithm="//@children.41/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.6024096385542169">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.187" referencedGraphicsAlgorithm="//@children.41/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.6024096385542169">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="37" height="13" x="-37">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="29" height="13" font="//@fonts.1" value="out_2"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="29" y="2"/>
@@ -2768,7 +2768,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.45/@dataInputPorts.8"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.186" referencedGraphicsAlgorithm="//@children.45/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.26595744680851063">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.188" referencedGraphicsAlgorithm="//@children.45/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.26595744680851063">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="130" height="13" x="-130">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="122" height="13" font="//@fonts.1" value="first_order_moments_out"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="122" y="2"/>
@@ -2777,7 +2777,7 @@
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.45/@dataOutputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.187" referencedGraphicsAlgorithm="//@children.45/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.34574468085106386">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.189" referencedGraphicsAlgorithm="//@children.45/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.34574468085106386">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="147" height="13" x="-147">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="139" height="13" font="//@fonts.1" value="second_order_moments_out"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="139" y="2"/>
@@ -3103,7 +3103,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="155" height="68" x="242" y="1759" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="155" height="68" x="242" y="1686" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.51"/>
     </link>
@@ -3160,7 +3160,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="135" height="68" x="242" y="1094" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.12" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="135" height="68" x="242" y="1021" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.52"/>
     </link>
@@ -3256,100 +3256,83 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.11" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="109" height="23" x="242" y="485" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="2937" y="465"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.54"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0" incomingConnections="//@connections.109 //@connections.110 //@connections.183" referencedGraphicsAlgorithm="//@children.54/@graphicsAlgorithm">
       <link>
         <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.54"/>
-      </link>
-    </anchors>
-    <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="109" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="JoinCriticInput"/>
-      <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.54"/>
-      </link>
-    </children>
-  </children>
-  <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="2937" y="465"/>
-    <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.55"/>
-    </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0" incomingConnections="//@connections.109 //@connections.110 //@connections.181" referencedGraphicsAlgorithm="//@children.55/@graphicsAlgorithm">
-      <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.55"/>
       </link>
     </anchors>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="2937" y="570"/>
     <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.57"/>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.56"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1" incomingConnections="//@connections.107 //@connections.108 //@connections.182" referencedGraphicsAlgorithm="//@children.56/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1" incomingConnections="//@connections.107 //@connections.108 //@connections.184" referencedGraphicsAlgorithm="//@children.55/@graphicsAlgorithm">
       <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.57"/>
+        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.56"/>
       </link>
     </anchors>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="2256" y="653"/>
     <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.59"/>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.58"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2" incomingConnections="//@connections.113 //@connections.114 //@connections.183" referencedGraphicsAlgorithm="//@children.57/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2" incomingConnections="//@connections.113 //@connections.114 //@connections.185" referencedGraphicsAlgorithm="//@children.56/@graphicsAlgorithm">
       <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.59"/>
+        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.58"/>
       </link>
     </anchors>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="2256" y="35"/>
     <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.61"/>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.60"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3" incomingConnections="//@connections.111 //@connections.112 //@connections.184" referencedGraphicsAlgorithm="//@children.58/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3" incomingConnections="//@connections.111 //@connections.112 //@connections.186" referencedGraphicsAlgorithm="//@children.57/@graphicsAlgorithm">
       <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.61"/>
+        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.60"/>
       </link>
     </anchors>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="704" y="755"/>
     <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.63"/>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.62"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4" incomingConnections="//@connections.185" referencedGraphicsAlgorithm="//@children.59/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4" incomingConnections="//@connections.187" referencedGraphicsAlgorithm="//@children.58/@graphicsAlgorithm">
       <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.63"/>
+        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.62"/>
       </link>
     </anchors>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="3318" y="493"/>
     <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.65"/>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.64"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.146 //@connections.147 //@connections.186" referencedGraphicsAlgorithm="//@children.60/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.146 //@connections.147 //@connections.188" referencedGraphicsAlgorithm="//@children.59/@graphicsAlgorithm">
       <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.65"/>
+        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.64"/>
       </link>
     </anchors>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" lineVisible="false" transparency="0.0" width="16" height="16" x="3318" y="507"/>
     <link>
-      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.67"/>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.66"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6" incomingConnections="//@connections.148 //@connections.149 //@connections.187" referencedGraphicsAlgorithm="//@children.61/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6" incomingConnections="//@connections.148 //@connections.149 //@connections.189" referencedGraphicsAlgorithm="//@children.60/@graphicsAlgorithm">
       <link>
-        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.67"/>
+        <businessObjects href="network_minimize_actor_2layers.pi#//@vertices.66"/>
       </link>
     </anchors>
   </children>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.55/@anchors.0" end="//@children.22/@anchors.10">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.54/@anchors.0" end="//@children.22/@anchors.10">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.0"/>
@@ -3364,7 +3347,7 @@
     <bendpoints x="2785" y="473"/>
     <bendpoints x="2785" y="410"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.56/@anchors.0" end="//@children.22/@anchors.11">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.55/@anchors.0" end="//@children.22/@anchors.11">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.1"/>
@@ -3379,7 +3362,7 @@
     <bendpoints x="2785" y="578"/>
     <bendpoints x="2785" y="425"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.57/@anchors.0" end="//@children.21/@anchors.10">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.56/@anchors.0" end="//@children.21/@anchors.10">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.2"/>
@@ -3394,7 +3377,7 @@
     <bendpoints x="2104" y="661"/>
     <bendpoints x="2104" y="410"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.58/@anchors.0" end="//@children.21/@anchors.11">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.57/@anchors.0" end="//@children.21/@anchors.11">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.3"/>
@@ -3409,7 +3392,7 @@
     <bendpoints x="2104" y="43"/>
     <bendpoints x="2104" y="425"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.59/@anchors.0" end="//@children.40/@anchors.1">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.58/@anchors.0" end="//@children.40/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.4"/>
@@ -3425,7 +3408,7 @@
     <bendpoints x="477" y="762"/>
     <bendpoints x="477" y="794"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.60/@anchors.0" end="//@children.45/@anchors.9">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.59/@anchors.0" end="//@children.45/@anchors.9">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.5"/>
@@ -3440,7 +3423,7 @@
     <bendpoints x="3166" y="501"/>
     <bendpoints x="3166" y="395"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.61/@anchors.0" end="//@children.45/@anchors.10">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.60/@anchors.0" end="//@children.45/@anchors.10">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.6"/>
@@ -3552,7 +3535,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="389" y="1681"/>
+    <bendpoints x="389" y="1608"/>
     <bendpoints x="477" y="483"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.13/@anchors.0" end="//@children.28/@anchors.2">
@@ -3568,7 +3551,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="130" y="609"/>
-    <bendpoints x="222" y="1681"/>
+    <bendpoints x="222" y="1608"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.28/@anchors.4" end="//@children.19/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3582,7 +3565,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="389" y="1696"/>
+    <bendpoints x="389" y="1623"/>
     <bendpoints x="477" y="957"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.14/@anchors.0" end="//@children.29/@anchors.2">
@@ -3598,7 +3581,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="111" y="259"/>
-    <bendpoints x="222" y="1016"/>
+    <bendpoints x="222" y="943"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.29/@anchors.3" end="//@children.25/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3612,7 +3595,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="369" y="1016"/>
+    <bendpoints x="369" y="943"/>
     <bendpoints x="477" y="453"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.29/@anchors.4" end="//@children.20/@anchors.5">
@@ -3627,7 +3610,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="369" y="1031"/>
+    <bendpoints x="369" y="958"/>
     <bendpoints x="477" y="676"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.15/@anchors.0" end="//@children.31/@anchors.1">
@@ -3643,7 +3626,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="114" y="539"/>
-    <bendpoints x="222" y="1488"/>
+    <bendpoints x="222" y="1415"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.31/@anchors.6" end="//@children.26/@anchors.8">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3657,12 +3640,12 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1548"/>
-    <bendpoints x="682" y="1548"/>
-    <bendpoints x="964" y="1548"/>
-    <bendpoints x="1190" y="1548"/>
-    <bendpoints x="1486" y="1548"/>
-    <bendpoints x="1744" y="1548"/>
+    <bendpoints x="372" y="1475"/>
+    <bendpoints x="682" y="1475"/>
+    <bendpoints x="964" y="1475"/>
+    <bendpoints x="1190" y="1475"/>
+    <bendpoints x="1486" y="1475"/>
+    <bendpoints x="1744" y="1475"/>
     <bendpoints x="1804" y="513"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.31/@anchors.2" end="//@children.27/@anchors.12">
@@ -3677,10 +3660,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1488"/>
-    <bendpoints x="682" y="1488"/>
-    <bendpoints x="964" y="1488"/>
-    <bendpoints x="1190" y="1488"/>
+    <bendpoints x="372" y="1415"/>
+    <bendpoints x="682" y="1415"/>
+    <bendpoints x="964" y="1415"/>
+    <bendpoints x="1190" y="1415"/>
     <bendpoints x="1250" y="440"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.31/@anchors.4" end="//@children.22/@anchors.9">
@@ -3695,15 +3678,15 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1518"/>
-    <bendpoints x="682" y="1518"/>
-    <bendpoints x="964" y="1518"/>
-    <bendpoints x="1190" y="1518"/>
-    <bendpoints x="1486" y="1518"/>
-    <bendpoints x="1744" y="1518"/>
-    <bendpoints x="2044" y="1518"/>
-    <bendpoints x="2425" y="1518"/>
-    <bendpoints x="2725" y="1518"/>
+    <bendpoints x="372" y="1445"/>
+    <bendpoints x="682" y="1445"/>
+    <bendpoints x="964" y="1445"/>
+    <bendpoints x="1190" y="1445"/>
+    <bendpoints x="1486" y="1445"/>
+    <bendpoints x="1744" y="1445"/>
+    <bendpoints x="2044" y="1445"/>
+    <bendpoints x="2425" y="1445"/>
+    <bendpoints x="2725" y="1445"/>
     <bendpoints x="2785" y="395"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.31/@anchors.5" end="//@children.21/@anchors.9">
@@ -3718,13 +3701,13 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1533"/>
-    <bendpoints x="682" y="1533"/>
-    <bendpoints x="964" y="1533"/>
-    <bendpoints x="1190" y="1533"/>
-    <bendpoints x="1486" y="1533"/>
-    <bendpoints x="1744" y="1533"/>
-    <bendpoints x="2044" y="1533"/>
+    <bendpoints x="372" y="1460"/>
+    <bendpoints x="682" y="1460"/>
+    <bendpoints x="964" y="1460"/>
+    <bendpoints x="1190" y="1460"/>
+    <bendpoints x="1486" y="1460"/>
+    <bendpoints x="1744" y="1460"/>
+    <bendpoints x="2044" y="1460"/>
     <bendpoints x="2104" y="395"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.30/@anchors.3" end="//@children.25/@anchors.6">
@@ -3739,7 +3722,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="374" y="1252"/>
+    <bendpoints x="374" y="1179"/>
     <bendpoints x="477" y="468"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.16/@anchors.0" end="//@children.30/@anchors.2">
@@ -3755,7 +3738,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="123" y="399"/>
-    <bendpoints x="222" y="1252"/>
+    <bendpoints x="222" y="1179"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.32/@anchors.4" end="//@children.26/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3898,7 +3881,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="158" y="469"/>
-    <bendpoints x="222" y="1370"/>
+    <bendpoints x="222" y="1297"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.37/@anchors.3" end="//@children.21/@anchors.8">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3912,13 +3895,13 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="417" y="1385"/>
-    <bendpoints x="682" y="1385"/>
-    <bendpoints x="964" y="1385"/>
-    <bendpoints x="1190" y="1385"/>
-    <bendpoints x="1486" y="1385"/>
-    <bendpoints x="1744" y="1385"/>
-    <bendpoints x="2044" y="1385"/>
+    <bendpoints x="417" y="1312"/>
+    <bendpoints x="682" y="1312"/>
+    <bendpoints x="964" y="1312"/>
+    <bendpoints x="1190" y="1312"/>
+    <bendpoints x="1486" y="1312"/>
+    <bendpoints x="1744" y="1312"/>
+    <bendpoints x="2044" y="1312"/>
     <bendpoints x="2104" y="380"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.37/@anchors.2" end="//@children.22/@anchors.7">
@@ -3933,15 +3916,15 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="417" y="1370"/>
-    <bendpoints x="682" y="1370"/>
-    <bendpoints x="964" y="1370"/>
-    <bendpoints x="1190" y="1370"/>
-    <bendpoints x="1486" y="1370"/>
-    <bendpoints x="1744" y="1370"/>
-    <bendpoints x="2044" y="1370"/>
-    <bendpoints x="2425" y="1370"/>
-    <bendpoints x="2725" y="1370"/>
+    <bendpoints x="417" y="1297"/>
+    <bendpoints x="682" y="1297"/>
+    <bendpoints x="964" y="1297"/>
+    <bendpoints x="1190" y="1297"/>
+    <bendpoints x="1486" y="1297"/>
+    <bendpoints x="1744" y="1297"/>
+    <bendpoints x="2044" y="1297"/>
+    <bendpoints x="2425" y="1297"/>
+    <bendpoints x="2725" y="1297"/>
     <bendpoints x="2785" y="365"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.38/@anchors.1" end="//@children.39/@anchors.1">
@@ -3956,7 +3939,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="357" y="913"/>
+    <bendpoints x="357" y="840"/>
     <bendpoints x="477" y="275"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.39/@anchors.2" end="//@children.21/@anchors.4">
@@ -4022,7 +4005,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1503"/>
+    <bendpoints x="372" y="1430"/>
     <bendpoints x="477" y="809"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.40/@anchors.3" end="//@children.41/@anchors.1">
@@ -4132,14 +4115,14 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="374" y="1267"/>
-    <bendpoints x="682" y="1267"/>
-    <bendpoints x="964" y="1267"/>
-    <bendpoints x="1190" y="1267"/>
-    <bendpoints x="1486" y="1267"/>
-    <bendpoints x="1744" y="1267"/>
-    <bendpoints x="2044" y="1267"/>
-    <bendpoints x="2425" y="1267"/>
+    <bendpoints x="374" y="1194"/>
+    <bendpoints x="682" y="1194"/>
+    <bendpoints x="964" y="1194"/>
+    <bendpoints x="1190" y="1194"/>
+    <bendpoints x="1486" y="1194"/>
+    <bendpoints x="1744" y="1194"/>
+    <bendpoints x="2044" y="1194"/>
+    <bendpoints x="2425" y="1194"/>
     <bendpoints x="2485" y="483"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.25/@anchors.13" end="//@children.26/@anchors.6">
@@ -4261,14 +4244,14 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1563"/>
-    <bendpoints x="682" y="1563"/>
-    <bendpoints x="964" y="1563"/>
-    <bendpoints x="1190" y="1563"/>
-    <bendpoints x="1486" y="1563"/>
-    <bendpoints x="1744" y="1563"/>
-    <bendpoints x="2044" y="1563"/>
-    <bendpoints x="2425" y="1563"/>
+    <bendpoints x="372" y="1490"/>
+    <bendpoints x="682" y="1490"/>
+    <bendpoints x="964" y="1490"/>
+    <bendpoints x="1190" y="1490"/>
+    <bendpoints x="1486" y="1490"/>
+    <bendpoints x="1744" y="1490"/>
+    <bendpoints x="2044" y="1490"/>
+    <bendpoints x="2425" y="1490"/>
     <bendpoints x="2485" y="513"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.19/@anchors.8" end="//@children.32/@anchors.2">
@@ -4430,16 +4413,16 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="417" y="1400"/>
-    <bendpoints x="682" y="1400"/>
-    <bendpoints x="964" y="1400"/>
-    <bendpoints x="1190" y="1400"/>
-    <bendpoints x="1486" y="1400"/>
-    <bendpoints x="1744" y="1400"/>
-    <bendpoints x="2044" y="1400"/>
-    <bendpoints x="2425" y="1400"/>
-    <bendpoints x="2725" y="1400"/>
-    <bendpoints x="3106" y="1400"/>
+    <bendpoints x="417" y="1327"/>
+    <bendpoints x="682" y="1327"/>
+    <bendpoints x="964" y="1327"/>
+    <bendpoints x="1190" y="1327"/>
+    <bendpoints x="1486" y="1327"/>
+    <bendpoints x="1744" y="1327"/>
+    <bendpoints x="2044" y="1327"/>
+    <bendpoints x="2425" y="1327"/>
+    <bendpoints x="2725" y="1327"/>
+    <bendpoints x="3106" y="1327"/>
     <bendpoints x="3166" y="350"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.31/@anchors.8" end="//@children.45/@anchors.7">
@@ -4454,16 +4437,16 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="372" y="1578"/>
-    <bendpoints x="682" y="1578"/>
-    <bendpoints x="964" y="1578"/>
-    <bendpoints x="1190" y="1578"/>
-    <bendpoints x="1486" y="1578"/>
-    <bendpoints x="1744" y="1578"/>
-    <bendpoints x="2044" y="1578"/>
-    <bendpoints x="2425" y="1578"/>
-    <bendpoints x="2725" y="1578"/>
-    <bendpoints x="3106" y="1578"/>
+    <bendpoints x="372" y="1505"/>
+    <bendpoints x="682" y="1505"/>
+    <bendpoints x="964" y="1505"/>
+    <bendpoints x="1190" y="1505"/>
+    <bendpoints x="1486" y="1505"/>
+    <bendpoints x="1744" y="1505"/>
+    <bendpoints x="2044" y="1505"/>
+    <bendpoints x="2425" y="1505"/>
+    <bendpoints x="2725" y="1505"/>
+    <bendpoints x="3106" y="1505"/>
     <bendpoints x="3166" y="365"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.5" end="//@children.45/@anchors.8">
@@ -4650,8 +4633,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="374" y="1282"/>
-    <bendpoints x="682" y="1282"/>
+    <bendpoints x="374" y="1209"/>
+    <bendpoints x="682" y="1209"/>
     <bendpoints x="742" y="305"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.25/@anchors.10" end="//@children.50/@anchors.4">
@@ -4712,7 +4695,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="162" y="679"/>
-    <bendpoints x="222" y="1799"/>
+    <bendpoints x="222" y="1726"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.48/@anchors.0" end="//@children.52/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4727,7 +4710,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="143" y="329"/>
-    <bendpoints x="222" y="1134"/>
+    <bendpoints x="222" y="1061"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.51/@anchors.3" end="//@children.49/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4741,9 +4724,9 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="417" y="1799"/>
-    <bendpoints x="682" y="1799"/>
-    <bendpoints x="964" y="1799"/>
+    <bendpoints x="417" y="1726"/>
+    <bendpoints x="682" y="1726"/>
+    <bendpoints x="964" y="1726"/>
     <bendpoints x="1024" y="365"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.51/@anchors.4" end="//@children.27/@anchors.13">
@@ -4758,10 +4741,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="417" y="1814"/>
-    <bendpoints x="682" y="1814"/>
-    <bendpoints x="964" y="1814"/>
-    <bendpoints x="1190" y="1814"/>
+    <bendpoints x="417" y="1741"/>
+    <bendpoints x="682" y="1741"/>
+    <bendpoints x="964" y="1741"/>
+    <bendpoints x="1190" y="1741"/>
     <bendpoints x="1250" y="455"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.52/@anchors.3" end="//@children.49/@anchors.5">
@@ -4776,9 +4759,9 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="397" y="1134"/>
-    <bendpoints x="682" y="1134"/>
-    <bendpoints x="964" y="1134"/>
+    <bendpoints x="397" y="1061"/>
+    <bendpoints x="682" y="1061"/>
+    <bendpoints x="964" y="1061"/>
     <bendpoints x="1024" y="335"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.52/@anchors.4" end="//@children.27/@anchors.14">
@@ -4793,10 +4776,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="397" y="1149"/>
-    <bendpoints x="682" y="1149"/>
-    <bendpoints x="964" y="1149"/>
-    <bendpoints x="1190" y="1149"/>
+    <bendpoints x="397" y="1076"/>
+    <bendpoints x="682" y="1076"/>
+    <bendpoints x="964" y="1076"/>
+    <bendpoints x="1190" y="1076"/>
     <bendpoints x="1250" y="470"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.53/@anchors.2" end="//@children.27/@anchors.11">
@@ -5191,7 +5174,7 @@
     <bendpoints x="3531" y="136"/>
     <bendpoints x="3531" y="468"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.56/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.55/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.107"/>
@@ -5207,7 +5190,7 @@
     <bendpoints x="2769" y="136"/>
     <bendpoints x="2769" y="591"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.56/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.55/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.108"/>
@@ -5223,7 +5206,7 @@
     <bendpoints x="2745" y="184"/>
     <bendpoints x="2745" y="591"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.55/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.54/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.109"/>
@@ -5239,7 +5222,7 @@
     <bendpoints x="2745" y="184"/>
     <bendpoints x="2745" y="486"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.55/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.54/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.110"/>
@@ -5255,7 +5238,7 @@
     <bendpoints x="2769" y="136"/>
     <bendpoints x="2769" y="486"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.58/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.57/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.111"/>
@@ -5271,7 +5254,7 @@
     <bendpoints x="2060" y="192"/>
     <bendpoints x="2060" y="56"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.58/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.57/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.112"/>
@@ -5287,7 +5270,7 @@
     <bendpoints x="2084" y="144"/>
     <bendpoints x="2084" y="56"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.57/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.56/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.113"/>
@@ -5303,7 +5286,7 @@
     <bendpoints x="2084" y="144"/>
     <bendpoints x="2084" y="674"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.57/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.56/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.114"/>
@@ -5413,7 +5396,7 @@
     </connectionDecorators>
     <bendpoints x="1940" y="200"/>
     <bendpoints x="174" y="200"/>
-    <bendpoints x="174" y="1666"/>
+    <bendpoints x="174" y="1593"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.29/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -5429,7 +5412,7 @@
     </connectionDecorators>
     <bendpoints x="269" y="104"/>
     <bendpoints x="222" y="104"/>
-    <bendpoints x="222" y="1001"/>
+    <bendpoints x="222" y="928"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.30/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -5445,7 +5428,7 @@
     </connectionDecorators>
     <bendpoints x="1306" y="168"/>
     <bendpoints x="190" y="168"/>
-    <bendpoints x="190" y="1237"/>
+    <bendpoints x="190" y="1164"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.32/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -5801,7 +5784,7 @@
     <bendpoints x="3134" y="168"/>
     <bendpoints x="3134" y="290"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.0" end="//@children.60/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.0" end="//@children.59/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.146"/>
@@ -5817,7 +5800,7 @@
     <bendpoints x="3130" y="176"/>
     <bendpoints x="3130" y="514"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.60/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.59/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.147"/>
@@ -5833,7 +5816,7 @@
     <bendpoints x="3154" y="128"/>
     <bendpoints x="3154" y="514"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.0" end="//@children.61/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.0" end="//@children.60/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.148"/>
@@ -5849,7 +5832,7 @@
     <bendpoints x="3130" y="176"/>
     <bendpoints x="3130" y="528"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.61/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.60/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.149"/>
@@ -6211,7 +6194,7 @@
     </connectionDecorators>
     <bendpoints x="1186" y="160"/>
     <bendpoints x="194" y="160"/>
-    <bendpoints x="194" y="1119"/>
+    <bendpoints x="194" y="1046"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.10/@anchors.0" end="//@children.12/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -6283,7 +6266,7 @@
     </connectionDecorators>
     <bendpoints x="398" y="112"/>
     <bendpoints x="218" y="112"/>
-    <bendpoints x="218" y="1784"/>
+    <bendpoints x="218" y="1711"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.12/@anchors.0" end="//@children.47/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
@@ -6349,7 +6332,35 @@
     <bendpoints x="1246" y="112"/>
     <bendpoints x="1246" y="365"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.22/@anchors.14" end="//@children.55/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.11/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@edges.181"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="682" y="-24"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.11/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="network_minimize_actor_2layers.pi#//@edges.182"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="807" y="-24"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.22/@anchors.14" end="//@children.54/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.0"/>
@@ -6357,7 +6368,7 @@
     <bendpoints x="3106" y="335"/>
     <bendpoints x="3106" y="473"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.22/@anchors.15" end="//@children.56/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.22/@anchors.15" end="//@children.55/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.1"/>
@@ -6365,7 +6376,7 @@
     <bendpoints x="3106" y="350"/>
     <bendpoints x="3106" y="578"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.15" end="//@children.57/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.15" end="//@children.56/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.2"/>
@@ -6373,7 +6384,7 @@
     <bendpoints x="2425" y="350"/>
     <bendpoints x="2425" y="661"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.14" end="//@children.58/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.14" end="//@children.57/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.3"/>
@@ -6381,7 +6392,7 @@
     <bendpoints x="2425" y="335"/>
     <bendpoints x="2425" y="43"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.4" end="//@children.59/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.4" end="//@children.58/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.4"/>
@@ -6390,7 +6401,7 @@
     <bendpoints x="964" y="765"/>
     <bendpoints x="742" y="765"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.45/@anchors.12" end="//@children.60/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.45/@anchors.12" end="//@children.59/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.5"/>
@@ -6398,7 +6409,7 @@
     <bendpoints x="3487" y="305"/>
     <bendpoints x="3487" y="501"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.45/@anchors.13" end="//@children.61/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.45/@anchors.13" end="//@children.60/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="network_minimize_actor_2layers.pi#//@edges.6"/>
