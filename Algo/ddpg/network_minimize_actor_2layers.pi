@@ -25,6 +25,11 @@
             id="hidden_weights_size_0" kind="param"/>
         <node id="critic_output_size" kind="cfg_in_iface"/>
         <node id="critic_input_size" kind="cfg_in_iface"/>
+        <node expr="critic_output_size + critic_input_size"
+            id="critic_bias_size" kind="param"/>
+        <node
+            expr="critic_input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * critic_output_size"
+            id="critic_weights_size" kind="param"/>
         <node id="weights" kind="src">
             <port annotation="NONE" expr="weights_size"
                 kind="output" name="weights"/>
@@ -48,17 +53,17 @@
             <port annotation="NONE" expr="bias_size" kind="input" name="bias_out"/>
         </node>
         <node id="ForkWeights" kind="fork">
-            <port kind="cfg_input" name="hidden_size_1"/>
-            <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="weights_size"/>
-            <port kind="cfg_input" name="hidden_size_0"/>
+            <port kind="cfg_input" name="hidden_weights_size_0"/>
+            <port kind="cfg_input" name="hidden_weights_size_1"/>
+            <port kind="cfg_input" name="output_weights_size"/>
             <port annotation="NONE" expr="weights_size"
                 kind="input" name="in"/>
-            <port annotation="NONE" expr="hidden_size_0"
+            <port annotation="NONE" expr="hidden_weights_size_0"
                 kind="output" name="out_0"/>
-            <port annotation="NONE" expr="hidden_size_1"
+            <port annotation="NONE" expr="hidden_weights_size_1"
                 kind="output" name="out_1"/>
-            <port annotation="NONE" expr="output_size"
+            <port annotation="NONE" expr="output_weights_size"
                 kind="output" name="out_2"/>
         </node>
         <node id="ForkBias" kind="fork">
@@ -71,7 +76,8 @@
                 kind="output" name="out_0"/>
             <port annotation="NONE" expr="hidden_size_1"
                 kind="output" name="out_1"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="output_size"
+                kind="output" name="out_2"/>
         </node>
         <node id="AdamOutput" kind="actor" period="0">
             <data key="graph_desc">Algo/training/adam.pi</data>
@@ -218,6 +224,8 @@
             <port kind="cfg_input" name="hidden_size_0"/>
             <port kind="cfg_input" name="hidden_size_1"/>
             <port kind="cfg_input" name="critic_input_size"/>
+            <port kind="cfg_input" name="critic_bias_size"/>
+            <port kind="cfg_input" name="critic_weights_size"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE" expr="output_size"
@@ -227,8 +235,10 @@
             <port annotation="NONE" expr="output_size"
                 kind="input" name="target"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
-            <port annotation="NONE" expr="0" kind="input" name="critic_weights"/>
-            <port annotation="NONE" expr="0" kind="input" name="critic_bias"/>
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="input" name="critic_weights"/>
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="input" name="critic_bias"/>
             <port annotation="NONE" expr="output_size"
                 kind="output" name="bias_gradient"/>
             <port annotation="NONE"
@@ -251,7 +261,7 @@
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_3"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_3"/>
         </node>
         <node id="BroadcastValid" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="in"/>
@@ -261,7 +271,7 @@
             <port annotation="NONE" expr="1" kind="output" name="out_3"/>
             <port annotation="NONE" expr="1" kind="output" name="out_1"/>
             <port annotation="NONE" expr="1" kind="output" name="out_5"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_6"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_6"/>
         </node>
         <node id="BroadcastWeights_output" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -302,7 +312,7 @@
             <port annotation="NONE" expr="1" kind="input" name="in"/>
             <port annotation="NONE" expr="1" kind="output" name="out_1"/>
             <port annotation="NONE" expr="1" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
         </node>
         <node id="gen_epsilon" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
@@ -316,7 +326,7 @@
             <port annotation="NONE" expr="1" kind="input" name="in"/>
             <port annotation="NONE" expr="1" kind="output" name="out_1"/>
             <port annotation="NONE" expr="1" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
         </node>
         <node id="adamBetas" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
@@ -374,19 +384,33 @@
             <data key="graph_desc">Algo/training/adam.pi</data>
             <port kind="cfg_input" name="layer_size"/>
             <port kind="cfg_input" name="input_size"/>
-            <port annotation="NONE" expr="0" kind="input" name="weights"/>
-            <port annotation="NONE" expr="0" kind="input" name="bias"/>
-            <port annotation="NONE" expr="0" kind="input" name="epsilon"/>
-            <port annotation="NONE" expr="0" kind="input" name="learning_rate"/>
-            <port annotation="NONE" expr="0" kind="input" name="valid"/>
-            <port annotation="NONE" expr="0" kind="input" name="betas"/>
-            <port annotation="NONE" expr="0" kind="input" name="first_order_moments"/>
-            <port annotation="NONE" expr="0" kind="input" name="second_order_moments"/>
-            <port annotation="NONE" expr="0" kind="input" name="gradients"/>
-            <port annotation="NONE" expr="0" kind="output" name="first_order_moments_out"/>
-            <port annotation="NONE" expr="0" kind="output" name="second_order_moments_out"/>
-            <port annotation="NONE" expr="0" kind="output" name="weights_out"/>
-            <port annotation="NONE" expr="0" kind="output" name="bias_out"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size" kind="input" name="weights"/>
+            <port annotation="NONE" expr="layer_size"
+                kind="input" name="bias"/>
+            <port annotation="NONE" expr="1" kind="input" name="epsilon"/>
+            <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
+            <port annotation="NONE" expr="4" kind="input" name="betas"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size + layer_size"
+                kind="input" name="first_order_moments"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size + layer_size"
+                kind="input" name="second_order_moments"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size + layer_size"
+                kind="input" name="gradients"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size + layer_size"
+                kind="output" name="first_order_moments_out"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size + layer_size"
+                kind="output" name="second_order_moments_out"/>
+            <port annotation="NONE"
+                expr="input_size * layer_size" kind="output" name="weights_out"/>
+            <port annotation="NONE" expr="layer_size"
+                kind="output" name="bias_out"/>
         </node>
         <node id="JoinGradients_hidden_0" kind="join">
             <port kind="cfg_input" name="weights_size"/>
@@ -398,10 +422,12 @@
                 expr="bias_size + weights_size" kind="output" name="out"/>
         </node>
         <node id="weights_critic" kind="src">
-            <port annotation="NONE" expr="0" kind="output" name="weights_critic"/>
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="output" name="weights_critic"/>
         </node>
         <node id="bias_critic" kind="src">
-            <port annotation="NONE" expr="0" kind="output" name="bias_critic"/>
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="output" name="bias_critic"/>
         </node>
         <node id="Critic" kind="actor" period="0">
             <data key="graph_desc">Algo/ddpg/mlp_2layers.pi</data>
@@ -420,7 +446,7 @@
             <port annotation="NONE" expr="output_size"
                 kind="output" name="output"/>
         </node>
-        <node id="CriticInput" kind="actor" period="0">
+        <node id="JoinCriticInput" kind="join">
             <port kind="cfg_input" name="actor_output_size"/>
             <port kind="cfg_input" name="actor_input_size"/>
             <port annotation="NONE" expr="actor_input_size"
@@ -432,14 +458,16 @@
                 kind="output" name="input_critic"/>
         </node>
         <node id="BroadcastCriticWeights" kind="broadcast">
-            <port annotation="NONE" expr="0" kind="input" name="in"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_1"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
         </node>
         <node id="BroadcastCriticBias" kind="broadcast">
-            <port annotation="NONE" expr="0" kind="input" name="in"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_1"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
         </node>
         <node id="GenerateTarget" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
@@ -449,8 +477,9 @@
                     name="target" type="float "/>
             </loop>
             <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="0" kind="output" name="target"/>
+            <port annotation="NONE" expr="size" kind="output" name="target"/>
         </node>
+        <node id="JoinCriticInput" kind="join"/>
         <node expr="hidden_weights_size_1 + hidden_size_1"
             getter=""
             id="delay_AdamHidden_second_order_moments_out__AdamHidden_second_order_moments"
@@ -556,14 +585,14 @@
             kind="fifo" source="AdamHidden_0"
             sourceport="first_order_moments_out"
             target="AdamHidden_0"
-            targetport="first_order_moments" type="void">
+            targetport="first_order_moments" type="double">
             <data key="delay">AdamHidden_0_first_order_moments_out__AdamHidden_0_first_order_moments</data>
         </edge>
         <edge expr="hidden_weights_size_0 + hidden_size_0"
             kind="fifo" source="AdamHidden_0"
             sourceport="second_order_moments_out"
             target="AdamHidden_0"
-            targetport="second_order_moments" type="void">
+            targetport="second_order_moments" type="double">
             <data key="delay">AdamHidden_0_second_order_moments_out__AdamHidden_0_second_order_moments</data>
         </edge>
         <edge kind="fifo" source="JoinWeights" sourceport="out"
@@ -665,111 +694,111 @@
             sourceport="weights_gradient"
             target="JoinGradients_hidden_1" targetport="in_1" type="float"/>
         <edge kind="fifo" source="MLP" sourceport="raw_hidden_0"
-            target="GradientsHidden_0" targetport="raw_hidden" type="void"/>
+            target="GradientsHidden_0" targetport="raw_hidden" type="float"/>
         <edge kind="fifo" source="BroadcastInput"
             sourceport="out_1" target="GradientsHidden_0"
-            targetport="inputs" type="void"/>
+            targetport="inputs" type="float"/>
         <edge kind="fifo" source="MLP" sourceport="hidden_0"
-            target="GradientsHidden_1" targetport="inputs" type="void"/>
+            target="GradientsHidden_1" targetport="inputs" type="float"/>
         <edge kind="fifo" source="GradientsHidden_1"
             sourceport="bias_gradient"
-            target="BroadcastErrors_layer_1" targetport="in" type="void"/>
+            target="BroadcastErrors_layer_1" targetport="in" type="float"/>
         <edge kind="fifo" source="BroadcastErrors_layer_1"
             sourceport="out_1" target="JoinGradients_hidden_1"
-            targetport="in_0" type="void"/>
+            targetport="in_0" type="float"/>
         <edge kind="fifo" source="BroadcastErrors_layer_1"
             sourceport="out_0" target="GradientsHidden_0"
-            targetport="next_layer_errors" type="void"/>
+            targetport="next_layer_errors" type="float"/>
         <edge kind="fifo" source="BroadcastWeights_hidden_1"
             sourceport="out_1" target="GradientsHidden_0"
-            targetport="next_layer_weights" type="void"/>
+            targetport="next_layer_weights" type="float"/>
         <edge kind="fifo" source="BroadcastWeights_hidden_1"
             sourceport="out_0" target="AdamHidden_1"
-            targetport="weights" type="void"/>
+            targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastValid"
             sourceport="out_5" target="GradientsHidden_0"
-            targetport="valid" type="void"/>
+            targetport="valid" type="int"/>
         <edge kind="fifo" source="ForkWeights" sourceport="out_2"
-            target="BroadcastWeights_output" targetport="in" type="void"/>
+            target="BroadcastWeights_output" targetport="in" type="float"/>
         <edge kind="fifo" source="ForkWeights" sourceport="out_1"
-            target="BroadcastWeights_hidden_1" targetport="in" type="void"/>
+            target="BroadcastWeights_hidden_1" targetport="in" type="float"/>
         <edge kind="fifo" source="ForkWeights" sourceport="out_0"
-            target="AdamHidden_0" targetport="weights" type="void"/>
+            target="AdamHidden_0" targetport="weights" type="float"/>
         <edge kind="fifo" source="ForkBias" sourceport="out_0"
-            target="AdamHidden_0" targetport="bias" type="void"/>
+            target="AdamHidden_0" targetport="bias" type="float"/>
         <edge kind="fifo" source="ForkBias" sourceport="out_1"
-            target="AdamHidden_1" targetport="bias" type="void"/>
+            target="AdamHidden_1" targetport="bias" type="float"/>
         <edge kind="fifo" source="ForkBias" sourceport="out_2"
-            target="AdamOutput" targetport="bias" type="void"/>
+            target="AdamOutput" targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastEpsilon"
             sourceport="out_2" target="AdamHidden_0"
-            targetport="epsilon" type="void"/>
+            targetport="epsilon" type="double"/>
         <edge kind="fifo" source="BroadcastLearningRate"
             sourceport="out_2" target="AdamHidden_0"
-            targetport="learning_rate" type="void"/>
+            targetport="learning_rate" type="float"/>
         <edge kind="fifo" source="BroadcastValid"
             sourceport="out_6" target="AdamHidden_0"
-            targetport="valid" type="void"/>
+            targetport="valid" type="int"/>
         <edge kind="fifo" source="BroadcastBetas"
             sourceport="out_3" target="AdamHidden_0"
-            targetport="betas" type="void"/>
+            targetport="betas" type="double"/>
         <edge kind="fifo" source="GradientsHidden_0"
             sourceport="bias_gradient"
-            target="JoinGradients_hidden_0" targetport="in_0" type="void"/>
+            target="JoinGradients_hidden_0" targetport="in_0" type="float"/>
         <edge kind="fifo" source="GradientsHidden_0"
             sourceport="weights_gradient"
-            target="JoinGradients_hidden_0" targetport="in_1" type="void"/>
+            target="JoinGradients_hidden_0" targetport="in_1" type="float"/>
         <edge kind="fifo" source="JoinGradients_hidden_0"
             sourceport="out" target="AdamHidden_0"
-            targetport="gradients" type="void"/>
+            targetport="gradients" type="float"/>
         <edge kind="fifo" source="AdamHidden_0"
             sourceport="weights_out" target="JoinWeights"
-            targetport="in_0" type="void"/>
+            targetport="in_0" type="float"/>
         <edge kind="fifo" source="AdamHidden_1"
             sourceport="weights_out" target="JoinWeights"
-            targetport="in_1" type="void"/>
+            targetport="in_1" type="float"/>
         <edge kind="fifo" source="AdamOutput"
             sourceport="weights_out" target="JoinWeights"
-            targetport="in_2" type="void"/>
+            targetport="in_2" type="float"/>
         <edge kind="fifo" source="AdamHidden_0"
             sourceport="bias_out" target="JoinBias"
-            targetport="in_0" type="void"/>
+            targetport="in_0" type="float"/>
         <edge kind="fifo" source="AdamHidden_1"
             sourceport="bias_out" target="JoinBias"
-            targetport="in_1" type="void"/>
+            targetport="in_1" type="float"/>
         <edge kind="fifo" source="AdamOutput"
             sourceport="bias_out" target="JoinBias"
-            targetport="in_2" type="void"/>
+            targetport="in_2" type="float"/>
         <edge kind="fifo" source="BroadcastInput"
-            sourceport="out_3" target="CriticInput"
-            targetport="state" type="void"/>
+            sourceport="out_3" target="JoinCriticInput"
+            targetport="state" type="float"/>
         <edge kind="fifo" source="MLP" sourceport="output"
-            target="CriticInput" targetport="action" type="void"/>
-        <edge kind="fifo" source="CriticInput"
+            target="JoinCriticInput" targetport="action" type="float"/>
+        <edge kind="fifo" source="JoinCriticInput"
             sourceport="input_critic" target="Critic"
-            targetport="input" type="void"/>
+            targetport="input" type="float"/>
         <edge kind="fifo" source="Critic" sourceport="output"
-            target="GradientsOutput" targetport="output" type="void"/>
+            target="GradientsOutput" targetport="output" type="float"/>
         <edge kind="fifo" source="weights_critic"
             sourceport="weights_critic"
-            target="BroadcastCriticWeights" targetport="in" type="void"/>
+            target="BroadcastCriticWeights" targetport="in" type="float"/>
         <edge kind="fifo" source="bias_critic"
             sourceport="bias_critic" target="BroadcastCriticBias"
-            targetport="in" type="void"/>
+            targetport="in" type="float"/>
         <edge kind="fifo" source="BroadcastCriticWeights"
             sourceport="out_0" target="Critic"
-            targetport="weights" type="void"/>
+            targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastCriticWeights"
             sourceport="out_1" target="GradientsOutput"
-            targetport="critic_weights" type="void"/>
+            targetport="critic_weights" type="float"/>
         <edge kind="fifo" source="BroadcastCriticBias"
-            sourceport="out_0" target="Critic" targetport="bias" type="void"/>
+            sourceport="out_0" target="Critic" targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastCriticBias"
             sourceport="out_1" target="GradientsOutput"
-            targetport="critic_bias" type="void"/>
+            targetport="critic_bias" type="float"/>
         <edge kind="fifo" source="GenerateTarget"
             sourceport="target" target="GradientsOutput"
-            targetport="target" type="void"/>
+            targetport="target" type="float"/>
         <edge kind="dependency" source="hidden_size_1" target="bias_size"/>
         <edge kind="dependency" source="output_size" target="bias_size"/>
         <edge kind="dependency" source="weights_size" target="weights"/>
@@ -786,10 +815,6 @@
         <edge kind="dependency" source="bias_size"
             target="ForkBias" targetport="bias_size"/>
         <edge kind="dependency" source="hidden_size_1" target="hidden_weights_size_1"/>
-        <edge kind="dependency" source="hidden_weights_size_1"
-            target="ForkWeights" targetport="hidden_size_1"/>
-        <edge kind="dependency" source="output_weights_size"
-            target="ForkWeights" targetport="output_size"/>
         <edge kind="dependency" source="output_size" target="output_weights_size"/>
         <edge kind="dependency" source="hidden_size_1" target="output_weights_size"/>
         <edge kind="dependency" source="hidden_size_1"
@@ -848,8 +873,6 @@
             target="JoinGradients_hidden_1" targetport="weights_size"/>
         <edge kind="dependency" source="input_size"
             target="GradientsHidden_0" targetport="input_size"/>
-        <edge kind="dependency" source="hidden_size_0"
-            target="ForkWeights" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
             target="MLP" targetport="hidden_size_1"/>
         <edge kind="dependency" source="hidden_size_0"
@@ -898,9 +921,9 @@
         <edge kind="dependency" source="hidden_size_0"
             target="Critic" targetport="hidden_size_0"/>
         <edge kind="dependency" source="output_size"
-            target="CriticInput" targetport="actor_output_size"/>
+            target="JoinCriticInput" targetport="actor_output_size"/>
         <edge kind="dependency" source="input_size"
-            target="CriticInput" targetport="actor_input_size"/>
+            target="JoinCriticInput" targetport="actor_input_size"/>
         <edge kind="dependency" source="hidden_size_0"
             target="GradientsOutput" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
@@ -911,5 +934,27 @@
             target="GenerateTarget" targetport="size"/>
         <edge kind="dependency" source="critic_input_size"
             target="GradientsOutput" targetport="critic_input_size"/>
+        <edge kind="dependency" source="hidden_weights_size_0"
+            target="ForkWeights" targetport="hidden_weights_size_0"/>
+        <edge kind="dependency" source="hidden_weights_size_1"
+            target="ForkWeights" targetport="hidden_weights_size_1"/>
+        <edge kind="dependency" source="output_weights_size"
+            target="ForkWeights" targetport="output_weights_size"/>
+        <edge kind="dependency" source="critic_input_size" target="critic_bias_size"/>
+        <edge kind="dependency" source="critic_output_size" target="critic_bias_size"/>
+        <edge kind="dependency" source="critic_bias_size"
+            target="BroadcastCriticBias" targetport="size"/>
+        <edge kind="dependency" source="critic_input_size" target="critic_weights_size"/>
+        <edge kind="dependency" source="critic_output_size" target="critic_weights_size"/>
+        <edge kind="dependency" source="hidden_size_0" target="critic_weights_size"/>
+        <edge kind="dependency" source="hidden_size_1" target="critic_weights_size"/>
+        <edge kind="dependency" source="critic_weights_size"
+            target="BroadcastCriticWeights" targetport="size"/>
+        <edge kind="dependency" source="critic_weights_size" target="weights_critic"/>
+        <edge kind="dependency" source="critic_bias_size" target="bias_critic"/>
+        <edge kind="dependency" source="critic_bias_size"
+            target="GradientsOutput" targetport="critic_bias_size"/>
+        <edge kind="dependency" source="critic_weights_size"
+            target="GradientsOutput" targetport="critic_weights_size"/>
     </graph>
 </graphml>

@@ -160,7 +160,7 @@
             <port annotation="NONE" expr="output_size"
                 kind="input" name="targets"/>
             <port annotation="NONE"
-                expr="output_size + hidden_size_0" kind="input" name="bias"/>
+                expr="output_size + hidden_size_1 + hidden_size_0" kind="input" name="bias"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE"
@@ -172,7 +172,7 @@
                 expr="input_size * hidden_size + hidden_size * output_size"
                 kind="output" name="weights_out"/>
             <port annotation="NONE"
-                expr="hidden_size + output_size" kind="output" name="bias_out"/>
+                expr="output_size + hidden_size_1 + hidden_size_0" kind="output" name="bias_out"/>
         </node>
         <node id="Update_Actor" kind="actor" period="0">
             <data key="graph_desc">Algo/ddpg/network_minimize_actor_2layers.pi</data>
@@ -181,21 +181,19 @@
             <port kind="cfg_input" name="output_size"/>
             <port kind="cfg_input" name="input_size"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
-            <port annotation="NONE" expr="output_size"
-                kind="input" name="targets"/>
             <port annotation="NONE"
-                expr="output_size + hidden_size" kind="input" name="bias"/>
+                expr="output_size + hidden_size_1 + hidden_size_0" kind="input" name="bias"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="input" name="weights"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
             <port annotation="NONE"
-                expr="input_size * hidden_size + hidden_size * output_size"
+                expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="output" name="weights_out"/>
             <port annotation="NONE"
-                expr="hidden_size + output_size" kind="output" name="bias_out"/>
+                expr="output_size + hidden_size_1 + hidden_size_0" kind="output" name="bias_out"/>
         </node>
         <node id="BroadcastWeightsActor" kind="broadcast">
             <port kind="cfg_input" name="size"/>
@@ -492,9 +490,6 @@
         <edge kind="fifo" source="Temporal_Difference_Error"
             sourceport="target" target="Update_Critic"
             targetport="targets" type="float"/>
-        <edge kind="fifo" source="broadcastAction"
-            sourceport="action_out1" target="Update_Actor"
-            targetport="targets" type="float"/>
         <edge kind="fifo" source="valid_actor" sourceport="valid"
             target="Update_Actor" targetport="valid" type="int"/>
         <edge kind="fifo" source="Temporal_Difference_Error"
@@ -656,6 +651,8 @@
             target="Update_Critic" targetport="output_size"/>
         <edge kind="dependency" source="hidden_size_0"
             target="Update_Critic" targetport="hidden_size_0"/>
+        <edge kind="dependency" source="hidden_size_1"
+            target="Update_Critic" targetport="hidden_size_1"/>
         <edge kind="dependency" source="action_space_size"
             target="Update_Actor" targetport="output_size"/>
         <edge kind="dependency" source="hidden_size_0"

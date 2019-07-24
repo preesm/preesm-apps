@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/home/gagendro/Documents/Stage/Robot/Project/Communication/preesm/org.ietr.preesm.reinforcement_learning"/>
 		<item value="/home/gagendro/Documents/Stage/Robot/Project/Communication/preesm"/>
+	</list>
+	<list key="installedFeatures">
+		<item value="org.eclipse.cdt.gdb:9.7.0.201812101350"/>
+		<item value="org.eclipse.cdt:9.7.0.201903092251"/>
+		<item value="org.eclipse.emf.common:2.15.0.v20181220-0846"/>
+		<item value="org.eclipse.emf.ecore:2.17.0.v20190116-0940"/>
+		<item value="org.eclipse.graphiti.feature:0.15.0.201806050830"/>
+		<item value="org.eclipse.help:2.2.500.v20190307-0500"/>
+		<item value="org.eclipse.platform:4.11.0.v20190307-0500"/>
+		<item value="org.eclipse.rcp:4.11.0.v20190307-0500"/>
+		<item value="org.eclipse.tm.terminal.control.feature:4.5.100.201903081602"/>
+		<item value="org.eclipse.tm.terminal.feature:4.5.100.201903081602"/>
+		<item value="org.eclipse.tm.terminal.view.feature:4.5.100.201903081602"/>
+		<item value="org.eclipse.xtext.xbase.lib:2.18.0.v20190603-0732"/>
 	</list>
 	<section name="ExternalProjectImportWizard">
 		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>

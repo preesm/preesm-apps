@@ -12,6 +12,8 @@
         <node id="hidden_size_0" kind="cfg_in_iface"/>
         <node id="hidden_size_1" kind="cfg_in_iface"/>
         <node id="critic_input_size" kind="cfg_in_iface"/>
+        <node id="critic_weights_size" kind="cfg_in_iface"/>
+        <node id="critic_bias_size" kind="cfg_in_iface"/>
         <node id="target" kind="src">
             <port annotation="NONE" expr="output_size"
                 kind="output" name="target"/>
@@ -101,10 +103,16 @@
             <port kind="cfg_input" name="input_size"/>
             <port kind="cfg_input" name="hidden_size_0"/>
             <port kind="cfg_input" name="hidden_size_1"/>
-            <port annotation="NONE" expr="1" kind="input" name="input"/>
-            <port annotation="NONE" expr="0" kind="input" name="network_weights"/>
-            <port annotation="NONE" expr="0" kind="input" name="network_bias"/>
-            <port annotation="NONE" expr="1" kind="output" name="output"/>
+            <port kind="cfg_input" name="critic_weights_size"/>
+            <port kind="cfg_input" name="critic_bias_size"/>
+            <port annotation="NONE" expr="input_size"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="input" name="network_weights"/>
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="input" name="network_bias"/>
+            <port annotation="NONE" expr="output_size"
+                kind="output" name="output"/>
         </node>
         <node id="bias_gradient" kind="snk">
             <port annotation="NONE" expr="output_size"
@@ -133,10 +141,12 @@
                 kind="output" name="output"/>
         </node>
         <node id="critic_weights" kind="src">
-            <port annotation="NONE" expr="0" kind="output" name="critic_weights"/>
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="output" name="critic_weights"/>
         </node>
         <node id="critic_bias" kind="src">
-            <port annotation="NONE" expr="0" kind="output" name="critic_bias"/>
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="output" name="critic_bias"/>
         </node>
         <edge kind="fifo" source="target" sourceport="target"
             target="Output_Error" targetport="target" type="float"/>
@@ -200,5 +210,11 @@
             target="Derivative_Function" targetport="hidden_size_1"/>
         <edge kind="dependency" source="critic_input_size"
             target="Derivative_Function" targetport="input_size"/>
+        <edge kind="dependency" source="critic_weights_size"
+            target="Derivative_Function" targetport="critic_weights_size"/>
+        <edge kind="dependency" source="critic_bias_size"
+            target="Derivative_Function" targetport="critic_bias_size"/>
+        <edge kind="dependency" source="critic_weights_size" target="critic_weights"/>
+        <edge kind="dependency" source="critic_bias_size" target="critic_bias"/>
     </graph>
 </graphml>
