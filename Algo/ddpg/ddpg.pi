@@ -433,8 +433,12 @@
                 expr="critic_output_size + hidden_size_1 + hidden_size_0"
                 kind="output" name="critic_bias_out"/>
         </node>
-        <node id="Init_State" kind="actor" period="0"/>
-        <node id="End_State" kind="actor" period="0"/>
+        <node id="Init_State" kind="actor" period="0">
+            <port annotation="NONE" expr="0" kind="output" name="first_state"/>
+        </node>
+        <node id="End_State" kind="actor" period="0">
+            <port annotation="NONE" expr="0" kind="input" name="last_state"/>
+        </node>
         <node
             expr="(bufferSize - nbFireActor) * state_space_size"
             getter=""
@@ -481,12 +485,20 @@
                 expr="(bufferSize - nbFireActor) * action_space_size"
                 kind="output" name="get"/>
         </node>
-        <node expr="0" getter=""
+        <node expr="0" getter="End_State"
             id="Environment_state_observation__BroadcastStateFeature_state"
-            kind="delay" level="permanent" setter="">
+            kind="delay" level="none" setter="Init_State">
             <port annotation="NONE" expr="0" kind="input" name="set"/>
             <port annotation="NONE" expr="0" kind="output" name="get"/>
         </node>
+        <edge kind="fifo" source="Init_State"
+            sourceport="first_state"
+            target="Environment_state_observation__BroadcastStateFeature_state"
+            targetport="set" type="float"/>
+        <edge kind="fifo"
+            source="Environment_state_observation__BroadcastStateFeature_state"
+            sourceport="get" target="End_State"
+            targetport="last_state" type="float"/>
         <edge expr="(bufferSize - nbFireActor) * 1" kind="fifo"
             source="Fill_Buffer" sourceport="reward_toSave"
             target="Fill_Buffer" targetport="reward_save" type="void">
