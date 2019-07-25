@@ -22,7 +22,7 @@ void criticWeightGenInit(int id, OUT float *weights_out, OUT float *bias_out);
  * @param target           Value of the target for the critic neural network update.
  * @param delta            Value of the TD-error.
  */
-void td_error(IN float *gamma_in,IN float *reward, IN float *value_state, IN float *value_next_state,
+void td_error(IN float *gamma_in,IN float *reward, IN float *value_next_state,
               OUT float *target, OUT float *delta);
 
 /**
