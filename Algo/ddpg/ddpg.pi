@@ -236,6 +236,7 @@
             <port annotation="NONE" expr="2" kind="output" name="limits"/>
         </node>
         <node id="Fill_Buffer" kind="actor" period="0">
+            <data key="graph_desc">Algo/ddpg/extractSamples.pi</data>
             <port kind="cfg_input" name="sampleSize"/>
             <port kind="cfg_input" name="bufferSize"/>
             <port kind="cfg_input" name="state_space_size"/>
@@ -374,7 +375,15 @@
             <port annotation="NONE" expr="0" kind="output" name="out_1"/>
         </node>
         <node id="Set_FillSize" kind="actor" period="0">
-            <port kind="cfg_input" name="NextSize"/>
+            <data key="graph_desc">Code/include/buffer.h</data>
+            <loop name="setNbSampleToFill">
+                <param direction="IN" isConfig="true"
+                    name="initSize" type="Param"/>
+                <param direction="IN" isConfig="true"
+                    name="nextSize" type="Param"/>
+                <param direction="OUT" isConfig="true" name="out" type="Param "/>
+            </loop>
+            <port kind="cfg_input" name="nextSize"/>
             <port kind="cfg_input" name="initSize"/>
             <port annotation="NONE" kind="cfg_output" name="out"/>
         </node>
@@ -485,20 +494,14 @@
                 expr="(bufferSize - nbFireActor) * action_space_size"
                 kind="output" name="get"/>
         </node>
-        <node expr="0" getter="End_State"
+        <node expr="state_space_size" getter=""
             id="Environment_state_observation__BroadcastStateFeature_state"
-            kind="delay" level="none" setter="Init_State">
-            <port annotation="NONE" expr="0" kind="input" name="set"/>
-            <port annotation="NONE" expr="0" kind="output" name="get"/>
+            kind="delay" level="none" setter="">
+            <port annotation="NONE" expr="state_space_size"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="state_space_size"
+                kind="output" name="get"/>
         </node>
-        <edge kind="fifo" source="Init_State"
-            sourceport="first_state"
-            target="Environment_state_observation__BroadcastStateFeature_state"
-            targetport="set" type="float"/>
-        <edge kind="fifo"
-            source="Environment_state_observation__BroadcastStateFeature_state"
-            sourceport="get" target="End_State"
-            targetport="last_state" type="float"/>
         <edge expr="(bufferSize - nbFireActor) * 1" kind="fifo"
             source="Fill_Buffer" sourceport="reward_toSave"
             target="Fill_Buffer" targetport="reward_save" type="void">
@@ -518,8 +521,8 @@
             targetport="next_state_save" type="void">
             <data key="delay">Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save</data>
         </edge>
-        <edge expr="0" kind="fifo" source="Environment"
-            sourceport="state_observation"
+        <edge expr="state_space_size" kind="fifo"
+            source="Environment" sourceport="state_observation"
             target="BroadcastStateFeature" targetport="state" type="float">
             <data key="delay">Environment_state_observation__BroadcastStateFeature_state</data>
         </edge>
@@ -780,7 +783,7 @@
         <edge kind="dependency" source="bufferSize"
             target="Set_FillSize" targetport="initSize"/>
         <edge kind="dependency" source="sampleSize"
-            target="Set_FillSize" targetport="NextSize"/>
+            target="Set_FillSize" targetport="nextSize"/>
         <edge kind="dependency" source="Set_FillSize"
             sourceport="out" target="nbFireActor"/>
         <edge kind="dependency" source="sampleSize"
@@ -814,5 +817,6 @@
         <edge kind="dependency" source="action_space_size" target="Fill_Buffer_action_toSave__Fill_Buffer_action_save"/>
         <edge kind="dependency" source="state_space_size" target="Fill_Buffer_state_toSave__Fill_Buffer_state_save"/>
         <edge kind="dependency" source="state_space_size" target="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"/>
+        <edge kind="dependency" source="state_space_size" target="Environment_state_observation__BroadcastStateFeature_state"/>
     </graph>
 </graphml>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">extractSamples</data>
+        <node id="sampleSize" kind="cfg_in_iface"/>
+        <node id="bufferSize" kind="cfg_in_iface"/>
+        <node id="state_space_size" kind="cfg_in_iface"/>
+        <node id="action_space_size" kind="cfg_in_iface"/>
+        <node id="nbFill" kind="cfg_in_iface"/>
+        <node expr="bufferSize - nbFill" id="nbFilled" kind="param"/>
+        <node expr="bufferSize - sampleSize" id="nbSaved" kind="param"/>
+        <node id="reward" kind="src">
+            <port annotation="NONE" expr="nbFill * 1"
+                kind="output" name="reward"/>
+        </node>
+        <node id="action" kind="src">
+            <port annotation="NONE"
+                expr="nbFill * action_space_size" kind="output" name="action"/>
+        </node>
+        <node id="state" kind="src">
+            <port annotation="NONE"
+                expr="nbFill * state_space_size" kind="output" name="state"/>
+        </node>
+        <node id="next_state" kind="src">
+            <port annotation="NONE"
+                expr="nbFill * state_space_size" kind="output" name="next_state"/>
+        </node>
+        <node id="reward_save" kind="src">
+            <port annotation="NONE" expr="nbFilled * 1"
+                kind="output" name="reward_save"/>
+        </node>
+        <node id="action_save" kind="src">
+            <port annotation="NONE"
+                expr="nbFilled * action_space_size" kind="output" name="action_save"/>
+        </node>
+        <node id="state_save" kind="src">
+            <port annotation="NONE"
+                expr="nbFilled * state_space_size" kind="output" name="state_save"/>
+        </node>
+        <node id="next_state_save" kind="src">
+            <port annotation="NONE"
+                expr="nbFilled * state_space_size" kind="output" name="next_state_save"/>
+        </node>
+        <node id="reward_out" kind="snk">
+            <port annotation="NONE" expr="sampleSize * 1"
+                kind="input" name="reward_out"/>
+        </node>
+        <node id="action_out" kind="snk">
+            <port annotation="NONE"
+                expr="sampleSize * action_space_size"
+                kind="input" name="action_out"/>
+        </node>
+        <node id="state_out" kind="snk">
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size" kind="input" name="state_out"/>
+        </node>
+        <node id="next_state_out" kind="snk">
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size" kind="input" name="next_state_out"/>
+        </node>
+        <node id="reward_toSave" kind="snk">
+            <port annotation="NONE" expr="nbSaved * 1"
+                kind="input" name="reward_toSave"/>
+        </node>
+        <node id="action_toSave" kind="snk">
+            <port annotation="NONE"
+                expr="nbSaved * action_space_size" kind="input" name="action_toSave"/>
+        </node>
+        <node id="state_toSave" kind="snk">
+            <port annotation="NONE"
+                expr="nbSaved * state_space_size" kind="input" name="state_toSave"/>
+        </node>
+        <node id="next_state_toSave" kind="snk">
+            <port annotation="NONE"
+                expr="nbSaved * state_space_size" kind="input" name="next_state_toSave"/>
+        </node>
+        <node id="JoinReward" kind="join">
+            <port kind="cfg_input" name="nbFill"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port annotation="NONE" expr="nbFill * 1"
+                kind="input" name="in_0"/>
+            <port annotation="NONE" expr="nbFilled * 1"
+                kind="input" name="in_1"/>
+            <port annotation="NONE"
+                expr="(nbFill + nbFilled) * 1" kind="output" name="out"/>
+        </node>
+        <node id="JoinAction" kind="join">
+            <port kind="cfg_input" name="action_space_size"/>
+            <port kind="cfg_input" name="nbFill"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port annotation="NONE"
+                expr="nbFill * action_space_size" kind="input" name="in_0"/>
+            <port annotation="NONE"
+                expr="nbFilled * action_space_size" kind="input" name="in_1"/>
+            <port annotation="NONE"
+                expr="(nbFill + nbFilled) * action_space_size"
+                kind="output" name="out"/>
+        </node>
+        <node id="JoinState" kind="join">
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbFill"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port annotation="NONE"
+                expr="nbFill * state_space_size" kind="input" name="in_0"/>
+            <port annotation="NONE"
+                expr="nbFilled * state_space_size" kind="input" name="in_1"/>
+            <port annotation="NONE"
+                expr="(nbFill + nbFilled) * state_space_size"
+                kind="output" name="out"/>
+        </node>
+        <node id="JoinNextState" kind="join">
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbFill"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port annotation="NONE"
+                expr="nbFill * state_space_size" kind="input" name="in_0"/>
+            <port annotation="NONE"
+                expr="nbFilled * state_space_size" kind="input" name="in_1"/>
+            <port annotation="NONE"
+                expr="(nbFill + nbFilled) * state_space_size"
+                kind="output" name="out"/>
+        </node>
+        <node id="Shuffle" kind="actor" period="0">
+            <data key="graph_desc">Code/include/buffer.h</data>
+            <loop name="shuffleBuffer">
+                <param direction="IN" isConfig="true"
+                    name="bufferSize" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="state_space_size" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="reward_in" type="int action_space_size IN float "/>
+                <param direction="IN" isConfig="false"
+                    name="state_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="next_state_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="action_in" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="reward_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="state_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="next_state_out" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="action_out" type="float "/>
+            </loop>
+            <init name="initBuffer"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="bufferSize"/>
+            <port kind="cfg_input" name="action_space_size"/>
+            <port annotation="NONE" expr="bufferSize * 1"
+                kind="input" name="reward_in"/>
+            <port annotation="NONE"
+                expr="bufferSize * action_space_size"
+                kind="input" name="action_in"/>
+            <port annotation="NONE"
+                expr="bufferSize * state_space_size" kind="input" name="state_in"/>
+            <port annotation="NONE"
+                expr="bufferSize * state_space_size" kind="input" name="next_state_in"/>
+            <port annotation="NONE" expr="bufferSize * 1"
+                kind="output" name="reward_out"/>
+            <port annotation="NONE"
+                expr="bufferSize * action_space_size"
+                kind="output" name="action_out"/>
+            <port annotation="NONE"
+                expr="bufferSize * state_space_size"
+                kind="output" name="state_out"/>
+            <port annotation="NONE"
+                expr="bufferSize * state_space_size"
+                kind="output" name="next_state_out"/>
+        </node>
+        <node id="ForkReward" kind="fork">
+            <port kind="cfg_input" name="sampleSize"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(sampleSize + nbSaved) * 1" kind="input" name="in"/>
+            <port annotation="NONE" expr="sampleSize * 1"
+                kind="output" name="out_0"/>
+            <port annotation="NONE" expr="nbSaved * 1"
+                kind="output" name="out_1"/>
+        </node>
+        <node id="ForkAction" kind="fork">
+            <port kind="cfg_input" name="sampleSize"/>
+            <port kind="cfg_input" name="action_space_size"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(sampleSize + nbSaved) * action_space_size"
+                kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sampleSize * action_space_size"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="nbSaved * action_space_size" kind="output" name="out_1"/>
+        </node>
+        <node id="ForkState" kind="fork">
+            <port kind="cfg_input" name="sampleSize"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(sampleSize + nbSaved) * state_space_size"
+                kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="nbSaved * state_space_size" kind="output" name="out_1"/>
+        </node>
+        <node id="ForkNextState" kind="fork">
+            <port kind="cfg_input" name="sampleSize"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(sampleSize + nbSaved) * state_space_size"
+                kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="nbSaved * state_space_size" kind="output" name="out_1"/>
+        </node>
+        <edge kind="fifo" source="reward" sourceport="reward"
+            target="JoinReward" targetport="in_0" type="float"/>
+        <edge kind="fifo" source="reward_save"
+            sourceport="reward_save" target="JoinReward"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="state" sourceport="state"
+            target="JoinState" targetport="in_0" type="float"/>
+        <edge kind="fifo" source="state_save"
+            sourceport="state_save" target="JoinState"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="next_state"
+            sourceport="next_state" target="JoinNextState"
+            targetport="in_0" type="float"/>
+        <edge kind="fifo" source="next_state_save"
+            sourceport="next_state_save" target="JoinNextState"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="action" sourceport="action"
+            target="JoinAction" targetport="in_0" type="float"/>
+        <edge kind="fifo" source="action_save"
+            sourceport="action_save" target="JoinAction"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="JoinAction" sourceport="out"
+            target="Shuffle" targetport="reward_in" type="float"/>
+        <edge kind="fifo" source="JoinNextState" sourceport="out"
+            target="Shuffle" targetport="action_in" type="float"/>
+        <edge kind="fifo" source="JoinReward" sourceport="out"
+            target="Shuffle" targetport="state_in" type="float"/>
+        <edge kind="fifo" source="JoinState" sourceport="out"
+            target="Shuffle" targetport="next_state_in" type="float"/>
+        <edge kind="fifo" source="Shuffle"
+            sourceport="reward_out" target="ForkReward"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="Shuffle"
+            sourceport="action_out" target="ForkAction"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="Shuffle" sourceport="state_out"
+            target="ForkState" targetport="in" type="float"/>
+        <edge kind="fifo" source="Shuffle"
+            sourceport="next_state_out" target="ForkNextState"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkReward" sourceport="out_0"
+            target="reward_out" targetport="reward_out" type="float"/>
+        <edge kind="fifo" source="ForkReward" sourceport="out_1"
+            target="reward_toSave" targetport="reward_toSave" type="float"/>
+        <edge kind="fifo" source="ForkAction" sourceport="out_0"
+            target="action_out" targetport="action_out" type="float"/>
+        <edge kind="fifo" source="ForkAction" sourceport="out_1"
+            target="action_toSave" targetport="action_toSave" type="float"/>
+        <edge kind="fifo" source="ForkState" sourceport="out_0"
+            target="state_out" targetport="state_out" type="float"/>
+        <edge kind="fifo" source="ForkState" sourceport="out_1"
+            target="state_toSave" targetport="state_toSave" type="float"/>
+        <edge kind="fifo" source="ForkNextState"
+            sourceport="out_0" target="next_state_out"
+            targetport="next_state_out" type="float"/>
+        <edge kind="fifo" source="ForkNextState"
+            sourceport="out_1" target="next_state_toSave"
+            targetport="next_state_toSave" type="float"/>
+        <edge kind="dependency" source="state_space_size" target="next_state"/>
+        <edge kind="dependency" source="state_space_size" target="next_state_save"/>
+        <edge kind="dependency" source="state_space_size" target="state"/>
+        <edge kind="dependency" source="state_space_size" target="state_save"/>
+        <edge kind="dependency" source="state_space_size" target="state_out"/>
+        <edge kind="dependency" source="state_space_size" target="state_toSave"/>
+        <edge kind="dependency" source="state_space_size" target="next_state_out"/>
+        <edge kind="dependency" source="state_space_size" target="next_state_toSave"/>
+        <edge kind="dependency" source="state_space_size"
+            target="Shuffle" targetport="state_space_size"/>
+        <edge kind="dependency" source="action_space_size" target="action"/>
+        <edge kind="dependency" source="action_space_size" target="action_save"/>
+        <edge kind="dependency" source="action_space_size" target="action_out"/>
+        <edge kind="dependency" source="action_space_size" target="action_toSave"/>
+        <edge kind="dependency" source="nbFill" target="action"/>
+        <edge kind="dependency" source="action_space_size"
+            target="JoinAction" targetport="action_space_size"/>
+        <edge kind="dependency" source="nbFill"
+            target="JoinAction" targetport="nbFill"/>
+        <edge kind="dependency" source="nbFill" target="nbFilled"/>
+        <edge kind="dependency" source="bufferSize" target="nbFilled"/>
+        <edge kind="dependency" source="nbFilled" target="action_save"/>
+        <edge kind="dependency" source="nbFilled"
+            target="JoinAction" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbFill" target="next_state"/>
+        <edge kind="dependency" source="nbFilled" target="next_state_save"/>
+        <edge kind="dependency" source="nbFilled"
+            target="JoinNextState" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbFill"
+            target="JoinNextState" targetport="nbFill"/>
+        <edge kind="dependency" source="state_space_size"
+            target="JoinNextState" targetport="state_space_size"/>
+        <edge kind="dependency" source="nbFill" target="reward"/>
+        <edge kind="dependency" source="nbFilled" target="reward_save"/>
+        <edge kind="dependency" source="nbFill"
+            target="JoinReward" targetport="nbFill"/>
+        <edge kind="dependency" source="nbFilled"
+            target="JoinReward" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbFill" target="state"/>
+        <edge kind="dependency" source="nbFilled" target="state_save"/>
+        <edge kind="dependency" source="state_space_size"
+            target="JoinState" targetport="state_space_size"/>
+        <edge kind="dependency" source="nbFill"
+            target="JoinState" targetport="nbFill"/>
+        <edge kind="dependency" source="nbFilled"
+            target="JoinState" targetport="nbFilled"/>
+        <edge kind="dependency" source="bufferSize"
+            target="Shuffle" targetport="bufferSize"/>
+        <edge kind="dependency" source="action_space_size"
+            target="Shuffle" targetport="action_space_size"/>
+        <edge kind="dependency" source="sampleSize"
+            target="ForkReward" targetport="sampleSize"/>
+        <edge kind="dependency" source="sampleSize"
+            target="ForkAction" targetport="sampleSize"/>
+        <edge kind="dependency" source="sampleSize"
+            target="ForkState" targetport="sampleSize"/>
+        <edge kind="dependency" source="sampleSize"
+            target="ForkNextState" targetport="sampleSize"/>
+        <edge kind="dependency" source="bufferSize" target="nbSaved"/>
+        <edge kind="dependency" source="sampleSize" target="nbSaved"/>
+        <edge kind="dependency" source="nbSaved" target="reward_toSave"/>
+        <edge kind="dependency" source="nbSaved" target="action_toSave"/>
+        <edge kind="dependency" source="nbSaved" target="state_toSave"/>
+        <edge kind="dependency" source="nbSaved" target="next_state_toSave"/>
+        <edge kind="dependency" source="action_space_size"
+            target="ForkAction" targetport="action_space_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="ForkState" targetport="state_space_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="ForkNextState" targetport="state_space_size"/>
+        <edge kind="dependency" source="sampleSize" target="reward_out"/>
+        <edge kind="dependency" source="sampleSize" target="action_out"/>
+        <edge kind="dependency" source="sampleSize" target="state_out"/>
+        <edge kind="dependency" source="sampleSize" target="next_state_out"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkReward" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkAction" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkState" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkNextState" targetport="nbSaved"/>
+    </graph>
+</graphml>
