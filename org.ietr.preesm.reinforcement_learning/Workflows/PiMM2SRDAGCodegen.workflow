@@ -68,6 +68,13 @@
             <dftools:variable name="Verbose" value="False"/>
         </dftools:data>
     </dftools:task>
+    <dftools:task
+        pluginId="org.ietr.preesm.codegen.xtend.task.CodegenTask" taskId="Code Generation">
+        <dftools:data key="variables">
+            <dftools:variable name="Papify" value="false"/>
+            <dftools:variable name="Printer" value="C"/>
+        </dftools:data>
+    </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
         targetport="PiMM" to="PiMM2SrDaGTask"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
@@ -100,4 +107,12 @@
         targetport="DAG" to="Meg Updater"/>
     <dftools:dataTransfer from="PiMM2SrDaGTask" sourceport="PiMM"
         targetport="PiMM" to="Scheduling"/>
+    <dftools:dataTransfer from="Memory Allocation"
+        sourceport="MEGs" targetport="MEGs" to="Code Generation"/>
+    <dftools:dataTransfer from="Scheduling" sourceport="DAG"
+        targetport="DAG" to="Code Generation"/>
+    <dftools:dataTransfer from="scenario" sourceport="scenario"
+        targetport="scenario" to="Code Generation"/>
+    <dftools:dataTransfer from="scenario"
+        sourceport="architecture" targetport="architecture" to="Code Generation"/>
 </dftools:workflow>
