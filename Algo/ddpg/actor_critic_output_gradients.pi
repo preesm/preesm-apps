@@ -59,6 +59,8 @@
                     name="hidden_size_0" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="hidden_size_1" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="critic_input_size" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="input" type="float "/>
                 <param direction="IN" isConfig="false"

@@ -19,29 +19,27 @@ SdfLearner* learn;
 int initialized=0;
 
 
-void envInit(float *state_angular, int state_angular_size, float *state_observation, int state_space_size, float x_target, float y_target) {
+void envInit(float *state_observation, int state_space_size, float x_target, float y_target, float z_target) {
 
-	learn = initWrapper(state_angular, state_angular_size, state_observation, state_space_size, x_target, y_target);
+	learn = initWrapper(state_observation, state_space_size, x_target, y_target, z_target);
 	initialized = 1;
 }
 
 
-void step(int state_space_size, int action_space_size, int state_angular_size, float x_target, float y_target,
-          IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation, OUT float *reward) {
+void step(int state_space_size, int action_space_size, float x_target, float y_target, float z_target,
+          IN float *input_actions, OUT float *state_observation, OUT float *reward) {
 
-	if(!initialized) envInit(state_angular_out, state_angular_size, state_observation, state_space_size, x_target, y_target);
-	stepWrapper(learn, state_space_size, action_space_size, state_angular_size, x_target, y_target, state_angular_in, state_angular_out, input_actions, state_observation, reward);
+	if(!initialized) envInit(state_observation, state_space_size, x_target, y_target, z_target);
+	stepWrapper(learn, state_space_size, action_space_size, x_target, y_target, z_target, input_actions, state_observation, reward);
 }
 
-void step_noreward(int state_space_size, int action_space_size, int state_angular_size, float x_target, float y_target,
-                   IN float *state_angular_in, OUT float *state_angular_out, IN float *input_actions, OUT float *state_observation) {
+void step_noreward(int state_space_size, int action_space_size, float x_target, float y_target, float z_target,
+                   IN float *input_actions, OUT float *state_observation) {
     step(state_space_size,
          action_space_size,
-         state_angular_size,
 		 x_target,
 		 y_target,
-         state_angular_in,
-         state_angular_out,
+		 z_target,
          input_actions,
          state_observation, NULL);
 }
@@ -61,6 +59,7 @@ void stateInit(int state_space_size,
 		first_state[i] = 0;
 	}
 
+	/*
 	if(state_space_size == 6){
 		state_space_size[0] = 2048;
 		state_space_size[1] = 2048;
@@ -69,6 +68,7 @@ void stateInit(int state_space_size,
 		state_space_size[4] = 512;
 		state_space_size[5] = 256;
 	}
+	*/
 
 }
 

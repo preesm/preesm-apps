@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <cstring>
-#include "training.h"
+#include "ddpg.h"
 
 static char *shMemBuffer = nullptr;
 
@@ -74,37 +74,10 @@ void initArchi() {
 		static_cast<std::uint32_t>(PEType::CORE_TYPE_X86),
 		static_cast<std::uint32_t>(PEHardwareID::CORE_CORE0),
 		static_cast<std::uint32_t>(PEVirtID::CORE_CORE0),
-		"org.preesm.model.slam.impl.OperatorImpl@4f520a5-Core0",
+		"org.preesm.model.slam.impl.OperatorImpl@55073861-Core0",
 		SpiderPEType::LRT_PE,
 		SpiderHWType::PHYS_PE);
 	Spider::setPEMemoryUnit(peX86Core0, shMem);
-
-	auto *peX86Core1 = Spider::createPE(
-		static_cast<std::uint32_t>(PEType::CORE_TYPE_X86),
-		static_cast<std::uint32_t>(PEHardwareID::CORE_CORE1),
-		static_cast<std::uint32_t>(PEVirtID::CORE_CORE1),
-		"org.preesm.model.slam.impl.OperatorImpl@4f520a5-Core1",
-		SpiderPEType::LRT_PE,
-		SpiderHWType::PHYS_PE);
-	Spider::setPEMemoryUnit(peX86Core1, shMem);
-
-	auto *peX86Core3 = Spider::createPE(
-		static_cast<std::uint32_t>(PEType::CORE_TYPE_X86),
-		static_cast<std::uint32_t>(PEHardwareID::CORE_CORE3),
-		static_cast<std::uint32_t>(PEVirtID::CORE_CORE3),
-		"org.preesm.model.slam.impl.OperatorImpl@4f520a5-Core3",
-		SpiderPEType::LRT_PE,
-		SpiderHWType::PHYS_PE);
-	Spider::setPEMemoryUnit(peX86Core3, shMem);
-
-	auto *peX86Core2 = Spider::createPE(
-		static_cast<std::uint32_t>(PEType::CORE_TYPE_X86),
-		static_cast<std::uint32_t>(PEHardwareID::CORE_CORE2),
-		static_cast<std::uint32_t>(PEVirtID::CORE_CORE2),
-		"org.preesm.model.slam.impl.OperatorImpl@4f520a5-Core2",
-		SpiderPEType::LRT_PE,
-		SpiderHWType::PHYS_PE);
-	Spider::setPEMemoryUnit(peX86Core2, shMem);
 
 	/* === Set Spider GRT core === */
 

@@ -23,7 +23,7 @@
 
 //TODO:: proper init
 #define init_train() { \
-envInit((float*)FIFO_Head_broadcastState_end__0, 0, (float*)FIFO_Head_BroadcastStateFeat__1, 0, 0, 0); \
+envInit((float*)FIFO_Head_BroadcastStateFeat__1, 0, 0, 0, 0); \
 memcpy(FIFO_Head_BroadcastStateFeat__2, FIFO_Head_BroadcastStateFeat__1, 3 * sizeof(float)); \
 memcpy(FIFO_Head_BroadcastStateFeat__3, FIFO_Head_BroadcastStateFeat__1, 3 * sizeof(float)); \
 memcpy(FIFO_Head_BroadcastStateFeat__0, FIFO_Head_BroadcastStateFeat__1, 3 * sizeof(float)); \

@@ -198,7 +198,7 @@ void derivativeLinear(IN float *input,
  * @param network_bias bias of the neural network
  * @param output Activated output of a neuron
  */
-void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
+void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1, int critic_input_size,
 		IN float *input, IN float *network_weights, IN float *network_bias, OUT float *output);
 
 /**
