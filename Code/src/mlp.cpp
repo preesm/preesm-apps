@@ -146,9 +146,83 @@ void derivativeLinear(IN float *input,
 
 
 
-void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
+void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1, int critic_input_size,
 		IN float *input, IN float *network_weights, IN float *network_bias, OUT float *output){
 
+
+	// Computation of neural network output
+
+	float hiddenLayer1[hidden_size_1];
+	float hiddenLayer0[hidden_size_0];
+
+
+	float weights_0[critic_input_size * hidden_size_0];
+	matrixCopy(critic_input_size * hidden_size_0, &network_weights[0], weights_0);
+
+	float weights_1[hidden_size_0 * hidden_size_1];
+	matrixCopy(hidden_size_0 * hidden_size_1, &network_weights[input_size * hidden_size_0], weights_1);
+
+	float weights_2[hidden_size_1 * 1]; // Loss function has output size = 1
+	matrixCopy(hidden_size_1 * 1, &network_weights[input_size * hidden_size_0 + hidden_size_0 * hidden_size_1], weights_2);
+
+
+	int step = 3;
+	int count = 0;
+	int biasPassed = 0;
+	int sizes[] = {
+			critic_input_size,
+			hidden_size_0,
+			hidden_size_1
+	};
+
+	float* layers[] = {
+			input,
+			hiddenLayer0,
+			hiddenLayer1
+	};
+
+	float* corrected_weights[] = {
+			weights_0,
+			weights_1
+	};
+
+
+	for(int i = 0; i < step-1; i++){
+		for(int j = 0; j < sizes[i+1]; j++){
+					layers[i+1][j] = 0;
+					for(int k=0; k < sizes[i]; k++){
+						layers[i+1][j] += layers[i][k] * network_weights[count];
+						count++;
+					}
+					layers[i+1][j] += network_bias[biasPassed + j];
+
+					if (layers[i+1][j] < 0){
+						layers[i+1][j] = 0;
+
+						for(int l=0; l < sizes[i+1]; l++){
+							corrected_weights[i][l * sizes[i] + j] = 0;
+						}
+					}
+			}
+		biasPassed += sizes[i+1];
+	}
+
+	// Computation of neural network derivatives
+
+	for(int n=0; n < output_size; n++){
+		output[n] = 0;
+
+		for(int j=0; j < hidden_size_1; j++){
+			for(int i=0; i < hidden_size_0; i+++){
+				output[n] += (hiddenLayer0[i] < 0 ? 0 : weights_0[n * hidden_size_0 + i]) * (hiddenLayer1[j] < 0 ? 0 : weights_1[i * hidden_size_1 + j]) * weights_2[j];
+			}
+		}
+
+	}
+
+
+
+	/*
 	float resultLayer[output_size];
 	float hiddenLayer1[hidden_size_1];
 	float hiddenLayer0[hidden_size_0];
@@ -213,6 +287,8 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 
 	matrixMul(input_size, hidden_size_0, hidden_size_1, corrected_weights_1, corrected_weights_2, weights_temp);
 	matrixMul(hidden_size_0, hidden_size_1, output_size, weights_temp, corrected_weights_3, output);
+
+	*/
 
 }
 
