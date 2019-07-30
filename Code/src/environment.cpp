@@ -51,3 +51,30 @@ void envActionLimits(OUT float *limits) {
     limits[0] = -MAX_TORQUE;
     limits[1] = MAX_TORQUE;
 }
+
+
+
+void stateInit(int state_space_size,
+				OUT float *first_state){
+
+	for(int i=0; i < state_space_size; i++){
+		first_state[i] = 0;
+	}
+
+	if(state_space_size == 6){
+		state_space_size[0] = 2048;
+		state_space_size[1] = 2048;
+		state_space_size[2] = 2048;
+		state_space_size[3] = 2048;
+		state_space_size[4] = 512;
+		state_space_size[5] = 256;
+	}
+
+}
+
+void stateEnd(int state_space_size,
+				IN float *last_state){
+
+}
+
+

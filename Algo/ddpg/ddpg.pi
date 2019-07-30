@@ -473,11 +473,25 @@
                 kind="output" name="critic_bias_out"/>
         </node>
         <node id="Init_State" kind="actor" period="0">
+            <data key="graph_desc">Code/include/environment.h</data>
+            <loop name="stateInit">
+                <param direction="IN" isConfig="true"
+                    name="state_space_size" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="first_state" type="float "/>
+            </loop>
             <port kind="cfg_input" name="state_space_size"/>
             <port annotation="NONE" expr="state_space_size"
                 kind="output" name="first_state"/>
         </node>
         <node id="End_State" kind="actor" period="0">
+            <data key="graph_desc">Code/include/environment.h</data>
+            <loop name="stateEnd">
+                <param direction="IN" isConfig="true"
+                    name="state_space_size" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="last_state" type="float "/>
+            </loop>
             <port kind="cfg_input" name="state_space_size"/>
             <port annotation="NONE" expr="state_space_size"
                 kind="input" name="last_state"/>

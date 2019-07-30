@@ -40,4 +40,10 @@ void step_noreward(int state_space_size, int action_space_size, float x_target, 
 
 void envActionLimits(OUT float *limits);
 
+void stateInit(int state_space_size,
+				OUT float *first_state);
+
+void stateEnd(int state_space_size,
+				IN float *last_state);
+
 #endif
