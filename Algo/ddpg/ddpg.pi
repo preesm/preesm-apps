@@ -41,15 +41,9 @@
                 <param direction="IN" isConfig="true"
                     name="action_space_size" type="int"/>
                 <param direction="IN" isConfig="true"
-                    name="state_angular_size" type="int"/>
-                <param direction="IN" isConfig="true"
                     name="x_target" type="float"/>
                 <param direction="IN" isConfig="true"
                     name="y_target" type="float"/>
-                <param direction="IN" isConfig="false"
-                    name="state_angular_in" type="float "/>
-                <param direction="OUT" isConfig="false"
-                    name="state_angular_out" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="input_actions" type="float "/>
                 <param direction="OUT" isConfig="false"
@@ -151,14 +145,14 @@
             <port annotation="NONE" expr="size" kind="input" name="input"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
         </node>
         <node id="BroadcastBiasActor" kind="broadcast">
             <port kind="cfg_input" name="size"/>
             <port annotation="NONE" expr="size" kind="input" name="input"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_2"/>
         </node>
         <node id="valid_actor" kind="actor" period="0">
             <data key="graph_desc">Code/include/actor.h</data>
@@ -344,35 +338,63 @@
                 kind="output" name="output"/>
         </node>
         <node id="Set_TargetActor" kind="actor" period="0">
-            <port annotation="NONE" expr="0" kind="input" name="weights_network"/>
-            <port annotation="NONE" expr="0" kind="input" name="bias_network"/>
-            <port annotation="NONE" expr="0" kind="input" name="weights_to_reach"/>
-            <port annotation="NONE" expr="0" kind="input" name="bias_to_reach"/>
-            <port annotation="NONE" expr="0" kind="output" name="weights_out"/>
-            <port annotation="NONE" expr="0" kind="output" name="bias_out"/>
+            <data key="graph_desc">Algo/ddpg/setTarget.pi</data>
+            <port kind="cfg_input" name="weights_size"/>
+            <port kind="cfg_input" name="bias_size"/>
+            <port annotation="NONE" expr="weights_size"
+                kind="input" name="weights_network"/>
+            <port annotation="NONE" expr="bias_size" kind="input" name="bias_network"/>
+            <port annotation="NONE" expr="weights_size"
+                kind="input" name="weights_to_reach"/>
+            <port annotation="NONE" expr="bias_size" kind="input" name="bias_to_reach"/>
+            <port annotation="NONE"
+                expr=" weights_size + bias_size" kind="input" name="to"/>
+            <port annotation="NONE" expr="weights_size"
+                kind="output" name="weights_out"/>
+            <port annotation="NONE" expr="bias_size"
+                kind="output" name="bias_out"/>
         </node>
         <node id="Set_TargetCritic" kind="actor" period="0">
-            <port annotation="NONE" expr="0" kind="input" name="weights_network"/>
-            <port annotation="NONE" expr="0" kind="input" name="bias_network"/>
-            <port annotation="NONE" expr="0" kind="input" name="weights_to_reach"/>
-            <port annotation="NONE" expr="0" kind="input" name="bias_to_reach"/>
-            <port annotation="NONE" expr="0" kind="output" name="weights_out"/>
-            <port annotation="NONE" expr="0" kind="output" name="bias_out"/>
+            <data key="graph_desc">Algo/ddpg/setTarget.pi</data>
+            <port kind="cfg_input" name="bias_size"/>
+            <port kind="cfg_input" name="weights_size"/>
+            <port annotation="NONE" expr=" weights_size"
+                kind="input" name="weights_network"/>
+            <port annotation="NONE" expr="bias_size" kind="input" name="bias_network"/>
+            <port annotation="NONE" expr=" weights_size"
+                kind="input" name="weights_to_reach"/>
+            <port annotation="NONE" expr="bias_size" kind="input" name="bias_to_reach"/>
+            <port annotation="NONE"
+                expr=" weights_size + bias_size" kind="input" name="to"/>
+            <port annotation="NONE" expr=" weights_size"
+                kind="output" name="weights_out"/>
+            <port annotation="NONE" expr="bias_size"
+                kind="output" name="bias_out"/>
         </node>
         <node id="JoinTargetActionState" kind="join">
-            <port annotation="NONE" expr="0" kind="input" name="action"/>
-            <port annotation="NONE" expr="0" kind="input" name="state"/>
-            <port annotation="NONE" expr="0" kind="output" name="output"/>
-        </node>
-        <node id="ForkNextState" kind="fork">
-            <port annotation="NONE" expr="0" kind="input" name="in"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_1"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="action_space_size"/>
+            <port kind="cfg_input" name="sampleSize"/>
+            <port annotation="NONE"
+                expr="sampleSize * action_space_size"
+                kind="input" name="action"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size" kind="input" name="state"/>
+            <port annotation="NONE"
+                expr="sampleSize * (state_space_size + action_space_size)"
+                kind="output" name="output"/>
         </node>
         <node id="BroadcastSampledState" kind="broadcast">
-            <port annotation="NONE" expr="0" kind="input" name="in"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_0"/>
-            <port annotation="NONE" expr="0" kind="output" name="out_1"/>
+            <port kind="cfg_input" name="sampleSize"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size"
+                kind="output" name="out_1"/>
         </node>
         <node id="Set_FillSize" kind="actor" period="0">
             <data key="graph_desc">Code/include/buffer.h</data>
@@ -388,9 +410,17 @@
             <port annotation="NONE" kind="cfg_output" name="out"/>
         </node>
         <node id="JoinActionState" kind="join">
-            <port annotation="NONE" expr="0" kind="input" name="action"/>
-            <port annotation="NONE" expr="0" kind="input" name="state"/>
-            <port annotation="NONE" expr="0" kind="output" name="output"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="action_space_size"/>
+            <port kind="cfg_input" name="sampleSize"/>
+            <port annotation="NONE"
+                expr="sampleSize * action_space_size"
+                kind="input" name="action"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size" kind="input" name="state"/>
+            <port annotation="NONE"
+                expr="sampleSize * (state_space_size + action_space_size)"
+                kind="output" name="output"/>
         </node>
         <node id="Update_Networks" kind="actor" period="0">
             <data key="graph_desc">Algo/ddpg/update_actor_critic.pi</data>
@@ -448,6 +478,30 @@
         <node id="End_State" kind="actor" period="0">
             <port annotation="NONE" expr="0" kind="input" name="last_state"/>
         </node>
+        <node id="gen_to" kind="actor" period="0">
+            <data key="graph_desc">Code/include/mlp.h</data>
+            <loop name="genTo">
+                <param direction="OUT" isConfig="false" name="to" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="output" name="to"/>
+        </node>
+        <node id="BroadcastTo" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_1"/>
+        </node>
+        <node id="BroadcastSampledNextState" kind="broadcast">
+            <port kind="cfg_input" name="sampleSize"/>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="sampleSize * state_space_size"
+                kind="output" name="out_1"/>
+        </node>
         <node
             expr="(bufferSize - nbFireActor) * state_space_size"
             getter=""
@@ -504,21 +558,21 @@
         </node>
         <edge expr="(bufferSize - nbFireActor) * 1" kind="fifo"
             source="Fill_Buffer" sourceport="reward_toSave"
-            target="Fill_Buffer" targetport="reward_save" type="void">
+            target="Fill_Buffer" targetport="reward_save" type="float">
             <data key="delay">Fill_Buffer_reward_toSave__Fill_Buffer_reward_save</data>
         </edge>
         <edge
             expr="(bufferSize - nbFireActor) * state_space_size"
             kind="fifo" source="Fill_Buffer"
             sourceport="state_toSave" target="Fill_Buffer"
-            targetport="state_save" type="void">
+            targetport="state_save" type="float">
             <data key="delay">Fill_Buffer_state_toSave__Fill_Buffer_state_save</data>
         </edge>
         <edge
             expr="(bufferSize - nbFireActor) * state_space_size"
             kind="fifo" source="Fill_Buffer"
             sourceport="next_state_toSave" target="Fill_Buffer"
-            targetport="next_state_save" type="void">
+            targetport="next_state_save" type="float">
             <data key="delay">Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save</data>
         </edge>
         <edge expr="state_space_size" kind="fifo"
@@ -530,7 +584,7 @@
             expr="(bufferSize - nbFireActor) * action_space_size"
             kind="fifo" source="Fill_Buffer"
             sourceport="action_toSave" target="Fill_Buffer"
-            targetport="action_save" type="void">
+            targetport="action_save" type="float">
             <data key="delay">Fill_Buffer_action_toSave__Fill_Buffer_action_save</data>
         </edge>
         <edge kind="fifo" source="BroadcastStateFeature"
@@ -565,142 +619,148 @@
             targetport="weights" type="float"/>
         <edge kind="fifo" source="Environment"
             sourceport="reward" target="Fill_Buffer"
-            targetport="reward" type="void"/>
+            targetport="reward" type="float"/>
         <edge kind="fifo" source="Fill_Buffer"
             sourceport="reward_out"
             target="Temporal_Difference_Error"
-            targetport="reward" type="void"/>
+            targetport="reward" type="float"/>
         <edge kind="fifo" source="BroadcastStateFeature"
             sourceport="state_out1" target="Fill_Buffer"
-            targetport="state" type="void"/>
+            targetport="state" type="float"/>
         <edge kind="fifo" source="BroadcastStateFeature"
             sourceport="state_out2" target="Fill_Buffer"
-            targetport="next_state" type="void"/>
+            targetport="next_state" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsTargetCritic"
             sourceport="out_0" target="Set_TargetCritic"
-            targetport="weights_network" type="void"/>
+            targetport="weights_network" type="float"/>
         <edge kind="fifo" source="BroadcastBiasTargetCritic"
             sourceport="out_0" target="Set_TargetCritic"
-            targetport="bias_network" type="void"/>
+            targetport="bias_network" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsTargetActor"
             sourceport="out_0" target="Set_TargetActor"
-            targetport="weights_network" type="void"/>
+            targetport="weights_network" type="float"/>
         <edge kind="fifo" source="BroadcastBiasTargetActor"
             sourceport="out_0" target="Set_TargetActor"
-            targetport="bias_network" type="void"/>
+            targetport="bias_network" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsActor"
             sourceport="out_2" target="Set_TargetActor"
-            targetport="weights_to_reach" type="void"/>
+            targetport="weights_to_reach" type="float"/>
         <edge kind="fifo" source="BroadcastBiasActor"
             sourceport="out_2" target="Set_TargetActor"
-            targetport="bias_to_reach" type="void"/>
+            targetport="bias_to_reach" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsCritic"
             sourceport="out_0" target="Set_TargetCritic"
-            targetport="weights_to_reach" type="void"/>
+            targetport="weights_to_reach" type="float"/>
         <edge kind="fifo" source="BroadcastBiasCritic"
             sourceport="out_0" target="Set_TargetCritic"
-            targetport="bias_to_reach" type="void"/>
+            targetport="bias_to_reach" type="float"/>
         <edge kind="fifo" source="Set_TargetActor"
             sourceport="weights_out"
             target="BroadcastWeightsTargetActor"
-            targetport="input" type="void"/>
+            targetport="input" type="float"/>
         <edge kind="fifo" source="Set_TargetActor"
             sourceport="bias_out"
-            target="BroadcastBiasTargetActor" targetport="input" type="void"/>
+            target="BroadcastBiasTargetActor" targetport="input" type="float"/>
         <edge kind="fifo" source="Set_TargetCritic"
             sourceport="weights_out"
             target="BroadcastWeightsTargetCritic"
-            targetport="input" type="void"/>
+            targetport="input" type="float"/>
         <edge kind="fifo" source="Set_TargetCritic"
             sourceport="bias_out"
-            target="BroadcastBiasTargetCritic" targetport="input" type="void"/>
+            target="BroadcastBiasTargetCritic" targetport="input" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsTargetActor"
             sourceport="out_1" target="TargetActor_MLP"
-            targetport="weights" type="void"/>
+            targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastBiasTargetActor"
             sourceport="out_1" target="TargetActor_MLP"
-            targetport="bias" type="void"/>
+            targetport="bias" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsTargetCritic"
             sourceport="out_1" target="TargetCritic_MLP"
-            targetport="weights" type="void"/>
+            targetport="weights" type="float"/>
         <edge kind="fifo" source="BroadcastBiasTargetCritic"
             sourceport="out_1" target="TargetCritic_MLP"
-            targetport="bias" type="void"/>
+            targetport="bias" type="float"/>
         <edge kind="fifo" source="JoinTargetActionState"
             sourceport="output" target="TargetCritic_MLP"
-            targetport="input" type="void"/>
+            targetport="input" type="float"/>
         <edge kind="fifo" source="TargetActor_MLP"
             sourceport="output" target="JoinTargetActionState"
-            targetport="action" type="void"/>
-        <edge kind="fifo" source="Fill_Buffer"
-            sourceport="next_state_out" target="ForkNextState"
-            targetport="in" type="void"/>
-        <edge kind="fifo" source="ForkNextState"
-            sourceport="out_0" target="TargetActor_MLP"
-            targetport="input" type="void"/>
-        <edge kind="fifo" source="ForkNextState"
-            sourceport="out_1" target="JoinTargetActionState"
-            targetport="state" type="void"/>
+            targetport="action" type="float"/>
         <edge kind="fifo" source="TargetCritic_MLP"
             sourceport="output"
             target="Temporal_Difference_Error"
-            targetport="value_next_state" type="void"/>
+            targetport="value_next_state" type="float"/>
         <edge kind="fifo" source="Fill_Buffer"
             sourceport="state_out" target="BroadcastSampledState"
-            targetport="in" type="void"/>
+            targetport="in" type="float"/>
         <edge kind="fifo" source="broadcastAction"
             sourceport="action_out1" target="Fill_Buffer"
-            targetport="action" type="void"/>
+            targetport="action" type="float"/>
         <edge kind="fifo" source="Fill_Buffer"
             sourceport="action_out" target="JoinActionState"
-            targetport="action" type="void"/>
+            targetport="action" type="float"/>
         <edge kind="fifo" source="BroadcastSampledState"
             sourceport="out_0" target="JoinActionState"
-            targetport="state" type="void"/>
+            targetport="state" type="float"/>
         <edge kind="fifo" source="valid_actor" sourceport="valid"
-            target="Update_Networks" targetport="valid_actor" type="void"/>
+            target="Update_Networks" targetport="valid_actor" type="int"/>
         <edge kind="fifo" source="BroadcastBiasActor"
             sourceport="out_1" target="Update_Networks"
-            targetport="bias_actor" type="void"/>
+            targetport="bias_actor" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsActor"
             sourceport="out_0" target="Update_Networks"
-            targetport="weights_actor" type="void"/>
+            targetport="weights_actor" type="float"/>
         <edge kind="fifo" source="Update_Networks"
             sourceport="actor_weights_out"
-            target="BroadcastWeightsActor" targetport="input" type="void"/>
+            target="BroadcastWeightsActor" targetport="input" type="float"/>
         <edge kind="fifo" source="Update_Networks"
             sourceport="actor_bias_out"
-            target="BroadcastBiasActor" targetport="input" type="void"/>
+            target="BroadcastBiasActor" targetport="input" type="float"/>
         <edge kind="fifo" source="gen_actor_learning_rate"
             sourceport="learning_rate" target="Update_Networks"
-            targetport="actor_learning_rate" type="void"/>
+            targetport="actor_learning_rate" type="float"/>
         <edge kind="fifo" source="BroadcastSampledState"
             sourceport="out_1" target="Update_Networks"
-            targetport="actor_input" type="void"/>
+            targetport="actor_input" type="float"/>
         <edge kind="fifo" source="BroadcastWeightsCritic"
             sourceport="out_1" target="Update_Networks"
-            targetport="weights_critic" type="void"/>
+            targetport="weights_critic" type="float"/>
         <edge kind="fifo" source="BroadcastBiasCritic"
             sourceport="out_1" target="Update_Networks"
-            targetport="bias_critic" type="void"/>
+            targetport="bias_critic" type="float"/>
         <edge kind="fifo" source="JoinActionState"
             sourceport="output" target="Update_Networks"
-            targetport="critic_input" type="void"/>
+            targetport="critic_input" type="float"/>
         <edge kind="fifo" source="valid_critic"
             sourceport="valid" target="Update_Networks"
-            targetport="valid_critic" type="void"/>
+            targetport="valid_critic" type="int"/>
         <edge kind="fifo" source="gen_critic_learning_rate"
             sourceport="learning_rate" target="Update_Networks"
-            targetport="critic_learning_rate" type="void"/>
+            targetport="critic_learning_rate" type="float"/>
         <edge kind="fifo" source="Temporal_Difference_Error"
             sourceport="target" target="Update_Networks"
-            targetport="critic_target" type="void"/>
+            targetport="critic_target" type="float"/>
         <edge kind="fifo" source="Update_Networks"
             sourceport="critic_weights_out"
-            target="BroadcastWeightsCritic" targetport="input" type="void"/>
+            target="BroadcastWeightsCritic" targetport="input" type="float"/>
         <edge kind="fifo" source="Update_Networks"
             sourceport="critic_bias_out"
-            target="BroadcastBiasCritic" targetport="input" type="void"/>
+            target="BroadcastBiasCritic" targetport="input" type="float"/>
+        <edge kind="fifo" source="gen_to" sourceport="to"
+            target="BroadcastTo" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadcastTo" sourceport="out_0"
+            target="Set_TargetActor" targetport="to" type="float"/>
+        <edge kind="fifo" source="BroadcastTo" sourceport="out_1"
+            target="Set_TargetCritic" targetport="to" type="float"/>
+        <edge kind="fifo" source="Fill_Buffer"
+            sourceport="next_state_out"
+            target="BroadcastSampledNextState" targetport="in" type="float"/>
+        <edge kind="fifo" source="BroadcastSampledNextState"
+            sourceport="out_0" target="TargetActor_MLP"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="BroadcastSampledNextState"
+            sourceport="out_1" target="JoinTargetActionState"
+            targetport="state" type="float"/>
         <edge kind="dependency" source="state_space_size"
             target="Environment" targetport="state_space_size"/>
         <edge kind="dependency" source="action_space_size"
@@ -818,5 +878,33 @@
         <edge kind="dependency" source="state_space_size" target="Fill_Buffer_state_toSave__Fill_Buffer_state_save"/>
         <edge kind="dependency" source="state_space_size" target="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"/>
         <edge kind="dependency" source="state_space_size" target="Environment_state_observation__BroadcastStateFeature_state"/>
+        <edge kind="dependency" source="critic_bias_size"
+            target="Set_TargetCritic" targetport="bias_size"/>
+        <edge kind="dependency" source="critic_weights_size"
+            target="Set_TargetCritic" targetport="weights_size"/>
+        <edge kind="dependency" source="actor_weights_size"
+            target="Set_TargetActor" targetport="weights_size"/>
+        <edge kind="dependency" source="actor_bias_size"
+            target="Set_TargetActor" targetport="bias_size"/>
+        <edge kind="dependency" source="sampleSize"
+            target="BroadcastSampledState" targetport="sampleSize"/>
+        <edge kind="dependency" source="state_space_size"
+            target="BroadcastSampledState" targetport="state_space_size"/>
+        <edge kind="dependency" source="sampleSize"
+            target="BroadcastSampledNextState" targetport="sampleSize"/>
+        <edge kind="dependency" source="state_space_size"
+            target="BroadcastSampledNextState" targetport="state_space_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="JoinActionState" targetport="state_space_size"/>
+        <edge kind="dependency" source="state_space_size"
+            target="JoinTargetActionState" targetport="state_space_size"/>
+        <edge kind="dependency" source="action_space_size"
+            target="JoinActionState" targetport="action_space_size"/>
+        <edge kind="dependency" source="action_space_size"
+            target="JoinTargetActionState" targetport="action_space_size"/>
+        <edge kind="dependency" source="sampleSize"
+            target="JoinActionState" targetport="sampleSize"/>
+        <edge kind="dependency" source="sampleSize"
+            target="JoinTargetActionState" targetport="sampleSize"/>
     </graph>
 </graphml>

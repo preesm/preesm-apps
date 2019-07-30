@@ -345,4 +345,19 @@ void initAdam(double *betas);
 void adamEpsilonGen(OUT double *epsilon);
 
 
+/**
+ * @brief Updates weight or bias for target networks
+ *
+ * @param target target weight to reach
+ * @param current weight of current network
+ * @param to update factor
+ * @param out updated weight
+ */
+void setTarget(IN float *target, IN float *current, IN float *to, OUT float* out);
+
+/**
+ * Generates to value, update factor for target networks
+ */
+void genTo(OUT float* to);
+
 #endif //MLP_H

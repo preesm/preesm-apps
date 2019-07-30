@@ -34,6 +34,18 @@ void shuffleBuffer(int bufferSize, int state_space_size, int action_space_size
 					IN float* reward_in, IN float* state_in, IN float* next_state_in, IN float* action_in,
 					OUT float* reward_out, OUT float* state_out, OUT float* next_state_out, OUT float* action_out);
 
+/**
+ * @brief Checks whether value is in buffer or not
+ *
+ * @param val value to verify
+ * @param bufferSize size of the buffer
+ * @param buffer buffer to check in
+ */
+int valueInBuffer(int val, int bufferSize, int* buffer);
+
+/**
+ * @brief Initializes randomness to extract random samples
+ */
 void initBuffer();
 
 

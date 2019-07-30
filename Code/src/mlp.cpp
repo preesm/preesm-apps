@@ -144,6 +144,8 @@ void derivativeLinear(IN float *input,
     output[0] = 1;
 }
 
+
+
 void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1,
 		IN float *input, IN float *network_weights, IN float *network_bias, OUT float *output){
 
@@ -236,6 +238,7 @@ void matrixCopy(int size, float *input, float *output){
 		output[i] = input[i];
 	}
 }
+
 
 void genZero(int size, OUT float *target){
 	for(int i=0; i < size; i++){
@@ -397,5 +400,12 @@ void adamEpsilonGen(OUT double *epsilon) {
 }
 
 
+void setTarget(IN float *target, IN float *current, IN float *to, OUT float* out){
+	out[0] = target[0] * to[0] + current[0] * (1 - to[0]);
+}
+
+void genTo(OUT float* to){
+	to[0] = 1e-3;
+}
 
 

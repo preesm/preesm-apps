@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">setTarget</data>
+        <node id="weights_size" kind="cfg_in_iface"/>
+        <node id="bias_size" kind="cfg_in_iface"/>
+        <node id="weights_network" kind="src">
+            <port annotation="NONE" expr="weights_size"
+                kind="output" name="weights_network"/>
+        </node>
+        <node id="weights_to_reach" kind="src">
+            <port annotation="NONE" expr="weights_size"
+                kind="output" name="weights_to_reach"/>
+        </node>
+        <node id="bias_network" kind="src">
+            <port annotation="NONE" expr="bias_size"
+                kind="output" name="bias_network"/>
+        </node>
+        <node id="bias_to_reach" kind="src">
+            <port annotation="NONE" expr="bias_size"
+                kind="output" name="bias_to_reach"/>
+        </node>
+        <node id="weights_out" kind="snk">
+            <port annotation="NONE" expr="weights_size"
+                kind="input" name="weights_out"/>
+        </node>
+        <node id="bias_out" kind="snk">
+            <port annotation="NONE" expr="bias_size" kind="input" name="bias_out"/>
+        </node>
+        <node id="SetWeights" kind="actor" period="0">
+            <data key="graph_desc">Code/include/mlp.h</data>
+            <loop name="setTarget">
+                <param direction="IN" isConfig="false"
+                    name="target" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="current" type="float "/>
+                <param direction="IN" isConfig="false" name="to" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="out" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="target"/>
+            <port annotation="NONE" expr="1" kind="input" name="current"/>
+            <port annotation="NONE" expr="1" kind="input" name="to"/>
+            <port annotation="NONE" expr="1" kind="output" name="out"/>
+        </node>
+        <node id="SetBias" kind="actor" period="0">
+            <data key="graph_desc">Code/include/mlp.h</data>
+            <loop name="setTarget">
+                <param direction="IN" isConfig="false"
+                    name="target" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="current" type="float "/>
+                <param direction="IN" isConfig="false" name="to" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="out" type="float "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="target"/>
+            <port annotation="NONE" expr="1" kind="input" name="current"/>
+            <port annotation="NONE" expr="1" kind="input" name="to"/>
+            <port annotation="NONE" expr="1" kind="output" name="out"/>
+        </node>
+        <node id="to" kind="src">
+            <port annotation="NONE"
+                expr="weights_size + bias_size" kind="output" name="to"/>
+        </node>
+        <node id="ForkTo" kind="fork">
+            <port kind="cfg_input" name="weights_size"/>
+            <port kind="cfg_input" name="bias_size"/>
+            <port annotation="NONE"
+                expr="weights_size + bias_size" kind="input" name="in"/>
+            <port annotation="NONE" expr="bias_size"
+                kind="output" name="out_0"/>
+            <port annotation="NONE" expr="weights_size"
+                kind="output" name="out_1"/>
+        </node>
+        <edge kind="fifo" source="weights_to_reach"
+            sourceport="weights_to_reach" target="SetWeights"
+            targetport="target" type="float"/>
+        <edge kind="fifo" source="weights_network"
+            sourceport="weights_network" target="SetWeights"
+            targetport="current" type="float"/>
+        <edge kind="fifo" source="SetWeights" sourceport="out"
+            target="weights_out" targetport="weights_out" type="float"/>
+        <edge kind="fifo" source="bias_to_reach"
+            sourceport="bias_to_reach" target="SetBias"
+            targetport="target" type="float"/>
+        <edge kind="fifo" source="bias_network"
+            sourceport="bias_network" target="SetBias"
+            targetport="current" type="float"/>
+        <edge kind="fifo" source="SetBias" sourceport="out"
+            target="bias_out" targetport="bias_out" type="float"/>
+        <edge kind="fifo" source="to" sourceport="to"
+            target="ForkTo" targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkTo" sourceport="out_0"
+            target="SetBias" targetport="to" type="float"/>
+        <edge kind="fifo" source="ForkTo" sourceport="out_1"
+            target="SetWeights" targetport="to" type="float"/>
+        <edge kind="dependency" source="weights_size" target="weights_network"/>
+        <edge kind="dependency" source="weights_size" target="weights_to_reach"/>
+        <edge kind="dependency" source="weights_size" target="weights_out"/>
+        <edge kind="dependency" source="bias_size" target="bias_out"/>
+        <edge kind="dependency" source="bias_size" target="bias_network"/>
+        <edge kind="dependency" source="bias_size" target="bias_to_reach"/>
+        <edge kind="dependency" source="weights_size" target="to"/>
+        <edge kind="dependency" source="bias_size" target="to"/>
+        <edge kind="dependency" source="weights_size"
+            target="ForkTo" targetport="weights_size"/>
+        <edge kind="dependency" source="bias_size"
+            target="ForkTo" targetport="bias_size"/>
+    </graph>
+</graphml>
