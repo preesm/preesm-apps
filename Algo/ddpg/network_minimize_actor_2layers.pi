@@ -233,8 +233,6 @@
                 kind="input" name="raw_output"/>
             <port annotation="NONE" expr="output_size"
                 kind="input" name="output"/>
-            <port annotation="NONE" expr="output_size"
-                kind="input" name="target"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="critic_weights_size"
                 kind="input" name="critic_weights"/>
@@ -469,16 +467,6 @@
             <port annotation="NONE" expr="size" kind="input" name="in"/>
             <port annotation="NONE" expr="size" kind="output" name="out_0"/>
             <port annotation="NONE" expr="size" kind="output" name="out_1"/>
-        </node>
-        <node id="GenerateTarget" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
-            <loop name="genZero">
-                <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="OUT" isConfig="false"
-                    name="target" type="float "/>
-            </loop>
-            <port kind="cfg_input" name="size"/>
-            <port annotation="NONE" expr="size" kind="output" name="target"/>
         </node>
         <node expr="hidden_weights_size_1 + hidden_size_1"
             getter=""
@@ -796,9 +784,6 @@
         <edge kind="fifo" source="BroadcastCriticBias"
             sourceport="out_1" target="GradientsOutput"
             targetport="critic_bias" type="float"/>
-        <edge kind="fifo" source="GenerateTarget"
-            sourceport="target" target="GradientsOutput"
-            targetport="target" type="float"/>
         <edge kind="dependency" source="hidden_size_1" target="bias_size"/>
         <edge kind="dependency" source="output_size" target="bias_size"/>
         <edge kind="dependency" source="weights_size" target="weights"/>
@@ -930,8 +915,6 @@
             target="GradientsOutput" targetport="hidden_size_1"/>
         <edge kind="dependency" source="critic_output_size"
             target="GradientsOutput" targetport="output_size"/>
-        <edge kind="dependency" source="critic_output_size"
-            target="GenerateTarget" targetport="size"/>
         <edge kind="dependency" source="critic_input_size"
             target="GradientsOutput" targetport="critic_input_size"/>
         <edge kind="dependency" source="hidden_weights_size_0"

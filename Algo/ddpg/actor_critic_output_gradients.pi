@@ -14,10 +14,6 @@
         <node id="critic_input_size" kind="cfg_in_iface"/>
         <node id="critic_weights_size" kind="cfg_in_iface"/>
         <node id="critic_bias_size" kind="cfg_in_iface"/>
-        <node id="target" kind="src">
-            <port annotation="NONE" expr="output_size"
-                kind="output" name="target"/>
-        </node>
         <node id="inputs" kind="src">
             <port annotation="NONE" expr="input_size"
                 kind="output" name="inputs"/>
@@ -134,16 +130,15 @@
         <edge kind="fifo" source="critic_weights"
             sourceport="critic_weights"
             target="Derivative_Function"
-            targetport="network_weights" type="void"/>
+            targetport="network_weights" type="float"/>
         <edge kind="fifo" source="critic_bias"
             sourceport="critic_bias" target="Derivative_Function"
-            targetport="network_bias" type="void"/>
+            targetport="network_bias" type="float"/>
         <edge kind="fifo" source="Derivative_Function"
             sourceport="output" target="BroadcastError"
-            targetport="in" type="void"/>
+            targetport="in" type="float"/>
         <edge kind="fifo" source="valid" sourceport="valid"
-            target="Gradients" targetport="valid" type="void"/>
-        <edge kind="dependency" source="output_size" target="target"/>
+            target="Gradients" targetport="valid" type="int"/>
         <edge kind="dependency" source="output_size"
             target="Gradients" targetport="layer_size"/>
         <edge kind="dependency" source="output_size"
