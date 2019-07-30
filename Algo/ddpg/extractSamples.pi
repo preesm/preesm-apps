@@ -31,20 +31,20 @@
                 expr="nbFill * state_space_size" kind="output" name="next_state"/>
         </node>
         <node id="reward_save" kind="src">
-            <port annotation="NONE" expr="nbFilled * 1"
+            <port annotation="NONE" expr="nbSaved * 1"
                 kind="output" name="reward_save"/>
         </node>
         <node id="action_save" kind="src">
             <port annotation="NONE"
-                expr="nbFilled * action_space_size" kind="output" name="action_save"/>
+                expr="nbSaved * action_space_size" kind="output" name="action_save"/>
         </node>
         <node id="state_save" kind="src">
             <port annotation="NONE"
-                expr="nbFilled * state_space_size" kind="output" name="state_save"/>
+                expr="nbSaved * state_space_size" kind="output" name="state_save"/>
         </node>
         <node id="next_state_save" kind="src">
             <port annotation="NONE"
-                expr="nbFilled * state_space_size" kind="output" name="next_state_save"/>
+                expr="nbSaved * state_space_size" kind="output" name="next_state_save"/>
         </node>
         <node id="reward_out" kind="snk">
             <port annotation="NONE" expr="sampleSize * 1"
@@ -126,14 +126,16 @@
                 kind="output" name="out"/>
         </node>
         <node id="Shuffle" kind="actor" period="0">
-            <data key="graph_desc">Code/include/buffer.h</data>
+            <data key="graph_desc">Spider/include/buffer.h</data>
             <loop name="shuffleBuffer">
                 <param direction="IN" isConfig="true"
                     name="bufferSize" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="state_space_size" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="action_space_size" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="reward_in" type="int action_space_size IN float "/>
+                    name="reward_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="state_in" type="float "/>
                 <param direction="IN" isConfig="false"
@@ -223,27 +225,129 @@
             <port annotation="NONE"
                 expr="nbSaved * state_space_size" kind="output" name="out_1"/>
         </node>
+        <node id="ForkStateSave" kind="fork">
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="nbSaved * state_space_size" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="nbFilled * state_space_size" kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * state_space_size"
+                kind="output" name="out_1"/>
+        </node>
+        <node id="EndStateSave" kind="actor" period="0">
+            <data key="graph_desc">Spider/include/buffer.h</data>
+            <loop name="endState">
+                <param direction="IN" isConfig="true"
+                    name="nbFilled" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSaved" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="state_space_size" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * state_space_size"
+                kind="input" name="in"/>
+        </node>
+        <node id="ForkNextStateSave" kind="fork">
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="nbSaved * state_space_size" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="nbFilled * state_space_size" kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * state_space_size"
+                kind="output" name="out_1"/>
+        </node>
+        <node id="EndNextStateSave" kind="actor" period="0">
+            <data key="graph_desc">Spider/include/buffer.h</data>
+            <loop name="endState">
+                <param direction="IN" isConfig="true"
+                    name="nbFilled" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSaved" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="state_space_size" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="state_space_size"/>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * state_space_size"
+                kind="input" name="in"/>
+        </node>
+        <node id="ForkRewardSave" kind="fork">
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE" expr="nbSaved * 1"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="nbFilled * 1"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * 1" kind="output" name="out_1"/>
+        </node>
+        <node id="EndRewardSave" kind="actor" period="0">
+            <data key="graph_desc">Spider/include/buffer.h</data>
+            <loop name="endReward">
+                <param direction="IN" isConfig="true"
+                    name="nbFilled" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSaved" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * 1" kind="input" name="in"/>
+        </node>
+        <node id="EndActionSave" kind="actor" period="0">
+            <data key="graph_desc">Spider/include/buffer.h</data>
+            <loop name="endAction">
+                <param direction="IN" isConfig="true"
+                    name="nbFilled" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSaved" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="action_space_size" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port kind="cfg_input" name="action_space_size"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * action_space_size"
+                kind="input" name="in"/>
+        </node>
+        <node id="ForkActionSave" kind="fork">
+            <port kind="cfg_input" name="nbFilled"/>
+            <port kind="cfg_input" name="nbSaved"/>
+            <port kind="cfg_input" name="action_space_size"/>
+            <port annotation="NONE"
+                expr="nbSaved * action_space_size" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="nbFilled * action_space_size" kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="(nbSaved - nbFilled) * action_space_size"
+                kind="output" name="out_1"/>
+        </node>
         <edge kind="fifo" source="reward" sourceport="reward"
             target="JoinReward" targetport="in_0" type="float"/>
-        <edge kind="fifo" source="reward_save"
-            sourceport="reward_save" target="JoinReward"
-            targetport="in_1" type="float"/>
         <edge kind="fifo" source="state" sourceport="state"
             target="JoinState" targetport="in_0" type="float"/>
-        <edge kind="fifo" source="state_save"
-            sourceport="state_save" target="JoinState"
-            targetport="in_1" type="float"/>
         <edge kind="fifo" source="next_state"
             sourceport="next_state" target="JoinNextState"
             targetport="in_0" type="float"/>
-        <edge kind="fifo" source="next_state_save"
-            sourceport="next_state_save" target="JoinNextState"
-            targetport="in_1" type="float"/>
         <edge kind="fifo" source="action" sourceport="action"
             target="JoinAction" targetport="in_0" type="float"/>
-        <edge kind="fifo" source="action_save"
-            sourceport="action_save" target="JoinAction"
-            targetport="in_1" type="float"/>
         <edge kind="fifo" source="JoinAction" sourceport="out"
             target="Shuffle" targetport="reward_in" type="float"/>
         <edge kind="fifo" source="JoinNextState" sourceport="out"
@@ -281,6 +385,42 @@
         <edge kind="fifo" source="ForkNextState"
             sourceport="out_1" target="next_state_toSave"
             targetport="next_state_toSave" type="float"/>
+        <edge kind="fifo" source="state_save"
+            sourceport="state_save" target="ForkStateSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkStateSave"
+            sourceport="out_0" target="JoinState"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="ForkStateSave"
+            sourceport="out_1" target="EndStateSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkNextStateSave"
+            sourceport="out_1" target="EndNextStateSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="next_state_save"
+            sourceport="next_state_save"
+            target="ForkNextStateSave" targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkNextStateSave"
+            sourceport="out_0" target="JoinNextState"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="ForkRewardSave"
+            sourceport="out_1" target="EndRewardSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="reward_save"
+            sourceport="reward_save" target="ForkRewardSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkRewardSave"
+            sourceport="out_0" target="JoinReward"
+            targetport="in_1" type="float"/>
+        <edge kind="fifo" source="ForkActionSave"
+            sourceport="out_1" target="EndActionSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="action_save"
+            sourceport="action_save" target="ForkActionSave"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkActionSave"
+            sourceport="out_0" target="JoinAction"
+            targetport="in_1" type="float"/>
         <edge kind="dependency" source="state_space_size" target="next_state"/>
         <edge kind="dependency" source="state_space_size" target="next_state_save"/>
         <edge kind="dependency" source="state_space_size" target="state"/>
@@ -302,11 +442,9 @@
             target="JoinAction" targetport="nbFill"/>
         <edge kind="dependency" source="nbFill" target="nbFilled"/>
         <edge kind="dependency" source="bufferSize" target="nbFilled"/>
-        <edge kind="dependency" source="nbFilled" target="action_save"/>
         <edge kind="dependency" source="nbFilled"
             target="JoinAction" targetport="nbFilled"/>
         <edge kind="dependency" source="nbFill" target="next_state"/>
-        <edge kind="dependency" source="nbFilled" target="next_state_save"/>
         <edge kind="dependency" source="nbFilled"
             target="JoinNextState" targetport="nbFilled"/>
         <edge kind="dependency" source="nbFill"
@@ -314,13 +452,11 @@
         <edge kind="dependency" source="state_space_size"
             target="JoinNextState" targetport="state_space_size"/>
         <edge kind="dependency" source="nbFill" target="reward"/>
-        <edge kind="dependency" source="nbFilled" target="reward_save"/>
         <edge kind="dependency" source="nbFill"
             target="JoinReward" targetport="nbFill"/>
         <edge kind="dependency" source="nbFilled"
             target="JoinReward" targetport="nbFilled"/>
         <edge kind="dependency" source="nbFill" target="state"/>
-        <edge kind="dependency" source="nbFilled" target="state_save"/>
         <edge kind="dependency" source="state_space_size"
             target="JoinState" targetport="state_space_size"/>
         <edge kind="dependency" source="nbFill"
@@ -363,5 +499,53 @@
             target="ForkState" targetport="nbSaved"/>
         <edge kind="dependency" source="nbSaved"
             target="ForkNextState" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbSaved" target="action_save"/>
+        <edge kind="dependency" source="nbSaved" target="next_state_save"/>
+        <edge kind="dependency" source="nbSaved" target="reward_save"/>
+        <edge kind="dependency" source="nbSaved" target="state_save"/>
+        <edge kind="dependency" source="state_space_size"
+            target="ForkStateSave" targetport="state_space_size"/>
+        <edge kind="dependency" source="nbFilled"
+            target="ForkStateSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkStateSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="state_space_size"
+            target="EndStateSave" targetport="state_space_size"/>
+        <edge kind="dependency" source="nbFilled"
+            target="EndStateSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="EndStateSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="state_space_size"
+            target="ForkNextStateSave" targetport="state_space_size"/>
+        <edge kind="dependency" source="nbFilled"
+            target="ForkNextStateSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkNextStateSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="state_space_size"
+            target="EndNextStateSave" targetport="state_space_size"/>
+        <edge kind="dependency" source="nbFilled"
+            target="EndNextStateSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="EndNextStateSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbFilled"
+            target="ForkRewardSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkRewardSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbFilled"
+            target="EndRewardSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="EndRewardSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbFilled"
+            target="EndActionSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="EndActionSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="nbFilled"
+            target="ForkActionSave" targetport="nbFilled"/>
+        <edge kind="dependency" source="nbSaved"
+            target="ForkActionSave" targetport="nbSaved"/>
+        <edge kind="dependency" source="action_space_size"
+            target="ForkActionSave" targetport="action_space_size"/>
+        <edge kind="dependency" source="action_space_size"
+            target="EndActionSave" targetport="action_space_size"/>
     </graph>
 </graphml>

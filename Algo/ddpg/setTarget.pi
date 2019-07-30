@@ -33,7 +33,7 @@
             <port annotation="NONE" expr="bias_size" kind="input" name="bias_out"/>
         </node>
         <node id="SetWeights" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="setTarget">
                 <param direction="IN" isConfig="false"
                     name="target" type="float "/>
@@ -49,7 +49,7 @@
             <port annotation="NONE" expr="1" kind="output" name="out"/>
         </node>
         <node id="SetBias" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="setTarget">
                 <param direction="IN" isConfig="false"
                     name="target" type="float "/>

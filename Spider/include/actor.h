@@ -2,7 +2,6 @@
 #define ACTOR_MLP_H__
 
 #include "preesm.h"
-#include "spider.h"
 
 #define SIGMA_GAUSSIAN 2.f
 #define ACTOR_LEARNING_RATE 0.01f
@@ -33,15 +32,6 @@ void actionSampler(int size,
  */
 void validActor(IN float *sigma,
                 OUT int *valid);
-
-/**
- * @brief Generate N, the number of updates to perform on the network of the actor.
- *
- * @param sigma value of sigma.
- * @param valid boolean of activation.
- */
-void setNTrainActor(IN float *sigma,
-                    OUT Param *nUpdate);
 
 /**
  * @brief Constant generator for sigma value of Normal sampler of action.

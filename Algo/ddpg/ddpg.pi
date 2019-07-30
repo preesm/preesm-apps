@@ -34,7 +34,7 @@
             id="actionState_space_size" kind="param"/>
         <node expr="0" id="nbFireActor" kind="param"/>
         <node id="Environment" kind="actor" period="0">
-            <data key="graph_desc">Code/include/environment.h</data>
+            <data key="graph_desc">Spider/include/environment.h</data>
             <loop name="step">
                 <param direction="IN" isConfig="true"
                     name="state_space_size" type="int"/>
@@ -72,7 +72,7 @@
             <port annotation="NONE" expr="size" kind="output" name="state_out2"/>
         </node>
         <node id="Temporal_Difference_Error" kind="actor" period="0">
-            <data key="graph_desc">Code/include/critic.h</data>
+            <data key="graph_desc">Spider/include/critic.h</data>
             <loop name="td_error">
                 <param direction="IN" isConfig="false"
                     name="gamma_in" type="float "/>
@@ -121,7 +121,7 @@
                 kind="output" name="output"/>
         </node>
         <node id="GaussianPolicy" kind="actor" period="0">
-            <data key="graph_desc">Code/include/actor.h</data>
+            <data key="graph_desc">Spider/include/actor.h</data>
             <loop name="actionSampler">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
                 <param direction="IN" isConfig="false"
@@ -157,7 +157,7 @@
             <port annotation="NONE" expr="size" kind="output" name="out_2"/>
         </node>
         <node id="valid_actor" kind="actor" period="0">
-            <data key="graph_desc">Code/include/actor.h</data>
+            <data key="graph_desc">Spider/include/actor.h</data>
             <loop name="validActor">
                 <param direction="IN" isConfig="false"
                     name="sigma" type="float "/>
@@ -168,7 +168,7 @@
             <port annotation="NONE" expr="1" kind="output" name="valid"/>
         </node>
         <node id="valid_critic" kind="actor" period="0">
-            <data key="graph_desc">Code/include/common.h</data>
+            <data key="graph_desc">Spider/include/common.h</data>
             <loop name="valid">
                 <param direction="OUT" isConfig="false"
                     name="valid" type="int "/>
@@ -176,7 +176,7 @@
             <port annotation="NONE" expr="1" kind="output" name="valid"/>
         </node>
         <node id="gen_gamma" kind="actor" period="0">
-            <data key="graph_desc">Code/include/critic.h</data>
+            <data key="graph_desc">Spider/include/critic.h</data>
             <loop name="gammaGen">
                 <param direction="OUT" isConfig="false"
                     name="gamma" type="float "/>
@@ -184,7 +184,7 @@
             <port annotation="NONE" expr="1" kind="output" name="gamma"/>
         </node>
         <node id="gen_sigma" kind="actor" period="0">
-            <data key="graph_desc">Code/include/actor.h</data>
+            <data key="graph_desc">Spider/include/actor.h</data>
             <loop name="sigmaGen">
                 <param direction="OUT" isConfig="false"
                     name="sigma" type="float "/>
@@ -192,7 +192,7 @@
             <port annotation="NONE" expr="1" kind="output" name="sigma"/>
         </node>
         <node id="gen_actor_learning_rate" kind="actor" period="0">
-            <data key="graph_desc">Code/include/actor.h</data>
+            <data key="graph_desc">Spider/include/actor.h</data>
             <loop name="actorLearningRateGen">
                 <param direction="OUT" isConfig="false"
                     name="learning_rate" type="float "/>
@@ -200,7 +200,7 @@
             <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
         </node>
         <node id="gen_critic_learning_rate" kind="actor" period="0">
-            <data key="graph_desc">Code/include/critic.h</data>
+            <data key="graph_desc">Spider/include/critic.h</data>
             <loop name="criticLearningRateGen">
                 <param direction="OUT" isConfig="false"
                     name="learning_rate" type="float "/>
@@ -208,7 +208,7 @@
             <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
         </node>
         <node id="ClipAction" kind="actor" period="0">
-            <data key="graph_desc">Code/include/common.h</data>
+            <data key="graph_desc">Spider/include/common.h</data>
             <loop name="clipValues">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
                 <param direction="IN" isConfig="false"
@@ -224,7 +224,7 @@
             <port annotation="NONE" expr="size" kind="output" name="output"/>
         </node>
         <node id="gen_environment_limits" kind="actor" period="0">
-            <data key="graph_desc">Code/include/environment.h</data>
+            <data key="graph_desc">Spider/include/environment.h</data>
             <loop name="envActionLimits">
                 <param direction="OUT" isConfig="false"
                     name="limits" type="float "/>
@@ -245,17 +245,17 @@
             <port annotation="NONE"
                 expr="nbFill * state_space_size" kind="input" name="next_state"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFill) * 1" kind="input" name="reward_save"/>
+                expr="(bufferSize - sampleSize) * 1" kind="input" name="reward_save"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFill) * state_space_size"
+                expr="(bufferSize - sampleSize) * state_space_size"
                 kind="input" name="state_save"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFill) * state_space_size"
+                expr="(bufferSize - sampleSize) * state_space_size"
                 kind="input" name="next_state_save"/>
             <port annotation="NONE"
                 expr="nbFill * action_space_size" kind="input" name="action"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFill) * action_space_size"
+                expr="(bufferSize - sampleSize) * action_space_size"
                 kind="input" name="action_save"/>
             <port annotation="NONE" expr="sampleSize * 1"
                 kind="output" name="reward_out"/>
@@ -399,7 +399,7 @@
                 kind="output" name="out_1"/>
         </node>
         <node id="Set_FillSize" kind="actor" period="0">
-            <data key="graph_desc">Code/include/buffer.h</data>
+            <data key="graph_desc">Spider/include/buffer.h</data>
             <loop name="setNbSampleToFill">
                 <param direction="IN" isConfig="true"
                     name="initSize" type="Param"/>
@@ -475,7 +475,7 @@
                 kind="output" name="critic_bias_out"/>
         </node>
         <node id="Init_State" kind="actor" period="0">
-            <data key="graph_desc">Code/include/environment.h</data>
+            <data key="graph_desc">Spider/include/environment.h</data>
             <loop name="stateInit">
                 <param direction="IN" isConfig="true"
                     name="state_space_size" type="int"/>
@@ -487,7 +487,7 @@
                 kind="output" name="first_state"/>
         </node>
         <node id="End_State" kind="actor" period="0">
-            <data key="graph_desc">Code/include/environment.h</data>
+            <data key="graph_desc">Spider/include/environment.h</data>
             <loop name="stateEnd">
                 <param direction="IN" isConfig="true"
                     name="state_space_size" type="int"/>
@@ -499,7 +499,7 @@
                 kind="input" name="last_state"/>
         </node>
         <node id="gen_to" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="genTo">
                 <param direction="OUT" isConfig="false" name="to" type="float "/>
             </loop>
@@ -522,50 +522,47 @@
                 expr="sampleSize * state_space_size"
                 kind="output" name="out_1"/>
         </node>
-        <node
-            expr="(bufferSize - nbFireActor) * state_space_size"
+        <node expr="(bufferSize - sampleSize) * state_space_size"
             getter=""
             id="Fill_Buffer_state_toSave__Fill_Buffer_state_save"
             kind="delay" level="permanent" setter="">
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * state_space_size"
+                expr="(bufferSize - sampleSize) * state_space_size"
                 kind="input" name="set"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * state_space_size"
+                expr="(bufferSize - sampleSize) * state_space_size"
                 kind="output" name="get"/>
         </node>
-        <node
-            expr="(bufferSize - nbFireActor) * state_space_size"
+        <node expr="(bufferSize - sampleSize) * state_space_size"
             getter=""
             id="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"
             kind="delay" level="permanent" setter="">
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * state_space_size"
+                expr="(bufferSize - sampleSize) * state_space_size"
                 kind="input" name="set"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * state_space_size"
+                expr="(bufferSize - sampleSize) * state_space_size"
                 kind="output" name="get"/>
         </node>
-        <node expr="(bufferSize - nbFireActor) * 1" getter=""
+        <node expr="(bufferSize - sampleSize) * 1" getter=""
             id="Fill_Buffer_reward_toSave__Fill_Buffer_reward_save"
             kind="delay" level="permanent" setter="">
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * 1"
-                kind="input" name="set"/>
+                expr="(bufferSize - sampleSize) * 1" kind="input" name="set"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * 1"
+                expr="(bufferSize - sampleSize) * 1"
                 kind="output" name="get"/>
         </node>
         <node
-            expr="(bufferSize - nbFireActor) * action_space_size"
+            expr="(bufferSize - sampleSize) * action_space_size"
             getter=""
             id="Fill_Buffer_action_toSave__Fill_Buffer_action_save"
             kind="delay" level="permanent" setter="">
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * action_space_size"
+                expr="(bufferSize - sampleSize) * action_space_size"
                 kind="input" name="set"/>
             <port annotation="NONE"
-                expr="(bufferSize - nbFireActor) * action_space_size"
+                expr="(bufferSize - sampleSize) * action_space_size"
                 kind="output" name="get"/>
         </node>
         <node expr="state_space_size" getter="End_State"
@@ -576,20 +573,18 @@
             <port annotation="NONE" expr="state_space_size"
                 kind="output" name="get"/>
         </node>
-        <edge expr="(bufferSize - nbFireActor) * 1" kind="fifo"
+        <edge expr="(bufferSize - sampleSize) * 1" kind="fifo"
             source="Fill_Buffer" sourceport="reward_toSave"
             target="Fill_Buffer" targetport="reward_save" type="float">
             <data key="delay">Fill_Buffer_reward_toSave__Fill_Buffer_reward_save</data>
         </edge>
-        <edge
-            expr="(bufferSize - nbFireActor) * state_space_size"
+        <edge expr="(bufferSize - sampleSize) * state_space_size"
             kind="fifo" source="Fill_Buffer"
             sourceport="state_toSave" target="Fill_Buffer"
             targetport="state_save" type="float">
             <data key="delay">Fill_Buffer_state_toSave__Fill_Buffer_state_save</data>
         </edge>
-        <edge
-            expr="(bufferSize - nbFireActor) * state_space_size"
+        <edge expr="(bufferSize - sampleSize) * state_space_size"
             kind="fifo" source="Fill_Buffer"
             sourceport="next_state_toSave" target="Fill_Buffer"
             targetport="next_state_save" type="float">
@@ -601,7 +596,7 @@
             <data key="delay">Environment_state_observation__BroadcastStateFeature_state</data>
         </edge>
         <edge
-            expr="(bufferSize - nbFireActor) * action_space_size"
+            expr="(bufferSize - sampleSize) * action_space_size"
             kind="fifo" source="Fill_Buffer"
             sourceport="action_toSave" target="Fill_Buffer"
             targetport="action_save" type="float">
@@ -894,10 +889,6 @@
             target="Fill_Buffer" targetport="nbFill"/>
         <edge kind="dependency" source="action_space_size"
             target="Fill_Buffer" targetport="action_space_size"/>
-        <edge kind="dependency" source="nbFireActor" target="Fill_Buffer_reward_toSave__Fill_Buffer_reward_save"/>
-        <edge kind="dependency" source="nbFireActor" target="Fill_Buffer_state_toSave__Fill_Buffer_state_save"/>
-        <edge kind="dependency" source="nbFireActor" target="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"/>
-        <edge kind="dependency" source="nbFireActor" target="Fill_Buffer_action_toSave__Fill_Buffer_action_save"/>
         <edge kind="dependency" source="bufferSize" target="Fill_Buffer_action_toSave__Fill_Buffer_action_save"/>
         <edge kind="dependency" source="bufferSize" target="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"/>
         <edge kind="dependency" source="bufferSize" target="Fill_Buffer_state_toSave__Fill_Buffer_state_save"/>
@@ -938,5 +929,9 @@
             target="End_State" targetport="state_space_size"/>
         <edge kind="dependency" source="state_space_size"
             target="Init_State" targetport="state_space_size"/>
+        <edge kind="dependency" source="sampleSize" target="Fill_Buffer_reward_toSave__Fill_Buffer_reward_save"/>
+        <edge kind="dependency" source="sampleSize" target="Fill_Buffer_state_toSave__Fill_Buffer_state_save"/>
+        <edge kind="dependency" source="sampleSize" target="Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"/>
+        <edge kind="dependency" source="sampleSize" target="Fill_Buffer_action_toSave__Fill_Buffer_action_save"/>
     </graph>
 </graphml>

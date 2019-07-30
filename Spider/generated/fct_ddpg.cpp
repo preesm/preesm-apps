@@ -69,6 +69,10 @@ void ddpg_Actor_MLP_Output_layer_computeNeuron(void* inputFIFOs[], void* outputF
 void ddpg_Actor_MLP_Hidden_layer_0_computeNeuron(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
 void ddpg_Actor_MLP_Hidden_layer_1_computeNeuron(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
 void ddpg_Fill_Buffer_Shuffle(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
+void ddpg_Fill_Buffer_EndStateSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
+void ddpg_Fill_Buffer_EndNextStateSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
+void ddpg_Fill_Buffer_EndRewardSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
+void ddpg_Fill_Buffer_EndActionSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
 void ddpg_TargetActor_MLP_activationFunction_0(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
 void ddpg_TargetActor_MLP_valid_mlp(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
 void ddpg_TargetActor_MLP_outputActivation(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]);
@@ -166,6 +170,10 @@ lrtFct ddpg_fcts[N_FCT_DDPG] = {
 	&ddpg_Actor_MLP_Hidden_layer_0_computeNeuron,
 	&ddpg_Actor_MLP_Hidden_layer_1_computeNeuron,
 	&ddpg_Fill_Buffer_Shuffle,
+	&ddpg_Fill_Buffer_EndStateSave,
+	&ddpg_Fill_Buffer_EndNextStateSave,
+	&ddpg_Fill_Buffer_EndRewardSave,
+	&ddpg_Fill_Buffer_EndActionSave,
 	&ddpg_TargetActor_MLP_activationFunction_0,
 	&ddpg_TargetActor_MLP_valid_mlp,
 	&ddpg_TargetActor_MLP_outputActivation,
@@ -416,16 +424,52 @@ void ddpg_Actor_MLP_Hidden_layer_1_computeNeuron(void* inputFIFOs[], void* outpu
 
 void ddpg_Fill_Buffer_Shuffle(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]){
 	shuffleBuffer(
-		/* bufferSize       */ (Param) inParams[1],
+		/* bufferSize        */ (Param) inParams[1],
+		/* state_space_size  */ (Param) inParams[0],
+		/* action_space_size */ (Param) inParams[2],
+		/* reward_in         */ (float *) inputFIFOs[0],
+		/* state_in          */ (float *) inputFIFOs[2],
+		/* next_state_in     */ (float *) inputFIFOs[3],
+		/* action_in         */ (float *) inputFIFOs[1],
+		/* reward_out        */ (float *) outputFIFOs[0],
+		/* state_out         */ (float *) outputFIFOs[2],
+		/* next_state_out    */ (float *) outputFIFOs[3],
+		/* action_out        */ (float *) outputFIFOs[1]
+	);
+}
+
+void ddpg_Fill_Buffer_EndStateSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]){
+	endState(
+		/* nbFilled         */ (Param) inParams[1],
+		/* nbSaved          */ (Param) inParams[2],
 		/* state_space_size */ (Param) inParams[0],
-		/* reward_in        */ (int action_space_size IN float *) inputFIFOs[0],
-		/* state_in         */ (float *) inputFIFOs[2],
-		/* next_state_in    */ (float *) inputFIFOs[3],
-		/* action_in        */ (float *) inputFIFOs[1],
-		/* reward_out       */ (float *) outputFIFOs[0],
-		/* state_out        */ (float *) outputFIFOs[2],
-		/* next_state_out   */ (float *) outputFIFOs[3],
-		/* action_out       */ (float *) outputFIFOs[1]
+		/* in               */ (float *) inputFIFOs[0]
+	);
+}
+
+void ddpg_Fill_Buffer_EndNextStateSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]){
+	endState(
+		/* nbFilled         */ (Param) inParams[1],
+		/* nbSaved          */ (Param) inParams[2],
+		/* state_space_size */ (Param) inParams[0],
+		/* in               */ (float *) inputFIFOs[0]
+	);
+}
+
+void ddpg_Fill_Buffer_EndRewardSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]){
+	endReward(
+		/* nbFilled */ (Param) inParams[0],
+		/* nbSaved  */ (Param) inParams[1],
+		/* in       */ (float *) inputFIFOs[0]
+	);
+}
+
+void ddpg_Fill_Buffer_EndActionSave(void* inputFIFOs[], void* outputFIFOs[], Param inParams[], Param outParams[]){
+	endAction(
+		/* nbFilled          */ (Param) inParams[0],
+		/* nbSaved           */ (Param) inParams[1],
+		/* action_space_size */ (Param) inParams[2],
+		/* in                */ (float *) inputFIFOs[0]
 	);
 }
 

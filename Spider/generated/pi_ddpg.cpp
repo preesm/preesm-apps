@@ -583,10 +583,10 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Prod Expr = */ "((bufferSize - sampleSize) * 1)*4",
 			/* = Snk = */       bo_Fill_Buffer, 
 			/* = SnkPrt = */    4, 
-			/* = Cons Expr = */ "((bufferSize - nbFireActor) * 1)*4");
+			/* = Cons Expr = */ "((bufferSize - sampleSize) * 1)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "((bufferSize - nbFireActor) * 1) * 4",
+			/* = Delay Expr = */ "((bufferSize - sampleSize) * 1) * 4",
 			/* = Setter = */     nullptr,
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ true);
@@ -600,10 +600,10 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Prod Expr = */ "((bufferSize - sampleSize) * state_space_size)*4",
 			/* = Snk = */       bo_Fill_Buffer, 
 			/* = SnkPrt = */    6, 
-			/* = Cons Expr = */ "((bufferSize - nbFireActor) * state_space_size)*4");
+			/* = Cons Expr = */ "((bufferSize - sampleSize) * state_space_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "((bufferSize - nbFireActor) * state_space_size) * 4",
+			/* = Delay Expr = */ "((bufferSize - sampleSize) * state_space_size) * 4",
 			/* = Setter = */     nullptr,
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ true);
@@ -617,10 +617,10 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Prod Expr = */ "((bufferSize - sampleSize) * state_space_size)*4",
 			/* = Snk = */       bo_Fill_Buffer, 
 			/* = SnkPrt = */    7, 
-			/* = Cons Expr = */ "((bufferSize - nbFireActor) * state_space_size)*4");
+			/* = Cons Expr = */ "((bufferSize - sampleSize) * state_space_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "((bufferSize - nbFireActor) * state_space_size) * 4",
+			/* = Delay Expr = */ "((bufferSize - sampleSize) * state_space_size) * 4",
 			/* = Setter = */     nullptr,
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ true);
@@ -638,8 +638,8 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "(state_space_size) * 4",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
+			/* = Setter = */     bo_Init_State,
+			/* = Getter = */     bo_End_State,
 			/* = Persistent = */ true);
 	}
 
@@ -651,10 +651,10 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Prod Expr = */ "((bufferSize - sampleSize) * action_space_size)*4",
 			/* = Snk = */       bo_Fill_Buffer, 
 			/* = SnkPrt = */    5, 
-			/* = Cons Expr = */ "((bufferSize - nbFireActor) * action_space_size)*4");
+			/* = Cons Expr = */ "((bufferSize - sampleSize) * action_space_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "((bufferSize - nbFireActor) * action_space_size) * 4",
+			/* = Delay Expr = */ "((bufferSize - sampleSize) * action_space_size) * 4",
 			/* = Setter = */     nullptr,
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ true);
@@ -1662,40 +1662,6 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ false);
 	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Init_State, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(state_space_size)*4",
-			/* = Snk = */       bo_Environment_state_observation__BroadcastStateFeature_state, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(state_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Environment_state_observation__BroadcastStateFeature_state, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(state_space_size)*4",
-			/* = Snk = */       bo_End_State, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(state_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
 }
 
 // Method building PiSDFGraph: Actor_MLP
@@ -2694,12 +2660,12 @@ void ddpg_Actor_MLP_Hidden_layer_1(PiSDFVertex *bo_Hidden_layer_1){
 // Method building PiSDFGraph: Fill_Buffer
 void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 	PiSDFGraph* graph = Spider::createGraph(
-		/*Edges*/    24,
+		/*Edges*/    32,
 		/*Params*/   7,
 		/*InputIf*/  8,
 		/*OutputIf*/ 8,
 		/*Config*/   0,
-		/*Body*/     9);
+		/*Body*/     17);
 
 	/* == Linking subgraph to its parent == */
 	Spider::addSubGraph(bo_Fill_Buffer, graph);
@@ -2747,28 +2713,28 @@ void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 		/*Graph*/   graph,
 		/*Name*/    "if_reward_save",
 		/*InParam*/ 1);
-	Spider::addInParam(if_reward_save, 0, param_nbFilled);
+	Spider::addInParam(if_reward_save, 0, param_nbSaved);
 
 	PiSDFVertex* if_action_save = Spider::addInputIf(
 		/*Graph*/   graph,
 		/*Name*/    "if_action_save",
 		/*InParam*/ 2);
 	Spider::addInParam(if_action_save, 0, param_action_space_size);
-	Spider::addInParam(if_action_save, 1, param_nbFilled);
+	Spider::addInParam(if_action_save, 1, param_nbSaved);
 
 	PiSDFVertex* if_state_save = Spider::addInputIf(
 		/*Graph*/   graph,
 		/*Name*/    "if_state_save",
 		/*InParam*/ 2);
 	Spider::addInParam(if_state_save, 0, param_state_space_size);
-	Spider::addInParam(if_state_save, 1, param_nbFilled);
+	Spider::addInParam(if_state_save, 1, param_nbSaved);
 
 	PiSDFVertex* if_next_state_save = Spider::addInputIf(
 		/*Graph*/   graph,
 		/*Name*/    "if_next_state_save",
 		/*InParam*/ 2);
 	Spider::addInParam(if_next_state_save, 0, param_state_space_size);
-	Spider::addInParam(if_next_state_save, 1, param_nbFilled);
+	Spider::addInParam(if_next_state_save, 1, param_nbSaved);
 
 	PiSDFVertex* if_reward_out = Spider::addOutputIf(
 		/*Graph*/   graph,
@@ -2910,6 +2876,104 @@ void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 	Spider::addInParam(bo_ForkNextState, 1, param_state_space_size);
 	Spider::addInParam(bo_ForkNextState, 2, param_nbSaved);
 
+	PiSDFVertex* bo_ForkStateSave = Spider::addForkVertex(
+		/*Graph*/   graph,
+		/*Name*/    "ForkStateSave",
+		/*OutData*/ 2,
+		/*InParam*/ 3);
+	Spider::addInParam(bo_ForkStateSave, 0, param_state_space_size);
+	Spider::addInParam(bo_ForkStateSave, 1, param_nbFilled);
+	Spider::addInParam(bo_ForkStateSave, 2, param_nbSaved);
+
+	PiSDFVertex* bo_EndStateSave = Spider::addBodyVertex(
+		/*Graph*/   graph,
+		/*Name*/    "EndStateSave",
+		/*FctId*/   DDPG_FILL_BUFFER_ENDSTATESAVE_FCT,
+		/*InData*/  1,
+		/*OutData*/ 0,
+		/*InParam*/ 3);
+	/* == Adding input parameters == */
+	Spider::addInParam(bo_EndStateSave, 0, param_state_space_size);
+	Spider::addInParam(bo_EndStateSave, 1, param_nbFilled);
+	Spider::addInParam(bo_EndStateSave, 2, param_nbSaved);
+	/* == Setting execution constraints == */
+	Spider::isExecutableOnAllPE(bo_EndStateSave);
+	/* == Setting timing on corresponding PEs == */
+	Spider::setTimingOnType(bo_EndStateSave, static_cast<std::uint32_t>(PEType::CORE_TYPE_X86), "100");
+
+	PiSDFVertex* bo_ForkNextStateSave = Spider::addForkVertex(
+		/*Graph*/   graph,
+		/*Name*/    "ForkNextStateSave",
+		/*OutData*/ 2,
+		/*InParam*/ 3);
+	Spider::addInParam(bo_ForkNextStateSave, 0, param_state_space_size);
+	Spider::addInParam(bo_ForkNextStateSave, 1, param_nbFilled);
+	Spider::addInParam(bo_ForkNextStateSave, 2, param_nbSaved);
+
+	PiSDFVertex* bo_EndNextStateSave = Spider::addBodyVertex(
+		/*Graph*/   graph,
+		/*Name*/    "EndNextStateSave",
+		/*FctId*/   DDPG_FILL_BUFFER_ENDNEXTSTATESAVE_FCT,
+		/*InData*/  1,
+		/*OutData*/ 0,
+		/*InParam*/ 3);
+	/* == Adding input parameters == */
+	Spider::addInParam(bo_EndNextStateSave, 0, param_state_space_size);
+	Spider::addInParam(bo_EndNextStateSave, 1, param_nbFilled);
+	Spider::addInParam(bo_EndNextStateSave, 2, param_nbSaved);
+	/* == Setting execution constraints == */
+	Spider::isExecutableOnAllPE(bo_EndNextStateSave);
+	/* == Setting timing on corresponding PEs == */
+	Spider::setTimingOnType(bo_EndNextStateSave, static_cast<std::uint32_t>(PEType::CORE_TYPE_X86), "100");
+
+	PiSDFVertex* bo_ForkRewardSave = Spider::addForkVertex(
+		/*Graph*/   graph,
+		/*Name*/    "ForkRewardSave",
+		/*OutData*/ 2,
+		/*InParam*/ 2);
+	Spider::addInParam(bo_ForkRewardSave, 0, param_nbFilled);
+	Spider::addInParam(bo_ForkRewardSave, 1, param_nbSaved);
+
+	PiSDFVertex* bo_EndRewardSave = Spider::addBodyVertex(
+		/*Graph*/   graph,
+		/*Name*/    "EndRewardSave",
+		/*FctId*/   DDPG_FILL_BUFFER_ENDREWARDSAVE_FCT,
+		/*InData*/  1,
+		/*OutData*/ 0,
+		/*InParam*/ 2);
+	/* == Adding input parameters == */
+	Spider::addInParam(bo_EndRewardSave, 0, param_nbFilled);
+	Spider::addInParam(bo_EndRewardSave, 1, param_nbSaved);
+	/* == Setting execution constraints == */
+	Spider::isExecutableOnAllPE(bo_EndRewardSave);
+	/* == Setting timing on corresponding PEs == */
+	Spider::setTimingOnType(bo_EndRewardSave, static_cast<std::uint32_t>(PEType::CORE_TYPE_X86), "100");
+
+	PiSDFVertex* bo_EndActionSave = Spider::addBodyVertex(
+		/*Graph*/   graph,
+		/*Name*/    "EndActionSave",
+		/*FctId*/   DDPG_FILL_BUFFER_ENDACTIONSAVE_FCT,
+		/*InData*/  1,
+		/*OutData*/ 0,
+		/*InParam*/ 3);
+	/* == Adding input parameters == */
+	Spider::addInParam(bo_EndActionSave, 0, param_nbFilled);
+	Spider::addInParam(bo_EndActionSave, 1, param_nbSaved);
+	Spider::addInParam(bo_EndActionSave, 2, param_action_space_size);
+	/* == Setting execution constraints == */
+	Spider::isExecutableOnAllPE(bo_EndActionSave);
+	/* == Setting timing on corresponding PEs == */
+	Spider::setTimingOnType(bo_EndActionSave, static_cast<std::uint32_t>(PEType::CORE_TYPE_X86), "100");
+
+	PiSDFVertex* bo_ForkActionSave = Spider::addForkVertex(
+		/*Graph*/   graph,
+		/*Name*/    "ForkActionSave",
+		/*OutData*/ 2,
+		/*InParam*/ 3);
+	Spider::addInParam(bo_ForkActionSave, 0, param_nbFilled);
+	Spider::addInParam(bo_ForkActionSave, 1, param_nbSaved);
+	Spider::addInParam(bo_ForkActionSave, 2, param_action_space_size);
+
 
 	/* === Edges === */
 
@@ -2922,23 +2986,6 @@ void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 			/* = Snk = */       bo_JoinReward, 
 			/* = SnkPrt = */    0, 
 			/* = Cons Expr = */ "(nbFill * 1)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       if_reward_save, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(nbFilled * 1)*4",
-			/* = Snk = */       bo_JoinReward, 
-			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(nbFilled * 1)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -2967,23 +3014,6 @@ void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       if_state_save, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(nbFilled * state_space_size)*4",
-			/* = Snk = */       bo_JoinState, 
-			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(nbFilled * state_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
 			/* = Src = */       if_next_state, 
 			/* = SrcPrt = */    0, 
 			/* = Prod Expr = */ "(nbFill * state_space_size)*4",
@@ -3001,46 +3031,12 @@ void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       if_next_state_save, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(nbFilled * state_space_size)*4",
-			/* = Snk = */       bo_JoinNextState, 
-			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(nbFilled * state_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
 			/* = Src = */       if_action, 
 			/* = SrcPrt = */    0, 
 			/* = Prod Expr = */ "(nbFill * action_space_size)*4",
 			/* = Snk = */       bo_JoinAction, 
 			/* = SnkPrt = */    0, 
 			/* = Cons Expr = */ "(nbFill * action_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       if_action_save, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(nbFilled * action_space_size)*4",
-			/* = Snk = */       bo_JoinAction, 
-			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(nbFilled * action_space_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -3313,6 +3309,210 @@ void ddpg_Fill_Buffer(PiSDFVertex *bo_Fill_Buffer){
 			/* = Snk = */       if_next_state_toSave, 
 			/* = SnkPrt = */    0, 
 			/* = Cons Expr = */ "(nbSaved * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       if_state_save, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbSaved * state_space_size)*4",
+			/* = Snk = */       bo_ForkStateSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(nbSaved * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkStateSave, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbFilled * state_space_size)*4",
+			/* = Snk = */       bo_JoinState, 
+			/* = SnkPrt = */    1, 
+			/* = Cons Expr = */ "(nbFilled * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkStateSave, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "((nbSaved - nbFilled) * state_space_size)*4",
+			/* = Snk = */       bo_EndStateSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "((nbSaved - nbFilled) * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkNextStateSave, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "((nbSaved - nbFilled) * state_space_size)*4",
+			/* = Snk = */       bo_EndNextStateSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "((nbSaved - nbFilled) * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       if_next_state_save, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbSaved * state_space_size)*4",
+			/* = Snk = */       bo_ForkNextStateSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(nbSaved * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkNextStateSave, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbFilled * state_space_size)*4",
+			/* = Snk = */       bo_JoinNextState, 
+			/* = SnkPrt = */    1, 
+			/* = Cons Expr = */ "(nbFilled * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkRewardSave, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "((nbSaved - nbFilled) * 1)*4",
+			/* = Snk = */       bo_EndRewardSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "((nbSaved - nbFilled) * 1)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       if_reward_save, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbSaved * 1)*4",
+			/* = Snk = */       bo_ForkRewardSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(nbSaved * 1)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkRewardSave, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbFilled * 1)*4",
+			/* = Snk = */       bo_JoinReward, 
+			/* = SnkPrt = */    1, 
+			/* = Cons Expr = */ "(nbFilled * 1)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkActionSave, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "((nbSaved - nbFilled) * action_space_size)*4",
+			/* = Snk = */       bo_EndActionSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "((nbSaved - nbFilled) * action_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       if_action_save, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbSaved * action_space_size)*4",
+			/* = Snk = */       bo_ForkActionSave, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(nbSaved * action_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_ForkActionSave, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(nbFilled * action_space_size)*4",
+			/* = Snk = */       bo_JoinAction, 
+			/* = SnkPrt = */    1, 
+			/* = Cons Expr = */ "(nbFilled * action_space_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -5999,8 +6199,8 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "(actor_weights_size) * 4",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
+			/* = Setter = */     if_weights_actor,
+			/* = Getter = */     if_actor_weights_out,
 			/* = Persistent = */ true);
 	}
 
@@ -6016,8 +6216,8 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "(actor_bias_size) * 4",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
+			/* = Setter = */     if_bias_actor,
+			/* = Getter = */     if_actor_bias_out,
 			/* = Persistent = */ true);
 	}
 
@@ -6067,8 +6267,8 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
+			/* = Setter = */     if_weights_critic,
+			/* = Getter = */     if_critic_weights_out,
 			/* = Persistent = */ false);
 	}
 
@@ -6084,8 +6284,8 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
+			/* = Setter = */     if_bias_critic,
+			/* = Getter = */     if_critic_bias_out,
 			/* = Persistent = */ false);
 	}
 
@@ -6234,142 +6434,6 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Snk = */       bo_Update_Actor, 
 			/* = SnkPrt = */    6, 
 			/* = Cons Expr = */ "(1)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       if_bias_actor, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_bias_size)*4",
-			/* = Snk = */       bo_Update_Actor_bias_out__Update_Actor_bias, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       if_weights_actor, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_weights_size)*4",
-			/* = Snk = */       bo_Update_Actor_weights_out__Update_Actor_weights, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       if_weights_critic, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(critic_weights_size)*4",
-			/* = Snk = */       bo_BroadcastCriticWeights_weights_out_1__Update_Critic_weights, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       if_bias_critic, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(critic_bias_size)*4",
-			/* = Snk = */       bo_BroadcastCriticBias_bias_out_1__Update_Critic_bias, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_BroadcastCriticWeights_weights_out_1__Update_Critic_weights, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(critic_weights_size)*4",
-			/* = Snk = */       if_critic_weights_out, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_BroadcastCriticBias_bias_out_1__Update_Critic_bias, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(critic_bias_size)*4",
-			/* = Snk = */       if_critic_bias_out, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Update_Actor_bias_out__Update_Actor_bias, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_bias_size)*4",
-			/* = Snk = */       if_actor_bias_out, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Update_Actor_weights_out__Update_Actor_weights, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_weights_size)*4",
-			/* = Snk = */       if_actor_weights_out, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_weights_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",

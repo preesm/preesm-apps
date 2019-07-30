@@ -1,6 +1,7 @@
 #ifndef BUFFER_MLP_H__
 #define BUFFER_MLP_H__
 
+#include "preesm.h"
 #include "spider.h"
 
 
@@ -30,7 +31,7 @@ void setNbSampleToFill(Param initSize, Param nextSize, Param* out);
  * @param next_state_out output next state
  * @param action_out output action
  */
-void shuffleBuffer(int bufferSize, int state_space_size, int action_space_size
+void shuffleBuffer(int bufferSize, int state_space_size, int action_space_size,
 					IN float* reward_in, IN float* state_in, IN float* next_state_in, IN float* action_in,
 					OUT float* reward_out, OUT float* state_out, OUT float* next_state_out, OUT float* action_out);
 
@@ -47,6 +48,16 @@ int valueInBuffer(int val, int bufferSize, int* buffer);
  * @brief Initializes randomness to extract random samples
  */
 void initBuffer();
+
+
+void endState(int nbFilled, int nbSaved, int state_space_size,
+				IN float* in);
+
+void endReward(int nbFilled, int nbSaved,
+				IN float* in);
+
+void endAction(int nbFilled, int nbSaved, int action_space_size,
+				IN float* in);
 
 
 #endif

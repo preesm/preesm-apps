@@ -55,7 +55,7 @@
             <port annotation="NONE" expr="layer_size" kind="output" name="bias_out"/>
         </node>
         <node id="activationFunction" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="activateTanHyperbolic">
                 <param direction="IN" isConfig="false" name="input" type="float "/>
                 <param direction="IN" isConfig="false" name="valid" type="int "/>
@@ -73,7 +73,7 @@
             <port annotation="NONE" expr="1" kind="output" name="out_2"/>
         </node>
         <node id="valid" kind="actor" period="0">
-            <data key="graph_desc">Code/include/common.h</data>
+            <data key="graph_desc">Spider/include/common.h</data>
             <loop name="valid">
                 <param direction="OUT" isConfig="false" name="valid" type="int "/>
             </loop>

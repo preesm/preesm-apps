@@ -81,7 +81,7 @@
                 kind="output" name="bias_out2"/>
         </node>
         <node id="activationFunction_0" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="activateTanHyperbolic">
                 <param direction="IN" isConfig="false"
                     name="input" type="float "/>
@@ -95,7 +95,7 @@
             <port annotation="NONE" expr="1" kind="output" name="output"/>
         </node>
         <node id="valid_mlp" kind="actor" period="0">
-            <data key="graph_desc">Code/include/common.h</data>
+            <data key="graph_desc">Spider/include/common.h</data>
             <loop name="valid">
                 <param direction="OUT" isConfig="false"
                     name="valid" type="int "/>
@@ -116,7 +116,7 @@
             <port annotation="NONE" expr="1" kind="output" name="out_4"/>
         </node>
         <node id="outputActivation" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="activateLinear">
                 <param direction="IN" isConfig="false"
                     name="input" type="float "/>
@@ -155,7 +155,7 @@
                 kind="output" name="output"/>
         </node>
         <node id="activationFunction_1" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="activateTanHyperbolic">
                 <param direction="IN" isConfig="false"
                     name="input" type="float "/>

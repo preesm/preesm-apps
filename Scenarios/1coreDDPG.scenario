@@ -3,7 +3,7 @@
     <files>
         <algorithm url="/org.ietr.preesm.reinforcement_learning/Algo/ddpg/ddpg.pi"/>
         <architecture url="/org.ietr.preesm.reinforcement_learning/Archi/1CoreX86.slam"/>
-        <codegenDirectory url="/org.ietr.preesm.reinforcement_learning/Spider/codegen"/>
+        <codegenDirectory url="/org.ietr.preesm.reinforcement_learning/Spider/generated"/>
     </files>
     <constraints excelUrl="">
         <constraintGroup>
@@ -101,6 +101,14 @@
             <task name="ddpg/Fill_Buffer/ForkAction"/>
             <task name="ddpg/Fill_Buffer/ForkState"/>
             <task name="ddpg/Fill_Buffer/ForkNextState"/>
+            <task name="ddpg/Fill_Buffer/ForkStateSave"/>
+            <task name="ddpg/Fill_Buffer/EndStateSave"/>
+            <task name="ddpg/Fill_Buffer/ForkNextStateSave"/>
+            <task name="ddpg/Fill_Buffer/EndNextStateSave"/>
+            <task name="ddpg/Fill_Buffer/ForkRewardSave"/>
+            <task name="ddpg/Fill_Buffer/EndRewardSave"/>
+            <task name="ddpg/Fill_Buffer/EndActionSave"/>
+            <task name="ddpg/Fill_Buffer/ForkActionSave"/>
             <task name="ddpg/Fill_Buffer"/>
             <task name="ddpg/TargetActor_MLP/output"/>
             <task name="ddpg/TargetActor_MLP/input"/>

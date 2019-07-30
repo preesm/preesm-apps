@@ -23,7 +23,7 @@
                 expr="input_size  * output_size" kind="input" name="weights_gradient"/>
         </node>
         <node id="Gradients" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="computeWeightsGradients">
                 <param direction="IN" isConfig="true"
                     name="input_size" type="int"/>
@@ -49,7 +49,7 @@
                 expr=" input_size * layer_size" kind="output" name="gradients"/>
         </node>
         <node id="Derivative_Function" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="derivativeNeuralNetwork">
                 <param direction="IN" isConfig="true"
                     name="input_size" type="int"/>
