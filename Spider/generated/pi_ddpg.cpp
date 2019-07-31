@@ -38,7 +38,7 @@
 
 #include "ddpg.h"
 
-void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size = 3, Param bufferSize = 5000, Param hidden_size_0 = 400, Param hidden_size_1 = 300, Param sampleSize = 64, Param state_space_size = 6, Param value_space_size = 1, Param x_target = 3, Param y_target = 4, Param z_target = 2);
+void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size = 3, Param bufferSize = 500, Param hidden_size_0 = 400, Param hidden_size_1 = 300, Param sampleSize = 64, Param state_space_size = 6, Param value_space_size = 1, Param x_target = 3, Param y_target = 4, Param z_target = 2);
 void ddpg_Actor_MLP(PiSDFVertex *bo_Actor_MLP);
 void ddpg_Actor_MLP_Output_layer(PiSDFVertex *bo_Output_layer);
 void ddpg_Actor_MLP_Hidden_layer_0(PiSDFVertex *bo_Hidden_layer_0);
@@ -112,12 +112,12 @@ void init_ddpg(Param action_space_size, Param bufferSize, Param hidden_size_0, P
 // Method building PiSDFGraph: ddpg
 void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param hidden_size_0, Param hidden_size_1, Param sampleSize, Param state_space_size, Param value_space_size, Param x_target, Param y_target, Param z_target){
 	PiSDFGraph* graph = Spider::createGraph(
-		/*Edges*/    66,
+		/*Edges*/    67,
 		/*Params*/   16,
 		/*InputIf*/  0,
 		/*OutputIf*/ 0,
 		/*Config*/   1,
-		/*Body*/     41);
+		/*Body*/     50);
 
 	/* == Linking subgraph to its parent == */
 	Spider::addSubGraph(bo_ddpg, graph);
@@ -161,12 +161,12 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	/* == Setting timing on corresponding PEs == */
 	Spider::setTimingOnType(bo_Environment, static_cast<std::uint32_t>(PEType::CORE_TYPE_X86), "100");
 
-	PiSDFVertex* bo_BroadcastStateFeature = Spider::addBroadcastVertex(
+	PiSDFVertex* bo_BroadcastNextStateFeature = Spider::addBroadcastVertex(
 		/*Graph*/   graph,
-		/*Name*/    "BroadcastStateFeature",
-		/*OutData*/ 3,
+		/*Name*/    "BroadcastNextStateFeature",
+		/*OutData*/ 2,
 		/*InParam*/ 1);
-	Spider::addInParam(bo_BroadcastStateFeature, 0, param_state_space_size);
+	Spider::addInParam(bo_BroadcastNextStateFeature, 0, param_state_space_size);
 
 	PiSDFVertex* bo_Temporal_Difference_Error = Spider::addBodyVertex(
 		/*Graph*/   graph,
@@ -219,15 +219,17 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastWeightsActor",
 		/*OutData*/ 3,
-		/*InParam*/ 1);
+		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastWeightsActor, 0, param_actor_weights_size);
+	Spider::addInParam(bo_BroadcastWeightsActor, 1, param_nbFireActor);
 
 	PiSDFVertex* bo_BroadcastBiasActor = Spider::addBroadcastVertex(
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastBiasActor",
 		/*OutData*/ 3,
-		/*InParam*/ 1);
+		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastBiasActor, 0, param_actor_bias_size);
+	Spider::addInParam(bo_BroadcastBiasActor, 1, param_nbFireActor);
 
 	PiSDFVertex* bo_valid_actor = Spider::addBodyVertex(
 		/*Graph*/   graph,
@@ -331,29 +333,33 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastWeightsTargetActor",
 		/*OutData*/ 2,
-		/*InParam*/ 1);
+		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastWeightsTargetActor, 0, param_actor_weights_size);
+	Spider::addInParam(bo_BroadcastWeightsTargetActor, 1, param_sampleSize);
 
 	PiSDFVertex* bo_BroadcastBiasTargetActor = Spider::addBroadcastVertex(
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastBiasTargetActor",
 		/*OutData*/ 2,
-		/*InParam*/ 1);
+		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastBiasTargetActor, 0, param_actor_bias_size);
+	Spider::addInParam(bo_BroadcastBiasTargetActor, 1, param_sampleSize);
 
 	PiSDFVertex* bo_BroadcastBiasTargetCritic = Spider::addBroadcastVertex(
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastBiasTargetCritic",
 		/*OutData*/ 2,
-		/*InParam*/ 1);
+		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastBiasTargetCritic, 0, param_critic_bias_size);
+	Spider::addInParam(bo_BroadcastBiasTargetCritic, 1, param_sampleSize);
 
 	PiSDFVertex* bo_BroadcastWeightsTargetCritic = Spider::addBroadcastVertex(
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastWeightsTargetCritic",
 		/*OutData*/ 2,
-		/*InParam*/ 1);
+		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastWeightsTargetCritic, 0, param_critic_weights_size);
+	Spider::addInParam(bo_BroadcastWeightsTargetCritic, 1, param_sampleSize);
 
 	PiSDFVertex* bo_JoinTargetActionState = Spider::addJoinVertex(
 		/*Graph*/   graph,
@@ -443,7 +449,11 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 		/*Graph*/   graph,
 		/*Name*/    "BroadcastTo",
 		/*OutData*/ 2,
-		/*InParam*/ 0);
+		/*InParam*/ 4);
+	Spider::addInParam(bo_BroadcastTo, 0, param_actor_weights_size);
+	Spider::addInParam(bo_BroadcastTo, 1, param_actor_bias_size);
+	Spider::addInParam(bo_BroadcastTo, 2, param_critic_weights_size);
+	Spider::addInParam(bo_BroadcastTo, 3, param_critic_bias_size);
 
 	PiSDFVertex* bo_BroadcastSampledNextState = Spider::addBroadcastVertex(
 		/*Graph*/   graph,
@@ -452,6 +462,13 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 		/*InParam*/ 2);
 	Spider::addInParam(bo_BroadcastSampledNextState, 0, param_sampleSize);
 	Spider::addInParam(bo_BroadcastSampledNextState, 1, param_state_space_size);
+
+	PiSDFVertex* bo_BroadcastStateFeature = Spider::addBroadcastVertex(
+		/*Graph*/   graph,
+		/*Name*/    "BroadcastStateFeature",
+		/*OutData*/ 2,
+		/*InParam*/ 1);
+	Spider::addInParam(bo_BroadcastStateFeature, 0, param_state_space_size);
 
 	PiSDFVertex* bo_Actor_MLP = Spider::addBodyVertex(
 		/*Graph*/   graph,
@@ -629,23 +646,6 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       bo_Environment, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(state_space_size)*4",
-			/* = Snk = */       bo_BroadcastStateFeature, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(state_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "(state_space_size) * 4",
-			/* = Setter = */     bo_Init_State,
-			/* = Getter = */     bo_End_State,
-			/* = Persistent = */ true);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
 			/* = Src = */       bo_Fill_Buffer, 
 			/* = SrcPrt = */    5, 
 			/* = Prod Expr = */ "((bufferSize - sampleSize) * action_space_size)*4",
@@ -663,10 +663,163 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       bo_BroadcastStateFeature, 
+			/* = Src = */       bo_Set_TargetActor, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(actor_weights_size)*4",
+			/* = Snk = */       bo_BroadcastWeightsTargetActor, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(actor_weights_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(actor_weights_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Set_TargetActor, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "(actor_bias_size)*4",
+			/* = Snk = */       bo_BroadcastBiasTargetActor, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(actor_bias_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(actor_bias_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Set_TargetCritic, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "( critic_weights_size)*4",
+			/* = Snk = */       bo_BroadcastWeightsTargetCritic, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(critic_weights_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(critic_weights_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Set_TargetCritic, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "(critic_bias_size)*4",
+			/* = Snk = */       bo_BroadcastBiasTargetCritic, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(critic_bias_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(critic_bias_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Update_Networks, 
+			/* = SrcPrt = */    2, 
+			/* = Prod Expr = */ "(state_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * action_space_size)*4",
+			/* = Snk = */       bo_BroadcastWeightsActor, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(actor_weights_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(actor_weights_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Update_Networks, 
+			/* = SrcPrt = */    3, 
+			/* = Prod Expr = */ "(action_space_size + hidden_size_1 + hidden_size_0)*4",
+			/* = Snk = */       bo_BroadcastBiasActor, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(actor_bias_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(actor_bias_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Update_Networks, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(actionState_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * value_space_size)*4",
+			/* = Snk = */       bo_BroadcastWeightsCritic, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(critic_weights_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(critic_weights_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Update_Networks, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "(value_space_size + hidden_size_1 + hidden_size_0)*4",
+			/* = Snk = */       bo_BroadcastBiasCritic, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(critic_bias_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(critic_bias_size) * 4",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_BroadcastNextStateFeature, 
 			/* = SrcPrt = */    0, 
 			/* = Prod Expr = */ "(state_space_size)*4",
-			/* = Snk = */       bo_Actor_MLP, 
+			/* = Snk = */       bo_BroadcastStateFeature, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "(state_space_size) * 4",
+			/* = Setter = */     bo_Init_State,
+			/* = Getter = */     bo_End_State,
+			/* = Persistent = */ true);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_Environment, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(state_space_size)*4",
+			/* = Snk = */       bo_BroadcastNextStateFeature, 
 			/* = SnkPrt = */    0, 
 			/* = Cons Expr = */ "(state_space_size)*4");
 		Spider::addDelay(
@@ -818,7 +971,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastBiasActor, 
 			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_bias_size)*4",
+			/* = Prod Expr = */ "(nbFireActor * actor_bias_size)*4",
 			/* = Snk = */       bo_Actor_MLP, 
 			/* = SnkPrt = */    2, 
 			/* = Cons Expr = */ "(hidden_size_0 + hidden_size_1 + action_space_size)*4");
@@ -835,7 +988,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastWeightsActor, 
 			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_weights_size)*4",
+			/* = Prod Expr = */ "(nbFireActor * actor_weights_size)*4",
 			/* = Snk = */       bo_Actor_MLP, 
 			/* = SnkPrt = */    1, 
 			/* = Cons Expr = */ "(state_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * action_space_size)*4");
@@ -884,25 +1037,8 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       bo_BroadcastStateFeature, 
+			/* = Src = */       bo_BroadcastNextStateFeature, 
 			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(state_space_size)*4",
-			/* = Snk = */       bo_Fill_Buffer, 
-			/* = SnkPrt = */    2, 
-			/* = Cons Expr = */ "(nbFireActor * state_space_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_BroadcastStateFeature, 
-			/* = SrcPrt = */    2, 
 			/* = Prod Expr = */ "(state_space_size)*4",
 			/* = Snk = */       bo_Fill_Buffer, 
 			/* = SnkPrt = */    3, 
@@ -1054,77 +1190,9 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       bo_Set_TargetActor, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_weights_size)*4",
-			/* = Snk = */       bo_BroadcastWeightsTargetActor, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Set_TargetActor, 
-			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(actor_bias_size)*4",
-			/* = Snk = */       bo_BroadcastBiasTargetActor, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Set_TargetCritic, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "( critic_weights_size)*4",
-			/* = Snk = */       bo_BroadcastWeightsTargetCritic, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Set_TargetCritic, 
-			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(critic_bias_size)*4",
-			/* = Snk = */       bo_BroadcastBiasTargetCritic, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastWeightsTargetActor, 
 			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actor_weights_size)*4",
+			/* = Prod Expr = */ "(sampleSize * actor_weights_size)*4",
 			/* = Snk = */       bo_TargetActor_MLP, 
 			/* = SnkPrt = */    1, 
 			/* = Cons Expr = */ "(state_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * action_space_size)*4");
@@ -1141,7 +1209,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastBiasTargetActor, 
 			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(actor_bias_size)*4",
+			/* = Prod Expr = */ "(sampleSize * actor_bias_size)*4",
 			/* = Snk = */       bo_TargetActor_MLP, 
 			/* = SnkPrt = */    2, 
 			/* = Cons Expr = */ "(hidden_size_0 + hidden_size_1 + action_space_size)*4");
@@ -1158,7 +1226,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastWeightsTargetCritic, 
 			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(critic_weights_size)*4",
+			/* = Prod Expr = */ "(sampleSize * critic_weights_size)*4",
 			/* = Snk = */       bo_TargetCritic_MLP, 
 			/* = SnkPrt = */    1, 
 			/* = Cons Expr = */ "(actionState_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * value_space_size)*4");
@@ -1175,7 +1243,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastBiasTargetCritic, 
 			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(critic_bias_size)*4",
+			/* = Prod Expr = */ "(sampleSize * critic_bias_size)*4",
 			/* = Snk = */       bo_TargetCritic_MLP, 
 			/* = SnkPrt = */    2, 
 			/* = Cons Expr = */ "(hidden_size_0 + hidden_size_1 + value_space_size)*4");
@@ -1360,40 +1428,6 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       bo_Update_Networks, 
-			/* = SrcPrt = */    2, 
-			/* = Prod Expr = */ "(state_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * action_space_size)*4",
-			/* = Snk = */       bo_BroadcastWeightsActor, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Update_Networks, 
-			/* = SrcPrt = */    3, 
-			/* = Prod Expr = */ "(action_space_size + hidden_size_1 + hidden_size_0)*4",
-			/* = Snk = */       bo_BroadcastBiasActor, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(actor_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
 			/* = Src = */       bo_gen_actor_learning_rate, 
 			/* = SrcPrt = */    0, 
 			/* = Prod Expr = */ "(1)*4",
@@ -1530,40 +1564,6 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 	{
 		auto *edge = Spider::addEdge(
 			/* = Graph = */     graph,
-			/* = Src = */       bo_Update_Networks, 
-			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(actionState_space_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * value_space_size)*4",
-			/* = Snk = */       bo_BroadcastWeightsCritic, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_weights_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
-			/* = Src = */       bo_Update_Networks, 
-			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(value_space_size + hidden_size_1 + hidden_size_0)*4",
-			/* = Snk = */       bo_BroadcastBiasCritic, 
-			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(critic_bias_size)*4");
-		Spider::addDelay(
-			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
-			/* = Setter = */     nullptr,
-			/* = Getter = */     nullptr,
-			/* = Persistent = */ false);
-	}
-
-	{
-		auto *edge = Spider::addEdge(
-			/* = Graph = */     graph,
 			/* = Src = */       bo_gen_to, 
 			/* = SrcPrt = */    0, 
 			/* = Prod Expr = */ "(1)*4",
@@ -1583,7 +1583,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastTo, 
 			/* = SrcPrt = */    0, 
-			/* = Prod Expr = */ "(1)*4",
+			/* = Prod Expr = */ "(actor_weights_size + actor_bias_size)*4",
 			/* = Snk = */       bo_Set_TargetActor, 
 			/* = SnkPrt = */    4, 
 			/* = Cons Expr = */ "( actor_weights_size + actor_bias_size)*4");
@@ -1600,7 +1600,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadcastTo, 
 			/* = SrcPrt = */    1, 
-			/* = Prod Expr = */ "(1)*4",
+			/* = Prod Expr = */ "(critic_weights_size + critic_bias_size)*4",
 			/* = Snk = */       bo_Set_TargetCritic, 
 			/* = SnkPrt = */    4, 
 			/* = Cons Expr = */ "( critic_weights_size + critic_bias_size)*4");
@@ -1655,6 +1655,44 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Snk = */       bo_JoinTargetActionState, 
 			/* = SnkPrt = */    1, 
 			/* = Cons Expr = */ "(sampleSize * state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	
+
+	
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_BroadcastStateFeature, 
+			/* = SrcPrt = */    0, 
+			/* = Prod Expr = */ "(state_space_size)*4",
+			/* = Snk = */       bo_Actor_MLP, 
+			/* = SnkPrt = */    0, 
+			/* = Cons Expr = */ "(state_space_size)*4");
+		Spider::addDelay(
+			/* = Edge = */       edge,
+			/* = Delay Expr = */ "0",
+			/* = Setter = */     nullptr,
+			/* = Getter = */     nullptr,
+			/* = Persistent = */ false);
+	}
+
+	{
+		auto *edge = Spider::addEdge(
+			/* = Graph = */     graph,
+			/* = Src = */       bo_BroadcastStateFeature, 
+			/* = SrcPrt = */    1, 
+			/* = Prod Expr = */ "(state_space_size)*4",
+			/* = Snk = */       bo_Fill_Buffer, 
+			/* = SnkPrt = */    2, 
+			/* = Cons Expr = */ "(nbFireActor * state_space_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -6086,29 +6124,29 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 	Spider::addInParam(if_critic_input, 0, param_sampleSize);
 	Spider::addInParam(if_critic_input, 1, param_critic_input_size);
 
-	PiSDFVertex* if_critic_weights_out = Spider::addOutputIf(
+	PiSDFVertex* if_weights_critic_out = Spider::addOutputIf(
 		/*Graph*/   graph,
-		/*Name*/    "if_critic_weights_out",
+		/*Name*/    "if_weights_critic_out",
 		/*InParam*/ 1);
-	Spider::addInParam(if_critic_weights_out, 0, param_critic_weights_size);
+	Spider::addInParam(if_weights_critic_out, 0, param_critic_weights_size);
 
-	PiSDFVertex* if_critic_bias_out = Spider::addOutputIf(
+	PiSDFVertex* if_bias_critic_out = Spider::addOutputIf(
 		/*Graph*/   graph,
-		/*Name*/    "if_critic_bias_out",
+		/*Name*/    "if_bias_critic_out",
 		/*InParam*/ 1);
-	Spider::addInParam(if_critic_bias_out, 0, param_critic_bias_size);
+	Spider::addInParam(if_bias_critic_out, 0, param_critic_bias_size);
 
-	PiSDFVertex* if_actor_weights_out = Spider::addOutputIf(
+	PiSDFVertex* if_weights_actor_out = Spider::addOutputIf(
 		/*Graph*/   graph,
-		/*Name*/    "if_actor_weights_out",
+		/*Name*/    "if_weights_actor_out",
 		/*InParam*/ 1);
-	Spider::addInParam(if_actor_weights_out, 0, param_actor_weights_size);
+	Spider::addInParam(if_weights_actor_out, 0, param_actor_weights_size);
 
-	PiSDFVertex* if_actor_bias_out = Spider::addOutputIf(
+	PiSDFVertex* if_bias_actor_out = Spider::addOutputIf(
 		/*Graph*/   graph,
-		/*Name*/    "if_actor_bias_out",
+		/*Name*/    "if_bias_actor_out",
 		/*InParam*/ 1);
-	Spider::addInParam(if_actor_bias_out, 0, param_actor_bias_size);
+	Spider::addInParam(if_bias_actor_out, 0, param_actor_bias_size);
 
 	PiSDFVertex* if_valid_critic = Spider::addInputIf(
 		/*Graph*/   graph,
@@ -6200,7 +6238,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "(actor_weights_size) * 4",
 			/* = Setter = */     if_weights_actor,
-			/* = Getter = */     if_actor_weights_out,
+			/* = Getter = */     if_weights_actor_out,
 			/* = Persistent = */ true);
 	}
 
@@ -6217,7 +6255,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "(actor_bias_size) * 4",
 			/* = Setter = */     if_bias_actor,
-			/* = Getter = */     if_actor_bias_out,
+			/* = Getter = */     if_bias_actor_out,
 			/* = Persistent = */ true);
 	}
 
@@ -6268,7 +6306,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
 			/* = Setter = */     if_weights_critic,
-			/* = Getter = */     if_critic_weights_out,
+			/* = Getter = */     if_weights_critic_out,
 			/* = Persistent = */ false);
 	}
 
@@ -6285,7 +6323,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
 			/* = Setter = */     if_bias_critic,
-			/* = Getter = */     if_critic_bias_out,
+			/* = Getter = */     if_bias_critic_out,
 			/* = Persistent = */ false);
 	}
 
@@ -6441,6 +6479,22 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ false);
 	}
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 }
 
 // Method building PiSDFGraph: Update_Actor

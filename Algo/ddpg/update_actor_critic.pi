@@ -58,21 +58,21 @@
                 expr="sampleSize * critic_input_size"
                 kind="output" name="critic_input"/>
         </node>
-        <node id="critic_weights_out" kind="snk">
+        <node id="weights_critic_out" kind="snk">
             <port annotation="NONE" expr="critic_weights_size"
-                kind="input" name="critic_weights_out"/>
+                kind="input" name="weights_critic_out"/>
         </node>
-        <node id="critic_bias_out" kind="snk">
+        <node id="bias_critic_out" kind="snk">
             <port annotation="NONE" expr="critic_bias_size"
-                kind="input" name="critic_bias_out"/>
+                kind="input" name="bias_critic_out"/>
         </node>
-        <node id="actor_weights_out" kind="snk">
+        <node id="weights_actor_out" kind="snk">
             <port annotation="NONE" expr="actor_weights_size"
-                kind="input" name="actor_weights_out"/>
+                kind="input" name="weights_actor_out"/>
         </node>
-        <node id="actor_bias_out" kind="snk">
+        <node id="bias_actor_out" kind="snk">
             <port annotation="NONE" expr="actor_bias_size"
-                kind="input" name="actor_bias_out"/>
+                kind="input" name="bias_actor_out"/>
         </node>
         <node id="valid_critic" kind="src">
             <port annotation="NONE" expr="sampleSize * 1"
@@ -160,7 +160,7 @@
             <port annotation="NONE" expr="critic_bias_size"
                 kind="output" name="bias_out_1"/>
         </node>
-        <node expr="actor_bias_size" getter="actor_bias_out"
+        <node expr="actor_bias_size" getter="bias_actor_out"
             id="Update_Actor_bias_out__Update_Actor_bias"
             kind="delay" level="none" setter="bias_actor">
             <port annotation="NONE" expr="actor_bias_size"
@@ -169,7 +169,7 @@
                 kind="output" name="get"/>
         </node>
         <node expr="actor_weights_size"
-            getter="actor_weights_out"
+            getter="weights_actor_out"
             id="Update_Actor_weights_out__Update_Actor_weights"
             kind="delay" level="none" setter="weights_actor">
             <port annotation="NONE" expr="actor_weights_size"
@@ -178,7 +178,7 @@
                 kind="output" name="get"/>
         </node>
         <node expr="critic_weights_size"
-            getter="critic_weights_out"
+            getter="weights_critic_out"
             id="BroadcastCriticWeights_weights_out_1__Update_Critic_weights"
             kind="delay" level="none" setter="weights_critic">
             <port annotation="NONE" expr="critic_weights_size"
@@ -186,7 +186,7 @@
             <port annotation="NONE" expr="critic_weights_size"
                 kind="output" name="get"/>
         </node>
-        <node expr="critic_bias_size" getter="critic_bias_out"
+        <node expr="critic_bias_size" getter="bias_critic_out"
             id="BroadcastCriticBias_bias_out_1__Update_Critic_bias"
             kind="delay" level="none" setter="bias_critic">
             <port annotation="NONE" expr="critic_bias_size"
@@ -267,20 +267,20 @@
             targetport="set" type="float"/>
         <edge kind="fifo"
             source="BroadcastCriticWeights_weights_out_1__Update_Critic_weights"
-            sourceport="get" target="critic_weights_out"
-            targetport="critic_weights_out" type="float"/>
+            sourceport="get" target="weights_critic_out"
+            targetport="weights_critic_out" type="float"/>
         <edge kind="fifo"
             source="BroadcastCriticBias_bias_out_1__Update_Critic_bias"
-            sourceport="get" target="critic_bias_out"
-            targetport="critic_bias_out" type="float"/>
+            sourceport="get" target="bias_critic_out"
+            targetport="bias_critic_out" type="float"/>
         <edge kind="fifo"
             source="Update_Actor_bias_out__Update_Actor_bias"
-            sourceport="get" target="actor_bias_out"
-            targetport="actor_bias_out" type="float"/>
+            sourceport="get" target="bias_actor_out"
+            targetport="bias_actor_out" type="float"/>
         <edge kind="fifo"
             source="Update_Actor_weights_out__Update_Actor_weights"
-            sourceport="get" target="actor_weights_out"
-            targetport="actor_weights_out" type="float"/>
+            sourceport="get" target="weights_actor_out"
+            targetport="weights_actor_out" type="float"/>
         <edge kind="dependency" source="hidden_size_0"
             target="Update_Actor" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
@@ -315,10 +315,10 @@
         <edge kind="dependency" source="hidden_size_0" target="actor_bias_size"/>
         <edge kind="dependency" source="hidden_size_1" target="actor_bias_size"/>
         <edge kind="dependency" source="actor_output_size" target="actor_bias_size"/>
-        <edge kind="dependency" source="actor_weights_size" target="actor_weights_out"/>
-        <edge kind="dependency" source="actor_bias_size" target="actor_bias_out"/>
-        <edge kind="dependency" source="critic_weights_size" target="critic_weights_out"/>
-        <edge kind="dependency" source="critic_bias_size" target="critic_bias_out"/>
+        <edge kind="dependency" source="actor_weights_size" target="weights_actor_out"/>
+        <edge kind="dependency" source="actor_bias_size" target="bias_actor_out"/>
+        <edge kind="dependency" source="critic_weights_size" target="weights_critic_out"/>
+        <edge kind="dependency" source="critic_bias_size" target="bias_critic_out"/>
         <edge kind="dependency" source="actor_input_size" target="actor_input"/>
         <edge kind="dependency" source="sampleSize" target="actor_input"/>
         <edge kind="dependency" source="sampleSize" target="actor_learning_rate"/>

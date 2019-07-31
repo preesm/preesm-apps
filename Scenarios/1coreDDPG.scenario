@@ -9,7 +9,7 @@
         <constraintGroup>
             <operator name="Core0"/>
             <task name="ddpg/Environment"/>
-            <task name="ddpg/BroadcastStateFeature"/>
+            <task name="ddpg/BroadcastNextStateFeature"/>
             <task name="ddpg/Temporal_Difference_Error"/>
             <task name="ddpg/BroadcastWeightsCritic"/>
             <task name="ddpg/BroadcastBiasCritic"/>
@@ -38,11 +38,20 @@
             <task name="ddpg/gen_to"/>
             <task name="ddpg/BroadcastTo"/>
             <task name="ddpg/BroadcastSampledNextState"/>
+            <task name="ddpg/BroadcastStateFeature"/>
             <task name="ddpg/Fill_Buffer_state_toSave__Fill_Buffer_state_save"/>
             <task name="ddpg/Fill_Buffer_next_state_toSave__Fill_Buffer_next_state_save"/>
             <task name="ddpg/Fill_Buffer_reward_toSave__Fill_Buffer_reward_save"/>
             <task name="ddpg/Fill_Buffer_action_toSave__Fill_Buffer_action_save"/>
-            <task name="ddpg/Environment_state_observation__BroadcastStateFeature_state"/>
+            <task name="ddpg/Set_TargetCritic_weights_out__BroadcastWeightsTargetCritic_input"/>
+            <task name="ddpg/Set_TargetActor_weights_out__BroadcastWeightsTargetActor_input"/>
+            <task name="ddpg/Update_Networks_critic_weights_out__BroadcastWeightsCritic_input"/>
+            <task name="ddpg/Update_Networks_actor_weights_out__BroadcastWeightsActor_input"/>
+            <task name="ddpg/Set_TargetCritic_bias_out__BroadcastBiasTargetCritic_input"/>
+            <task name="ddpg/Set_TargetActor_bias_out__BroadcastBiasTargetActor_input"/>
+            <task name="ddpg/Update_Networks_critic_bias_out__BroadcastBiasCritic_input"/>
+            <task name="ddpg/Update_Networks_actor_bias_out__BroadcastBiasActor_input"/>
+            <task name="ddpg/BroadcastStateFeature_state_out0__BroadcastNextStateFeature_state"/>
             <task name="ddpg/Actor_MLP/output"/>
             <task name="ddpg/Actor_MLP/input"/>
             <task name="ddpg/Actor_MLP/weights"/>
@@ -205,10 +214,10 @@
             <task name="ddpg/Update_Networks/bias_actor"/>
             <task name="ddpg/Update_Networks/critic_target"/>
             <task name="ddpg/Update_Networks/critic_input"/>
-            <task name="ddpg/Update_Networks/critic_weights_out"/>
-            <task name="ddpg/Update_Networks/critic_bias_out"/>
-            <task name="ddpg/Update_Networks/actor_weights_out"/>
-            <task name="ddpg/Update_Networks/actor_bias_out"/>
+            <task name="ddpg/Update_Networks/weights_critic_out"/>
+            <task name="ddpg/Update_Networks/bias_critic_out"/>
+            <task name="ddpg/Update_Networks/weights_actor_out"/>
+            <task name="ddpg/Update_Networks/bias_actor_out"/>
             <task name="ddpg/Update_Networks/valid_critic"/>
             <task name="ddpg/Update_Networks/valid_actor"/>
             <task name="ddpg/Update_Networks/critic_learning_rate"/>
