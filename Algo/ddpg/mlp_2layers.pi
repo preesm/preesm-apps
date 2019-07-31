@@ -109,8 +109,7 @@
             <port annotation="NONE" expr="1" kind="output" name="out_0"/>
             <port annotation="NONE" expr="hidden_size_0"
                 kind="output" name="out_1"/>
-            <port annotation="NONE" expr="hidden_size_0"
-                kind="output" name="out_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_2"/>
             <port annotation="NONE" expr="hidden_size_1"
                 kind="output" name="out_3"/>
             <port annotation="NONE" expr="1" kind="output" name="out_4"/>
@@ -234,8 +233,6 @@
         <edge kind="dependency" source="output_size"
             target="Output_layer" targetport="layer_size"/>
         <edge kind="dependency" source="output_size" target="size_weights_output"/>
-        <edge kind="dependency" source="input_size"
-            target="Hidden_layer_1" targetport="input_size"/>
         <edge kind="dependency" source="hidden_size_0" target="size_weights_hidden_0"/>
         <edge kind="dependency" source="input_size" target="size_weights_hidden_0"/>
         <edge kind="dependency" source="hidden_size_0" target="size_weights_hidden_1"/>
@@ -271,5 +268,7 @@
         <edge kind="dependency" source="size_weights_hidden_0" target="size_weights"/>
         <edge kind="dependency" source="size_weights" target="weights"/>
         <edge kind="dependency" source="size_bias" target="bias"/>
+        <edge kind="dependency" source="hidden_size_0"
+            target="Hidden_layer_1" targetport="input_size"/>
     </graph>
 </graphml>

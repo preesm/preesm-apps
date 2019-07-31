@@ -28,8 +28,8 @@
         <node expr="4.0" id="y_target" kind="param"/>
         <node expr="2.0" id="z_target" kind="param"/>
         <node expr="300" id="hidden_size_1" kind="param"/>
-        <node expr="64" id="sampleSize" kind="param"/>
-        <node expr="500" id="bufferSize" kind="param"/>
+        <node expr="1" id="sampleSize" kind="param"/>
+        <node expr="10" id="bufferSize" kind="param"/>
         <node expr="action_space_size + state_space_size"
             id="actionState_space_size" kind="param"/>
         <node expr="0" id="nbFireActor" kind="param"/>

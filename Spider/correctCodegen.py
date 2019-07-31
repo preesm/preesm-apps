@@ -58,6 +58,7 @@ for val in toModif:
     if(len(patterns) == 1):
         replace = re.sub("nullptr", modif[0] , patterns[0], 1)
         replace = re.sub("nullptr", modif[1] , replace, 1)
+        replace = re.sub("true", "false" , replace, 1)
         print(replace)
         s = regNullptr.sub(replace, s)
     

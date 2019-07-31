@@ -38,7 +38,7 @@
 
 #include "ddpg.h"
 
-void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size = 3, Param bufferSize = 500, Param hidden_size_0 = 400, Param hidden_size_1 = 300, Param sampleSize = 64, Param state_space_size = 6, Param value_space_size = 1, Param x_target = 3, Param y_target = 4, Param z_target = 2);
+void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size = 3, Param bufferSize = 10, Param hidden_size_0 = 400, Param hidden_size_1 = 300, Param sampleSize = 1, Param state_space_size = 6, Param value_space_size = 1, Param x_target = 3, Param y_target = 4, Param z_target = 2);
 void ddpg_Actor_MLP(PiSDFVertex *bo_Actor_MLP);
 void ddpg_Actor_MLP_Output_layer(PiSDFVertex *bo_Output_layer);
 void ddpg_Actor_MLP_Hidden_layer_0(PiSDFVertex *bo_Hidden_layer_0);
@@ -810,7 +810,7 @@ void ddpg(PiSDFVertex *bo_ddpg, Param action_space_size, Param bufferSize, Param
 			/* = Delay Expr = */ "(state_space_size) * 4",
 			/* = Setter = */     bo_Init_State,
 			/* = Getter = */     bo_End_State,
-			/* = Persistent = */ true);
+			/* = Persistent = */ false);
 	}
 
 	{
@@ -1865,7 +1865,7 @@ void ddpg_Actor_MLP(PiSDFVertex *bo_Actor_MLP){
 		/*OutData*/ 1,
 		/*InParam*/ 2);
 	/* == Adding input parameters == */
-	Spider::addInParam(bo_Hidden_layer_1, 0, param_input_size);
+	Spider::addInParam(bo_Hidden_layer_1, 0, param_hidden_size_0);
 	Spider::addInParam(bo_Hidden_layer_1, 1, param_hidden_size_1);
 	/* == Generating subgraph definition == */
 	ddpg_Actor_MLP_Hidden_layer_1(bo_Hidden_layer_1);
@@ -2036,7 +2036,7 @@ void ddpg_Actor_MLP(PiSDFVertex *bo_Actor_MLP){
 			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(input_size)*4");
+			/* = Cons Expr = */ "(hidden_size_0)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -2084,7 +2084,7 @@ void ddpg_Actor_MLP(PiSDFVertex *bo_Actor_MLP){
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadCastValid, 
 			/* = SrcPrt = */    2, 
-			/* = Prod Expr = */ "(hidden_size_0)*4",
+			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    3, 
 			/* = Cons Expr = */ "(1)*4");
@@ -2206,7 +2206,7 @@ void ddpg_Actor_MLP(PiSDFVertex *bo_Actor_MLP){
 			/* = Prod Expr = */ "(size_weights_hidden_1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(input_size * hidden_size_1)*4");
+			/* = Cons Expr = */ "(hidden_size_0 * hidden_size_1)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -3723,7 +3723,7 @@ void ddpg_TargetActor_MLP(PiSDFVertex *bo_TargetActor_MLP){
 		/*OutData*/ 1,
 		/*InParam*/ 2);
 	/* == Adding input parameters == */
-	Spider::addInParam(bo_Hidden_layer_1, 0, param_input_size);
+	Spider::addInParam(bo_Hidden_layer_1, 0, param_hidden_size_0);
 	Spider::addInParam(bo_Hidden_layer_1, 1, param_hidden_size_1);
 	/* == Generating subgraph definition == */
 	ddpg_TargetActor_MLP_Hidden_layer_1(bo_Hidden_layer_1);
@@ -3894,7 +3894,7 @@ void ddpg_TargetActor_MLP(PiSDFVertex *bo_TargetActor_MLP){
 			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(input_size)*4");
+			/* = Cons Expr = */ "(hidden_size_0)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -3942,7 +3942,7 @@ void ddpg_TargetActor_MLP(PiSDFVertex *bo_TargetActor_MLP){
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadCastValid, 
 			/* = SrcPrt = */    2, 
-			/* = Prod Expr = */ "(hidden_size_0)*4",
+			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    3, 
 			/* = Cons Expr = */ "(1)*4");
@@ -4064,7 +4064,7 @@ void ddpg_TargetActor_MLP(PiSDFVertex *bo_TargetActor_MLP){
 			/* = Prod Expr = */ "(size_weights_hidden_1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(input_size * hidden_size_1)*4");
+			/* = Cons Expr = */ "(hidden_size_0 * hidden_size_1)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -4716,7 +4716,7 @@ void ddpg_TargetCritic_MLP(PiSDFVertex *bo_TargetCritic_MLP){
 		/*OutData*/ 1,
 		/*InParam*/ 2);
 	/* == Adding input parameters == */
-	Spider::addInParam(bo_Hidden_layer_1, 0, param_input_size);
+	Spider::addInParam(bo_Hidden_layer_1, 0, param_hidden_size_0);
 	Spider::addInParam(bo_Hidden_layer_1, 1, param_hidden_size_1);
 	/* == Generating subgraph definition == */
 	ddpg_TargetCritic_MLP_Hidden_layer_1(bo_Hidden_layer_1);
@@ -4887,7 +4887,7 @@ void ddpg_TargetCritic_MLP(PiSDFVertex *bo_TargetCritic_MLP){
 			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(input_size)*4");
+			/* = Cons Expr = */ "(hidden_size_0)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -4935,7 +4935,7 @@ void ddpg_TargetCritic_MLP(PiSDFVertex *bo_TargetCritic_MLP){
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadCastValid, 
 			/* = SrcPrt = */    2, 
-			/* = Prod Expr = */ "(hidden_size_0)*4",
+			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    3, 
 			/* = Cons Expr = */ "(1)*4");
@@ -5057,7 +5057,7 @@ void ddpg_TargetCritic_MLP(PiSDFVertex *bo_TargetCritic_MLP){
 			/* = Prod Expr = */ "(size_weights_hidden_1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(input_size * hidden_size_1)*4");
+			/* = Cons Expr = */ "(hidden_size_0 * hidden_size_1)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -6239,7 +6239,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Delay Expr = */ "(actor_weights_size) * 4",
 			/* = Setter = */     if_weights_actor,
 			/* = Getter = */     if_weights_actor_out,
-			/* = Persistent = */ true);
+			/* = Persistent = */ false);
 	}
 
 	{
@@ -6256,7 +6256,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Delay Expr = */ "(actor_bias_size) * 4",
 			/* = Setter = */     if_bias_actor,
 			/* = Getter = */     if_bias_actor_out,
-			/* = Persistent = */ true);
+			/* = Persistent = */ false);
 	}
 
 	{
@@ -12814,7 +12814,7 @@ void ddpg_Update_Networks_Update_Actor_Critic(PiSDFVertex *bo_Critic){
 		/*OutData*/ 1,
 		/*InParam*/ 2);
 	/* == Adding input parameters == */
-	Spider::addInParam(bo_Hidden_layer_1, 0, param_input_size);
+	Spider::addInParam(bo_Hidden_layer_1, 0, param_hidden_size_0);
 	Spider::addInParam(bo_Hidden_layer_1, 1, param_hidden_size_1);
 	/* == Generating subgraph definition == */
 	ddpg_Update_Networks_Update_Actor_Critic_Hidden_layer_1(bo_Hidden_layer_1);
@@ -12985,7 +12985,7 @@ void ddpg_Update_Networks_Update_Actor_Critic(PiSDFVertex *bo_Critic){
 			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    0, 
-			/* = Cons Expr = */ "(input_size)*4");
+			/* = Cons Expr = */ "(hidden_size_0)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",
@@ -13033,7 +13033,7 @@ void ddpg_Update_Networks_Update_Actor_Critic(PiSDFVertex *bo_Critic){
 			/* = Graph = */     graph,
 			/* = Src = */       bo_BroadCastValid, 
 			/* = SrcPrt = */    2, 
-			/* = Prod Expr = */ "(hidden_size_0)*4",
+			/* = Prod Expr = */ "(1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    3, 
 			/* = Cons Expr = */ "(1)*4");
@@ -13155,7 +13155,7 @@ void ddpg_Update_Networks_Update_Actor_Critic(PiSDFVertex *bo_Critic){
 			/* = Prod Expr = */ "(size_weights_hidden_1)*4",
 			/* = Snk = */       bo_Hidden_layer_1, 
 			/* = SnkPrt = */    1, 
-			/* = Cons Expr = */ "(input_size * hidden_size_1)*4");
+			/* = Cons Expr = */ "(hidden_size_0 * hidden_size_1)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
 			/* = Delay Expr = */ "0",

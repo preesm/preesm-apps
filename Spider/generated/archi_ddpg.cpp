@@ -74,7 +74,7 @@ void initArchi() {
 		static_cast<std::uint32_t>(PEType::CORE_TYPE_X86),
 		static_cast<std::uint32_t>(PEHardwareID::CORE_CORE0),
 		static_cast<std::uint32_t>(PEVirtID::CORE_CORE0),
-		"org.preesm.model.slam.impl.OperatorImpl@3c8478aa-Core0",
+		"org.preesm.model.slam.impl.OperatorImpl@406484dd-Core0",
 		SpiderPEType::LRT_PE,
 		SpiderHWType::PHYS_PE);
 	Spider::setPEMemoryUnit(peX86Core0, shMem);

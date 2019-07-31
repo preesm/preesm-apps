@@ -5,6 +5,7 @@
         pluginId="org.ietr.preesm.pimm.algorithm.spider.codegen.SpiderCodegenTask" taskId="SpiderCodegen">
         <dftools:data key="variables">
             <dftools:variable name="Papify" value="true"/>
+            <dftools:variable name="verbose" value="true"/>
         </dftools:data>
     </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="PiMM"
