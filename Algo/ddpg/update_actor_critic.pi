@@ -100,8 +100,12 @@
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE" expr="1" kind="input" name="learning_rate"/>
-            <port annotation="NONE" expr="1" kind="input" name="weights_critic"/>
-            <port annotation="NONE" expr="1" kind="input" name="bias_critic"/>
+            <port annotation="NONE"
+                expr="critic_input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * critic_output_size"
+                kind="input" name="weights_critic"/>
+            <port annotation="NONE"
+                expr="critic_output_size + hidden_size_1 + hidden_size_0"
+                kind="input" name="bias_critic"/>
             <port annotation="NONE"
                 expr="input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * output_size"
                 kind="output" name="weights_out"/>
