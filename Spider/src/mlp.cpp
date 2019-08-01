@@ -160,10 +160,10 @@ void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0,
 	matrixCopy(critic_input_size * hidden_size_0, &network_weights[0], weights_0);
 
 	float weights_1[hidden_size_0 * hidden_size_1];
-	matrixCopy(hidden_size_0 * hidden_size_1, &network_weights[input_size * hidden_size_0], weights_1);
+	matrixCopy(hidden_size_0 * hidden_size_1, &network_weights[critic_input_size * hidden_size_0], weights_1);
 
 	float weights_2[hidden_size_1 * 1]; // Loss function has output size = 1
-	matrixCopy(hidden_size_1 * 1, &network_weights[input_size * hidden_size_0 + hidden_size_0 * hidden_size_1], weights_2);
+	matrixCopy(hidden_size_1 * 1, &network_weights[critic_input_size * hidden_size_0 + hidden_size_0 * hidden_size_1], weights_2);
 
 
 	int step = 3;

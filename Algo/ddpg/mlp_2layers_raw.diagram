@@ -10,7 +10,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.0"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.31 //@connections.34 //@connections.35 //@connections.49 //@connections.53 //@connections.60 //@connections.66" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.31 //@connections.34 //@connections.35 //@connections.48 //@connections.52 //@connections.59 //@connections.65" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
         <points x="8"/>
         <points x="16" y="16"/>
@@ -32,7 +32,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.1"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.32 //@connections.33 //@connections.36 //@connections.38" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.32 //@connections.33 //@connections.37" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
         <points x="8"/>
         <points x="16" y="16"/>
@@ -60,7 +60,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.2"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.52 //@connections.61" incomingConnections="//@connections.35 //@connections.41" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.51 //@connections.60" incomingConnections="//@connections.35 //@connections.40" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm">
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.2"/>
       </link>
@@ -77,7 +77,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.3"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.37 //@connections.39 //@connections.42 //@connections.44 //@connections.47 //@connections.56 //@connections.57 //@connections.58 //@connections.69 //@connections.70" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.36 //@connections.38 //@connections.41 //@connections.43 //@connections.46 //@connections.55 //@connections.56 //@connections.57 //@connections.68 //@connections.69 //@connections.70" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
         <points x="8"/>
         <points x="16" y="16"/>
@@ -99,7 +99,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.4"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.40 //@connections.41 //@connections.43 //@connections.45 //@connections.46 //@connections.48 //@connections.54 //@connections.55 //@connections.59 //@connections.67 //@connections.68" referencedGraphicsAlgorithm="//@children.4/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.39 //@connections.40 //@connections.42 //@connections.44 //@connections.45 //@connections.47 //@connections.53 //@connections.54 //@connections.58 //@connections.66 //@connections.67" referencedGraphicsAlgorithm="//@children.4/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
         <points x="8"/>
         <points x="16" y="16"/>
@@ -127,7 +127,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.5"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.50 //@connections.63" incomingConnections="//@connections.37 //@connections.38" referencedGraphicsAlgorithm="//@children.5/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.49 //@connections.62" incomingConnections="//@connections.36 //@connections.37" referencedGraphicsAlgorithm="//@children.5/@graphicsAlgorithm">
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.5"/>
       </link>
@@ -150,7 +150,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.6"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.51 //@connections.62" incomingConnections="//@connections.39 //@connections.40" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.50 //@connections.61" incomingConnections="//@connections.38 //@connections.39" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm">
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.6"/>
       </link>
@@ -173,7 +173,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.7"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.64" incomingConnections="//@connections.58 //@connections.59 //@connections.60" referencedGraphicsAlgorithm="//@children.7/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.63" incomingConnections="//@connections.57 //@connections.58 //@connections.59" referencedGraphicsAlgorithm="//@children.7/@graphicsAlgorithm">
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.7"/>
       </link>
@@ -196,7 +196,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.8"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.65" incomingConnections="//@connections.61 //@connections.62 //@connections.63" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm">
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.64" incomingConnections="//@connections.60 //@connections.61 //@connections.62" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm">
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.8"/>
       </link>
@@ -218,7 +218,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.9"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.46" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.45" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="57" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="49" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="input_size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -319,7 +319,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.10/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.44" referencedGraphicsAlgorithm="//@children.10/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.43" referencedGraphicsAlgorithm="//@children.10/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="57" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="49" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="layer_size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -435,7 +435,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.13"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.5" incomingConnections="//@connections.65" referencedGraphicsAlgorithm="//@children.13/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.5" incomingConnections="//@connections.64" referencedGraphicsAlgorithm="//@children.13/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" x="-16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.13/@dataOutputPorts.0"/>
@@ -458,7 +458,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.14"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1" incomingConnections="//@connections.64" referencedGraphicsAlgorithm="//@children.14/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1" incomingConnections="//@connections.63" referencedGraphicsAlgorithm="//@children.14/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" x="-16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.14/@dataOutputPorts.0"/>
@@ -486,7 +486,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.15"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.47" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.46" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size_out0"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -499,7 +499,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.15/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.48" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.47" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size_out1"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -512,7 +512,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.15/@configInputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.49" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.4424778761061947">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.48" referencedGraphicsAlgorithm="//@children.15/@graphicsAlgorithm" relativeHeight="0.4424778761061947">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size_out2"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -648,7 +648,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.18"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.42" referencedGraphicsAlgorithm="//@children.18/@graphicsAlgorithm" relativeHeight="0.15625">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.41" referencedGraphicsAlgorithm="//@children.18/@graphicsAlgorithm" relativeHeight="0.15625">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="78" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="70" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="hidden_size_0"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -661,7 +661,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.18/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.43" referencedGraphicsAlgorithm="//@children.18/@graphicsAlgorithm" relativeHeight="0.2734375">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.42" referencedGraphicsAlgorithm="//@children.18/@graphicsAlgorithm" relativeHeight="0.2734375">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="78" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="70" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="hidden_size_1"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -780,7 +780,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.20"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.50" referencedGraphicsAlgorithm="//@children.20/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.49" referencedGraphicsAlgorithm="//@children.20/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size_out0"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -793,7 +793,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.20/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.51" referencedGraphicsAlgorithm="//@children.20/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.50" referencedGraphicsAlgorithm="//@children.20/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size_out1"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -806,7 +806,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.20/@configInputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.52" referencedGraphicsAlgorithm="//@children.20/@graphicsAlgorithm" relativeHeight="0.4424778761061947">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.51" referencedGraphicsAlgorithm="//@children.20/@graphicsAlgorithm" relativeHeight="0.4424778761061947">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size_out2"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -872,7 +872,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.21"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.36" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.70" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.17699115044247787">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="57" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="49" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="input_size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -885,7 +885,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.21/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.45" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.44" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.30973451327433627">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="57" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="49" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="layer_size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -999,7 +999,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.23"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.18 //@connections.66" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.18 //@connections.65" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.23/@dataInputPorts.0"/>
@@ -1022,7 +1022,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.24"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.27 //@connections.69" referencedGraphicsAlgorithm="//@children.24/@graphicsAlgorithm" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.27 //@connections.68" referencedGraphicsAlgorithm="//@children.24/@graphicsAlgorithm" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.24/@dataInputPorts.0"/>
@@ -1045,7 +1045,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.25"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.30 //@connections.70" referencedGraphicsAlgorithm="//@children.25/@graphicsAlgorithm" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.30 //@connections.69" referencedGraphicsAlgorithm="//@children.25/@graphicsAlgorithm" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.25/@dataInputPorts.0"/>
@@ -1068,7 +1068,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.26"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.25 //@connections.67" referencedGraphicsAlgorithm="//@children.26/@graphicsAlgorithm" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.25 //@connections.66" referencedGraphicsAlgorithm="//@children.26/@graphicsAlgorithm" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.26/@dataInputPorts.0"/>
@@ -1091,7 +1091,7 @@
     <link>
       <businessObjects href="mlp_2layers_raw.pi#//@vertices.27"/>
     </link>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.26 //@connections.68" referencedGraphicsAlgorithm="//@children.27/@graphicsAlgorithm" relativeHeight="0.1">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.26 //@connections.67" referencedGraphicsAlgorithm="//@children.27/@graphicsAlgorithm" relativeHeight="0.1">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
       <link>
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.27/@dataInputPorts.0"/>
@@ -1119,7 +1119,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.28"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.53" referencedGraphicsAlgorithm="//@children.28/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.52" referencedGraphicsAlgorithm="//@children.28/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="28" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="20" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1176,7 +1176,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.29"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.54" referencedGraphicsAlgorithm="//@children.29/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.53" referencedGraphicsAlgorithm="//@children.29/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="28" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="20" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1233,7 +1233,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.30"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.55" referencedGraphicsAlgorithm="//@children.30/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.54" referencedGraphicsAlgorithm="//@children.30/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="28" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="20" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1290,7 +1290,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.31"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.56" referencedGraphicsAlgorithm="//@children.31/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.55" referencedGraphicsAlgorithm="//@children.31/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="28" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="20" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1347,7 +1347,7 @@
         <businessObjects href="mlp_2layers_raw.pi#//@vertices.32"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.57" referencedGraphicsAlgorithm="//@children.32/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.56" referencedGraphicsAlgorithm="//@children.32/@graphicsAlgorithm" relativeHeight="0.29411764705882354">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="28" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="20" height="13" x="8" font="//@fonts.2" horizontalAlignment="ALIGNMENT_RIGHT" value="size"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -2027,26 +2027,10 @@
     </connectionDecorators>
     <bendpoints x="595" y="8"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.21/@anchors.1">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.36"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="703" y="168"/>
-    <bendpoints x="1571" y="168"/>
-    <bendpoints x="1571" y="275"/>
-  </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.5/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.37"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.36"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2060,7 +2044,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.5/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.38"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.37"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2074,7 +2058,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.6/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.39"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.38"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2088,7 +2072,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.6/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.40"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.39"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2102,7 +2086,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.2/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.41"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.40"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2116,7 +2100,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.18/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.42"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.41"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2132,7 +2116,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.18/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.43"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.42"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2148,7 +2132,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.10/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.44"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.43"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2164,7 +2148,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.21/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.45"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.44"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2180,7 +2164,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.9/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.46"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.45"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2196,7 +2180,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.15/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.47"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.46"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2212,7 +2196,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.15/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.48"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.47"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2228,7 +2212,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.15/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.49"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.48"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2244,7 +2228,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.20/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.50"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.49"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2260,7 +2244,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.20/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.51"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.50"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2276,7 +2260,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.20/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.52"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.51"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2292,7 +2276,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.28/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.53"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.52"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2308,7 +2292,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.29/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.54"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.53"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2324,7 +2308,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.30/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.55"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.54"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2340,7 +2324,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.31/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.56"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.55"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2356,7 +2340,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.32/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.57"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.56"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2372,7 +2356,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.58"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.57"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2386,7 +2370,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.59"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.58"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2400,7 +2384,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.60"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.59"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2414,7 +2398,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.0" end="//@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.61"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.60"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2428,7 +2412,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.0" end="//@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.62"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.61"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2442,7 +2426,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.63"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.62"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2456,7 +2440,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.14/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.64"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.63"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2471,7 +2455,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.0" end="//@children.13/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.65"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.64"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2487,7 +2471,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.23/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.66"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.65"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2503,7 +2487,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.26/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.67"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.66"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2519,7 +2503,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.0" end="//@children.27/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.68"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.67"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2535,7 +2519,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.24/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.69"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.68"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2551,7 +2535,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.25/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="mlp_2layers_raw.pi#//@edges.70"/>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.69"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -2562,6 +2546,22 @@
     </connectionDecorators>
     <bendpoints x="351" y="144"/>
     <bendpoints x="3262" y="144"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.21/@anchors.1">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="mlp_2layers_raw.pi#//@edges.70"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="351" y="144"/>
+    <bendpoints x="1583" y="144"/>
+    <bendpoints x="1583" y="275"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

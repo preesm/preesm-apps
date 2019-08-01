@@ -14,6 +14,7 @@
         <node id="critic_input_size" kind="cfg_in_iface"/>
         <node id="critic_weights_size" kind="cfg_in_iface"/>
         <node id="critic_bias_size" kind="cfg_in_iface"/>
+        <node id="critic_output_size" kind="cfg_in_iface"/>
         <node id="inputs" kind="src">
             <port annotation="NONE" expr="input_size"
                 kind="output" name="inputs"/>
@@ -77,7 +78,7 @@
             <port kind="cfg_input" name="critic_weights_size"/>
             <port kind="cfg_input" name="critic_bias_size"/>
             <port kind="cfg_input" name="critic_input_size"/>
-            <port annotation="NONE" expr="input_size"
+            <port annotation="NONE" expr="output_size"
                 kind="input" name="input"/>
             <port annotation="NONE" expr="critic_weights_size"
                 kind="input" name="network_weights"/>
@@ -152,15 +153,12 @@
             target="Gradients" targetport="input_size"/>
         <edge kind="dependency" source="input_size" target="weights_gradient"/>
         <edge kind="dependency" source="output_size" target="raw_output"/>
-        <edge kind="dependency" source="output_size" target="output"/>
         <edge kind="dependency" source="output_size"
             target="Derivative_Function" targetport="output_size"/>
         <edge kind="dependency" source="hidden_size_0"
             target="Derivative_Function" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
             target="Derivative_Function" targetport="hidden_size_1"/>
-        <edge kind="dependency" source="critic_input_size"
-            target="Derivative_Function" targetport="input_size"/>
         <edge kind="dependency" source="critic_weights_size"
             target="Derivative_Function" targetport="critic_weights_size"/>
         <edge kind="dependency" source="critic_bias_size"
@@ -169,5 +167,8 @@
         <edge kind="dependency" source="critic_bias_size" target="critic_bias"/>
         <edge kind="dependency" source="critic_input_size"
             target="Derivative_Function" targetport="critic_input_size"/>
+        <edge kind="dependency" source="input_size"
+            target="Derivative_Function" targetport="input_size"/>
+        <edge kind="dependency" source="critic_output_size" target="output"/>
     </graph>
 </graphml>

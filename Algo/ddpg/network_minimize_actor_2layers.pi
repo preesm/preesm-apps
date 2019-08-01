@@ -227,11 +227,12 @@
             <port kind="cfg_input" name="critic_input_size"/>
             <port kind="cfg_input" name="critic_bias_size"/>
             <port kind="cfg_input" name="critic_weights_size"/>
+            <port kind="cfg_input" name="critic_output_size"/>
             <port annotation="NONE" expr="input_size"
                 kind="input" name="inputs"/>
             <port annotation="NONE" expr="output_size"
                 kind="input" name="raw_output"/>
-            <port annotation="NONE" expr="output_size"
+            <port annotation="NONE" expr="critic_output_size"
                 kind="input" name="output"/>
             <port annotation="NONE" expr="1" kind="input" name="valid"/>
             <port annotation="NONE" expr="critic_weights_size"
@@ -808,8 +809,6 @@
             target="AdamOutput" targetport="layer_size"/>
         <edge kind="dependency" source="hidden_size_1"
             target="AdamHidden_1" targetport="layer_size"/>
-        <edge kind="dependency" source="input_size"
-            target="AdamHidden_1" targetport="input_size"/>
         <edge kind="dependency" source="hidden_weights_size_1"
             target="JoinWeights" targetport="hidden_size_1"/>
         <edge kind="dependency" source="output_weights_size"
@@ -897,10 +896,6 @@
             target="JoinWeights" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_0"
             target="JoinBias" targetport="hidden_size_0"/>
-        <edge kind="dependency" source="output_size"
-            target="Critic" targetport="output_size"/>
-        <edge kind="dependency" source="input_size"
-            target="Critic" targetport="input_size"/>
         <edge kind="dependency" source="hidden_size_1"
             target="Critic" targetport="hidden_size_1"/>
         <edge kind="dependency" source="hidden_size_0"
@@ -913,8 +908,6 @@
             target="GradientsOutput" targetport="hidden_size_0"/>
         <edge kind="dependency" source="hidden_size_1"
             target="GradientsOutput" targetport="hidden_size_1"/>
-        <edge kind="dependency" source="critic_output_size"
-            target="GradientsOutput" targetport="output_size"/>
         <edge kind="dependency" source="critic_input_size"
             target="GradientsOutput" targetport="critic_input_size"/>
         <edge kind="dependency" source="hidden_weights_size_0"
@@ -941,5 +934,15 @@
             target="GradientsOutput" targetport="critic_weights_size"/>
         <edge kind="dependency" source="hidden_size_0" target="critic_bias_size"/>
         <edge kind="dependency" source="hidden_size_1" target="critic_bias_size"/>
+        <edge kind="dependency" source="hidden_size_0"
+            target="AdamHidden_1" targetport="input_size"/>
+        <edge kind="dependency" source="output_size"
+            target="GradientsOutput" targetport="output_size"/>
+        <edge kind="dependency" source="critic_output_size"
+            target="Critic" targetport="output_size"/>
+        <edge kind="dependency" source="critic_input_size"
+            target="Critic" targetport="input_size"/>
+        <edge kind="dependency" source="critic_output_size"
+            target="GradientsOutput" targetport="critic_output_size"/>
     </graph>
 </graphml>
