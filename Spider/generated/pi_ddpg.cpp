@@ -6270,7 +6270,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Cons Expr = */ "(critic_input_size * hidden_size_0 + hidden_size_0 * hidden_size_1 + hidden_size_1 * critic_output_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "(critic_weights_size) * 4",
+			/* = Delay Expr = */ "0",
 			/* = Setter = */     nullptr,
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ true);
@@ -6287,7 +6287,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Cons Expr = */ "(critic_output_size + hidden_size_1 + hidden_size_0)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "(critic_bias_size) * 4",
+			/* = Delay Expr = */ "0",
 			/* = Setter = */     nullptr,
 			/* = Getter = */     nullptr,
 			/* = Persistent = */ true);
@@ -6304,7 +6304,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Cons Expr = */ "(critic_weights_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
+			/* = Delay Expr = */ "(critic_weights_size) * 4",
 			/* = Setter = */     if_weights_critic,
 			/* = Getter = */     if_weights_critic_out,
 			/* = Persistent = */ false);
@@ -6321,7 +6321,7 @@ void ddpg_Update_Networks(PiSDFVertex *bo_Update_Networks){
 			/* = Cons Expr = */ "(critic_bias_size)*4");
 		Spider::addDelay(
 			/* = Edge = */       edge,
-			/* = Delay Expr = */ "0",
+			/* = Delay Expr = */ "(critic_bias_size)*4",
 			/* = Setter = */     if_bias_critic,
 			/* = Getter = */     if_bias_critic_out,
 			/* = Persistent = */ false);
