@@ -8,5 +8,5 @@
  * o_nbKeypoints_out.matchWith(0, i_nbKeypoints_in, 0, 1);
  */
 
-int chunckSize = nLocalKptMax+1;
+long chunckSize = nLocalKptMax+1;
 o_keypoints_out.matchWith(0, i_keypoints_in, 0, chunckSize);

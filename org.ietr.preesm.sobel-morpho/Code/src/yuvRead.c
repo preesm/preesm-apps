@@ -72,23 +72,23 @@ void initReadYUV(int width, int height) {
    ======================================================================*/
 void readYUV(int width, int height, unsigned char *y, unsigned char *u, unsigned char *v) {
 
-	if (ftell(ptfile) / (width*height + width*height / 2) >= NB_FRAME){
-		rewind(ptfile);
-	}
+  if (ftell(ptfile) / (width*height + width*height / 2) >= NB_FRAME){
+    rewind(ptfile);
+  }
 
-	if (ftell(ptfile) / (width*height + width*height / 2) % FPS_INTERVAL == 0) {
-		unsigned int time = 0;
-        time = stopTiming(0);
-		printf("\nMain: %d frames in %d us - %f fps\n", FPS_INTERVAL - 1, time, (FPS_INTERVAL - 1.0) / (float)time * 1000000);
-        startTiming(0);
-    }
-    int res = fread(y, sizeof(char), width * height, ptfile);
-    res += fread(u, sizeof(char), width * height / 4, ptfile);
-    res += fread(v, sizeof(char), width * height / 4, ptfile);
-    if (res == 0) {
-      printf("Error while read file\n");
-      exit(1);
-    }
+  if (ftell(ptfile) / (width*height + width*height / 2) % FPS_INTERVAL == 0) {
+    unsigned int time = 0;
+    time = stopTiming(0);
+    fprintf(stderr, "\nMain: %d frames in %d us - %f fps\n", FPS_INTERVAL, time, (1000000*FPS_INTERVAL) / (float)time);
+    startTiming(0);
+  }
+  int res = fread(y, sizeof(char), width * height, ptfile);
+  res += fread(u, sizeof(char), width * height / 4, ptfile);
+  res += fread(v, sizeof(char), width * height / 4, ptfile);
+  if (res == 0) {
+    printf("Error while read file\n");
+    exit(1);
+  }
 }
 
 void endYUVRead(){

@@ -38,7 +38,7 @@
     <dftools:task
         pluginId="org.ietr.preesm.memory.allocation.MemoryAllocatorTask" taskId="Memory Allocation">
         <dftools:data key="variables">
-            <dftools:variable name="Allocator(s)" value="Basic"/>
+            <dftools:variable name="Allocator(s)" value="BestFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
             <dftools:variable name="Data alignment" value="None"/>
             <dftools:variable name="Distribution" value="SharedOnly"/>

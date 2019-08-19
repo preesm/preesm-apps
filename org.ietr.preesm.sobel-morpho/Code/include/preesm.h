@@ -16,10 +16,10 @@
 
 typedef unsigned char uchar;
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
-#include "sobel.h"
-#include "splitMerge.h"
-#include "morph.h"
+/* #include "yuvRead.h" */
+/* #include "yuvDisplay.h" */
+/* #include "sobel.h" */
+/* #include "splitMerge.h" */
+/* #include "morph.h" */
 
 #endif

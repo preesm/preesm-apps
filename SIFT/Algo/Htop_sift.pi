@@ -8,7 +8,7 @@
     <key attr.name="memoryScript" attr.type="string" for="node"/>
     <key attr.name="delay" attr.type="string" for="edge"/>
     <graph edgedefault="directed">
-        <data key="name">top_sift</data>
+        <data key="name">Htop_sift</data>
         <node id="image_width" kind="cfg_in_iface"/>
         <node id="image_height" kind="cfg_in_iface"/>
         <node id="nBins" kind="cfg_in_iface"/>

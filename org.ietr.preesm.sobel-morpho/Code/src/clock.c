@@ -61,6 +61,6 @@ unsigned int stopTiming(int stamp){
     elapsedTimes[stamp] += (t2.tv_usec - startTimes[stamp].tv_usec) / 1000.0;   // us to ms
 #endif
 
-    elapsedus = (int)(elapsedTimes[stamp]*1000);
+    elapsedus = (unsigned int) (elapsedTimes[stamp]*1000);
     return elapsedus;
 }

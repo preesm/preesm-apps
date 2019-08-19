@@ -17,11 +17,13 @@
             <task name="sobel_morpho/Dilation"/>
         </constraintGroup>
     </constraints>
-    <timings excelUrl="">
-        <timing opname="x86" time="47" vertexname="sobel_morpho/Read_YUV"/>
-        <timing opname="x86" time="62" vertexname="sobel_morpho/Sobel"/>
-        <timing opname="x86" time="1" vertexname="sobel_morpho/Split"/>
-        <timing opname="x86" time="243" vertexname="sobel_morpho/display"/>
+    <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
+        <timing opname="x86" time="120" vertexname="sobel_morpho/Read_YUV"/>
+        <timing opname="x86" time="120" vertexname="sobel_morpho/Sobel"/>
+        <timing opname="x86" time="120" vertexname="sobel_morpho/Split"/>
+        <timing opname="x86" time="120" vertexname="sobel_morpho/display"/>
+        <timing opname="x86" time="120" vertexname="sobel_morpho/Dilation"/>
+        <timing opname="x86" time="120" vertexname="sobel_morpho/Erosion"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
     <simuParams>
@@ -38,4 +40,7 @@
     </simuParams>
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0" toleranceEPS="0.0"/>
+    </energyConfigs>
 </scenario>

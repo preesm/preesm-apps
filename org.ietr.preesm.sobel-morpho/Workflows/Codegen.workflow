@@ -49,7 +49,7 @@
         pluginId="org.ietr.preesm.codegen.xtend.task.CodegenTask" taskId="Code Generation">
         <dftools:data key="variables">
             <dftools:variable name="Papify" value="false"/>
-            <dftools:variable name="Printer" value="C"/>
+            <dftools:variable name="Printer" value="InstrumentedC"/>
         </dftools:data>
     </dftools:task>
     <dftools:task pluginId="pisdf-srdag" taskId="pisdf-srdag">
@@ -90,6 +90,7 @@
     </dftools:task>
     <dftools:task pluginId="pisdf-export" taskId="pisdf-export">
         <dftools:data key="variables">
+            <dftools:variable name="hierarchical" value="true"/>
             <dftools:variable name="path" value="/Algo/generated/pisdf/"/>
         </dftools:data>
     </dftools:task>

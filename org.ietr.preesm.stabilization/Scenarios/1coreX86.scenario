@@ -37,11 +37,8 @@
             <task name="top/Stabilization/DuplicateAccumulatedMotion"/>
         </constraintGroup>
     </constraints>
-    <timings excelUrl="">
-        <timing opname="x86" time="52" vertexname="top/ReadYUV"/>
-        <timing opname="x86" time="140" vertexname="top/WriteYUV"/>
-        <timing opname="x86" time="611" vertexname="top/DisplayYUV"/>
-        <timing opname="x86" time="667" vertexname="top/MD5"/>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="/org.ietr.preesm.stabilization/Scenarios/timingJaguar.xls">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-7"/>
     </timings>
     <simuParams>
