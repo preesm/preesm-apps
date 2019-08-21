@@ -6,13 +6,6 @@
             <dftools:variable name="Consistency_Method" value="LCM"/>
         </dftools:data>
     </dftools:task>
-    <dftools:task
-        pluginId="org.ietr.preesm.mapper.exporter.DAGExportTransform" taskId="DAG Exporter">
-        <dftools:data key="variables">
-            <dftools:variable name="openFile" value="false"/>
-            <dftools:variable name="path" value="Algo/generated/dag/dag.graphml"/>
-        </dftools:data>
-    </dftools:task>
     <dftools:task pluginId="pisdf-mapper.list" taskId="Scheduling">
         <dftools:data key="variables">
             <dftools:variable name="Check" value="true"/>
@@ -81,10 +74,6 @@
         targetport="scenario" to="Scheduling"/>
     <dftools:dataTransfer from="scenario"
         sourceport="architecture" targetport="architecture" to="Scheduling"/>
-    <dftools:dataTransfer from="Scheduling" sourceport="DAG"
-        targetport="DAG" to="DAG Exporter"/>
-    <dftools:dataTransfer from="DAG Exporter" sourceport="void"
-        targetport="void" to="MEG Builder"/>
     <dftools:dataTransfer from="Scheduling" sourceport="DAG"
         targetport="DAG" to="MEG Builder"/>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
