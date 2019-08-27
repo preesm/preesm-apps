@@ -411,7 +411,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="111" height="53" x="229" y="338" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.9" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="112" height="53" x="229" y="338" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="output_gradients.pi#//@vertices.11"/>
     </link>
@@ -448,7 +448,7 @@
       </link>
     </anchors>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="111" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="BroadCastValid"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="112" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="BroadCastValid"/>
       <link>
         <businessObjects href="output_gradients.pi#//@vertices.11"/>
       </link>
@@ -620,7 +620,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="360" y="363"/>
+    <bendpoints x="361" y="363"/>
     <bendpoints x="445" y="320"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.11/@anchors.3" end="//@children.6/@anchors.5">
@@ -635,7 +635,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="360" y="378"/>
+    <bendpoints x="361" y="378"/>
     <bendpoints x="623" y="378"/>
     <bendpoints x="833" y="378"/>
     <bendpoints x="893" y="335"/>

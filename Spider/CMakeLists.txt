@@ -121,16 +121,31 @@ endif()
 file(GLOB SPIDERDIR "${LIBS_DIR}/spider")
 set(ENV{SPIDERDIR} ${SPIDERDIR})
  
-Find_Package (Spider REQUIRED )
+Find_Package(Spider REQUIRED)
 if(NOT SPIDER_FOUND)
   MESSAGE(FATAL_ERROR "SPIDER not found !")
 endif()
 
+if (WIN32)
+    file(GLOB
+        SPIDER_DLL
+        ${SPIDERDIR}/lib/*.dll
+    )
+
+    MESSAGE("Copy SPIDER DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+    if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
+        file(COPY ${SPIDER_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+    else()
+        file(COPY ${SPIDER_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+        file(COPY ${SPIDER_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+    endif()
+endif()
 
 
-# *******************************************
+
+# ********************************************
 # **************** Sobel.exe  ****************
-# *******************************************
+# ********************************************
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR} ${SPIDER_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
@@ -146,7 +161,7 @@ file(
     ./generated/*.h
     ./include/*.h
 )
- 
-add_executable( reinforcement-learning ${source_files} ${header_files})
+
+add_executable( reinforcement-learning ${source_files} ${header_files} ${SOURCES})
 target_link_libraries(reinforcement-learning ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})
 set(CMAKE_C_FLAGS "-std=gnu99 -lm")

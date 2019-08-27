@@ -12,7 +12,7 @@
         <node expr="3" id="action_space_size" kind="param"/>
         <node expr="6" id="state_angular_size" kind="param"/>
         <node id="Environment" kind="actor" period="0">
-            <data key="graph_desc">Code/include/environment.h</data>
+            <data key="graph_desc">Spider/include/environment.h</data>
             <loop name="step_noreward">
                 <param direction="IN" isConfig="true"
                     name="state_space_size" type="int"/>

@@ -7,6 +7,7 @@
 
 #include "preesm.h"
 
+
 /**
  * @brief Generic layer actor for a MLP.
  *        This generates the raw output (i.e before activation) of each neuron.
@@ -179,6 +180,56 @@ void activateLinear(IN float *input,
 void derivativeLinear(IN float *input,
                       OUT float *output);
 
+/**
+ * @brief Neural derivative function
+ *
+ *     f(x) = NN(x)
+ *
+ *     f'(x) = W1 * W2 * ... * Wn (Ws are the weights of each layer, without bias)
+ *
+ *		It is supposed that activation function of each layer is a ReLU function and the network has two hidden layers
+ *
+ * @param input_size size of the input layer
+ * @param output_size size of the output layer
+ * @param hidden_size_0 size of the first hidden layer
+ * @param hidden_size_1 size of the second hidden layer
+ * @param input  Raw output of a neuron
+ * @param network_weights weights of the neural network
+ * @param network_bias bias of the neural network
+ * @param output Activated output of a neuron
+ */
+void derivativeNeuralNetwork(int input_size, int output_size, int hidden_size_0, int hidden_size_1, int critic_input_size,
+		IN float *input, IN float *network_weights, IN float *network_bias, OUT float *output);
+
+/**
+ * @brief Function for matrix multiplication
+ *
+ * @param size_input size of the first matrix columns
+ * @param size_common size of the common columns
+ * @param size_output size of the second matrix lines
+ * @param leftMatrix First matrix to multiply
+ * @param rightMatrix Second matrix to multiply
+ * @param resultMatrix Matrix storing the results of the computation
+ */
+void matrixMul(int size_input, int size_common, int size_output,
+        float *letfMatrix, float *rightMatrix, float *resultMatrix);
+
+/**
+ * @brief Function for matrix copy
+ *
+ * @param size size of matrix
+ * @param input pointer to the matrix to copy
+ * @param output pointer to the matrix storing the results
+ */
+void matrixCopy(int size, float *input, float *output);
+
+/**
+ * @brief Function generating target composed of zeros
+ *
+ * @param size size of target
+ * @param target pointer to the target
+ */
+void genZero(int size, OUT float *target);
 
 /**
  * @brief Compute sigma values of a layer. The sigma value is used to compute the gradient
@@ -293,5 +344,20 @@ void initAdam(double *betas);
 
 void adamEpsilonGen(OUT double *epsilon);
 
+
+/**
+ * @brief Updates weight or bias for target networks
+ *
+ * @param target target weight to reach
+ * @param current weight of current network
+ * @param to update factor
+ * @param out updated weight
+ */
+void setTarget(IN float *target, IN float *current, IN float *to, OUT float* out);
+
+/**
+ * Generates to value, update factor for target networks
+ */
+void genTo(OUT float* to);
 
 #endif //MLP_H

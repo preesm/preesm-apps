@@ -53,7 +53,7 @@
             <port annotation="NONE" expr="1" kind="output" name="epsilon"/>
         </node>
         <node id="optimizeWeights" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
                 <param direction="IN" isConfig="false"
@@ -99,7 +99,7 @@
             <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
         </node>
         <node id="optimizeBias" kind="actor" period="0">
-            <data key="graph_desc">Code/include/mlp.h</data>
+            <data key="graph_desc">Spider/include/mlp.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
                 <param direction="IN" isConfig="false"
