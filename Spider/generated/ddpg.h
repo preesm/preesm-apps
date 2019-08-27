@@ -52,7 +52,7 @@ void freeArchi();
 #define N_FCT_DDPG 99
 extern lrtFct ddpg_fcts[N_FCT_DDPG];
 
-void init_ddpg(Param action_space_size = 3, Param bufferSize = 10, Param hidden_size_0 = 400, Param hidden_size_1 = 300, Param sampleSize = 2, Param state_space_size = 6, Param value_space_size = 1, Param x_target = 3, Param y_target = 4, Param z_target = 2);
+void init_ddpg(Param action_space_size = 3, Param bufferSize = 10, Param hidden_size_0 = 400, Param hidden_size_1 = 300, Param sampleSize = 1, Param state_space_size = 6, Param value_space_size = 1, Param x_target = 3, Param y_target = 4, Param z_target = 2);
 void free_ddpg();
 std::map<lrtFct, std::map<const char *, PapifyConfig*>> get_ddpg_papifyConfigs();
 void free_ddpg_papifyConfigs(std::map<lrtFct, std::map<const char *, PapifyConfig*>>& map);
