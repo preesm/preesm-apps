@@ -162,6 +162,6 @@ file(
     ./include/*.h
 )
 
-add_executable( reinforcement-learning ${source_files} ${header_files} ${SOURCES})
-target_link_libraries(reinforcement-learning ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY})
+add_executable( reinforcement-learning ${source_files} ${header_files})
+target_link_libraries(reinforcement-learning ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${SPIDER_LIBRARY} ${ARM_LIB})
 set(CMAKE_C_FLAGS "-std=gnu99 -lm")
