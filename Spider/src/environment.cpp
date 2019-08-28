@@ -15,13 +15,13 @@
 
 extern int preesmStopThreads;
 
-SdfLearner* learn;
+armlearn::learning::SdfLearner* learn;
 int initialized=0;
 
 
 void envInit(float *state_observation, int state_space_size, float x_target, float y_target, float z_target) {
 
-	learn = initWrapper(state_observation, state_space_size, x_target, y_target, z_target);
+	learn = armlearn::learning::initWrapper(state_observation, state_space_size, x_target, y_target, z_target);
 	initialized = 1;
 }
 
@@ -30,7 +30,7 @@ void step(int state_space_size, int action_space_size, float x_target, float y_t
           IN float *input_actions, OUT float *state_observation, OUT float *reward) {
 
 	if(!initialized) envInit(state_observation, state_space_size, x_target, y_target, z_target);
-	stepWrapper(learn, state_space_size, action_space_size, x_target, y_target, z_target, input_actions, state_observation, reward);
+	armlearn::learning::stepWrapper(learn, state_space_size, action_space_size, x_target, y_target, z_target, input_actions, state_observation, reward);
 }
 
 void step_noreward(int state_space_size, int action_space_size, float x_target, float y_target, float z_target,
