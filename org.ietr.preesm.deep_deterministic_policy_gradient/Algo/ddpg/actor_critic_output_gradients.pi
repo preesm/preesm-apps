@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">actor_critic_output_gradients</data>
+        <node id="output_size" kind="cfg_in_iface"/>
+        <node id="input_size" kind="cfg_in_iface"/>
+        <node id="hidden_size_0" kind="cfg_in_iface"/>
+        <node id="hidden_size_1" kind="cfg_in_iface"/>
+        <node id="critic_input_size" kind="cfg_in_iface"/>
+        <node id="critic_weights_size" kind="cfg_in_iface"/>
+        <node id="critic_bias_size" kind="cfg_in_iface"/>
+        <node id="critic_output_size" kind="cfg_in_iface"/>
+        <node id="inputs" kind="src">
+            <port annotation="NONE" expr="input_size"
+                kind="output" name="inputs"/>
+        </node>
+        <node id="weights_gradient" kind="snk">
+            <port annotation="NONE"
+                expr="input_size  * output_size" kind="input" name="weights_gradient"/>
+        </node>
+        <node id="Gradients" kind="actor" period="0">
+            <data key="graph_desc">Spider/include/mlp.h</data>
+            <loop name="computeWeightsGradients">
+                <param direction="IN" isConfig="true"
+                    name="input_size" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="layer_size" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="errors" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="inputs" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="valid" type="int "/>
+                <param direction="OUT" isConfig="false"
+                    name="gradients" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="layer_size"/>
+            <port annotation="NONE" expr="layer_size"
+                kind="input" name="errors"/>
+            <port annotation="NONE" expr="input_size"
+                kind="input" name="inputs"/>
+            <port annotation="NONE" expr="1" kind="input" name="valid"/>
+            <port annotation="NONE"
+                expr=" input_size * layer_size" kind="output" name="gradients"/>
+        </node>
+        <node id="Derivative_Function" kind="actor" period="0">
+            <data key="graph_desc">Spider/include/mlp.h</data>
+            <loop name="derivativeNeuralNetwork">
+                <param direction="IN" isConfig="true"
+                    name="input_size" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="output_size" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="hidden_size_0" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="hidden_size_1" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="critic_input_size" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="network_weights" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="network_bias" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="output_size"/>
+            <port kind="cfg_input" name="input_size"/>
+            <port kind="cfg_input" name="hidden_size_0"/>
+            <port kind="cfg_input" name="hidden_size_1"/>
+            <port kind="cfg_input" name="critic_weights_size"/>
+            <port kind="cfg_input" name="critic_bias_size"/>
+            <port kind="cfg_input" name="critic_input_size"/>
+            <port annotation="NONE" expr="output_size"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="input" name="network_weights"/>
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="input" name="network_bias"/>
+            <port annotation="NONE" expr="output_size"
+                kind="output" name="output"/>
+        </node>
+        <node id="bias_gradient" kind="snk">
+            <port annotation="NONE" expr="output_size"
+                kind="input" name="bias_gradient"/>
+        </node>
+        <node id="BroadcastError" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size" kind="input" name="in"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="size" kind="output" name="out_0"/>
+        </node>
+        <node id="valid" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="valid"/>
+        </node>
+        <node id="raw_output" kind="src">
+            <port annotation="NONE" expr="output_size"
+                kind="output" name="raw_output"/>
+        </node>
+        <node id="output" kind="src">
+            <port annotation="NONE" expr="output_size"
+                kind="output" name="output"/>
+        </node>
+        <node id="critic_weights" kind="src">
+            <port annotation="NONE" expr="critic_weights_size"
+                kind="output" name="critic_weights"/>
+        </node>
+        <node id="critic_bias" kind="src">
+            <port annotation="NONE" expr="critic_bias_size"
+                kind="output" name="critic_bias"/>
+        </node>
+        <edge kind="fifo" source="Gradients"
+            sourceport="gradients" target="weights_gradient"
+            targetport="weights_gradient" type="float"/>
+        <edge kind="fifo" source="BroadcastError"
+            sourceport="out_1" target="Gradients"
+            targetport="errors" type="float"/>
+        <edge kind="fifo" source="BroadcastError"
+            sourceport="out_0" target="bias_gradient"
+            targetport="bias_gradient" type="float"/>
+        <edge kind="fifo" source="inputs" sourceport="inputs"
+            target="Gradients" targetport="inputs" type="float"/>
+        <edge kind="fifo" source="raw_output"
+            sourceport="raw_output" target="Derivative_Function"
+            targetport="input" type="float"/>
+        <edge kind="fifo" source="critic_weights"
+            sourceport="critic_weights"
+            target="Derivative_Function"
+            targetport="network_weights" type="float"/>
+        <edge kind="fifo" source="critic_bias"
+            sourceport="critic_bias" target="Derivative_Function"
+            targetport="network_bias" type="float"/>
+        <edge kind="fifo" source="Derivative_Function"
+            sourceport="output" target="BroadcastError"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="valid" sourceport="valid"
+            target="Gradients" targetport="valid" type="int"/>
+        <edge kind="dependency" source="output_size"
+            target="Gradients" targetport="layer_size"/>
+        <edge kind="dependency" source="output_size"
+            target="BroadcastError" targetport="size"/>
+        <edge kind="dependency" source="output_size" target="bias_gradient"/>
+        <edge kind="dependency" source="output_size" target="weights_gradient"/>
+        <edge kind="dependency" source="input_size" target="inputs"/>
+        <edge kind="dependency" source="input_size"
+            target="Gradients" targetport="input_size"/>
+        <edge kind="dependency" source="input_size" target="weights_gradient"/>
+        <edge kind="dependency" source="output_size" target="raw_output"/>
+        <edge kind="dependency" source="output_size"
+            target="Derivative_Function" targetport="output_size"/>
+        <edge kind="dependency" source="hidden_size_0"
+            target="Derivative_Function" targetport="hidden_size_0"/>
+        <edge kind="dependency" source="hidden_size_1"
+            target="Derivative_Function" targetport="hidden_size_1"/>
+        <edge kind="dependency" source="critic_weights_size"
+            target="Derivative_Function" targetport="critic_weights_size"/>
+        <edge kind="dependency" source="critic_bias_size"
+            target="Derivative_Function" targetport="critic_bias_size"/>
+        <edge kind="dependency" source="critic_weights_size" target="critic_weights"/>
+        <edge kind="dependency" source="critic_bias_size" target="critic_bias"/>
+        <edge kind="dependency" source="critic_input_size"
+            target="Derivative_Function" targetport="critic_input_size"/>
+        <edge kind="dependency" source="input_size"
+            target="Derivative_Function" targetport="input_size"/>
+        <edge kind="dependency" source="critic_output_size" target="output"/>
+    </graph>
+</graphml>

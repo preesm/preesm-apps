@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+   <vertices>
+      <vertex id="scenario" x="49" y="336"/>
+      <vertex id="PiMM2SrDaGTask" x="219" y="115"/>
+      <vertex id="DAG Exporter" x="615" y="94"/>
+      <vertex id="Scheduling" x="418" y="163"/>
+      <vertex id="MEG Builder" x="788" y="71"/>
+      <vertex id="Memory Allocation" x="1264" y="271"/>
+      <vertex id="Display Gantt" x="638" y="262"/>
+      <vertex id="MemoryScripts" x="1104" y="213"/>
+      <vertex id="Meg Updater" x="952" y="114"/>
+      <vertex id="Code Generation" x="1455" y="328"/>
+   </vertices>
+</layout>
