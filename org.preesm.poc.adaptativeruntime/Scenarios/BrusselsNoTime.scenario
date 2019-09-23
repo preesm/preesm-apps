@@ -34,9 +34,6 @@
         </specialVertexOperators>
     </simuParams>
     <parameterValues>
-        <parameter name="decision" parent="ProcY" value="[1]"/>
-        <parameter name="decision" parent="ProcU" value="[1]"/>
-        <parameter name="decision" parent="ProcV" value="[1]"/>
     </parameterValues>
     <papifyConfigs xmlUrl=""/>
 </scenario>
