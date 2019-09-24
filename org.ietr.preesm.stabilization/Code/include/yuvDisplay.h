@@ -19,7 +19,7 @@ Description : Displaying YUV frames one next to another in a row.
 
 #define INIT_OVERLAY {NULL} // must be se same size as NB_DISPLAY
 
-#define PATH_TTF PROJECT_ROOT_PATH "/dat/arial.ttf"
+#define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
 
 /**
 * Function called to display one of the YUV frame of the window.
