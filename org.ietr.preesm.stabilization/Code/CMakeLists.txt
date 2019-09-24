@@ -128,7 +128,6 @@ if(NOT THREADS_FOUND)
 	MESSAGE(FATAL_ERROR "Pthread not found !")
 endif()
 
-MESSAGE("Copy Pthreads DLLs into ${PTHREADDIR}")
 if (WIN32)
 	file(GLOB
 		PTHREADS_DLL
