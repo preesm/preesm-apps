@@ -13,7 +13,9 @@
 
 #define IN
 #define OUT
-#define PREESM_VERBOSE
+
+//#define PREESM_VERBOSE
+//#define PREESM_LOOP_SIZE 50
 
 #include "yuvRead.h"
 #include "yuvDisplay.h"

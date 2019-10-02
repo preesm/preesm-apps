@@ -11,6 +11,7 @@ Description : Displaying YUV frames one next to another in a row.
 #define DISPLAY_YUV
 
 #include "preesm.h"
+#include "md5.h"
 
 /**
 * Function called to display one of the YUV frame of the window.
