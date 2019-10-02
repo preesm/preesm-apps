@@ -37,13 +37,12 @@
 
 #ifndef HAVE_OPENSSL
 
-#ifdef PREESM_VERBOSE
-#include <stdio.h>
-int frameIndex = 0;
-#endif
-#include <string.h>
 
 #include "md5.h"
+
+#ifdef PREESM_VERBOSE
+int frameIndex = 0;
+#endif
 
 MD5_CTX ctx;
 
@@ -258,7 +257,6 @@ void MD5_Final(unsigned char *result)
 
 		memset(&ctx, 0, sizeof(MD5_CTX));
 }
-
 
 void MD5_Update(unsigned long size, const void *data)
 {

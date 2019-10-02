@@ -32,6 +32,11 @@
 
 #include "preesm.h"
 
+#ifdef PREESM_VERBOSE
+#include <stdio.h>
+#endif
+#include <string.h>
+
 /* Any 32-bit or wider unsigned integer data type will do */
 typedef unsigned int MD5_u32plus;
 
@@ -44,8 +49,8 @@ typedef struct {
 
 /**
 * Modified version of the MD5 to fit Preesm prototypes style.
-* 
-* 
+*
+*
 */
 void MD5_Update(unsigned long size, IN const void *data);
 
