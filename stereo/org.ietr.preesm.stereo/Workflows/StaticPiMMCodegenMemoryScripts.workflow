@@ -52,6 +52,7 @@
     </dftools:task>
     <dftools:task pluginId="pisdf-export" taskId="SDF Exporter">
         <dftools:data key="variables">
+            <dftools:variable name="hierarchical" value="true"/>
             <dftools:variable name="path" value="Algo/generated"/>
         </dftools:data>
     </dftools:task>
