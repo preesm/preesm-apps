@@ -77,6 +77,7 @@
     </dftools:task>
     <dftools:task pluginId="pisdf-export" taskId="PiMMExport">
         <dftools:data key="variables">
+            <dftools:variable name="hierarchical" value="true"/>
             <dftools:variable name="path" value="/Algo/generated/srdag"/>
         </dftools:data>
     </dftools:task>
