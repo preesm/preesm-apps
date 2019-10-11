@@ -74,7 +74,7 @@ void displayRGBInit(int id, int height, int width){
 
 
 #ifdef PREESM_VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+	printf("SDL screen height OK, width OK, number of displays OK.\n");
 #endif
 
 	if (display.initialized == 0)

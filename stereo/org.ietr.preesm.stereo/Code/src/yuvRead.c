@@ -22,8 +22,7 @@
 
    ======================================================================*/
 #define NB_PATH 2
-// char* path[] = {"D:/Boulot/video/left.yuv","D:/Boulot/video/right.yuv"};
-char* path[] = {"D:/Data/left.yuv","D:/Data/right.yuv"};
+char* path[] = {PATH_LEFT,PATH_RIGHT};
 
 static FILE * ptfile[NB_PATH] ;
 /*========================================================================
@@ -40,7 +39,7 @@ void initReadYUV(int id, int xSize, int ySize) {
     }
 
 #ifdef PREESM_VERBOSE
-    printf("Opened file '%s'\n", PATH);
+    printf("Opened file '%s'\n", path[id]);
 #endif
 
     // Obtain file size:
@@ -55,7 +54,7 @@ void initReadYUV(int id, int xSize, int ySize) {
     }
 
 #ifdef PREESM_VERBOSE
-    printf("Correct size for yuv_file '%s'\n", PATH);
+    printf("Correct size for yuv_file '%s'\n", path[id]);
 #endif
 
     // Set initial clock

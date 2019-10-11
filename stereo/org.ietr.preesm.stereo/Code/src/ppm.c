@@ -20,8 +20,8 @@
 
    ======================================================================*/
 #define NB_PATH 2
-char* paths[] = {"./dat/im0.ppm","./dat/im1.ppm"};
-char* outPath = "./out.ppm";
+char* paths[] = {PATH_LEFT,PATH_RIGHT};
+char* outPath = PATH_OUT;
 static FILE * ptfile[NB_PATH] ;
 long imageStartPosition[NB_PATH];
 

@@ -20,6 +20,13 @@
 
 typedef unsigned char uchar;
 
+//#define PREESM_VERBOSE
+//#define PREESM_LOOP_SIZE 50
+
+#define PATH_LEFT "./dat/im0.ppm"
+#define PATH_RIGHT "./dat/im1.ppm"
+#define PATH_OUT "./out.ppm"
+
 #include "clock.h"
 
 #include "ppm.h"
