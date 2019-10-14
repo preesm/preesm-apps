@@ -1,5 +1,26 @@
 #!/bin/bash -eu
 
+function find_free_display_number {
+  USEDXDISPLAYS=`find /tmp -maxdepth 1 -type f -name ".X*-lock" | rev | cut -d"/" -f 1 | colrm 1 5 | rev | colrm 1 2`
+  for i in {99..1}
+  do
+    FREE=YES
+    for usedd in $USEDXDISPLAYS; do
+      if [ "$usedd" == "$i" ]; then
+        FREE=NO
+        break
+      fi
+    done
+    if [ "$FREE" == "YES" ]; then
+      echo $i
+      return
+    fi
+  done
+}
+
+
+
+
 DIR=$(cd $(dirname $0) && pwd)
 
 PREESM_CLI_BRANCH=master
@@ -36,6 +57,13 @@ WORKFLOWS="StaticPiMMCodegen.workflow StaticPiMMCodegenMemoryScripts.workflow Co
 REF_SCENARIO=1core.scenario
 REF_WORKFLOW=StaticPiMMCodegen.workflow
 
+if [ -x /usr/bin/Xvfb ]; then
+  XDN=$(find_free_display_number)
+  export DISPLAY=:${XDN}.0
+  /usr/bin/Xvfb :${XDN} -ac -screen 0 1280x1024x16&
+  XVFBPID=$!
+fi
+
 echo " -- Exec Preesm on Stereo & Run"
 for SCENARIO in ${SCENARIOS}; do
   for WORKFLOW in ${WORKFLOWS}; do
@@ -52,6 +80,11 @@ for SCENARIO in ${SCENARIOS}; do
     fi
   done
 done
+
+if [ -x /usr/bin/Xvfb ]; then
+  kill -2 $XVFBPID
+fi
+
 
 echo " -- Compare MD5 files"
 for MD5_FILE in $(ls ${DIR}/md5_*); do
