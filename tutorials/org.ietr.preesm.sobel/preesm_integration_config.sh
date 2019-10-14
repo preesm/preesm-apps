@@ -12,7 +12,7 @@ function preesm_project_fetch_data () {
   TTF_FILE=Code/dat/DejaVuSans.ttf
   YUV_FILE=Code/dat/akiyo_cif.yuv
   [ ! -f $TTF_FILE ] && wget -O Code/dat/DejaVuSans.ttf https://preesm.github.io/assets/downloads/DejaVuSans.ttf
-  [ ! -f $YUV_FILE ] && wget -O Code/dat/akiyo_cif.7z https://preesm.github.io/assets/downloads/akiyo_cif.7z && (cd Code/dat/ && 7z x akiyo_cif.7z)
+  [ ! -f $YUV_FILE ] && wget -O Code/dat/akiyo_cif.7z https://preesm.github.io/assets/downloads/akiyo_cif.7z && (cd Code/dat/ && 7z x -aoa akiyo_cif.7z)
   return 0
 }
 

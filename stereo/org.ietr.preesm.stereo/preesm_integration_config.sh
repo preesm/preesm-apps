@@ -10,11 +10,11 @@ export REF_WORKFLOW=StaticPiMMCodegen.workflow
 
 function preesm_project_fetch_data () {
   TTF_FILE=Code/dat/DejaVuSans.ttf
-  LEFT_FILE=Code/dat/
-  RIGHT_FILE=Code/dat/
+  LEFT_FILE=Code/dat/im0.ppm
+  RIGHT_FILE=Code/dat/im1.ppm
   [ ! -f $TTF_FILE ] && wget -O $TTF_FILE https://preesm.github.io/assets/downloads/DejaVuSans.ttf
-  [ ! -f $LEFT_FILE ] && wget -O Code/dat/im.7z https://preesm.github.io/assets/downloads/im.7z && (cd Code/dat/ && 7z x im.7z)
-  [ ! -f $RIGHT_FILE ] && wget -O Code/dat/im.7z https://preesm.github.io/assets/downloads/im.7z && (cd Code/dat/ && 7z x im.7z)
+  [ ! -f $LEFT_FILE ] && wget -O Code/dat/im.7z https://preesm.github.io/assets/downloads/im.7z && (cd Code/dat/ && 7z x -aoa im.7z)
+  [ ! -f $RIGHT_FILE ] && wget -O Code/dat/im.7z https://preesm.github.io/assets/downloads/im.7z && (cd Code/dat/ && 7z x -aoa im.7z)
   return 0
 }
 

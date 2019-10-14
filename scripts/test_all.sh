@@ -14,7 +14,6 @@ PREESM_PATH=${DIR}/preesm/releng/org.preesm.product/target/products/org.preesm.p
 ### TODO
 ###########################
 # ajouter la gestion multi app par projet .. (sobel avec pipeline / display / .... RL train/pred ...)
-# ajouter le fetch des données ...
 
 function test_project() {
   set +e
