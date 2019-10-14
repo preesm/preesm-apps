@@ -2,9 +2,9 @@
 
 DIR=$(cd $(dirname $0) && pwd)
 
-./check_system.sh
+${DIR}/check_system.sh
+${DIR}/build_preesm.sh
 
-./build_preesm.sh
 PREESM_PATH=${DIR}/preesm/releng/org.preesm.product/target/products/org.preesm.product/linux/gtk/x86_64/
 
 ### TODO
