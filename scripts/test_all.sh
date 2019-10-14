@@ -93,7 +93,7 @@ for PROJECT in ${PROJECTS}; do
   export PROJ_PATH=$(dirname ${PROJECT})/
   echo " -- Testing $PROJ_NAME from folder $PROJ_PATH"
   
-  PROJ_LOG_FILE=${PROJ_NAME}.log
+  PROJ_LOG_FILE=${DIR}/${PROJ_NAME}.log
   set +e
   test_project | tee ${PROJ_LOG_FILE}
   PROJ_RES=$?
