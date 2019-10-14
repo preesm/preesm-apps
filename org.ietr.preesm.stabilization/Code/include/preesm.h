@@ -14,6 +14,9 @@
 #define IN
 #define OUT
 
+//#define PREESM_VERBOSE
+//#define PREESM_LOOP_SIZE 300
+
 typedef unsigned char uchar;
 
 #include "applicationParameters.h"
