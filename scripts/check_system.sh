@@ -74,7 +74,7 @@ which g++ &> /dev/null
 which wget &> /dev/null
 [ $? != 0 ] && echo -e "Error: requires wget to fetch apps data\nOn Ubuntu: sudo apt install wget" && exit 1
 which 7z &> /dev/null
-[ $? != 0 ] && echo -e "Error: requires p7zip to fetch apps data\nOn Ubuntu: sudo apt install p7zip" && exit 1
+[ $? != 0 ] && echo -e "Error: requires p7zip-full to fetch apps data\nOn Ubuntu: sudo apt install p7zip-full" && exit 1
 
 ldconfig -p | grep libSDL2_ttf  &> /dev/null
 [ $? != 0 ] && echo -e "Error: requires lib SDL2 ttf as apps dependencies\nOn Ubuntu: sudo apt install libsdl2-*" && exit 1
