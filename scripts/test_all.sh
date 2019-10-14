@@ -1,15 +1,19 @@
 #!/bin/bash -eu
 
+
+PREESM_BRANCH=develop
+PREESM_CLI_BRANCH=master
+
 DIR=$(cd $(dirname $0) && pwd)
 
 ${DIR}/check_system.sh
-${DIR}/build_preesm.sh
+${DIR}/build_preesm.sh $PREESM_BRANCH $PREESM_CLI_BRANCH
 
 PREESM_PATH=${DIR}/preesm/releng/org.preesm.product/target/products/org.preesm.product/linux/gtk/x86_64/
 
 ### TODO
 ###########################
-# ajouter la gestion multi projet (multi preesm apps)
+# ajouter la gestion multi app par projet .. (sobel avec pipeline / display / .... RL train/pred ...)
 # ajouter le fetch des données ...
 
 function test_project() {
