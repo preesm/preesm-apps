@@ -96,7 +96,7 @@ for PROJECT in ${PROJECTS}; do
   PROJ_LOG_FILE=${DIR}/${PROJ_NAME}.log
   set +e
   test_project | tee ${PROJ_LOG_FILE}
-  PROJ_RES=$?
+  PROJ_RES=${PIPESTATUS[0]}
   set -e
   if [ $PROJ_RES != 0 ]; then
     echo "    >> Error. See ${PROJ_LOG_FILE}"
