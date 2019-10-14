@@ -22,42 +22,52 @@ function test_project() {
   rm -rf ${DIR}/${PROJ_NAME}/
   mkdir -p ${DIR}/${PROJ_NAME}/
   ERROR=0
-  for SCENARIO in ${SCENARIOS}; do
-    for WORKFLOW in ${WORKFLOWS}; do
-      echo "   * ${WORKFLOW} ${SCENARIO}"
-      echo "      o Generate"
-      LOG_FILE=${DIR}/${PROJ_NAME}/preesm_${WORKFLOW}_${SCENARIO}.log
-      ${DIR}/preesm-cli/commandLinePreesm.sh "${PREESM_PATH}" "${PROJ_PATH}" ${WORKFLOW} ${SCENARIO} &> ${LOG_FILE}
-      PREESM_RES=$?
-      if [ $PREESM_RES != 0 ]; then
-        echo "        >> Error. See ${LOG_FILE}"
-        ERROR=1
-      else 
-        echo "      o Build"
-        LOG_FILE=${DIR}/${PROJ_NAME}/build_${WORKFLOW}_${SCENARIO}.log
-        (cd ${PROJ_PATH}/ && preesm_build_project &> ${LOG_FILE})
-        BUILD_RES=$?
-        if [ $BUILD_RES != 0 ]; then
+  
+  echo "   * Fetch data"
+  LOG_FILE=${DIR}/${PROJ_NAME}/fetch_data.log
+  (cd ${PROJ_PATH}/ && preesm_project_fetch_data ) &> ${LOG_FILE}
+  FETCH_RES=$?
+  if [ $FETCH_RES != 0 ]; then
+    echo "        >> Error while fetching data. See ${LOG_FILE}"
+    ERROR=1
+  else 
+    for SCENARIO in ${SCENARIOS}; do
+      for WORKFLOW in ${WORKFLOWS}; do
+        echo "   * ${WORKFLOW} ${SCENARIO}"
+        echo "      o Generate"
+        LOG_FILE=${DIR}/${PROJ_NAME}/preesm_${WORKFLOW}_${SCENARIO}.log
+        ${DIR}/preesm-cli/commandLinePreesm.sh "${PREESM_PATH}" "${PROJ_PATH}" ${WORKFLOW} ${SCENARIO} &> ${LOG_FILE}
+        PREESM_RES=$?
+        if [ $PREESM_RES != 0 ]; then
           echo "        >> Error. See ${LOG_FILE}"
           ERROR=1
         else 
-          echo "      o Exec"
-          LOG_FILE=${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log
-          (cd ${PROJ_PATH}/ && preesm_exec_project &> ${LOG_FILE})
-          EXEC_RES=$?
+          echo "      o Build"
+          LOG_FILE=${DIR}/${PROJ_NAME}/build_${WORKFLOW}_${SCENARIO}.log
+          (cd ${PROJ_PATH}/ && preesm_project_build &> ${LOG_FILE})
+          BUILD_RES=$?
           if [ $BUILD_RES != 0 ]; then
             echo "        >> Error. See ${LOG_FILE}"
             ERROR=1
-          else
-            cat ${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log | grep "^preesm_md5" | sort > ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO}
-            if [ "${SCENARIO}" == "${REF_SCENARIO}" ] && [ "${WORKFLOW}" == "${REF_WORKFLOW}" ]; then
-              mv ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO} ${DIR}/${PROJ_NAME}/md5_reference
+          else 
+            echo "      o Exec"
+            LOG_FILE=${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log
+            (cd ${PROJ_PATH}/ && preesm_project_exec &> ${LOG_FILE})
+            EXEC_RES=$?
+            if [ $EXEC_RES != 0 ]; then
+              echo "        >> Error. See ${LOG_FILE}"
+              ERROR=1
+            else
+              cat ${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log | grep "^preesm_md5" | sort > ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO}
+              if [ "${SCENARIO}" == "${REF_SCENARIO}" ] && [ "${WORKFLOW}" == "${REF_WORKFLOW}" ]; then
+                mv ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO} ${DIR}/${PROJ_NAME}/md5_reference
+              fi
             fi
           fi
         fi
-      fi
+      done
     done
-  done
+  fi
   set -e
 
   echo " -- Compare MD5 files"
@@ -79,6 +89,7 @@ PROJECTS=$(find ${DIR}/.. -name "preesm_integration_config.sh")
 
 PROJ_ERROR=0
 for PROJECT in ${PROJECTS}; do
+  ## Load project specifics
   source $PROJECT
   export PROJ_PATH=$(dirname ${PROJECT})/
   echo " -- Testing $PROJ_NAME from folder $PROJ_PATH"
@@ -97,5 +108,9 @@ for PROJECT in ${PROJECTS}; do
   
   unset PROJ_PATH PROJ_NAME SCENARIOS WORKFLOWS REF_SCENARIO REF_WORKFLOW
 done
+
+if [ $PROJ_ERROR != 0 ]; then
+  echo -e "\n\nERROR: Some error were thrown during tests. See logs.\n\n"
+fi
 
 exit $PROJ_ERROR
