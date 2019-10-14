@@ -25,13 +25,14 @@ else
     echo "    - clean, switch branch, pull"
     (cd ${DIR}/preesm && git clean -xdf && git reset --hard && git checkout ${PREESM_BRANCH} && git fetch --all -p && git pull --rebase)  &> ${DIR}/preesm_update.log
   else 
+    (cd ${DIR}/preesm && git fetch --all -p) &> ${DIR}/preesm_update.log
     NB_DIFF=$(cd ${DIR}/preesm && git diff --stat ${PREESM_BRANCH}..origin/${PREESM_BRANCH} | wc -l)
     if [ $NB_DIFF == 0 ]; then
       echo "    - already up to date"
       PREESM_BUILD=0
     else
       echo "    - clean, pull"
-      (cd ${DIR}/preesm && git clean -xdf && git reset --hard && git checkout ${PREESM_BRANCH} && git fetch --all -p && git pull --rebase)  &> ${DIR}/preesm_update.log
+      (cd ${DIR}/preesm && git clean -xdf && git reset --hard && git checkout ${PREESM_BRANCH} && git pull --rebase)  &>> ${DIR}/preesm_update.log
     fi
   fi
 fi
