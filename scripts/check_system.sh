@@ -1,6 +1,6 @@
 #!/bin/bash -u
 
-#apt install git cmake make gcc g++ build-essential libsdl2-* xvfb openjdk-8-jdk maven wget p7zip
+#apt install git cmake make gcc g++ build-essential libsdl2-* xvfb openjdk-8-jdk maven wget p7zip-full ffmpeg
 
 function jdk_version() {
   local result=
@@ -75,6 +75,10 @@ which wget &> /dev/null
 [ $? != 0 ] && echo -e "Error: requires wget to fetch apps data\nOn Ubuntu: sudo apt install wget" && exit 1
 which 7z &> /dev/null
 [ $? != 0 ] && echo -e "Error: requires p7zip-full to fetch apps data\nOn Ubuntu: sudo apt install p7zip-full" && exit 1
+
+which ffmpeg &> /dev/null
+[ $? != 0 ] && echo -e "Error: requires ffmpeg to convert app data\nOn Ubuntu: sudo apt install ffmpeg" && exit 1
+
 
 ldconfig -p | grep libSDL2_ttf  &> /dev/null
 [ $? != 0 ] && echo -e "Error: requires lib SDL2 ttf as apps dependencies\nOn Ubuntu: sudo apt install libsdl2-*" && exit 1
