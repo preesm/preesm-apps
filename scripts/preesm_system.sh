@@ -62,8 +62,8 @@ function preesm_check_system() {
   which mvn &> /dev/null
   [ $? != 0 ] && echo -e "Error: requires maven to build Preesm\nOn Ubuntu: sudo apt install maven" && exit 1
 
-  which xvfb-run &> /dev/null
-  [ $? != 0 ] && echo -e "Error: requires xvfb-run to run graphical apps\nOn Ubuntu: sudo apt install xvfb" && exit 1
+  which Xvfb &> /dev/null
+  [ $? != 0 ] && echo -e "Error: requires Xvfb to run graphical apps\nOn Ubuntu: sudo apt install xvfb" && exit 1
 
   which cmake &> /dev/null
   [ $? != 0 ] && echo -e "Error: requires CMake to build apps\nOn Ubuntu: sudo apt install cmake" && exit 1

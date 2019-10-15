@@ -26,6 +26,6 @@ function preesm_project_build () {
 }
 
 function preesm_project_exec () {
-  (cd Code/ && xvfb-run -a --server-args="-screen 0 1280x1024x16" ./bin/Release/stereo)
+  (cd Code/ && ./bin/Release/stereo)
   return $?
 }
