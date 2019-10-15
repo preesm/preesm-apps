@@ -90,8 +90,8 @@ for PROJECT in ${PROJECTS}; do
 
   ## Load project specifics
   export PROJ_PATH=$(dirname ${PROJECT})/
-  (cd ${PROJ_PATH}/ && source $PROJECT)
-  preesm_project_init_vars
+  source $PROJECT
+  preesm_project_init_vars $PROJ_PATH
 
   echo " -- Testing $PROJ_NAME from folder $PROJ_PATH"
   
