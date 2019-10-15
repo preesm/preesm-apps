@@ -3,7 +3,7 @@
 export PROJ_NAME="Sobel"
 
 export SCENARIOS="1core_sobel.scenario 4core_sobel.scenario 4core_sobel_memory.scenario"
-export WORKFLOWS="Codegen.workflow CodegenMemory.workflow CodegenMemoryInstrumentation.workflow"
+export WORKFLOWS="Codegen.workflow CodegenMemory.workflow"
 
 export REF_SCENARIO=1core_sobel.scenario
 export REF_WORKFLOW=Codegen.workflow
