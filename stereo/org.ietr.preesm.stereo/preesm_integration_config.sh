@@ -1,12 +1,14 @@
 #!/bin/bash -eu
 
-export PROJ_NAME="Stereo"
+function preesm_project_init_vars() {
+  export PROJ_NAME="Stereo"
 
-export SCENARIOS="1core.scenario 4core.scenario"
-export WORKFLOWS="StaticPiMMCodegen.workflow StaticPiMMCodegenMemoryScripts.workflow CodegenMemoryScriptsMixedMerged.workflow"
+  export SCENARIOS="1core.scenario 4core.scenario"
+  export WORKFLOWS="StaticPiMMCodegen.workflow StaticPiMMCodegenMemoryScripts.workflow CodegenMemoryScriptsMixedMerged.workflow"
 
-export REF_SCENARIO=1core.scenario
-export REF_WORKFLOW=StaticPiMMCodegen.workflow
+  export REF_SCENARIO=1core.scenario
+  export REF_WORKFLOW=StaticPiMMCodegen.workflow
+}
 
 function preesm_project_fetch_data () {
   TTF_FILE=Code/dat/DejaVuSans.ttf

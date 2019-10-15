@@ -1,12 +1,14 @@
 #!/bin/bash -eu
 
-export PROJ_NAME="Sobel"
+function preesm_project_init_vars() {
+  export PROJ_NAME="Sobel"
 
-export SCENARIOS="1core_sobel.scenario 4core_sobel.scenario 4core_sobel_memory.scenario"
-export WORKFLOWS="Codegen.workflow CodegenMemory.workflow"
+  export SCENARIOS="1core_sobel.scenario 4core_sobel.scenario 4core_sobel_memory.scenario"
+  export WORKFLOWS="Codegen.workflow CodegenMemory.workflow"
 
-export REF_SCENARIO=1core_sobel.scenario
-export REF_WORKFLOW=Codegen.workflow
+  export REF_SCENARIO=1core_sobel.scenario
+  export REF_WORKFLOW=Codegen.workflow
+}
 
 function preesm_project_fetch_data () {
   TTF_FILE=Code/dat/DejaVuSans.ttf

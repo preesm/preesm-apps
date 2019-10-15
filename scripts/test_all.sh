@@ -83,13 +83,16 @@ function test_project() {
 }
 
 
-PROJECTS=$(find ${DIR}/.. -name "preesm_integration_config.sh")
+PROJECTS=$(find ${DIR}/.. -name "*preesm_integration_config.sh")
 
 PROJ_ERROR=0
 for PROJECT in ${PROJECTS}; do
+
   ## Load project specifics
-  source $PROJECT
   export PROJ_PATH=$(dirname ${PROJECT})/
+  (cd ${PROJ_PATH}/ && source $PROJECT)
+  preesm_project_init_vars
+
   echo " -- Testing $PROJ_NAME from folder $PROJ_PATH"
   
   PROJ_LOG_FILE=${DIR}/${PROJ_NAME}.log
