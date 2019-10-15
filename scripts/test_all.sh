@@ -6,14 +6,29 @@ PREESM_CLI_BRANCH=master
 
 DIR=$(cd $(dirname $0) && pwd)
 
+echo " -- Project List:"
+if [ ! -z ${1+x} ]; then
+  GREPEXP="${1}"
+  echo " < Filtering $GREPEXP >"
+else
+  GREPEXP=""
+fi
+set +e
+PROJECTS=$(find ${DIR}/.. -name "*preesm_integration_config.sh" | grep "${GREPEXP}")
+set -e
+if [ -z "$PROJECTS" ]; then
+  echo "No Projects. Exiting."
+  exit 0
+fi
+
+for PROJECT in ${PROJECTS}; do
+  echo " - $PROJECT"
+done
+
 ${DIR}/check_system.sh
 ${DIR}/build_preesm.sh $PREESM_BRANCH $PREESM_CLI_BRANCH
 
 PREESM_PATH=${DIR}/preesm/releng/org.preesm.product/target/products/org.preesm.product/linux/gtk/x86_64/
-
-### TODO
-###########################
-# ajouter la gestion multi app par projet .. (sobel avec pipeline / display / .... RL train/pred ...)
 
 function test_project() {
   set +e
@@ -82,19 +97,14 @@ function test_project() {
   return $ERROR
 }
 
-
-PROJECTS=$(find ${DIR}/.. -name "*preesm_integration_config.sh")
-
 PROJ_ERROR=0
 for PROJECT in ${PROJECTS}; do
-
   ## Load project specifics
   export PROJ_PATH=$(dirname ${PROJECT})/
   source $PROJECT
   preesm_project_init_vars $PROJ_PATH
 
   echo " -- Testing $PROJ_NAME from folder $PROJ_PATH"
-  
   PROJ_LOG_FILE=${DIR}/${PROJ_NAME}.log
   set +e
   test_project | tee ${PROJ_LOG_FILE}
@@ -104,12 +114,16 @@ for PROJECT in ${PROJECTS}; do
     echo " >> Error in $PROJ_NAME. See ${PROJ_LOG_FILE}"
     PROJ_ERROR=1
   fi
-  
+
+  # make sure variables are unset
   unset PROJ_PATH PROJ_NAME SCENARIOS WORKFLOWS REF_SCENARIO REF_WORKFLOW
 done
 
 if [ $PROJ_ERROR != 0 ]; then
   echo -e "\n\nERROR: Some error were thrown during tests. See logs.\n\n"
+  exit 1
+else
+  echo -e "\n\nAll good, all rulez\n\n"
 fi
 
-exit $PROJ_ERROR
+exit 0
