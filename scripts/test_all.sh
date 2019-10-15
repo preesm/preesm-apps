@@ -85,12 +85,14 @@ function test_project() {
 
   echo " -- Compare MD5 files"
   set +e
-  for MD5_FILE in $(ls ${DIR}/${PROJ_NAME}/md5_*); do
+  for MD5_FILE in $(ls ${DIR}/${PROJ_NAME}/md5_* | grep -v md5_reference); do
     diff ${DIR}/${PROJ_NAME}/md5_reference $MD5_FILE &> /dev/null
     RES_DIFF=$?
     if [ "${RES_DIFF}" == "1" ]; then
       echo "   >> Error in ${MD5_FILE}"
       ERROR=1
+    else
+      echo "   * ${MD5_FILE} OK"
     fi
   done
   set -e
