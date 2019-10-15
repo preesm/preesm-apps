@@ -1,6 +1,8 @@
 #!/bin/bash -eu
 
 function preesm_project_init_vars() {
+  PROJ_PATH=$1
+
   export PROJ_NAME="Sobel"
 
   export SCENARIOS="1core_sobel.scenario 4core_sobel.scenario 4core_sobel_memory.scenario"
