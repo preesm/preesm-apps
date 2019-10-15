@@ -1,10 +1,12 @@
-#!/bin/bash -eu
+#!/bin/bash -u
 
+DIR=$(cd $(dirname $0) && pwd)
+
+source ${DIR}/preesm_system.sh
+source ${DIR}/preesm_build.sh
 
 PREESM_BRANCH=fixAutoMd5
 PREESM_CLI_BRANCH=master
-
-DIR=$(cd $(dirname $0) && pwd)
 
 echo " -- Project List:"
 if [ ! -z ${1+x} ]; then
@@ -25,10 +27,8 @@ for PROJECT in ${PROJECTS}; do
   echo " - $PROJECT"
 done
 
-${DIR}/check_system.sh
-${DIR}/build_preesm.sh $PREESM_BRANCH $PREESM_CLI_BRANCH
-
-PREESM_PATH=${DIR}/preesm/releng/org.preesm.product/target/products/org.preesm.product/linux/gtk/x86_64/
+preesm_check_system
+preesm_fetch_build $PREESM_BRANCH $PREESM_CLI_BRANCH
 
 function test_project() {
   set +e
@@ -99,6 +99,9 @@ function test_project() {
   return $ERROR
 }
 
+
+preesm_start_xvfb
+
 PROJ_ERROR=0
 for PROJECT in ${PROJECTS}; do
   ## Load project specifics
@@ -121,11 +124,14 @@ for PROJECT in ${PROJECTS}; do
   unset PROJ_PATH PROJ_NAME SCENARIOS WORKFLOWS REF_SCENARIO REF_WORKFLOW
 done
 
+preesm_kill_xvfb
+
 if [ $PROJ_ERROR != 0 ]; then
   echo -e "\n\nERROR: Some error were thrown during tests. See logs.\n\n"
   exit 1
 else
   echo -e "\n\nAll good, all rulez\n\n"
 fi
+
 
 exit 0
