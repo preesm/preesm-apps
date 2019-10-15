@@ -21,7 +21,6 @@ typedef unsigned char uchar;
 
 #include "applicationParameters.h"
 #include "matrix.h"
-#include "md5.h"
 #include "preesm.h"
 #include "stabilization.h"
 #include "yuvDisplay.h"
