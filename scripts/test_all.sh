@@ -101,10 +101,8 @@ for PROJECT in ${PROJECTS}; do
   PROJ_RES=${PIPESTATUS[0]}
   set -e
   if [ $PROJ_RES != 0 ]; then
-    echo "  >> Error in $PROJ_NAME. See ${PROJ_LOG_FILE}"
+    echo " >> Error in $PROJ_NAME. See ${PROJ_LOG_FILE}"
     PROJ_ERROR=1
-  else
-    echo "  >> OK"
   fi
   
   unset PROJ_PATH PROJ_NAME SCENARIOS WORKFLOWS REF_SCENARIO REF_WORKFLOW
