@@ -1,7 +1,7 @@
 #!/bin/bash -eu
 
 
-PREESM_BRANCH=develop
+PREESM_BRANCH=fixAutoMd5
 PREESM_CLI_BRANCH=master
 
 DIR=$(cd $(dirname $0) && pwd)
@@ -17,7 +17,6 @@ PREESM_PATH=${DIR}/preesm/releng/org.preesm.product/target/products/org.preesm.p
 
 function test_project() {
   set +e
-  echo " -- Exec Preesm on Stereo & Run"
   rm -rf ${DIR}/${PROJ_NAME}/
   mkdir -p ${DIR}/${PROJ_NAME}/
   ERROR=0
@@ -99,10 +98,10 @@ for PROJECT in ${PROJECTS}; do
   PROJ_RES=${PIPESTATUS[0]}
   set -e
   if [ $PROJ_RES != 0 ]; then
-    echo "    >> Error. See ${PROJ_LOG_FILE}"
+    echo "  >> Error in $PROJ_NAME. See ${PROJ_LOG_FILE}"
     PROJ_ERROR=1
   else
-    echo "    >> OK"
+    echo "  >> OK"
   fi
   
   unset PROJ_PATH PROJ_NAME SCENARIOS WORKFLOWS REF_SCENARIO REF_WORKFLOW
