@@ -4,7 +4,7 @@ function preesm_project_init_vars() {
   export PROJ_NAME="Stabilization"
 
   export SCENARIOS="1coreX86.scenario 4coresX86.scenario 12coresX86.scenario"
-  export WORKFLOWS="Codegen_basic_memory.workflow Codegen.workflow"
+  export WORKFLOWS="Codegen_basic_memory.workflow Codegen.workflow NEWSynthesisAPI.workflow"
 
   export REF_SCENARIO=1coreX86.scenario
   export REF_WORKFLOW=Codegen_basic_memory.workflow
