@@ -13,7 +13,7 @@ if [ ! -d ${DIR}/preesm-cli ]; then
   (cd ${DIR}/ && git clone https://github.com/preesm/preesm-cli.git -b ${PREESM_CLI_BRANCH} &> ${DIR}/preesm_cli_clone.log)
 else
   echo "   * Preesm CLI present - update"
-  (cd ${DIR}/preesm-cli && git clean -xdf && git reset --hard && git checkout ${PREESM_CLI_BRANCH} && git fetch --all -p && git pull --rebase) &> ${DIR}/preesm_cli_update.log
+  (cd ${DIR}/preesm-cli && git clean -xdf && git reset --hard &&  git fetch --all -p && git checkout ${PREESM_CLI_BRANCH} && git pull --rebase) &> ${DIR}/preesm_cli_update.log
 fi
 if [ ! -d ${DIR}/preesm ]; then
   echo "   * Clone Preesm"
@@ -23,7 +23,7 @@ else
   CURRENT_PREESM_BRANCH=$(cd ${DIR}/preesm && git branch --no-color | colrm 1 2)
   if [ "${CURRENT_PREESM_BRANCH}" != "${PREESM_BRANCH}" ]; then
     echo "    - clean, switch branch, pull"
-    (cd ${DIR}/preesm && git clean -xdf && git reset --hard && git checkout ${PREESM_BRANCH} && git fetch --all -p && git pull --rebase)  &> ${DIR}/preesm_update.log
+    (cd ${DIR}/preesm && git clean -xdf && git reset --hard && git fetch --all -p && git checkout ${PREESM_BRANCH} && git pull --rebase)  &> ${DIR}/preesm_update.log
   else 
     (cd ${DIR}/preesm && git fetch --all -p) &> ${DIR}/preesm_update.log
     NB_DIFF=$(cd ${DIR}/preesm && git diff --stat ${PREESM_BRANCH}..origin/${PREESM_BRANCH} | wc -l)
