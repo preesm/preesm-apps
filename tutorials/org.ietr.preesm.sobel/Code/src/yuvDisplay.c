@@ -93,9 +93,19 @@ void yuvDisplayInit(int id, int width, int height)
 
 		printf("SDL_Init_Start\n");
 
-		if (SDL_Init(SDL_INIT_VIDEO))
-		{
-			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+		int sdlInitRes = 1, cpt = 10;
+		while (sdlInitRes && cpt > 0) {
+			sdlInitRes = SDL_Init(SDL_INIT_VIDEO);
+			cpt--;
+			if (sdlInitRes && cpt > 10) {
+#ifdef PREESM_VERBOSE
+				printf(" fail ... retrying\n");
+#endif
+			}
+		}
+		if (sdlInitRes){
+			fflush(stdout);
+			fprintf(stderr, "%d - %d -- Could not initialize SDL - %s\n", cpt, sdlInitRes, SDL_GetError());
 			exit(1);
 		}
 
