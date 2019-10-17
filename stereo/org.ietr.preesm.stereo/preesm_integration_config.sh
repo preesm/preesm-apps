@@ -4,7 +4,7 @@ function preesm_project_init_vars() {
   export PROJ_NAME="Stereo"
 
   export SCENARIOS="1core.scenario 4core.scenario"
-  export WORKFLOWS="StaticPiMMCodegen.workflow StaticPiMMCodegenMemoryScripts.workflow CodegenMemoryScriptsMixedMerged.workflow"
+  export WORKFLOWS="StaticPiMMCodegen.workflow StaticPiMMCodegenMemoryScripts.workflow CodegenMemoryScriptsMixedMerged.workflow NEWSynthesisAPI.workflow NEWSynthesisAPI_legacy.workflow"
 
   export REF_SCENARIO=1core.scenario
   export REF_WORKFLOW=StaticPiMMCodegen.workflow
