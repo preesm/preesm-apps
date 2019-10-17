@@ -5,7 +5,7 @@ DIR=$(cd $(dirname $0) && pwd)
 source ${DIR}/preesm_system.sh
 source ${DIR}/preesm_build.sh
 
-PREESM_BRANCH=fixAutoMd5
+PREESM_BRANCH=develop
 PREESM_CLI_BRANCH=master
 
 echo " -- Project List:"
