@@ -49,9 +49,6 @@ int exitCallBack(void* userdata, SDL_Event* event){
 	return 1;
 }
 
-int display_w;
-int display_h;
-
 /**
 * Initializes a display frame. Be careful, once a window size has been chosen,
 * all videos must share the same window size
@@ -62,8 +59,6 @@ int display_h;
 */
 void yuvDisplayInit(int id, int width, int height)
 {
-	display_h = height;
-	display_w = width;
 	if (display.initialized == 0)
 	{
 		display.currentXMin = 0;
@@ -98,9 +93,19 @@ void yuvDisplayInit(int id, int width, int height)
 
 		printf("SDL_Init_Start\n");
 
-		if (SDL_Init(SDL_INIT_VIDEO))
-		{
-			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+		int sdlInitRes = 1, cpt = 10;
+		while (sdlInitRes && cpt > 0) {
+			sdlInitRes = SDL_Init(SDL_INIT_VIDEO);
+			cpt--;
+			if (sdlInitRes && cpt > 10) {
+#ifdef PREESM_VERBOSE
+				printf(" fail ... retrying\n");
+#endif
+			}
+		}
+		if (sdlInitRes){
+			fflush(stdout);
+			fprintf(stderr, "%d - %d -- Could not initialize SDL - %s\n", cpt, sdlInitRes, SDL_GetError());
 			exit(1);
 		}
 
@@ -169,11 +174,6 @@ void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v){
 
 void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigned char *v)
 {
-
-	MD5_Update(display_w*display_h, y);
-	MD5_Update(display_w*display_h/4, u);
-	MD5_Update(display_w*display_h/4, v);
-
 	SDL_Texture* texture = display.textures[id];
 	int w, h;
 

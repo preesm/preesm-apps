@@ -183,5 +183,5 @@ list(APPEND
 add_executable( stabilization-sequential ${source_files} ${header_files})
 
 target_link_libraries(stabilization-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_EXTRA_LIB})
-set(CMAKE_C_FLAGS "-std=c99")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 

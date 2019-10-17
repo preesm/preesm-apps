@@ -7,3 +7,5 @@
 .settings
 /Code6678/generated
 /archives/
+*.csv
+dat/

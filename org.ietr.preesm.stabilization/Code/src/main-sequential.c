@@ -3,11 +3,10 @@
 #include <math.h>
 
 #include "applicationParameters.h"
-#include "yuvDisplay.h" 
-#include "yuvRead.h"	
+#include "yuvDisplay.h"
+#include "yuvRead.h"
 #include "yuvWrite.h"
 #include "stabilization.h"
-#include "md5.h"
 
 // #define PREESM_VERBOSE
 #ifdef PREESM_VERBOSE
@@ -75,9 +74,6 @@ int main(int argc, char** argv)
 		// Display it
 		yuvDisplay(0, yDisp, uDisp, vDisp);
 
-		// Compute the MD5 of the rendered frame
-		MD5_Update(DISPLAY_H*DISPLAY_W, yDisp);
-
 		// Save it
 		yuvWrite(DISPLAY_W, DISPLAY_H, yDisp, uDisp, vDisp);
 
@@ -90,7 +86,7 @@ int main(int argc, char** argv)
 
 	#ifdef PREESM_VERBOSE
 	printf("Exit program\n");
-	#endif 
+	#endif
 	yuvFinalize(0);
 	endYUVRead();
 	endYUVWrite();
