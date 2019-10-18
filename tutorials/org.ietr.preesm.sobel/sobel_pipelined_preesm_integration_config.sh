@@ -9,8 +9,6 @@ function preesm_project_init_vars() {
   export PROJ_NAME="SobelPipelined"
 
   export SCENARIOS="4core_sobel_pipelined.scenario"
-  export WORKFLOWS="Codegen.workflow CodegenMemory.workflow NEWSynthesisAPI.workflow NEWSynthesisAPI_legacy.workflow"
 
   export REF_SCENARIO=4core_sobel_pipelined.scenario
-  export REF_WORKFLOW=Codegen.workflow
 }
