@@ -15,8 +15,8 @@ function preesm_project_fetch_data () {
   LEFT_FILE=Code/dat/im0.ppm
   RIGHT_FILE=Code/dat/im1.ppm
   [ ! -f $TTF_FILE ] && wget -O $TTF_FILE https://preesm.github.io/assets/downloads/DejaVuSans.ttf
-  [ ! -f $LEFT_FILE ] && wget -O Code/dat/im.7z https://preesm.github.io/assets/downloads/im.7z && (cd Code/dat/ && 7z x -aoa im.7z)
-  [ ! -f $RIGHT_FILE ] && wget -O Code/dat/im.7z https://preesm.github.io/assets/downloads/im.7z && (cd Code/dat/ && 7z x -aoa im.7z)
+  [ ! -f $LEFT_FILE ] && wget -O Code/dat/im_434x380.7z https://preesm.github.io/assets/downloads/im_434x380.7z && (cd Code/dat/ && 7z x -aoa im_434x380.7z)
+  [ ! -f $RIGHT_FILE ] && wget -O Code/dat/im_434x380.7z https://preesm.github.io/assets/downloads/im_434x380.7z && (cd Code/dat/ && 7z x -aoa im_434x380.7z)
   return 0
 }
 
