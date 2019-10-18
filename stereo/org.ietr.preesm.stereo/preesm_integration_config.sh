@@ -4,10 +4,12 @@ function preesm_project_init_vars() {
   export PROJ_NAME="Stereo"
 
   export SCENARIOS="1core.scenario 4core.scenario"
-  export WORKFLOWS="StaticPiMMCodegen.workflow StaticPiMMCodegenMemoryScripts.workflow CodegenMemoryScriptsMixedMerged.workflow NEWSynthesisAPI.workflow NEWSynthesisAPI_legacy.workflow"
+
+  REALPATH=$(realpath ${1})
+  export WORKFLOWS=$(find ${REALPATH}/Workflows/IntegrationWorkflows/ -name Codegen*.workflow | sed -e "s#${REALPATH}/Workflows/##g")
 
   export REF_SCENARIO=1core.scenario
-  export REF_WORKFLOW=StaticPiMMCodegen.workflow
+  export REF_WORKFLOW=IntegrationWorkflows/NoScriptsNoUpdate/BasicAlloc/Codegen_basic_memory_noalign.workflow
 }
 
 function preesm_project_fetch_data () {

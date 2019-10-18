@@ -9,7 +9,7 @@ function preesm_project_init_vars() {
   export WORKFLOWS=$(find ${REALPATH}/Workflows/IntegrationWorkflows/ -name Codegen*.workflow | sed -e "s#${REALPATH}/Workflows/##g")
 
   export REF_SCENARIO=1coreX86.scenario
-  export REF_WORKFLOW=BasicAlloc/Codegen_basic_memory_noalign.workflow
+  export REF_WORKFLOW=IntegrationWorkflows/NoScriptsNoUpdate/BasicAlloc/Codegen_basic_memory_noalign.workflow
 }
 
 function preesm_project_fetch_data () {
