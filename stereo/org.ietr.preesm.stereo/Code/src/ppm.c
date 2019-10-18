@@ -20,8 +20,8 @@
 
    ======================================================================*/
 #define NB_PATH 2
-char* paths[] = {PATH_LEFT,PATH_RIGHT};
-char* outPath = PATH_OUT;
+char* paths[] = {PATH_LEFT_FULL,PATH_RIGHT_FULL};
+char* outPath = PATH_OUT_FULL;
 static FILE * ptfile[NB_PATH] ;
 long imageStartPosition[NB_PATH];
 

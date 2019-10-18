@@ -21,14 +21,19 @@
 typedef unsigned char uchar;
 
 //#define PREESM_VERBOSE
-//#define PREESM_LOOP_SIZE 50
+//#define PREESM_LOOP_SIZE 5
 
 #define PATH_LEFT "./dat/im0.ppm"
 #define PATH_RIGHT "./dat/im1.ppm"
 #define PATH_OUT "./out.ppm"
+#define PATH_TTF "./dat/DejaVuSans.ttf"
+
+#define PATH_TTF_FULL PROJECT_ROOT_PATH "/" PATH_TTF
+#define PATH_LEFT_FULL PROJECT_ROOT_PATH "/" PATH_LEFT
+#define PATH_RIGHT_FULL PROJECT_ROOT_PATH "/" PATH_RIGHT
+#define PATH_OUT_FULL PROJECT_ROOT_PATH "/" PATH_OUT
 
 #include "clock.h"
-
 #include "ppm.h"
 #include "displayRGB.h"
 #include "rgb2Gray.h"
