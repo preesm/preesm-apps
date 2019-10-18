@@ -74,9 +74,11 @@ function test_project() {
               echo "        >> Error. See ${LOG_FILE}"
               ERROR=1
             else
-              cat ${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log | grep "^preesm_md5" | cut -d':' -f2 | sort > ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO}
+              MD5_FILE=${DIR}/${PROJ_NAME}/${WORKFLOW}_${SCENARIO}.md5
+              mkdir -p $(dirname ${MD5_FILE})
+              cat ${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log | grep "^preesm_md5" | cut -d':' -f2 | sort > ${MD5_FILE}
               if [ "${SCENARIO}" == "${REF_SCENARIO}" ] && [ "${WORKFLOW}" == "${REF_WORKFLOW}" ]; then
-                mv ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO} ${DIR}/${PROJ_NAME}/md5_reference
+                mv ${MD5_FILE} ${DIR}/${PROJ_NAME}/md5_reference
               fi
             fi
           fi
@@ -88,7 +90,7 @@ function test_project() {
 
   echo " -- Compare MD5 files"
   set +e
-  for MD5_FILE in $(ls ${DIR}/${PROJ_NAME}/md5_* | grep -v md5_reference); do
+  for MD5_FILE in $(find ${DIR}/${PROJ_NAME}/ -name "*.md5" | grep -v md5_reference); do
     diff ${DIR}/${PROJ_NAME}/md5_reference $MD5_FILE &> /dev/null
     RES_DIFF=$?
     if [ "${RES_DIFF}" == "1" ]; then
