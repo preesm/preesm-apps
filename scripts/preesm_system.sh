@@ -81,9 +81,9 @@ function preesm_check_system() {
   [ $? != 0 ] && echo -e "Error: requires ffmpeg to convert app data\nOn Ubuntu: sudo apt install ffmpeg" && exit 1
 
 
-  ldconfig -p | grep libSDL2_ttf  &> /dev/null
+  /sbin/ldconfig -p | grep libSDL2_ttf  &> /dev/null
   [ $? != 0 ] && echo -e "Error: requires lib SDL2 ttf as apps dependencies\nOn Ubuntu: sudo apt install libsdl2-*" && exit 1
-  ldconfig -p | grep libSDL2_image  &> /dev/null
+  /sbin/ldconfig -p | grep libSDL2_image  &> /dev/null
   [ $? != 0 ] && echo -e "Error: requires lib SDL2 image as apps dependencies\nOn Ubuntu: sudo apt install libsdl2-*" && exit 1
   
   return 0

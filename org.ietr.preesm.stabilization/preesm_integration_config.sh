@@ -4,10 +4,12 @@ function preesm_project_init_vars() {
   export PROJ_NAME="Stabilization"
 
   export SCENARIOS="1coreX86.scenario 4coresX86.scenario 12coresX86.scenario"
-  export WORKFLOWS="$(find -name \"Codegen*.workflow\")"
+  REALPATH=$(realpath ${1})
+
+  export WORKFLOWS=$(find ${REALPATH}/Workflows/IntegrationWorkflows/ -name Codegen*.workflow | sed -e "s#${REALPATH}/Workflows/##g")
 
   export REF_SCENARIO=1coreX86.scenario
-  export REF_WORKFLOW=Codegen_basic_memory.workflow
+  export REF_WORKFLOW=IntegrationWorkflows/NoScriptsNoUpdate/BasicAlloc/Codegen_basic_memory_noalign.workflow
 }
 
 function preesm_project_fetch_data () {
@@ -19,7 +21,7 @@ function preesm_project_fetch_data () {
 }
 
 function preesm_project_build () {
-  (mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_VERBOSE -DPREESM_LOOP_SIZE=375 " .. && make -j4)
+  (mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_VERBOSE -DPREESM_LOOP_SIZE=375 " .. && make -j4 VERBOSE=1)
   return $?
 }
 

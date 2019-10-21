@@ -113,7 +113,7 @@ void displayRGBInit(int id, int height, int width){
 		printf("TTF_Init\n");
 
 		/* Initialize Font for text display */
-		display.text_font = TTF_OpenFont(PATH_TTF, 20);
+		display.text_font = TTF_OpenFont(PATH_TTF_FULL, 20);
 		if (!display.text_font)
 		{
 			printf("TTF_OpenFont: %s\n", TTF_GetError());

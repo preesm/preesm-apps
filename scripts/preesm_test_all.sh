@@ -27,8 +27,10 @@ for PROJECT in ${PROJECTS}; do
   echo " - $PROJECT"
 done
 
+set +e
 preesm_check_system
 preesm_fetch_build $PREESM_BRANCH $PREESM_CLI_BRANCH
+set -e
 
 function test_project() {
   set +e
@@ -49,6 +51,7 @@ function test_project() {
         echo "   * ${WORKFLOW} ${SCENARIO}"
         echo "      o Generate"
         LOG_FILE=${DIR}/${PROJ_NAME}/preesm_${WORKFLOW}_${SCENARIO}.log
+        mkdir -p $(dirname ${LOG_FILE})
         ${DIR}/preesm-cli/commandLinePreesm.sh "${PREESM_PATH}" "${PROJ_PATH}" ${WORKFLOW} ${SCENARIO} &> ${LOG_FILE}
         PREESM_RES=$?
         if [ $PREESM_RES != 0 ]; then
@@ -57,6 +60,7 @@ function test_project() {
         else 
           echo "      o Build"
           LOG_FILE=${DIR}/${PROJ_NAME}/build_${WORKFLOW}_${SCENARIO}.log
+          mkdir -p $(dirname ${LOG_FILE})
           (cd ${PROJ_PATH}/ && preesm_project_build &> ${LOG_FILE})
           BUILD_RES=$?
           if [ $BUILD_RES != 0 ]; then
@@ -65,15 +69,18 @@ function test_project() {
           else 
             echo "      o Exec"
             LOG_FILE=${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log
+            mkdir -p $(dirname ${LOG_FILE})
             (cd ${PROJ_PATH}/ && preesm_project_exec &> ${LOG_FILE})
             EXEC_RES=$?
             if [ $EXEC_RES != 0 ]; then
               echo "        >> Error. See ${LOG_FILE}"
               ERROR=1
             else
-              cat ${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log | grep "^preesm_md5" | sort > ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO}
+              MD5_FILE=${DIR}/${PROJ_NAME}/${WORKFLOW}_${SCENARIO}.md5
+              mkdir -p $(dirname ${MD5_FILE})
+              cat ${DIR}/${PROJ_NAME}/exec_${WORKFLOW}_${SCENARIO}.log | grep "^preesm_md5" | cut -d':' -f2 | sort > ${MD5_FILE}
               if [ "${SCENARIO}" == "${REF_SCENARIO}" ] && [ "${WORKFLOW}" == "${REF_WORKFLOW}" ]; then
-                mv ${DIR}/${PROJ_NAME}/md5_${WORKFLOW}_${SCENARIO} ${DIR}/${PROJ_NAME}/md5_reference
+                mv ${MD5_FILE} ${DIR}/${PROJ_NAME}/md5_reference
               fi
             fi
           fi
@@ -85,7 +92,7 @@ function test_project() {
 
   echo " -- Compare MD5 files"
   set +e
-  for MD5_FILE in $(ls ${DIR}/${PROJ_NAME}/md5_* | grep -v md5_reference); do
+  for MD5_FILE in $(find ${DIR}/${PROJ_NAME}/ -name "*.md5" | grep -v md5_reference); do
     diff ${DIR}/${PROJ_NAME}/md5_reference $MD5_FILE &> /dev/null
     RES_DIFF=$?
     if [ "${RES_DIFF}" == "1" ]; then

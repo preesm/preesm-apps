@@ -22,8 +22,10 @@
 
 # Logs and databases
 *.log
+*.log.[0-9]*
 *.sql
 *.sqlite
+*.md5
 
 # Temporary files
 *~

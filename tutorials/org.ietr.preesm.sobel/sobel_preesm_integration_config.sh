@@ -6,10 +6,12 @@ function preesm_project_init_vars() {
   export PROJ_NAME="Sobel"
 
   export SCENARIOS="1core_sobel.scenario 4core_sobel.scenario 4core_sobel_memory.scenario"
-  export WORKFLOWS="Codegen.workflow CodegenMemory.workflow NEWSynthesisAPI.workflow"
+
+  REALPATH=$(realpath ${1})
+  export WORKFLOWS=$(find ${REALPATH}/Workflows/IntegrationWorkflows/ -name Codegen*.workflow | sed -e "s#${REALPATH}/Workflows/##g")
 
   export REF_SCENARIO=1core_sobel.scenario
-  export REF_WORKFLOW=Codegen.workflow
+  export REF_WORKFLOW=IntegrationWorkflows/NoScriptsNoUpdate/BasicAlloc/Codegen_basic_memory_noalign.workflow
 }
 
 function preesm_project_fetch_data () {
@@ -21,7 +23,7 @@ function preesm_project_fetch_data () {
 }
 
 function preesm_project_build () {
-  (mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_VERBOSE -DPREESM_LOOP_SIZE=500 " .. && make -j4)
+  (mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_VERBOSE -DPREESM_LOOP_SIZE=500 " .. && make -j4 VERBOSE=1)
   return $?
 }
 

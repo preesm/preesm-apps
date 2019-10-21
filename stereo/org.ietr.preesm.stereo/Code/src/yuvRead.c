@@ -22,7 +22,7 @@
 
    ======================================================================*/
 #define NB_PATH 2
-char* path[] = {PATH_LEFT,PATH_RIGHT};
+char* path[] = {PATH_LEFT_FULL,PATH_RIGHT_FULL};
 
 static FILE * ptfile[NB_PATH] ;
 /*========================================================================

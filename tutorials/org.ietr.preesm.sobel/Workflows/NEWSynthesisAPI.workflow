@@ -14,11 +14,8 @@
     </dftools:task>
     <dftools:task pluginId="pisdf-synthesis.simple" taskId="Synthesis ">
         <dftools:data key="variables">
-            <dftools:variable name="Check" value="True"/>
-            <dftools:variable name="Optimize synchronization" value="True"/>
-            <dftools:variable name="balanceLoads" value="true"/>
-            <dftools:variable name="edgeSchedType" value="Simple"/>
-            <dftools:variable name="simulatorType" value="AccuratelyTimed"/>
+            <dftools:variable name="allocation" value="simple"/>
+            <dftools:variable name="scheduler" value="simple"/>
         </dftools:data>
     </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"

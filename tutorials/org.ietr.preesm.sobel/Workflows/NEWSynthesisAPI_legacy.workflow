@@ -14,8 +14,8 @@
     </dftools:task>
     <dftools:task pluginId="pisdf-synthesis.simple" taskId="Synthesis ">
         <dftools:data key="variables">
-            <dftools:variable name="allocation" value="simple"/>
-            <dftools:variable name="scheduler" value="simple"/>
+            <dftools:variable name="allocation" value="legacy"/>
+            <dftools:variable name="scheduler" value="legacy"/>
         </dftools:data>
     </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
