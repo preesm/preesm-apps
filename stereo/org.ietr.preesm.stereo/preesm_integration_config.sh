@@ -23,7 +23,7 @@ function preesm_project_fetch_data () {
 }
 
 function preesm_project_build () {
-  (mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_VERBOSE -DPREESM_LOOP_SIZE=5 " .. && make -j4)
+  (mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_VERBOSE -DPREESM_LOOP_SIZE=5 " .. && make -j4 VERBOSE=1)
   return $?
 }
 
