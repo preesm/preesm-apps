@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 # ************* CMake Content ***************
 # *******************************************
 # This CMake create a workspace containing the following projects
-# 
+#
 # Programs
 #  - sobel
 
@@ -32,7 +32,7 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 			MESSAGE("Generate Release project")
 			set(CMAKE_BUILD_TYPE Release)
 			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
-			set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
+			set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -Wall")
 	endif()
 	#add libmath during non visual studio builds
 	set(CMAKE_EXTRA_LIB m)
