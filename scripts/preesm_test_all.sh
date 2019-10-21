@@ -27,8 +27,10 @@ for PROJECT in ${PROJECTS}; do
   echo " - $PROJECT"
 done
 
+set +e
 preesm_check_system
 preesm_fetch_build $PREESM_BRANCH $PREESM_CLI_BRANCH
+set -e
 
 function test_project() {
   set +e
