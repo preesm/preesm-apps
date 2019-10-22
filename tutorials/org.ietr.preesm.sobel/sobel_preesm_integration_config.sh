@@ -8,7 +8,7 @@ function preesm_project_init_vars() {
   export SCENARIOS="1core_sobel.scenario 4core_sobel.scenario 4core_sobel_memory.scenario"
 
   REALPATH=$(realpath ${1})
-  export WORKFLOWS=$(find ${REALPATH}/Workflows/IntegrationWorkflows/ -name Codegen*.workflow | sed -e "s#${REALPATH}/Workflows/##g")
+  export WORKFLOWS="NEWSynthesisAPI.workflow  $(find ${REALPATH}/Workflows/IntegrationWorkflows/ -name Codegen*.workflow | sed -e "s#${REALPATH}/Workflows/##g")"
 
   export REF_SCENARIO=1core_sobel.scenario
   export REF_WORKFLOW=IntegrationWorkflows/NoScriptsNoUpdate/BasicAlloc/Codegen_basic_memory_noalign.workflow
