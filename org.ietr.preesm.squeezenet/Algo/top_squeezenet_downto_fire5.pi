@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">top_squeezenet_downto_fire5</data>
+        <node expr="1231552" id="sizeWeights" kind="param"/>
+        <node expr="3944" id="sizeBiases" kind="param"/>
+        <node expr="13" id="size13" kind="param"/>
+        <node expr="27" id="size27" kind="param"/>
+        <node expr="16" id="depth16" kind="param"/>
+        <node expr="64" id="depth64" kind="param"/>
+        <node expr="55" id="size55" kind="param"/>
+        <node expr="32" id="depth32" kind="param"/>
+        <node expr="128" id="depth128" kind="param"/>
+        <node expr="256" id="depth256" kind="param"/>
+        <node expr="192" id="depth192" kind="param"/>
+        <node expr="48" id="depth48" kind="param"/>
+        <node expr="384" id="depth384" kind="param"/>
+        <node expr="512" id="depth512" kind="param"/>
+        <node expr="1000" id="depth1000" kind="param"/>
+        <node expr="1" id="size1" kind="param"/>
+        <node expr="3" id="size3" kind="param"/>
+        <node expr="2" id="size2" kind="param"/>
+        <node expr="112" id="size112" kind="param"/>
+        <node expr="224" id="size224" kind="param"/>
+        <node id="fire2" kind="actor">
+            <data key="graph_desc">Algo/fireLayer.pi</data>
+            <port kind="cfg_input" name="depthSqueeze"/>
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port annotation="NONE"
+                expr="size * size * depthInput" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="depthSqueeze * (depthInput + depthExpand + depthExpand * 3 * 3)"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="depthSqueeze + (depthExpand * 2)"
+                kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="size * size * depthExpand * 2"
+                kind="output" name="output"/>
+        </node>
+        <node id="fire3" kind="actor">
+            <data key="graph_desc">Algo/fireLayer.pi</data>
+            <port kind="cfg_input" name="depthSqueeze"/>
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port annotation="NONE"
+                expr="size * size * depthInput" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="depthSqueeze * (depthInput + depthExpand + depthExpand * 3 * 3)"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="depthSqueeze + (depthExpand * 2)"
+                kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="size * size * depthExpand * 2"
+                kind="output" name="output"/>
+        </node>
+        <node id="fire4" kind="actor">
+            <data key="graph_desc">Algo/fireLayer.pi</data>
+            <port kind="cfg_input" name="depthSqueeze"/>
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port annotation="NONE"
+                expr="size * size * depthInput" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="depthSqueeze * (depthInput + depthExpand + depthExpand * 3 * 3)"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="depthSqueeze + (depthExpand * 2)"
+                kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="size * size * depthExpand * 2"
+                kind="output" name="output"/>
+        </node>
+        <node id="fire5" kind="actor">
+            <data key="graph_desc">Algo/fireLayer.pi</data>
+            <port kind="cfg_input" name="depthSqueeze"/>
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port annotation="NONE"
+                expr="size * size * depthInput" kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="depthSqueeze * (depthInput + depthExpand + depthExpand * 3 * 3)"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="depthSqueeze + (depthExpand * 2)"
+                kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="size * size * depthExpand * 2"
+                kind="output" name="output"/>
+        </node>
+        <node id="maxPool1" kind="actor">
+            <data key="graph_desc">Algo/maxPooling2D.pi</data>
+            <port kind="cfg_input" name="poolHeight"/>
+            <port kind="cfg_input" name="depth"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port kind="cfg_input" name="poolWidth"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="stride"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depth"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depth"
+                kind="output" name="out"/>
+        </node>
+        <node id="maxPool3" kind="actor">
+            <data key="graph_desc">Algo/maxPooling2D.pi</data>
+            <port kind="cfg_input" name="poolHeight"/>
+            <port kind="cfg_input" name="depth"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port kind="cfg_input" name="poolWidth"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="stride"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depth"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depth"
+                kind="output" name="out"/>
+        </node>
+        <node id="conv1" kind="actor">
+            <data key="graph_desc">Algo/convolution2D.pi</data>
+            <port kind="cfg_input" name="stride"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port kind="cfg_input" name="depthOutput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port kind="cfg_input" name="sizeKernel"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depthInput"
+                kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sizeKernel * sizeKernel * depthOutput * depthInput"
+                kind="input" name="weights"/>
+            <port annotation="NONE" expr="depthOutput"
+                kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depthOutput"
+                kind="output" name="out"/>
+        </node>
+        <node id="readWeightsBiases" kind="actor">
+            <data key="graph_desc">Code/include/utility.h</data>
+            <loop name="genRawWeightsAndBiases">
+                <param direction="IN" isConfig="true"
+                    name="sizeWeights" type="long"/>
+                <param direction="IN" isConfig="true"
+                    name="sizeBiases" type="long"/>
+                <param direction="OUT" isConfig="false"
+                    name="weights" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="biases" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="sizeWeights"/>
+            <port kind="cfg_input" name="sizeBiases"/>
+            <port annotation="NONE" expr="sizeWeights"
+                kind="output" name="weights"/>
+            <port annotation="NONE" expr="sizeBiases"
+                kind="output" name="biases"/>
+        </node>
+        <node id="splitWeights" kind="fork">
+            <port kind="cfg_input" name="sizeWeights"/>
+            <port annotation="NONE" expr="sizeWeights"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="1728" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="11264" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="12288" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="45056" kind="output" name="out_3"/>
+            <port annotation="NONE" expr="49152" kind="output" name="out_4"/>
+        </node>
+        <node id="splitBiases" kind="fork">
+            <port kind="cfg_input" name="sizeBiases"/>
+            <port annotation="NONE" expr="sizeBiases"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="64" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="144" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="144" kind="output" name="out_2"/>
+            <port annotation="NONE" expr="288" kind="output" name="out_3"/>
+            <port annotation="NONE" expr="288" kind="output" name="out_4"/>
+        </node>
+        <node id="loadImage" kind="actor">
+            <data key="graph_desc">Code/include/utility.h</data>
+            <loop name="readImageRawF32">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="out" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width * height * 3"
+                kind="output" name="out"/>
+        </node>
+        <node id="sink" kind="actor">
+            <data key="graph_desc">Code/include/display.h</data>
+            <loop name="sink">
+                <param direction="IN" isConfig="true"
+                    name="depthExpand" type="int"/>
+                <param direction="IN" isConfig="true" name="size" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="float "/>
+            </loop>
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE"
+                expr="size * size * depthExpand * 2" kind="input" name="input"/>
+        </node>
+        <edge kind="fifo" source="fire4" sourceport="output"
+            target="fire5" targetport="input" type="float"/>
+        <edge kind="fifo" source="fire2" sourceport="output"
+            target="fire3" targetport="input" type="float"/>
+        <edge kind="fifo" source="maxPool3" sourceport="out"
+            target="fire4" targetport="input" type="float"/>
+        <edge kind="fifo" source="fire3" sourceport="output"
+            target="maxPool3" targetport="input" type="float"/>
+        <edge kind="fifo" source="maxPool1" sourceport="out"
+            target="fire2" targetport="input" type="float"/>
+        <edge kind="fifo" source="conv1" sourceport="out"
+            target="maxPool1" targetport="input" type="float"/>
+        <edge kind="fifo" source="readWeightsBiases"
+            sourceport="weights" target="splitWeights"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="splitWeights"
+            sourceport="out_0" target="conv1"
+            targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitWeights"
+            sourceport="out_1" target="fire2"
+            targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitWeights"
+            sourceport="out_2" target="fire3"
+            targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitWeights"
+            sourceport="out_3" target="fire4"
+            targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitWeights"
+            sourceport="out_4" target="fire5"
+            targetport="weights" type="float"/>
+        <edge kind="fifo" source="readWeightsBiases"
+            sourceport="biases" target="splitBiases"
+            targetport="in" type="float"/>
+        <edge kind="fifo" source="splitBiases" sourceport="out_0"
+            target="conv1" targetport="bias" type="float"/>
+        <edge kind="fifo" source="splitBiases" sourceport="out_1"
+            target="fire2" targetport="bias" type="float"/>
+        <edge kind="fifo" source="splitBiases" sourceport="out_2"
+            target="fire3" targetport="bias" type="float"/>
+        <edge kind="fifo" source="splitBiases" sourceport="out_3"
+            target="fire4" targetport="bias" type="float"/>
+        <edge kind="fifo" source="splitBiases" sourceport="out_4"
+            target="fire5" targetport="bias" type="float"/>
+        <edge kind="fifo" source="loadImage" sourceport="out"
+            target="conv1" targetport="in" type="float"/>
+        <edge kind="fifo" source="fire5" sourceport="output"
+            target="sink" targetport="input" type="float"/>
+        <edge kind="dependency" source="sizeBiases"
+            target="readWeightsBiases" targetport="sizeBiases"/>
+        <edge kind="dependency" source="sizeWeights"
+            target="readWeightsBiases" targetport="sizeWeights"/>
+        <edge kind="dependency" source="sizeWeights"
+            target="splitWeights" targetport="sizeWeights"/>
+        <edge kind="dependency" source="sizeBiases"
+            target="splitBiases" targetport="sizeBiases"/>
+        <edge kind="dependency" source="size27" target="fire5" targetport="size"/>
+        <edge kind="dependency" source="size27" target="fire4" targetport="size"/>
+        <edge kind="dependency" source="depth16" target="fire2" targetport="depthSqueeze"/>
+        <edge kind="dependency" source="depth16" target="fire3" targetport="depthSqueeze"/>
+        <edge kind="dependency" source="depth64" target="fire2" targetport="depthExpand"/>
+        <edge kind="dependency" source="depth64" target="fire3" targetport="depthExpand"/>
+        <edge kind="dependency" source="depth64"
+            target="maxPool1" targetport="depth"/>
+        <edge kind="dependency" source="depth64" target="conv1" targetport="depthOutput"/>
+        <edge kind="dependency" source="size55" target="fire3" targetport="size"/>
+        <edge kind="dependency" source="size55" target="fire2" targetport="size"/>
+        <edge kind="dependency" source="depth64" target="fire2" targetport="depthInput"/>
+        <edge kind="dependency" source="size55" target="maxPool1" targetport="heightOutput"/>
+        <edge kind="dependency" source="size55" target="maxPool1" targetport="widthOutput"/>
+        <edge kind="dependency" source="size55" target="maxPool3" targetport="widthInput"/>
+        <edge kind="dependency" source="size55" target="maxPool3" targetport="heightInput"/>
+        <edge kind="dependency" source="depth32" target="fire5" targetport="depthSqueeze"/>
+        <edge kind="dependency" source="depth32" target="fire4" targetport="depthSqueeze"/>
+        <edge kind="dependency" source="depth128" target="fire5" targetport="depthExpand"/>
+        <edge kind="dependency" source="depth128" target="fire4" targetport="depthExpand"/>
+        <edge kind="dependency" source="depth128"
+            target="maxPool3" targetport="depth"/>
+        <edge kind="dependency" source="depth128" target="fire3" targetport="depthInput"/>
+        <edge kind="dependency" source="depth256" target="fire5" targetport="depthInput"/>
+        <edge kind="dependency" source="depth128" target="fire4" targetport="depthInput"/>
+        <edge kind="dependency" source="size27" target="maxPool3" targetport="heightOutput"/>
+        <edge kind="dependency" source="size27" target="maxPool3" targetport="widthOutput"/>
+        <edge kind="dependency" source="size3" target="maxPool3" targetport="poolHeight"/>
+        <edge kind="dependency" source="size3" target="maxPool3" targetport="poolWidth"/>
+        <edge kind="dependency" source="size2" target="maxPool3" targetport="stride"/>
+        <edge kind="dependency" source="size2" target="conv1" targetport="stride"/>
+        <edge kind="dependency" source="size3" target="conv1" targetport="depthInput"/>
+        <edge kind="dependency" source="size3" target="conv1" targetport="sizeKernel"/>
+        <edge kind="dependency" source="size2" target="maxPool1" targetport="stride"/>
+        <edge kind="dependency" source="size3" target="maxPool1" targetport="poolWidth"/>
+        <edge kind="dependency" source="size3" target="maxPool1" targetport="poolHeight"/>
+        <edge kind="dependency" source="size112"
+            target="maxPool1" targetport="widthInput"/>
+        <edge kind="dependency" source="size112"
+            target="maxPool1" targetport="heightInput"/>
+        <edge kind="dependency" source="size224" target="conv1" targetport="heightInput"/>
+        <edge kind="dependency" source="size224" target="conv1" targetport="widthInput"/>
+        <edge kind="dependency" source="size112" target="conv1" targetport="widthOutput"/>
+        <edge kind="dependency" source="size112" target="conv1" targetport="heightOutput"/>
+        <edge kind="dependency" source="size224"
+            target="loadImage" targetport="width"/>
+        <edge kind="dependency" source="size224"
+            target="loadImage" targetport="height"/>
+        <edge kind="dependency" source="size27" target="sink" targetport="size"/>
+        <edge kind="dependency" source="depth128" target="sink" targetport="depthExpand"/>
+    </graph>
+</graphml>
