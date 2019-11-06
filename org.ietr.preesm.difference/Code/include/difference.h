@@ -14,22 +14,43 @@
 #include "preesm.h"
 
 /**
-* Function to apply the sobel filter to an image of size width*height.
-* The 1 pixel-wide border of the image will not be computed.
+* Function that computes the pixelwise difference of slices input - previous and returns it on result.
+* The function also returns on output the same image as input.
 *
 * @param width
 *        The width of the processed image
-* @param width
+* @param heigth
 *        The heigth of the processed image
+* @param nbSlices
+*        The number of slices composing the image
 * @param input
-*        The input image of size height*width
+*        The input image of size height/nbSlices*width
 * @param previous
-*        The previous image of size height*width
+*        The previous image of size height/nbSlices*width
 * @param output
-*        The copy of the input image of size height*width
-* @param difference
-*        The difference image (input-previous) of size height*width
+*        The copy of the input image of size height/nbSlices*width
+* @param result
+*        The difference image (input-previous) of size height/nbSlices*width
 */
 void difference(int width, int height, int nbSlices, IN unsigned char *input, IN unsigned char *previous, OUT unsigned char *output, OUT unsigned char *result);
+
+/**
+* Function that computes the pixelwise difference of slices input - previous and returns it on result.
+*
+* @param width
+*        The width of the processed image
+* @param heigth
+*        The heigth of the processed image
+* @param nbSlices
+*        The number of slices composing the image
+* @param input
+*        The input image of size height/nbSlices*width
+* @param previous
+*        The previous image of size height/nbSlices*width
+* @param result
+*        The difference image (input-previous) of size height/nbSlices*width
+*/
+void difference2(int width, int height, int nbSlices, IN unsigned char *input, IN unsigned char *previous, OUT unsigned char *result);
+
 
 #endif
