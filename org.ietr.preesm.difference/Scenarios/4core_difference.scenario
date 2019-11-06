@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.difference/Algo/difference.pi"/>
+        <architecture url="/org.ietr.preesm.difference/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.difference/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="difference/display"/>
+            <task name="difference"/>
+            <task name="difference/Read_YUV"/>
+            <task name="difference/Difference"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="difference/Read_YUV"/>
+            <task name="difference/display"/>
+            <task name="difference/Difference"/>
+            <task name="difference"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="difference/Read_YUV"/>
+            <task name="difference/display"/>
+            <task name="difference/Difference"/>
+            <task name="difference"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="difference/Read_YUV"/>
+            <task name="difference/display"/>
+            <task name="difference/Difference"/>
+            <task name="difference"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
+        <timing opname="x86" time="120" vertexname="difference/Read_YUV"/>
+        <timing opname="x86" time="120" vertexname="difference/display"/>
+        <timing opname="x86" time="120" vertexname="difference/Difference"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>
