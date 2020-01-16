@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.switch-example/Algo/switch_example.pi"/>
+        <architecture url="/org.ietr.preesm.switch-example/Archi/1CoresX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.switch-example/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="switch_example/selector"/>
+            <task name="switch_example/dataProvider"/>
+            <task name="switch_example/branchZero"/>
+            <task name="switch_example/branchOne"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <timing opname="x86" time="100" vertexname="switch_example/selector"/>
+        <timing opname="x86" time="100" vertexname="switch_example/dataProvider"/>
+        <timing opname="x86" time="100" vertexname="switch_example/branchZero"/>
+        <timing opname="x86" time="100" vertexname="switch_example/branchOne"/>
+        <timing opname="x86" time="100" vertexname="switch_example/forwardDatabis"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>
