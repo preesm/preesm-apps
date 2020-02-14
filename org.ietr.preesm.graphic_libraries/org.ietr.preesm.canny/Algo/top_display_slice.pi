@@ -7,26 +7,31 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">top_display_slice</data>
-        <node expr="1280" id="width" kind="param"/>
-        <node expr="720" id="height" kind="param"/>
+        <node expr="352" id="width" kind="param"/>
+        <node expr="288" id="height" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="4" id="nbSlice" kind="param"/>
         <node id="Read_YUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readY">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
                 <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
             </loop>
             <init name="initReadYUV">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="y"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="y"/>
             <port annotation="NONE" expr="height/2*width/2"
                 kind="output" name="u"/>
             <port annotation="NONE" expr="height/2*width/2"
@@ -42,23 +47,30 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="y"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="u"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="v"/>
         </node>
         <node id="Canny" kind="actor">
             <data key="graph_desc">Algo/canny_slice.pi</data>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbSlice"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="output"/>
         </node>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
             target="display" targetport="u" type="uchar"/>

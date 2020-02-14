@@ -15,19 +15,24 @@
         <node id="ReadYUV" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readY">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
                 <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
             </loop>
             <init name="initReadYUV">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="y"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="y"/>
             <port annotation="NONE" expr="height/2*width/2"
                 kind="output" name="u"/>
             <port annotation="NONE" expr="height/2*width/2"
@@ -43,15 +48,20 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="y"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="u"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="v"/>
         </node>
         <node id="CannySquare" kind="actor">
             <data key="graph_desc">Algo/canny_square.pi</data>
@@ -59,8 +69,10 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="nbColumn"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="output"/>
         </node>
         <edge kind="fifo" source="ReadYUV" sourceport="u"
             target="Display" targetport="u" type="uchar"/>
@@ -68,16 +80,20 @@
             target="Display" targetport="v" type="uchar"/>
         <edge kind="fifo" source="ReadYUV" sourceport="y"
             target="CannySquare" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="CannySquare" sourceport="output"
-            target="Display" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="CannySquare"
+            sourceport="output" target="Display" targetport="y" type="uchar"/>
         <edge kind="dependency" source="height" target="ReadYUV" targetport="height"/>
         <edge kind="dependency" source="width" target="ReadYUV" targetport="width"/>
         <edge kind="dependency" source="index" target="Display" targetport="id"/>
         <edge kind="dependency" source="width" target="Display" targetport="width"/>
         <edge kind="dependency" source="height" target="Display" targetport="height"/>
-        <edge kind="dependency" source="width" target="CannySquare" targetport="width"/>
-        <edge kind="dependency" source="height" target="CannySquare" targetport="height"/>
-        <edge kind="dependency" source="nbSlice" target="CannySquare" targetport="nbSlice"/>
-        <edge kind="dependency" source="nbColumn" target="CannySquare" targetport="nbColumn"/>
+        <edge kind="dependency" source="width"
+            target="CannySquare" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="CannySquare" targetport="height"/>
+        <edge kind="dependency" source="nbSlice"
+            target="CannySquare" targetport="nbSlice"/>
+        <edge kind="dependency" source="nbColumn"
+            target="CannySquare" targetport="nbColumn"/>
     </graph>
 </graphml>

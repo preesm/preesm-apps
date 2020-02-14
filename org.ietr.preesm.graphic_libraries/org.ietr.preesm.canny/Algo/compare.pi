@@ -13,24 +13,29 @@
         <node expr="1" id="nbColumn" kind="param"/>
         <node expr="height/nbSlice+2" id="sliceHeight" kind="param"/>
         <node expr="width/nbColumn+2" id="columnWidth" kind="param"/>
-        <node expr="0" id="0" kind="param"/>
-        <node expr="1" id="1" kind="param"/>
+        <node expr="0" id="zero" kind="param"/>
+        <node expr="1" id="one" kind="param"/>
         <node id="Read_Y" kind="actor">
             <data key="graph_desc">Code/include/yuvRead.h</data>
             <loop name="readY">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
                 <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
             </loop>
             <init name="initReadYUV">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="y"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="y"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="u"/>
             <port annotation="NONE" expr="width/2*height/2"
@@ -39,34 +44,48 @@
         <node id="Split" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="split">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE"
-                expr="nbSlice*(height/nbSlice+2)*width" kind="output" name="output"/>
+                expr="nbSlice*(height/nbSlice+2)*width"
+                kind="output" name="output"/>
         </node>
         <node id="Split2" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="split2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="nbColumn" type="int"/>
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbColumn" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbColumn"/>
             <port kind="cfg_input" name="nbSlice"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE"
                 expr="nbSlice*(height/nbSlice+2)*nbColumn*(width/nbColumn+2)"
                 kind="output" name="output"/>
@@ -74,107 +93,155 @@
         <node id="Duplicate_Y" kind="broadcast">
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_1"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_2"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_1"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_2"/>
         </node>
         <node id="Duplicate_Split" kind="broadcast">
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_2"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_2"/>
         </node>
         <node id="Duplicate_Split2" kind="broadcast">
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_2"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_2"/>
         </node>
         <node id="Sobel" kind="actor">
             <data key="graph_desc">Code/include/sobel2.h</data>
             <loop name="sobel2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output_x" type="char "/>
-                <param direction="OUT" isConfig="false" name="output_y" type="char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output_x" type="char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output_y" type="char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_x"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_y"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_x"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_y"/>
         </node>
         <node id="Sobel2" kind="actor">
             <data key="graph_desc">Code/include/sobel2.h</data>
             <loop name="sobel2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output_x" type="char "/>
-                <param direction="OUT" isConfig="false" name="output_y" type="char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output_x" type="char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output_y" type="char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_x"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output_y"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_x"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_y"/>
         </node>
         <node id="Canny" kind="actor">
             <data key="graph_desc">Code/include/canny.h</data>
             <loop name="canny">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
                 <param direction="IN" isConfig="false" name="gx" type="char "/>
                 <param direction="IN" isConfig="false" name="gy" type="char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="gx"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="gy"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="gx"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="gy"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <node id="Canny2" kind="actor">
             <data key="graph_desc">Code/include/canny.h</data>
             <loop name="canny">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
                 <param direction="IN" isConfig="false" name="gx" type="char "/>
                 <param direction="IN" isConfig="false" name="gy" type="char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="gx"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="gy"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="gx"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="gy"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <node id="Merge" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="merge">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port annotation="NONE"
-                expr="nbSlice*(height/nbSlice+2)*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+                expr="nbSlice*(height/nbSlice+2)*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <node id="Merge2" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="merge2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="nbColumn" type="int"/>
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbColumn" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -183,7 +250,8 @@
             <port annotation="NONE"
                 expr="nbSlice*(height/nbSlice+2)*nbColumn*(width/nbColumn+2)"
                 kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <node id="D1" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
@@ -195,15 +263,20 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="y"/>
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="v"/>
         </node>
         <node id="D2" kind="actor">
             <data key="graph_desc">Code/include/yuvDisplay.h</data>
@@ -215,20 +288,26 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="y"/>
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="u"/>
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="v"/>
         </node>
         <node id="BRU" kind="broadcast">
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="in"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="in"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="out_0"/>
             <port annotation="NONE" expr="width/2*height/2"
@@ -237,7 +316,8 @@
         <node id="BrV" kind="broadcast">
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="width"/>
-            <port annotation="NONE" expr="width/2*height/2" kind="input" name="v"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="v"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="out_0"/>
             <port annotation="NONE" expr="width/2*height/2"
@@ -245,22 +325,26 @@
         </node>
         <edge kind="fifo" source="Read_Y" sourceport="y"
             target="Duplicate_Y" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Duplicate_Y" sourceport="output_1"
-            target="Split" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Duplicate_Y" sourceport="output_2"
-            target="Split2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Read_Y" sourceport="u" target="BRU"
-            targetport="in" type="uchar"/>
-        <edge kind="fifo" source="Read_Y" sourceport="v" target="BrV"
-            targetport="v" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Y"
+            sourceport="output_1" target="Split"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Y"
+            sourceport="output_2" target="Split2"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Read_Y" sourceport="u"
+            target="BRU" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="Read_Y" sourceport="v"
+            target="BrV" targetport="v" type="uchar"/>
         <edge kind="fifo" source="Split" sourceport="output"
             target="Duplicate_Split" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Split2" sourceport="output"
             target="Duplicate_Split2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Duplicate_Split" sourceport="output_2"
-            target="Sobel" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Split"
+            sourceport="output_2" target="Sobel"
+            targetport="input" type="uchar"/>
         <edge kind="fifo" source="Duplicate_Split2"
-            sourceport="output_2" target="Sobel2" targetport="input" type="uchar"/>
+            sourceport="output_2" target="Sobel2"
+            targetport="input" type="uchar"/>
         <edge kind="fifo" source="Sobel" sourceport="output_x"
             target="Canny" targetport="gx" type="uchar"/>
         <edge kind="fifo" source="Sobel" sourceport="output_y"
@@ -273,16 +357,16 @@
             target="Merge" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Canny2" sourceport="output"
             target="Merge2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Merge" sourceport="output" target="D1"
-            targetport="y" type="uchar"/>
-        <edge kind="fifo" source="BRU" sourceport="out_0" target="D1"
-            targetport="u" type="uchar"/>
-        <edge kind="fifo" source="BRU" sourceport="out_1" target="D2"
-            targetport="u" type="uchar"/>
-        <edge kind="fifo" source="BrV" sourceport="out_0" target="D1"
-            targetport="v" type="uchar"/>
-        <edge kind="fifo" source="BrV" sourceport="out_1" target="D2"
-            targetport="v" type="uchar"/>
+        <edge kind="fifo" source="Merge" sourceport="output"
+            target="D1" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="BRU" sourceport="out_0"
+            target="D1" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="BRU" sourceport="out_1"
+            target="D2" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="BrV" sourceport="out_0"
+            target="D1" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="BrV" sourceport="out_1"
+            target="D2" targetport="v" type="uchar"/>
         <edge kind="fifo" source="Merge2" sourceport="output"
             target="D2" targetport="y" type="uchar"/>
         <edge kind="dependency" source="width" target="columnWidth"/>
@@ -291,8 +375,10 @@
         <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
         <edge kind="dependency" source="width" target="Read_Y" targetport="width"/>
         <edge kind="dependency" source="height" target="Read_Y" targetport="height"/>
-        <edge kind="dependency" source="width" target="Duplicate_Y" targetport="width"/>
-        <edge kind="dependency" source="height" target="Duplicate_Y" targetport="height"/>
+        <edge kind="dependency" source="width"
+            target="Duplicate_Y" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="Duplicate_Y" targetport="height"/>
         <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
         <edge kind="dependency" source="nbSlice" target="Split2" targetport="nbSlice"/>
         <edge kind="dependency" source="nbColumn" target="Split2" targetport="nbColumn"/>
@@ -300,7 +386,8 @@
         <edge kind="dependency" source="height" target="Split" targetport="height"/>
         <edge kind="dependency" source="width" target="Split2" targetport="width"/>
         <edge kind="dependency" source="height" target="Split2" targetport="height"/>
-        <edge kind="dependency" source="width" target="Duplicate_Split" targetport="width"/>
+        <edge kind="dependency" source="width"
+            target="Duplicate_Split" targetport="width"/>
         <edge kind="dependency" source="sliceHeight"
             target="Duplicate_Split" targetport="height"/>
         <edge kind="dependency" source="columnWidth"
@@ -308,13 +395,19 @@
         <edge kind="dependency" source="sliceHeight"
             target="Duplicate_Split2" targetport="height"/>
         <edge kind="dependency" source="width" target="Sobel" targetport="width"/>
-        <edge kind="dependency" source="sliceHeight" target="Sobel" targetport="height"/>
-        <edge kind="dependency" source="sliceHeight" target="Sobel2" targetport="height"/>
-        <edge kind="dependency" source="columnWidth" target="Sobel2" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Sobel" targetport="height"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Sobel2" targetport="height"/>
+        <edge kind="dependency" source="columnWidth"
+            target="Sobel2" targetport="width"/>
         <edge kind="dependency" source="width" target="Canny" targetport="width"/>
-        <edge kind="dependency" source="sliceHeight" target="Canny" targetport="height"/>
-        <edge kind="dependency" source="columnWidth" target="Canny2" targetport="width"/>
-        <edge kind="dependency" source="sliceHeight" target="Canny2" targetport="height"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Canny" targetport="height"/>
+        <edge kind="dependency" source="columnWidth"
+            target="Canny2" targetport="width"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Canny2" targetport="height"/>
         <edge kind="dependency" source="nbSlice" target="Merge" targetport="nbSlice"/>
         <edge kind="dependency" source="width" target="Merge" targetport="width"/>
         <edge kind="dependency" source="nbSlice" target="Merge2" targetport="nbSlice"/>
@@ -330,7 +423,7 @@
         <edge kind="dependency" source="width" target="D1" targetport="width"/>
         <edge kind="dependency" source="height" target="D2" targetport="height"/>
         <edge kind="dependency" source="height" target="D1" targetport="height"/>
-        <edge kind="dependency" source="0" target="D1" targetport="id"/>
-        <edge kind="dependency" source="1" target="D2" targetport="id"/>
+        <edge kind="dependency" source="zero" target="D1" targetport="id"/>
+        <edge kind="dependency" source="one" target="D2" targetport="id"/>
     </graph>
 </graphml>
