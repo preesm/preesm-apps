@@ -38,7 +38,7 @@
 * @return a pointer to the allocated memory.
 *
 */
-void* multiple_malloc(void** pointer, int size, int nbFree, sem_t* mutex);
+void *multiple_malloc(void **pointer, int size, int nbFree, sem_t *mutex);
 
 /**
 * Allocation function used when a single pointer is allocated once and freed
@@ -55,7 +55,7 @@ void* multiple_malloc(void** pointer, int size, int nbFree, sem_t* mutex);
 * @return a pointer to the allocated memory
 *
 */
-void* merged_malloc(int size, int nbFree);
+void *merged_malloc(int size, int nbFree);
 
 /**
 * Free function used when a single pointer is allocated once or several times
@@ -69,6 +69,6 @@ void* merged_malloc(int size, int nbFree);
 * @return a pointer to the allocated memory or 0 if the memory was freed.
 *
 */
-void*  merged_free(void* pointer, int size);
+void *merged_free(void *pointer, int size);
 
 #endif

@@ -33,7 +33,7 @@
  *        the output buffer of size nbSlice*[width*(height/nbSlice+2)]
  */
 void split(int nbSlice, int width, int height, int borderSize,
-		IN unsigned char *input, OUT unsigned char *output);
+           IN unsigned char *input, OUT unsigned char *output);
 
 /**
  * Function used to assemble nbSlices slices of size width*(height/nbSlice+
@@ -51,7 +51,7 @@ void split(int nbSlice, int width, int height, int borderSize,
  *        the output image of size width*height
  */
 void merge(int nbSlice, int width, int height, int borderSize,
-		IN unsigned char *input, OUT unsigned char *output);
+           IN unsigned char *input, OUT unsigned char *output);
 
 /**
  * Function used to split an input image of size width*height into nbSlices
@@ -75,7 +75,7 @@ void merge(int nbSlice, int width, int height, int borderSize,
  * 		  the output buffer of size
  */
 void split2(int width, int height, int nbColumn, int nbSlice, int borderSize,
-		IN unsigned char *input, OUT unsigned char *output);
+            IN unsigned char *input, OUT unsigned char *output);
 
 /**
  * Function used to assemble (nbSlice * nbColumn) blocks of size
@@ -94,6 +94,6 @@ void split2(int width, int height, int nbColumn, int nbSlice, int borderSize,
  *        the output image of size width*height
  */
 void merge2(int width, int height, int nbColumn, int nbSlice, int borderSize,
-		IN unsigned char *input, OUT unsigned char *output);
+            IN unsigned char *input, OUT unsigned char *output);
 
 #endif

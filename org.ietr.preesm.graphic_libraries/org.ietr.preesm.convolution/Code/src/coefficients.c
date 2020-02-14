@@ -1,15 +1,15 @@
 #include "coefficients.h"
 
 void setCoefficients(char *coefficients, unsigned char *norm) {
-	coefficients[0] = 1;
-	coefficients[1] = 1;
-	coefficients[2] = 1;
-	coefficients[3] = 1;
-	coefficients[4] = 1;
-	coefficients[5] = 1;
-	coefficients[6] = 1;
-	coefficients[7] = 1;
-	coefficients[8] = 1;
+    coefficients[0] = 1;
+    coefficients[1] = 1;
+    coefficients[2] = 1;
+    coefficients[3] = 1;
+    coefficients[4] = 1;
+    coefficients[5] = 1;
+    coefficients[6] = 1;
+    coefficients[7] = 1;
+    coefficients[8] = 1;
 /*
 	coefficients[9] = 0;
 	coefficients[10] = 0;
@@ -54,5 +54,5 @@ void setCoefficients(char *coefficients, unsigned char *norm) {
 	coefficients[48] = 0;
 	coefficients[49] = 0;
 */
-	*norm = 9;
+    *norm = 9;
 }

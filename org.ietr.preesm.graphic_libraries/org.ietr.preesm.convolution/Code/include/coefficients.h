@@ -28,4 +28,4 @@
  */
 void setCoefficients(OUT char *coefficients, OUT unsigned char *norm);
 
-#endif	// COEFFICIENTS_H
+#endif    // COEFFICIENTS_H

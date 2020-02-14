@@ -38,7 +38,7 @@
  *        The output image
  */
 void convolution(int width, int height, int kernelSize, int borderSize,
-		IN char *coefficients, IN unsigned char *norm, IN unsigned char *input,
-		OUT unsigned char *output);
+                 IN char *coefficients, IN unsigned char *norm, IN unsigned char *input,
+                 OUT unsigned char *output);
 
-#endif	// CONVOLUTION_H
+#endif    // CONVOLUTION_H

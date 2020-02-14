@@ -45,6 +45,6 @@ void initReadYUV(int width, int height);
  *       Destination of the V component read from the file
  */
 void readY(int width, int height, OUT unsigned char *y, OUT unsigned char *u,
-		OUT unsigned char *v);
+           OUT unsigned char *v);
 
 #endif

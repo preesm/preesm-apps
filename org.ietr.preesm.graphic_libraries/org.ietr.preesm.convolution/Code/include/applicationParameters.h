@@ -68,7 +68,7 @@
 /**
  * Filter size
  */
-#define KERNEL_SIZE	3
+#define KERNEL_SIZE    3
 /**
  * Border size
  */
