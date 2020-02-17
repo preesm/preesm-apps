@@ -2,67 +2,73 @@
 #include <string.h>
 
 #include "preesm.h"
-#include "applicationParameters.h"
+#include "yuv-information.h"
 
-// #define VERBOSE
 #ifdef VERBOSE
+
 #include <stdio.h>
+
 #endif
 
-int stopThreads = 0;
+int preesmStopThreads = 0;
 
 extern int nbDisplay;
 extern int display_h;
 extern int display_w;
 
-int main(int argc, char** argv) {
-	// Declarations
-	static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
-			* WIDTH / 4];
-	static unsigned char yFiltered[HEIGHT * WIDTH];
-	static unsigned char ySub[HEIGHT * WIDTH / 4], uSub[HEIGHT * WIDTH / 16],
-			vSub[HEIGHT * WIDTH / 16];
-	static unsigned char yDisp[HEIGHT * WIDTH], uDisp[HEIGHT * WIDTH],
-			vDisp[HEIGHT * WIDTH];
-	unsigned int frameIndex = 1;
+int main(int argc, char **argv) {
+    (void) (argc);
+    (void) (argv);
+    // Declarations
+    static unsigned char y[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char u[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char v[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char yFiltered[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char ySub[VIDEO_HEIGHT * VIDEO_WIDTH / 4];
+    static unsigned char uSub[VIDEO_HEIGHT * VIDEO_WIDTH / 16];
+    static unsigned char vSub[VIDEO_HEIGHT * VIDEO_WIDTH / 16];
+    static unsigned char yDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char uDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char vDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
+    unsigned int frameIndex = 1;
 
-	// Init display
-	yuvDisplayInit(0, 1, WIDTH, HEIGHT, WIDTH, HEIGHT);
-	// Init read
-	initReadYUV(WIDTH, HEIGHT);
+    // Init display
+    yuvDisplayInit(0, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
+    // Init read
+    initReadYUV(VIDEO_WIDTH, VIDEO_HEIGHT);
 
-	while (!stopThreads) {
-		// Read a frame
-		readYUV(WIDTH, HEIGHT, y, u, v);
+    while (!preesmStopThreads) {
+        // Read a frame
+        readYUV(VIDEO_WIDTH, VIDEO_HEIGHT, y, u, v);
 
-		// Apply Gaussian filter
-		gaussian(WIDTH, HEIGHT, y, yFiltered);
+        // Apply Gaussian filter
+        gaussian(VIDEO_WIDTH, VIDEO_HEIGHT, y, yFiltered);
 
-		// Sub-Sampling
-		subsample(WIDTH, HEIGHT, yFiltered, ySub);
-		subsample(WIDTH / 2, HEIGHT / 2, u, uSub);
-		subsample(WIDTH / 2, HEIGHT / 2, v, vSub);
+        // Sub-Sampling
+        subsample(VIDEO_WIDTH, VIDEO_HEIGHT, yFiltered, ySub);
+        subsample(VIDEO_WIDTH / 2, VIDEO_HEIGHT / 2, u, uSub);
+        subsample(VIDEO_WIDTH / 2, VIDEO_HEIGHT / 2, v, vSub);
 
-		// Up-Sampling
-		upsample(WIDTH / 2, HEIGHT / 2, ySub, yDisp);
-		upsample(WIDTH / 4, HEIGHT / 4, uSub, uDisp);
-		upsample(WIDTH / 4, HEIGHT / 4, vSub, vDisp);
+        // Up-Sampling
+        upsample(VIDEO_WIDTH / 2, VIDEO_HEIGHT / 2, ySub, yDisp);
+        upsample(VIDEO_WIDTH / 4, VIDEO_HEIGHT / 4, uSub, uDisp);
+        upsample(VIDEO_WIDTH / 4, VIDEO_HEIGHT / 4, vSub, vDisp);
 
-		// Display sampled image
-		yuvDisplay(0, yDisp, uDisp, vDisp);
+        // Display sampled image
+        yuvDisplay(0, yDisp, uDisp, vDisp);
 
-		// Exit ?
-		frameIndex++;
-		if (frameIndex == NB_FRAME) {
-			stopThreads++;
-		}
-	}
+        // Exit ?
+        frameIndex++;
+        if (frameIndex == VIDEO_FRAME_COUNT) {
+            preesmStopThreads++;
+        }
+    }
 
-	yuvFinalize(0);
+    yuvFinalize(0);
 
 #ifdef VERBOSE
-	printf("Exit program\n");
+    printf("Exit program\n");
 #endif
 
-	return 0;
+    return 0;
 }
