@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     static unsigned char yDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
 
     // Init display
-    yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
+    yuvDisplayInit(0, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
     // Init read
     initReadYUV(VIDEO_WIDTH, VIDEO_HEIGHT);
 
