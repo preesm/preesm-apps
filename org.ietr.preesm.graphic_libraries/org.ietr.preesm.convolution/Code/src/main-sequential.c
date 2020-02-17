@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "applicationParameters.h"
 #include "preesm.h"
 
 // #define VERBOSE
@@ -11,39 +10,45 @@
 
 #endif
 
+#define KERNEL_SIZE 3
+#define BORDER_SIZE 1
+
 int preesmStopThreads = 0;
 
 int main(int argc, char **argv) {
+    (void) (argc);
+    (void) (argv);
     // Declarations
-    static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
-                                                                     * WIDTH / 4];
-    static unsigned char yDisp[HEIGHT * WIDTH];
+    static unsigned char y[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char u[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char v[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char yDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
     static char coefficients[KERNEL_SIZE * KERNEL_SIZE];
     static unsigned char norm;
     unsigned int frameIndex = 1;
 
     // Init display
-    yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
+    yuvDisplayInit(0, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
     // Init read
-    initReadYUV(WIDTH, HEIGHT);
+    initReadYUV(VIDEO_WIDTH, VIDEO_HEIGHT);
+
 
     while (!preesmStopThreads) {
         // Read a frame
-        readY(WIDTH, HEIGHT, y, u, v);
+        readYComponent(VIDEO_WIDTH, VIDEO_HEIGHT, y, u, v);
 
         // Set coefficients
         setCoefficients(coefficients, &norm);
 
         // Convolution
-        convolution(WIDTH, HEIGHT, KERNEL_SIZE, BORDER_SIZE, coefficients,
-                    &norm, y, yDisp);
+        convolution(VIDEO_WIDTH, VIDEO_HEIGHT, KERNEL_SIZE, BORDER_SIZE, coefficients, &norm, y, yDisp);
 
         // Display filtered image
         yuvDisplay(0, yDisp, u, v);
 
         // Exit ?
         frameIndex++;
-        if (frameIndex == NB_FRAME) {
+        if (frameIndex == VIDEO_FRAME_COUNT) {
             preesmStopThreads++;
         }
     }

@@ -7,8 +7,8 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">top_display_slice</data>
-        <node expr="1280" id="width" kind="param"/>
-        <node expr="720" id="height" kind="param"/>
+        <node expr="352" id="width" kind="param"/>
+        <node expr="288" id="height" kind="param"/>
         <node expr="4" id="nbSlice" kind="param"/>
         <node expr="3" id="kernelSize" kind="param"/>
         <node expr="1" id="borderSize" kind="param"/>
@@ -26,8 +26,8 @@
                 kind="output" name="output"/>
         </node>
         <node id="Read_YUV" kind="actor">
-            <data key="graph_desc">Code/include/yuvRead.h</data>
-            <loop name="readY">
+            <data key="graph_desc">Code/include/yuv-read.h</data>
+            <loop name="readYComponent">
                 <param direction="IN" isConfig="true"
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
@@ -52,7 +52,7 @@
                 kind="output" name="v"/>
         </node>
         <node id="Display" kind="actor">
-            <data key="graph_desc">Code/include/yuvDisplay.h</data>
+            <data key="graph_desc">Code/include/yuv-display.h</data>
             <loop name="yuvDisplay">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
@@ -65,10 +65,16 @@
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
             <port annotation="NONE" expr="width*height"
                 kind="input" name="y"/>
             <port annotation="NONE" expr="width/2*height/2"
@@ -99,5 +105,7 @@
             target="Convolution" targetport="borderSize"/>
         <edge kind="dependency" source="kernelSize"
             target="Convolution" targetport="kernelSize"/>
+        <edge kind="dependency" source="width" target="Display" targetport="displayWidth"/>
+        <edge kind="dependency" source="height" target="Display" targetport="displayHeight"/>
     </graph>
 </graphml>
