@@ -7,9 +7,6 @@
 #  Julien Heulot <julien.heulot@insa-rennes.fr> (2013 - 2015)
 #  Yaset Oliva <yaset.oliva@insa-rennes.fr> (2013 - 2014)
 # 
-#  Spider is a dataflow based runtime used to execute dynamic PiSDF
-#  applications. The Preesm tool may be used to design PiSDF applications.
-# 
 #  This software is governed by the CeCILL  license under French law and
 #  abiding by the rules of distribution of free software.  You can  use,
 #  modify and/ or redistribute the software under the terms of the CeCILL

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.harris/Algo/top_display_square.pi"/>
+        <architecture url="/org.ietr.preesm.harris/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.harris/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display_square/Read_YUV"/>
+            <task name="top_display_square/display"/>
+            <task name="top_display_square/Harris2"/>
+            <task name="top_display_square/Harris2/Harris"/>
+            <task name="top_display_square/Harris2/Split2"/>
+            <task name="top_display_square/Harris2/Merge2"/>
+            <task name="top_display_square/Harris2/Sobel"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <timing opname="x86" time="100" vertexname="top_display_square/Read_YUV"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/display"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2/DuplicateY"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2/Harris"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2/input"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2/output"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2/Split2"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/Harris2/Merge2"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

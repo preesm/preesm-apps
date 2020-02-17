@@ -7,34 +7,39 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">top_display_square</data>
-        <node expr="1280" id="width" kind="param"/>
-        <node expr="720" id="height" kind="param"/>
+        <node expr="352" id="width" kind="param"/>
+        <node expr="288" id="height" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="2" id="nbSlice" kind="param"/>
         <node expr="2" id="nbColumn" kind="param"/>
         <node id="Read_YUV" kind="actor">
-            <data key="graph_desc">Code/include/yuvRead.h</data>
-            <loop name="readY">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+            <data key="graph_desc">Code/include/yuv-read.h</data>
+            <loop name="readYComponent">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
                 <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
                 <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
             </loop>
             <init name="initReadYUV">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="y"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="y"/>
             <port annotation="NONE" expr="height/2*width/2"
                 kind="output" name="u"/>
             <port annotation="NONE" expr="height/2*width/2"
                 kind="output" name="v"/>
         </node>
         <node id="display" kind="actor">
-            <data key="graph_desc">Code/include/yuvDisplay.h</data>
+            <data key="graph_desc">Code/include/yuv-display.h</data>
             <loop name="yuvDisplay">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="false" name="y" type="unsigned char"/>
@@ -43,15 +48,20 @@
             </loop>
             <init name="yuvDisplayInit">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="y"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="u"/>
-            <port annotation="NONE" expr="height/2*width/2" kind="input" name="v"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="v"/>
         </node>
         <node id="Harris2" kind="actor">
             <data key="graph_desc">Algo/harris_square.pi</data>
@@ -59,8 +69,10 @@
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbColumn"/>
             <port kind="cfg_input" name="nbSlice"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="output"/>
         </node>
         <edge kind="fifo" source="Read_YUV" sourceport="u"
             target="display" targetport="u" type="uchar"/>
@@ -76,7 +88,8 @@
         <edge kind="dependency" source="height" target="display" targetport="height"/>
         <edge kind="dependency" source="index" target="display" targetport="id"/>
         <edge kind="dependency" source="nbSlice" target="Harris2" targetport="nbSlice"/>
-        <edge kind="dependency" source="nbColumn" target="Harris2" targetport="nbColumn"/>
+        <edge kind="dependency" source="nbColumn"
+            target="Harris2" targetport="nbColumn"/>
         <edge kind="dependency" source="width" target="Harris2" targetport="width"/>
         <edge kind="dependency" source="height" target="Harris2" targetport="height"/>
     </graph>

@@ -17,13 +17,13 @@
 /**
  * HARRIS_K an empirically determined constant between 0.04 and 0.06.
  */
-#define HARRIS_K			0.04
+#define HARRIS_K            0.04
 
 /**
  * A threshold used for non-maximum supression.
  * Value suggested between 0.00001 and 0.00008.
  */
-#define HARRIS_THRESHOLD	0.00002
+#define HARRIS_THRESHOLD    0.00002
 
 /**
  * Function to apply the Harris corner detection to an image of size
@@ -47,7 +47,6 @@
  * @param output
  *        The y component of the output image
  */
-void harris(int width, int height, IN unsigned char *y, IN char *gx,
-		IN char *gy, OUT unsigned char *output);
+void harris(int width, int height, IN unsigned char *y, IN char *gx, IN char *gy, OUT unsigned char *output);
 
-#endif	// HARRIS_H
+#endif    // HARRIS_H

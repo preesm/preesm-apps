@@ -21,9 +21,9 @@
 #include <string.h>
 #include <semaphore.h>
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
-#include "sobel2.h"
+#include "yuv-read.h"
+#include "yuv-display.h"
+#include "sobel.h"
 #include "splitMerge.h"
 #include "harris.h"
 
