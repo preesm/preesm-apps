@@ -43,7 +43,6 @@ cmake_minimum_required(VERSION 3.1)
 # 
 # Programs
 #  - preesm-gaussian-ipm
-#  - preesm-gaussian-ipm
 
 project(preesm-ipm
         LANGUAGES C)
@@ -156,13 +155,6 @@ file(
         ${CMAKE_SOURCE_DIR}/generated/*.h
 )
 
-list(
-        REMOVE_ITEM
-        IPM_SRC
-        ${CMAKE_SOURCE_DIR}/src/main-sequential.c
-)
-
-
 # Set the include directories to use <> instead of ""
 include_directories(
         ${PTHREADDIR}/include
@@ -174,20 +166,3 @@ include_directories(
 
 add_executable(${PROJECT_NAME} ${IPM_SRC})
 target_link_libraries(${PROJECT_NAME} ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} m)
-
-# ******************************************************
-# *************** sequential preesm-ipm ****************
-# ******************************************************
-
-# Add the files
-file(
-        GLOB_RECURSE
-        IPM_SEQ_SRC
-        ${CMAKE_SOURCE_DIR}/src/*.c
-        ${CMAKE_SOURCE_DIR}/include/*.h
-        ${CMAKE_SOURCE_DIR}/generated/*.h
-)
-
-add_executable(${PROJECT_NAME}-sequential ${IPM_SEQ_SRC})
-target_link_libraries(${PROJECT_NAME}-sequential ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} m)
-
