@@ -16,8 +16,8 @@
 
 #include <stdint.h>
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
+#include "yuv-read.h"
+#include "yuv-display.h"
 #include "rotate.h"
 #include "splitMerge.h"
 
