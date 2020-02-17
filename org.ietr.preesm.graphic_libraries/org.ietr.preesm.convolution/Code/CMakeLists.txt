@@ -1,6 +1,7 @@
 #  Copyright or © or Copr. IETR/INSA - Rennes (2013 - 2019) :
 # 
 #  Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
+#  Zhijin Zhang <zhzhang@insa-rennes.fr> (2018)
 #  Clément Guy <clement.guy@insa-rennes.fr> (2014)
 #  Florian Arrestier <florian.arrestier@insa-rennes.fr> (2017-2019)
 #  Hugo Miomandre <hugo.miomandre@insa-rennes.fr> (2017)
@@ -41,8 +42,8 @@ cmake_minimum_required(VERSION 3.1)
 # This CMake create a workspace containing the following projects
 # 
 # Programs
-#  - preesm-canny
-#  - preesm-canny-sequential
+#  - preesm-convolution
+#  - preesm-convolution-sequential
 
 project(preesm-convolution
         LANGUAGES C)
@@ -141,9 +142,9 @@ if (NOT CMAKE_CONFIGURATION_TYPES)
     endif ()
 endif ()
 
-# ****************************************************************
-# *************** parallel generated preesm-canny ****************
-# ****************************************************************
+# **********************************************************************
+# *************** parallel generated preesm-convolution ****************
+# **********************************************************************
 
 # Add the files
 file(
@@ -174,9 +175,9 @@ include_directories(
 add_executable(${PROJECT_NAME} ${CONVOLUTION_SRC})
 target_link_libraries(${PROJECT_NAME} ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} m)
 
-# ********************************************************
-# *************** sequential preesm-canny ****************
-# ********************************************************
+# **************************************************************
+# *************** sequential preesm-convolution ****************
+# **************************************************************
 
 # Add the files
 file(
