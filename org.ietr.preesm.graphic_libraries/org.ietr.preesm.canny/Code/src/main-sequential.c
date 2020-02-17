@@ -1,47 +1,48 @@
-#include <stdlib.h>
-#include <string.h>
-
-#include "applicationParameters.h"
 #include "preesm.h"
+#include "yuv-read.h"
+#include "yuv-display.h"
 
-// #define VERBOSE
 #ifdef VERBOSE
 
 #include <stdio.h>
 
 #endif
 
-int stopThreads = 0;
+int preesmStopThreads = 0;
 
 int main(int argc, char **argv) {
+    (void) (argc);
+    (void) (argv);
     // Declarations
-    static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
-                                                                     * WIDTH / 4];
-    static char gx[HEIGHT * WIDTH], gy[HEIGHT * WIDTH];
+    static unsigned char y[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char u[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char v[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static char gx[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static char gy[VIDEO_HEIGHT * VIDEO_WIDTH];
     unsigned int frameIndex = 1;
 
     // Init display
     yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
     // Init read
-    initReadYUV(WIDTH, HEIGHT);
+    initReadYUV(VIDEO_WIDTH, VIDEO_HEIGHT);
 
-    while (!stopThreads) {
+    while (!preesmStopThreads) {
         // Read a frame
-        readY(WIDTH, HEIGHT, y, u, v);
+        readYComponent(VIDEO_WIDTH, VIDEO_HEIGHT, y, u, v);
 
         // Apply Sobel filter
-        sobel2(WIDTH, HEIGHT, y, gx, gy);
+        sobel_raw(VIDEO_WIDTH, VIDEO_HEIGHT, y, gx, gy);
 
-        // Apply Harris detector
-        canny(WIDTH, HEIGHT, gx, gy, y);
+        // Apply Canny filter
+        canny(VIDEO_WIDTH, VIDEO_HEIGHT, gx, gy, y);
 
         // Display filtered image
         yuvDisplay(0, y, u, v);
 
         // Exit ?
         frameIndex++;
-        if (frameIndex == NB_FRAME) {
-            stopThreads++;
+        if (frameIndex == VIDEO_FRAME_COUNT) {
+            preesmStopThreads++;
         }
     }
 

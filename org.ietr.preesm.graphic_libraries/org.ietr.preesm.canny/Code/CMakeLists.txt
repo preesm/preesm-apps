@@ -57,6 +57,14 @@ add_definitions(-DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 # See https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html
 include(GNUInstallDirs)
 
+# Encourage user to specify a build type (e.g. Release, Debug, etc.), otherwise set it to Release.
+if (NOT CMAKE_CONFIGURATION_TYPES)
+    if (NOT CMAKE_BUILD_TYPE)
+        message(STATUS "Setting build type to 'Release' as none was specified.")
+        set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
+    endif ()
+endif ()
+
 # Control where libraries and executables are placed during the build.
 # With the following settings executables are placed in <the top level of the
 # build tree>/bin and libraries/archives in <top level of the build tree>/lib.
@@ -64,7 +72,7 @@ include(GNUInstallDirs)
 # machines: tests, which are executables, are placed in the same folders of
 # dlls, which are treated as executables as well, so that they can properly
 # find the libraries to run. This is a because of missing RPATH on Windows.
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}")
 
 # Compiler specific settings
 if (MSVC)
@@ -135,14 +143,6 @@ include(FindSDL2)
 
 # Find SDL2TTF
 include(FindSDL2TTF)
-
-# Encourage user to specify a build type (e.g. Release, Debug, etc.), otherwise set it to Release.
-if (NOT CMAKE_CONFIGURATION_TYPES)
-    if (NOT CMAKE_BUILD_TYPE)
-        message(STATUS "Setting build type to 'Release' as none was specified.")
-        set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
-    endif ()
-endif ()
 
 # ****************************************************************
 # *************** parallel generated preesm-canny ****************

@@ -11,9 +11,9 @@
         <node expr="288" id="height" kind="param"/>
         <node expr="0" id="index" kind="param"/>
         <node expr="4" id="nbSlice" kind="param"/>
-        <node id="Read_YUV" kind="actor">
-            <data key="graph_desc">Code/include/yuvRead.h</data>
-            <loop name="readY">
+        <node id="ReadYUV" kind="actor">
+            <data key="graph_desc">Code/include/yuv-read.h</data>
+            <loop name="readYComponent">
                 <param direction="IN" isConfig="true"
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
@@ -37,8 +37,8 @@
             <port annotation="NONE" expr="height/2*width/2"
                 kind="output" name="v"/>
         </node>
-        <node id="display" kind="actor">
-            <data key="graph_desc">Code/include/yuvDisplay.h</data>
+        <node id="Display" kind="actor">
+            <data key="graph_desc">Code/include/yuv-display.h</data>
             <loop name="yuvDisplay">
                 <param direction="IN" isConfig="true" name="id" type="int"/>
                 <param direction="IN" isConfig="false" name="y" type="unsigned char"/>
@@ -72,19 +72,19 @@
             <port annotation="NONE" expr="height*width"
                 kind="output" name="output"/>
         </node>
-        <edge kind="fifo" source="Read_YUV" sourceport="u"
-            target="display" targetport="u" type="uchar"/>
-        <edge kind="fifo" source="Read_YUV" sourceport="v"
-            target="display" targetport="v" type="uchar"/>
-        <edge kind="fifo" source="Read_YUV" sourceport="y"
+        <edge kind="fifo" source="ReadYUV" sourceport="u"
+            target="Display" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="ReadYUV" sourceport="v"
+            target="Display" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="ReadYUV" sourceport="y"
             target="Canny" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Canny" sourceport="output"
-            target="display" targetport="y" type="uchar"/>
-        <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
-        <edge kind="dependency" source="height" target="Read_YUV" targetport="height"/>
-        <edge kind="dependency" source="width" target="display" targetport="width"/>
-        <edge kind="dependency" source="height" target="display" targetport="height"/>
-        <edge kind="dependency" source="index" target="display" targetport="id"/>
+            target="Display" targetport="y" type="uchar"/>
+        <edge kind="dependency" source="width" target="ReadYUV" targetport="width"/>
+        <edge kind="dependency" source="height" target="ReadYUV" targetport="height"/>
+        <edge kind="dependency" source="width" target="Display" targetport="width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="height"/>
+        <edge kind="dependency" source="index" target="Display" targetport="id"/>
         <edge kind="dependency" source="width" target="Canny" targetport="width"/>
         <edge kind="dependency" source="height" target="Canny" targetport="height"/>
         <edge kind="dependency" source="nbSlice" target="Canny" targetport="nbSlice"/>

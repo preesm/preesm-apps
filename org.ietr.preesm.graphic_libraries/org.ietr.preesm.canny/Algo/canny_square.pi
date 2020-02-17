@@ -14,30 +14,28 @@
         <node expr="height/nbSlice+2*borderSize" id="sliceHeight" kind="param"/>
         <node expr="width/nbColumn+2*borderSize" id="columnWidth" kind="param"/>
         <node expr="2" id="borderSize" kind="param"/>
-        <node id="Sobel2" kind="actor">
-            <data key="graph_desc">Code/include/sobel2.h</data>
-            <loop name="sobel2">
+        <node id="Sobel" kind="actor">
+            <data key="graph_desc">Code/include/sobel.h</data>
+            <loop name="sobel_raw">
                 <param direction="IN" isConfig="true"
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="height" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false"
-                    name="output_x" type="char "/>
-                <param direction="OUT" isConfig="false"
-                    name="output_y" type="char "/>
+                <param direction="OUT" isConfig="false" name="gx" type="char "/>
+                <param direction="OUT" isConfig="false" name="gy" type="char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port annotation="NONE" expr="height*width"
                 kind="input" name="input"/>
             <port annotation="NONE" expr="height*width"
-                kind="output" name="output_x"/>
+                kind="output" name="gx"/>
             <port annotation="NONE" expr="height*width"
-                kind="output" name="output_y"/>
+                kind="output" name="gy"/>
         </node>
-        <node id="Calculation" kind="actor">
+        <node id="Canny" kind="actor">
             <data key="graph_desc">Code/include/canny.h</data>
             <loop name="canny">
                 <param direction="IN" isConfig="true"
@@ -128,17 +126,16 @@
             <port annotation="NONE" expr="height*width"
                 kind="output" name="output"/>
         </node>
-        <edge kind="fifo" source="Sobel2" sourceport="output_x"
-            target="Calculation" targetport="gx" type="char"/>
-        <edge kind="fifo" source="Sobel2" sourceport="output_y"
-            target="Calculation" targetport="gy" type="char"/>
+        <edge kind="fifo" source="Sobel" sourceport="gx"
+            target="Canny" targetport="gx" type="char"/>
+        <edge kind="fifo" source="Sobel" sourceport="gy"
+            target="Canny" targetport="gy" type="char"/>
         <edge kind="fifo" source="input" sourceport="input"
             target="Split2" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Split2" sourceport="output"
-            target="Sobel2" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Calculation"
-            sourceport="output" target="Merge2"
-            targetport="input" type="uchar"/>
+            target="Sobel" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Canny" sourceport="output"
+            target="Merge2" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Merge2" sourceport="output"
             target="output" targetport="output" type="uchar"/>
         <edge kind="dependency" source="height" target="sliceHeight"/>
@@ -146,13 +143,13 @@
         <edge kind="dependency" source="nbColumn" target="columnWidth"/>
         <edge kind="dependency" source="width" target="columnWidth"/>
         <edge kind="dependency" source="sliceHeight"
-            target="Sobel2" targetport="height"/>
+            target="Sobel" targetport="height"/>
         <edge kind="dependency" source="columnWidth"
-            target="Sobel2" targetport="width"/>
+            target="Sobel" targetport="width"/>
         <edge kind="dependency" source="sliceHeight"
-            target="Calculation" targetport="height"/>
+            target="Canny" targetport="height"/>
         <edge kind="dependency" source="columnWidth"
-            target="Calculation" targetport="width"/>
+            target="Canny" targetport="width"/>
         <edge kind="dependency" source="width" target="output"/>
         <edge kind="dependency" source="height" target="output"/>
         <edge kind="dependency" source="width" target="input"/>

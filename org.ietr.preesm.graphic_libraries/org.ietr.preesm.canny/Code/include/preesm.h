@@ -16,15 +16,14 @@
 
 #include <stdint.h>
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
-#include "sobel2.h"
+#include "yuv-read.h"
+#include "yuv-display.h"
+#include "sobel.h"
 #include "splitMerge.h"
 #include "canny.h"
 #include "md5.h"
 
 #include "compare.h"
-#include "uvConsume.h"
 
 typedef unsigned char uchar;
 
