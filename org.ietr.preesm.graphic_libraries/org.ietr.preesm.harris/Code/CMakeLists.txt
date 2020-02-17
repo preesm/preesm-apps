@@ -77,9 +77,9 @@ if (MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> CONFIGURATIONS "Debug" "RelWithDebInfo" DESTINATION "${CMAKE_INSTALL_BINDIR}")
 else ()
-    set(CANNY_WARNING_FLAGS "-Wall -Wextra -pedantic-errors -Wconversion -Wformat")
-    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -pg -O0 ${CANNY_WARNING_FLAGS}")
-    set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG ${CANNY_WARNING_FLAGS}")
+    set(HARRIS_WARNING_FLAGS "-Wall -Wextra -pedantic-errors -Wconversion -Wformat")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -pg -O0 ${HARRIS_WARNING_FLAGS}")
+    set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG ${HARRIS_WARNING_FLAGS}")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         message(STATUS "Using Link Time Optimization (-flto) on GNU platforms.")
         set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -flto")
@@ -142,7 +142,7 @@ include(FindSDL2)
 include(FindSDL2TTF)
 
 # ****************************************************************
-# *************** parallel generated preesm-canny ****************
+# *************** parallel generated preesm-harris ***************
 # ****************************************************************
 
 # Add the files
@@ -175,7 +175,7 @@ add_executable(${PROJECT_NAME} ${HARRIS_SRC})
 target_link_libraries(${PROJECT_NAME} ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} m)
 
 # ********************************************************
-# *************** sequential preesm-canny ****************
+# *************** sequential preesm-harris ***************
 # ********************************************************
 
 # Add the files
