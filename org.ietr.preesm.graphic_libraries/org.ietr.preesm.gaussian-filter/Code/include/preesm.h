@@ -16,8 +16,8 @@
 
 #include <stdint.h>
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
+#include "yuv-read.h"
+#include "yuv-display.h"
 #include "splitMerge.h"
 #include "gaussian.h"
 #include "md5.h"

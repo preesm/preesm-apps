@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "applicationParameters.h"
 #include "preesm.h"
 
 // #define VERBOSE
@@ -9,34 +8,37 @@
 #include <stdio.h>
 #endif
 
-int stopThreads = 0;
+int preesmStopThreads = 0;
 
 int main(int argc, char** argv) {
-	// Declarations
-	static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
-			* WIDTH / 4];
-	static unsigned char yDisp[HEIGHT * WIDTH];
+    (void) (argc);
+    (void) (argv);
+    // Declarations
+    static unsigned char y[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char u[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char v[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+	static unsigned char yDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
 	unsigned int frameIndex = 1;
 
-	// Init display
-	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
-	// Init read
-	initReadYUV(WIDTH, HEIGHT);
+    // Init display
+    yuvDisplayInit(0, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
+    // Init read
+    initReadYUV(VIDEO_WIDTH, VIDEO_HEIGHT);
 
-	while (!stopThreads) {
-		// Read a frame
-		readYUV(WIDTH, HEIGHT, y, u, v);
+    while (!preesmStopThreads) {
+        // Read a frame
+        readYUV(VIDEO_WIDTH, VIDEO_HEIGHT, y, u, v);
 
 		// Apply Gaussian filter
-		gaussian(WIDTH, HEIGHT, y, yDisp);
+		gaussian(VIDEO_WIDTH, VIDEO_HEIGHT, y, yDisp);
 
 		// Display filtered image
 		yuvDisplay(0, yDisp, u, v);
 
 		// Exit ?
 		frameIndex++;
-		if (frameIndex == NB_FRAME) {
-			stopThreads++;
+		if (frameIndex == VIDEO_FRAME_COUNT) {
+            preesmStopThreads++;
 		}
 	}
 
