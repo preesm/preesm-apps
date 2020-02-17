@@ -117,15 +117,7 @@ static int exitCallBack(void *userdata, SDL_Event *event) {
     return 1;
 }
 
-/**
-* Initializes a display frame. Be careful, once a window size has been chosen,
-* all videos must share the same window size
-*
-* @param id display unique identifier
-* @param width  Width of the video
-* @param height Height of the video
-*/
-void yuvDisplayInit(int id, int width, int height) {
+void yuvDisplayInit(int id, int width, int height, int displayWidth, int displayHeight) {
     if (id >= NB_DISPLAY) {
         fprintf(stderr, "ERROR: Display id[%d] is not compatible with the number of display[%d].\n", id, NB_DISPLAY);
 #ifdef _WIN32
@@ -133,15 +125,15 @@ void yuvDisplayInit(int id, int width, int height) {
 #endif
         exit(1);
     }
-    if (height > DISPLAY_H) {
+    if (height > displayHeight) {
         fprintf(stderr,
                 "WARNING: SDL screen height[%d] is smaller thant video height[%d], content will be shrunk to fit in display.\n",
-                DISPLAY_H, height);
+                displayHeight, height);
     }
-    if (display.currentXMin + width > DISPLAY_W) {
+    if (display.currentXMin + width > displayWidth) {
         fprintf(stderr,
                 "ERROR: SDL screen width [%d] is smaller than video width [%d], content can not fit in display.\n",
-                DISPLAY_W, display.currentXMin + width);
+                displayWidth, display.currentXMin + width);
         exit(1);
     }
     if (!display.initialized) {
@@ -177,7 +169,8 @@ void yuvDisplayInit(int id, int width, int height) {
             exit(1);
         }
 
-        display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, DISPLAY_W, DISPLAY_H,
+        display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, displayWidth,
+                                          displayHeight,
                                           SDL_WINDOW_SHOWN);
         if (!display.screen) {
             fprintf(stderr, "ERROR: failed to created main window: %s\n", SDL_GetError());

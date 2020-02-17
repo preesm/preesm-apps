@@ -52,10 +52,16 @@
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
             </init>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
             <port annotation="NONE" expr="height*width"
                 kind="input" name="y"/>
             <port annotation="NONE" expr="height/2*width/2"
@@ -92,5 +98,7 @@
             target="Harris2" targetport="nbColumn"/>
         <edge kind="dependency" source="width" target="Harris2" targetport="width"/>
         <edge kind="dependency" source="height" target="Harris2" targetport="height"/>
+        <edge kind="dependency" source="width" target="display" targetport="displayWidth"/>
+        <edge kind="dependency" source="height" target="display" targetport="displayHeight"/>
     </graph>
 </graphml>

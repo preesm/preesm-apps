@@ -14,6 +14,8 @@
         <node expr="0" id="zero" kind="param"/>
         <node expr="1" id="one" kind="param"/>
         <node expr="2" id="nbSlice_square" kind="param"/>
+        <node expr="width*2" id="displayWidth" kind="param"/>
+        <node expr="height" id="displayHeight" kind="param"/>
         <node id="Read_Y" kind="actor">
             <data key="graph_desc">Code/include/yuv-read.h</data>
             <loop name="readYComponent">
@@ -64,10 +66,16 @@
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
             <port annotation="READ_ONLY" expr="width*height"
                 kind="input" name="y"/>
             <port annotation="READ_ONLY" expr="width/2*height/2"
@@ -89,10 +97,16 @@
                     name="width" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
             </init>
             <port kind="cfg_input" name="id"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
             <port annotation="READ_ONLY" expr="width*height"
                 kind="input" name="y"/>
             <port annotation="READ_ONLY" expr="width/2*height/2"
@@ -195,5 +209,13 @@
             target="CannySlice" targetport="nbSlice"/>
         <edge kind="dependency" source="nbSlice_square"
             target="CannySquare" targetport="nbSlice"/>
+        <edge kind="dependency" source="width" target="displayWidth"/>
+        <edge kind="dependency" source="displayWidth" target="D1" targetport="displayWidth"/>
+        <edge kind="dependency" source="displayWidth" target="D2" targetport="displayWidth"/>
+        <edge kind="dependency" source="displayHeight"
+            target="D1" targetport="displayHeight"/>
+        <edge kind="dependency" source="displayHeight"
+            target="D2" targetport="displayHeight"/>
+        <edge kind="dependency" source="height" target="displayHeight"/>
     </graph>
 </graphml>

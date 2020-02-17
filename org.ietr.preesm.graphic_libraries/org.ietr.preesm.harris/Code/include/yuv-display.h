@@ -54,9 +54,7 @@
 
 /* === Define(s) === */
 
-#define NB_DISPLAY 1
-#define DISPLAY_W (VIDEO_WIDTH * NB_DISPLAY)
-#define DISPLAY_H (VIDEO_HEIGHT)
+#define NB_DISPLAY 2
 #define FPS_MEAN 50
 
 /* === Function(s) declaration === */
@@ -105,7 +103,7 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, IN unsigned char *y, IN unsigned
 * @param height
 *        the height of the initialized display
 */
-void yuvDisplayInit(int id, int width, int height);
+void yuvDisplayInit(int id, int width, int height, int displayWidth, int displayHeight);
 
 /**
  * @brief Clean up everything related to SDL.
