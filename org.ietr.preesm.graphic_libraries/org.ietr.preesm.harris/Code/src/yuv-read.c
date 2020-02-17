@@ -104,3 +104,21 @@ void readYComponent(int width, int height, unsigned char *y, unsigned char *u, u
         uvInitialized++;
     }
 }
+
+void readYUV(int width, int height, unsigned char *y, unsigned char *u, unsigned char *v) {
+    if (ftell(ptfile) / (width * height + width * height / 2) >= VIDEO_FRAME_COUNT) {
+        rewind(ptfile);
+        unsigned int time = stopTiming(0);
+        fprintf(stderr, "INFO: read %d frames in %u us --> %f fps\n", VIDEO_FRAME_COUNT, time,
+                ((float) (VIDEO_FRAME_COUNT) / (float) (time)) * 1000000.f);
+        startTiming(0);
+    }
+
+    size_t res = fread(y, sizeof(char), (size_t) (width * height) * sizeof(char), ptfile);
+    res += fread(u, sizeof(char), (size_t) (width * height / 4), ptfile);
+    res += fread(v, sizeof(char), (size_t) (width * height / 4), ptfile);
+    if (res == 0) {
+        printf("Error while read file\n");
+        exit(1);
+    }
+}
