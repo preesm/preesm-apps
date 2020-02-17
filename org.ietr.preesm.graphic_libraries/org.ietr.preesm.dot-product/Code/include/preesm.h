@@ -17,8 +17,8 @@
 // Include this file to run the Instrumented Workflow
 #include <stdint.h>
 
-#include "yuvRead.h"
-#include "yuvDisplay.h"
+#include "yuv-read.h"
+#include "yuv-display.h"
 #include "splitMerge.h"
 #include "filter.h"
 #include "coefficients.h"

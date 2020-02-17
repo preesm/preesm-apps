@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.dot-product/Algo/top_display_square.pi"/>
+        <architecture url="/org.ietr.preesm.dot-product/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.dot-product/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display_square/Read_YUV"/>
+            <task name="top_display_square/Display"/>
+            <task name="top_display_square/FilterSquare/Coefficients"/>
+            <task name="top_display_square/FilterSquare/Split2"/>
+            <task name="top_display_square/FilterSquare/Calculation"/>
+            <task name="top_display_square/FilterSquare/Merge2"/>
+            <task name="top_display_square/FilterSquare"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <timing opname="x86" time="344197669" vertexname="top_display_square/Read_YUV"/>
+        <timing opname="x86" time="454685369" vertexname="top_display_square/Display"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/FilterSquare"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/FilterSquare/input"/>
+        <timing opname="x86" time="3227125" vertexname="top_display_square/FilterSquare/Coefficients"/>
+        <timing opname="x86" time="100" vertexname="top_display_square/FilterSquare/output"/>
+        <timing opname="x86" time="159553733" vertexname="top_display_square/FilterSquare/Split2"/>
+        <timing opname="x86" time="9485684393" vertexname="top_display_square/FilterSquare/Calculation"/>
+        <timing opname="x86" time="160593439" vertexname="top_display_square/FilterSquare/Merge2"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core2"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

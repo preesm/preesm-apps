@@ -14,55 +14,72 @@
         <node id="borderSize" kind="cfg_in_iface"/>
         <node expr="height/nbSlice+2*borderSize" id="sliceHeight" kind="param"/>
         <node id="input" kind="src">
-            <port annotation="NONE" expr="width*height" kind="output" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="input"/>
         </node>
         <node id="output" kind="snk">
-            <port annotation="NONE" expr="width*height" kind="input" name="output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="output"/>
         </node>
         <node id="Split" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="split">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="borderSize"/>
             <port kind="cfg_input" name="sliceHeight"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
-            <port annotation="NONE" expr="nbSlice*sliceHeight*width"
-                kind="output" name="output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE"
+                expr="nbSlice*sliceHeight*width" kind="output" name="output"/>
         </node>
         <node id="Merge" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="merge">
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="borderSize"/>
             <port kind="cfg_input" name="sliceHeight"/>
-            <port annotation="NONE" expr="nbSlice*sliceHeight*width"
-                kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+            <port annotation="NONE"
+                expr="nbSlice*sliceHeight*width" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <node id="Coefficients" kind="actor">
             <data key="graph_desc">Code/include/coefficients.h</data>
             <loop name="setCoefficients">
                 <param direction="OUT" isConfig="false"
                     name="coefficients" type="char "/>
-                <param direction="OUT" isConfig="false" name="norm" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="norm" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="filterSize"/>
             <port annotation="NONE" expr="filterSize*filterSize"
@@ -72,15 +89,22 @@
         <node id="DotProduct" kind="actor">
             <data key="graph_desc">Code/include/filter.h</data>
             <loop name="filter">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="filterSize" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="filterSize" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="borderSize" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="coefficients" type="char "/>
-                <param direction="IN" isConfig="false" name="norm" type="unsigned char "/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="false"
+                    name="norm" type="unsigned char "/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -89,8 +113,10 @@
             <port annotation="NONE" expr="filterSize*filterSize"
                 kind="input" name="coefficients"/>
             <port annotation="NONE" expr="1" kind="input" name="norm"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <edge kind="fifo" source="input" sourceport="input"
             target="Split" targetport="input" type="uchar"/>
@@ -108,8 +134,10 @@
         <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
         <edge kind="dependency" source="height" target="sliceHeight"/>
         <edge kind="dependency" source="borderSize" target="sliceHeight"/>
-        <edge kind="dependency" source="borderSize" target="Split" targetport="borderSize"/>
-        <edge kind="dependency" source="borderSize" target="Merge" targetport="borderSize"/>
+        <edge kind="dependency" source="borderSize"
+            target="Split" targetport="borderSize"/>
+        <edge kind="dependency" source="borderSize"
+            target="Merge" targetport="borderSize"/>
         <edge kind="dependency" source="width" target="Split" targetport="width"/>
         <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
         <edge kind="dependency" source="height" target="Split" targetport="height"/>
@@ -122,11 +150,17 @@
         <edge kind="dependency" source="width" target="input"/>
         <edge kind="dependency" source="height" target="output"/>
         <edge kind="dependency" source="width" target="output"/>
-        <edge kind="dependency" source="sliceHeight" target="Merge" targetport="sliceHeight"/>
-        <edge kind="dependency" source="sliceHeight" target="Split" targetport="sliceHeight"/>
-        <edge kind="dependency" source="width" target="DotProduct" targetport="width"/>
-        <edge kind="dependency" source="filterSize" target="DotProduct" targetport="filterSize"/>
-        <edge kind="dependency" source="borderSize" target="DotProduct" targetport="borderSize"/>
-        <edge kind="dependency" source="sliceHeight" target="DotProduct" targetport="height"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Merge" targetport="sliceHeight"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Split" targetport="sliceHeight"/>
+        <edge kind="dependency" source="width"
+            target="DotProduct" targetport="width"/>
+        <edge kind="dependency" source="filterSize"
+            target="DotProduct" targetport="filterSize"/>
+        <edge kind="dependency" source="borderSize"
+            target="DotProduct" targetport="borderSize"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="DotProduct" targetport="height"/>
     </graph>
 </graphml>

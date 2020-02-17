@@ -1,59 +1,71 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "applicationParameters.h"
 #include "preesm.h"
 
-// #define VERBOSE
 #ifdef VERBOSE
+
 #include <stdio.h>
+
 #endif
 
-int stopThreads = 0;
+/**
+ * Filter size
+ */
+#define FILTER_SIZE	3
 
-int main(int argc, char** argv) {
-	// Declarations
-	static unsigned char y[HEIGHT * WIDTH], u[HEIGHT * WIDTH / 4], v[HEIGHT
-			* WIDTH / 4];
-	static unsigned char yDisp[HEIGHT * WIDTH];
-	static char coefficients[FILTER_SIZE * FILTER_SIZE];
-	static unsigned char norm;
-	unsigned int frameIndex = 1;
+/**
+ * Border size
+ */
+#define BORDER_SIZE 1
 
-	// Init display
-	yuvDisplayInit(0, DISPLAY_W, DISPLAY_H);
-	// Init read
-	initReadYUV(WIDTH, HEIGHT);
+int preesmStopThreads = 0;
 
-	while (!stopThreads) {
-		// Read a frame
-		readYUV(WIDTH, HEIGHT, y, u, v);
+int main(int argc, char **argv) {
+    (void) (argc);
+    (void) (argv);
+    // Declarations
+    static unsigned char y[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static unsigned char u[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char v[(VIDEO_HEIGHT * VIDEO_WIDTH) / 4];
+    static unsigned char yDisp[VIDEO_HEIGHT * VIDEO_WIDTH];
+    static char coefficients[FILTER_SIZE * FILTER_SIZE];
+    static unsigned char norm;
+    unsigned int frameIndex = 1;
 
-		// Set the filter coefficients
-		setCoefficients(coefficients, &norm);
+    // Init display
+    yuvDisplayInit(0, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
+    // Init read
+    initReadYUV(VIDEO_WIDTH, VIDEO_HEIGHT);
 
-		// Apply the filter
-		filter(WIDTH, HEIGHT, FILTER_SIZE, BORDER_SIZE, coefficients, &norm, y,
-				yDisp);
+    while (!preesmStopThreads) {
+        // Read a frame
+        readYUV(VIDEO_WIDTH, VIDEO_HEIGHT, y, u, v);
 
-		// Display filtered image
-		yuvDisplay(0, yDisp, u, v);
+        // Set the filter coefficients
+        setCoefficients(coefficients, &norm);
 
-		// MD5 check
-		MD5_Update(WIDTH * HEIGHT, yDisp);
+        // Apply the filter
+        filter(VIDEO_WIDTH, VIDEO_HEIGHT, FILTER_SIZE, BORDER_SIZE, coefficients, &norm, y, yDisp);
 
-		// Exit ?
-		frameIndex++;
-		if (frameIndex == NB_FRAME) {
-			stopThreads++;
-		}
-	}
+        // Display filtered image
+        yuvDisplay(0, yDisp, u, v);
 
-	yuvFinalize(0);
+        // MD5 check
+        MD5_Update(VIDEO_WIDTH * VIDEO_HEIGHT, yDisp);
+
+        // Exit ?
+        frameIndex++;
+        if (frameIndex == VIDEO_FRAME_COUNT) {
+            preesmStopThreads++;
+        }
+    }
+
+    yuvFinalize();
 
 #ifdef VERBOSE
-	printf("Exit program\n");
+    printf("Exit program\n");
 #endif
 
-	return 0;
+    return 0;
 }
