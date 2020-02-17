@@ -34,63 +34,86 @@
         <node id="Y_Subsample" kind="actor">
             <data key="graph_desc">Code/include/subsample.h</data>
             <loop name="subsample">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="output"/>
         </node>
         <node id="V_Subsample" kind="actor">
             <data key="graph_desc">Code/include/subsample.h</data>
             <loop name="subsample">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="output"/>
         </node>
         <node id="Gaussian" kind="actor">
             <data key="graph_desc">Code/include/gaussian.h</data>
             <loop name="gaussian">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
-            <port annotation="NONE" expr="height*width" kind="output" name="output"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="output"/>
         </node>
         <node id="U_Subsample" kind="actor">
             <data key="graph_desc">Code/include/subsample.h</data>
             <loop name="subsample">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="width/2*height/2"
                 kind="output" name="output"/>
         </node>
         <node id="y_output" kind="snk">
-            <port annotation="NONE" expr="width*height" kind="input" name="y_output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="y_output"/>
         </node>
         <node id="y_input" kind="src">
-            <port annotation="NONE" expr="height*width" kind="output" name="y_input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="y_input"/>
         </node>
         <node id="v_output" kind="snk">
             <port annotation="NONE" expr="halfWidth*halfHeight"
@@ -99,20 +122,28 @@
         <node id="Y_Split" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="split2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="nbColumn" type="int"/>
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbColumn" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
             <port kind="cfg_input" name="nbColumn"/>
             <port kind="cfg_input" name="nbSlice"/>
             <port kind="cfg_input" name="borderSize"/>
-            <port annotation="NONE" expr="height*width" kind="input" name="input"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="input"/>
             <port annotation="NONE"
                 expr="nbSlice*(height/nbSlice+2*borderSize)*nbColumn*(width/nbColumn+2*borderSize)"
                 kind="output" name="output"/>
@@ -120,13 +151,20 @@
         <node id="Y_Merge" kind="actor">
             <data key="graph_desc">Code/include/splitMerge.h</data>
             <loop name="merge2">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="true" name="nbColumn" type="int"/>
-                <param direction="IN" isConfig="true" name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true" name="borderSize" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbColumn" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="nbSlice" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="borderSize" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
@@ -136,47 +174,63 @@
             <port annotation="NONE"
                 expr="nbSlice*(height/nbSlice+2*borderSize)*nbColumn*(width/nbColumn+2*borderSize)"
                 kind="input" name="input"/>
-            <port annotation="NONE" expr="width*height" kind="output" name="output"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
         </node>
         <node id="U_Upsample" kind="actor">
             <data key="graph_desc">Code/include/upsample.h</data>
             <loop name="upsample">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="2*width*2*height"
                 kind="output" name="output"/>
         </node>
         <node id="V_Upsample" kind="actor">
             <data key="graph_desc">Code/include/upsample.h</data>
             <loop name="upsample">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="2*width*2*height"
                 kind="output" name="output"/>
         </node>
         <node id="Y_Upsample" kind="actor">
             <data key="graph_desc">Code/include/upsample.h</data>
             <loop name="upsample">
-                <param direction="IN" isConfig="true" name="width" type="int"/>
-                <param direction="IN" isConfig="true" name="height" type="int"/>
-                <param direction="IN" isConfig="false" name="input" type="unsigned char "/>
-                <param direction="OUT" isConfig="false" name="output" type="unsigned char "/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
             </loop>
             <port kind="cfg_input" name="width"/>
             <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="width*height" kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
             <port annotation="NONE" expr="2*width*2*height"
                 kind="output" name="output"/>
         </node>
@@ -186,18 +240,21 @@
             target="Y_Split" targetport="input" type="uchar"/>
         <edge kind="fifo" source="Y_Split" sourceport="output"
             target="Gaussian" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Y_Subsample" sourceport="output"
-            target="Y_Merge" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Y_Subsample"
+            sourceport="output" target="Y_Merge"
+            targetport="input" type="uchar"/>
         <edge kind="fifo" source="u_input" sourceport="u_input"
             target="U_Subsample" targetport="input" type="uchar"/>
         <edge kind="fifo" source="v_input" sourceport="v_input"
             target="V_Subsample" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="U_Subsample" sourceport="output"
-            target="U_Upsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="U_Subsample"
+            sourceport="output" target="U_Upsample"
+            targetport="input" type="uchar"/>
         <edge kind="fifo" source="U_Upsample" sourceport="output"
             target="u_output" targetport="u_output" type="uchar"/>
-        <edge kind="fifo" source="V_Subsample" sourceport="output"
-            target="V_Upsample" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="V_Subsample"
+            sourceport="output" target="V_Upsample"
+            targetport="input" type="uchar"/>
         <edge kind="fifo" source="V_Upsample" sourceport="output"
             target="v_output" targetport="v_output" type="uchar"/>
         <edge kind="fifo" source="Y_Merge" sourceport="output"
@@ -212,10 +269,14 @@
         <edge kind="dependency" source="halfHeight" target="v_input"/>
         <edge kind="dependency" source="width" target="halfWidth"/>
         <edge kind="dependency" source="height" target="halfHeight"/>
-        <edge kind="dependency" source="halfHeight" target="U_Subsample" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="U_Subsample" targetport="width"/>
-        <edge kind="dependency" source="halfHeight" target="V_Subsample" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="V_Subsample" targetport="width"/>
+        <edge kind="dependency" source="halfHeight"
+            target="U_Subsample" targetport="height"/>
+        <edge kind="dependency" source="halfWidth"
+            target="U_Subsample" targetport="width"/>
+        <edge kind="dependency" source="halfHeight"
+            target="V_Subsample" targetport="height"/>
+        <edge kind="dependency" source="halfWidth"
+            target="V_Subsample" targetport="width"/>
         <edge kind="dependency" source="width" target="y_output"/>
         <edge kind="dependency" source="height" target="y_output"/>
         <edge kind="dependency" source="halfWidth" target="u_output"/>
@@ -224,25 +285,33 @@
         <edge kind="dependency" source="halfHeight" target="v_output"/>
         <edge kind="dependency" source="nbSlice" target="sliceHeight"/>
         <edge kind="dependency" source="height" target="sliceHeight"/>
-        <edge kind="dependency" source="sliceHeight" target="Gaussian" targetport="height"/>
+        <edge kind="dependency" source="sliceHeight"
+            target="Gaussian" targetport="height"/>
         <edge kind="dependency" source="sliceHeight"
             target="Y_Subsample" targetport="height"/>
         <edge kind="dependency" source="nbColumn" target="columnWidth"/>
         <edge kind="dependency" source="width" target="columnWidth"/>
         <edge kind="dependency" source="columnWidth"
             target="Y_Subsample" targetport="width"/>
-        <edge kind="dependency" source="columnWidth" target="Gaussian" targetport="width"/>
-        <edge kind="dependency" source="borderSize" target="Y_Split" targetport="borderSize"/>
+        <edge kind="dependency" source="columnWidth"
+            target="Gaussian" targetport="width"/>
+        <edge kind="dependency" source="borderSize"
+            target="Y_Split" targetport="borderSize"/>
         <edge kind="dependency" source="height" target="Y_Split" targetport="height"/>
         <edge kind="dependency" source="width" target="Y_Split" targetport="width"/>
-        <edge kind="dependency" source="halfHeight" target="Y_Merge" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="Y_Merge" targetport="width"/>
-        <edge kind="dependency" source="nbColumn" target="Y_Merge" targetport="nbColumn"/>
+        <edge kind="dependency" source="halfHeight"
+            target="Y_Merge" targetport="height"/>
+        <edge kind="dependency" source="halfWidth"
+            target="Y_Merge" targetport="width"/>
+        <edge kind="dependency" source="nbColumn"
+            target="Y_Merge" targetport="nbColumn"/>
         <edge kind="dependency" source="nbSlice" target="Y_Merge" targetport="nbSlice"/>
-        <edge kind="dependency" source="nbColumn" target="Y_Split" targetport="nbColumn"/>
+        <edge kind="dependency" source="nbColumn"
+            target="Y_Split" targetport="nbColumn"/>
         <edge kind="dependency" source="nbSlice" target="Y_Split" targetport="nbSlice"/>
         <edge kind="dependency" source="borderSize" target="halfBorder"/>
-        <edge kind="dependency" source="halfBorder" target="Y_Merge" targetport="borderSize"/>
+        <edge kind="dependency" source="halfBorder"
+            target="Y_Merge" targetport="borderSize"/>
         <edge kind="dependency" source="borderSize" target="sliceHeight"/>
         <edge kind="dependency" source="borderSize" target="columnWidth"/>
         <edge kind="dependency" source="height" target="quarterHeight"/>
@@ -255,7 +324,9 @@
             target="V_Upsample" targetport="height"/>
         <edge kind="dependency" source="quarterHeight"
             target="U_Upsample" targetport="height"/>
-        <edge kind="dependency" source="halfWidth" target="Y_Upsample" targetport="width"/>
-        <edge kind="dependency" source="halfHeight" target="Y_Upsample" targetport="height"/>
+        <edge kind="dependency" source="halfWidth"
+            target="Y_Upsample" targetport="width"/>
+        <edge kind="dependency" source="halfHeight"
+            target="Y_Upsample" targetport="height"/>
     </graph>
 </graphml>
