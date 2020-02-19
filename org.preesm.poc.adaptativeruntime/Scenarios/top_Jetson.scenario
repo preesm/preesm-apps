@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.preesm.poc.adaptativeruntime/Algo/jetson/top_jetson.pi"/>
+        <architecture url="/org.preesm.poc.adaptativeruntime/Archi/Jetson.slam"/>
+        <codegenDirectory url="/org.preesm.poc.adaptativeruntime/Code_jetson/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="A57_Core0"/>
+            <task name="top_jetson/Read"/>
+            <task name="top_jetson/YUVDisplay"/>
+            <task name="top_jetson/brightnessY"/>
+            <task name="top_jetson/BrightnessU"/>
+            <task name="top_jetson/brightnessV"/>
+            <task name="top_jetson/ProcY/makeDecision"/>
+            <task name="top_jetson/ProcY/generateNothing"/>
+            <task name="top_jetson/ProcY/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcY/imgProcessing/split"/>
+            <task name="top_jetson/ProcY/imgProcessing/filter"/>
+            <task name="top_jetson/ProcY/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcY/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcY/imgProcessing"/>
+            <task name="top_jetson/ProcY"/>
+            <task name="top_jetson/ProcU/makeDecision"/>
+            <task name="top_jetson/ProcU/generateNothing"/>
+            <task name="top_jetson/ProcU/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcU/imgProcessing/split"/>
+            <task name="top_jetson/ProcU/imgProcessing/filter"/>
+            <task name="top_jetson/ProcU/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcU/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcU/imgProcessing"/>
+            <task name="top_jetson/ProcU"/>
+            <task name="top_jetson/ProcV/makeDecision"/>
+            <task name="top_jetson/ProcV/generateNothing"/>
+            <task name="top_jetson/ProcV/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcV/imgProcessing/split"/>
+            <task name="top_jetson/ProcV/imgProcessing/filter"/>
+            <task name="top_jetson/ProcV/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcV/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcV/imgProcessing"/>
+            <task name="top_jetson/ProcV"/>
+            <task name="top_jetson"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="A57_Core1"/>
+            <task name="top_jetson/brightnessY"/>
+            <task name="top_jetson/BrightnessU"/>
+            <task name="top_jetson/brightnessV"/>
+            <task name="top_jetson/ProcY/makeDecision"/>
+            <task name="top_jetson/ProcY/generateNothing"/>
+            <task name="top_jetson/ProcY/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcY/imgProcessing/split"/>
+            <task name="top_jetson/ProcY/imgProcessing/filter"/>
+            <task name="top_jetson/ProcY/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcY/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcY/imgProcessing"/>
+            <task name="top_jetson/ProcY"/>
+            <task name="top_jetson/ProcU/makeDecision"/>
+            <task name="top_jetson/ProcU/generateNothing"/>
+            <task name="top_jetson/ProcU/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcU/imgProcessing/split"/>
+            <task name="top_jetson/ProcU/imgProcessing/filter"/>
+            <task name="top_jetson/ProcU/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcU/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcU/imgProcessing"/>
+            <task name="top_jetson/ProcU"/>
+            <task name="top_jetson/ProcV/makeDecision"/>
+            <task name="top_jetson/ProcV/generateNothing"/>
+            <task name="top_jetson/ProcV/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcV/imgProcessing/split"/>
+            <task name="top_jetson/ProcV/imgProcessing/filter"/>
+            <task name="top_jetson/ProcV/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcV/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcV/imgProcessing"/>
+            <task name="top_jetson/ProcV"/>
+            <task name="top_jetson"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="A57_Core2"/>
+            <task name="top_jetson/brightnessY"/>
+            <task name="top_jetson/BrightnessU"/>
+            <task name="top_jetson/brightnessV"/>
+            <task name="top_jetson/ProcY/makeDecision"/>
+            <task name="top_jetson/ProcY/generateNothing"/>
+            <task name="top_jetson/ProcY/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcY/imgProcessing/split"/>
+            <task name="top_jetson/ProcY/imgProcessing/filter"/>
+            <task name="top_jetson/ProcY/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcY/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcY/imgProcessing"/>
+            <task name="top_jetson/ProcY"/>
+            <task name="top_jetson/ProcU/makeDecision"/>
+            <task name="top_jetson/ProcU/generateNothing"/>
+            <task name="top_jetson/ProcU/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcU/imgProcessing/split"/>
+            <task name="top_jetson/ProcU/imgProcessing/filter"/>
+            <task name="top_jetson/ProcU/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcU/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcU/imgProcessing"/>
+            <task name="top_jetson/ProcU"/>
+            <task name="top_jetson/ProcV/makeDecision"/>
+            <task name="top_jetson/ProcV/generateNothing"/>
+            <task name="top_jetson/ProcV/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcV/imgProcessing/split"/>
+            <task name="top_jetson/ProcV/imgProcessing/filter"/>
+            <task name="top_jetson/ProcV/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcV/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcV/imgProcessing"/>
+            <task name="top_jetson/ProcV"/>
+            <task name="top_jetson"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="A57_Core3"/>
+            <task name="top_jetson/brightnessY"/>
+            <task name="top_jetson/BrightnessU"/>
+            <task name="top_jetson/brightnessV"/>
+            <task name="top_jetson/ProcY/makeDecision"/>
+            <task name="top_jetson/ProcY/generateNothing"/>
+            <task name="top_jetson/ProcY/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcY/imgProcessing/split"/>
+            <task name="top_jetson/ProcY/imgProcessing/filter"/>
+            <task name="top_jetson/ProcY/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcY/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcY/imgProcessing"/>
+            <task name="top_jetson/ProcY"/>
+            <task name="top_jetson/ProcU/makeDecision"/>
+            <task name="top_jetson/ProcU/generateNothing"/>
+            <task name="top_jetson/ProcU/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcU/imgProcessing/split"/>
+            <task name="top_jetson/ProcU/imgProcessing/filter"/>
+            <task name="top_jetson/ProcU/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcU/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcU/imgProcessing"/>
+            <task name="top_jetson/ProcU"/>
+            <task name="top_jetson/ProcV/makeDecision"/>
+            <task name="top_jetson/ProcV/generateNothing"/>
+            <task name="top_jetson/ProcV/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcV/imgProcessing/split"/>
+            <task name="top_jetson/ProcV/imgProcessing/filter"/>
+            <task name="top_jetson/ProcV/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcV/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcV/imgProcessing"/>
+            <task name="top_jetson/ProcV"/>
+            <task name="top_jetson"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="D2_Core0"/>
+            <task name="top_jetson/brightnessY"/>
+            <task name="top_jetson/BrightnessU"/>
+            <task name="top_jetson/brightnessV"/>
+            <task name="top_jetson/ProcY/makeDecision"/>
+            <task name="top_jetson/ProcY/generateNothing"/>
+            <task name="top_jetson/ProcY/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcY/imgProcessing/split"/>
+            <task name="top_jetson/ProcY/imgProcessing/filter"/>
+            <task name="top_jetson/ProcY/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcY/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcY/imgProcessing"/>
+            <task name="top_jetson/ProcY"/>
+            <task name="top_jetson/ProcU/makeDecision"/>
+            <task name="top_jetson/ProcU/generateNothing"/>
+            <task name="top_jetson/ProcU/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcU/imgProcessing/split"/>
+            <task name="top_jetson/ProcU/imgProcessing/filter"/>
+            <task name="top_jetson/ProcU/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcU/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcU/imgProcessing"/>
+            <task name="top_jetson/ProcU"/>
+            <task name="top_jetson/ProcV/makeDecision"/>
+            <task name="top_jetson/ProcV/generateNothing"/>
+            <task name="top_jetson/ProcV/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcV/imgProcessing/split"/>
+            <task name="top_jetson/ProcV/imgProcessing/filter"/>
+            <task name="top_jetson/ProcV/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcV/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcV/imgProcessing"/>
+            <task name="top_jetson/ProcV"/>
+            <task name="top_jetson"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="D2_Core1"/>
+            <task name="top_jetson/brightnessY"/>
+            <task name="top_jetson/BrightnessU"/>
+            <task name="top_jetson/brightnessV"/>
+            <task name="top_jetson/ProcY/makeDecision"/>
+            <task name="top_jetson/ProcY/generateNothing"/>
+            <task name="top_jetson/ProcY/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcY/imgProcessing/split"/>
+            <task name="top_jetson/ProcY/imgProcessing/filter"/>
+            <task name="top_jetson/ProcY/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcY/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcY/imgProcessing"/>
+            <task name="top_jetson/ProcY"/>
+            <task name="top_jetson/ProcU/makeDecision"/>
+            <task name="top_jetson/ProcU/generateNothing"/>
+            <task name="top_jetson/ProcU/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcU/imgProcessing/split"/>
+            <task name="top_jetson/ProcU/imgProcessing/filter"/>
+            <task name="top_jetson/ProcU/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcU/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcU/imgProcessing"/>
+            <task name="top_jetson/ProcU"/>
+            <task name="top_jetson/ProcV/makeDecision"/>
+            <task name="top_jetson/ProcV/generateNothing"/>
+            <task name="top_jetson/ProcV/imgProcessing/Sobel"/>
+            <task name="top_jetson/ProcV/imgProcessing/split"/>
+            <task name="top_jetson/ProcV/imgProcessing/filter"/>
+            <task name="top_jetson/ProcV/imgProcessing/coeff"/>
+            <task name="top_jetson/ProcV/imgProcessing/MedianFilter"/>
+            <task name="top_jetson/ProcV/imgProcessing"/>
+            <task name="top_jetson/ProcV"/>
+            <task name="top_jetson"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <memcpyspeed opname="ARM_Denver2" setuptime="1" timeperunit="0.001"/>
+        <memcpyspeed opname="ARM_CortexA57" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>D2_Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="float" size="4"/>
+            <dataType name="char" size="1"/>
+            <dataType name="int" size="4"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="D2_Core0"/>
+            <specialVertexOperator path="D2_Core1"/>
+            <specialVertexOperator path="A57_Core0"/>
+            <specialVertexOperator path="A57_Core1"/>
+            <specialVertexOperator path="A57_Core2"/>
+            <specialVertexOperator path="A57_Core3"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>
