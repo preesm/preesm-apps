@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="delay" attr.type="string" for="edge"/>
+    <graph edgedefault="directed">
+        <data key="name">top_jetson</data>
+        <node expr="0" id="id" kind="param"/>
+        <node expr="720" id="height" kind="param"/>
+        <node expr="1280" id="width" kind="param"/>
+        <node expr="0" id="bg_y" kind="param"/>
+        <node expr="height/2" id="heightUV" kind="param"/>
+        <node expr="width/2" id="widthUV" kind="param"/>
+        <node expr="128" id="bg_uv" kind="param"/>
+        <node expr="1" id="pip1" kind="param"/>
+        <node expr="1" id="pip2" kind="param"/>
+        <node id="Read" kind="actor">
+            <data key="graph_desc">Code_jetson/include/read.h</data>
+            <loop name="read">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="initRead">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+            </init>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="y"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="output" name="u"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="output" name="v"/>
+        </node>
+        <node id="YUVDisplay" kind="actor">
+            <data key="graph_desc">Code_jetson/include/yuv-display.h</data>
+            <loop name="yuvDisplay">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="yuvDisplayInit">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
+            </init>
+            <port kind="cfg_input" name="id"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="height/2*width/2"
+                kind="input" name="v"/>
+        </node>
+        <node id="ProcY" kind="actor">
+            <data key="graph_desc">Algo/jetson/dynamicWrapper_jetson.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="1" kind="input" name="brightness"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="out"/>
+        </node>
+        <node id="brightnessY" kind="actor">
+            <data key="graph_desc">Code_jetson/include/brightnessEvaluation.h</data>
+            <loop name="computeBrightnessAndForward">
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="background" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="brightness" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="out" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="brightness"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="out"/>
+        </node>
+        <node id="ProcU" kind="actor">
+            <data key="graph_desc">Algo/jetson/dynamicWrapper_jetson.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="1" kind="input" name="brightness"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="out"/>
+        </node>
+        <node id="BrightnessU" kind="actor">
+            <data key="graph_desc">Code_jetson/include/brightnessEvaluation.h</data>
+            <loop name="computeBrightnessAndForward">
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="background" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="brightness" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="out" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="brightness"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="out"/>
+        </node>
+        <node id="brightnessV" kind="actor">
+            <data key="graph_desc">Code_jetson/include/brightnessEvaluation.h</data>
+            <loop name="computeBrightnessAndForward">
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="background" type="int"/>
+                <param direction="IN" isConfig="false" name="in" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="brightness" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="out" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="brightness"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="out"/>
+        </node>
+        <node id="ProcV" kind="actor">
+            <data key="graph_desc">Algo/jetson/dynamicWrapper_jetson.pi</data>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="background"/>
+            <port annotation="NONE" expr="1" kind="input" name="brightness"/>
+            <port annotation="NONE" expr="height*width"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="height*width"
+                kind="output" name="out"/>
+        </node>
+        <node expr="height*width*pip1" getter=""
+            id="delay_RGB2YUV_y__brightnessY_in" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="height*width*pip1"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="height*width*pip1"
+                kind="output" name="get"/>
+        </node>
+        <node expr="height/2*width/2*pip1" getter=""
+            id="delay_RGB2YUV_u__BrightnessU_in" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="height/2*width/2*pip1"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="height/2*width/2*pip1"
+                kind="output" name="get"/>
+        </node>
+        <node expr="height/2*width/2*pip1" getter=""
+            id="delay_RGB2YUV_v__brightnessV_in" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="height/2*width/2*pip1"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="height/2*width/2*pip1"
+                kind="output" name="get"/>
+        </node>
+        <node expr="height*width*pip2" getter=""
+            id="delay_ProcY_out__YUVDisplay_y" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="height*width*pip2"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="height*width*pip2"
+                kind="output" name="get"/>
+        </node>
+        <node expr="height/2*width/2*pip2" getter=""
+            id="delay_ProcU_out__YUVDisplay_u" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="height/2*width/2*pip2"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="height/2*width/2*pip2"
+                kind="output" name="get"/>
+        </node>
+        <node expr="height/2*width/2*pip2" getter=""
+            id="delay_ProcV_out__YUVDisplay_v" kind="delay"
+            level="permanent" setter="">
+            <port annotation="NONE" expr="height/2*width/2*pip2"
+                kind="input" name="set"/>
+            <port annotation="NONE" expr="height/2*width/2*pip2"
+                kind="output" name="get"/>
+        </node>
+        <edge expr="height*width*pip2" kind="fifo" source="ProcY"
+            sourceport="out" target="YUVDisplay" targetport="y" type="uchar">
+            <data key="delay">delay_ProcY_out__YUVDisplay_y</data>
+        </edge>
+        <edge expr="height/2*width/2*pip1" kind="fifo"
+            source="Read" sourceport="u" target="BrightnessU"
+            targetport="in" type="uchar">
+            <data key="delay">delay_RGB2YUV_u__BrightnessU_in</data>
+        </edge>
+        <edge expr="height/2*width/2*pip1" kind="fifo"
+            source="Read" sourceport="v" target="brightnessV"
+            targetport="in" type="uchar">
+            <data key="delay">delay_RGB2YUV_v__brightnessV_in</data>
+        </edge>
+        <edge expr="height*width*pip1" kind="fifo" source="Read"
+            sourceport="y" target="brightnessY" targetport="in" type="uchar">
+            <data key="delay">delay_RGB2YUV_y__brightnessY_in</data>
+        </edge>
+        <edge expr="height/2*width/2*pip2" kind="fifo"
+            source="ProcU" sourceport="out" target="YUVDisplay"
+            targetport="u" type="uchar">
+            <data key="delay">delay_ProcU_out__YUVDisplay_u</data>
+        </edge>
+        <edge expr="height/2*width/2*pip2" kind="fifo"
+            source="ProcV" sourceport="out" target="YUVDisplay"
+            targetport="v" type="uchar">
+            <data key="delay">delay_ProcV_out__YUVDisplay_v</data>
+        </edge>
+        <edge kind="fifo" source="brightnessY" sourceport="out"
+            target="ProcY" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="brightnessY"
+            sourceport="brightness" target="ProcY"
+            targetport="brightness" type="float"/>
+        <edge kind="fifo" source="BrightnessU" sourceport="out"
+            target="ProcU" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="BrightnessU"
+            sourceport="brightness" target="ProcU"
+            targetport="brightness" type="float"/>
+        <edge kind="fifo" source="brightnessV"
+            sourceport="brightness" target="ProcV"
+            targetport="brightness" type="float"/>
+        <edge kind="fifo" source="brightnessV" sourceport="out"
+            target="ProcV" targetport="in" type="uchar"/>
+        <edge kind="dependency" source="id" target="YUVDisplay" targetport="id"/>
+        <edge kind="dependency" source="height"
+            target="YUVDisplay" targetport="height"/>
+        <edge kind="dependency" source="width"
+            target="YUVDisplay" targetport="width"/>
+        <edge kind="dependency" source="height" target="ProcY" targetport="height"/>
+        <edge kind="dependency" source="width" target="ProcY" targetport="width"/>
+        <edge kind="dependency" source="height" target="Read" targetport="height"/>
+        <edge kind="dependency" source="width" target="Read" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="brightnessY" targetport="height"/>
+        <edge kind="dependency" source="width"
+            target="brightnessY" targetport="width"/>
+        <edge kind="dependency" source="bg_y" target="ProcY" targetport="background"/>
+        <edge kind="dependency" source="height" target="heightUV"/>
+        <edge kind="dependency" source="width" target="widthUV"/>
+        <edge kind="dependency" source="heightUV" target="ProcU" targetport="height"/>
+        <edge kind="dependency" source="widthUV" target="ProcU" targetport="width"/>
+        <edge kind="dependency" source="bg_uv" target="ProcU" targetport="background"/>
+        <edge kind="dependency" source="heightUV"
+            target="BrightnessU" targetport="height"/>
+        <edge kind="dependency" source="widthUV"
+            target="BrightnessU" targetport="width"/>
+        <edge kind="dependency" source="bg_y"
+            target="brightnessY" targetport="background"/>
+        <edge kind="dependency" source="bg_uv"
+            target="BrightnessU" targetport="background"/>
+        <edge kind="dependency" source="bg_uv"
+            target="brightnessV" targetport="background"/>
+        <edge kind="dependency" source="heightUV"
+            target="brightnessV" targetport="height"/>
+        <edge kind="dependency" source="widthUV"
+            target="brightnessV" targetport="width"/>
+        <edge kind="dependency" source="widthUV" target="ProcV" targetport="width"/>
+        <edge kind="dependency" source="heightUV" target="ProcV" targetport="height"/>
+        <edge kind="dependency" source="bg_uv" target="ProcV" targetport="background"/>
+        <edge kind="dependency" source="height" target="delay_RGB2YUV_y__brightnessY_in"/>
+        <edge kind="dependency" source="width" target="delay_RGB2YUV_y__brightnessY_in"/>
+        <edge kind="dependency" source="width" target="delay_ProcY_out__YUVDisplay_y"/>
+        <edge kind="dependency" source="height" target="delay_ProcY_out__YUVDisplay_y"/>
+        <edge kind="dependency" source="width" target="delay_ProcU_out__YUVDisplay_u"/>
+        <edge kind="dependency" source="height" target="delay_ProcU_out__YUVDisplay_u"/>
+        <edge kind="dependency" source="height" target="delay_ProcV_out__YUVDisplay_v"/>
+        <edge kind="dependency" source="width" target="delay_ProcV_out__YUVDisplay_v"/>
+        <edge kind="dependency" source="width" target="delay_RGB2YUV_u__BrightnessU_in"/>
+        <edge kind="dependency" source="height" target="delay_RGB2YUV_u__BrightnessU_in"/>
+        <edge kind="dependency" source="height" target="delay_RGB2YUV_v__brightnessV_in"/>
+        <edge kind="dependency" source="width" target="delay_RGB2YUV_v__brightnessV_in"/>
+        <edge kind="dependency" source="pip2" target="delay_ProcY_out__YUVDisplay_y"/>
+        <edge kind="dependency" source="pip2" target="delay_ProcU_out__YUVDisplay_u"/>
+        <edge kind="dependency" source="pip2" target="delay_ProcV_out__YUVDisplay_v"/>
+        <edge kind="dependency" source="pip1" target="delay_RGB2YUV_y__brightnessY_in"/>
+        <edge kind="dependency" source="pip1" target="delay_RGB2YUV_u__BrightnessU_in"/>
+        <edge kind="dependency" source="pip1" target="delay_RGB2YUV_v__brightnessV_in"/>
+        <edge kind="dependency" source="width"
+            target="YUVDisplay" targetport="displayWidth"/>
+        <edge kind="dependency" source="height"
+            target="YUVDisplay" targetport="displayHeight"/>
+    </graph>
+</graphml>
