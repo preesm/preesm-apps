@@ -12,9 +12,11 @@ using namespace cv;
 static std::unique_ptr<VideoCapture> cap{ new VideoCapture() };
 
 void initRead(int width, int height) {
-    char gst[300];
-    snprintf(gst, 300, "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)%d, height=(int)%d, format=(string)NV12, framerate=(fraction)30/1  ! nvvidconv ! video/x-raw,format=(string)BGRx ! videoconvert ! appsink", width, height);
-    cap->open(gst, CV_CAP_GSTREAMER);
+//    char gst[300];
+//    snprintf(gst, 300, "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)%d, height=(int)%d, format=(string)NV12, framerate=(fraction)30/1  ! nvvidconv ! video/x-raw,format=(string)BGRx ! videoconvert ! appsink", width, height);
+//    cap->open(gst, CV_CAP_GSTREAMER);
+    /* == To use on board camera, uncomment above lines an comment this one == */
+    cap->open(2);
     if (!cap->isOpened()) {
         fprintf(stderr, "ERROR: failed to open the camera.\n");
         exit(1);

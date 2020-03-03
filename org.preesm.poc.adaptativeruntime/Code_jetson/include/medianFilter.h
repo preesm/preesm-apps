@@ -42,34 +42,4 @@ void medianFilter(int height, int width,
                   IN unsigned char *rawDisparity,
                   OUT unsigned char *filteredDisparity);
 
-/**
-* Recursive quicksort implementation.
-* This function sorts the values comprised between the startIdx and the endIdx 
-* in the input array.
-*
-* @param startIdx
-*        Index of the first value to sort in the input array.
-* @param endIdx
-*        Index of the last value to sort in the input array (inclusive).
-* @param values 
-*        Array containing the values to sort.
-*/
-void quickSort(int startIdx, int endIdx, unsigned char *values);
-
-/**
-* This function partition the values between the start and end indexes in two
-* groups. Values at the left of the pivot index have a smaller value than the 
-* pivot. Values at the right of the pivot index have a larger value than the 
-* pivot.
-* @param startIdx
-*        Index of the first value to partition in the input array.
-* @param endIdx
-*        Index of the last value to partition in the input array (inclusive).
-* @param pivotIdx
-*        Position of the pivot after the partitionning
-* @param values
-*        Array containing the values to partition.
-*/
-void quickSortPartition(int startIdx, int endIdx, int *pivotIdx, unsigned char *values);
-
 #endif

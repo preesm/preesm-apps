@@ -40,10 +40,13 @@ void close_sensor(int fd) {
 
 void read_sensor(int fd, float *value) {
     if (fd > 0) {
+        lseek(fd, 0, SEEK_SET);
         char buf[256] = { '\0' };
         const auto n = read(fd, buf, sizeof(buf) - 1);
+        fprintf(stderr, "%d -- %s\n", n, buf);
         if (n > 0) {
             (*value) = static_cast<float>(std::strtod(buf, nullptr));
+            (*value) /= 1000.f;
         }
     }
 }

@@ -47,7 +47,7 @@
 #include "energyMonitor.h"
 #include "clock.h"
 
-extern int preesmStopThreads;
+extern bool spider2StopRunning;
 
 /**
 * Structure representing one display
@@ -128,9 +128,9 @@ static int exitCallBack(void *userdata, SDL_Event *event) {
     (void) (userdata);
     if (event->type == SDL_QUIT) {
         fprintf(stderr, "Exit request from GUI.\n");
-        preesmStopThreads = 1;
-        cleanUpSDL();
-        exit(0);
+        spider2StopRunning = true;
+//        cleanUpSDL();
+        return 0;
     }
     return 1;
 }
@@ -290,9 +290,10 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
     static int energyIdx = 0;
     energyMeasuresARM[energyIdx] = data.arm.w;
     energyIdx = (energyIdx + 1) % ENERGY_MEAN;
+    fprintf(stderr, "%f\n", data.arm.w);
     auto armW = 0.f;
     for (auto value : energyMeasuresARM) {
-        armW += value / ENERGY_MEAN;
+        armW += value / static_cast<float>(ENERGY_MEAN);
     }
     char wtext[40];
     sprintf(wtext, "ARM: %1.2f W", armW);
