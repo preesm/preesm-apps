@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="subgraph_hello_world" snapToGrid="true" pictogramLinks="//@children.0/@anchors.0/@link //@children.0/@children.0/@link //@children.0/@link //@children.0/@anchors.1/@link //@children.1/@anchors.0/@link //@children.1/@children.0/@link //@children.1/@link //@children.1/@anchors.1/@link //@children.2/@link //@children.2/@children.0/@link //@children.2/@anchors.0/@link //@children.2/@anchors.1/@link //@children.2/@anchors.2/@link //@children.3/@anchors.0/@link //@children.3/@children.0/@link //@children.3/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link" version="0.15.0">
+  <properties key="editor_version" value="3"/>
+  <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+  <link>
+    <businessObjects href="subgraph_hello_world.pi#/"/>
+  </link>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="47" height="20" x="50" y="250"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@vertices.0"/>
+    </link>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.0" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.1">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="16" height="16" x="-16" cornerHeight="5" cornerWidth="5"/>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.0/@dataOutputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2">
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.0"/>
+      </link>
+    </anchors>
+    <children visible="true">
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="input"/>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.0"/>
+      </link>
+    </children>
+  </children>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="20" x="385" y="250"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@vertices.1"/>
+    </link>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.1" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm" relativeHeight="0.1">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.5" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="16" height="16" cornerHeight="5" cornerWidth="5"/>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.1/@dataInputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3">
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.1"/>
+      </link>
+    </anchors>
+    <children visible="true">
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="36" height="20" x="19" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="output"/>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.1"/>
+      </link>
+    </children>
+  </children>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="88" height="38" x="197" y="250" cornerHeight="5" cornerWidth="5"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@vertices.2"/>
+    </link>
+    <anchors xsi:type="pi:ChopboxAnchor">
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.2"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.0" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm" relativeHeight="0.5263157894736842">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="33" height="13">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="25" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="input"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.2/@dataInputPorts.0"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5263157894736842">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="40" height="13" x="-40">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="32" height="13" font="//@fonts.1" value="output"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.5" foreground="//@colors.2" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="32" y="2"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.2/@dataOutputPorts.0"/>
+      </link>
+    </anchors>
+    <children visible="true">
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="88" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" value="HelloWorld"/>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.2"/>
+      </link>
+    </children>
+  </children>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="73" height="31" x="197" y="142"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@vertices.3"/>
+    </link>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.2 //@connections.3" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.8" foreground="//@colors.7" lineWidth="2" filled="true" transparency="0.0" width="16" height="16" x="-8" y="-16">
+        <points x="8"/>
+        <points x="16" y="16"/>
+        <points y="16"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.3"/>
+      </link>
+    </anchors>
+    <children visible="true">
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="73" height="20" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_TOP" value="nbSubTokens"/>
+      <link>
+        <businessObjects href="subgraph_hello_world.pi#//@vertices.3"/>
+      </link>
+    </children>
+  </children>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.2/@anchors.1">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@edges.0"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="117" y="259"/>
+    <bendpoints x="177" y="275"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.2" end="//@children.1/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@edges.1"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.2" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="305" y="275"/>
+    <bendpoints x="365" y="259"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.0/@anchors.1">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@edges.2"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="223" y="190"/>
+    <bendpoints x="73" y="190"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.1/@anchors.1">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="subgraph_hello_world.pi#//@edges.3"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.7" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="223" y="190"/>
+    <bendpoints x="412" y="190"/>
+  </connections>
+  <colors red="227" green="238" blue="249"/>
+  <colors red="255" green="255" blue="255"/>
+  <colors red="100" green="100" blue="100"/>
+  <colors red="182" green="215" blue="122"/>
+  <colors/>
+  <colors red="234" green="153" blue="153"/>
+  <colors red="237" green="237" blue="237"/>
+  <colors red="98" green="131" blue="167"/>
+  <colors red="187" green="218" blue="247"/>
+  <fonts name="Arial" size="8" bold="true"/>
+  <fonts name="Arial" size="8"/>
+</pi:Diagram>

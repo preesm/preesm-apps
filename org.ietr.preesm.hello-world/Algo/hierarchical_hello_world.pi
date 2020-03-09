@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">hierarchical_hello_world</data>
+        <node expr="256" id="nbTokens" kind="param"/>
+        <node expr="nbTokens/16" id="nbSubTokens" kind="param"/>
+        <node id="HelloWorld" kind="actor">
+            <data key="graph_desc">Algo/subgraph_hello_world.pi</data>
+            <port kind="cfg_input" name="nbSubTokens"/>
+            <port annotation="NONE" expr="nbSubTokens"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="nbSubTokens"
+                kind="output" name="output"/>
+        </node>
+        <node id="GenerateTokens" kind="actor">
+            <data key="graph_desc">Code/include/hello_world.h</data>
+            <loop name="generateTokens">
+                <param direction="IN" isConfig="true"
+                    name="nbTokens" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="char "/>
+            </loop>
+            <port kind="cfg_input" name="nbTokens"/>
+            <port annotation="NONE" expr="nbTokens" kind="output" name="output"/>
+        </node>
+        <node id="VerifyTokens" kind="actor">
+            <data key="graph_desc">Code/include/hello_world.h</data>
+            <loop name="verifyTokens">
+                <param direction="IN" isConfig="true"
+                    name="nbTokens" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="char "/>
+            </loop>
+            <port kind="cfg_input" name="nbTokens"/>
+            <port annotation="NONE" expr="nbTokens" kind="input" name="input"/>
+        </node>
+        <edge kind="fifo" source="GenerateTokens"
+            sourceport="output" target="HelloWorld"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="HelloWorld" sourceport="output"
+            target="VerifyTokens" targetport="input" type="uchar"/>
+        <edge kind="dependency" source="nbTokens"
+            target="GenerateTokens" targetport="nbTokens"/>
+        <edge kind="dependency" source="nbTokens"
+            target="VerifyTokens" targetport="nbTokens"/>
+        <edge kind="dependency" source="nbTokens" target="nbSubTokens"/>
+        <edge kind="dependency" source="nbSubTokens"
+            target="HelloWorld" targetport="nbSubTokens"/>
+    </graph>
+</graphml>
