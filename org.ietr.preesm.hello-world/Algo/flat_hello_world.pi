@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">flat_hello_world</data>
+        <node expr="256" id="nbTokens" kind="param"/>
+        <node id="GenerateTokens" kind="actor">
+            <data key="graph_desc">Code/include/hello_world.h</data>
+            <loop name="generateTokens">
+                <param direction="IN" isConfig="true"
+                    name="nbTokens" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="char "/>
+            </loop>
+            <port kind="cfg_input" name="nbTokens"/>
+            <port annotation="NONE" expr="nbTokens" kind="output" name="output"/>
+        </node>
+        <node id="HelloWorld" kind="actor">
+            <data key="graph_desc">Code/include/hello_world.h</data>
+            <loop name="helloWorld">
+                <param direction="IN" isConfig="false"
+                    name="input" type="char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="char "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="input"/>
+            <port annotation="NONE" expr="1" kind="output" name="output"/>
+        </node>
+        <node id="VerifyTokens" kind="actor">
+            <data key="graph_desc">Code/include/hello_world.h</data>
+            <loop name="verifyTokens">
+                <param direction="IN" isConfig="true"
+                    name="nbTokens" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="char "/>
+            </loop>
+            <port kind="cfg_input" name="nbTokens"/>
+            <port annotation="NONE" expr="nbTokens" kind="input" name="input"/>
+        </node>
+        <edge kind="fifo" source="GenerateTokens"
+            sourceport="output" target="HelloWorld"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="HelloWorld" sourceport="output"
+            target="VerifyTokens" targetport="input" type="uchar"/>
+        <edge kind="dependency" source="nbTokens"
+            target="GenerateTokens" targetport="nbTokens"/>
+        <edge kind="dependency" source="nbTokens"
+            target="VerifyTokens" targetport="nbTokens"/>
+    </graph>
+</graphml>
