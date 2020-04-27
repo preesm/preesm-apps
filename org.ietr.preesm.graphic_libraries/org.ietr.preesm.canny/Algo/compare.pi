@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">compare</data>
+        <node expr="352" id="width" kind="param"/>
+        <node expr="288" id="height" kind="param"/>
+        <node expr="4" id="nbSlice" kind="param"/>
+        <node expr="2" id="nbColumn" kind="param"/>
+        <node expr="0" id="zero" kind="param"/>
+        <node expr="1" id="one" kind="param"/>
+        <node expr="2" id="nbSlice_square" kind="param"/>
+        <node expr="width*2" id="displayWidth" kind="param"/>
+        <node expr="height" id="displayHeight" kind="param"/>
+        <node id="Read_Y" kind="actor">
+            <data key="graph_desc">Code/include/yuv-read.h</data>
+            <loop name="readYComponent">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="initReadYUV">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+            </init>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="WRITE_ONLY" expr="width*height"
+                kind="output" name="y"/>
+            <port annotation="WRITE_ONLY" expr="width/2*height/2"
+                kind="output" name="u"/>
+            <port annotation="WRITE_ONLY" expr="width/2*height/2"
+                kind="output" name="v"/>
+        </node>
+        <node id="Duplicate_Y" kind="broadcast">
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="READ_ONLY" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_1"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output_2"/>
+        </node>
+        <node id="D1" kind="actor">
+            <data key="graph_desc">Code/include/yuv-display.h</data>
+            <loop name="yuvDisplay">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="yuvDisplayInit">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
+            </init>
+            <port kind="cfg_input" name="id"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
+            <port annotation="READ_ONLY" expr="width*height"
+                kind="input" name="y"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="u"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="v"/>
+        </node>
+        <node id="D2" kind="actor">
+            <data key="graph_desc">Code/include/yuv-display.h</data>
+            <loop name="yuvDisplay">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="yuvDisplayInit">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
+            </init>
+            <port kind="cfg_input" name="id"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
+            <port annotation="READ_ONLY" expr="width*height"
+                kind="input" name="y"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="u"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="v"/>
+        </node>
+        <node id="BRU" kind="broadcast">
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="in"/>
+            <port annotation="WRITE_ONLY" expr="width/2*height/2"
+                kind="output" name="out_0"/>
+            <port annotation="WRITE_ONLY" expr="width/2*height/2"
+                kind="output" name="out_1"/>
+        </node>
+        <node id="BrV" kind="broadcast">
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="width"/>
+            <port annotation="READ_ONLY" expr="width/2*height/2"
+                kind="input" name="v"/>
+            <port annotation="WRITE_ONLY" expr="width/2*height/2"
+                kind="output" name="out_0"/>
+            <port annotation="WRITE_ONLY" expr="width/2*height/2"
+                kind="output" name="out_1"/>
+        </node>
+        <node id="CannySquare" kind="actor">
+            <data key="graph_desc">Algo/canny_square.pi</data>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port kind="cfg_input" name="nbColumn"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
+        </node>
+        <node id="CannySlice" kind="actor">
+            <data key="graph_desc">Algo/canny_slice.pi</data>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="nbSlice"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
+        </node>
+        <edge kind="fifo" source="Read_Y" sourceport="y"
+            target="Duplicate_Y" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Read_Y" sourceport="u"
+            target="BRU" targetport="in" type="uchar"/>
+        <edge kind="fifo" source="Read_Y" sourceport="v"
+            target="BrV" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="BRU" sourceport="out_0"
+            target="D1" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="BRU" sourceport="out_1"
+            target="D2" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="BrV" sourceport="out_0"
+            target="D1" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="BrV" sourceport="out_1"
+            target="D2" targetport="v" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Y"
+            sourceport="output_2" target="CannySquare"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="Duplicate_Y"
+            sourceport="output_1" target="CannySlice"
+            targetport="input" type="uchar"/>
+        <edge kind="fifo" source="CannySlice" sourceport="output"
+            target="D1" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="CannySquare"
+            sourceport="output" target="D2" targetport="y" type="uchar"/>
+        <edge kind="dependency" source="width" target="Read_Y" targetport="width"/>
+        <edge kind="dependency" source="height" target="Read_Y" targetport="height"/>
+        <edge kind="dependency" source="width"
+            target="Duplicate_Y" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="Duplicate_Y" targetport="height"/>
+        <edge kind="dependency" source="width" target="BRU" targetport="width"/>
+        <edge kind="dependency" source="height" target="BrV" targetport="height"/>
+        <edge kind="dependency" source="width" target="BrV" targetport="width"/>
+        <edge kind="dependency" source="height" target="BRU" targetport="height"/>
+        <edge kind="dependency" source="width" target="D2" targetport="width"/>
+        <edge kind="dependency" source="width" target="D1" targetport="width"/>
+        <edge kind="dependency" source="height" target="D2" targetport="height"/>
+        <edge kind="dependency" source="height" target="D1" targetport="height"/>
+        <edge kind="dependency" source="zero" target="D1" targetport="id"/>
+        <edge kind="dependency" source="one" target="D2" targetport="id"/>
+        <edge kind="dependency" source="width"
+            target="CannySlice" targetport="width"/>
+        <edge kind="dependency" source="height"
+            target="CannySlice" targetport="height"/>
+        <edge kind="dependency" source="height"
+            target="CannySquare" targetport="height"/>
+        <edge kind="dependency" source="width"
+            target="CannySquare" targetport="width"/>
+        <edge kind="dependency" source="nbColumn"
+            target="CannySquare" targetport="nbColumn"/>
+        <edge kind="dependency" source="nbSlice"
+            target="CannySlice" targetport="nbSlice"/>
+        <edge kind="dependency" source="nbSlice_square"
+            target="CannySquare" targetport="nbSlice"/>
+        <edge kind="dependency" source="width" target="displayWidth"/>
+        <edge kind="dependency" source="displayWidth" target="D1" targetport="displayWidth"/>
+        <edge kind="dependency" source="displayWidth" target="D2" targetport="displayWidth"/>
+        <edge kind="dependency" source="displayHeight"
+            target="D1" targetport="displayHeight"/>
+        <edge kind="dependency" source="displayHeight"
+            target="D2" targetport="displayHeight"/>
+        <edge kind="dependency" source="height" target="displayHeight"/>
+    </graph>
+</graphml>

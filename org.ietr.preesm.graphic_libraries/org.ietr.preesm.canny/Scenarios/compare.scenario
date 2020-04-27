@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.canny/Algo/compare.pi"/>
+        <architecture url="/org.ietr.preesm.canny/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.canny/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="compare/Read_Y"/>
+            <task name="compare/D1"/>
+            <task name="compare"/>
+            <task name="compare/D2"/>
+            <task name="compare/CannySquare/Sobel"/>
+            <task name="compare/CannySquare/Canny"/>
+            <task name="compare/CannySquare/Split2"/>
+            <task name="compare/CannySquare/Merge2"/>
+            <task name="compare/CannySquare"/>
+            <task name="compare/CannySlice/Sobel"/>
+            <task name="compare/CannySlice/Canny"/>
+            <task name="compare/CannySlice/Split"/>
+            <task name="compare/CannySlice/Merge"/>
+            <task name="compare/CannySlice"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="compare"/>
+            <task name="compare/CannySquare/Sobel"/>
+            <task name="compare/CannySquare/Canny"/>
+            <task name="compare/CannySquare/Split2"/>
+            <task name="compare/CannySquare/Merge2"/>
+            <task name="compare/CannySquare"/>
+            <task name="compare/CannySlice/Sobel"/>
+            <task name="compare/CannySlice/Canny"/>
+            <task name="compare/CannySlice/Split"/>
+            <task name="compare/CannySlice/Merge"/>
+            <task name="compare/CannySlice"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="compare"/>
+            <task name="compare/CannySquare/Sobel"/>
+            <task name="compare/CannySquare/Canny"/>
+            <task name="compare/CannySquare/Split2"/>
+            <task name="compare/CannySquare/Merge2"/>
+            <task name="compare/CannySquare"/>
+            <task name="compare/CannySlice/Sobel"/>
+            <task name="compare/CannySlice/Canny"/>
+            <task name="compare/CannySlice/Split"/>
+            <task name="compare/CannySlice/Merge"/>
+            <task name="compare/CannySlice"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="compare"/>
+            <task name="compare/CannySquare/Sobel"/>
+            <task name="compare/CannySquare/Canny"/>
+            <task name="compare/CannySquare/Split2"/>
+            <task name="compare/CannySquare/Merge2"/>
+            <task name="compare/CannySquare"/>
+            <task name="compare/CannySlice/Sobel"/>
+            <task name="compare/CannySlice/Canny"/>
+            <task name="compare/CannySlice/Split"/>
+            <task name="compare/CannySlice/Merge"/>
+            <task name="compare/CannySlice"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

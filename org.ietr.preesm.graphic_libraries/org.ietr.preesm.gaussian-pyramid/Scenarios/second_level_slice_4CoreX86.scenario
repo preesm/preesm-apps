@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.gaussian-pyramid/Algo/second_level_slice.pi"/>
+        <architecture url="/org.ietr.preesm.gaussian-pyramid/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.gaussian-pyramid/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="second_level_slice/FirstLevel"/>
+            <task name="second_level_slice/SecondLevel"/>
+            <task name="second_level_slice/FirstLevel/Gaussian"/>
+            <task name="second_level_slice/FirstLevel/Y_Subsample"/>
+            <task name="second_level_slice/FirstLevel/U_Subsample"/>
+            <task name="second_level_slice/FirstLevel/V_Subsample"/>
+            <task name="second_level_slice/FirstLevel/y_input"/>
+            <task name="second_level_slice/FirstLevel/u_input"/>
+            <task name="second_level_slice/FirstLevel/v_input"/>
+            <task name="second_level_slice/FirstLevel/y_output"/>
+            <task name="second_level_slice/FirstLevel/u_output"/>
+            <task name="second_level_slice/FirstLevel/v_output"/>
+            <task name="second_level_slice/FirstLevel/Y_Split"/>
+            <task name="second_level_slice/FirstLevel/Y_Merge"/>
+            <task name="second_level_slice/FirstLevel/U_Upsample"/>
+            <task name="second_level_slice/FirstLevel/V_Upsample"/>
+            <task name="second_level_slice/FirstLevel/Y_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Gaussian"/>
+            <task name="second_level_slice/SecondLevel/Y_Subsample"/>
+            <task name="second_level_slice/SecondLevel/U_Subsample"/>
+            <task name="second_level_slice/SecondLevel/V_Subsample"/>
+            <task name="second_level_slice/SecondLevel/y_input"/>
+            <task name="second_level_slice/SecondLevel/u_input"/>
+            <task name="second_level_slice/SecondLevel/v_input"/>
+            <task name="second_level_slice/SecondLevel/y_output"/>
+            <task name="second_level_slice/SecondLevel/u_output"/>
+            <task name="second_level_slice/SecondLevel/v_output"/>
+            <task name="second_level_slice/SecondLevel/Y_Split"/>
+            <task name="second_level_slice/SecondLevel/Y_Merge"/>
+            <task name="second_level_slice/SecondLevel/U_Upsample"/>
+            <task name="second_level_slice/SecondLevel/V_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Y_Upsample"/>
+            <task name="second_level_slice/Display"/>
+            <task name="second_level_slice/Read_YUV"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="second_level_slice/FirstLevel"/>
+            <task name="second_level_slice/SecondLevel"/>
+            <task name="second_level_slice/FirstLevel/Gaussian"/>
+            <task name="second_level_slice/FirstLevel/Y_Subsample"/>
+            <task name="second_level_slice/FirstLevel/U_Subsample"/>
+            <task name="second_level_slice/FirstLevel/V_Subsample"/>
+            <task name="second_level_slice/FirstLevel/y_input"/>
+            <task name="second_level_slice/FirstLevel/u_input"/>
+            <task name="second_level_slice/FirstLevel/v_input"/>
+            <task name="second_level_slice/FirstLevel/y_output"/>
+            <task name="second_level_slice/FirstLevel/u_output"/>
+            <task name="second_level_slice/FirstLevel/v_output"/>
+            <task name="second_level_slice/FirstLevel/Y_Split"/>
+            <task name="second_level_slice/FirstLevel/Y_Merge"/>
+            <task name="second_level_slice/FirstLevel/U_Upsample"/>
+            <task name="second_level_slice/FirstLevel/V_Upsample"/>
+            <task name="second_level_slice/FirstLevel/Y_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Gaussian"/>
+            <task name="second_level_slice/SecondLevel/Y_Subsample"/>
+            <task name="second_level_slice/SecondLevel/U_Subsample"/>
+            <task name="second_level_slice/SecondLevel/V_Subsample"/>
+            <task name="second_level_slice/SecondLevel/y_input"/>
+            <task name="second_level_slice/SecondLevel/u_input"/>
+            <task name="second_level_slice/SecondLevel/v_input"/>
+            <task name="second_level_slice/SecondLevel/y_output"/>
+            <task name="second_level_slice/SecondLevel/u_output"/>
+            <task name="second_level_slice/SecondLevel/v_output"/>
+            <task name="second_level_slice/SecondLevel/Y_Split"/>
+            <task name="second_level_slice/SecondLevel/Y_Merge"/>
+            <task name="second_level_slice/SecondLevel/U_Upsample"/>
+            <task name="second_level_slice/SecondLevel/V_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Y_Upsample"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="second_level_slice/FirstLevel"/>
+            <task name="second_level_slice/SecondLevel"/>
+            <task name="second_level_slice/FirstLevel/Gaussian"/>
+            <task name="second_level_slice/FirstLevel/Y_Subsample"/>
+            <task name="second_level_slice/FirstLevel/U_Subsample"/>
+            <task name="second_level_slice/FirstLevel/V_Subsample"/>
+            <task name="second_level_slice/FirstLevel/y_input"/>
+            <task name="second_level_slice/FirstLevel/u_input"/>
+            <task name="second_level_slice/FirstLevel/v_input"/>
+            <task name="second_level_slice/FirstLevel/y_output"/>
+            <task name="second_level_slice/FirstLevel/u_output"/>
+            <task name="second_level_slice/FirstLevel/v_output"/>
+            <task name="second_level_slice/FirstLevel/Y_Split"/>
+            <task name="second_level_slice/FirstLevel/Y_Merge"/>
+            <task name="second_level_slice/FirstLevel/U_Upsample"/>
+            <task name="second_level_slice/FirstLevel/V_Upsample"/>
+            <task name="second_level_slice/FirstLevel/Y_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Gaussian"/>
+            <task name="second_level_slice/SecondLevel/Y_Subsample"/>
+            <task name="second_level_slice/SecondLevel/U_Subsample"/>
+            <task name="second_level_slice/SecondLevel/V_Subsample"/>
+            <task name="second_level_slice/SecondLevel/y_input"/>
+            <task name="second_level_slice/SecondLevel/u_input"/>
+            <task name="second_level_slice/SecondLevel/v_input"/>
+            <task name="second_level_slice/SecondLevel/y_output"/>
+            <task name="second_level_slice/SecondLevel/u_output"/>
+            <task name="second_level_slice/SecondLevel/v_output"/>
+            <task name="second_level_slice/SecondLevel/Y_Split"/>
+            <task name="second_level_slice/SecondLevel/Y_Merge"/>
+            <task name="second_level_slice/SecondLevel/U_Upsample"/>
+            <task name="second_level_slice/SecondLevel/V_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Y_Upsample"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="second_level_slice/FirstLevel"/>
+            <task name="second_level_slice/SecondLevel"/>
+            <task name="second_level_slice/FirstLevel/Gaussian"/>
+            <task name="second_level_slice/FirstLevel/Y_Subsample"/>
+            <task name="second_level_slice/FirstLevel/U_Subsample"/>
+            <task name="second_level_slice/FirstLevel/V_Subsample"/>
+            <task name="second_level_slice/FirstLevel/y_input"/>
+            <task name="second_level_slice/FirstLevel/u_input"/>
+            <task name="second_level_slice/FirstLevel/v_input"/>
+            <task name="second_level_slice/FirstLevel/y_output"/>
+            <task name="second_level_slice/FirstLevel/u_output"/>
+            <task name="second_level_slice/FirstLevel/v_output"/>
+            <task name="second_level_slice/FirstLevel/Y_Split"/>
+            <task name="second_level_slice/FirstLevel/Y_Merge"/>
+            <task name="second_level_slice/FirstLevel/U_Upsample"/>
+            <task name="second_level_slice/FirstLevel/V_Upsample"/>
+            <task name="second_level_slice/FirstLevel/Y_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Gaussian"/>
+            <task name="second_level_slice/SecondLevel/Y_Subsample"/>
+            <task name="second_level_slice/SecondLevel/U_Subsample"/>
+            <task name="second_level_slice/SecondLevel/V_Subsample"/>
+            <task name="second_level_slice/SecondLevel/y_input"/>
+            <task name="second_level_slice/SecondLevel/u_input"/>
+            <task name="second_level_slice/SecondLevel/v_input"/>
+            <task name="second_level_slice/SecondLevel/y_output"/>
+            <task name="second_level_slice/SecondLevel/u_output"/>
+            <task name="second_level_slice/SecondLevel/v_output"/>
+            <task name="second_level_slice/SecondLevel/Y_Split"/>
+            <task name="second_level_slice/SecondLevel/Y_Merge"/>
+            <task name="second_level_slice/SecondLevel/U_Upsample"/>
+            <task name="second_level_slice/SecondLevel/V_Upsample"/>
+            <task name="second_level_slice/SecondLevel/Y_Upsample"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="567667129" vertexname="Display"/>
+        <timing opname="x86" time="353582688" vertexname="Read_YUV"/>
+        <timing opname="x86" time="10000" vertexname="FirstLevel"/>
+        <timing opname="x86" time="10000" vertexname="SecondLevel"/>
+        <timing opname="x86" time="371007627" vertexname="Gaussian"/>
+        <timing opname="x86" time="69794233" vertexname="Y_Subsample"/>
+        <timing opname="x86" time="69794233" vertexname="U_Subsample"/>
+        <timing opname="x86" time="69794233" vertexname="V_Subsample"/>
+        <timing opname="x86" time="10000" vertexname="y_input"/>
+        <timing opname="x86" time="10000" vertexname="u_input"/>
+        <timing opname="x86" time="10000" vertexname="v_input"/>
+        <timing opname="x86" time="10000" vertexname="y_output"/>
+        <timing opname="x86" time="10000" vertexname="u_output"/>
+        <timing opname="x86" time="10000" vertexname="v_output"/>
+        <timing opname="x86" time="283176990" vertexname="Y_Split"/>
+        <timing opname="x86" time="47791818" vertexname="Y_Merge"/>
+        <timing opname="x86" time="125749768" vertexname="U_Upsample"/>
+        <timing opname="x86" time="125749768" vertexname="V_Upsample"/>
+        <timing opname="x86" time="125749768" vertexname="Y_Upsample"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uint" size="1"/>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core2"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>

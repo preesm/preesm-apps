@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.gaussian-pyramid/Algo/first_level_square.pi"/>
+        <architecture url="/org.ietr.preesm.gaussian-pyramid/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.gaussian-pyramid/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="first_level_square/Display"/>
+            <task name="first_level_square/Read_YUV"/>
+            <task name="first_level_square/Pyramid"/>
+            <task name="first_level_square/Pyramid/v_input"/>
+            <task name="first_level_square/Pyramid/u_input"/>
+            <task name="first_level_square/Pyramid/u_output"/>
+            <task name="first_level_square/Pyramid/Y_Subsample"/>
+            <task name="first_level_square/Pyramid/V_Subsample"/>
+            <task name="first_level_square/Pyramid/Gaussian"/>
+            <task name="first_level_square/Pyramid/U_Subsample"/>
+            <task name="first_level_square/Pyramid/y_output"/>
+            <task name="first_level_square/Pyramid/y_input"/>
+            <task name="first_level_square/Pyramid/v_output"/>
+            <task name="first_level_square/Pyramid/Y_Split"/>
+            <task name="first_level_square/Pyramid/Y_Merge"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="first_level_square/Pyramid"/>
+            <task name="first_level_square/Pyramid/v_input"/>
+            <task name="first_level_square/Pyramid/u_input"/>
+            <task name="first_level_square/Pyramid/u_output"/>
+            <task name="first_level_square/Pyramid/Y_Subsample"/>
+            <task name="first_level_square/Pyramid/V_Subsample"/>
+            <task name="first_level_square/Pyramid/Gaussian"/>
+            <task name="first_level_square/Pyramid/U_Subsample"/>
+            <task name="first_level_square/Pyramid/y_output"/>
+            <task name="first_level_square/Pyramid/y_input"/>
+            <task name="first_level_square/Pyramid/v_output"/>
+            <task name="first_level_square/Pyramid/Y_Split"/>
+            <task name="first_level_square/Pyramid/Y_Merge"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="first_level_square/Pyramid"/>
+            <task name="first_level_square/Pyramid/v_input"/>
+            <task name="first_level_square/Pyramid/u_input"/>
+            <task name="first_level_square/Pyramid/u_output"/>
+            <task name="first_level_square/Pyramid/Y_Subsample"/>
+            <task name="first_level_square/Pyramid/V_Subsample"/>
+            <task name="first_level_square/Pyramid/Gaussian"/>
+            <task name="first_level_square/Pyramid/U_Subsample"/>
+            <task name="first_level_square/Pyramid/y_output"/>
+            <task name="first_level_square/Pyramid/y_input"/>
+            <task name="first_level_square/Pyramid/v_output"/>
+            <task name="first_level_square/Pyramid/Y_Split"/>
+            <task name="first_level_square/Pyramid/Y_Merge"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="first_level_square/Pyramid"/>
+            <task name="first_level_square/Pyramid/v_input"/>
+            <task name="first_level_square/Pyramid/u_input"/>
+            <task name="first_level_square/Pyramid/u_output"/>
+            <task name="first_level_square/Pyramid/Y_Subsample"/>
+            <task name="first_level_square/Pyramid/V_Subsample"/>
+            <task name="first_level_square/Pyramid/Gaussian"/>
+            <task name="first_level_square/Pyramid/U_Subsample"/>
+            <task name="first_level_square/Pyramid/y_output"/>
+            <task name="first_level_square/Pyramid/y_input"/>
+            <task name="first_level_square/Pyramid/v_output"/>
+            <task name="first_level_square/Pyramid/Y_Split"/>
+            <task name="first_level_square/Pyramid/Y_Merge"/>
+            <task name="first_level_square/Pyramid/U_Upsample"/>
+            <task name="first_level_square/Pyramid/V_Upsample"/>
+            <task name="first_level_square/Pyramid/Y_Upsample"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="595209795" vertexname="Display"/>
+        <timing opname="x86" time="335199201" vertexname="Read_YUV"/>
+        <timing opname="x86" time="10000" vertexname="Pyramid"/>
+        <timing opname="x86" time="10000" vertexname="v_input"/>
+        <timing opname="x86" time="10000" vertexname="u_input"/>
+        <timing opname="x86" time="10000" vertexname="u_output"/>
+        <timing opname="x86" time="231102987" vertexname="Y_Subsample"/>
+        <timing opname="x86" time="231102987" vertexname="V_Subsample"/>
+        <timing opname="x86" time="649127431" vertexname="Gaussian"/>
+        <timing opname="x86" time="231102987" vertexname="U_Subsample"/>
+        <timing opname="x86" time="10000" vertexname="y_output"/>
+        <timing opname="x86" time="10000" vertexname="y_input"/>
+        <timing opname="x86" time="10000" vertexname="v_output"/>
+        <timing opname="x86" time="423642584" vertexname="Y_Split"/>
+        <timing opname="x86" time="51290204" vertexname="Y_Merge"/>
+        <timing opname="x86" time="115654509" vertexname="U_Upsample"/>
+        <timing opname="x86" time="115654509" vertexname="V_Upsample"/>
+        <timing opname="x86" time="115654509" vertexname="Y_Upsample"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uint" size="1"/>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core2"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>

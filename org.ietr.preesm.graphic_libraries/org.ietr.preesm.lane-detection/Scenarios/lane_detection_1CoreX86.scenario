@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.lane-detection/Algo/lane_detection.pi"/>
+        <architecture url="/org.ietr.preesm.lane-detection/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.lane-detection/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="lane_detection/IPM"/>
+            <task name="lane_detection/Display"/>
+            <task name="lane_detection/IPM_Reverse"/>
+            <task name="lane_detection/LaneFilter"/>
+            <task name="lane_detection/Read_YUV"/>
+            <task name="lane_detection/PixelSel"/>
+            <task name="lane_detection/UpsampleU"/>
+            <task name="lane_detection/UpsampleV"/>
+            <task name="lane_detection/SubsampleU"/>
+            <task name="lane_detection/SubsampleV"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <timing opname="x86" time="312231111" vertexname="lane_detection/IPM"/>
+        <timing opname="x86" time="79528569" vertexname="lane_detection/Display"/>
+        <timing opname="x86" time="286202035" vertexname="lane_detection/IPM_Reverse"/>
+        <timing opname="x86" time="77937790" vertexname="lane_detection/LaneFilter"/>
+        <timing opname="x86" time="38898350" vertexname="lane_detection/Read_YUV"/>
+        <timing opname="x86" time="100" vertexname="lane_detection/DuplicateY"/>
+        <timing opname="x86" time="122063771" vertexname="lane_detection/PixelSel"/>
+        <timing opname="x86" time="19574930" vertexname="lane_detection/UpsampleU"/>
+        <timing opname="x86" time="6828204" vertexname="lane_detection/UpsampleV"/>
+        <timing opname="x86" time="6828204" vertexname="lane_detection/SubsampleU"/>
+        <timing opname="x86" time="6828204" vertexname="lane_detection/SubsampleV"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

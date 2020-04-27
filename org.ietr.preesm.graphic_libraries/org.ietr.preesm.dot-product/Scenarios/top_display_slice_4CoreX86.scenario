@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.dot-product/Algo/top_display_slice.pi"/>
+        <architecture url="/org.ietr.preesm.dot-product/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.dot-product/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_display_slice/Read_YUV"/>
+            <task name="top_display_slice/Display"/>
+            <task name="top_display_slice/Filter"/>
+            <task name="top_display_slice/Filter/Split"/>
+            <task name="top_display_slice/Filter/Merge"/>
+            <task name="top_display_slice/Filter/Coefficients"/>
+            <task name="top_display_slice/Filter/DotProduct"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top_display_slice/Filter"/>
+            <task name="top_display_slice/Filter/Split"/>
+            <task name="top_display_slice/Filter/Merge"/>
+            <task name="top_display_slice/Filter/Coefficients"/>
+            <task name="top_display_slice/Filter/DotProduct"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top_display_slice/Filter"/>
+            <task name="top_display_slice/Filter/Split"/>
+            <task name="top_display_slice/Filter/Merge"/>
+            <task name="top_display_slice/Filter/Coefficients"/>
+            <task name="top_display_slice/Filter/DotProduct"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top_display_slice/Filter"/>
+            <task name="top_display_slice/Filter/Split"/>
+            <task name="top_display_slice/Filter/Merge"/>
+            <task name="top_display_slice/Filter/Coefficients"/>
+            <task name="top_display_slice/Filter/DotProduct"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <timing opname="x86" time="345970488" vertexname="top_display_slice/Read_YUV"/>
+        <timing opname="x86" time="545870601" vertexname="top_display_slice/Display"/>
+        <timing opname="x86" time="100" vertexname="top_display_slice/Filter"/>
+        <timing opname="x86" time="100" vertexname="top_display_slice/Filter/input"/>
+        <timing opname="x86" time="100" vertexname="top_display_slice/Filter/output"/>
+        <timing opname="x86" time="166415437" vertexname="top_display_slice/Filter/Split"/>
+        <timing opname="x86" time="132897843" vertexname="top_display_slice/Filter/Merge"/>
+        <timing opname="x86" time="2699205" vertexname="top_display_slice/Filter/Coefficients"/>
+        <timing opname="x86" time="22482973611" vertexname="top_display_slice/Filter/DotProduct"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core2"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

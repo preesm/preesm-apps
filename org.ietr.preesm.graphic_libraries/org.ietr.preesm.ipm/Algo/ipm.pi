@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">ipm</data>
+        <node expr="352" id="width" kind="param"/>
+        <node expr="288" id="height" kind="param"/>
+        <node expr="0" id="index" kind="param"/>
+        <node expr="140" id="x11" kind="param"/>
+        <node expr="212" id="x12" kind="param"/>
+        <node expr="0" id="x21" kind="param"/>
+        <node expr="352" id="x22" kind="param"/>
+        <node expr="200" id="y1" kind="param"/>
+        <node expr="288" id="y2" kind="param"/>
+        <node id="IPM" kind="actor">
+            <data key="graph_desc">Code/include/ipm.h</data>
+            <loop name="ipm">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true" name="x11" type="int"/>
+                <param direction="IN" isConfig="true" name="x12" type="int"/>
+                <param direction="IN" isConfig="true" name="x21" type="int"/>
+                <param direction="IN" isConfig="true" name="x22" type="int"/>
+                <param direction="IN" isConfig="true" name="y1" type="int"/>
+                <param direction="IN" isConfig="true" name="y2" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="input" type="unsigned char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="unsigned char "/>
+            </loop>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="x11"/>
+            <port kind="cfg_input" name="x12"/>
+            <port kind="cfg_input" name="x21"/>
+            <port kind="cfg_input" name="x22"/>
+            <port kind="cfg_input" name="y1"/>
+            <port kind="cfg_input" name="y2"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="input"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="output"/>
+        </node>
+        <node id="Display" kind="actor">
+            <data key="graph_desc">Code/include/yuv-display.h</data>
+            <loop name="yuvDisplay">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="IN" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="yuvDisplayInit">
+                <param direction="IN" isConfig="true" name="id" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayWidth" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="displayHeight" type="int"/>
+            </init>
+            <port kind="cfg_input" name="id"/>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port kind="cfg_input" name="displayWidth"/>
+            <port kind="cfg_input" name="displayHeight"/>
+            <port annotation="NONE" expr="width*height"
+                kind="input" name="y"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="u"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="input" name="v"/>
+        </node>
+        <node id="ReadY" kind="actor">
+            <data key="graph_desc">Code/include/yuv-read.h</data>
+            <loop name="readYComponent">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+                <param direction="OUT" isConfig="false" name="y" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="u" type="unsigned char "/>
+                <param direction="OUT" isConfig="false" name="v" type="unsigned char "/>
+            </loop>
+            <init name="initReadYUV">
+                <param direction="IN" isConfig="true"
+                    name="width" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="height" type="int"/>
+            </init>
+            <port kind="cfg_input" name="width"/>
+            <port kind="cfg_input" name="height"/>
+            <port annotation="NONE" expr="width*height"
+                kind="output" name="y"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="output" name="u"/>
+            <port annotation="NONE" expr="width/2*height/2"
+                kind="output" name="v"/>
+        </node>
+        <edge kind="fifo" source="ReadY" sourceport="y"
+            target="IPM" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="IPM" sourceport="output"
+            target="Display" targetport="y" type="uchar"/>
+        <edge kind="fifo" source="ReadY" sourceport="u"
+            target="Display" targetport="u" type="uchar"/>
+        <edge kind="fifo" source="ReadY" sourceport="v"
+            target="Display" targetport="v" type="uchar"/>
+        <edge kind="dependency" source="width" target="ReadY" targetport="width"/>
+        <edge kind="dependency" source="height" target="ReadY" targetport="height"/>
+        <edge kind="dependency" source="width" target="IPM" targetport="width"/>
+        <edge kind="dependency" source="height" target="IPM" targetport="height"/>
+        <edge kind="dependency" source="width" target="Display" targetport="width"/>
+        <edge kind="dependency" source="height" target="Display" targetport="height"/>
+        <edge kind="dependency" source="index" target="Display" targetport="id"/>
+        <edge kind="dependency" source="x11" target="IPM" targetport="x11"/>
+        <edge kind="dependency" source="x12" target="IPM" targetport="x12"/>
+        <edge kind="dependency" source="x21" target="IPM" targetport="x21"/>
+        <edge kind="dependency" source="x22" target="IPM" targetport="x22"/>
+        <edge kind="dependency" source="y1" target="IPM" targetport="y1"/>
+        <edge kind="dependency" source="y2" target="IPM" targetport="y2"/>
+        <edge kind="dependency" source="width" target="Display" targetport="displayWidth"/>
+        <edge kind="dependency" source="height" target="Display" targetport="displayHeight"/>
+    </graph>
+</graphml>

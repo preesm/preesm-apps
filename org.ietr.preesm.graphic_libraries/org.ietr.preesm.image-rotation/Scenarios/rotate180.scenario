@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.image-rotation/Algo/rotate180.pi"/>
+        <architecture url="/org.ietr.preesm.image-rotation/Archi/4CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.image-rotation/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="rotate180/Read_YUV"/>
+            <task name="rotate180/RotateY1"/>
+            <task name="rotate180/RotateU1"/>
+            <task name="rotate180/RotateV1"/>
+            <task name="rotate180/Display"/>
+            <task name="rotate180/RotateY2"/>
+            <task name="rotate180/RotateU2"/>
+            <task name="rotate180/RotateV2"/>
+            <task name="rotate180"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="rotate180/RotateY1"/>
+            <task name="rotate180/RotateU1"/>
+            <task name="rotate180/RotateV1"/>
+            <task name="rotate180/RotateY2"/>
+            <task name="rotate180/RotateU2"/>
+            <task name="rotate180/RotateV2"/>
+            <task name="rotate180"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="rotate180/RotateY1"/>
+            <task name="rotate180/RotateU1"/>
+            <task name="rotate180/RotateV1"/>
+            <task name="rotate180/RotateY2"/>
+            <task name="rotate180/RotateU2"/>
+            <task name="rotate180/RotateV2"/>
+            <task name="rotate180"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="rotate180/RotateY1"/>
+            <task name="rotate180/RotateU1"/>
+            <task name="rotate180/RotateV1"/>
+            <task name="rotate180/RotateY2"/>
+            <task name="rotate180/RotateU2"/>
+            <task name="rotate180/RotateV2"/>
+            <task name="rotate180"/>
+        </constraintGroup>
+    </constraints>
+    <relativeconstraints excelUrl=""/>
+    <timings excelUrl="">
+        <timing opname="x86" time="241259592" vertexname="Read_YUV"/>
+        <timing opname="x86" time="671672878" vertexname="RotateY2"/>
+        <timing opname="x86" time="671672878" vertexname="RotateV1"/>
+        <timing opname="x86" time="671672878" vertexname="RotateY1"/>
+        <timing opname="x86" time="671672878" vertexname="RotateV2"/>
+        <timing opname="x86" time="671672878" vertexname="RotateU2"/>
+        <timing opname="x86" time="671672878" vertexname="RotateU1"/>
+        <timing opname="x86" time="336030696" vertexname="Display"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0E-8"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="char" size="1"/>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core3"/>
+        </specialVertexOperators>
+        <numberOfTopExecutions>1</numberOfTopExecutions>
+    </simuParams>
+    <variables excelUrl=""/>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+</scenario>
