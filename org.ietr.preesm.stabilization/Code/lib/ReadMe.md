@@ -17,19 +17,15 @@ The project compilation requires the following libraries:
 * SDL2_TTF
 
 ## pthread 
-1. Download the pthread library:   
-   [pthread-w32-2-8-0-release.exe](ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-8-0-release.exe)
-2. Execute the downloaded executable to decompress its content in a temporary directory.
-3. Copy the content of the decompressed /Pre-built.2/ directory into a folder named exactly as follows:  
-  ```/<project-path>/lib/pthread-2.8.0/```  
-  (where <project-path> is replaced with your project path).
-   
+1. Download appropriate version of PThread following [our guide](https://preesm.github.io/tutos/intro/#pthread)
+2. On windows, unzip the archive and compy its content to ```/<project-path>/lib/pthread-2.X.Y/```
+3. Your directory /<project-path>/lib/pthread-2.X.Y/ should contain:
+   - include/
+   - lib/
+
 ## SDL2
-1. Download the SDL2 Development libraries corresponding to your IDE.  
-   [SDL2 Download Webpage](https://www.libsdl.org/download-2.0.php)  
-   Among the different proposed libraries, make sure you use the "Development 
-   libraries". 
-3. This step differs depending on the used IDE.
+1. Download the SDL2 Development libraries corresponding to your IDE following [our guide](https://preesm.github.io/tutos/intro/#sdl2-and-sdl2_ttf)
+2. This step differs depending on the used IDE.
    * **For MinGW based IDEs (Codeblocks, Makefile, Eclipse CDT, ...)**
      1. Decompress the dowloaded file in a temporary location. 
      2. In the decompressed file, copy the content of the following directory  
@@ -50,10 +46,7 @@ The project compilation requires the following libraries:
 		```/<project-path>/lib/SDL-2.0.<xx>/lib```  
 
 ## SDL2_TTF
-1. Download the SDL2 Development libraries corresponding to your IDE.  
-   [SDL2_TTF Download Webpage](https://www.libsdl.org/projects/SDL_ttf/)  
-   Among the different proposed libraries, make sure you use the "Development 
-   libraries". 
+1. Download the SDL2 Development libraries corresponding to your IDE following [our guide](https://preesm.github.io/tutos/intro/#sdl2-and-sdl2_ttf)
 2. Follow the same procedure as for the SDL2 library. The folder containing the library must be named as follows:  
    ```SDL2_ttf-2.0.<xx>```  
    where `<xx>` is replaced with your version number.

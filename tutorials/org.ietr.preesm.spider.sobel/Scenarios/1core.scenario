@@ -17,7 +17,6 @@
             <task name="top_display/nbSliceSetter"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
@@ -32,11 +31,9 @@
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues>
-        <parameter name="nbSlice" parent="top_display"
-            type="ACTOR_DEPENDENT" value="[1]"/>
+        <parameter name="nbSlice" parent="top_display" value="[1]"/>
     </parameterValues>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

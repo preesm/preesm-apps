@@ -2,13 +2,13 @@
 
 
 TARGET=main
-DEPS=$(patsubst %.c,%,$(wildcard src/*.c))
+DEPS=$(patsubst %.c,%,$(wildcard src/*.c)) $(patsubst %.cpp,%,$(wildcard src/*.cpp)) $(patsubst %.cpp,%,$(wildcard src/energyMonitor/*.cpp))
 GENS=$(patsubst %.cpp,%,$(wildcard generated/*.cpp))
 
 CC=g++
 
-INCS=-I./include -I./generated
-LIBS=$(shell pkg-config --libs opencv) -lpthread -lSpider
+INCS=-I./include -I./generated -I./src/energyMonitor
+LIBS=$(shell pkg-config --libs opencv) -lpthread -lSDL2 -lSDL2_ttf -lSDL2main  -lSpider
 
 CFLAGS=-fpic $(INCS) -O0
 CPPFLAGS=$(CFLAGS)
@@ -30,7 +30,7 @@ src/%.o: %.c $(wildcard include/*.h)
 
 
 clean:
-	rm -rfv *.o src/*.o generated/*.o
+	rm -rfv *.o src/*.o generated/*.o src/energyMonitor/*.o
 
 proper: clean
 	rm -rfv $(TARGET)
@@ -52,9 +52,9 @@ scheduler_set_ondemand:
 	echo "ondemand" | sudo tee /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
 
 scheduler_set_performance:
-	echo "performance" > /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
-	echo "performance" > /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
+	echo "performance" | sudo tee /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
+	echo "performance" | sudo tee /sys/bus/cpu/devices/cpu4/cpufreq/scaling_governor
 
-demo: scheduler_set_ondemand proper
+demo: scheduler_set_performance proper
 	EnergyMonitor &
 	$(MAKE) test

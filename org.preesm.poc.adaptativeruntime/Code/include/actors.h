@@ -14,8 +14,6 @@ void initRead();
 
 void read(OUT rgbimg* img);
 
-void display(IN rgbimg * img, unsigned int displayID);
-
 void computeBrightnessAndForward(IN rgbimg * img_in, OUT double * brightness, OUT rgbimg * img_out);
 
 

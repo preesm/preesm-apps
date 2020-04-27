@@ -55,6 +55,6 @@ typedef unsigned char uchar;
 
 
 // Stopping the main loop after N iterations
-#define LOOP_SIZE 100
+#define PREESM_LOOP_SIZE 100
 
 #endif

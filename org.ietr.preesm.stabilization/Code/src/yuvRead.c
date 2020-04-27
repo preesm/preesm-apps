@@ -40,7 +40,7 @@ void initReadYUV(int width, int height) {
         exit(0);
     }
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
     printf("Opened file '%s'\n", PATH_VIDEO);
 #endif
 
@@ -57,7 +57,7 @@ void initReadYUV(int width, int height) {
         return;
     }
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
     printf("Correct size for yuv_file '%s'\n", PATH_VIDEO);
 #endif
 
@@ -82,9 +82,13 @@ void readYUV(int width, int height, unsigned char *y, unsigned char *u, unsigned
 		printf("\nMain: %d frames in %d us - %f fps\n", FPS_INTERVAL - 1, time, (FPS_INTERVAL - 1.0) / (float)time * 1000000);
         startTiming(0);
     }
-    fread(y, sizeof(char), width * height, ptfile);
-    fread(u, sizeof(char), width * height / 4, ptfile);
-    fread(v, sizeof(char), width * height / 4, ptfile);
+    int res = fread(y, sizeof(char), width * height, ptfile);
+    res += fread(u, sizeof(char), width * height / 4, ptfile);
+    res += fread(v, sizeof(char), width * height / 4, ptfile);
+    if (res == 0) {
+      printf("Error while read file\n");
+      exit(1);
+    }
 }
 
 void endYUVRead(){

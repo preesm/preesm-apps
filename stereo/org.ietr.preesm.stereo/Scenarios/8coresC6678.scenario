@@ -319,26 +319,18 @@
             <task name="stereo_top/Display_rgb0"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
-        <timing opname="c6678" time="8112" vertexname="AggregateCost"/>
-        <timing opname="c6678" time="5528" vertexname="Census_L"/>
-        <timing opname="c6678" time="5528" vertexname="Census_R"/>
-        <timing opname="c6678" time="12802" vertexname="ComputeHorWeights"/>
-        <timing opname="c6678" time="12802" vertexname="ComputeVertWeights"/>
-        <timing opname="c6678" time="1902" vertexname="CostConstruction"/>
-        <timing opname="c6678" time="1" vertexname="DisparityGen"/>
-        <timing opname="c6678" time="22767" vertexname="Display_RGB1"/>
-        <timing opname="c6678" time="22767" vertexname="Display_rgb0"/>
-        <timing opname="c6678" time="1868" vertexname="Median_Filter"/>
-        <timing opname="c6678" time="1" vertexname="OffsetGen"/>
-        <timing opname="c6678" time="391" vertexname="RGB2Gray_L"/>
-        <timing opname="c6678" time="391" vertexname="RGB2Gray_R"/>
-        <timing opname="c6678" time="4452" vertexname="Read_PPM0"/>
-        <timing opname="c6678" time="4452" vertexname="Read_PPM1"/>
-        <timing opname="c6678" time="9" vertexname="Split"/>
-        <timing opname="c6678" time="100" vertexname="Write_PPM"/>
-        <timing opname="c6678" time="537" vertexname="disparitySelect"/>
+        <timing opname="c6678" time="5528" vertexname="stereo_top/Census_L"/>
+        <timing opname="c6678" time="5528" vertexname="stereo_top/Census_R"/>
+        <timing opname="c6678" time="22767" vertexname="stereo_top/Display_RGB1"/>
+        <timing opname="c6678" time="22767" vertexname="stereo_top/Display_rgb0"/>
+        <timing opname="c6678" time="1868" vertexname="stereo_top/Median_Filter"/>
+        <timing opname="c6678" time="391" vertexname="stereo_top/RGB2Gray_L"/>
+        <timing opname="c6678" time="391" vertexname="stereo_top/RGB2Gray_R"/>
+        <timing opname="c6678" time="4452" vertexname="stereo_top/Read_PPM0"/>
+        <timing opname="c6678" time="4452" vertexname="stereo_top/Read_PPM1"/>
+        <timing opname="c6678" time="9" vertexname="stereo_top/Split"/>
+        <timing opname="c6678" time="100" vertexname="stereo_top/Write_PPM"/>
         <memcpyspeed opname="c6678" setuptime="1" timeperunit="5.0E-6"/>
     </timings>
     <simuParams>
@@ -357,12 +349,11 @@
             <specialVertexOperator path="Core3"/>
             <specialVertexOperator path="Core6"/>
             <specialVertexOperator path="Core5"/>
-            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core2"/>
             <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

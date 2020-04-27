@@ -16,9 +16,9 @@ Description : Displaying YUV frames one next to another in a row
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#define FPS_MEAN 50
+#define FPS_MEAN 49
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
 * Structure representing one display
@@ -41,7 +41,7 @@ static YuvDisplay display;
 int exitCallBack(void* userdata, SDL_Event* event){
 	if (event->type == SDL_QUIT){
 		printf("Exit request from GUI.\n");
-		stopThreads = 1;
+		preesmStopThreads = 1;
 		return 0;
 	}
 
@@ -67,25 +67,22 @@ void yuvDisplayInit(int id, int width, int height)
 	if (height > DISPLAY_H)
 	{
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (id >= NB_DISPLAY)
 	{
 		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (display.currentXMin + width > DISPLAY_W)
 	{
 		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 
 
-#ifdef VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+#ifdef PREESM_VERBOSE
+	printf("SDL screen height OK, width OK, number of displays OK.\n");
 #endif
 
 	if (display.initialized == 0)

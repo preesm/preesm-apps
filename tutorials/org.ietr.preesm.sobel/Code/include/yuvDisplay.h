@@ -12,14 +12,6 @@ Description : Displaying YUV frames one next to another in a row.
 
 #include "preesm.h"
 
-#define NB_DISPLAY 1
-#define DISPLAY_W 352*NB_DISPLAY
-#define DISPLAY_H 288
-
-#define INIT_OVERLAY {NULL} // must be se same size as NB_DISPLAY
-
-#define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
-
 /**
 * Function called to display one of the YUV frame of the window.
 * The size of the displayed frame must correspond to the one declared

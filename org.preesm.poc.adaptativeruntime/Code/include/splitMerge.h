@@ -25,12 +25,14 @@
 *        the width of the input image
 * @param height
 *        the height of the input image
+* @param overlap
+*        the number of pixel lines that overlaps between successive slices	
 * @param input
 *        the input image of size width*height
 * @param output
 *        the output buffer of size nbSlice*[width*(height/nbSlice+2)]
 */
-void split(int nbSlice, int width, int height, IN unsigned char *input, OUT unsigned char *output);
+void split(int nbSlice, int width, int height, int overlap, IN unsigned char *input, OUT unsigned char *output);
 
 /**
 * Function used to assemble nbSlices slices of size width*(height/nbSlice+2)

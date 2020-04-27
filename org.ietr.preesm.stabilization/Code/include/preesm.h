@@ -14,6 +14,17 @@
 #define IN
 #define OUT
 
-#include "communication.h"
+//#define PREESM_VERBOSE
+//#define PREESM_LOOP_SIZE 375
+
+typedef unsigned char uchar;
+
+#include "applicationParameters.h"
+#include "matrix.h"
+#include "preesm.h"
+#include "stabilization.h"
+#include "yuvDisplay.h"
+#include "yuvRead.h"
+#include "yuvWrite.h"
 
 #endif

@@ -19,7 +19,7 @@
 
 #define FPS_MEAN 5
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
 * Structure representing one display
@@ -43,7 +43,7 @@ static RGBDisplay display ;
 int exitCallBack(void* userdata, SDL_Event* event){
 	if (event->type == SDL_QUIT){
 		printf("Exit request from GUI.\n");
-		stopThreads = 1;
+		preesmStopThreads = 1;
 		return 0;
 	}
 
@@ -59,25 +59,22 @@ void displayRGBInit(int id, int height, int width){
 	if (height > DISPLAY_H)
 	{
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (id >= NB_DISPLAY)
 	{
 		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 	else if (display.currentXMin + width > DISPLAY_W)
 	{
 		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
-		system("PAUSE");
 		exit(1);
 	}
 
 
-#ifdef VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+#ifdef PREESM_VERBOSE
+	printf("SDL screen height OK, width OK, number of displays OK.\n");
 #endif
 
 	if (display.initialized == 0)
@@ -88,9 +85,20 @@ void displayRGBInit(int id, int height, int width){
 
 		SDL_SetEventFilter(exitCallBack, NULL);
 
-		if (SDL_Init(SDL_INIT_VIDEO))
-		{
-			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+
+		int sdlInitRes = 1, cpt = 10;
+		while (sdlInitRes && cpt > 0) {
+			sdlInitRes = SDL_Init(SDL_INIT_VIDEO);
+			cpt--;
+			if (sdlInitRes && cpt > 10) {
+#ifdef PREESM_VERBOSE
+				printf(" fail ... retrying\n");
+#endif
+			}
+		}
+		if (sdlInitRes){
+			fflush(stdout);
+			fprintf(stderr, "%d - %d -- Could not initialize SDL - %s\n", cpt, sdlInitRes, SDL_GetError());
 			exit(1);
 		}
 
@@ -105,7 +113,7 @@ void displayRGBInit(int id, int height, int width){
 		printf("TTF_Init\n");
 
 		/* Initialize Font for text display */
-		display.text_font = TTF_OpenFont(PATH_TTF, 20);
+		display.text_font = TTF_OpenFont(PATH_TTF_FULL, 20);
 		if (!display.text_font)
 		{
 			printf("TTF_OpenFont: %s\n", TTF_GetError());
@@ -205,7 +213,7 @@ void refreshDisplayRGB(int id)
 	SDL_Texture* texture = display.textures[id];
 	SDL_Event event;
 	SDL_Rect screen_rect;
-	
+
 	SDL_QueryTexture(texture, NULL, NULL, &(screen_rect.w), &(screen_rect.h));
 
 	SDL_UpdateTexture(texture, NULL, display.surface[id]->pixels, screen_rect.w*4);

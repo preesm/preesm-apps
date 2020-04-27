@@ -11,7 +11,7 @@
 #ifndef X86_H
 #define X86_H
 
-#define VERBOSE
+#define PREESM_VERBOSE
 
 #ifdef _WIN32
 #include <windows.h>
@@ -45,6 +45,9 @@
 #include "communication.h"
 #include "fifo.h"
 #include "dump.h"
+#include "clock.h"
+#include "yuvDisplay.h"
+#include "rgb2YUV.h"
 
 
 typedef unsigned char uchar;

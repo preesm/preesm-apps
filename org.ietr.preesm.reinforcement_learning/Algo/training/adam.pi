@@ -11,36 +11,40 @@
         <node id="input_size" kind="cfg_in_iface"/>
         <node expr="input_size * layer_size" id="weights_size" kind="param"/>
         <node id="gradients" kind="src">
-            <port annotation="NONE" expr="layer_size + weights_size"
-                kind="output" name="gradients"/>
+            <port annotation="NONE"
+                expr="layer_size + weights_size" kind="output" name="gradients"/>
         </node>
         <node id="weights" kind="src">
-            <port annotation="NONE" expr="weights_size" kind="output" name="weights"/>
+            <port annotation="NONE" expr="weights_size"
+                kind="output" name="weights"/>
         </node>
         <node id="bias" kind="src">
-            <port annotation="NONE" expr="layer_size" kind="output" name="bias"/>
+            <port annotation="NONE" expr="layer_size"
+                kind="output" name="bias"/>
         </node>
         <node id="first_order_moments" kind="src">
-            <port annotation="NONE" expr="layer_size + weights_size"
-                kind="output" name="first_order_moments"/>
+            <port annotation="NONE"
+                expr="layer_size + weights_size" kind="output" name="first_order_moments"/>
         </node>
         <node id="second_order_moments" kind="src">
-            <port annotation="NONE" expr="layer_size + weights_size"
-                kind="output" name="second_order_moments"/>
+            <port annotation="NONE"
+                expr="layer_size + weights_size" kind="output" name="second_order_moments"/>
         </node>
         <node id="second_order_moments_out" kind="snk">
-            <port annotation="NONE" expr="layer_size + weights_size"
-                kind="input" name="second_order_moments_out"/>
+            <port annotation="NONE"
+                expr="layer_size + weights_size" kind="input" name="second_order_moments_out"/>
         </node>
         <node id="first_order_moments_out" kind="snk">
-            <port annotation="NONE" expr="layer_size + weights_size"
-                kind="input" name="first_order_moments_out"/>
+            <port annotation="NONE"
+                expr="layer_size + weights_size" kind="input" name="first_order_moments_out"/>
         </node>
         <node id="weights_out" kind="snk">
-            <port annotation="NONE" expr="weights_size" kind="input" name="weights_out"/>
+            <port annotation="NONE" expr="weights_size"
+                kind="input" name="weights_out"/>
         </node>
         <node id="bias_out" kind="snk">
-            <port annotation="NONE" expr="layer_size" kind="input" name="bias_out"/>
+            <port annotation="NONE" expr="layer_size"
+                kind="input" name="bias_out"/>
         </node>
         <node id="betas" kind="src">
             <port annotation="NONE" expr="4" kind="output" name="betas"/>
@@ -48,22 +52,28 @@
         <node id="epsilon" kind="src">
             <port annotation="NONE" expr="1" kind="output" name="epsilon"/>
         </node>
-        <node id="optimizeWeights" kind="actor">
+        <node id="optimizeWeights" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="false" name="valid" type="int "/>
+                <param direction="IN" isConfig="false"
+                    name="valid" type="int "/>
                 <param direction="IN" isConfig="false"
                     name="learning_rate" type="float "/>
-                <param direction="IN" isConfig="false" name="betas" type="double "/>
-                <param direction="IN" isConfig="false" name="epsilon" type="double "/>
-                <param direction="IN" isConfig="false" name="param_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="betas" type="double "/>
+                <param direction="IN" isConfig="false"
+                    name="epsilon" type="double "/>
+                <param direction="IN" isConfig="false"
+                    name="param_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="fo_moment_in" type="double "/>
                 <param direction="IN" isConfig="false"
                     name="so_moment_in" type="double "/>
-                <param direction="IN" isConfig="false" name="gradients" type="float "/>
-                <param direction="OUT" isConfig="false" name="param_out" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="gradients" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="param_out" type="float "/>
                 <param direction="OUT" isConfig="false"
                     name="fo_moment_out" type="double "/>
                 <param direction="OUT" isConfig="false"
@@ -88,22 +98,28 @@
         <node id="learning_rate" kind="src">
             <port annotation="NONE" expr="1" kind="output" name="learning_rate"/>
         </node>
-        <node id="optimizeBias" kind="actor">
+        <node id="optimizeBias" kind="actor" period="0">
             <data key="graph_desc">Code/include/mlp.h</data>
             <loop name="applyAdamOptimizer">
                 <param direction="IN" isConfig="true" name="size" type="int"/>
-                <param direction="IN" isConfig="false" name="valid" type="int "/>
+                <param direction="IN" isConfig="false"
+                    name="valid" type="int "/>
                 <param direction="IN" isConfig="false"
                     name="learning_rate" type="float "/>
-                <param direction="IN" isConfig="false" name="betas" type="double "/>
-                <param direction="IN" isConfig="false" name="epsilon" type="double "/>
-                <param direction="IN" isConfig="false" name="param_in" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="betas" type="double "/>
+                <param direction="IN" isConfig="false"
+                    name="epsilon" type="double "/>
+                <param direction="IN" isConfig="false"
+                    name="param_in" type="float "/>
                 <param direction="IN" isConfig="false"
                     name="fo_moment_in" type="double "/>
                 <param direction="IN" isConfig="false"
                     name="so_moment_in" type="double "/>
-                <param direction="IN" isConfig="false" name="gradients" type="float "/>
-                <param direction="OUT" isConfig="false" name="param_out" type="float "/>
+                <param direction="IN" isConfig="false"
+                    name="gradients" type="float "/>
+                <param direction="OUT" isConfig="false"
+                    name="param_out" type="float "/>
                 <param direction="OUT" isConfig="false"
                     name="fo_moment_out" type="double "/>
                 <param direction="OUT" isConfig="false"
@@ -145,56 +161,67 @@
         <node id="ForkGradients" kind="fork">
             <port kind="cfg_input" name="size_bias"/>
             <port kind="cfg_input" name="size_weights"/>
-            <port annotation="NONE" expr="size_bias + size_weights"
-                kind="input" name="in"/>
-            <port annotation="NONE" expr="size_bias" kind="output" name="out_1"/>
-            <port annotation="NONE" expr="size_weights" kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="size_bias + size_weights" kind="input" name="in"/>
+            <port annotation="NONE" expr="size_bias"
+                kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size_weights"
+                kind="output" name="out_1"/>
         </node>
         <node id="ForkSecondOrder" kind="fork">
             <port kind="cfg_input" name="size_bias"/>
             <port kind="cfg_input" name="size_weights"/>
-            <port annotation="NONE" expr="size_bias + size_weights"
-                kind="input" name="in"/>
-            <port annotation="NONE" expr="size_bias" kind="output" name="out_1"/>
-            <port annotation="NONE" expr="size_weights" kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="size_bias + size_weights" kind="input" name="in"/>
+            <port annotation="NONE" expr="size_bias"
+                kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size_weights"
+                kind="output" name="out_1"/>
         </node>
         <node id="ForkFirstOrder" kind="fork">
             <port kind="cfg_input" name="size_bias"/>
             <port kind="cfg_input" name="size_weights"/>
-            <port annotation="NONE" expr="size_bias + size_weights"
-                kind="input" name="in"/>
-            <port annotation="NONE" expr="size_bias" kind="output" name="out_1"/>
-            <port annotation="NONE" expr="size_weights" kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="size_bias + size_weights" kind="input" name="in"/>
+            <port annotation="NONE" expr="size_bias"
+                kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size_weights"
+                kind="output" name="out_1"/>
         </node>
         <node id="JoinFirstOrder" kind="join">
             <port kind="cfg_input" name="size_bias"/>
             <port kind="cfg_input" name="size_weights"/>
             <port annotation="NONE" expr="size_bias" kind="input" name="in_0"/>
-            <port annotation="NONE" expr="size_weights" kind="input" name="in_1"/>
-            <port annotation="NONE" expr="size_weights + size_bias"
-                kind="output" name="out"/>
+            <port annotation="NONE" expr="size_weights"
+                kind="input" name="in_1"/>
+            <port annotation="NONE"
+                expr="size_weights + size_bias" kind="output" name="out"/>
         </node>
         <node id="JoinSecondOrder" kind="join">
             <port kind="cfg_input" name="size_bias"/>
             <port kind="cfg_input" name="size_weights"/>
             <port annotation="NONE" expr="size_bias" kind="input" name="in_0"/>
-            <port annotation="NONE" expr="size_weights" kind="input" name="in_1"/>
-            <port annotation="NONE" expr="size_bias + size_weights"
-                kind="output" name="out"/>
+            <port annotation="NONE" expr="size_weights"
+                kind="input" name="in_1"/>
+            <port annotation="NONE"
+                expr="size_bias + size_weights" kind="output" name="out"/>
         </node>
         <edge kind="fifo" source="optimizeWeights"
             sourceport="param_out" target="weights_out"
             targetport="weights_out" type="float"/>
-        <edge kind="fifo" source="optimizeBias" sourceport="param_out"
-            target="bias_out" targetport="bias_out" type="float"/>
+        <edge kind="fifo" source="optimizeBias"
+            sourceport="param_out" target="bias_out"
+            targetport="bias_out" type="float"/>
         <edge kind="fifo" source="weights" sourceport="weights"
             target="optimizeWeights" targetport="param_in" type="float"/>
         <edge kind="fifo" source="valid" sourceport="valid"
             target="BroadcastValid" targetport="in" type="int"/>
-        <edge kind="fifo" source="BroadcastValid" sourceport="out_0"
-            target="optimizeBias" targetport="valid" type="int"/>
-        <edge kind="fifo" source="BroadcastValid" sourceport="out_1"
-            target="optimizeWeights" targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadcastValid"
+            sourceport="out_0" target="optimizeBias"
+            targetport="valid" type="int"/>
+        <edge kind="fifo" source="BroadcastValid"
+            sourceport="out_1" target="optimizeWeights"
+            targetport="valid" type="int"/>
         <edge kind="fifo" source="BroadcastLearningRate"
             sourceport="out_0" target="optimizeWeights"
             targetport="learning_rate" type="float"/>
@@ -202,47 +229,58 @@
             sourceport="out_1" target="optimizeBias"
             targetport="learning_rate" type="float"/>
         <edge kind="fifo" source="learning_rate"
-            sourceport="learning_rate" target="BroadcastLearningRate"
-            targetport="in" type="float"/>
+            sourceport="learning_rate"
+            target="BroadcastLearningRate" targetport="in" type="float"/>
         <edge kind="fifo" source="epsilon" sourceport="epsilon"
             target="BroadcastEpsilon" targetport="in" type="double"/>
-        <edge kind="fifo" source="BroadcastEpsilon" sourceport="out_0"
-            target="optimizeBias" targetport="epsilon" type="double"/>
-        <edge kind="fifo" source="BroadcastEpsilon" sourceport="out_1"
-            target="optimizeWeights" targetport="epsilon" type="double"/>
-        <edge kind="fifo" source="BroadcastBetas" sourceport="out_0"
-            target="optimizeBias" targetport="betas" type="double"/>
-        <edge kind="fifo" source="BroadcastBetas" sourceport="out_1"
-            target="optimizeWeights" targetport="betas" type="double"/>
+        <edge kind="fifo" source="BroadcastEpsilon"
+            sourceport="out_0" target="optimizeBias"
+            targetport="epsilon" type="double"/>
+        <edge kind="fifo" source="BroadcastEpsilon"
+            sourceport="out_1" target="optimizeWeights"
+            targetport="epsilon" type="double"/>
+        <edge kind="fifo" source="BroadcastBetas"
+            sourceport="out_0" target="optimizeBias"
+            targetport="betas" type="double"/>
+        <edge kind="fifo" source="BroadcastBetas"
+            sourceport="out_1" target="optimizeWeights"
+            targetport="betas" type="double"/>
         <edge kind="fifo" source="betas" sourceport="betas"
             target="BroadcastBetas" targetport="in" type="double"/>
         <edge kind="fifo" source="bias" sourceport="bias"
             target="optimizeBias" targetport="param_in" type="float"/>
-        <edge kind="fifo" source="ForkGradients" sourceport="out_0"
-            target="optimizeWeights" targetport="gradients" type="float"/>
-        <edge kind="fifo" source="ForkGradients" sourceport="out_1"
-            target="optimizeBias" targetport="gradients" type="float"/>
-        <edge kind="fifo" source="gradients" sourceport="gradients"
-            target="ForkGradients" targetport="in" type="float"/>
+        <edge kind="fifo" source="ForkGradients"
+            sourceport="out_1" target="optimizeWeights"
+            targetport="gradients" type="float"/>
+        <edge kind="fifo" source="ForkGradients"
+            sourceport="out_0" target="optimizeBias"
+            targetport="gradients" type="float"/>
+        <edge kind="fifo" source="gradients"
+            sourceport="gradients" target="ForkGradients"
+            targetport="in" type="float"/>
         <edge kind="fifo" source="first_order_moments"
-            sourceport="first_order_moments" target="ForkFirstOrder"
-            targetport="in" type="double"/>
-        <edge kind="fifo" source="ForkFirstOrder" sourceport="out_1"
-            target="optimizeBias" targetport="fo_moment_in" type="double"/>
-        <edge kind="fifo" source="ForkFirstOrder" sourceport="out_0"
-            target="optimizeWeights" targetport="fo_moment_in" type="double"/>
+            sourceport="first_order_moments"
+            target="ForkFirstOrder" targetport="in" type="double"/>
+        <edge kind="fifo" source="ForkFirstOrder"
+            sourceport="out_0" target="optimizeBias"
+            targetport="fo_moment_in" type="double"/>
+        <edge kind="fifo" source="ForkFirstOrder"
+            sourceport="out_1" target="optimizeWeights"
+            targetport="fo_moment_in" type="double"/>
         <edge kind="fifo" source="second_order_moments"
-            sourceport="second_order_moments" target="ForkSecondOrder"
-            targetport="in" type="double"/>
-        <edge kind="fifo" source="ForkSecondOrder" sourceport="out_1"
-            target="optimizeBias" targetport="so_moment_in" type="double"/>
-        <edge kind="fifo" source="ForkSecondOrder" sourceport="out_0"
-            target="optimizeWeights" targetport="so_moment_in" type="double"/>
-        <edge kind="fifo" source="JoinFirstOrder" sourceport="out"
-            target="first_order_moments_out"
+            sourceport="second_order_moments"
+            target="ForkSecondOrder" targetport="in" type="double"/>
+        <edge kind="fifo" source="ForkSecondOrder"
+            sourceport="out_0" target="optimizeBias"
+            targetport="so_moment_in" type="double"/>
+        <edge kind="fifo" source="ForkSecondOrder"
+            sourceport="out_1" target="optimizeWeights"
+            targetport="so_moment_in" type="double"/>
+        <edge kind="fifo" source="JoinFirstOrder"
+            sourceport="out" target="first_order_moments_out"
             targetport="first_order_moments_out" type="double"/>
-        <edge kind="fifo" source="JoinSecondOrder" sourceport="out"
-            target="second_order_moments_out"
+        <edge kind="fifo" source="JoinSecondOrder"
+            sourceport="out" target="second_order_moments_out"
             targetport="second_order_moments_out" type="double"/>
         <edge kind="fifo" source="optimizeBias"
             sourceport="fo_moment_out" target="JoinFirstOrder"

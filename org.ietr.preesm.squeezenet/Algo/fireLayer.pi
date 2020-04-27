@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">fireLayer</data>
+        <node expr="1" id="stride" kind="param"/>
+        <node id="depthSqueeze" kind="cfg_in_iface"/>
+        <node id="depthExpand" kind="cfg_in_iface"/>
+        <node expr="1" id="sizeSqueeze" kind="param"/>
+        <node expr="3" id="sizeExpand3" kind="param"/>
+        <node expr="1" id="sizeExpand1" kind="param"/>
+        <node id="size" kind="cfg_in_iface"/>
+        <node id="depthInput" kind="cfg_in_iface"/>
+        <node
+            expr="sizeSqueeze * sizeSqueeze * depthInput * depthSqueeze + depthSqueeze * depthExpand * (sizeExpand1 * sizeExpand1 + sizeExpand3 * sizeExpand3)"
+            id="totalWeights" kind="param"/>
+        <node id="input" kind="src">
+            <port annotation="NONE" expr="size * size * depthInput"
+                kind="output" name="input"/>
+        </node>
+        <node id="output" kind="snk">
+            <port annotation="NONE" expr="size * size *depthExpand * 2"
+                kind="input" name="output"/>
+        </node>
+        <node id="concatenate" kind="join">
+            <port kind="cfg_input" name="depth"/>
+            <port kind="cfg_input" name="size"/>
+            <port annotation="NONE" expr="size * size * depth"
+                kind="input" name="in_expand_1"/>
+            <port annotation="NONE" expr="size * size * depth"
+                kind="input" name="in_expand_3"/>
+            <port annotation="NONE" expr="size * size * depth * 2"
+                kind="output" name="out"/>
+        </node>
+        <node id="squeeze" kind="actor" period="0">
+            <data key="graph_desc">Algo/convolution2D.pi</data>
+            <port kind="cfg_input" name="stride"/>
+            <port kind="cfg_input" name="depthOutput"/>
+            <port kind="cfg_input" name="sizeKernel"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port annotation="NONE" expr="depthOutput" kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depthInput"
+                kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sizeKernel * sizeKernel * depthInput * depthOutput"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depthOutput"
+                kind="output" name="out"/>
+        </node>
+        <node id="duplicate" kind="broadcast">
+            <port kind="cfg_input" name="size"/>
+            <port kind="cfg_input" name="depth"/>
+            <port annotation="NONE" expr="size * size * depth"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="size * size * depth"
+                kind="output" name="out_0"/>
+            <port annotation="NONE" expr="size * size * depth"
+                kind="output" name="out_1"/>
+        </node>
+        <node id="expand3" kind="actor" period="0">
+            <data key="graph_desc">Algo/convolution2D.pi</data>
+            <port kind="cfg_input" name="stride"/>
+            <port kind="cfg_input" name="depthOutput"/>
+            <port kind="cfg_input" name="sizeKernel"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depthInput"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="depthOutput" kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="sizeKernel * sizeKernel * depthInput * depthOutput"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depthOutput"
+                kind="output" name="out"/>
+        </node>
+        <node id="expand1" kind="actor" period="0">
+            <data key="graph_desc">Algo/convolution2D.pi</data>
+            <port kind="cfg_input" name="stride"/>
+            <port kind="cfg_input" name="depthOutput"/>
+            <port kind="cfg_input" name="sizeKernel"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port kind="cfg_input" name="widthOutput"/>
+            <port kind="cfg_input" name="heightOutput"/>
+            <port kind="cfg_input" name="widthInput"/>
+            <port kind="cfg_input" name="heightInput"/>
+            <port annotation="NONE"
+                expr="widthInput * heightInput * depthInput"
+                kind="input" name="in"/>
+            <port annotation="NONE" expr="depthOutput" kind="input" name="bias"/>
+            <port annotation="NONE"
+                expr="sizeKernel * sizeKernel * depthInput * depthOutput"
+                kind="input" name="weights"/>
+            <port annotation="NONE"
+                expr="widthOutput * heightOutput * depthOutput"
+                kind="output" name="out"/>
+        </node>
+        <node id="weights" kind="src">
+            <port annotation="NONE" expr="totalWeights" kind="output" name="weights"/>
+        </node>
+        <node id="bias" kind="src">
+            <port annotation="NONE"
+                expr="depthSqueeze + (depthExpand * 2)" kind="output" name="bias"/>
+        </node>
+        <node id="splitWeights" kind="fork">
+            <port kind="cfg_input" name="depthSqueeze"/>
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="depthInput"/>
+            <port kind="cfg_input" name="sizeSqueeze"/>
+            <port kind="cfg_input" name="sizeExpand3"/>
+            <port kind="cfg_input" name="sizeExpand1"/>
+            <port kind="cfg_input" name="totalSize"/>
+            <port annotation="NONE" expr="totalSize" kind="input" name="in"/>
+            <port annotation="NONE"
+                expr="sizeSqueeze * sizeSqueeze * depthInput * depthSqueeze"
+                kind="output" name="out_0"/>
+            <port annotation="NONE"
+                expr="sizeExpand1 * sizeExpand1 * depthSqueeze * depthExpand"
+                kind="output" name="out_1"/>
+            <port annotation="NONE"
+                expr="sizeExpand3 * sizeExpand3 * depthSqueeze * depthExpand"
+                kind="output" name="out_2"/>
+        </node>
+        <node id="splitBias" kind="fork">
+            <port kind="cfg_input" name="depthExpand"/>
+            <port kind="cfg_input" name="depthSqueeze"/>
+            <port annotation="NONE"
+                expr="depthSqueeze + (depthExpand * 2)" kind="input" name="in"/>
+            <port annotation="NONE" expr="depthSqueeze" kind="output" name="out_0"/>
+            <port annotation="NONE" expr="depthExpand" kind="output" name="out_1"/>
+            <port annotation="NONE" expr="depthExpand" kind="output" name="out_2"/>
+        </node>
+        <edge kind="fifo" source="concatenate" sourceport="out"
+            target="output" targetport="output" type="float"/>
+        <edge kind="fifo" source="squeeze" sourceport="out"
+            target="duplicate" targetport="in" type="float"/>
+        <edge kind="fifo" source="expand1" sourceport="out"
+            target="concatenate" targetport="in_expand_1" type="float"/>
+        <edge kind="fifo" source="expand3" sourceport="out"
+            target="concatenate" targetport="in_expand_3" type="float"/>
+        <edge kind="fifo" source="duplicate" sourceport="out_0"
+            target="expand1" targetport="in" type="float"/>
+        <edge kind="fifo" source="duplicate" sourceport="out_1"
+            target="expand3" targetport="in" type="float"/>
+        <edge kind="fifo" source="input" sourceport="input"
+            target="squeeze" targetport="in" type="float"/>
+        <edge kind="fifo" source="weights" sourceport="weights"
+            target="splitWeights" targetport="in" type="float"/>
+        <edge kind="fifo" source="splitWeights" sourceport="out_0"
+            target="squeeze" targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitWeights" sourceport="out_1"
+            target="expand1" targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitWeights" sourceport="out_2"
+            target="expand3" targetport="weights" type="float"/>
+        <edge kind="fifo" source="splitBias" sourceport="out_0"
+            target="squeeze" targetport="bias" type="float"/>
+        <edge kind="fifo" source="splitBias" sourceport="out_1"
+            target="expand1" targetport="bias" type="float"/>
+        <edge kind="fifo" source="splitBias" sourceport="out_2"
+            target="expand3" targetport="bias" type="float"/>
+        <edge kind="fifo" source="bias" sourceport="bias"
+            target="splitBias" targetport="in" type="float"/>
+        <edge kind="dependency" source="stride" target="squeeze" targetport="stride"/>
+        <edge kind="dependency" source="stride" target="expand1" targetport="stride"/>
+        <edge kind="dependency" source="stride" target="expand3" targetport="stride"/>
+        <edge kind="dependency" source="depthSqueeze" target="squeeze" targetport="depthOutput"/>
+        <edge kind="dependency" source="depthExpand" target="expand1" targetport="depthOutput"/>
+        <edge kind="dependency" source="depthExpand" target="expand3" targetport="depthOutput"/>
+        <edge kind="dependency" source="sizeSqueeze" target="squeeze" targetport="sizeKernel"/>
+        <edge kind="dependency" source="sizeExpand3" target="expand3" targetport="sizeKernel"/>
+        <edge kind="dependency" source="sizeExpand1" target="expand1" targetport="sizeKernel"/>
+        <edge kind="dependency" source="depthInput" target="squeeze" targetport="depthInput"/>
+        <edge kind="dependency" source="depthSqueeze" target="expand1" targetport="depthInput"/>
+        <edge kind="dependency" source="depthSqueeze" target="expand3" targetport="depthInput"/>
+        <edge kind="dependency" source="size" target="expand1" targetport="widthOutput"/>
+        <edge kind="dependency" source="size" target="expand3" targetport="widthOutput"/>
+        <edge kind="dependency" source="size" target="squeeze" targetport="widthOutput"/>
+        <edge kind="dependency" source="size" target="squeeze" targetport="heightOutput"/>
+        <edge kind="dependency" source="size" target="expand1" targetport="heightOutput"/>
+        <edge kind="dependency" source="size" target="expand3" targetport="heightOutput"/>
+        <edge kind="dependency" source="size" target="expand1" targetport="widthInput"/>
+        <edge kind="dependency" source="size" target="expand3" targetport="widthInput"/>
+        <edge kind="dependency" source="size" target="squeeze" targetport="widthInput"/>
+        <edge kind="dependency" source="size" target="expand1" targetport="heightInput"/>
+        <edge kind="dependency" source="size" target="expand3" targetport="heightInput"/>
+        <edge kind="dependency" source="size" target="squeeze" targetport="heightInput"/>
+        <edge kind="dependency" source="size" target="duplicate" targetport="size"/>
+        <edge kind="dependency" source="depthSqueeze" target="duplicate" targetport="depth"/>
+        <edge kind="dependency" source="depthInput" target="input"/>
+        <edge kind="dependency" source="size" target="input"/>
+        <edge kind="dependency" source="depthSqueeze"
+            target="splitWeights" targetport="depthSqueeze"/>
+        <edge kind="dependency" source="depthExpand"
+            target="splitWeights" targetport="depthExpand"/>
+        <edge kind="dependency" source="depthInput"
+            target="splitWeights" targetport="depthInput"/>
+        <edge kind="dependency" source="sizeSqueeze"
+            target="splitWeights" targetport="sizeSqueeze"/>
+        <edge kind="dependency" source="sizeExpand3"
+            target="splitWeights" targetport="sizeExpand3"/>
+        <edge kind="dependency" source="sizeExpand1"
+            target="splitWeights" targetport="sizeExpand1"/>
+        <edge kind="dependency" source="depthExpand" target="splitBias" targetport="depthExpand"/>
+        <edge kind="dependency" source="depthSqueeze" target="splitBias" targetport="depthSqueeze"/>
+        <edge kind="dependency" source="depthExpand" target="totalWeights"/>
+        <edge kind="dependency" source="depthSqueeze" target="totalWeights"/>
+        <edge kind="dependency" source="depthInput" target="totalWeights"/>
+        <edge kind="dependency" source="sizeExpand1" target="totalWeights"/>
+        <edge kind="dependency" source="sizeExpand3" target="totalWeights"/>
+        <edge kind="dependency" source="sizeSqueeze" target="totalWeights"/>
+        <edge kind="dependency" source="totalWeights" target="weights"/>
+        <edge kind="dependency" source="totalWeights"
+            target="splitWeights" targetport="totalSize"/>
+        <edge kind="dependency" source="depthSqueeze" target="bias"/>
+        <edge kind="dependency" source="depthExpand" target="bias"/>
+        <edge kind="dependency" source="size" target="concatenate" targetport="size"/>
+        <edge kind="dependency" source="depthExpand" target="output"/>
+        <edge kind="dependency" source="size" target="output"/>
+        <edge kind="dependency" source="depthExpand"
+            target="concatenate" targetport="depth"/>
+    </graph>
+</graphml>

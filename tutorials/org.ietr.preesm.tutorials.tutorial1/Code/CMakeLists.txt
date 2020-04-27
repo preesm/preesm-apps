@@ -77,13 +77,14 @@ endif()
 # *******************************************
 # ************* Introduction  ***************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${THREADS_PTHREADS_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
 	./src/*.c
 	./src/*.h
 	./generated/*.c
+	./generated/*.h
 	./include/*.h
 )
 

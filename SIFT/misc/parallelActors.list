@@ -1,0 +1,30 @@
+## Actors impacted by parallelism levels and image size
+
+build_dog_pyr
+build_grd_rot_pyr
+detect_keypoints
+extract_descriptor
+
+row_filter_transpose
+row_filter_transpose2x
+downsample2x1
+upsample2x
+to_float
+
+## Actors impacted by image size (only)
+
+MERGE_gpyr
+SPLIT_upsample2x
+seq_blur1
+seq_blurN
+draw_keypoints_to_ppm_file
+read_pgm
+downsample2xN
+
+## Actors impacted by number of keypoints
+
+MERGE_keypoints
+detect_keypoints
+extract_descriptor
+export_keypoints_to_key_file
+~draw_keypoints_to_ppm_file

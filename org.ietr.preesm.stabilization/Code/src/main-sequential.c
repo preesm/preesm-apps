@@ -3,18 +3,17 @@
 #include <math.h>
 
 #include "applicationParameters.h"
-#include "yuvDisplay.h" 
-#include "yuvRead.h"	
+#include "yuvDisplay.h"
+#include "yuvRead.h"
 #include "yuvWrite.h"
 #include "stabilization.h"
-#include "md5.h"
 
-// #define VERBOSE
-#ifdef VERBOSE
+// #define PREESM_VERBOSE
+#ifdef PREESM_VERBOSE
 #include <stdio.h>
 #endif
 
-int stopThreads = 0;
+int preesmStopThreads = 0;
 
 int main(int argc, char** argv)
 {
@@ -36,7 +35,7 @@ int main(int argc, char** argv)
 	initYUVWrite();
 
 	unsigned int frameIndex = 1;
-	while (!stopThreads)
+	while (!preesmStopThreads)
 	{
 		// Backup previous frame
 		memcpy(yPrevious, y, HEIGHT*WIDTH);
@@ -55,7 +54,7 @@ int main(int argc, char** argv)
 		const int nbVectors = (HEIGHT / BLOCK_HEIGHT)*(WIDTH / BLOCK_WIDTH);
 		findDominatingMotionVector(nbVectors,
 								   motionVectors, &dominatingMotionVector);
-		#ifdef VERBOSE
+		#ifdef PREESM_VERBOSE
 		// Print motion vector
 		printf("Frame %3d: %2.2f, %2.2f\n", frameIndex,
 			   dominatingMotionVector.x, dominatingMotionVector.y);
@@ -75,22 +74,19 @@ int main(int argc, char** argv)
 		// Display it
 		yuvDisplay(0, yDisp, uDisp, vDisp);
 
-		// Compute the MD5 of the rendered frame
-		MD5_Update(DISPLAY_H*DISPLAY_W, yDisp);
-
 		// Save it
 		yuvWrite(DISPLAY_W, DISPLAY_H, yDisp, uDisp, vDisp);
 
 		// Exit ?
 		frameIndex++;
 		if (frameIndex == NB_FRAME){
-			stopThreads = 1;
+			preesmStopThreads = 1;
 		}
 	}
 
-	#ifdef VERBOSE
+	#ifdef PREESM_VERBOSE
 	printf("Exit program\n");
-	#endif 
+	#endif
 	yuvFinalize(0);
 	endYUVRead();
 	endYUVWrite();

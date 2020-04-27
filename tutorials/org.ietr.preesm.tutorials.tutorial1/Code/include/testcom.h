@@ -11,6 +11,9 @@
 #ifndef TESTCOMSOURCE_H_
 #define TESTCOMSOURCE_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+
 void sensor_init(char* o1, char* o2, char* o3, int size);
 void sensor2_init(char* o1, int size);
 void parallel_init(char* i1, char* o1, int size);

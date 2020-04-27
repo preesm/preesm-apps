@@ -32,11 +32,10 @@ void initReadYUV(int width, int height) {
     if((ptfile = fopen(PATH, "rb")) == NULL )
     {
         fprintf(stderr,"ERROR: Task read cannot open yuv_file '%s'\n", PATH);
-        system("PAUSE");
         return;
     }
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
     printf("Opened file '%s'\n", PATH);
 #endif
 
@@ -47,16 +46,15 @@ void initReadYUV(int width, int height) {
     if(fsize < NB_FRAME*(width*height + width*height/2))
     {
         fprintf(stderr,"ERROR: Task read yuv_file incorrect size");
-        system("PAUSE");
         return;
     }
 
-#ifdef VERBOSE
+#ifdef PREESM_VERBOSE
     printf("Correct size for yuv_file '%s'\n", PATH);
 #endif
 
     // Set initial clock
-    startTiming(50);
+    startTiming(0);
 }
 
 /*========================================================================
@@ -73,7 +71,11 @@ void readYUV(int width, int height, unsigned char *y, unsigned char *u, unsigned
         printf("\nMain: %d frames in %d us - %f fps\n", NB_FRAME-1 ,time, (NB_FRAME-1.0)/(float)time*1000000);
         startTiming(0);
     }
-    fread(y, sizeof(char), width * height, ptfile);
-    fread(u, sizeof(char), width * height / 4, ptfile);
-    fread(v, sizeof(char), width * height / 4, ptfile);
+    int res = fread(y, sizeof(char), width * height, ptfile);
+    res += fread(u, sizeof(char), width * height / 4, ptfile);
+    res += fread(v, sizeof(char), width * height / 4, ptfile);
+    if (res <= 0) {
+        fprintf(stderr,"ERROR while reading");
+        exit(1);
+    }
 }

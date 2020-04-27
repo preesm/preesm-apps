@@ -12,10 +12,9 @@
 #include "preesm.h"
 
 #define NB_DISPLAY 2
-#define DISPLAY_W 450*NB_DISPLAY
+#define DISPLAY_W 434*NB_DISPLAY
 #define DISPLAY_H 380
 
-#define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
 
 /**
 * Function used to display an RGB image

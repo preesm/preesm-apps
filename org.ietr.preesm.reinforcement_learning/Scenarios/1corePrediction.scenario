@@ -51,7 +51,6 @@
             <task name="prediction"/>
         </constraintGroup>
     </constraints>
-    <relativeconstraints excelUrl=""/>
     <timings excelUrl="">
         <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
     </timings>
@@ -63,11 +62,8 @@
             <dataType name="float" size="4"/>
             <dataType name="int" size="4"/>
         </dataTypes>
-        <specialVertexOperators>
-            <specialVertexOperator path="Core0"/>
-        </specialVertexOperators>
-        <numberOfTopExecutions>1</numberOfTopExecutions>
+        <specialVertexOperators/>
     </simuParams>
-    <variables excelUrl=""/>
     <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
 </scenario>

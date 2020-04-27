@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 # ************* CMake Content ***************
 # *******************************************
 # This CMake create a workspace containing the following projects
-# 
+#
 # Programs
 #  - stabilization
 
@@ -33,7 +33,7 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 			MESSAGE("Generate Release project")
 			set(CMAKE_BUILD_TYPE Release)
 			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
-			set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
+			set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -Wall")
 	endif()
 	#add libmath during non visual studio builds
 	set(CMAKE_EXTRA_LIB m)
@@ -67,7 +67,7 @@ if (WIN32)
 		${SDL2DIR}/bin/*.dll
 		${SDL2DIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -76,7 +76,6 @@ if (WIN32)
 		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
 	endif()
 endif()
-
 
 # *******************************************
 # ************ SDL2TTF LIBRARY **************
@@ -102,7 +101,7 @@ if (WIN32)
 		${SDL2TTFDIR}/bin/*.dll
 		${SDL2TTFDIR}/lib/*.dll
 	)
-	
+
 	MESSAGE("Copy SDL2_ttf DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -121,17 +120,18 @@ if (WIN32)
 	file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
 	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
 	Find_Package ( THREADS REQUIRED )
+else()
+	Find_Package ( Threads )
 endif()
 
 if(NOT THREADS_FOUND)
 	MESSAGE(FATAL_ERROR "Pthread not found !")
 endif()
 
-
 if (WIN32)
 	file(GLOB
 		PTHREADS_DLL
-		${CMAKE_PREFIX_PATH}/lib/*.dll
+		${PTHREADDIR}/lib/*.dll
 	)
 
 	MESSAGE("Copy Pthreads DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
@@ -144,19 +144,20 @@ if (WIN32)
 endif()
 
 # *******************************************
-# ************ stabilization.exe  *************
+# **************** stabilization.exe  ****************
 # *******************************************
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${THREADS_PTHREADS_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} )
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
 	GLOB_RECURSE
 	source_files
 	./src/*.c
+	./src/*.h
 	./include/*.h
-	./generated/*c
+	./generated/*.c
 )
 
-list(REMOVE_ITEM 
-     source_files 
+list(REMOVE_ITEM
+     source_files
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 
@@ -170,25 +171,17 @@ file(
 	./include/*.h
 )
 
-list(REMOVE_ITEM 
-     source_files 
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/fifo.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/communication.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/memory.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/dump.c"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/fifo.h"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/communication.h"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/memory.h"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/./include/dump.h"
+list(REMOVE_ITEM
+     source_files
+	 "${CMAKE_CURRENT_SOURCE_DIR}/./generated/main.c"
 	 )
-	 
-list(APPEND  
-     source_files 
+
+list(APPEND
+     source_files
 	 "${CMAKE_CURRENT_SOURCE_DIR}/./src/main-sequential.c"
 	 )
 add_executable( stabilization-sequential ${source_files} ${header_files})
 
 target_link_libraries(stabilization-sequential ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_EXTRA_LIB})
-set(CMAKE_C_FLAGS "-std=c99")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 

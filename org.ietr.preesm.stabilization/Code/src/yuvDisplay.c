@@ -18,7 +18,7 @@ Description : Displaying YUV frames one next to another in a row
 
 #define FPS_MEAN 5
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
 * Structure representing one display
@@ -41,7 +41,7 @@ static YuvDisplay display;
 int exitCallBack(void* userdata, SDL_Event* event){
 	if (event->type == SDL_QUIT){
 		printf("Exit request from GUI.\n");
-		stopThreads = 1;
+		preesmStopThreads = 1;
 		return 0;
 	}
 
@@ -90,8 +90,8 @@ void yuvDisplayInit(int id, int width, int height)
 	}
 
 
-#ifdef VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
+#ifdef PREESM_VERBOSE
+	printf("SDL screen height OK, width OK, number of displays OK.\n");
 #endif
 
 	if (display.initialized == 0)
@@ -102,9 +102,19 @@ void yuvDisplayInit(int id, int width, int height)
 
 		printf("SDL_Init_Start\n");
 
-		if (SDL_Init(SDL_INIT_VIDEO))
-		{
-			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+		int sdlInitRes = 1, cpt = 10;
+		while (sdlInitRes && cpt > 0) {
+			sdlInitRes = SDL_Init(SDL_INIT_VIDEO);
+			cpt--;
+			if (sdlInitRes && cpt > 10) {
+#ifdef PREESM_VERBOSE
+				printf(" fail ... retrying\n");
+#endif
+			}
+		}
+		if (sdlInitRes){
+			fflush(stdout);
+			fprintf(stderr, "%d - %d -- Could not initialize SDL - %s\n", cpt, sdlInitRes, SDL_GetError());
 			exit(1);
 		}
 

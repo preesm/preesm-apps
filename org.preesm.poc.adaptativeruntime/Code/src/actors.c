@@ -33,7 +33,11 @@ void initRead() {
 
 void read(rgbimg* img) {
 	Mat inputFrame;
-	(*cap) >> inputFrame;
+	// Fix the the lag between camera and grabbed frame by "flushing" the frame buffer.
+	// It looks like there is no real "clean" solution to this issue.
+	for(int i = 0; i< 5; i++){
+		(*cap) >> inputFrame;
+	}
 	Mat resizedFrame;
 	resize(inputFrame, resizedFrame, Size(XSAMPLING, YSAMPLING), INTER_LINEAR);
 	matToRGB(resizedFrame, img);
@@ -44,15 +48,10 @@ void read(rgbimg* img) {
 void computeBrightness(rgbimg * img, double * b) {
 	Mat src =  RGBToMat(img);
 	_getBrightness(src, *b);
+	printf("%f\n",*b);
 	src.release();
 }
 
-void display(rgbimg * img, unsigned int displayID) {
-	Mat m = RGBToMat(img);
-	imshow(displays[displayID], m);
-	waitKey(15);
-	m.release();
-}
 
 void computeBrightnessAndForward(IN rgbimg * img_in, OUT double * brightness, OUT rgbimg * img_out) {
 	computeBrightness(img_in, brightness);
@@ -67,8 +66,8 @@ void configActor(IN double * brightness, long * param) {
 	}
 }
 
-void blur(IN rgbimg * img_in, OUT rgbimg * img_out, int someParameter) {
-	if (someParameter) {
+void blur(IN rgbimg * img_in, OUT rgbimg * img_out, int decision) {
+	if (decision) {
 		Mat m = RGBToMat(img_in);
 	    GaussianBlur(m, m, Size(7,7), 1.5, 1.5);
 		matToRGB(m, img_out);

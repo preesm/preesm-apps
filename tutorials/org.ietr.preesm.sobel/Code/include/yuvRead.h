@@ -13,10 +13,6 @@
 
 #include "preesm.h"
 
-#define PATH PROJECT_ROOT_PATH "/dat/akiyo_cif.yuv"
-
-#define NB_FRAME 300
-
 /**
 * Initialize the readYUV actor.
 * Open the YUV file at the given PATH and check its size.

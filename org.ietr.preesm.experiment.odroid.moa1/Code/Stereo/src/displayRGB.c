@@ -15,7 +15,7 @@
 #include <pthread.h>
 #include <time.h>
 
-extern int stopThreads;
+extern int preesmStopThreads;
 
 /**
 * Structure representing one display
@@ -160,7 +160,7 @@ void refreshDisplayRGB(int id)
         switch (event.type)
         {
         case SDL_QUIT:
-            stopThreads = 1;
+            preesmStopThreads = 1;
             break;
         default:
             break;

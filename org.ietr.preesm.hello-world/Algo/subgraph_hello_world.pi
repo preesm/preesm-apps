@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed" cluster="true">
+        <data key="name">subgraph_hello_world</data>
+        <node id="nbSubTokens" kind="cfg_in_iface"/>
+        <node id="input" kind="src">
+            <port annotation="NONE" expr="nbSubTokens"
+                kind="output" name="input"/>
+        </node>
+        <node id="output" kind="snk">
+            <port annotation="NONE" expr="nbSubTokens"
+                kind="input" name="output"/>
+        </node>
+        <node id="HelloWorld" kind="actor">
+            <data key="graph_desc">Code/include/hello_world.h</data>
+            <loop name="helloWorld">
+                <param direction="IN" isConfig="false"
+                    name="input" type="char "/>
+                <param direction="OUT" isConfig="false"
+                    name="output" type="char "/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="input"/>
+            <port annotation="NONE" expr="1" kind="output" name="output"/>
+        </node>
+        <edge kind="fifo" source="input" sourceport="input"
+            target="HelloWorld" targetport="input" type="uchar"/>
+        <edge kind="fifo" source="HelloWorld" sourceport="output"
+            target="output" targetport="output" type="uchar"/>
+        <edge kind="dependency" source="nbSubTokens" target="input"/>
+        <edge kind="dependency" source="nbSubTokens" target="output"/>
+    </graph>
+</graphml>

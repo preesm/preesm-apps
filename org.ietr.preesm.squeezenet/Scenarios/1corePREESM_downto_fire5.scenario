@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.squeezenet/Algo/top_squeezenet_downto_fire5.pi"/>
+        <architecture url="/org.ietr.preesm.squeezenet/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.squeezenet/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top_squeezenet_downto_fire5/readWeightsBiases"/>
+            <task name="top_squeezenet_downto_fire5/loadImage"/>
+            <task name="top_squeezenet_downto_fire5/fire2/squeeze/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire2/squeeze"/>
+            <task name="top_squeezenet_downto_fire5/fire2/expand3/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire2/expand3"/>
+            <task name="top_squeezenet_downto_fire5/fire2/expand1/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire2/expand1"/>
+            <task name="top_squeezenet_downto_fire5/fire2"/>
+            <task name="top_squeezenet_downto_fire5/fire3/squeeze/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire3/squeeze"/>
+            <task name="top_squeezenet_downto_fire5/fire3/expand3/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire3/expand3"/>
+            <task name="top_squeezenet_downto_fire5/fire3/expand1/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire3/expand1"/>
+            <task name="top_squeezenet_downto_fire5/fire3"/>
+            <task name="top_squeezenet_downto_fire5/fire4/squeeze/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire4/squeeze"/>
+            <task name="top_squeezenet_downto_fire5/fire4/expand3/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire4/expand3"/>
+            <task name="top_squeezenet_downto_fire5/fire4/expand1/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire4/expand1"/>
+            <task name="top_squeezenet_downto_fire5/fire4"/>
+            <task name="top_squeezenet_downto_fire5/fire5/squeeze/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire5/squeeze"/>
+            <task name="top_squeezenet_downto_fire5/fire5/expand3/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire5/expand3"/>
+            <task name="top_squeezenet_downto_fire5/fire5/expand1/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire5/expand1"/>
+            <task name="top_squeezenet_downto_fire5/fire5"/>
+            <task name="top_squeezenet_downto_fire5/fire6/squeeze/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire6/squeeze"/>
+            <task name="top_squeezenet_downto_fire5/fire6/expand3/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire6/expand3"/>
+            <task name="top_squeezenet_downto_fire5/fire6/expand1/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/fire6/expand1"/>
+            <task name="top_squeezenet_downto_fire5/fire6"/>
+            <task name="top_squeezenet_downto_fire5/maxPool1/maxPool2D"/>
+            <task name="top_squeezenet_downto_fire5/maxPool1"/>
+            <task name="top_squeezenet_downto_fire5/maxPool3/maxPool2D"/>
+            <task name="top_squeezenet_downto_fire5/maxPool3"/>
+            <task name="top_squeezenet_downto_fire5/maxPool5/maxPool2D"/>
+            <task name="top_squeezenet_downto_fire5/maxPool5"/>
+            <task name="top_squeezenet_downto_fire5/conv1/convolution2D"/>
+            <task name="top_squeezenet_downto_fire5/conv1"/>
+            <task name="top_squeezenet_downto_fire5"/>
+            <task name="top_squeezenet_downto_fire5/sink"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="1.0"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+            <dataType name="char" size="1"/>
+            <dataType name="float" size="4"/>
+            <dataType name="double" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

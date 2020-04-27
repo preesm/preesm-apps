@@ -15,7 +15,7 @@ Description :
 
 void split(int nbSlice, int width, int height, unsigned char *input, unsigned char *output){
 	if(output != NULL){
-		int i,j;
+		int i;
 		int sliceSize =  width*height/nbSlice;
 		// Fill first and last line with 0
 		memset(output,0,width);
@@ -45,7 +45,7 @@ void split(int nbSlice, int width, int height, unsigned char *input, unsigned ch
 		memset(input - width, 0, width);
 		// Last line
 		memset(input + height*width,0,width);
-	}    	
+	}
 }
 
 

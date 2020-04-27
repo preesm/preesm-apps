@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.hello-world/Algo/hierarchical_hello_world.pi"/>
+        <architecture url="/org.ietr.preesm.hello-world/Archi/MPPA2.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.hello-world/CodeMPPA2/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Cluster00"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster01"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster02"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster03"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster04"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster05"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster06"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster07"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster08"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster09"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster10"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster11"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster12"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster13"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster14"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Cluster15"/>
+            <task name="hierarchical_hello_world/GenerateTokens"/>
+            <task name="hierarchical_hello_world/VerifyTokens"/>
+            <task name="hierarchical_hello_world/HelloWorld/HelloWorld"/>
+            <task name="hierarchical_hello_world/HelloWorld"/>
+            <task name="hierarchical_hello_world"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <memcpyspeed opname="MPPA2Cluster" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>Cluster00</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="1"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Cluster00"/>
+            <specialVertexOperator path="Cluster01"/>
+            <specialVertexOperator path="Cluster02"/>
+            <specialVertexOperator path="Cluster03"/>
+            <specialVertexOperator path="Cluster04"/>
+            <specialVertexOperator path="Cluster05"/>
+            <specialVertexOperator path="Cluster06"/>
+            <specialVertexOperator path="Cluster07"/>
+            <specialVertexOperator path="Cluster08"/>
+            <specialVertexOperator path="Cluster09"/>
+            <specialVertexOperator path="Cluster10"/>
+            <specialVertexOperator path="Cluster11"/>
+            <specialVertexOperator path="Cluster12"/>
+            <specialVertexOperator path="Cluster13"/>
+            <specialVertexOperator path="Cluster14"/>
+            <specialVertexOperator path="Cluster15"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl="/org.ietr.preesm.loopgen-sobel-erosion-dilation/CodeMPPA2/PAPI_info_MPPA.xml"/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+    </energyConfigs>
+</scenario>

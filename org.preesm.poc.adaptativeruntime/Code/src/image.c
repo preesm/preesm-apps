@@ -22,7 +22,7 @@ void _getBrightness(const Mat& frame, double& brightness) {
 	lum = color[0] + color [1] + color[2];
 	Scalar summ = sum(lum);
 	//-- percentage conversion factor
-	brightness = summ[0]/((pow(2,8)-1)*frame.rows * frame.cols) * 2;
+	brightness = summ[0]/(((256.0-1)*frame.rows * frame.cols)) * 2;
 	temp.release();
 	color[0].release();
 	color[1].release();

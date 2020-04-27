@@ -292,8 +292,8 @@ void accumulateMotion(IN const coordf * const motionVector, IN const coordf * co
 						   OUT coordf * const filteredMotionOut, OUT coordf * const accumulatedMotionOut) {
 
 	// Compute filtered motion
-	filteredMotionOut->x -= roundf(filteredMotionIn->x);
-	filteredMotionOut->y -= roundf(filteredMotionIn->y);
+	filteredMotionOut->x = filteredMotionIn->x -roundf(filteredMotionIn->x);
+	filteredMotionOut->y = filteredMotionIn->y -roundf(filteredMotionIn->y);
 	filteredMotionOut->x = filteredMotionOut->x + (accumulatedMotionIn->x * (1.0f - HIGH_PASS_FILTER_TAP)) / 2.0f;
 	filteredMotionOut->y = filteredMotionOut->y + (accumulatedMotionIn->y * (1.0f - HIGH_PASS_FILTER_TAP)) /2.0f;
 
