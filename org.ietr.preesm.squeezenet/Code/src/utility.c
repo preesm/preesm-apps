@@ -214,12 +214,12 @@ int genRawWeightsAndBiases(IN long sizeWeights, IN long sizeBiases,
     fseek(fileWeights, 0, SEEK_END);
     size_t realSizeWeights = (size_t) ftell(fileWeights) / 4;
     fseek(fileWeights, 0, SEEK_SET);
-//    if (realSizeWeights != sizeWeights) {
-//        fprintf(stderr, "ERROR: Expected size of [%ld] for weights file, got [%ld].\n", sizeWeights, realSizeWeights);
-//        fclose(fileWeights);
-//        fclose(fileBiases);
-//        return -1;
-//    }
+    if (realSizeWeights != sizeWeights) {
+        fprintf(stderr, "ERROR: Expected size of [%ld] for weights file, got [%ld].\n", sizeWeights, realSizeWeights);
+        fclose(fileWeights);
+        fclose(fileBiases);
+        return -1;
+    }
     if (fread(weights, sizeof(float), (size_t) sizeWeights, fileWeights) != (sizeWeights)) {
         printINFOVerbose("reading weights --> FAILURE\n");
         fclose(fileWeights);
@@ -232,12 +232,12 @@ int genRawWeightsAndBiases(IN long sizeWeights, IN long sizeBiases,
     fseek(fileBiases, 0, SEEK_END);
     size_t realSizeBiases = (size_t) ftell(fileBiases) / 4;
     fseek(fileBiases, 0, SEEK_SET);
-//    if (realSizeBiases != sizeBiases) {
-//        fprintf(stderr, "ERROR: Expected size of [%ld] for biases file, got [%ld].\n", sizeBiases, realSizeBiases);
-//        fclose(fileWeights);
-//        fclose(fileBiases);
-//        return -1;
-//    }
+    if (realSizeBiases != sizeBiases) {
+        fprintf(stderr, "ERROR: Expected size of [%ld] for biases file, got [%ld].\n", sizeBiases, realSizeBiases);
+        fclose(fileWeights);
+        fclose(fileBiases);
+        return -1;
+    }
     if (fread(biases, sizeof(float), (size_t) sizeBiases, fileBiases) != sizeBiases) {
         printINFOVerbose("reading biases --> FAILURE\n");
         fclose(fileWeights);
