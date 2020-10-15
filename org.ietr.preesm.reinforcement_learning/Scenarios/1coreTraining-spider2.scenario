@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/org.ietr.preesm.reinforcement_learning/Algo/training-dynamic/training.pi"/>
+        <architecture url="/org.ietr.preesm.reinforcement_learning/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.reinforcement_learning/spider/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="training/Environment"/>
+            <task name="training/renderEnv"/>
+            <task name="training/Temporal_Difference_Error"/>
+            <task name="training/GaussianPolicy"/>
+            <task name="training/gen_sigma"/>
+            <task name="training/gen_actor_learning_rate"/>
+            <task name="training/gen_critic_learning_rate"/>
+            <task name="training/ClipAction"/>
+            <task name="training/gen_environment_limits"/>
+            <task name="training/Critic_MLP_Next/activationFunction"/>
+            <task name="training/Critic_MLP_Next/outputActivation"/>
+            <task name="training/Critic_MLP_Next/Output_layer/computeNeuron"/>
+            <task name="training/Critic_MLP_Next/Output_layer"/>
+            <task name="training/Critic_MLP_Next/Hidden_layer/computeNeuron"/>
+            <task name="training/Critic_MLP_Next/Hidden_layer"/>
+            <task name="training/Critic_MLP_Next"/>
+            <task name="training/Critic_MLP/activationFunction"/>
+            <task name="training/Critic_MLP/outputActivation"/>
+            <task name="training/Critic_MLP/Output_layer/computeNeuron"/>
+            <task name="training/Critic_MLP/Output_layer"/>
+            <task name="training/Critic_MLP/Hidden_layer/computeNeuron"/>
+            <task name="training/Critic_MLP/Hidden_layer"/>
+            <task name="training/Critic_MLP"/>
+            <task name="training/Actor_MLP/activationFunction"/>
+            <task name="training/Actor_MLP/outputActivation"/>
+            <task name="training/Actor_MLP/Output_layer/computeNeuron"/>
+            <task name="training/Actor_MLP/Output_layer"/>
+            <task name="training/Actor_MLP/Hidden_layer/computeNeuron"/>
+            <task name="training/Actor_MLP/Hidden_layer"/>
+            <task name="training/Actor_MLP"/>
+            <task name="training/Update_Critic/gen_epsilon"/>
+            <task name="training/Update_Critic/adamBetas"/>
+            <task name="training/Update_Critic/AdamOutput/optimizeWeights"/>
+            <task name="training/Update_Critic/AdamOutput/optimizeBias"/>
+            <task name="training/Update_Critic/AdamOutput"/>
+            <task name="training/Update_Critic/AdamHidden/optimizeWeights"/>
+            <task name="training/Update_Critic/AdamHidden/optimizeBias"/>
+            <task name="training/Update_Critic/AdamHidden"/>
+            <task name="training/Update_Critic/MLP/activationFunction"/>
+            <task name="training/Update_Critic/MLP/outputActivation"/>
+            <task name="training/Update_Critic/MLP/Output_layer/computeNeuron"/>
+            <task name="training/Update_Critic/MLP/Output_layer"/>
+            <task name="training/Update_Critic/MLP/Hidden_layer/computeNeuron"/>
+            <task name="training/Update_Critic/MLP/Hidden_layer"/>
+            <task name="training/Update_Critic/MLP"/>
+            <task name="training/Update_Critic/GradientsHidden/Derivative_Function"/>
+            <task name="training/Update_Critic/GradientsHidden/BackPropagated_Error"/>
+            <task name="training/Update_Critic/GradientsHidden/Gradients"/>
+            <task name="training/Update_Critic/GradientsHidden"/>
+            <task name="training/Update_Critic/GradientsOutput/Output_Error"/>
+            <task name="training/Update_Critic/GradientsOutput/Gradients"/>
+            <task name="training/Update_Critic/GradientsOutput/Derivative_Function"/>
+            <task name="training/Update_Critic/GradientsOutput"/>
+            <task name="training/Update_Critic"/>
+            <task name="training/ActorUpdate/setNUpdate"/>
+            <task name="training/ActorUpdate/Iterator"/>
+            <task name="training/ActorUpdate/MPL_Update/gen_epsilon"/>
+            <task name="training/ActorUpdate/MPL_Update/adamBetas"/>
+            <task name="training/ActorUpdate/MPL_Update/AdamOutput/optimizeWeights"/>
+            <task name="training/ActorUpdate/MPL_Update/AdamOutput/optimizeBias"/>
+            <task name="training/ActorUpdate/MPL_Update/AdamOutput"/>
+            <task name="training/ActorUpdate/MPL_Update/AdamHidden/optimizeWeights"/>
+            <task name="training/ActorUpdate/MPL_Update/AdamHidden/optimizeBias"/>
+            <task name="training/ActorUpdate/MPL_Update/AdamHidden"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP/activationFunction"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP/outputActivation"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP/Output_layer/computeNeuron"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP/Output_layer"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP/Hidden_layer/computeNeuron"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP/Hidden_layer"/>
+            <task name="training/ActorUpdate/MPL_Update/MLP"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsHidden/Derivative_Function"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsHidden/BackPropagated_Error"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsHidden/Gradients"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsHidden"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsOutput/Output_Error"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsOutput/Gradients"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsOutput/Derivative_Function"/>
+            <task name="training/ActorUpdate/MPL_Update/GradientsOutput"/>
+            <task name="training/ActorUpdate/MPL_Update"/>
+            <task name="training/ActorUpdate"/>
+            <task name="training"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/org.ietr.preesm.reinforcement_learning/Code/codegen/analysis.csv">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="float" size="4"/>
+            <dataType name="int" size="4"/>
+            <dataType name="double" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>
