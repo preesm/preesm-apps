@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <key attr.name="delay" attr.type="string" for="edge"/>
+    <graph edgedefault="directed">
+        <data key="name">inside</data>
+        <node expr="1" id="iter2" kind="param"/>
+        <node expr="24" id="tiles_number" kind="param"/>
+        <node id="Slice_Selection" kind="actor">
+            <data key="graph_desc">Code/include/slice_selection.h</data>
+            <loop name="submit">
+                <param direction="IN" isConfig="false"
+                    name="in_ovvc_hdl2" type="OVVCHdl "/>
+                <param direction="IN" isConfig="false"
+                    name="in_pu" type="OVPictureUnit "/>
+                <param direction="IN" isConfig="false"
+                    name="in_ret" type="int "/>
+                <param direction="OUT" isConfig="false"
+                    name="out_ret" type="int "/>
+                <param direction="IN" isConfig="false" name="in" type="int "/>
+                <param direction="OUT" isConfig="false"
+                    name="out_pu" type="OVPictureUnit "/>
+                <param direction="IN" isConfig="true"
+                    name="iter2" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="out_rdr" type="OVNVCLReader "/>
+                <param direction="OUT" isConfig="false"
+                    name="out_nvcl_ctx" type="OVNVCLCtx "/>
+                <param direction="OUT" isConfig="false"
+                    name="out_sldec" type="OVSliceDec "/>
+            </loop>
+            <port kind="cfg_input" name="iter2"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="in_ovvc_hdl2"/>
+            <port annotation="NONE" expr="1" kind="input" name="in_ret"/>
+            <port annotation="NONE" expr="1" kind="input" name="in_pu"/>
+            <port annotation="NONE" expr="1" kind="input" name="in"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_ret"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_pu"/>
+            <port annotation="WRITE_ONLY" expr="1" kind="output" name="out_rdr"/>
+            <port annotation="WRITE_ONLY" expr="1" kind="output" name="out_nvcl_ctx"/>
+            <port annotation="WRITE_ONLY" expr="1" kind="output" name="out_sldec"/>
+        </node>
+        <node id="Non_Tiles_Decoding" kind="actor">
+            <data key="graph_desc">Code/include/non_tiles_decoding.h</data>
+            <loop name="nalu">
+                <param direction="IN" isConfig="false" name="i2" type="IN int "/>
+                <param direction="IN" isConfig="false"
+                    name="ret8" type="int "/>
+                <param direction="OUT" isConfig="false"
+                    name="ret9" type="int "/>
+                <param direction="IN" isConfig="false" name="pu3" type="OVPictureUnit "/>
+                <param direction="IN" isConfig="true"
+                    name="iter2" type="int"/>
+                <param direction="IN" isConfig="false" name="rdr" type="OVNVCLReader "/>
+                <param direction="IN" isConfig="false"
+                    name="nvcl_ctx" type="OVNVCLCtx "/>
+            </loop>
+            <port kind="cfg_input" name="iter2"/>
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="NONE" expr="tiles_number"
+                kind="input" name="ret8"/>
+            <port annotation="NONE" expr="1" kind="input" name="i2"/>
+            <port annotation="NONE" expr="tiles_number"
+                kind="input" name="pu3"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="rdr"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="nvcl_ctx"/>
+            <port annotation="NONE" expr="1" kind="output" name="ret9"/>
+        </node>
+        <node id="Tiles_Decoding" kind="actor">
+            <data key="graph_desc">Code/include/tile_decoding.h</data>
+            <loop name="slice">
+                <param direction="IN" isConfig="false"
+                    name="in_ovvc_hdl3" type="IN OVVCHdl "/>
+                <param direction="IN" isConfig="false"
+                    name="in_ret" type="int "/>
+                <param direction="OUT" isConfig="false"
+                    name="out_ret" type="int "/>
+                <param direction="IN" isConfig="false"
+                    name="in_pu" type="OVPictureUnit "/>
+                <param direction="IN" isConfig="false" name="i2" type="int "/>
+                <param direction="OUT" isConfig="false"
+                    name="out_pu" type="OVPictureUnit "/>
+                <param direction="IN" isConfig="true"
+                    name="iter2" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="number" type="int "/>
+                <param direction="IN" isConfig="false"
+                    name="in_sldec" type="OVSliceDec "/>
+                <param direction="IN" isConfig="true"
+                    name="tiles_number" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="iter2"/>
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="in_ovvc_hdl3"/>
+            <port annotation="NONE" expr="1" kind="input" name="in_ret"/>
+            <port annotation="NONE" expr="1" kind="input" name="i2"/>
+            <port annotation="NONE" expr="1" kind="input" name="in_pu"/>
+            <port annotation="NONE" expr="1" kind="input" name="number"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="in_sldec"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_ret"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_pu"/>
+        </node>
+        <node id="pu1" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="pu1"/>
+        </node>
+        <node id="ovvc_hdl2" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="ovvc_hdl2"/>
+        </node>
+        <node id="ret1" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="ret1"/>
+        </node>
+        <node id="ret3" kind="snk">
+            <port annotation="NONE" expr="1" kind="input" name="ret3"/>
+        </node>
+        <node id="count2" kind="actor">
+            <data key="graph_desc">Code/include/cou2.h</data>
+            <loop name="count2">
+                <param direction="OUT" isConfig="false"
+                    name="out" type="int "/>
+                <param direction="IN" isConfig="true"
+                    name="iter2" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="iter2"/>
+            <port annotation="NONE" expr="iter2" kind="output" name="out"/>
+        </node>
+        <node id="dup1" kind="broadcast">
+            <port kind="cfg_input" name="iter2"/>
+            <port annotation="NONE" expr="1" kind="input" name="newPort"/>
+            <port annotation="NONE" expr="iter2" kind="output" name="pu"/>
+        </node>
+        <node id="dup_ovvc_hdl2" kind="broadcast">
+            <port kind="cfg_input" name="iter2"/>
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="ovvc_hdl2"/>
+            <port annotation="WRITE_ONLY" expr="iter2"
+                kind="output" name="ovvc_hdl3"/>
+            <port annotation="WRITE_ONLY" expr="tiles_number"
+                kind="output" name="ovvc_hdl9"/>
+        </node>
+        <node id="duplicate_i" kind="broadcast">
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="in_i"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_i"/>
+            <port annotation="NONE" expr="tiles_number"
+                kind="output" name="out_i1"/>
+            <port annotation="NONE" expr="1" kind="output" name="out_i2"/>
+        </node>
+        <node id="tiles_numbers" kind="actor">
+            <data key="graph_desc">Code/include/tiles_number.h</data>
+            <loop name="tiles_number">
+                <param direction="OUT" isConfig="false"
+                    name="number" type="int "/>
+                <param direction="IN" isConfig="true"
+                    name="tiles_number" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="NONE" expr="tiles_number"
+                kind="output" name="number"/>
+        </node>
+        <node id="duplicate_out_ret" kind="broadcast">
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="NONE" expr="1" kind="input" name="out_ret"/>
+            <port annotation="NONE" expr="tiles_number"
+                kind="output" name="in_ret"/>
+        </node>
+        <node id="duplicate_out_pu" kind="broadcast">
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="NONE" expr="1" kind="input" name="out_pu"/>
+            <port annotation="NONE" expr="tiles_number"
+                kind="output" name="in_pu"/>
+        </node>
+        <node id="duplicate_out_ret_tiles" kind="broadcast">
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="NONE" expr="1" kind="input" name="out_ret"/>
+            <port annotation="NONE" expr="1" kind="output" name="ret8"/>
+        </node>
+        <node id="dupilcate_pu" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="out_pu"/>
+            <port annotation="NONE" expr="1" kind="output" name="pu3"/>
+        </node>
+        <node id="dupilcate_slicedec" kind="broadcast">
+            <port kind="cfg_input" name="tiles_number"/>
+            <port annotation="READ_ONLY" expr="1" kind="input" name="out_sldec"/>
+            <port annotation="WRITE_ONLY" expr="tiles_number"
+                kind="output" name="in_sldec"/>
+        </node>
+        <node expr="1" getter="ret3" id="namu_ret9__sub_ret1"
+            kind="delay" level="none" setter="ret1">
+            <port annotation="NONE" expr="1" kind="input" name="set"/>
+            <port annotation="NONE" expr="1" kind="output" name="get"/>
+        </node>
+        <edge expr="1" kind="fifo" source="Non_Tiles_Decoding"
+            sourceport="ret9" target="Slice_Selection"
+            targetport="in_ret" type="int">
+            <data key="delay">namu_ret9__sub_ret1</data>
+        </edge>
+        <edge kind="fifo" source="ret1" sourceport="ret1"
+            target="namu_ret9__sub_ret1" targetport="set" type="int"/>
+        <edge kind="fifo" source="namu_ret9__sub_ret1"
+            sourceport="get" target="ret3" targetport="ret3" type="int"/>
+        <edge kind="fifo" source="pu1" sourceport="pu1"
+            target="dup1" targetport="newPort" type="OVPictureUnit*"/>
+        <edge kind="fifo" source="dup1" sourceport="pu"
+            target="Slice_Selection" targetport="in_pu" type="OVPictureUnit*"/>
+        <edge kind="fifo" source="Slice_Selection"
+            sourceport="out_rdr" target="Non_Tiles_Decoding"
+            targetport="rdr" type="OVNVCLReader"/>
+        <edge kind="fifo" source="Slice_Selection"
+            sourceport="out_nvcl_ctx" target="Non_Tiles_Decoding"
+            targetport="nvcl_ctx" type="OVNVCLCtx*"/>
+        <edge kind="fifo" source="ovvc_hdl2"
+            sourceport="ovvc_hdl2" target="dup_ovvc_hdl2"
+            targetport="ovvc_hdl2" type="OVVCHdl"/>
+        <edge kind="fifo" source="dup_ovvc_hdl2"
+            sourceport="ovvc_hdl3" target="Slice_Selection"
+            targetport="in_ovvc_hdl2" type="OVVCHdl"/>
+        <edge kind="fifo" source="dup_ovvc_hdl2"
+            sourceport="ovvc_hdl9" target="Tiles_Decoding"
+            targetport="in_ovvc_hdl3" type="OVVCHdl"/>
+        <edge kind="fifo" source="count2" sourceport="out"
+            target="duplicate_i" targetport="in_i" type="int"/>
+        <edge kind="fifo" source="duplicate_i" sourceport="out_i"
+            target="Slice_Selection" targetport="in" type="int"/>
+        <edge kind="fifo" source="duplicate_i"
+            sourceport="out_i1" target="Tiles_Decoding"
+            targetport="i2" type="int"/>
+        <edge kind="fifo" source="duplicate_i"
+            sourceport="out_i2" target="Non_Tiles_Decoding"
+            targetport="i2" type="int"/>
+        <edge kind="fifo" source="tiles_numbers"
+            sourceport="number" target="Tiles_Decoding"
+            targetport="number" type="int"/>
+        <edge kind="fifo" source="Slice_Selection"
+            sourceport="out_ret" target="duplicate_out_ret"
+            targetport="out_ret" type="int"/>
+        <edge kind="fifo" source="duplicate_out_ret"
+            sourceport="in_ret" target="Tiles_Decoding"
+            targetport="in_ret" type="int"/>
+        <edge kind="fifo" source="Slice_Selection"
+            sourceport="out_pu" target="duplicate_out_pu"
+            targetport="out_pu" type="OVPictureUnit*"/>
+        <edge kind="fifo" source="duplicate_out_pu"
+            sourceport="in_pu" target="Tiles_Decoding"
+            targetport="in_pu" type="OVPictureUnit*"/>
+        <edge kind="fifo" source="Tiles_Decoding"
+            sourceport="out_ret" target="duplicate_out_ret_tiles"
+            targetport="out_ret" type="int"/>
+        <edge kind="fifo" source="duplicate_out_ret_tiles"
+            sourceport="ret8" target="Non_Tiles_Decoding"
+            targetport="ret8" type="int"/>
+        <edge kind="fifo" source="Tiles_Decoding"
+            sourceport="out_pu" target="dupilcate_pu"
+            targetport="out_pu" type="OVPictureUnit*"/>
+        <edge kind="fifo" source="dupilcate_pu" sourceport="pu3"
+            target="Non_Tiles_Decoding" targetport="pu3" type="OVPictureUnit*"/>
+        <edge kind="fifo" source="Slice_Selection"
+            sourceport="out_sldec" target="dupilcate_slicedec"
+            targetport="out_sldec" type="OVSliceDec*"/>
+        <edge kind="fifo" source="dupilcate_slicedec"
+            sourceport="in_sldec" target="Tiles_Decoding"
+            targetport="in_sldec" type="OVSliceDec*"/>
+        <edge kind="dependency" source="iter2"
+            target="Slice_Selection" targetport="iter2"/>
+        <edge kind="dependency" source="iter2"
+            target="Tiles_Decoding" targetport="iter2"/>
+        <edge kind="dependency" source="iter2"
+            target="Non_Tiles_Decoding" targetport="iter2"/>
+        <edge kind="dependency" source="iter2" target="count2" targetport="iter2"/>
+        <edge kind="dependency" source="iter2" target="dup1" targetport="iter2"/>
+        <edge kind="dependency" source="iter2"
+            target="dup_ovvc_hdl2" targetport="iter2"/>
+        <edge kind="dependency" source="tiles_number"
+            target="tiles_numbers" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="duplicate_out_ret" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="duplicate_out_pu" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="dup_ovvc_hdl2" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="duplicate_i" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="duplicate_out_ret_tiles" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="Non_Tiles_Decoding" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="dupilcate_slicedec" targetport="tiles_number"/>
+        <edge kind="dependency" source="tiles_number"
+            target="Tiles_Decoding" targetport="tiles_number"/>
+    </graph>
+</graphml>
