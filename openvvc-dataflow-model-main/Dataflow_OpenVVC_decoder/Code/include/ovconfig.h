@@ -1,0 +1,18 @@
+#define _WIN32 0
+
+#define ARCH_X86 1
+#define SSE_ENABLED 1
+#define AVX_ENABLED 0
+#define ARCH_ARM 0
+#define NEON_ENABLED 0
+#define ARCH_AARCH64 0
+#define ARCH_AARCH64_ASSEMBLY 1
+#define PREFIX 0
+
+#define HAVE_POSIX_MEMALIGN 1
+#define HAVE_ALIGNED_MALLOC 0
+
+#define ENABLE_LOG 1
+
+#define ENABLE_SLHDR 0
+

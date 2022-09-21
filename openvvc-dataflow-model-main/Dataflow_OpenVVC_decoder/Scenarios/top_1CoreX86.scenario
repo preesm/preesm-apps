@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/Dataflow_OpenVVC_decoder/Algo/dec.pi"/>
+        <architecture url="/Dataflow_OpenVVC_decoder/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/Dataflow_OpenVVC_decoder/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="dec/Attach_Stream"/>
+            <task name="dec/Frame_Informations_Extraction"/>
+            <task name="dec/Frame_Receiving"/>
+            <task name="dec/Detach_Stream"/>
+            <task name="dec/init_ret4"/>
+            <task name="dec/display"/>
+            <task name="dec/count"/>
+            <task name="dec/Frame_Decoding/Slice_Selection"/>
+            <task name="dec/Frame_Decoding/Non_Tiles_Decoding"/>
+            <task name="dec/Frame_Decoding/Tiles_Decoding"/>
+            <task name="dec/Frame_Decoding/count2"/>
+            <task name="dec/Frame_Decoding/tiles_numbers"/>
+            <task name="dec/Frame_Decoding"/>
+            <task name="dec"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/first_solution/Scenarios/1vecteur.xls">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="int" size="4"/>
+            <dataType name="OVPictureUnit" size="32"/>
+            <dataType name="OVNVCLReader" size="40"/>
+            <dataType name="OVPictureUnit*" size="8"/>
+            <dataType name="OVVCHdl" size="24"/>
+            <dataType name="OVNVCLCtx*" size="8"/>
+            <dataType name="OVSliceDec" size="464"/>
+            <dataType name="OVSliceDec*" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <pePower opName="Base" pePower="10.0"/>
+        <pePower opName="x86" pePower="10.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>

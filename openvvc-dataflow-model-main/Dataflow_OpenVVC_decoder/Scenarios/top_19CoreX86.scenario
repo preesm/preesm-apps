@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <files>
+        <algorithm url="/first_solution/Algo/top.pi"/>
+        <architecture url="/first_solution/Archi/19CoreX86.slam"/>
+        <codegenDirectory url="/first_solution/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core4"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core5"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core6"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core7"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core8"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core9"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core10"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core11"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core12"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core13"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core14"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core15"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core16"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core17"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core18"/>
+            <task name="top/vecteur"/>
+            <task name="top/DST7"/>
+            <task name="top/DCT8"/>
+            <task name="top/DCT2"/>
+            <task name="top/DCT8_2"/>
+            <task name="top/DST7_afterDCT8"/>
+            <task name="top/DCT8_afterDST7"/>
+            <task name="top/DST7_2"/>
+            <task name="top/DCT2_2"/>
+            <task name="top/transpose"/>
+            <task name="top/transpose_0"/>
+            <task name="top/transpose_1"/>
+            <task name="top"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/first_solution/Scenarios/1vecteur.xls">
+        <timing opname="x86" time="29" vertexname="top/vecteur"/>
+        <timing opname="x86" time="32" vertexname="top/DST7"/>
+        <timing opname="x86" time="30" vertexname="top/DCT8"/>
+        <timing opname="x86" time="28" vertexname="top/DCT2"/>
+        <timing opname="x86" time="32" vertexname="top/DCT8_2"/>
+        <timing opname="x86" time="34" vertexname="top/DST7_afterDCT8"/>
+        <timing opname="x86" time="32" vertexname="top/DCT8_afterDST7"/>
+        <timing opname="x86" time="34" vertexname="top/DST7_2"/>
+        <timing opname="x86" time="32" vertexname="top/DCT2_2"/>
+        <timing opname="x86" time="20" vertexname="top/transpose"/>
+        <timing opname="x86" time="19" vertexname="top/transpose_0"/>
+        <timing opname="x86" time="20" vertexname="top/transpose_1"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="TCoeff" size="4"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core4"/>
+            <specialVertexOperator path="Core5"/>
+            <specialVertexOperator path="Core6"/>
+            <specialVertexOperator path="Core7"/>
+            <specialVertexOperator path="Core8"/>
+            <specialVertexOperator path="Core9"/>
+            <specialVertexOperator path="Core10"/>
+            <specialVertexOperator path="Core11"/>
+            <specialVertexOperator path="Core12"/>
+            <specialVertexOperator path="Core13"/>
+            <specialVertexOperator path="Core14"/>
+            <specialVertexOperator path="Core15"/>
+            <specialVertexOperator path="Core16"/>
+            <specialVertexOperator path="Core17"/>
+            <specialVertexOperator path="Core18"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>
