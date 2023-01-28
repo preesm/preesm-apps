@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
     <files>
         <algorithm url="/org.ietr.preesm.matrix.multiplication.using.addition/Algo/multiply.pi"/>
         <architecture url="/org.ietr.preesm.matrix.multiplication.using.addition/Archi/8CoreC6678.slam"/>
@@ -88,8 +91,8 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
-            <dataType name="double" size="8"/>
-            <dataType name="long" size="4"/>
+            <dataType name="double" size="64"/>
+            <dataType name="long" size="32"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core7"/>
