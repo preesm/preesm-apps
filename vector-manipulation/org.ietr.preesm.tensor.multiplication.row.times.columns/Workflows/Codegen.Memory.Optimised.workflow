@@ -59,7 +59,7 @@
         <dftools:data key="variables">
             <dftools:variable name="Allocator(s)" value="FirstFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
-            <dftools:variable name="Data alignment" value="Fixed:=64"/>
+            <dftools:variable name="Data alignment" value="Fixed:=512"/>
             <dftools:variable name="Merge broadcasts" value="? C {True, False}"/>
             <dftools:variable name="Nb of Shuffling Tested" value="10"/>
             <dftools:variable name="Verbose" value="True"/>
@@ -92,7 +92,8 @@
         pluginId="org.ietr.preesm.experiment.memory.MultiMemoryScriptTask" taskId="MemoryScripts">
         <dftools:data key="variables">
             <dftools:variable name="Check" value="Thorough"/>
-            <dftools:variable name="Data alignment" value="Fixed:=64"/>
+            <dftools:variable name="False Sharing Prevention" value="True"/>
+            <dftools:variable name="Data alignment" value="Fixed:=512"/>
             <dftools:variable name="Log Path" value="log_memoryScripts"/>
             <dftools:variable name="Verbose" value="True"/>
         </dftools:data>

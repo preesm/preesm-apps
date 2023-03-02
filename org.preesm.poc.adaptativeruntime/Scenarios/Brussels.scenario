@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
     <files>
         <algorithm url="/org.preesm.poc.adaptativeruntime/Algo/top.pi"/>
         <architecture url="/org.preesm.poc.adaptativeruntime/Archi/Odroid.slam"/>
@@ -483,12 +486,12 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
-            <dataType name="uchar" size="1"/>
-            <dataType name="char" size="1"/>
-            <dataType name="rgbimg" size="1440000"/>
-            <dataType name="double" size="8"/>
-            <dataType name="int" size="4"/>
-            <dataType name="float" size="4"/>
+            <dataType name="uchar" size="8"/>
+            <dataType name="char" size="8"/>
+            <dataType name="rgbimg" size="11520000"/>
+            <dataType name="double" size="64"/>
+            <dataType name="int" size="32"/>
+            <dataType name="float" size="32"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="A7_Core1"/>

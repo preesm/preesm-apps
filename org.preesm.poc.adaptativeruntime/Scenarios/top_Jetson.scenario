@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
     <files>
         <algorithm url="/org.preesm.poc.adaptativeruntime/Algo/jetson/top_jetson.pi"/>
         <architecture url="/org.preesm.poc.adaptativeruntime/Archi/Jetson.slam"/>
@@ -222,10 +225,10 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
-            <dataType name="uchar" size="1"/>
-            <dataType name="float" size="4"/>
-            <dataType name="char" size="1"/>
-            <dataType name="int" size="4"/>
+            <dataType name="uchar" size="8"/>
+            <dataType name="float" size="32"/>
+            <dataType name="char" size="8"/>
+            <dataType name="int" size="32"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="D2_Core0"/>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
     <files>
         <algorithm url="/org.ietr.preesm.lane-detection/Algo/lane_detection.pi"/>
         <architecture url="/org.ietr.preesm.lane-detection/Archi/4CoreX86.slam"/>
@@ -72,7 +75,7 @@
         <mainComNode>shared_mem</mainComNode>
         <averageDataSize>1000</averageDataSize>
         <dataTypes>
-            <dataType name="uchar" size="1"/>
+            <dataType name="uchar" size="8"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
