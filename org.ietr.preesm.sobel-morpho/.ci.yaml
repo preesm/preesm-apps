@@ -1,0 +1,4 @@
+config:
+- {scenario: 1core.scenario, workflow: Codegen.workflow}
+- {scenario: 4core.scenario, workflow: Codegen.workflow}
+- {scenario: 8coreC6678.scenario, workflow: Codegen.workflow}

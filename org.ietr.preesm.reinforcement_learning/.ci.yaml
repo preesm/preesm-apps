@@ -1,0 +1,9 @@
+config:
+- {scenario: 1corePrediction.scenario, workflow: SpiderCodegen.workflow}
+- {scenario: 1coreTraining.scenario, workflow: SpiderCodegen.workflow}
+- {scenario: 4corePrediction.scenario, workflow: SpiderCodegen.workflow}
+- {scenario: 4coreTraining.scenario, workflow: SpiderCodegen.workflow}
+- {scenario: 1corePrediction.scenario, workflow: PiMM2SRDAGCodegen.workflow}
+- {scenario: 1coreTraining.scenario, workflow: PiMM2SRDAGCodegen.workflow}
+- {scenario: 4corePrediction.scenario, workflow: PiMM2SRDAGCodegen.workflow}
+- {scenario: 4coreTraining.scenario, workflow: PiMM2SRDAGCodegen.workflow}

@@ -1,0 +1,5 @@
+config:
+- {scenario: 1coreX86.scenario, workflow: Codegen.workflow}
+- {scenario: 4coreX86.scenario, workflow: Codegen.workflow}
+- {scenario: 4coreX86_SyncOptimize.scenario, workflow: Codegen.workflow}
+- {scenario: 12coreX86.scenario, workflow: Codegen.workflow}

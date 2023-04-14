@@ -1,0 +1,3 @@
+config:
+- {scenario: 1coreSpider.scenario, workflow: SpiderCodegen.workflow}
+- {scenario: 4coreSpider.scenario, workflow: SpiderCodegen.workflow}
