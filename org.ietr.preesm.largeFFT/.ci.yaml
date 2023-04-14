@@ -1,0 +1,7 @@
+config:
+#- {scenario: largeFFT_hawking.scenario, workflow: Simulate.workflow}
+#- {scenario: largeFFT_lamaar.scenario, workflow: Simulate.workflow}
+#- {scenario: largeFFT_monox86.scenario, workflow: Simulate.workflow}
+#- {scenario: largeFFT_hawking.scenario, workflow: XTendCodegen.workflow}
+#- {scenario: largeFFT_lamaar.scenario, workflow: XTendCodegen.workflow}
+#- {scenario: largeFFT_monox86.scenario, workflow: XTendCodegen.workflow}

@@ -1,0 +1,5 @@
+config:
+- {scenario: 4core.scenario, workflow: CodegenMemoryScriptsMixedMerged.workflow}
+- {scenario: 8coresC6678.scenario, workflow: CodegenMemoryScriptsMixedMerged.workflow}
+- {scenario: 4core.scenario, workflow: NEWSynthesisAPI.workflow}
+- {scenario: 8coresC6678.scenario, workflow: NEWSynthesisAPI.workflow}

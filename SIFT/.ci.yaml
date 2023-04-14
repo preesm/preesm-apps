@@ -1,0 +1,3 @@
+config:
+- {scenario: HextractSIFT1Corex86_64.scenario, workflow: Codegen.workflow}
+- {scenario: HextractSIFT4Corex86_64.scenario, workflow: Codegen.workflow}
