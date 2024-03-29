@@ -1,1 +1,0 @@
-/home/farresti/Documents/thesis/dev/spider/master/libspider/spider/spider.h
