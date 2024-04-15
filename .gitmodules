@@ -1,9 +1,9 @@
 [submodule "fpga/org.ietr.preesm.gaussian-difference"]
 	path = fpga/org.ietr.preesm.gaussian-difference
-	url = https://github.com/preesm/org.ietr.preesm.gaussian-difference.git
+	url = ../org.ietr.preesm.gaussian-difference.git
 [submodule "fpga/org.ietr.preesm.color-filter"]
 	path = fpga/org.ietr.preesm.color-filter
-	url = https://github.com/preesm/org.ietr.preesm.color-filter.git
+	url = ../org.ietr.preesm.color-filter.git
 [submodule "fpga/org.ietr.preesm.wavelet"]
 	path = fpga/org.ietr.preesm.wavelet
-	url = https://github.com/preesm/org.ietr.preesm.wavelet.git
+	url = ../org.ietr.preesm.wavelet.git
