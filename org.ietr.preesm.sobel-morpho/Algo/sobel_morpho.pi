@@ -5,202 +5,417 @@
     <key attr.name="arguments" for="node" id="arguments"/>
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
-    <key attr.name="memoryScript" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">sobel_morpho</data>
-        <node expr="352" id="width" kind="param"/>
-        <node expr="288" id="height" kind="param"/>
-        <node expr="0" id="index" kind="param"/>
-        <node expr="height/nbSlice+2*overlap" id="sobelHeight" kind="param"/>
-        <node expr="4" id="nbSlice" kind="param"/>
-        <node expr="2*window+1" id="overlap" kind="param"/>
-        <node expr="height/nbSlice+2*window" id="erosionHeight" kind="param"/>
-        <node expr="2" id="window" kind="param"/>
-        <node expr="height/nbSlice+4*window" id="dilationHeight" kind="param"/>
-        <node id="Read_YUV" kind="actor" period="0">
-            <data key="graph_desc">Code/include/yuvRead.h</data>
-            <loop name="readYUV">
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-                <param direction="OUT" isConfig="false" name="y" type="unsigned char"/>
-                <param direction="OUT" isConfig="false" name="u" type="unsigned char"/>
-                <param direction="OUT" isConfig="false" name="v" type="unsigned char"/>
-            </loop>
-            <init name="initReadYUV">
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-            </init>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width"
-                kind="output" name="y"/>
-            <port annotation="NONE" expr="height/2*width/2"
-                kind="output" name="u"/>
-            <port annotation="NONE" expr="height/2*width/2"
-                kind="output" name="v"/>
-        </node>
-        <node id="display" kind="actor" period="0">
-            <data key="graph_desc">Code/include/yuvDisplay.h</data>
-            <loop name="yuvDisplay">
-                <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="false" name="y" type="unsigned char"/>
-                <param direction="IN" isConfig="false" name="u" type="unsigned char"/>
-                <param direction="IN" isConfig="false" name="v" type="unsigned char"/>
-            </loop>
-            <init name="yuvDisplayInit">
-                <param direction="IN" isConfig="true" name="id" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-            </init>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="id"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="NONE" expr="height*width"
-                kind="input" name="y"/>
-            <port annotation="NONE" expr="height/2*width/2"
-                kind="input" name="u"/>
-            <port annotation="NONE" expr="height/2*width/2"
-                kind="input" name="v"/>
-        </node>
-        <node id="Sobel" kind="actor" period="0">
-            <data key="graph_desc">Code/include/sobel.h</data>
-            <loop name="sobel">
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="input" type="unsigned char"/>
+        <node expr="6" id="NUM_ANT" kind="param"/>
+        <node id="loadCfg" kind="actor">
+            <data key="graph_desc">Code/include/loadConfig.h</data>
+            <loop name="parseConfig">
                 <param direction="OUT" isConfig="false"
-                    name="output" type="unsigned char"/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port annotation="READ_ONLY" expr="height*width"
-                kind="input" name="input"/>
-            <port annotation="NONE" expr="(height-2)*width"
-                kind="output" name="output"/>
-        </node>
-        <node id="Split" kind="actor" period="0">
-            <data key="graph_desc">Code/include/splitMerge.h</data>
-            <loop name="split">
-                <param direction="IN" isConfig="true"
-                    name="nbSlice" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="overlap" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="input" type="unsigned char"/>
+                    name="nBit" type="int"/>
                 <param direction="OUT" isConfig="false"
-                    name="output" type="unsigned char"/>
-            </loop>
-            <data key="memoryScript">Code/Scripts/split.bsh</data>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="nbSlice"/>
-            <port kind="cfg_input" name="overlap"/>
-            <port annotation="NONE" expr="height*width"
-                kind="input" name="input"/>
-            <port annotation="NONE"
-                expr="nbSlice*width*(height/nbSlice+2*overlap)"
-                kind="output" name="output"/>
-        </node>
-        <node id="Dilation" kind="actor" period="0">
-            <data key="graph_desc">Code/include/morph.h</data>
-            <loop name="dilation">
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="window" type="const int"/>
-                <param direction="IN" isConfig="false"
-                    name="input" type="unsigned char"/>
+                    name="nPol" type="int"/>
                 <param direction="OUT" isConfig="false"
-                    name="output" type="unsigned char"/>
-            </loop>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="window"/>
-            <port annotation="NONE" expr="height*width"
-                kind="input" name="input"/>
-            <port annotation="NONE"
-                expr="(height-2*window)*width" kind="output" name="output"/>
-        </node>
-        <node id="Erosion" kind="actor" period="0">
-            <data key="graph_desc">Code/include/morph.h</data>
-            <loop name="erosion">
-                <param direction="IN" isConfig="true"
-                    name="height" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="width" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="window" type="const int"/>
-                <param direction="IN" isConfig="false"
-                    name="input" type="unsigned char"/>
+                    name="isComplex" type="int"/>
                 <param direction="OUT" isConfig="false"
-                    name="output" type="unsigned char"/>
+                    name="nChan" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="nant" type="int"/>
+                <param direction="OUT" isConfig="false" name="lo" type="double"/>
+                <param direction="OUT" isConfig="false"
+                    name="bandwidth" type="double"/>
+                <param direction="OUT" isConfig="false"
+                    name="numFFT" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="antenna" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="antFiles" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="delays" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="antFileOffsets" type="double"/>
             </loop>
-            <port kind="cfg_input" name="height"/>
-            <port kind="cfg_input" name="width"/>
-            <port kind="cfg_input" name="window"/>
-            <port annotation="NONE" expr="height*width"
-                kind="input" name="input"/>
-            <port annotation="NONE"
-                expr="(height-2*window)*width" kind="output" name="output"/>
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port annotation="NONE" expr="1" kind="output" name="nBit"/>
+            <port annotation="NONE" expr="1" kind="output" name="nPol"/>
+            <port annotation="NONE" expr="1" kind="output" name="isComplex"/>
+            <port annotation="NONE" expr="1" kind="output" name="nChan"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant"/>
+            <port annotation="NONE" expr="1" kind="output" name="lo"/>
+            <port annotation="NONE" expr="1" kind="output" name="bandwidth"/>
+            <port annotation="NONE" expr="1" kind="output" name="numFFT"/>
+            <port annotation="NONE" expr="120" kind="output" name="antenna"/>
+            <port annotation="NONE" expr="120" kind="output" name="antFiles"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets"/>
         </node>
-        <edge kind="fifo" source="Read_YUV" sourceport="u"
-            target="display" targetport="u" type="uchar"/>
-        <edge kind="fifo" source="Read_YUV" sourceport="v"
-            target="display" targetport="v" type="uchar"/>
-        <edge kind="fifo" source="Read_YUV" sourceport="y"
-            target="Split" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Dilation" sourceport="output"
-            target="Erosion" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Split" sourceport="output"
-            target="Sobel" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Sobel" sourceport="output"
-            target="Dilation" targetport="input" type="uchar"/>
-        <edge kind="fifo" source="Erosion" sourceport="output"
-            target="display" targetport="y" type="uchar"/>
-        <edge kind="dependency" source="width" target="Read_YUV" targetport="width"/>
-        <edge kind="dependency" source="height" target="Read_YUV" targetport="height"/>
-        <edge kind="dependency" source="width" target="display" targetport="width"/>
-        <edge kind="dependency" source="height" target="display" targetport="height"/>
-        <edge kind="dependency" source="index" target="display" targetport="id"/>
-        <edge kind="dependency" source="width" target="Sobel" targetport="width"/>
-        <edge kind="dependency" source="height" target="sobelHeight"/>
-        <edge kind="dependency" source="nbSlice" target="sobelHeight"/>
-        <edge kind="dependency" source="height" target="Split" targetport="height"/>
-        <edge kind="dependency" source="width" target="Split" targetport="width"/>
-        <edge kind="dependency" source="nbSlice" target="Split" targetport="nbSlice"/>
-        <edge kind="dependency" source="sobelHeight"
-            target="Sobel" targetport="height"/>
-        <edge kind="dependency" source="overlap" target="Split" targetport="overlap"/>
-        <edge kind="dependency" source="overlap" target="sobelHeight"/>
-        <edge kind="dependency" source="width" target="Dilation" targetport="width"/>
-        <edge kind="dependency" source="height" target="erosionHeight"/>
-        <edge kind="dependency" source="nbSlice" target="erosionHeight"/>
-        <edge kind="dependency" source="window" target="erosionHeight"/>
-        <edge kind="dependency" source="width" target="Erosion" targetport="width"/>
-        <edge kind="dependency" source="window" target="Erosion" targetport="window"/>
-        <edge kind="dependency" source="window" target="Dilation" targetport="window"/>
-        <edge kind="dependency" source="window" target="overlap"/>
-        <edge kind="dependency" source="erosionHeight"
-            target="Erosion" targetport="height"/>
-        <edge kind="dependency" source="height" target="dilationHeight"/>
-        <edge kind="dependency" source="nbSlice" target="dilationHeight"/>
-        <edge kind="dependency" source="window" target="dilationHeight"/>
-        <edge kind="dependency" source="dilationHeight"
-            target="Dilation" targetport="height"/>
+        <node id="readCfg" kind="actor">
+            <data key="graph_desc">Code/include/loadConfig.h</data>
+            <loop name="readConfig">
+                <param direction="IN" isConfig="false"
+                    name="nbit" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nPol" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="iscomplex" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nchan" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nant" type="int"/>
+                <param direction="IN" isConfig="false" name="lo" type="double"/>
+                <param direction="IN" isConfig="false"
+                    name="bandwidth" type="double"/>
+                <param direction="IN" isConfig="false"
+                    name="numffts" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="antenna" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="antFiles" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="delays" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="antfileoffsets" type="double"/>
+            </loop>
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="1" kind="input" name="nPol"/>
+            <port annotation="NONE" expr="1" kind="input" name="iscomplex"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="input" name="nant"/>
+            <port annotation="NONE" expr="1" kind="input" name="lo"/>
+            <port annotation="NONE" expr="1" kind="input" name="bandwidth"/>
+            <port annotation="NONE" expr="1" kind="input" name="numffts"/>
+            <port annotation="NONE" expr="120" kind="input" name="antenna"/>
+            <port annotation="NONE" expr="120" kind="input" name="antFiles"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antfileoffsets"/>
+        </node>
+        <node id="allocDataHost" kind="actor">
+            <data key="graph_desc">Code/include/allocDataHost.h</data>
+            <loop name="allocDataHost">
+                <param direction="IN" isConfig="false"
+                    name="numchannels" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="numffts" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nbit" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nPol" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="iscomplex" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="subintbytes" type="int"/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="iscomplex"/>
+            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="1" kind="input" name="numchannels"/>
+            <port annotation="NONE" expr="1" kind="input" name="nPol"/>
+            <port annotation="NONE" expr="1" kind="input" name="numffts"/>
+            <port annotation="NONE" expr="1" kind="output" name="subintbytes"/>
+        </node>
+        <node id="broadcast_nbit" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="1" kind="output" name="nbit_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="nbit_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="nbit_2"/>
+        </node>
+        <node id="broadcast_nant" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="nant"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant_3"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant_4"/>
+        </node>
+        <node id="broadcast_iscomplex" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="iscomplex"/>
+            <port annotation="NONE" expr="1" kind="output" name="iscomplex_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="iscomplex_1"/>
+        </node>
+        <node id="broadcast_nchan" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_2"/>
+        </node>
+        <node id="broadcast_npol" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="npol"/>
+            <port annotation="NONE" expr="1" kind="output" name="npol_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="npol_1"/>
+        </node>
+        <node id="broadcast_numffts" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="numffts"/>
+            <port annotation="NONE" expr="1" kind="output" name="numffts_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="numffts_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="numffts_2"/>
+        </node>
+        <node id="openAntFiles" kind="actor">
+            <data key="graph_desc">Code/include/openFiles.h</data>
+            <loop name="openFiles">
+                <param direction="IN" isConfig="false"
+                    name="numantennas" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="antFiles" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="antStream" type="void*"/>
+            </loop>
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port annotation="NONE" expr="120" kind="input" name="antFiles"/>
+            <port annotation="NONE" expr="1" kind="input" name="numantennas"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antStream"/>
+        </node>
+        <node id="broadcast_antFiles" kind="broadcast">
+            <port annotation="NONE" expr="120" kind="input" name="antFiles"/>
+            <port annotation="NONE" expr="120" kind="output" name="antFiles_0"/>
+            <port annotation="NONE" expr="120" kind="output" name="antFiles_1"/>
+        </node>
+        <node id="readData" kind="actor">
+            <data key="graph_desc">Code/include/openFiles.h</data>
+            <loop name="readdata">
+                <param direction="IN" isConfig="false"
+                    name="bytestoread" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="antStream" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="inputdata" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="numStreams" type="int"/>
+                <param direction="IN" isConfig="true"
+                    name="numantenna" type="int"/>
+            </loop>
+            <port kind="cfg_input" name="numantenna"/>
+            <port annotation="NONE" expr="1" kind="input" name="bytestoread"/>
+            <port annotation="NONE" expr="numantenna"
+                kind="input" name="antStream"/>
+            <port annotation="NONE" expr="1" kind="input" name="numStreams"/>
+            <port annotation="NONE" expr="numantenna"
+                kind="output" name="inputdata"/>
+        </node>
+        <node id="initFxKernel" kind="actor">
+            <data key="graph_desc">Code/include/kernel.h</data>
+            <loop name="init_FxKernel">
+                <param direction="OUT" isConfig="false"
+                    name="kernel" type="FxKernel"/>
+                <param direction="IN" isConfig="false"
+                    name="nant" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nchan" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nfft" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nbit" type="int"/>
+                <param direction="IN" isConfig="false" name="lo" type="double"/>
+                <param direction="IN" isConfig="false" name="bw" type="double"/>
+                <param direction="IN" isConfig="false"
+                    name="inputData" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="delays" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="antFileOffsets" type="double"/>
+                <param direction="OUT" isConfig="false"
+                    name="starttime" type="struct timespec"/>
+                <param direction="OUT" isConfig="false"
+                    name="starttimestring" type="char"/>
+            </loop>
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port annotation="NONE" expr="1" kind="input" name="nant"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="input" name="nfft"/>
+            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="1" kind="input" name="lo"/>
+            <port annotation="NONE" expr="1" kind="input" name="bw"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="inputData"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="1" kind="output" name="kernel"/>
+            <port annotation="NONE" expr="1" kind="output" name="starttime"/>
+            <port annotation="NONE" expr="64" kind="output" name="starttimestring"/>
+        </node>
+        <node id="broadcast_lo" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="lo"/>
+            <port annotation="NONE" expr="1" kind="output" name="lo_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="lo_1"/>
+        </node>
+        <node id="broadcast_bw" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="bw"/>
+            <port annotation="NONE" expr="1" kind="output" name="bw_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="bw_1"/>
+        </node>
+        <node id="broadcast_delays" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays_0"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays_1"/>
+        </node>
+        <node id="broadcast_antFileOffsets" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets_0"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets_1"/>
+        </node>
+        <node id="getTiming" kind="actor">
+            <data key="graph_desc">Code/include/kernel.h</data>
+            <loop name="endTiming">
+                <param direction="IN" isConfig="false"
+                    name="starttime" type="struct timespec"/>
+                <param direction="OUT" isConfig="false"
+                    name="diff_ms" type="long long"/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="starttime"/>
+            <port annotation="NONE" expr="1" kind="output" name="diff_ms"/>
+        </node>
+        <node id="saveLog" kind="actor">
+            <data key="graph_desc">Code/include/kernel.h</data>
+            <loop name="saveLog">
+                <param direction="IN" isConfig="false"
+                    name="diff_ms" type="long long"/>
+                <param direction="IN" isConfig="false"
+                    name="starttimestring" type="char"/>
+            </loop>
+            <port annotation="NONE" expr="64" kind="input" name="starttimestring"/>
+            <port annotation="NONE" expr="1" kind="input" name="diff_ms"/>
+        </node>
+        <node id="resetFxKernel" kind="actor">
+            <data key="graph_desc">Code/include/kernel.h</data>
+            <loop name="resetBeforeProcess">
+                <param direction="IN" isConfig="false"
+                    name="kernel" type="FxKernel"/>
+            </loop>
+            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
+        </node>
+        <edge kind="fifo" source="loadCfg" sourceport="antenna"
+            target="readCfg" targetport="antenna" type="char*"/>
+        <edge kind="fifo" source="loadCfg" sourceport="nBit"
+            target="broadcast_nbit" targetport="nbit" type="int"/>
+        <edge kind="fifo" source="broadcast_nbit"
+            sourceport="nbit_0" target="allocDataHost"
+            targetport="nbit" type="int"/>
+        <edge kind="fifo" source="broadcast_nbit"
+            sourceport="nbit_1" target="readCfg"
+            targetport="nbit" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="nant"
+            target="broadcast_nant" targetport="nant" type="int"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_0" target="readCfg"
+            targetport="nant" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="isComplex"
+            target="broadcast_iscomplex" targetport="iscomplex" type="int"/>
+        <edge kind="fifo" source="broadcast_iscomplex"
+            sourceport="iscomplex_0" target="readCfg"
+            targetport="iscomplex" type="int"/>
+        <edge kind="fifo" source="broadcast_iscomplex"
+            sourceport="iscomplex_1" target="allocDataHost"
+            targetport="iscomplex" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="nChan"
+            target="broadcast_nchan" targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_0" target="allocDataHost"
+            targetport="numchannels" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_1" target="readCfg"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_npol"
+            sourceport="npol_0" target="allocDataHost"
+            targetport="nPol" type="int"/>
+        <edge kind="fifo" source="broadcast_npol"
+            sourceport="npol_1" target="readCfg"
+            targetport="nPol" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="nPol"
+            target="broadcast_npol" targetport="npol" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="numFFT"
+            target="broadcast_numffts" targetport="numffts" type="int"/>
+        <edge kind="fifo" source="broadcast_numffts"
+            sourceport="numffts_0" target="allocDataHost"
+            targetport="numffts" type="int"/>
+        <edge kind="fifo" source="broadcast_numffts"
+            sourceport="numffts_1" target="readCfg"
+            targetport="numffts" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="antFiles"
+            target="broadcast_antFiles" targetport="antFiles" type="char*"/>
+        <edge kind="fifo" source="broadcast_antFiles"
+            sourceport="antFiles_0" target="readCfg"
+            targetport="antFiles" type="char*"/>
+        <edge kind="fifo" source="broadcast_antFiles"
+            sourceport="antFiles_1" target="openAntFiles"
+            targetport="antFiles" type="char*"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_2" target="openAntFiles"
+            targetport="numantennas" type="int"/>
+        <edge kind="fifo" source="allocDataHost"
+            sourceport="subintbytes" target="readData"
+            targetport="bytestoread" type="int"/>
+        <edge kind="fifo" source="openAntFiles"
+            sourceport="antStream" target="readData"
+            targetport="antStream" type="FILE*"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_3" target="readData"
+            targetport="numStreams" type="int"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_4" target="initFxKernel"
+            targetport="nant" type="int"/>
+        <edge kind="fifo" source="broadcast_numffts"
+            sourceport="numffts_2" target="initFxKernel"
+            targetport="nfft" type="int"/>
+        <edge kind="fifo" source="broadcast_nbit"
+            sourceport="nbit_2" target="initFxKernel"
+            targetport="nbit" type="int"/>
+        <edge kind="fifo" source="loadCfg" sourceport="lo"
+            target="broadcast_lo" targetport="lo" type="double"/>
+        <edge kind="fifo" source="broadcast_lo" sourceport="lo_0"
+            target="readCfg" targetport="lo" type="double"/>
+        <edge kind="fifo" source="broadcast_lo" sourceport="lo_1"
+            target="initFxKernel" targetport="lo" type="double"/>
+        <edge kind="fifo" source="loadCfg" sourceport="bandwidth"
+            target="broadcast_bw" targetport="bw" type="double"/>
+        <edge kind="fifo" source="broadcast_bw" sourceport="bw_0"
+            target="readCfg" targetport="bandwidth" type="double"/>
+        <edge kind="fifo" source="broadcast_bw" sourceport="bw_1"
+            target="initFxKernel" targetport="bw" type="double"/>
+        <edge kind="fifo" source="loadCfg" sourceport="delays"
+            target="broadcast_delays" targetport="delays" type="double*"/>
+        <edge kind="fifo" source="broadcast_delays"
+            sourceport="delays_0" target="readCfg"
+            targetport="delays" type="double*"/>
+        <edge kind="fifo" source="broadcast_delays"
+            sourceport="delays_1" target="initFxKernel"
+            targetport="delays" type="double*"/>
+        <edge kind="fifo" source="loadCfg"
+            sourceport="antFileOffsets"
+            target="broadcast_antFileOffsets"
+            targetport="antFileOffsets" type="double"/>
+        <edge kind="fifo" source="broadcast_antFileOffsets"
+            sourceport="antFileOffsets_0" target="readCfg"
+            targetport="antfileoffsets" type="double"/>
+        <edge kind="fifo" source="broadcast_antFileOffsets"
+            sourceport="antFileOffsets_1" target="initFxKernel"
+            targetport="antFileOffsets" type="double"/>
+        <edge kind="fifo" source="readData"
+            sourceport="inputdata" target="initFxKernel"
+            targetport="inputData" type="uint8_t*"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_2" target="initFxKernel"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="initFxKernel"
+            sourceport="starttime" target="getTiming"
+            targetport="starttime" type="struct timespec"/>
+        <edge kind="fifo" source="initFxKernel"
+            sourceport="starttimestring" target="saveLog"
+            targetport="starttimestring" type="char"/>
+        <edge kind="fifo" source="getTiming" sourceport="diff_ms"
+            target="saveLog" targetport="diff_ms" type="long long"/>
+        <edge kind="fifo" source="initFxKernel"
+            sourceport="kernel" target="resetFxKernel"
+            targetport="kernel" type="FxKernel"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="openAntFiles" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="readData" targetport="numantenna"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_antFileOffsets" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT" target="readCfg" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_delays" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT" target="loadCfg" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="initFxKernel" targetport="NUM_ANT"/>
     </graph>
 </graphml>

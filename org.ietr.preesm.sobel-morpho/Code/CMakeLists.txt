@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.6)
 # This CMake create a workspace containing the following projects
 # 
 # Programs
-#  - sobel
+#  - difx_implem
 
 # IDE dependent config
 if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -17,7 +17,7 @@ endif()
 # Add definition for relative path into project
 add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 
-project(Sobel)
+project(difx_implem)
 
 # Set to 1 to activate debug compilation (0 for release)
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -144,7 +144,28 @@ if (WIN32)
 endif()
 
 # *******************************************
-# **************** Sobel.exe  ****************
+# **************** IPP  ****************
+# *******************************************
+
+set(IPP_DIR /opt/intel/oneapi/ipp/latest/lib/cmake/ipp)
+
+FIND_PACKAGE(IPP REQUIRED)
+
+if (IPP_FOUND)
+	add_definitions (-DHAVE_IPP)
+	set(IPP_INCLUDE_DIRS /opt/intel/oneapi/ipp/latest/include/)
+	set(IPP_LIBRARY_DIRS /opt/intel/oneapi/ipp/latest/lib/)
+
+	include_directories (${IPP_INCLUDE_DIRS})
+	include_directories(${IPP_INCLUDE_DIRS})
+	link_directories ( ${IPP_LIBRARY_DIRS} )
+
+	find_library(IPP_CORE libippcore.so PATHS /opt/intel/oneapi/ipp/latest/lib/intel64)
+
+endif ()
+
+# *******************************************
+# **************** difx_implem.exe  ****************
 # *******************************************
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
@@ -156,6 +177,6 @@ file(
 	./generated/*.c
 )
 
-add_executable( sobel ${source_files} ${header_files})
-target_link_libraries(sobel ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
+add_executable( difx_implem ${source_files} ${header_files})
+target_link_libraries(difx_implem ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB} ${IPP_LIBRARIES} ${CMAKE_MATH_LIBRARIES} -lm)
 set(CMAKE_C_FLAGS "-std=gnu99")

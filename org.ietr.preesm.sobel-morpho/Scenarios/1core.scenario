@@ -11,22 +11,19 @@
     <constraints excelUrl="">
         <constraintGroup>
             <operator name="Core0"/>
-            <task name="sobel_morpho/Split"/>
-            <task name="sobel_morpho/display"/>
-            <task name="sobel_morpho/Erosion"/>
             <task name="sobel_morpho"/>
-            <task name="sobel_morpho/Read_YUV"/>
-            <task name="sobel_morpho/Sobel"/>
-            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/loadCfg"/>
+            <task name="sobel_morpho/readCfg"/>
+            <task name="sobel_morpho/allocDataHost"/>
+            <task name="sobel_morpho/openAntFiles"/>
+            <task name="sobel_morpho/readData"/>
+            <task name="sobel_morpho/initFxKernel"/>
+            <task name="sobel_morpho/getTiming"/>
+            <task name="sobel_morpho/saveLog"/>
+            <task name="sobel_morpho/resetFxKernel"/>
         </constraintGroup>
     </constraints>
     <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
-        <timing opname="x86" time="120" vertexname="sobel_morpho/Read_YUV"/>
-        <timing opname="x86" time="120" vertexname="sobel_morpho/Sobel"/>
-        <timing opname="x86" time="120" vertexname="sobel_morpho/Split"/>
-        <timing opname="x86" time="120" vertexname="sobel_morpho/display"/>
-        <timing opname="x86" time="120" vertexname="sobel_morpho/Dilation"/>
-        <timing opname="x86" time="120" vertexname="sobel_morpho/Erosion"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
     <simuParams>
@@ -36,6 +33,15 @@
         <dataTypes>
             <dataType name="uchar" size="8"/>
             <dataType name="char" size="8"/>
+            <dataType name="int" size="32"/>
+            <dataType name="double" size="64"/>
+            <dataType name="char*" size="64"/>
+            <dataType name="double*" size="64"/>
+            <dataType name="uint8_t*" size="64"/>
+            <dataType name="FILE*" size="64"/>
+            <dataType name="FxKernel" size="3072"/>
+            <dataType name="long long" size="64"/>
+            <dataType name="struct timespec" size="128"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
@@ -44,6 +50,7 @@
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>
     <energyConfigs xmlUrl="">
-        <performanceObjective objectiveEPS="0.0" toleranceEPS="0.0"/>
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
     </energyConfigs>
 </scenario>
