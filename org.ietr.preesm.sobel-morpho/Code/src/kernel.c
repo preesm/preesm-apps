@@ -5,17 +5,15 @@
 #include "kernel.h"
 
 // Initialization function
-void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit, double *lo, double *bw, u8 ** inputData,
-                   double ** delays, double * antFileOffsets, struct timespec *starttime, char *starttimestring,
-                    int *fftchannels, double *sampletime, int *iscomplex, int *cfact, int *stridesize,
-                    int *substridesize, int *fractionalLoFreq, cf32 *** unpacked, cf32 ***channelised,
-                   cf32 *** conjchannels, cf32 *** visibilities, int *nbaselines, int *numchannels,
-                   int *antValid, int *baselineCount) {
+void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
+              char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
+              int *substridesize, int *fractionalLoFreq, cf32 ***unpacked, cf32 ***channelised, cf32 ***conjchannels,
+              cf32 ***visibilities, int *nbaselines, int *baselineCount) {
 
     *fftchannels = 2 * *nchan;
     *sampletime = 1.0 / (2.0 * *bw);
-    *iscomplex = 0; // Allow for further generalization later
-    *cfact = *iscomplex ? 2 : 1;
+    int iscomplex = 0; // Allow for further generalization later
+    int cfact = iscomplex ? 2 : 1;
 
     // Check for consistency and initialize lookup tables, if required
     if (*nbit == 2) {
@@ -35,7 +33,7 @@ void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit
         fprintf(stderr, "Please choose a number of channels that is a square\n");
         exit(1);
     }
-    *substridesize = (2 / *cfact) * *stridesize;
+    *substridesize = (2 / cfact) * *stridesize;
 
     // Check if LO frequency has a fractional component
     *fractionalLoFreq = (*lo - (int)(*lo)) > TINY;
@@ -54,38 +52,6 @@ void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit
                 exit(1);
             }
         }
-    }
-
-    //allocate the arrays for holding the fringe rotation vectors
-    kernel->subtoff  = vectorAlloc_f64(*substridesize);
-    kernel->subtval  = vectorAlloc_f64(*substridesize);
-    kernel->subxoff  = vectorAlloc_f64(*substridesize);
-    kernel->subxval  = vectorAlloc_f64(*substridesize);
-    kernel->subphase = vectorAlloc_f64(*substridesize);
-    kernel->subarg   = vectorAlloc_f32(*substridesize);
-    kernel->subsin   = vectorAlloc_f32(*substridesize);
-    kernel->subcos   = vectorAlloc_f32(*substridesize);
-    kernel->steptoff  = vectorAlloc_f64(*stridesize);
-    kernel->steptval  = vectorAlloc_f64(*stridesize);
-    kernel->stepxoff  = vectorAlloc_f64(*stridesize);
-    kernel->stepxval  = vectorAlloc_f64(*stridesize);
-    kernel->stepphase = vectorAlloc_f64(*stridesize);
-    kernel->steparg   = vectorAlloc_f32(*stridesize);
-    kernel->stepsin   = vectorAlloc_f32(*stridesize);
-    kernel->stepcos   = vectorAlloc_f32(*stridesize);
-    kernel->stepcplx  = vectorAlloc_cf32(*stridesize);
-    kernel->complexrotator = vectorAlloc_cf32(*fftchannels);
-
-    // populate the fringe rotation arrays that can be pre-populated
-    for(int i=0;i<*substridesize;i++)
-    {
-        kernel->subxoff[i] = ((double)i)/((double)*fftchannels);
-        kernel->subtoff[i] = i**sampletime;
-    }
-    for(int i=0;i<*stridesize;i++)
-    {
-        kernel->stepxoff[i] = ((double)i* (double)*stridesize)/ ((double)*fftchannels);
-        kernel->steptoff[i] = i* *stridesize * *sampletime;
     }
 
     // Allocate memory for FFT'ed data and initialize FFT
@@ -118,23 +84,13 @@ void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit
                 exit(1);
             }
 
-            conjchannels[i][j] = (cf32*)vectorAlloc_cf32(*numchannels);
+            conjchannels[i][j] = (cf32*)vectorAlloc_cf32(*nchan);
             if (conjchannels[i][j] == NULL) {
                 fprintf(stderr, "Memory allocation failed. Quitting.\n");
                 exit(1);
             }
         }
     }
-
-    // Get the size of, and initialise, the FFT
-    int sizeFFTSpec, sizeFFTInitBuf, wbufsize;
-    u8 *fftInitBuf, *fftSpecBuf;
-    ippsFFTGetSize_C_32fc(order, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
-    fftSpecBuf = ippsMalloc_8u(sizeFFTSpec);
-    fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
-    kernel->fftbuffer = ippsMalloc_8u(wbufsize);
-    ippsFFTInit_C_32fc(&kernel->pFFTSpecC, order, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
-    if (fftInitBuf) ippFree(fftInitBuf);
 
     // Visibilities
     *nbaselines = *nant * (*nant - 1) / 2;
@@ -145,7 +101,7 @@ void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit
             exit(1);
         }
         for (int j = 0; j < 4; j++) {
-            visibilities[i][j] = vectorAlloc_cf32(*numchannels);
+            visibilities[i][j] = vectorAlloc_cf32(*nchan);
             if (visibilities[i][j] == NULL) {
                 fprintf(stderr, "Memory allocation failed. Quitting.\n");
                 exit(1);
@@ -153,16 +109,53 @@ void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit
         }
     }
 
-    // also the channel frequency arrays and the other fractional sample correction arrays
-    kernel->subchannelfreqs = vectorAlloc_f32(*stridesize);
-    kernel->stepchannelfreqs = vectorAlloc_f32(*stridesize);
+    startTiming(starttime, starttimestring);
+
+    resetBeforeProcess(nbaselines, visibilities, nchan, baselineCount);
+}
+
+void allocKernel(FxKernel *kernel, int *substridesize, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, double *bw) {
+    kernel->subtoff  = vectorAlloc_f64(*substridesize);
+    kernel->subtval  = vectorAlloc_f64(*substridesize);
+    kernel->subxoff  = vectorAlloc_f64(*substridesize);
+    kernel->subxval  = vectorAlloc_f64(*substridesize);
+    kernel->subphase = vectorAlloc_f64(*substridesize);
+    kernel->subarg   = vectorAlloc_f32(*substridesize);
+    kernel->subsin   = vectorAlloc_f32(*substridesize);
+    kernel->subcos   = vectorAlloc_f32(*substridesize);
+    kernel->steptoff  = vectorAlloc_f64(*stridesize);
+    kernel->steptval  = vectorAlloc_f64(*stridesize);
+    kernel->stepxoff  = vectorAlloc_f64(*stridesize);
+    kernel->stepxval  = vectorAlloc_f64(*stridesize);
+    kernel->stepphase = vectorAlloc_f64(*stridesize);
+    kernel->steparg   = vectorAlloc_f32(*stridesize);
+    kernel->stepsin   = vectorAlloc_f32(*stridesize);
+    kernel->stepcos   = vectorAlloc_f32(*stridesize);
+    kernel->stepcplx  = vectorAlloc_cf32(*stridesize);
+    kernel->complexrotator = vectorAlloc_cf32(*fftchannels);
+
+    // populate the fringe rotation arrays that can be pre-populated
+    for(int i=0;i<*substridesize;i++)
+    {
+        kernel->subxoff[i] = ((double)i)/((double)*fftchannels);
+        kernel->subtoff[i] = i**sampletime;
+    }
+    for(int i=0;i<*stridesize;i++)
+    {
+        kernel->stepxoff[i] = ((double)i* (double)*stridesize)/ ((double)*fftchannels);
+        kernel->steptoff[i] = i* *stridesize * *sampletime;
+    }
+
     kernel->subfracsamparg = vectorAlloc_f32(*stridesize);
     kernel->subfracsampsin = vectorAlloc_f32(*stridesize);
     kernel->subfracsampcos = vectorAlloc_f32(*stridesize);
+    kernel->subchannelfreqs = vectorAlloc_f32(*stridesize);
+
     kernel->stepfracsamparg = vectorAlloc_f32(*stridesize);
     kernel->stepfracsampsin = vectorAlloc_f32(*stridesize);
     kernel->stepfracsampcos = vectorAlloc_f32(*stridesize);
     kernel->stepfracsampcplx = vectorAlloc_cf32(*stridesize);
+    kernel->stepchannelfreqs = vectorAlloc_f32(*stridesize);
     kernel->fracsamprotator = vectorAlloc_cf32(*numchannels);
 
     // populate the channel frequency arrays
@@ -172,7 +165,22 @@ void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit
         kernel->stepchannelfreqs[i] = (float)((TWO_PI*i* *stridesize* *bw)/(double)*numchannels);
     }
 
-    startTiming(starttime, starttimestring);
+    // FFTs
+    // Get the size of, and initialise, the FFT
+    int order = 0;
+    while((*fftchannels) >> order != 1)
+    {
+        order++;
+    }
+
+    int sizeFFTSpec, sizeFFTInitBuf, wbufsize;
+    u8 *fftInitBuf, *fftSpecBuf;
+    ippsFFTGetSize_C_32fc(order, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
+    fftSpecBuf = ippsMalloc_8u(sizeFFTSpec);
+    fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
+    kernel->fftbuffer = ippsMalloc_8u(wbufsize);
+    ippsFFTInit_C_32fc(&kernel->pFFTSpecC, order, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
+    if (fftInitBuf) ippFree(fftInitBuf);
 }
 
 void initLUT2bitReal ()
@@ -191,88 +199,158 @@ void initLUT2bitReal ()
 }
 
 
-void processAntennas(FxKernel *kernel, int i, double *meandelay, double *fractionaldelay, double *delaya,
-                     double *delayb, double *netdelaysamples_f, int *netdelaysamples, int *offset, int *nant, int *numffts,
-                     int *fftchannels, double *antFileOffsets, double *sampletime, int *antValid, u8 ** inputData, cf32 *** unpacked,
-                     cf32 ***channelised, cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
+void processAntennas(FxKernel *kernel, int *nant, int *numffts, int *fftchannels, double *antFileOffsets,
+                     double *sampletime, int *antValid, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
+                     cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
                      int *fractionalLoFreq, double *lo, int *nchan) {
-    for(int j=0;j<*nant;j++) {
-        int maxoffset = (*numffts - 1) * *fftchannels;
-        // unpack
-        getStationDelay(j, i, meandelay, delaya, delayb, delays);
-        *netdelaysamples_f = (*meandelay - antFileOffsets[j]) / *sampletime;
-        *netdelaysamples = (int) (*netdelaysamples_f + 0.5);
+    double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
+    int netdelaysamples, offset;
+    for(int i=0;i<*numffts;i++) {
+        for (int j = 0; j < *nant; j++) {
+            int maxoffset = (*numffts - 1) * *fftchannels;
+            // unpack
+            getStationDelay(j, i, &meandelay, &delaya, &delayb, delays);
+            netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
+            netdelaysamples = (int) (netdelaysamples_f + 0.5);
 
-        *fractionaldelay = -(*netdelaysamples_f - *netdelaysamples) * *sampletime;  // seconds
-        *offset = i * *fftchannels - *netdelaysamples;
-        if (*offset == -1) // can happen due to changing geometric delay over the subint
-        {
-            ++(*offset);
-            *fractionaldelay += *sampletime;
+            fractionaldelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
+            offset = i * *fftchannels - netdelaysamples;
+            if (offset == -1) // can happen due to changing geometric delay over the subint
+            {
+                ++(offset);
+                fractionaldelay += *sampletime;
+            }
+            if (offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
+            {
+                --(offset);
+                fractionaldelay -= *sampletime;
+            }
+            if (offset < 0 || offset > maxoffset) {
+                antValid[j] = 0;
+                return;
+            }
+            antValid[j] = 1;
+            unpack(inputData[j], unpacked[j], offset, *nbit, *fftchannels);
+
+            // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
+            fringerotate(kernel, unpacked[j], delaya, delayb, *substridesize, *stridesize, *lo, *fftchannels,
+                         *fractionalLoFreq);
+
+            // Channelise
+            dofft(kernel, unpacked[j], channelised[j]);
+
+            // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
+
+            // Fractional sample correct
+            fracSampleCorrect(kernel, channelised[j], fractionaldelay, *stridesize, *nchan);
+
+            // Calculate complex conjugate once, for efficency
+            conjChannels(channelised[j], conjchannels[j], *nchan);
         }
-        if (*offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
-        {
-            --(*offset);
-            *fractionaldelay -= *sampletime;
-        }
-        if (*offset < 0 || *offset > maxoffset) {
-            antValid[j] = 0;
-            return;
-        }
-        antValid[j] = 1;
-        unpack(inputData[j], unpacked[j], *offset, *nbit, *fftchannels);
-
-        // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
-        fringerotate(kernel, unpacked[j], *delaya, *delayb, *substridesize, *stridesize, *lo, *fftchannels, *fractionalLoFreq);
-
-        // Channelise
-        dofft(kernel, unpacked[j], channelised[j]);
-
-        // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
-
-        // Fractional sample correct
-        fracSampleCorrect(kernel, channelised[j], *fractionaldelay, *stridesize, *nchan);
-
-        // Calculate complex conjugate once, for efficency
-        conjChannels(channelised[j], conjchannels[j], *nchan);
     }
 }
 
 void processBaseline(int *nant, int *antValid, cf32 ***channelised, cf32 *** conjchannels, cf32 *** visibilities, int *nchan,
                      int *baselineCount) {
-    int b = 0; // Baseline counter
-    for(int j=0;j<*nant-1;j++) {
-        if (!antValid[j]) {
-            b += (*nant - (j + 1));
-            return;
-        }
-        for (int k = j + 1; k < *nant; k++) {
-            if (!antValid[k]) {
-                (b)++;
+        int b = 0; // Baseline counter
+        for (int j = 0; j < *nant - 1; j++) {
+            if (!antValid[j]) {
+                b += (*nant - (j + 1));
                 continue;
             }
-
-            for (int l = 0; l < 2; l++) {
-                for (int m = 0; m < 2; m++) {
-                    // cross multiply + accumulate
-                    vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
-                                          visibilities[b][2 * l + m], *nchan);
+            for (int k = j + 1; k < *nant; k++) {
+                if (!antValid[k]) {
+                    (b)++;
+                    continue;
                 }
+
+                for (int l = 0; l < 2; l++) {
+                    for (int m = 0; m < 2; m++) {
+                        // cross multiply + accumulate
+                        vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
+                                              visibilities[b][2 * l + m], *nchan);
+                    }
+                }
+                baselineCount[b]++;
+                b++;
             }
-            baselineCount[b]++;
-            (b)++;
         }
-    }
 }
 
-void processNormalize(int *i, int *baselineCount,  cf32 *** visibilities, int *nchan) {
-        if (baselineCount[*i]==0) return; // Really should flag data
-        cf32 norm;
-        norm.re = baselineCount[*i];
-        norm.im = 0;
-        for (int j=0; j<4; j++) {
-            vectorDivC_cf32_I(norm, visibilities[*i][j], *nchan);
+void processAntennasAndBaseline(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
+                     double *sampletime, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
+                     cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
+                     int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount, double *bw,
+                     cf32 *** visibilities_out, int *baselineCount_out) {
+    FxKernel kernel;
+    allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
+    
+    double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
+    int *antValid = (int *)malloc(*nant * sizeof(int));
+
+    int netdelaysamples, offset;
+    for(int i=0;i<numffts;i++) {
+        for (int j = 0; j < *nant; j++) {
+            int maxoffset = (numffts - 1) * *fftchannels;
+            // unpack
+            getStationDelay(j, i, &meandelay, &delaya, &delayb, delays);
+            netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
+            netdelaysamples = (int) (netdelaysamples_f + 0.5);
+
+            fractionaldelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
+            offset = i * *fftchannels - netdelaysamples;
+            if (offset == -1) // can happen due to changing geometric delay over the subint
+            {
+                ++(offset);
+                fractionaldelay += *sampletime;
+            }
+            if (offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
+            {
+                --(offset);
+                fractionaldelay -= *sampletime;
+            }
+            if (offset < 0 || offset > maxoffset) {
+                antValid[j] = 0;
+                return;
+            }
+            antValid[j] = 1;
+            unpack(inputData[j], unpacked[j], offset, *nbit, *fftchannels);
+
+            // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
+            fringerotate(&kernel, unpacked[j], delaya, delayb, *substridesize, *stridesize, *lo, *fftchannels,
+                         *fractionalLoFreq);
+
+            // Channelise
+            dofft(&kernel, unpacked[j], channelised[j]);
+
+            // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
+
+            // Fractional sample correct
+            fracSampleCorrect(&kernel, channelised[j], fractionaldelay, *stridesize, *nchan);
+
+            // Calculate complex conjugate once, for efficency
+            conjChannels(channelised[j], conjchannels[j], *nchan);
         }
+        processBaseline(nant, antValid, channelised, conjchannels, visibilities, nchan, baselineCount);
+    }
+    free(antValid);
+    memcpy(visibilities_out, visibilities, (*nant * (*nant - 1) / 2) * sizeof(cf32***));
+    memcpy(baselineCount_out, baselineCount, (*nant * (*nant - 1) / 2) * sizeof(int));
+}
+
+void processNormalize(int nbaselines, int *baselineCount,  cf32 *** visibilities, int *nchan, cf32 *** visibilities_out, struct timespec *endtime) {
+    for (int i=0; i<nbaselines; i++) {
+        if (baselineCount[i] == 0) continue; // Really should flag data
+        cf32 norm;
+        norm.re = baselineCount[i];
+        norm.im = 0;
+        for (int j = 0; j < 4; j++) {
+            vectorDivC_cf32_I(norm, visibilities[i][j], *nchan);
+        }
+    }
+    memcpy(visibilities_out, visibilities, nbaselines * sizeof(cf32***));
+
+    clock_gettime(CLOCK_MONOTONIC, endtime);
 }
 
 void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount) {
@@ -284,7 +362,6 @@ void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int 
             vectorZero_cf32(visibilities[i][j], *nchan);
         }
     }
-
     memset(baselineCount, 0, sizeof(int)* *nbaselines); // Reset baselinecount
 }
 
@@ -485,10 +562,10 @@ void conjChannels(cf32 ** channelised, cf32 ** conjchannels, int nchan) {
     }
 }
 
-void saveVisibilities(const char *outfile, int *nbaselines, int *nchan, cf32 *** visibilities, double *bw) {
+void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double *bw) {
     f32 ***amp, ***phase;
 
-    FILE *fvis = fopen(outfile, "w");
+    FILE *fvis = fopen("vis.out", "w");
     if (!fvis) {
         fprintf(stderr, "Error opening file for writing.\n");
         return;
@@ -568,11 +645,22 @@ void startTiming(struct timespec *starttime, char *starttimestring) {
     starttimestring[strlen(starttimestring) - 1] = '\0'; // Removing the newline character at the end
 }
 
-void endTiming(struct timespec *starttime, long long *diff_ms) {
-    struct timespec endtime;
-    clock_gettime(CLOCK_MONOTONIC, &endtime);
-    long long diff_ns = (endtime.tv_sec - (*starttime).tv_sec) * 1000000000LL + (endtime.tv_nsec - (*starttime).tv_nsec);
+void endTiming(struct timespec *starttime, long long *diff_ms, struct timespec *endtime) {
+    clock_gettime(CLOCK_MONOTONIC, endtime);
+    long long diff_ns = ((*endtime).tv_sec - (*starttime).tv_sec) * 1000000000LL + ((*endtime).tv_nsec - (*starttime).tv_nsec);
     *diff_ms = diff_ns / 1000000LL;
 
     printf("Run time was %lld milliseconds\n", *diff_ms);
+}
+
+void split_array(int *arr, int length, int **arr1, int **arr2) {
+    int mid = length / 2;
+    *arr1 = (int*)malloc(mid * sizeof(int));
+    *arr2 = (int*)malloc((length - mid) * sizeof(int));
+
+    // Copy elements to the first array
+    memcpy(*arr1, arr, mid * sizeof(int));
+
+    // Copy elements to the second array
+    memcpy(*arr2, arr + mid, (length - mid) * sizeof(int));
 }

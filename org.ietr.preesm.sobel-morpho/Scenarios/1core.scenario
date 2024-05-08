@@ -17,10 +17,13 @@
             <task name="sobel_morpho/allocDataHost"/>
             <task name="sobel_morpho/openAntFiles"/>
             <task name="sobel_morpho/readData"/>
-            <task name="sobel_morpho/initFxKernel"/>
             <task name="sobel_morpho/getTiming"/>
             <task name="sobel_morpho/saveLog"/>
-            <task name="sobel_morpho/resetFxKernel"/>
+            <task name="sobel_morpho/saveVis"/>
+            <task name="sobel_morpho/FxKernel/InitFxKernel"/>
+            <task name="sobel_morpho/FxKernel/processNormalize"/>
+            <task name="sobel_morpho/FxKernel/processAntennasAndBaseline"/>
+            <task name="sobel_morpho/FxKernel"/>
         </constraintGroup>
     </constraints>
     <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
@@ -39,9 +42,12 @@
             <dataType name="double*" size="64"/>
             <dataType name="uint8_t*" size="64"/>
             <dataType name="FILE*" size="64"/>
-            <dataType name="FxKernel" size="3072"/>
             <dataType name="long long" size="64"/>
             <dataType name="struct timespec" size="128"/>
+            <dataType name="cf32" size="64"/>
+            <dataType name="u8" size="8"/>
+            <dataType name="u8*" size="64"/>
+            <dataType name="cf32**" size="64"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>

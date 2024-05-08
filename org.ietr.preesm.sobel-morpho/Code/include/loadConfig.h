@@ -12,7 +12,7 @@
 #define MAX_ANTENNA_NAME 20
 #define MAX_ANTENNA_FILE_NAME 50
 
-#define CONFIG_FILE_PATH "./dat/test.conf"
+#define CONFIG_FILE_PATH "./dat/test16.conf"
 
 /**
  * Parses the config file and sets a bunch of necessary parameters

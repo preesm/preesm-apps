@@ -7,7 +7,8 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">sobel_morpho</data>
-        <node expr="6" id="NUM_ANT" kind="param"/>
+        <node expr="16" id="NUM_ANT" kind="param"/>
+        <node expr="NUM_ANT * (NUM_ANT-1)/2" id="NUM_BASELINES" kind="param"/>
         <node id="loadCfg" kind="actor">
             <data key="graph_desc">Code/include/loadConfig.h</data>
             <loop name="parseConfig">
@@ -136,6 +137,7 @@
             <port annotation="NONE" expr="1" kind="output" name="nchan_0"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_1"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_4"/>
         </node>
         <node id="broadcast_npol" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="npol"/>
@@ -146,7 +148,6 @@
             <port annotation="NONE" expr="1" kind="input" name="numffts"/>
             <port annotation="NONE" expr="1" kind="output" name="numffts_0"/>
             <port annotation="NONE" expr="1" kind="output" name="numffts_1"/>
-            <port annotation="NONE" expr="1" kind="output" name="numffts_2"/>
         </node>
         <node id="openAntFiles" kind="actor">
             <data key="graph_desc">Code/include/openFiles.h</data>
@@ -190,46 +191,6 @@
             <port annotation="NONE" expr="numantenna"
                 kind="output" name="inputdata"/>
         </node>
-        <node id="initFxKernel" kind="actor">
-            <data key="graph_desc">Code/include/kernel.h</data>
-            <loop name="init_FxKernel">
-                <param direction="OUT" isConfig="false"
-                    name="kernel" type="FxKernel"/>
-                <param direction="IN" isConfig="false"
-                    name="nant" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="nchan" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="nfft" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="nbit" type="int"/>
-                <param direction="IN" isConfig="false" name="lo" type="double"/>
-                <param direction="IN" isConfig="false" name="bw" type="double"/>
-                <param direction="IN" isConfig="false"
-                    name="inputData" type="void*"/>
-                <param direction="IN" isConfig="false"
-                    name="delays" type="void*"/>
-                <param direction="IN" isConfig="false"
-                    name="antFileOffsets" type="double"/>
-                <param direction="OUT" isConfig="false"
-                    name="starttime" type="struct timespec"/>
-                <param direction="OUT" isConfig="false"
-                    name="starttimestring" type="char"/>
-            </loop>
-            <port kind="cfg_input" name="NUM_ANT"/>
-            <port annotation="NONE" expr="1" kind="input" name="nant"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="input" name="nfft"/>
-            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
-            <port annotation="NONE" expr="1" kind="input" name="lo"/>
-            <port annotation="NONE" expr="1" kind="input" name="bw"/>
-            <port annotation="NONE" expr="NUM_ANT" kind="input" name="inputData"/>
-            <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
-            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antFileOffsets"/>
-            <port annotation="NONE" expr="1" kind="output" name="kernel"/>
-            <port annotation="NONE" expr="1" kind="output" name="starttime"/>
-            <port annotation="NONE" expr="64" kind="output" name="starttimestring"/>
-        </node>
         <node id="broadcast_lo" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="lo"/>
             <port annotation="NONE" expr="1" kind="output" name="lo_0"/>
@@ -239,6 +200,7 @@
             <port annotation="NONE" expr="1" kind="input" name="bw"/>
             <port annotation="NONE" expr="1" kind="output" name="bw_0"/>
             <port annotation="NONE" expr="1" kind="output" name="bw_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="bw_2"/>
         </node>
         <node id="broadcast_delays" kind="broadcast">
             <port kind="cfg_input" name="NUM_ANT"/>
@@ -259,9 +221,30 @@
                     name="starttime" type="struct timespec"/>
                 <param direction="OUT" isConfig="false"
                     name="diff_ms" type="long long"/>
+                <param direction="IN" isConfig="false"
+                    name="endtime" type="struct timespec"/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="starttime"/>
+            <port annotation="NONE" expr="1" kind="input" name="endtime"/>
             <port annotation="NONE" expr="1" kind="output" name="diff_ms"/>
+        </node>
+        <node id="saveVis" kind="actor">
+            <data key="graph_desc">Code/include/kernel.h</data>
+            <loop name="saveVisibilities">
+                <param direction="IN" isConfig="false"
+                    name="nbaselines" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="nchan" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="visibilities" type="void*"/>
+                <param direction="IN" isConfig="false" name="bw" type="double"/>
+            </loop>
+            <port kind="cfg_input" name="NUM_BASELINES"/>
+            <port annotation="NONE" expr="1" kind="input" name="nbaselines"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="NUM_BASELINES"
+                kind="input" name="visibilities"/>
+            <port annotation="NONE" expr="1" kind="input" name="bw"/>
         </node>
         <node id="saveLog" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
@@ -274,13 +257,21 @@
             <port annotation="NONE" expr="64" kind="input" name="starttimestring"/>
             <port annotation="NONE" expr="1" kind="input" name="diff_ms"/>
         </node>
-        <node id="resetFxKernel" kind="actor">
-            <data key="graph_desc">Code/include/kernel.h</data>
-            <loop name="resetBeforeProcess">
-                <param direction="IN" isConfig="false"
-                    name="kernel" type="FxKernel"/>
-            </loop>
-            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
+        <node id="FxKernel" kind="actor">
+            <data key="graph_desc">Algo/FxKernel.pi</data>
+            <port annotation="NONE" expr="1" kind="input" name="nant"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="1" kind="input" name="lo"/>
+            <port annotation="NONE" expr="1" kind="input" name="bw"/>
+            <port annotation="NONE" expr="16" kind="input" name="delays"/>
+            <port annotation="NONE" expr="16" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="16" kind="input" name="inputData"/>
+            <port annotation="NONE" expr="120" kind="output" name="visibilities"/>
+            <port annotation="NONE" expr="1" kind="output" name="starttime"/>
+            <port annotation="NONE" expr="64" kind="output" name="starttimestring"/>
+            <port annotation="NONE" expr="1" kind="output" name="nbaselines"/>
+            <port annotation="NONE" expr="1" kind="output" name="endtime"/>
         </node>
         <edge kind="fifo" source="loadCfg" sourceport="antenna"
             target="readCfg" targetport="antenna" type="char*"/>
@@ -349,34 +340,18 @@
         <edge kind="fifo" source="broadcast_nant"
             sourceport="nant_3" target="readData"
             targetport="numStreams" type="int"/>
-        <edge kind="fifo" source="broadcast_nant"
-            sourceport="nant_4" target="initFxKernel"
-            targetport="nant" type="int"/>
-        <edge kind="fifo" source="broadcast_numffts"
-            sourceport="numffts_2" target="initFxKernel"
-            targetport="nfft" type="int"/>
-        <edge kind="fifo" source="broadcast_nbit"
-            sourceport="nbit_2" target="initFxKernel"
-            targetport="nbit" type="int"/>
         <edge kind="fifo" source="loadCfg" sourceport="lo"
             target="broadcast_lo" targetport="lo" type="double"/>
         <edge kind="fifo" source="broadcast_lo" sourceport="lo_0"
             target="readCfg" targetport="lo" type="double"/>
-        <edge kind="fifo" source="broadcast_lo" sourceport="lo_1"
-            target="initFxKernel" targetport="lo" type="double"/>
         <edge kind="fifo" source="loadCfg" sourceport="bandwidth"
             target="broadcast_bw" targetport="bw" type="double"/>
         <edge kind="fifo" source="broadcast_bw" sourceport="bw_0"
             target="readCfg" targetport="bandwidth" type="double"/>
-        <edge kind="fifo" source="broadcast_bw" sourceport="bw_1"
-            target="initFxKernel" targetport="bw" type="double"/>
         <edge kind="fifo" source="loadCfg" sourceport="delays"
             target="broadcast_delays" targetport="delays" type="double*"/>
         <edge kind="fifo" source="broadcast_delays"
             sourceport="delays_0" target="readCfg"
-            targetport="delays" type="double*"/>
-        <edge kind="fifo" source="broadcast_delays"
-            sourceport="delays_1" target="initFxKernel"
             targetport="delays" type="double*"/>
         <edge kind="fifo" source="loadCfg"
             sourceport="antFileOffsets"
@@ -385,26 +360,49 @@
         <edge kind="fifo" source="broadcast_antFileOffsets"
             sourceport="antFileOffsets_0" target="readCfg"
             targetport="antfileoffsets" type="double"/>
-        <edge kind="fifo" source="broadcast_antFileOffsets"
-            sourceport="antFileOffsets_1" target="initFxKernel"
-            targetport="antFileOffsets" type="double"/>
-        <edge kind="fifo" source="readData"
-            sourceport="inputdata" target="initFxKernel"
-            targetport="inputData" type="uint8_t*"/>
-        <edge kind="fifo" source="broadcast_nchan"
-            sourceport="nchan_2" target="initFxKernel"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="initFxKernel"
-            sourceport="starttime" target="getTiming"
-            targetport="starttime" type="struct timespec"/>
-        <edge kind="fifo" source="initFxKernel"
-            sourceport="starttimestring" target="saveLog"
-            targetport="starttimestring" type="char"/>
         <edge kind="fifo" source="getTiming" sourceport="diff_ms"
             target="saveLog" targetport="diff_ms" type="long long"/>
-        <edge kind="fifo" source="initFxKernel"
-            sourceport="kernel" target="resetFxKernel"
-            targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_4" target="saveVis"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_bw" sourceport="bw_2"
+            target="saveVis" targetport="bw" type="double"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_4" target="FxKernel"
+            targetport="nant" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_2" target="FxKernel"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_bw" sourceport="bw_1"
+            target="FxKernel" targetport="bw" type="double"/>
+        <edge kind="fifo" source="broadcast_nbit"
+            sourceport="nbit_2" target="FxKernel"
+            targetport="nbit" type="int"/>
+        <edge kind="fifo" source="readData"
+            sourceport="inputdata" target="FxKernel"
+            targetport="inputData" type="u8*"/>
+        <edge kind="fifo" source="broadcast_delays"
+            sourceport="delays_1" target="FxKernel"
+            targetport="delays" type="double*"/>
+        <edge kind="fifo" source="broadcast_antFileOffsets"
+            sourceport="antFileOffsets_1" target="FxKernel"
+            targetport="antFileOffsets" type="double"/>
+        <edge kind="fifo" source="broadcast_lo" sourceport="lo_1"
+            target="FxKernel" targetport="lo" type="double"/>
+        <edge kind="fifo" source="FxKernel"
+            sourceport="visibilities" target="saveVis"
+            targetport="visibilities" type="cf32**"/>
+        <edge kind="fifo" source="FxKernel"
+            sourceport="starttime" target="getTiming"
+            targetport="starttime" type="struct timespec"/>
+        <edge kind="fifo" source="FxKernel"
+            sourceport="starttimestring" target="saveLog"
+            targetport="starttimestring" type="char"/>
+        <edge kind="fifo" source="FxKernel"
+            sourceport="nbaselines" target="saveVis"
+            targetport="nbaselines" type="int"/>
+        <edge kind="fifo" source="FxKernel" sourceport="endtime"
+            target="getTiming" targetport="endtime" type="struct timespec"/>
         <edge kind="dependency" source="NUM_ANT"
             target="openAntFiles" targetport="NUM_ANT"/>
         <edge kind="dependency" source="NUM_ANT"
@@ -415,7 +413,8 @@
         <edge kind="dependency" source="NUM_ANT"
             target="broadcast_delays" targetport="NUM_ANT"/>
         <edge kind="dependency" source="NUM_ANT" target="loadCfg" targetport="NUM_ANT"/>
-        <edge kind="dependency" source="NUM_ANT"
-            target="initFxKernel" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT" target="NUM_BASELINES"/>
+        <edge kind="dependency" source="NUM_BASELINES"
+            target="saveVis" targetport="NUM_BASELINES"/>
     </graph>
 </graphml>

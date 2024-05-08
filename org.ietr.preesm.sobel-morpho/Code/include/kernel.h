@@ -60,12 +60,10 @@ static cf32 lut2bit[256][4]; /**< Look up table for two bit data, will contain t
 
 void initLUT2bitReal();
 
-void init_FxKernel(FxKernel *kernel, int *nant, int *nchan, int *nfft, int *nbit, double *lo, double *bw, u8 ** inputData,
-                   double ** delays, double * antFileOffsets, struct timespec *starttime, char *starttimestring,
-                   int *fftchannels, double *sampletime, int *iscomplex, int *cfact, int *stridesize,
-                   int *substridesize, int *fractionalLoFreq, cf32 *** unpacked, cf32 ***channelised,
-                   cf32 *** conjchannels, cf32 *** visibilities, int *nbaselines, int *numchannels,
-                   int *antValid, int *baselineCount);
+void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
+              char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
+              int *substridesize, int *fractionalLoFreq, cf32 ***unpacked, cf32 ***channelised, cf32 ***conjchannels,
+              cf32 ***visibilities, int *nbaselines, int *baselineCount);
 
 void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels);
 
@@ -81,24 +79,29 @@ void fracSampleCorrect(FxKernel *kernel, cf32 ** channelised, f64 fracdelay, int
 
 void conjChannels(cf32 ** channelised, cf32 ** conjchannels, int nchan);
 
-void saveVisibilities(const char *outfile, int *nbaselines, int *nchan, cf32 *** visibilities, double *bw);
+void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double *bw);
 
 void startTiming(struct timespec *starttime, char *starttimestring);
 
 void saveLog(long long *diff_ms, char *starttimestring);
 
-void endTiming(struct timespec *starttime, long long *diff_ms);
+void endTiming(struct timespec *starttime, long long *diff_ms, struct timespec *endtime);
 
-void processAntennas(FxKernel *kernel, int i, double *meandelay, double *fractionaldelay, double *delaya,
-                     double *delayb, double *netdelaysamples_f, int *netdelaysamples, int *offset, int *nant, int *numffts,
+void processAntennas(FxKernel *kernel, int *nant, int *numffts,
                      int *fftchannels, double *antFileOffsets, double *sampletime, int *antValid, u8 ** inputData, cf32 *** unpacked,
                      cf32 ***channelised, cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
                      int *fractionalLoFreq, double *lo, int *nchan);
 
-void processNormalize(int *i, int *baselineCount,  cf32 *** visibilities, int *nchan);
+void processNormalize(int i, int *baselineCount,  cf32 *** visibilities, int *nchan, cf32 *** visibilities_out, struct timespec *endtime);
 
 void processBaseline(int *nant, int *antValid, cf32 ***channelised, cf32 *** conjchannels, cf32 *** visibilities, int *nchan,
                      int *baselineCount);
+
+void processAntennasAndBaseline(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
+                                double *sampletime, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
+                                cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
+                                int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount, double *bw,
+                                cf32 *** visibilities_out, int *baselineCount_out);
 
 void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount);
 
