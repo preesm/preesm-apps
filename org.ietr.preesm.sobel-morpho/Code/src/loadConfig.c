@@ -125,6 +125,7 @@ void parseConfig(int *nBit,  int *nPol,  int *isComplex,  int *nChan,  int *nant
 
 void readConfig(int *nbit, int *nPol, int *iscomplex, int *nchan, int *nant, double *lo, double *bandwidth, 
                 int *numffts, char **antenna, char **antFiles, double **delays, double *antfileoffsets) {
+    /*
     printf("NBIT: %d\n", *nbit);
     printf("NPOL: %d\n", *nPol);
     printf("COMPLEX: %s\n", *iscomplex ? "true" : "false");
@@ -161,6 +162,7 @@ void readConfig(int *nbit, int *nPol, int *iscomplex, int *nchan, int *nant, dou
     for (int i = 0; i < *nant; i++) {
         printf("%e\n", antfileoffsets[i]);
     }
+     */
 }
 
 void initMem(char ** antenna, char ** antFiles, double ** delays) {

@@ -24,6 +24,7 @@
             <task name="sobel_morpho/FxKernel/processNormalize"/>
             <task name="sobel_morpho/FxKernel/processAntennasAndBaseline"/>
             <task name="sobel_morpho/FxKernel"/>
+            <task name="sobel_morpho/FxKernel/merge"/>
         </constraintGroup>
     </constraints>
     <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">

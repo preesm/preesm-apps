@@ -8,7 +8,7 @@
 void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
               char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
               int *substridesize, int *fractionalLoFreq, cf32 ***unpacked, cf32 ***channelised, cf32 ***conjchannels,
-              cf32 ***visibilities, int *nbaselines, int *baselineCount) {
+              cf32 ***visibilities, int *nbaselines, int *baselineCount, int numffts, int * iter, int split) {
 
     *fftchannels = 2 * *nchan;
     *sampletime = 1.0 / (2.0 * *bw);
@@ -39,7 +39,7 @@ void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, str
     *fractionalLoFreq = (*lo - (int)(*lo)) > TINY;
 
     // Allocate memory for unpacked array
-    for (int i = 0; i < *nant; i++) {
+    for (int i = 0; i < split * *nant; i++) {
         unpacked[i] = (cf32**)malloc(2 * sizeof(cf32*));
         if (unpacked[i] == NULL) {
             fprintf(stderr, "Memory allocation failed. Quitting.\n");
@@ -62,7 +62,7 @@ void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, str
     }
 
 // Allocate memory for each element of channelised and conjchannels arrays
-    for(int i = 0; i < *nant; i++)
+    for(int i = 0; i < split * *nant; i++)
     {
         channelised[i] = (cf32**)malloc(2 * sizeof(cf32*));
         if (channelised[i] == NULL) {
@@ -94,7 +94,7 @@ void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, str
 
     // Visibilities
     *nbaselines = *nant * (*nant - 1) / 2;
-    for (int i = 0; i < *nbaselines; i++) {
+    for (int i = 0; i < split * *nbaselines; i++) {
         visibilities[i] = (cf32**)malloc(4 * sizeof(cf32*));
         if (visibilities[i] == NULL) {
             fprintf(stderr, "Memory allocation failed. Quitting.\n");
@@ -109,9 +109,13 @@ void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, str
         }
     }
 
+    for(int i = 0; i < numffts; i ++){
+        iter[i] = i;
+    }
+
     startTiming(starttime, starttimestring);
 
-    resetBeforeProcess(nbaselines, visibilities, nchan, baselineCount);
+    resetBeforeProcess(nbaselines, visibilities, nchan, baselineCount, split);
 }
 
 void allocKernel(FxKernel *kernel, int *substridesize, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, double *bw) {
@@ -353,16 +357,16 @@ void processNormalize(int nbaselines, int *baselineCount,  cf32 *** visibilities
     clock_gettime(CLOCK_MONOTONIC, endtime);
 }
 
-void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount) {
+void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount, int split) {
     // Zero visibilities
-    for (int i=0;i<*nbaselines; i++)
+    for (int i=0;i<split * *nbaselines; i++)
     {
         for (int j=0; j<4; j++)
         {
             vectorZero_cf32(visibilities[i][j], *nchan);
         }
     }
-    memset(baselineCount, 0, sizeof(int)* *nbaselines); // Reset baselinecount
+    memset(baselineCount, 0, split * sizeof(int)* *nbaselines); // Reset baselinecount
 }
 
 void getStationDelay(int antenna, int fftindex, double *meandelay, double *a, double *b, double **delays) {
@@ -663,4 +667,112 @@ void split_array(int *arr, int length, int **arr1, int **arr2) {
 
     // Copy elements to the second array
     memcpy(*arr2, arr + mid, (length - mid) * sizeof(int));
+}
+
+void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
+                                    double *sampletime, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
+                                    cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
+                                    int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount,
+                                    int *iteration, double *bw, cf32 *** visibilities_out, int *baselineCount_out, int split) {
+
+    FxKernel kernel;
+    allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
+
+    double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
+    int *antValid = (int *) malloc(*nant * sizeof(int));
+
+    int netdelaysamples, offset;
+
+    for(int k = 0; k < numffts/split; k++) {
+        for (int j = 0; j < *nant; j++) {
+            int maxoffset = (numffts - 1) * *fftchannels;
+            // unpack
+            getStationDelay(j, iteration[k], &meandelay, &delaya, &delayb, delays);
+            netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
+            netdelaysamples = (int) (netdelaysamples_f + 0.5);
+
+            fractionaldelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
+            offset = iteration[k] * *fftchannels - netdelaysamples;
+            if (offset == -1) // can happen due to changing geometric delay over the subint
+            {
+                ++(offset);
+                fractionaldelay += *sampletime;
+            }
+            if (offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
+            {
+                --(offset);
+                fractionaldelay -= *sampletime;
+            }
+            if (offset < 0 || offset > maxoffset) {
+                antValid[j] = 0;
+                return;
+            }
+            antValid[j] = 1;
+            unpack(inputData[j], unpacked[j], offset, *nbit, *fftchannels);
+
+            // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
+            fringerotate(&kernel, unpacked[j], delaya, delayb, *substridesize, *stridesize, *lo, *fftchannels,
+                         *fractionalLoFreq);
+
+            // Channelise
+            dofft(&kernel, unpacked[j], channelised[j]);
+
+            // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
+
+            // Fractional sample correct
+            fracSampleCorrect(&kernel, channelised[j], fractionaldelay, *stridesize, *nchan);
+
+            // Calculate complex conjugate once, for efficency
+            conjChannels(channelised[j], conjchannels[j], *nchan);
+        }
+        processBaselinePara(nant, antValid, channelised, conjchannels, visibilities, nchan, baselineCount);
+    }
+
+    free(antValid);
+    memcpy(visibilities_out, visibilities, (*nant * (*nant - 1) / 2) * sizeof(cf32***));
+    memcpy(baselineCount_out, baselineCount, (*nant * (*nant - 1) / 2) * sizeof(int));
+}
+
+void processBaselinePara(int *nant, int *antValid, cf32 ***channelised, cf32 *** conjchannels, cf32 *** visibilities, int *nchan,
+                         int *baselineCount) {
+    int b = 0; // Baseline counter
+    for (int j = 0; j < *nant - 1; j++) {
+        if (!antValid[j]) {
+            b += (*nant - (j + 1));
+            continue;
+        }
+        for (int k = j + 1; k < *nant; k++) {
+            if (!antValid[k]) {
+                (b)++;
+                continue;
+            }
+
+            for (int l = 0; l < 2; l++) {
+                for (int m = 0; m < 2; m++) {
+                    // cross multiply + accumulate
+                    vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
+                                          visibilities[b][2 * l + m], *nchan);
+                }
+            }
+            baselineCount[b]++;
+            (b)++;
+        }
+    }
+}
+
+void merge(int split, int nbaselines, cf32 ***visibilities, int *nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out) {
+    if(split != 1) {
+        for(int i = 0; i < nbaselines; i++) {
+            for(int j = 0; j < 4; j++) {
+                for(int k = 1; k < split; k++) {
+                    vectorAdd_cf32_I(visibilities[i + k * (*nant * (*nant - 1) / 2)][j], visibilities[i][j], *nChan);
+                }
+            }
+            for(int k = 1; k < split; k++) {
+                baselineCount[i] += baselineCount[i + k * nbaselines];
+            }
+        }
+    }
+    memcpy(visibilities_out, visibilities, (*nant * (*nant - 1) / 2) * sizeof(cf32***));
+    memcpy(baselineCount_out, baselineCount, (*nant * (*nant - 1) / 2) * sizeof(int));
 }

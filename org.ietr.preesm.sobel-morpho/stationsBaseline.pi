@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <key attr.name="graph_desc" attr.type="string" for="node"/>
+    <graph edgedefault="directed">
+        <data key="name">stationsBaseline</data>
+        <node id="processBaseline" kind="actor">
+            <port annotation="NONE" expr="0" kind="input" name="nant"/>
+            <port annotation="NONE" expr="0" kind="input" name="antValid"/>
+            <port annotation="NONE" expr="0" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="0" kind="input" name="conjchannels"/>
+            <port annotation="NONE" expr="0" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="0" kind="input" name="baselineCount"/>
+            <port annotation="NONE" expr="0" kind="output" name="visibilities"/>
+            <port annotation="NONE" expr="0" kind="output" name="baselineCount_out"/>
+        </node>
+        <node id="stations" kind="actor">
+            <data key="graph_desc">Algo/stations.pi</data>
+            <port annotation="NONE" expr="0" kind="input" name="delays"/>
+            <port annotation="NONE" expr="0" kind="input" name="inputData"/>
+            <port annotation="NONE" expr="0" kind="input" name="unpacked"/>
+            <port annotation="NONE" expr="0" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="0" kind="input" name="conjchannels_in"/>
+            <port annotation="NONE" expr="0" kind="input" name="lo"/>
+            <port annotation="NONE" expr="0" kind="input" name="ffrchannels"/>
+            <port annotation="NONE" expr="0" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="0" kind="input" name="substridesize"/>
+            <port annotation="NONE" expr="0" kind="input" name="fracLoFreq"/>
+            <port annotation="NONE" expr="0" kind="input" name="kernel"/>
+            <port annotation="NONE" expr="0" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="0" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="0" kind="output" name="conjchannels_out"/>
+            <port annotation="NONE" expr="0" kind="output" name="channelised_out"/>
+            <port annotation="NONE" expr="0" kind="output" name="antValid"/>
+        </node>
+        <edge kind="fifo" source="stations"
+            sourceport="conjchannels_out"
+            target="processBaseline" targetport="conjchannels" type="void"/>
+        <edge kind="fifo" source="stations"
+            sourceport="channelised_out" target="processBaseline"
+            targetport="channelised" type="void"/>
+        <edge kind="fifo" source="stations" sourceport="antValid"
+            target="processBaseline" targetport="antValid" type="void"/>
+    </graph>
+</graphml>

@@ -62,8 +62,8 @@ void initLUT2bitReal();
 
 void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
               char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
-              int *substridesize, int *fractionalLoFreq, cf32 ***unpacked, cf32 ***channelised, cf32 ***conjchannels,
-              cf32 ***visibilities, int *nbaselines, int *baselineCount);
+              int *substridesize, int *fractionalLoFreq, cf32 ***channelised, cf32 ***conjchannels,
+              cf32 ***visibilities, int *nbaselines, int *baselineCount, int numffts, int * iter, int split);
 
 void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels);
 
@@ -88,7 +88,7 @@ void saveLog(long long *diff_ms, char *starttimestring);
 void endTiming(struct timespec *starttime, long long *diff_ms, struct timespec *endtime);
 
 void processAntennas(FxKernel *kernel, int *nant, int *numffts,
-                     int *fftchannels, double *antFileOffsets, double *sampletime, int *antValid, u8 ** inputData, cf32 *** unpacked,
+                     int *fftchannels, double *antFileOffsets, double *sampletime, int *antValid, u8 ** inputData,
                      cf32 ***channelised, cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
                      int *fractionalLoFreq, double *lo, int *nchan);
 
@@ -103,6 +103,17 @@ void processAntennasAndBaseline(int *nant, int numffts, int *fftchannels, double
                                 int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount, double *bw,
                                 cf32 *** visibilities_out, int *baselineCount_out);
 
-void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount);
+void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount, int split);
+
+void processBaselinePara(int *nant, int *antValid, cf32 ***channelised, cf32 *** conjchannels, cf32 *** visibilities, int *nchan,
+                         int *baselineCount);
+
+void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
+                                    double *sampletime, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
+                                    cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
+                                    int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount,
+                                    int *iteration, double *bw, cf32 *** visibilities_out, int *baselineCount_out, int split);
+
+void merge(int split, int nbaselines, cf32 ***visibilities, int *nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out);
 
 #endif //TESTS_DIFX_KERNEL_H

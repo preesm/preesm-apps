@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="parameters" for="graph" id="parameters"/>
+    <key attr.name="variables" for="graph" id="variables"/>
+    <key attr.name="arguments" for="node" id="arguments"/>
+    <key attr.name="name" attr.type="string" for="graph"/>
+    <graph edgedefault="directed">
+        <data key="name">stations</data>
+        <node defaultValue="16" id="NUM_ANT" kind="cfg_in_iface"/>
+        <node defaultValue="240" id="NUM_FFTS" kind="cfg_in_iface"/>
+        <node id="stationDelayAndOffset" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="delays"/>
+            <port annotation="NONE" expr="1" kind="input" name="iter"/>
+            <port annotation="NONE" expr="1" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="1" kind="output" name="antValid"/>
+            <port annotation="NONE" expr="1" kind="output" name="offset"/>
+            <port annotation="NONE" expr="1" kind="output" name="fractionaldelay"/>
+            <port annotation="NONE" expr="1" kind="output" name="delaya"/>
+            <port annotation="NONE" expr="1" kind="output" name="delayb"/>
+        </node>
+        <node id="delays" kind="src">
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays"/>
+        </node>
+        <node id="unpack" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="inputData"/>
+            <port annotation="NONE" expr="1" kind="input" name="offset"/>
+            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="1" kind="output" name="unpacked"/>
+        </node>
+        <node id="frigeRotate" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
+            <port annotation="NONE" expr="1" kind="input" name="unpacked"/>
+            <port annotation="NONE" expr="1" kind="input" name="delaya"/>
+            <port annotation="NONE" expr="1" kind="input" name="delayb"/>
+            <port annotation="NONE" expr="1" kind="input" name="substridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="lo"/>
+            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="1" kind="input" name="fractionalLoFreq"/>
+            <port annotation="NONE" expr="1" kind="output" name="unpacked_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="kernel_out"/>
+        </node>
+        <node id="dofft" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="upacked"/>
+            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
+        </node>
+        <node id="fracSampleCorrect" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
+            <port annotation="NONE" expr="1" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="1" kind="input" name="fracdelay"/>
+            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
+        </node>
+        <node id="conjchannels" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="output" name="conjchannels_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
+        </node>
+        <node id="conjchannels_out" kind="snk">
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="conjchannels_out"/>
+        </node>
+        <node id="channelised_out" kind="snk">
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="channelised_out"/>
+        </node>
+        <node id="antValid" kind="snk">
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antValid"/>
+        </node>
+        <node id="inputData" kind="src">
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="inputData"/>
+        </node>
+        <node id="lo" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="lo"/>
+        </node>
+        <node id="ffrchannels" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="ffrchannels"/>
+        </node>
+        <node id="stridesize" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="stridesize"/>
+        </node>
+        <node id="substridesize" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="substridesize"/>
+        </node>
+        <node id="fracLoFreq" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="fracLoFreq"/>
+        </node>
+        <node id="kernel" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="kernel"/>
+        </node>
+        <node id="stridesize_bc" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="1" kind="output" name="stridesize_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="stridesize_1"/>
+        </node>
+        <node id="nchan" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="nchan"/>
+        </node>
+        <node id="nchan_bc" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_1"/>
+        </node>
+        <node id="nbit" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="nbit"/>
+        </node>
+        <node id="fftchannels_bc" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="1" kind="output" name="fftchannels_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="fftchannels_1"/>
+        </node>
+        <node id="iter" kind="src">
+            <port annotation="NONE" expr="1" kind="output" name="iter"/>
+        </node>
+        <node id="antFileOffsets" kind="src">
+            <port annotation="NONE" expr="16" kind="output" name="antFileOffsets"/>
+        </node>
+        <edge kind="fifo" source="delays" sourceport="delays"
+            target="stationDelayAndOffset" targetport="delays" type="double*"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="delaya" target="frigeRotate"
+            targetport="delaya" type="double"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="delayb" target="frigeRotate"
+            targetport="delayb" type="double"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="offset" target="unpack"
+            targetport="offset" type="int"/>
+        <edge kind="fifo" source="frigeRotate"
+            sourceport="unpacked_out" target="dofft"
+            targetport="upacked" type="cf32**"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="fractionaldelay"
+            target="fracSampleCorrect" targetport="fracdelay" type="double"/>
+        <edge kind="fifo" source="dofft"
+            sourceport="channelised_out"
+            target="fracSampleCorrect" targetport="channelised" type="cf32**"/>
+        <edge kind="fifo" source="fracSampleCorrect"
+            sourceport="channelised_out" target="conjchannels"
+            targetport="channelised" type="cf32**"/>
+        <edge kind="fifo" source="conjchannels"
+            sourceport="conjchannels_out"
+            target="conjchannels_out"
+            targetport="conjchannels_out" type="cf32**"/>
+        <edge kind="fifo" source="conjchannels"
+            sourceport="channelised_out" target="channelised_out"
+            targetport="channelised_out" type="cf32**"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="antValid" target="antValid"
+            targetport="antValid" type="int"/>
+        <edge kind="fifo" source="inputData"
+            sourceport="inputData" target="unpack"
+            targetport="inputData" type="u8*"/>
+        <edge kind="fifo" source="substridesize"
+            sourceport="substridesize" target="frigeRotate"
+            targetport="substridesize" type="int"/>
+        <edge kind="fifo" source="lo" sourceport="lo"
+            target="frigeRotate" targetport="lo" type="int"/>
+        <edge kind="fifo" source="fracLoFreq"
+            sourceport="fracLoFreq" target="frigeRotate"
+            targetport="fractionalLoFreq" type="int"/>
+        <edge kind="fifo" source="kernel" sourceport="kernel"
+            target="frigeRotate" targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="frigeRotate"
+            sourceport="kernel_out" target="fracSampleCorrect"
+            targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="stridesize"
+            sourceport="stridesize" target="stridesize_bc"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="stridesize_bc"
+            sourceport="stridesize_0" target="frigeRotate"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="stridesize_bc"
+            sourceport="stridesize_1" target="fracSampleCorrect"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="nchan" sourceport="nchan"
+            target="nchan_bc" targetport="nchan" type="int"/>
+        <edge kind="fifo" source="nchan_bc" sourceport="nchan_0"
+            target="fracSampleCorrect" targetport="nchan" type="int"/>
+        <edge kind="fifo" source="nchan_bc" sourceport="nchan_1"
+            target="conjchannels" targetport="nchan" type="int"/>
+        <edge kind="fifo" source="nbit" sourceport="nbit"
+            target="unpack" targetport="nbit" type="int"/>
+        <edge kind="fifo" source="ffrchannels"
+            sourceport="ffrchannels" target="fftchannels_bc"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="fftchannels_bc"
+            sourceport="fftchannels_0" target="unpack"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="fftchannels_bc"
+            sourceport="fftchannels_1" target="frigeRotate"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="iter" sourceport="iter"
+            target="stationDelayAndOffset" targetport="iter" type="int"/>
+        <edge kind="fifo" source="antFileOffsets"
+            sourceport="antFileOffsets"
+            target="stationDelayAndOffset"
+            targetport="antFileOffsets" type="double"/>
+        <edge kind="fifo" source="unpack" sourceport="unpacked"
+            target="frigeRotate" targetport="unpacked" type="cf32**"/>
+        <edge kind="dependency" source="NUM_ANT" target="delays"/>
+        <edge kind="dependency" source="NUM_ANT" target="ffrchannels"/>
+        <edge kind="dependency" source="NUM_ANT" target="fracLoFreq"/>
+        <edge kind="dependency" source="NUM_ANT" target="inputData"/>
+        <edge kind="dependency" source="NUM_ANT" target="kernel"/>
+        <edge kind="dependency" source="NUM_ANT" target="lo"/>
+        <edge kind="dependency" source="NUM_ANT" target="nchan"/>
+        <edge kind="dependency" source="NUM_ANT" target="nbit"/>
+        <edge kind="dependency" source="NUM_ANT" target="stridesize"/>
+        <edge kind="dependency" source="NUM_ANT" target="substridesize"/>
+        <edge kind="dependency" source="NUM_ANT" target="antValid"/>
+        <edge kind="dependency" source="NUM_ANT" target="channelised_out"/>
+        <edge kind="dependency" source="NUM_ANT" target="conjchannels_out"/>
+        <edge kind="dependency" source="NUM_ANT" target="iter"/>
+    </graph>
+</graphml>

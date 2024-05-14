@@ -88,6 +88,14 @@
             <dftools:variable name="path" value="/Algo/generated/pisdf/"/>
         </dftools:data>
     </dftools:task>
+    <dftools:task pluginId="scape.task.identifier" taskId="SCAPE">
+        <dftools:data key="variables">
+            <dftools:variable name="Level number" value="1"/>
+            <dftools:variable name="Non-cluster actor" value=""/>
+            <dftools:variable name="SCAPE mode" value="0"/>
+            <dftools:variable name="Stack size" value="1048576"/>
+        </dftools:data>
+    </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Display Gantt"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
@@ -108,8 +116,6 @@
         sourceport="architecture" targetport="architecture" to="Code Generation"/>
     <dftools:dataTransfer from="Scheduling" sourceport="DAG"
         targetport="DAG" to="Code Generation"/>
-    <dftools:dataTransfer from="scenario" sourceport="PiMM"
-        targetport="PiMM" to="pisdf-srdag"/>
     <dftools:dataTransfer from="MEG Builder" sourceport="MemEx"
         targetport="MemEx" to="MEG Updater"/>
     <dftools:dataTransfer from="MEG Builder" sourceport="MemEx"
@@ -132,4 +138,8 @@
         targetport="PiMM" to="Scheduling"/>
     <dftools:dataTransfer from="pisdf-srdag" sourceport="PiMM"
         targetport="PiMM" to="pisdf-export"/>
+    <dftools:dataTransfer from="scenario" sourceport="scenario"
+        targetport="scenario" to="SCAPE"/>
+    <dftools:dataTransfer from="SCAPE" sourceport="PiMM"
+        targetport="PiMM" to="pisdf-srdag"/>
 </dftools:workflow>
