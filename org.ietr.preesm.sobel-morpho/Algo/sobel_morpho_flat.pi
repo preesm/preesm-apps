@@ -8,16 +8,11 @@
     <graph edgedefault="directed">
         <data key="name">sobel_morpho_flat</data>
         <node expr="16" id="NUM_ANT" kind="param"/>
-        <node expr="120" id="NUM_BASELINES" kind="param"/>
-        <node expr="1" id="FxKernel_SPLIT" kind="param"/>
-        <node expr="60" id="FxKernel_NORMALIZE_ITER" kind="param"/>
-        <node expr="240" id="FxKernel_ANT_BASE_ITER" kind="param"/>
-        <node expr="16" id="FxKernel_NUM_ANT" kind="param"/>
-        <node expr="120" id="FxKernel_NUM_BASELINES" kind="param"/>
-        <node expr="240" id="FxKernel_NUM_FFTS" kind="param"/>
-        <node expr="2" id="FxKernel_SPLIT_NORM" kind="param"/>
-        <node expr="16" id="FxKernel_stations_NUM_ANT" kind="param"/>
-        <node expr="240" id="FxKernel_stations_NUM_FFTS" kind="param"/>
+        <node expr="NUM_ANT * (NUM_ANT-1)/2" id="NUM_BASELINES" kind="param"/>
+        <node expr="240" id="NUM_FFTS" kind="param"/>
+        <node expr="NUM_BASELINES/SPLIT_NORM" id="NORMALIZE_ITER" kind="param"/>
+        <node expr="2" id="SPLIT_NORM" kind="param"/>
+        <node expr="1" id="SPLIT" kind="param"/>
         <node id="loadCfg" kind="actor">
             <data key="graph_desc">Code/include/loadConfig.h</data>
             <loop name="parseConfig">
@@ -56,8 +51,8 @@
             <port annotation="NONE" expr="1" kind="output" name="numFFT"/>
             <port annotation="NONE" expr="120" kind="output" name="antenna"/>
             <port annotation="NONE" expr="120" kind="output" name="antFiles"/>
-            <port annotation="NONE" expr="16" kind="output" name="delays"/>
-            <port annotation="NONE" expr="16" kind="output" name="antFileOffsets"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets"/>
         </node>
         <node id="readCfg" kind="actor">
             <data key="graph_desc">Code/include/loadConfig.h</data>
@@ -97,8 +92,8 @@
             <port annotation="NONE" expr="1" kind="input" name="numffts"/>
             <port annotation="NONE" expr="120" kind="input" name="antenna"/>
             <port annotation="NONE" expr="120" kind="input" name="antFiles"/>
-            <port annotation="NONE" expr="16" kind="input" name="delays"/>
-            <port annotation="NONE" expr="16" kind="input" name="antfileoffsets"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antfileoffsets"/>
         </node>
         <node id="allocDataHost" kind="actor">
             <data key="graph_desc">Code/include/allocDataHost.h</data>
@@ -124,17 +119,24 @@
             <port annotation="NONE" expr="1" kind="output" name="subintbytes"/>
         </node>
         <node id="broadcast_nbit" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
             <port annotation="NONE" expr="1" kind="input" name="nbit"/>
             <port annotation="NONE" expr="1" kind="output" name="nbit_0"/>
             <port annotation="NONE" expr="1" kind="output" name="nbit_1"/>
             <port annotation="NONE" expr="1" kind="output" name="nbit_2"/>
+            <port annotation="NONE" expr="1 * NUM_ANT"
+                kind="output" name="nbit_3"/>
         </node>
         <node id="broadcast_nant" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port kind="cfg_input" name="NUM_FFTS"/>
             <port annotation="NONE" expr="1" kind="input" name="nant"/>
             <port annotation="NONE" expr="1" kind="output" name="nant_0"/>
             <port annotation="NONE" expr="1" kind="output" name="nant_2"/>
             <port annotation="NONE" expr="1" kind="output" name="nant_3"/>
             <port annotation="NONE" expr="1" kind="output" name="nant_4"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="nant_5"/>
         </node>
         <node id="broadcast_iscomplex" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="iscomplex"/>
@@ -142,11 +144,20 @@
             <port annotation="NONE" expr="1" kind="output" name="iscomplex_1"/>
         </node>
         <node id="broadcast_nchan" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
             <port annotation="NONE" expr="1" kind="input" name="nchan"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_0"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_1"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_2"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_4"/>
+            <port annotation="NONE" expr="1 * NUM_ANT"
+                kind="output" name="nchan_3"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_5"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_6"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_7"/>
+            <port annotation="NONE" expr="1 * NUM_ANT"
+                kind="output" name="nchan_8"/>
+            <port annotation="NONE" expr="1" kind="output" name="nchan_9"/>
         </node>
         <node id="broadcast_npol" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="npol"/>
@@ -171,7 +182,7 @@
             <port kind="cfg_input" name="NUM_ANT"/>
             <port annotation="NONE" expr="120" kind="input" name="antFiles"/>
             <port annotation="NONE" expr="1" kind="input" name="numantennas"/>
-            <port annotation="NONE" expr="16" kind="output" name="antStream"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antStream"/>
         </node>
         <node id="broadcast_antFiles" kind="broadcast">
             <port annotation="NONE" expr="120" kind="input" name="antFiles"/>
@@ -194,32 +205,39 @@
             </loop>
             <port kind="cfg_input" name="numantenna"/>
             <port annotation="NONE" expr="1" kind="input" name="bytestoread"/>
-            <port annotation="NONE" expr="16" kind="input" name="antStream"/>
+            <port annotation="NONE" expr="numantenna"
+                kind="input" name="antStream"/>
             <port annotation="NONE" expr="1" kind="input" name="numStreams"/>
-            <port annotation="NONE" expr="16" kind="output" name="inputdata"/>
+            <port annotation="NONE" expr="numantenna"
+                kind="output" name="inputdata"/>
         </node>
         <node id="broadcast_lo" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
             <port annotation="NONE" expr="1" kind="input" name="lo"/>
             <port annotation="NONE" expr="1" kind="output" name="lo_0"/>
             <port annotation="NONE" expr="1" kind="output" name="lo_1"/>
+            <port annotation="NONE" expr="1 * NUM_ANT"
+                kind="output" name="lo_2"/>
         </node>
         <node id="broadcast_bw" kind="broadcast">
+            <port kind="cfg_input" name="NUM_ANT"/>
             <port annotation="NONE" expr="1" kind="input" name="bw"/>
             <port annotation="NONE" expr="1" kind="output" name="bw_0"/>
             <port annotation="NONE" expr="1" kind="output" name="bw_1"/>
             <port annotation="NONE" expr="1" kind="output" name="bw_2"/>
+            <port annotation="NONE" expr="1" kind="output" name="bw_3"/>
         </node>
         <node id="broadcast_delays" kind="broadcast">
             <port kind="cfg_input" name="NUM_ANT"/>
-            <port annotation="NONE" expr="16" kind="input" name="delays"/>
-            <port annotation="NONE" expr="16" kind="output" name="delays_0"/>
-            <port annotation="NONE" expr="16" kind="output" name="delays_1"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays_0"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="delays_1"/>
         </node>
         <node id="broadcast_antFileOffsets" kind="broadcast">
             <port kind="cfg_input" name="NUM_ANT"/>
-            <port annotation="NONE" expr="16" kind="input" name="antFileOffsets"/>
-            <port annotation="NONE" expr="16" kind="output" name="antFileOffsets_0"/>
-            <port annotation="NONE" expr="16" kind="output" name="antFileOffsets_1"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets_0"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets_1"/>
         </node>
         <node id="getTiming" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
@@ -232,7 +250,7 @@
                     name="endtime" type="struct timespec"/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="starttime"/>
-            <port annotation="NONE" expr="1" kind="input" name="endtime"/>
+            <port annotation="NONE" expr="2" kind="input" name="endtime"/>
             <port annotation="NONE" expr="1" kind="output" name="diff_ms"/>
         </node>
         <node id="saveVis" kind="actor">
@@ -247,10 +265,13 @@
                 <param direction="IN" isConfig="false" name="bw" type="double"/>
             </loop>
             <port kind="cfg_input" name="NUM_BASELINES"/>
+            <port kind="cfg_input" name="NUM_ANT"/>
+            <port kind="cfg_input" name="NUM_FFTS"/>
             <port annotation="NONE" expr="1" kind="input" name="nbaselines"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="120" kind="input" name="visibilities"/>
-            <port annotation="NONE" expr="1" kind="input" name="bw"/>
+            <port annotation="NONE" expr="NUM_FFTS" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="NUM_BASELINES"
+                kind="input" name="visibilities"/>
+            <port annotation="NONE" expr="NUM_FFTS" kind="input" name="bw"/>
         </node>
         <node id="saveLog" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
@@ -263,7 +284,7 @@
             <port annotation="NONE" expr="64" kind="input" name="starttimestring"/>
             <port annotation="NONE" expr="1" kind="input" name="diff_ms"/>
         </node>
-        <node id="FxKernel_InitFxKernel" kind="actor">
+        <node id="InitFxKernel" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
             <loop name="init_FxKernel">
                 <param direction="IN" isConfig="false"
@@ -311,11 +332,11 @@
             <port kind="cfg_input" name="NUM_BASELINES"/>
             <port kind="cfg_input" name="numffts"/>
             <port kind="cfg_input" name="split"/>
-            <port annotation="NONE" expr="1" kind="input" name="nant"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
-            <port annotation="NONE" expr="1" kind="input" name="lo"/>
-            <port annotation="NONE" expr="1" kind="input" name="bw"/>
+            <port annotation="NONE" expr="15" kind="input" name="nant"/>
+            <port annotation="NONE" expr="15" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="15" kind="input" name="nbit"/>
+            <port annotation="NONE" expr="15" kind="input" name="lo"/>
+            <port annotation="NONE" expr="15" kind="input" name="bw"/>
             <port annotation="NONE" expr="1" kind="output" name="starttime"/>
             <port annotation="NONE" expr="64" kind="output" name="starttimestring"/>
             <port annotation="NONE" expr="1" kind="output" name="fftchannels"/>
@@ -323,128 +344,81 @@
             <port annotation="NONE" expr="1" kind="output" name="stridesize"/>
             <port annotation="NONE" expr="1" kind="output" name="substridesize"/>
             <port annotation="NONE" expr="1" kind="output" name="fractionalLoFreq"/>
-            <port annotation="NONE" expr="120" kind="output" name="visibilities"/>
             <port annotation="NONE" expr="1" kind="output" name="nbaselines"/>
-            <port annotation="NONE" expr="28800" kind="output" name="baselineCount"/>
             <port annotation="NONE" expr="240" kind="output" name="iter"/>
         </node>
-        <node id="FxKernel_processNormalize" kind="actor">
-            <data key="graph_desc">Code/include/kernel.h</data>
-            <loop name="processNormalize">
-                <param direction="IN" isConfig="true" name="i" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="baselineCount" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="visibilities" type="void*"/>
-                <param direction="IN" isConfig="false"
-                    name="nchan" type="int"/>
-                <param direction="OUT" isConfig="false"
-                    name="visibilities_out" type="void*"/>
-                <param direction="OUT" isConfig="false"
-                    name="endtime" type="struct timespec"/>
-            </loop>
-            <port kind="cfg_input" name="i"/>
-            <port kind="cfg_input" name="NUM_BASELINES"/>
-            <port kind="cfg_input" name="SPLIT"/>
-            <port annotation="NONE" expr="60" kind="input" name="baselineCount"/>
-            <port annotation="NONE" expr="60" kind="input" name="visibilities"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="60" kind="output" name="visibilities_out"/>
-            <port annotation="NONE" expr="1" kind="output" name="endtime"/>
-        </node>
-        <node id="FxKernel_nant" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="nant"/>
-            <port annotation="NONE" expr="1" kind="output" name="if_nant"/>
-        </node>
-        <node id="FxKernel_nchan" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="output" name="if_nchan"/>
-        </node>
-        <node id="FxKernel_nbit" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
-            <port annotation="NONE" expr="1" kind="output" name="if_nbit"/>
-        </node>
-        <node id="FxKernel_lo" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="lo"/>
-            <port annotation="NONE" expr="1" kind="output" name="if_lo"/>
-        </node>
-        <node id="FxKernel_bw" kind="broadcast">
+        <node id="allocKernel" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="substrideSize"/>
             <port annotation="NONE" expr="1" kind="input" name="bw"/>
-            <port annotation="NONE" expr="1" kind="output" name="if_bw"/>
-        </node>
-        <node id="FxKernel_nchan_broadcast" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
+            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
             <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="output" name="nchan_0"/>
-            <port annotation="NONE" expr="240" kind="output" name="nchan_2"/>
-            <port annotation="NONE" expr="2" kind="output" name="nchan_3"/>
-            <port annotation="NONE" expr="1" kind="output" name="nchan_4"/>
-            <port annotation="NONE" expr="240" kind="output" name="nchan_1"/>
-            <port annotation="NONE" expr="1" kind="output" name="nchan_6"/>
+            <port annotation="NONE" expr="1" kind="input" name="sampletime"/>
+            <port annotation="NONE" expr="16" kind="output" name="kernel"/>
         </node>
-        <node id="FxKernel_visibilities" kind="roundbuffer">
-            <port annotation="NONE" expr="120" kind="input" name="if_visibilities"/>
-            <port annotation="NONE" expr="120" kind="output" name="visibilities"/>
+        <node id="stationDelayAndOffset" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="delays"/>
+            <port annotation="NONE" expr="1" kind="input" name="iter"/>
+            <port annotation="NONE" expr="1" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="1" kind="input" name="sampletime"/>
+            <port annotation="NONE" expr="1" kind="output" name="antValid"/>
+            <port annotation="NONE" expr="1" kind="output" name="offset"/>
+            <port annotation="NONE" expr="1" kind="output" name="fractionaldelay"/>
+            <port annotation="NONE" expr="1" kind="output" name="delaya"/>
+            <port annotation="NONE" expr="1" kind="output" name="delayb"/>
         </node>
-        <node id="FxKernel_starttime" kind="roundbuffer">
-            <port annotation="NONE" expr="1" kind="input" name="if_starttime"/>
-            <port annotation="NONE" expr="1" kind="output" name="starttime"/>
-        </node>
-        <node id="FxKernel_starttimestring" kind="roundbuffer">
-            <port annotation="NONE" expr="64" kind="input" name="if_starttimestring"/>
-            <port annotation="NONE" expr="64" kind="output" name="starttimestring"/>
-        </node>
-        <node id="FxKernel_delays" kind="broadcast">
-            <port annotation="NONE" expr="16" kind="input" name="delays"/>
-            <port annotation="NONE" expr="3840" kind="output" name="if_delays"/>
-        </node>
-        <node id="FxKernel_nbit_broadcast" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
+        <node id="unpack" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="inputData"/>
+            <port annotation="NONE" expr="1" kind="input" name="offset"/>
             <port annotation="NONE" expr="1" kind="input" name="nbit"/>
-            <port annotation="NONE" expr="1" kind="output" name="nbit_0"/>
-            <port annotation="NONE" expr="240" kind="output" name="nbit_1"/>
+            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="1" kind="output" name="unpacked"/>
         </node>
-        <node id="FxKernel_nant_broadcast" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
-            <port annotation="NONE" expr="1" kind="input" name="nant"/>
-            <port annotation="NONE" expr="240" kind="output" name="nant_0"/>
-            <port annotation="NONE" expr="1" kind="output" name="nant_1"/>
-            <port annotation="NONE" expr="1" kind="output" name="nant_2"/>
+        <node id="frigeRotate" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
+            <port annotation="NONE" expr="1" kind="input" name="unpacked"/>
+            <port annotation="NONE" expr="1" kind="input" name="delaya"/>
+            <port annotation="NONE" expr="1" kind="input" name="delayb"/>
+            <port annotation="NONE" expr="1" kind="input" name="substridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="lo"/>
+            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="1" kind="input" name="fractionalLoFreq"/>
+            <port annotation="NONE" expr="1" kind="output" name="unpacked_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="kernel_out"/>
         </node>
-        <node id="FxKernel_antFileOffsets" kind="broadcast">
-            <port annotation="NONE" expr="16" kind="input" name="antFileOffsets"/>
-            <port annotation="NONE" expr="3840" kind="output" name="if_antFileOffsets"/>
+        <node id="dofft" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="upacked"/>
+            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
         </node>
-        <node id="FxKernel_inputData" kind="broadcast">
-            <port annotation="NONE" expr="16" kind="input" name="inputData"/>
-            <port annotation="NONE" expr="3840" kind="output" name="if_inputData"/>
+        <node id="fracSampleCorrect" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
+            <port annotation="NONE" expr="1" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="1" kind="input" name="fracdelay"/>
+            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
         </node>
-        <node id="FxKernel_nbaselines" kind="roundbuffer">
-            <port annotation="NONE" expr="1" kind="input" name="if_nbaselines"/>
-            <port annotation="NONE" expr="1" kind="output" name="nbaselines"/>
+        <node id="conjchannels" kind="actor">
+            <port annotation="NONE" expr="1" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="1" kind="output" name="conjchannels_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
         </node>
-        <node id="FxKernel_lo_broadcast" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
+        <node id="processBaseline" kind="actor">
             <port kind="cfg_input" name="NUM_ANT"/>
-            <port annotation="NONE" expr="1" kind="input" name="lo"/>
-            <port annotation="NONE" expr="1" kind="output" name="lo_0"/>
-            <port annotation="NONE" expr="240" kind="output" name="lo_1"/>
+            <port kind="cfg_input" name="NUM_FFTS"/>
+            <port annotation="NONE" expr="1" kind="input" name="nant"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antValid"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="channelised"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="conjchannels"/>
+            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="NUM_ANT*(NUM_ANT-1)/2"
+                kind="output" name="visibilities"/>
+            <port annotation="NONE" expr="NUM_ANT*(NUM_ANT-1)/2"
+                kind="output" name="baselineCount_out"/>
         </node>
-        <node id="FxKernel_bw_broadcast" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port annotation="NONE" expr="1" kind="input" name="bw"/>
-            <port annotation="NONE" expr="1" kind="output" name="bw_0"/>
-            <port annotation="NONE" expr="1" kind="output" name="bw_1"/>
-        </node>
-        <node id="FxKernel_endtime" kind="roundbuffer">
-            <port annotation="NONE" expr="2" kind="input" name="if_endtime"/>
-            <port annotation="NONE" expr="1" kind="output" name="endtime"/>
-        </node>
-        <node id="FxKernel_merge" kind="actor">
+        <node id="merge" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
             <loop name="merge">
                 <param direction="IN" isConfig="true"
@@ -467,502 +441,83 @@
             <port kind="cfg_input" name="split"/>
             <port kind="cfg_input" name="nbaselines"/>
             <port kind="cfg_input" name="NUM_FFTS"/>
-            <port annotation="NONE" expr="28800" kind="input" name="visibilities"/>
-            <port annotation="NONE" expr="28800" kind="input" name="baselineCount"/>
-            <port annotation="NONE" expr="1" kind="input" name="nant"/>
-            <port annotation="NONE" expr="1" kind="input" name="nChan"/>
-            <port annotation="NONE" expr="120" kind="output" name="baselineCount_out"/>
-            <port annotation="NONE" expr="120" kind="output" name="visibilities_out"/>
+            <port annotation="NONE" expr="120 * NUM_FFTS"
+                kind="input" name="visibilities"/>
+            <port annotation="NONE" expr="120 * NUM_FFTS"
+                kind="input" name="baselineCount"/>
+            <port annotation="NONE" expr="NUM_FFTS" kind="input" name="nant"/>
+            <port annotation="NONE" expr="NUM_FFTS" kind="input" name="nChan"/>
+            <port annotation="NONE" expr="nbaselines"
+                kind="output" name="baselineCount_out"/>
+            <port annotation="NONE" expr="nbaselines"
+                kind="output" name="visibilities_out"/>
         </node>
-        <node id="FxKernel_fft_chan" kind="broadcast">
+        <node id="processNormalize" kind="actor">
+            <data key="graph_desc">Code/include/kernel.h</data>
+            <loop name="processNormalize">
+                <param direction="IN" isConfig="true" name="i" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="baselineCount" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="visibilities" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="nchan" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="visibilities_out" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="endtime" type="struct timespec"/>
+            </loop>
+            <port kind="cfg_input" name="i"/>
+            <port kind="cfg_input" name="NUM_BASELINES"/>
             <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
-            <port annotation="NONE" expr="1" kind="input" name="fftchan"/>
-            <port annotation="NONE" expr="240" kind="output" name="fftchann_out"/>
-            <port annotation="NONE" expr="1" kind="output" name="fftchan_out"/>
+            <port annotation="NONE" expr="i" kind="input" name="baselineCount"/>
+            <port annotation="NONE" expr="i" kind="input" name="visibilities"/>
+            <port annotation="NONE" expr="NUM_BASELINES"
+                kind="input" name="nchan"/>
+            <port annotation="NONE" expr="i" kind="output" name="visibilities_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="endtime"/>
         </node>
-        <node id="FxKernel_sampletime" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port annotation="NONE" expr="1" kind="input" name="samp"/>
-            <port annotation="NONE" expr="1" kind="output" name="samp_out"/>
-        </node>
-        <node id="FxKernel_stridesize" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
-            <port annotation="NONE" expr="1" kind="input" name="stride"/>
-            <port annotation="NONE" expr="240" kind="output" name="stride_out"/>
-            <port annotation="NONE" expr="1" kind="output" name="stride_out2"/>
-        </node>
-        <node id="FxKernel_substridesize" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
+        <node id="substridesize_bc" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="substride"/>
-            <port annotation="NONE" expr="240" kind="output" name="substride_out"/>
-            <port annotation="NONE" expr="1" kind="output" name="substride_out2"/>
+            <port annotation="NONE" expr="1" kind="output" name="substride_out"/>
+            <port annotation="NONE" expr="1" kind="output" name="substridesize_out"/>
         </node>
-        <node id="FxKernel_fraclofreq" kind="broadcast">
-            <port kind="cfg_input" name="SPLIT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
-            <port annotation="NONE" expr="1" kind="input" name="frac"/>
-            <port annotation="NONE" expr="240" kind="output" name="frac_out"/>
-        </node>
-        <node id="FxKernel_processBaseline" kind="actor">
+        <node id="stridesize_bc" kind="broadcast">
             <port kind="cfg_input" name="NUM_ANT"/>
-            <port kind="cfg_input" name="NUM_FFTS"/>
-            <port annotation="NONE" expr="1" kind="input" name="nant"/>
-            <port annotation="NONE" expr="16" kind="input" name="antValid"/>
-            <port annotation="NONE" expr="16" kind="input" name="channelised"/>
-            <port annotation="NONE" expr="16" kind="input" name="conjchannels"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="120" kind="input" name="baselineCount"/>
-            <port annotation="NONE" expr="120" kind="output" name="visibilities"/>
-            <port annotation="NONE" expr="120" kind="output" name="baselineCount_out"/>
-        </node>
-        <node id="FxKernel_allocKernel" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="substrideSize"/>
-            <port annotation="NONE" expr="1" kind="input" name="bw"/>
             <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
+            <port annotation="NONE" expr="3840" kind="output" name="stridesize_0"/>
+            <port annotation="NONE" expr="3840" kind="output" name="stridesize_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="stridesize_2"/>
+        </node>
+        <node id="fftchannels_bc" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
+            <port annotation="NONE" expr="16 * 240" kind="output" name="fftchannels_0"/>
+            <port annotation="NONE" expr="16 * 240" kind="output" name="fftchannels_1"/>
+            <port annotation="NONE" expr="1" kind="output" name="fftchannels_2"/>
+        </node>
+        <node id="sampletime_bc" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="sampletime"/>
-            <port annotation="NONE" expr="1" kind="output" name="kernel"/>
+            <port annotation="NONE" expr="3840" kind="output" name="sampletime_0"/>
+            <port annotation="NONE" expr="1" kind="output" name="sampletime_1"/>
         </node>
-        <node id="FxKernel_kernel_bc" kind="broadcast">
-            <port kind="cfg_input" name="NUM_FFTS"/>
+        <node id="kernel_bc" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="kernel"/>
-            <port annotation="NONE" expr="240" kind="output" name="kernel_out"/>
-        </node>
-        <node id="FxKernel_dump_vis" kind="actor">
-            <port annotation="NONE" expr="120" kind="input" name="vis"/>
-        </node>
-        <node id="FxKernel_stations_stationDelayAndOffset" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="delays"/>
-            <port annotation="NONE" expr="1" kind="input" name="iter"/>
-            <port annotation="NONE" expr="1" kind="input" name="antFileOffsets"/>
-            <port annotation="NONE" expr="1" kind="output" name="antValid"/>
-            <port annotation="NONE" expr="1" kind="output" name="offset"/>
-            <port annotation="NONE" expr="1" kind="output" name="fractionaldelay"/>
-            <port annotation="NONE" expr="1" kind="output" name="delaya"/>
-            <port annotation="NONE" expr="1" kind="output" name="delayb"/>
-        </node>
-        <node id="FxKernel_stations_delays" kind="broadcast">
-            <port annotation="NONE" expr="16" kind="input" name="delays"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_delays"/>
-        </node>
-        <node id="FxKernel_stations_unpack" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="inputData"/>
-            <port annotation="NONE" expr="1" kind="input" name="offset"/>
-            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
-            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
-            <port annotation="NONE" expr="1" kind="output" name="unpacked"/>
-        </node>
-        <node id="FxKernel_stations_frigeRotate" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
-            <port annotation="NONE" expr="1" kind="input" name="unpacked"/>
-            <port annotation="NONE" expr="1" kind="input" name="delaya"/>
-            <port annotation="NONE" expr="1" kind="input" name="delayb"/>
-            <port annotation="NONE" expr="1" kind="input" name="substridesize"/>
-            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
-            <port annotation="NONE" expr="1" kind="input" name="lo"/>
-            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
-            <port annotation="NONE" expr="1" kind="input" name="fractionalLoFreq"/>
-            <port annotation="NONE" expr="1" kind="output" name="unpacked_out"/>
             <port annotation="NONE" expr="1" kind="output" name="kernel_out"/>
         </node>
-        <node id="FxKernel_stations_dofft" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="upacked"/>
-            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
-        </node>
-        <node id="FxKernel_stations_fracSampleCorrect" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
-            <port annotation="NONE" expr="1" kind="input" name="channelised"/>
-            <port annotation="NONE" expr="1" kind="input" name="fracdelay"/>
-            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
-        </node>
-        <node id="FxKernel_stations_conjchannels" kind="actor">
-            <port annotation="NONE" expr="1" kind="input" name="channelised"/>
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="output" name="conjchannels_out"/>
-            <port annotation="NONE" expr="1" kind="output" name="channelised_out"/>
-        </node>
-        <node id="FxKernel_stations_conjchannels_out" kind="roundbuffer">
-            <port annotation="NONE" expr="16" kind="input" name="if_conjchannels_out"/>
-            <port annotation="NONE" expr="16" kind="output" name="conjchannels_out"/>
-        </node>
-        <node id="FxKernel_stations_channelised_out" kind="roundbuffer">
-            <port annotation="NONE" expr="16" kind="input" name="if_channelised_out"/>
-            <port annotation="NONE" expr="16" kind="output" name="channelised_out"/>
-        </node>
-        <node id="FxKernel_stations_antValid" kind="roundbuffer">
-            <port annotation="NONE" expr="16" kind="input" name="if_antValid"/>
-            <port annotation="NONE" expr="16" kind="output" name="antValid"/>
-        </node>
-        <node id="FxKernel_stations_inputData" kind="broadcast">
-            <port annotation="NONE" expr="16" kind="input" name="inputData"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_inputData"/>
-        </node>
-        <node id="FxKernel_stations_lo" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="lo"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_lo"/>
-        </node>
-        <node id="FxKernel_stations_ffrchannels" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="ffrchannels"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_ffrchannels"/>
-        </node>
-        <node id="FxKernel_stations_stridesize" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_stridesize"/>
-        </node>
-        <node id="FxKernel_stations_substridesize" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="substridesize"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_substridesize"/>
-        </node>
-        <node id="FxKernel_stations_fracLoFreq" kind="broadcast">
+        <node id="fracLoFreq_bc" kind="broadcast">
+            <port kind="cfg_input" name="NUM_FFTS"/>
             <port annotation="NONE" expr="1" kind="input" name="fracLoFreq"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_fracLoFreq"/>
+            <port annotation="NONE" expr="1 * NUM_FFTS"
+                kind="output" name="fracLoFreq_out"/>
         </node>
-        <node id="FxKernel_stations_kernel" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="kernel"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_kernel"/>
-        </node>
-        <node id="FxKernel_stations_stridesize_bc" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="stridesize"/>
-            <port annotation="NONE" expr="1" kind="output" name="stridesize_0"/>
-            <port annotation="NONE" expr="1" kind="output" name="stridesize_1"/>
-        </node>
-        <node id="FxKernel_stations_nchan" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_nchan"/>
-        </node>
-        <node id="FxKernel_stations_nchan_bc" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="nchan"/>
-            <port annotation="NONE" expr="1" kind="output" name="nchan_0"/>
-            <port annotation="NONE" expr="1" kind="output" name="nchan_1"/>
-        </node>
-        <node id="FxKernel_stations_nbit" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="nbit"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_nbit"/>
-        </node>
-        <node id="FxKernel_stations_fftchannels_bc" kind="broadcast">
-            <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
-            <port annotation="NONE" expr="1" kind="output" name="fftchannels_0"/>
-            <port annotation="NONE" expr="1" kind="output" name="fftchannels_1"/>
-        </node>
-        <node id="FxKernel_stations_iter" kind="broadcast">
+        <node id="iter_bc" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="iter"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_iter"/>
+            <port annotation="NONE" expr="1" kind="output" name="iter_out"/>
         </node>
-        <node id="FxKernel_stations_antFileOffsets" kind="broadcast">
-            <port annotation="NONE" expr="16" kind="input" name="antFileOffsets"/>
-            <port annotation="NONE" expr="16" kind="output" name="if_antFileOffsets"/>
+        <node id="inputdata_bc" kind="broadcast">
+            <port annotation="NONE" expr="1" kind="input" name="inputdata"/>
+            <port annotation="NONE" expr="1" kind="output" name="inputdata_bc"/>
         </node>
-        <edge kind="fifo" source="FxKernel_stations_delays"
-            sourceport="if_delays"
-            target="FxKernel_stations_stationDelayAndOffset"
-            targetport="delays" type="double*"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stationDelayAndOffset"
-            sourceport="delaya"
-            target="FxKernel_stations_frigeRotate"
-            targetport="delaya" type="double"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stationDelayAndOffset"
-            sourceport="delayb"
-            target="FxKernel_stations_frigeRotate"
-            targetport="delayb" type="double"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stationDelayAndOffset"
-            sourceport="offset" target="FxKernel_stations_unpack"
-            targetport="offset" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_frigeRotate"
-            sourceport="unpacked_out"
-            target="FxKernel_stations_dofft" targetport="upacked" type="cf32**"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stationDelayAndOffset"
-            sourceport="fractionaldelay"
-            target="FxKernel_stations_fracSampleCorrect"
-            targetport="fracdelay" type="double"/>
-        <edge kind="fifo" source="FxKernel_stations_dofft"
-            sourceport="channelised_out"
-            target="FxKernel_stations_fracSampleCorrect"
-            targetport="channelised" type="cf32**"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_fracSampleCorrect"
-            sourceport="channelised_out"
-            target="FxKernel_stations_conjchannels"
-            targetport="channelised" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_stations_conjchannels"
-            sourceport="conjchannels_out"
-            target="FxKernel_stations_conjchannels_out"
-            targetport="if_conjchannels_out" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_stations_conjchannels"
-            sourceport="channelised_out"
-            target="FxKernel_stations_channelised_out"
-            targetport="if_channelised_out" type="cf32**"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stationDelayAndOffset"
-            sourceport="antValid"
-            target="FxKernel_stations_antValid"
-            targetport="if_antValid" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_inputData"
-            sourceport="if_inputData"
-            target="FxKernel_stations_unpack"
-            targetport="inputData" type="u8*"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_substridesize"
-            sourceport="if_substridesize"
-            target="FxKernel_stations_frigeRotate"
-            targetport="substridesize" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_lo"
-            sourceport="if_lo"
-            target="FxKernel_stations_frigeRotate"
-            targetport="lo" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_fracLoFreq"
-            sourceport="if_fracLoFreq"
-            target="FxKernel_stations_frigeRotate"
-            targetport="fractionalLoFreq" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_kernel"
-            sourceport="if_kernel"
-            target="FxKernel_stations_frigeRotate"
-            targetport="kernel" type="FxKernel"/>
-        <edge kind="fifo" source="FxKernel_stations_frigeRotate"
-            sourceport="kernel_out"
-            target="FxKernel_stations_fracSampleCorrect"
-            targetport="kernel" type="FxKernel"/>
-        <edge kind="fifo" source="FxKernel_stations_stridesize"
-            sourceport="if_stridesize"
-            target="FxKernel_stations_stridesize_bc"
-            targetport="stridesize" type="int"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stridesize_bc"
-            sourceport="stridesize_0"
-            target="FxKernel_stations_frigeRotate"
-            targetport="stridesize" type="int"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_stridesize_bc"
-            sourceport="stridesize_1"
-            target="FxKernel_stations_fracSampleCorrect"
-            targetport="stridesize" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_nchan"
-            sourceport="if_nchan"
-            target="FxKernel_stations_nchan_bc"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_nchan_bc"
-            sourceport="nchan_0"
-            target="FxKernel_stations_fracSampleCorrect"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_nchan_bc"
-            sourceport="nchan_1"
-            target="FxKernel_stations_conjchannels"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_nbit"
-            sourceport="if_nbit"
-            target="FxKernel_stations_unpack" targetport="nbit" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_ffrchannels"
-            sourceport="if_ffrchannels"
-            target="FxKernel_stations_fftchannels_bc"
-            targetport="fftchannels" type="int"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_fftchannels_bc"
-            sourceport="fftchannels_0"
-            target="FxKernel_stations_unpack"
-            targetport="fftchannels" type="int"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_fftchannels_bc"
-            sourceport="fftchannels_1"
-            target="FxKernel_stations_frigeRotate"
-            targetport="fftchannels" type="int"/>
-        <edge kind="fifo" source="FxKernel_stations_iter"
-            sourceport="if_iter"
-            target="FxKernel_stations_stationDelayAndOffset"
-            targetport="iter" type="int"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_antFileOffsets"
-            sourceport="if_antFileOffsets"
-            target="FxKernel_stations_stationDelayAndOffset"
-            targetport="antFileOffsets" type="double"/>
-        <edge kind="fifo" source="FxKernel_stations_unpack"
-            sourceport="unpacked"
-            target="FxKernel_stations_frigeRotate"
-            targetport="unpacked" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_nchan"
-            sourceport="if_nchan"
-            target="FxKernel_nchan_broadcast" targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_nchan_broadcast"
-            sourceport="nchan_0" target="FxKernel_InitFxKernel"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_nchan_broadcast"
-            sourceport="nchan_3"
-            target="FxKernel_processNormalize" targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_processNormalize"
-            sourceport="visibilities_out"
-            target="FxKernel_visibilities"
-            targetport="if_visibilities" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="starttime" target="FxKernel_starttime"
-            targetport="if_starttime" type="struct timespec"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="starttimestring"
-            target="FxKernel_starttimestring"
-            targetport="if_starttimestring" type="char"/>
-        <edge kind="fifo" source="FxKernel_nbit"
-            sourceport="if_nbit" target="FxKernel_nbit_broadcast"
-            targetport="nbit" type="int"/>
-        <edge kind="fifo" source="FxKernel_nbit_broadcast"
-            sourceport="nbit_0" target="FxKernel_InitFxKernel"
-            targetport="nbit" type="int"/>
-        <edge kind="fifo" source="FxKernel_nant"
-            sourceport="if_nant" target="FxKernel_nant_broadcast"
-            targetport="nant" type="int"/>
-        <edge kind="fifo" source="FxKernel_nant_broadcast"
-            sourceport="nant_1" target="FxKernel_InitFxKernel"
-            targetport="nant" type="int"/>
-        <edge kind="fifo" source="FxKernel_lo" sourceport="if_lo"
-            target="FxKernel_lo_broadcast" targetport="lo" type="double"/>
-        <edge kind="fifo" source="FxKernel_lo_broadcast"
-            sourceport="lo_0" target="FxKernel_InitFxKernel"
-            targetport="lo" type="double"/>
-        <edge kind="fifo" source="FxKernel_bw" sourceport="if_bw"
-            target="FxKernel_bw_broadcast" targetport="bw" type="double"/>
-        <edge kind="fifo" source="FxKernel_bw_broadcast"
-            sourceport="bw_0" target="FxKernel_InitFxKernel"
-            targetport="bw" type="double"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="nbaselines" target="FxKernel_nbaselines"
-            targetport="if_nbaselines" type="int"/>
-        <edge kind="fifo" source="FxKernel_processNormalize"
-            sourceport="endtime" target="FxKernel_endtime"
-            targetport="if_endtime" type="struct timespec"/>
-        <edge kind="fifo" source="FxKernel_nant_broadcast"
-            sourceport="nant_2" target="FxKernel_merge"
-            targetport="nant" type="int"/>
-        <edge kind="fifo" source="FxKernel_nchan_broadcast"
-            sourceport="nchan_4" target="FxKernel_merge"
-            targetport="nChan" type="int"/>
-        <edge kind="fifo" source="FxKernel_merge"
-            sourceport="baselineCount_out"
-            target="FxKernel_processNormalize"
-            targetport="baselineCount" type="int"/>
-        <edge kind="fifo" source="FxKernel_merge"
-            sourceport="visibilities_out"
-            target="FxKernel_processNormalize"
-            targetport="visibilities" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="fftchannels" target="FxKernel_fft_chan"
-            targetport="fftchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="sampletime" target="FxKernel_sampletime"
-            targetport="samp" type="double"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="stridesize" target="FxKernel_stridesize"
-            targetport="stride" type="int"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="substridesize"
-            target="FxKernel_substridesize"
-            targetport="substride" type="int"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="fractionalLoFreq"
-            target="FxKernel_fraclofreq" targetport="frac" type="int"/>
-        <edge kind="fifo" source="FxKernel_processBaseline"
-            sourceport="baselineCount_out"
-            target="FxKernel_merge" targetport="baselineCount" type="void"/>
-        <edge kind="fifo" source="FxKernel_processBaseline"
-            sourceport="visibilities" target="FxKernel_merge"
-            targetport="visibilities" type="cf32**"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_conjchannels_out"
-            sourceport="conjchannels_out"
-            target="FxKernel_processBaseline"
-            targetport="conjchannels" type="cf32**"/>
-        <edge kind="fifo"
-            source="FxKernel_stations_channelised_out"
-            sourceport="channelised_out"
-            target="FxKernel_processBaseline"
-            targetport="channelised" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_stations_antValid"
-            sourceport="antValid"
-            target="FxKernel_processBaseline"
-            targetport="antValid" type="int"/>
-        <edge kind="fifo" source="FxKernel_nchan_broadcast"
-            sourceport="nchan_2" target="FxKernel_stations_nchan"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_nchan_broadcast"
-            sourceport="nchan_1"
-            target="FxKernel_processBaseline" targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_nbit_broadcast"
-            sourceport="nbit_1" target="FxKernel_stations_nbit"
-            targetport="nbit" type="int"/>
-        <edge kind="fifo" source="FxKernel_lo_broadcast"
-            sourceport="lo_1" target="FxKernel_stations_lo"
-            targetport="lo" type="double"/>
-        <edge kind="fifo" source="FxKernel_inputData"
-            sourceport="if_inputData"
-            target="FxKernel_stations_inputData"
-            targetport="inputData" type="u8*"/>
-        <edge kind="fifo" source="FxKernel_fft_chan"
-            sourceport="fftchann_out"
-            target="FxKernel_stations_ffrchannels"
-            targetport="ffrchannels" type="int"/>
-        <edge kind="fifo" source="FxKernel_stridesize"
-            sourceport="stride_out"
-            target="FxKernel_stations_stridesize"
-            targetport="stridesize" type="int"/>
-        <edge kind="fifo" source="FxKernel_substridesize"
-            sourceport="substride_out"
-            target="FxKernel_stations_substridesize"
-            targetport="substridesize" type="int"/>
-        <edge kind="fifo" source="FxKernel_fraclofreq"
-            sourceport="frac_out"
-            target="FxKernel_stations_fracLoFreq"
-            targetport="fracLoFreq" type="int"/>
-        <edge kind="fifo" source="FxKernel_allocKernel"
-            sourceport="kernel" target="FxKernel_kernel_bc"
-            targetport="kernel" type="FxKernel"/>
-        <edge kind="fifo" source="FxKernel_kernel_bc"
-            sourceport="kernel_out"
-            target="FxKernel_stations_kernel" targetport="kernel" type="FxKernel"/>
-        <edge kind="fifo" source="FxKernel_substridesize"
-            sourceport="substride_out2"
-            target="FxKernel_allocKernel"
-            targetport="substrideSize" type="int"/>
-        <edge kind="fifo" source="FxKernel_bw_broadcast"
-            sourceport="bw_1" target="FxKernel_allocKernel"
-            targetport="bw" type="double"/>
-        <edge kind="fifo" source="FxKernel_stridesize"
-            sourceport="stride_out2"
-            target="FxKernel_allocKernel" targetport="stridesize" type="int"/>
-        <edge kind="fifo" source="FxKernel_fft_chan"
-            sourceport="fftchan_out"
-            target="FxKernel_allocKernel"
-            targetport="fftchannels" type="int"/>
-        <edge kind="fifo" source="FxKernel_nchan_broadcast"
-            sourceport="nchan_6" target="FxKernel_allocKernel"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="FxKernel_sampletime"
-            sourceport="samp_out" target="FxKernel_allocKernel"
-            targetport="sampletime" type="double"/>
-        <edge kind="fifo" source="FxKernel_nant_broadcast"
-            sourceport="nant_0" target="FxKernel_processBaseline"
-            targetport="nant" type="void"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="iter" target="FxKernel_stations_iter"
-            targetport="iter" type="int"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="baselineCount"
-            target="FxKernel_processBaseline"
-            targetport="baselineCount" type="void"/>
-        <edge kind="fifo" source="FxKernel_InitFxKernel"
-            sourceport="visibilities" target="FxKernel_dump_vis"
-            targetport="vis" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_delays"
-            sourceport="if_delays"
-            target="FxKernel_stations_delays" targetport="delays" type="double*"/>
-        <edge kind="fifo" source="FxKernel_antFileOffsets"
-            sourceport="if_antFileOffsets"
-            target="FxKernel_stations_antFileOffsets"
-            targetport="antFileOffsets" type="double"/>
         <edge kind="fifo" source="loadCfg" sourceport="antenna"
             target="readCfg" targetport="antenna" type="char*"/>
         <edge kind="fifo" source="loadCfg" sourceport="nBit"
@@ -1057,119 +612,237 @@
             targetport="nchan" type="int"/>
         <edge kind="fifo" source="broadcast_bw" sourceport="bw_2"
             target="saveVis" targetport="bw" type="double"/>
-        <edge kind="fifo" source="broadcast_nant"
-            sourceport="nant_4" target="FxKernel_nant"
-            targetport="nant" type="int"/>
-        <edge kind="fifo" source="broadcast_nchan"
-            sourceport="nchan_2" target="FxKernel_nchan"
-            targetport="nchan" type="int"/>
-        <edge kind="fifo" source="broadcast_bw" sourceport="bw_1"
-            target="FxKernel_bw" targetport="bw" type="double"/>
-        <edge kind="fifo" source="broadcast_nbit"
-            sourceport="nbit_2" target="FxKernel_nbit"
-            targetport="nbit" type="int"/>
-        <edge kind="fifo" source="readData"
-            sourceport="inputdata" target="FxKernel_inputData"
-            targetport="inputData" type="u8*"/>
+        <edge kind="fifo" source="frigeRotate"
+            sourceport="kernel_out" target="fracSampleCorrect"
+            targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="starttime" target="getTiming"
+            targetport="starttime" type="struct timespec"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="starttimestring" target="saveLog"
+            targetport="starttimestring" type="char*"/>
         <edge kind="fifo" source="broadcast_delays"
-            sourceport="delays_1" target="FxKernel_delays"
+            sourceport="delays_1" target="stationDelayAndOffset"
             targetport="delays" type="double*"/>
         <edge kind="fifo" source="broadcast_antFileOffsets"
             sourceport="antFileOffsets_1"
-            target="FxKernel_antFileOffsets"
-            targetport="antFileOffsets" type="double"/>
-        <edge kind="fifo" source="broadcast_lo" sourceport="lo_1"
-            target="FxKernel_lo" targetport="lo" type="double"/>
-        <edge kind="fifo" source="FxKernel_visibilities"
-            sourceport="visibilities" target="saveVis"
+            target="stationDelayAndOffset"
+            targetport="antFileOffsets" type="int"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="offset" target="unpack"
+            targetport="offset" type="int"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="delayb" target="frigeRotate"
+            targetport="delayb" type="double"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="delaya" target="frigeRotate"
+            targetport="delaya" type="double"/>
+        <edge kind="fifo" source="frigeRotate"
+            sourceport="unpacked_out" target="dofft"
+            targetport="upacked" type="cf32*"/>
+        <edge kind="fifo" source="dofft"
+            sourceport="channelised_out"
+            target="fracSampleCorrect" targetport="channelised" type="cf32*"/>
+        <edge kind="fifo" source="fracSampleCorrect"
+            sourceport="channelised_out" target="conjchannels"
+            targetport="channelised" type="cf32*"/>
+        <edge kind="fifo" source="conjchannels"
+            sourceport="conjchannels_out"
+            target="processBaseline" targetport="conjchannels" type="cf32*"/>
+        <edge kind="fifo" source="conjchannels"
+            sourceport="channelised_out" target="processBaseline"
+            targetport="channelised" type="cf32*"/>
+        <edge kind="fifo" source="processBaseline"
+            sourceport="visibilities" target="merge"
             targetport="visibilities" type="cf32**"/>
-        <edge kind="fifo" source="FxKernel_starttime"
-            sourceport="starttime" target="getTiming"
-            targetport="starttime" type="struct timespec"/>
-        <edge kind="fifo" source="FxKernel_starttimestring"
-            sourceport="starttimestring" target="saveLog"
-            targetport="starttimestring" type="char"/>
-        <edge kind="fifo" source="FxKernel_nbaselines"
-            sourceport="nbaselines" target="saveVis"
-            targetport="nbaselines" type="int"/>
-        <edge kind="fifo" source="FxKernel_endtime"
+        <edge kind="fifo" source="processBaseline"
+            sourceport="baselineCount_out" target="merge"
+            targetport="baselineCount" type="int"/>
+        <edge kind="fifo" source="merge"
+            sourceport="baselineCount_out"
+            target="processNormalize" targetport="baselineCount" type="cf32**"/>
+        <edge kind="fifo" source="merge"
+            sourceport="visibilities_out"
+            target="processNormalize" targetport="visibilities" type="int"/>
+        <edge kind="fifo" source="processNormalize"
+            sourceport="visibilities_out" target="saveVis"
+            targetport="visibilities" type="cf32**"/>
+        <edge kind="fifo" source="processNormalize"
             sourceport="endtime" target="getTiming"
             targetport="endtime" type="struct timespec"/>
-        <edge kind="dependency" source="NUM_ANT" target="loadCfg" targetport="NUM_ANT"/>
-        <edge kind="dependency" source="NUM_ANT" target="readCfg" targetport="NUM_ANT"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="substridesize" target="substridesize_bc"
+            targetport="substride" type="int"/>
+        <edge kind="fifo" source="substridesize_bc"
+            sourceport="substride_out" target="frigeRotate"
+            targetport="substridesize" type="int"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="stridesize" target="stridesize_bc"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="stridesize_bc"
+            sourceport="stridesize_1" target="fracSampleCorrect"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_4" target="InitFxKernel"
+            targetport="nant" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_2" target="InitFxKernel"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_nbit"
+            sourceport="nbit_2" target="InitFxKernel"
+            targetport="nbit" type="int"/>
+        <edge kind="fifo" source="broadcast_lo" sourceport="lo_1"
+            target="InitFxKernel" targetport="lo" type="double"/>
+        <edge kind="fifo" source="broadcast_bw" sourceport="bw_1"
+            target="InitFxKernel" targetport="bw" type="double"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="nbaselines" target="saveVis"
+            targetport="nbaselines" type="int"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="fractionaldelay"
+            target="fracSampleCorrect" targetport="fracdelay" type="double"/>
+        <edge kind="fifo" source="stationDelayAndOffset"
+            sourceport="antValid" target="processBaseline"
+            targetport="antValid" type="int"/>
+        <edge kind="fifo" source="broadcast_lo" sourceport="lo_2"
+            target="frigeRotate" targetport="lo" type="double"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="fftchannels" target="fftchannels_bc"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="fftchannels_bc"
+            sourceport="fftchannels_0" target="frigeRotate"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="fftchannels_bc"
+            sourceport="fftchannels_1" target="unpack"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="unpack" sourceport="unpacked"
+            target="frigeRotate" targetport="unpacked" type="cf32*"/>
+        <edge kind="fifo" source="broadcast_nbit"
+            sourceport="nbit_3" target="unpack" targetport="nbit" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_3" target="fracSampleCorrect"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_5" target="processBaseline"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_6" target="merge"
+            targetport="nChan" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_7" target="processNormalize"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_8" target="conjchannels"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_1" target="processBaseline"
+            targetport="nant" type="int"/>
+        <edge kind="fifo" source="broadcast_nant"
+            sourceport="nant_5" target="merge" targetport="nant" type="int"/>
+        <edge kind="fifo" source="substridesize_bc"
+            sourceport="substridesize_out" target="allocKernel"
+            targetport="substrideSize" type="int"/>
+        <edge kind="fifo" source="broadcast_bw" sourceport="bw_3"
+            target="allocKernel" targetport="bw" type="double"/>
+        <edge kind="fifo" source="stridesize_bc"
+            sourceport="stridesize_2" target="allocKernel"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="fftchannels_bc"
+            sourceport="fftchannels_2" target="allocKernel"
+            targetport="fftchannels" type="int"/>
+        <edge kind="fifo" source="broadcast_nchan"
+            sourceport="nchan_9" target="allocKernel"
+            targetport="nchan" type="int"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="sampletime" target="sampletime_bc"
+            targetport="sampletime" type="double"/>
+        <edge kind="fifo" source="sampletime_bc"
+            sourceport="sampletime_0"
+            target="stationDelayAndOffset"
+            targetport="sampletime" type="double"/>
+        <edge kind="fifo" source="sampletime_bc"
+            sourceport="sampletime_1" target="allocKernel"
+            targetport="sampletime" type="double"/>
+        <edge kind="fifo" source="allocKernel"
+            sourceport="kernel" target="kernel_bc"
+            targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="kernel_bc"
+            sourceport="kernel_out" target="frigeRotate"
+            targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="fractionalLoFreq" target="fracLoFreq_bc"
+            targetport="fracLoFreq" type="int"/>
+        <edge kind="fifo" source="fracLoFreq_bc"
+            sourceport="fracLoFreq_out" target="frigeRotate"
+            targetport="fractionalLoFreq" type="int"/>
+        <edge kind="fifo" source="stridesize_bc"
+            sourceport="stridesize_0" target="frigeRotate"
+            targetport="stridesize" type="int"/>
+        <edge kind="fifo" source="InitFxKernel" sourceport="iter"
+            target="iter_bc" targetport="iter" type="int"/>
+        <edge kind="fifo" source="iter_bc" sourceport="iter_out"
+            target="stationDelayAndOffset" targetport="iter" type="int"/>
+        <edge kind="fifo" source="readData"
+            sourceport="inputdata" target="inputdata_bc"
+            targetport="inputdata" type="u8*"/>
+        <edge kind="fifo" source="inputdata_bc"
+            sourceport="inputdata_bc" target="unpack"
+            targetport="inputData" type="u8*"/>
         <edge kind="dependency" source="NUM_ANT"
             target="openAntFiles" targetport="NUM_ANT"/>
         <edge kind="dependency" source="NUM_ANT"
             target="readData" targetport="numantenna"/>
         <edge kind="dependency" source="NUM_ANT"
-            target="broadcast_delays" targetport="NUM_ANT"/>
-        <edge kind="dependency" source="NUM_ANT"
             target="broadcast_antFileOffsets" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT" target="readCfg" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_delays" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT" target="loadCfg" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT" target="NUM_BASELINES"/>
         <edge kind="dependency" source="NUM_BASELINES"
             target="saveVis" targetport="NUM_BASELINES"/>
-        <edge kind="dependency" source="FxKernel_NUM_ANT"
-            target="FxKernel_InitFxKernel" targetport="NUM_ANT"/>
-        <edge kind="dependency" source="FxKernel_NUM_BASELINES"
-            target="FxKernel_InitFxKernel" targetport="NUM_BASELINES"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_InitFxKernel" targetport="numffts"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_InitFxKernel" targetport="split"/>
-        <edge kind="dependency" source="FxKernel_NORMALIZE_ITER"
-            target="FxKernel_processNormalize" targetport="i"/>
-        <edge kind="dependency" source="FxKernel_NUM_BASELINES"
-            target="FxKernel_processNormalize" targetport="NUM_BASELINES"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_processNormalize" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_nchan_broadcast" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_nchan_broadcast" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_nbit_broadcast" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_nbit_broadcast" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_nant_broadcast" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_nant_broadcast" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_lo_broadcast" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_lo_broadcast" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_NUM_ANT"
-            target="FxKernel_lo_broadcast" targetport="NUM_ANT"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_bw_broadcast" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_merge" targetport="split"/>
-        <edge kind="dependency" source="FxKernel_NUM_BASELINES"
-            target="FxKernel_merge" targetport="nbaselines"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_merge" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_fft_chan" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_fft_chan" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_sampletime" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_stridesize" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_stridesize" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_substridesize" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_substridesize" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_SPLIT"
-            target="FxKernel_fraclofreq" targetport="SPLIT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_fraclofreq" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_NUM_ANT"
-            target="FxKernel_processBaseline" targetport="NUM_ANT"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_processBaseline" targetport="NUM_FFTS"/>
-        <edge kind="dependency" source="FxKernel_NUM_FFTS"
-            target="FxKernel_kernel_bc" targetport="NUM_FFTS"/>
+        <edge kind="dependency" source="NUM_FFTS"
+            target="InitFxKernel" targetport="numffts"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="InitFxKernel" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_BASELINES"
+            target="InitFxKernel" targetport="NUM_BASELINES"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="processBaseline" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_FFTS"
+            target="processBaseline" targetport="NUM_FFTS"/>
+        <edge kind="dependency" source="NUM_BASELINES"
+            target="merge" targetport="nbaselines"/>
+        <edge kind="dependency" source="NUM_BASELINES"
+            target="processNormalize" targetport="NUM_BASELINES"/>
+        <edge kind="dependency" source="NUM_FFTS" target="merge" targetport="NUM_FFTS"/>
+        <edge kind="dependency" source="SPLIT_NORM" target="NORMALIZE_ITER"/>
+        <edge kind="dependency" source="NUM_BASELINES" target="NORMALIZE_ITER"/>
+        <edge kind="dependency" source="NORMALIZE_ITER"
+            target="processNormalize" targetport="i"/>
+        <edge kind="dependency" source="SPLIT"
+            target="InitFxKernel" targetport="split"/>
+        <edge kind="dependency" source="SPLIT" target="merge" targetport="split"/>
+        <edge kind="dependency" source="SPLIT"
+            target="processNormalize" targetport="SPLIT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_lo" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_FFTS"
+            target="fracLoFreq_bc" targetport="NUM_FFTS"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_bw" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_nant" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_nchan" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="stridesize_bc" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_ANT"
+            target="broadcast_nbit" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_FFTS"
+            target="broadcast_nant" targetport="NUM_FFTS"/>
+        <edge kind="dependency" source="NUM_ANT" target="saveVis" targetport="NUM_ANT"/>
+        <edge kind="dependency" source="NUM_FFTS"
+            target="saveVis" targetport="NUM_FFTS"/>
     </graph>
 </graphml>

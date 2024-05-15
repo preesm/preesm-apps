@@ -19,18 +19,17 @@
             <task name="sobel_morpho_flat/getTiming"/>
             <task name="sobel_morpho_flat/saveVis"/>
             <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
         </constraintGroup>
         <constraintGroup>
@@ -43,138 +42,17 @@
             <task name="sobel_morpho_flat/getTiming"/>
             <task name="sobel_morpho_flat/saveVis"/>
             <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
-            <task name="sobel_morpho_flat"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core3"/>
-            <task name="sobel_morpho_flat/loadCfg"/>
-            <task name="sobel_morpho_flat/readCfg"/>
-            <task name="sobel_morpho_flat/allocDataHost"/>
-            <task name="sobel_morpho_flat/openAntFiles"/>
-            <task name="sobel_morpho_flat/readData"/>
-            <task name="sobel_morpho_flat/getTiming"/>
-            <task name="sobel_morpho_flat/saveVis"/>
-            <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
-            <task name="sobel_morpho_flat"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core5"/>
-            <task name="sobel_morpho_flat/loadCfg"/>
-            <task name="sobel_morpho_flat/readCfg"/>
-            <task name="sobel_morpho_flat/allocDataHost"/>
-            <task name="sobel_morpho_flat/openAntFiles"/>
-            <task name="sobel_morpho_flat/readData"/>
-            <task name="sobel_morpho_flat/getTiming"/>
-            <task name="sobel_morpho_flat/saveVis"/>
-            <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
-            <task name="sobel_morpho_flat"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core6"/>
-            <task name="sobel_morpho_flat/loadCfg"/>
-            <task name="sobel_morpho_flat/readCfg"/>
-            <task name="sobel_morpho_flat/allocDataHost"/>
-            <task name="sobel_morpho_flat/openAntFiles"/>
-            <task name="sobel_morpho_flat/readData"/>
-            <task name="sobel_morpho_flat/getTiming"/>
-            <task name="sobel_morpho_flat/saveVis"/>
-            <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
-            <task name="sobel_morpho_flat"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core7"/>
-            <task name="sobel_morpho_flat/loadCfg"/>
-            <task name="sobel_morpho_flat/readCfg"/>
-            <task name="sobel_morpho_flat/allocDataHost"/>
-            <task name="sobel_morpho_flat/openAntFiles"/>
-            <task name="sobel_morpho_flat/readData"/>
-            <task name="sobel_morpho_flat/getTiming"/>
-            <task name="sobel_morpho_flat/saveVis"/>
-            <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
-            <task name="sobel_morpho_flat"/>
-        </constraintGroup>
-        <constraintGroup>
-            <operator name="Core4"/>
-            <task name="sobel_morpho_flat/loadCfg"/>
-            <task name="sobel_morpho_flat/readCfg"/>
-            <task name="sobel_morpho_flat/allocDataHost"/>
-            <task name="sobel_morpho_flat/openAntFiles"/>
-            <task name="sobel_morpho_flat/readData"/>
-            <task name="sobel_morpho_flat/getTiming"/>
-            <task name="sobel_morpho_flat/saveVis"/>
-            <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
         </constraintGroup>
         <constraintGroup>
@@ -187,18 +65,132 @@
             <task name="sobel_morpho_flat/getTiming"/>
             <task name="sobel_morpho_flat/saveVis"/>
             <task name="sobel_morpho_flat/saveLog"/>
-            <task name="sobel_morpho_flat/FxKernel_InitFxKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_processNormalize"/>
-            <task name="sobel_morpho_flat/FxKernel_merge"/>
-            <task name="sobel_morpho_flat/FxKernel_processBaseline"/>
-            <task name="sobel_morpho_flat/FxKernel_allocKernel"/>
-            <task name="sobel_morpho_flat/FxKernel_dump_vis"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_stationDelayAndOffset"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_unpack"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_frigeRotate"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_dofft"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_fracSampleCorrect"/>
-            <task name="sobel_morpho_flat/FxKernel_stations_conjchannels"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
+            <task name="sobel_morpho_flat"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="sobel_morpho_flat/loadCfg"/>
+            <task name="sobel_morpho_flat/readCfg"/>
+            <task name="sobel_morpho_flat/allocDataHost"/>
+            <task name="sobel_morpho_flat/openAntFiles"/>
+            <task name="sobel_morpho_flat/readData"/>
+            <task name="sobel_morpho_flat/getTiming"/>
+            <task name="sobel_morpho_flat/saveVis"/>
+            <task name="sobel_morpho_flat/saveLog"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
+            <task name="sobel_morpho_flat"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core4"/>
+            <task name="sobel_morpho_flat/loadCfg"/>
+            <task name="sobel_morpho_flat/readCfg"/>
+            <task name="sobel_morpho_flat/allocDataHost"/>
+            <task name="sobel_morpho_flat/openAntFiles"/>
+            <task name="sobel_morpho_flat/readData"/>
+            <task name="sobel_morpho_flat/getTiming"/>
+            <task name="sobel_morpho_flat/saveVis"/>
+            <task name="sobel_morpho_flat/saveLog"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
+            <task name="sobel_morpho_flat"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core5"/>
+            <task name="sobel_morpho_flat/loadCfg"/>
+            <task name="sobel_morpho_flat/readCfg"/>
+            <task name="sobel_morpho_flat/allocDataHost"/>
+            <task name="sobel_morpho_flat/openAntFiles"/>
+            <task name="sobel_morpho_flat/readData"/>
+            <task name="sobel_morpho_flat/getTiming"/>
+            <task name="sobel_morpho_flat/saveVis"/>
+            <task name="sobel_morpho_flat/saveLog"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
+            <task name="sobel_morpho_flat"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core6"/>
+            <task name="sobel_morpho_flat/loadCfg"/>
+            <task name="sobel_morpho_flat/readCfg"/>
+            <task name="sobel_morpho_flat/allocDataHost"/>
+            <task name="sobel_morpho_flat/openAntFiles"/>
+            <task name="sobel_morpho_flat/readData"/>
+            <task name="sobel_morpho_flat/getTiming"/>
+            <task name="sobel_morpho_flat/saveVis"/>
+            <task name="sobel_morpho_flat/saveLog"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
+            <task name="sobel_morpho_flat"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core7"/>
+            <task name="sobel_morpho_flat/loadCfg"/>
+            <task name="sobel_morpho_flat/readCfg"/>
+            <task name="sobel_morpho_flat/allocDataHost"/>
+            <task name="sobel_morpho_flat/openAntFiles"/>
+            <task name="sobel_morpho_flat/readData"/>
+            <task name="sobel_morpho_flat/getTiming"/>
+            <task name="sobel_morpho_flat/saveVis"/>
+            <task name="sobel_morpho_flat/saveLog"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/frigeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
         </constraintGroup>
     </constraints>
@@ -224,6 +216,7 @@
             <dataType name="u8" size="8"/>
             <dataType name="u8*" size="64"/>
             <dataType name="cf32**" size="64"/>
+            <dataType name="cf32*" size="8"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>

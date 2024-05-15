@@ -6,9 +6,9 @@
 
 // Initialization function
 void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
-              char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
-              int *substridesize, int *fractionalLoFreq, cf32 ***unpacked, cf32 ***channelised, cf32 ***conjchannels,
-              cf32 ***visibilities, int *nbaselines, int *baselineCount, int numffts, int * iter, int split) {
+                   char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
+                   int *substridesize, int *fractionalLoFreq, cf32 ***channelised, cf32 ***conjchannels,
+                   cf32 ***visibilities, int *nbaselines, int *baselineCount, int numffts, int * iter, int split) {
 
     *fftchannels = 2 * *nchan;
     *sampletime = 1.0 / (2.0 * *bw);
@@ -667,6 +667,95 @@ void split_array(int *arr, int length, int **arr1, int **arr2) {
 
     // Copy elements to the second array
     memcpy(*arr2, arr + mid, (length - mid) * sizeof(int));
+}
+
+void unpacked(cf32** unpacked, int split, int *nant, int *fftchannels, u8* inputData, int *offset, int *nbit){
+        unpacked = (cf32**)malloc(2 * sizeof(cf32*));
+        if (unpacked == NULL) {
+            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            exit(1);
+        }
+        for (int j = 0; j < 2; j++) {
+            unpacked[j] = vectorAlloc_cf32(*fftchannels);
+            if (unpacked[j] == NULL) {
+                fprintf(stderr, "Memory allocation failed. Quitting.\n");
+                exit(1);
+            }
+        }
+    unpack(inputData, unpacked, *offset, *nbit, *fftchannels);
+}
+
+void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo,
+                      int fftchannels, double fractionalLoFreq, cf32** unpacked_out, FxKernel *kernel_out) {
+
+    fringerotate(kernel, unpacked, a, b, substridesize, stridesize, lo, fftchannels, fractionalLoFreq);
+
+    memcpy(unpacked_out, unpacked, 2 * sizeof(cf32*));
+    memcpy(kernel_out, kernel, sizeof(FxKernel));
+}
+
+void doFFTImpl(FxKernel * kernel, cf32** unpacked, cf32** channelised, int *fftchannels) {
+    for(int j = 0; j < 2; j++) {
+        channelised[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
+        if (channelised[j] == NULL) {
+            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            exit(1);
+        }
+    }
+    dofft(kernel, unpacked, channelised);
+}
+
+void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fractionaldelay, int *stridesize, int *nchan,
+                       cf32** channelised_out) {
+    fracSampleCorrect(kernel, channelised, *fractionaldelay, *stridesize, *nchan);
+
+    memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
+}
+
+void conjChannelsImpl(cf32** channelised, cf32** conjchannels, int *nchan, int *fftchannels, cf32** channelised_out, cf32** conjchannels_out) {
+    for(int j = 0; j < 2; j++) {
+        channelised[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
+        if (channelised[j] == NULL) {
+            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            exit(1);
+        }
+    }
+
+    conjChannels(channelised, conjchannels, *nchan);
+
+    memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
+    memcpy(conjchannels_out, conjchannels, 2 * sizeof(cf32*));
+}
+
+void stationDelayAndOffset(double ** delays, int *iteration, double *antFileOffsets, int *antValid, int *offset,
+                           double *fracDelay, double *delaya, double* delayb, double *sampletime, int *fftchannels,
+                           int numffts) {
+    double meandelay, netdelaysamples_f;
+    int netdelaysamples;
+    int maxoffset = (numffts - 1) * *fftchannels;
+    int j = 0; // TODO : change
+    getStationDelay(j, *iteration, &meandelay, delaya, delayb, delays);
+
+    netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
+    netdelaysamples = (int) (netdelaysamples_f + 0.5);
+
+    *fracDelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
+    *offset = *iteration * *fftchannels - netdelaysamples;
+    if (*offset == -1) // can happen due to changing geometric delay over the subint
+    {
+        ++(*offset);
+        *fracDelay += *sampletime;
+    }
+    if (*offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
+    {
+        --(*offset);
+        *fracDelay -= *sampletime;
+    }
+    if (*offset < 0 || *offset > maxoffset) {
+        antValid[j] = 0;
+        return;
+    }
+    antValid[j] = 1;
 }
 
 void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
