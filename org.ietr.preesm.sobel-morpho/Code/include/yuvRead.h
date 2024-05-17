@@ -13,7 +13,7 @@
 
 #include "preesm.h"
 
-#define PATH_VIDEO PROJECT_ROOT_PATH "/dat/akiyo_cif.yuv"
+#define PATH_VIDEO PROJECT_ROOT_PATH "/dat/ShakeNDry_1920x1080_120fps_420_8bit_YUV.yuv"
 
 #define NB_FRAME 300
 

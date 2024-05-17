@@ -10,6 +10,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "sobel.h"
 
@@ -24,7 +25,7 @@ void sobel(int width, int height, unsigned char *input, unsigned char *output){
             int gy = -input[(j-1)*width + i-1] -2*input[(j-1)*width + i] -input[(j-1)*width + i+1]
                      +input[(j+1)*width + i-1] +2*input[(j+1)*width + i] +input[(j+1)*width + i+1];
 
-            output[(j-1)*width + i] = (abs(gx) + abs(gy))/8;
+            output[(j-1)*width + i] = fminf(sqrtf(gx * gx + gy * gy), 255);
         }
     }
 

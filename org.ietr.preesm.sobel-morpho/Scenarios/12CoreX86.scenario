@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
+    <files>
+        <algorithm url="/org.ietr.preesm.sobel-morpho/Algo/sobel_morpho.pi"/>
+        <architecture url="/org.ietr.preesm.sobel-morpho/Archi/12CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.sobel-morpho/Code/generated/"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+            <task name="sobel_morpho/Read_YUV"/>
+            <task name="sobel_morpho/display"/>
+            <task name="sobel_morpho"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core1"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core2"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core3"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core4"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core5"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core6"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core7"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core8"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+            <task name="sobel_morpho/Sobel"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core9"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core10"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="Core11"/>
+            <task name="sobel_morpho/Sobel"/>
+            <task name="sobel_morpho/Split"/>
+            <task name="sobel_morpho/Dilation"/>
+            <task name="sobel_morpho/Erosion"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="">
+        <timing opname="x86" time="100"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Read_YUV"/>
+        <timing opname="x86" time="100"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/display"/>
+        <timing opname="x86" time="100"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Sobel"/>
+        <timing opname="x86" time="100"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Split"/>
+        <timing opname="x86" time="100"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Dilation"/>
+        <timing opname="x86" time="100"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Erosion"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+            <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core4"/>
+            <specialVertexOperator path="Core5"/>
+            <specialVertexOperator path="Core6"/>
+            <specialVertexOperator path="Core7"/>
+            <specialVertexOperator path="Core8"/>
+            <specialVertexOperator path="Core9"/>
+            <specialVertexOperator path="Core10"/>
+            <specialVertexOperator path="Core11"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>

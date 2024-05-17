@@ -45,10 +45,13 @@
         </constraintGroup>
     </constraints>
     <timings excelUrl="">
-        <timing opname="x86" time="47" vertexname="sobel_morpho/Read_YUV"/>
-        <timing opname="x86" time="62" vertexname="sobel_morpho/Sobel"/>
-        <timing opname="x86" time="1" vertexname="sobel_morpho/Split"/>
-        <timing opname="x86" time="243" vertexname="sobel_morpho/display"/>
+        <timing opname="x86" time="47"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Read_YUV"/>
+        <timing opname="x86" time="62"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Sobel"/>
+        <timing opname="x86" time="1" timingtype="EXECUTION_TIME" vertexname="sobel_morpho/Split"/>
+        <timing opname="x86" time="243"
+            timingtype="EXECUTION_TIME" vertexname="sobel_morpho/display"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
     </timings>
     <simuParams>
@@ -66,6 +69,12 @@
             <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
     </simuParams>
-    <parameterValues/>
+    <parameterValues>
+        <parameter name="nbSlice" parent="sobel_morpho" value="4"/>
+    </parameterValues>
     <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
 </scenario>
