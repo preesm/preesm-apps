@@ -5,10 +5,9 @@
 #include "kernel.h"
 
 // Initialization function
-void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
+void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
                    char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
-                   int *substridesize, int *fractionalLoFreq, cf32 ***channelised, cf32 ***conjchannels,
-                   cf32 ***visibilities, int *nbaselines, int *baselineCount, int numffts, int * iter, int split) {
+                   int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter){
 
     *fftchannels = 2 * *nchan;
     *sampletime = 1.0 / (2.0 * *bw);
@@ -38,22 +37,6 @@ void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, str
     // Check if LO frequency has a fractional component
     *fractionalLoFreq = (*lo - (int)(*lo)) > TINY;
 
-    // Allocate memory for unpacked array
-    for (int i = 0; i < split * *nant; i++) {
-        unpacked[i] = (cf32**)malloc(2 * sizeof(cf32*));
-        if (unpacked[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
-            exit(1);
-        }
-        for (int j = 0; j < 2; j++) {
-            unpacked[i][j] = vectorAlloc_cf32(*fftchannels);
-            if (unpacked[i][j] == NULL) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
-                exit(1);
-            }
-        }
-    }
-
     // Allocate memory for FFT'ed data and initialize FFT
     int order = 0;
     while((*fftchannels) >> order != 1)
@@ -61,61 +44,11 @@ void init_FxKernel(int *nant, int *nchan, int *nbit, double *lo, double *bw, str
         order++;
     }
 
-// Allocate memory for each element of channelised and conjchannels arrays
-    for(int i = 0; i < split * *nant; i++)
-    {
-        channelised[i] = (cf32**)malloc(2 * sizeof(cf32*));
-        if (channelised[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
-            exit(1);
-        }
-
-        conjchannels[i] = (cf32**)malloc(2 * sizeof(cf32*));
-        if (conjchannels[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
-            exit(1);
-        }
-
-        for(int j = 0; j < 2; j++)
-        {
-            channelised[i][j] = (cf32*)vectorAlloc_cf32(*fftchannels);
-            if (channelised[i][j] == NULL) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
-                exit(1);
-            }
-
-            conjchannels[i][j] = (cf32*)vectorAlloc_cf32(*nchan);
-            if (conjchannels[i][j] == NULL) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
-                exit(1);
-            }
-        }
-    }
-
-    // Visibilities
-    *nbaselines = *nant * (*nant - 1) / 2;
-    for (int i = 0; i < split * *nbaselines; i++) {
-        visibilities[i] = (cf32**)malloc(4 * sizeof(cf32*));
-        if (visibilities[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
-            exit(1);
-        }
-        for (int j = 0; j < 4; j++) {
-            visibilities[i][j] = vectorAlloc_cf32(*nchan);
-            if (visibilities[i][j] == NULL) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
-                exit(1);
-            }
-        }
-    }
-
     for(int i = 0; i < numffts; i ++){
         iter[i] = i;
     }
 
     startTiming(starttime, starttimestring);
-
-    resetBeforeProcess(nbaselines, visibilities, nchan, baselineCount, split);
 }
 
 void allocKernel(FxKernel *kernel, int *substridesize, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, double *bw) {
@@ -203,7 +136,7 @@ void initLUT2bitReal ()
 }
 
 
-void processAntennas(FxKernel *kernel, int *nant, int *numffts, int *fftchannels, double *antFileOffsets,
+void processAntennasOld(FxKernel *kernel, int *nant, int *numffts, int *fftchannels, double *antFileOffsets,
                      double *sampletime, int *antValid, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
                      cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
                      int *fractionalLoFreq, double *lo, int *nchan) {
@@ -670,11 +603,6 @@ void split_array(int *arr, int length, int **arr1, int **arr2) {
 }
 
 void unpacked(cf32** unpacked, int split, int *nant, int *fftchannels, u8* inputData, int *offset, int *nbit){
-        unpacked = (cf32**)malloc(2 * sizeof(cf32*));
-        if (unpacked == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
-            exit(1);
-        }
         for (int j = 0; j < 2; j++) {
             unpacked[j] = vectorAlloc_cf32(*fftchannels);
             if (unpacked[j] == NULL) {
@@ -712,10 +640,10 @@ void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fracti
     memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
 }
 
-void conjChannelsImpl(cf32** channelised, cf32** conjchannels, int *nchan, int *fftchannels, cf32** channelised_out, cf32** conjchannels_out) {
+void conjChannelsImpl(cf32** channelised, cf32** conjchannels, int *nchan, int *fftchannels, cf32** channelised_out) {
     for(int j = 0; j < 2; j++) {
-        channelised[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
-        if (channelised[j] == NULL) {
+        conjchannels[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
+        if (conjchannels[j] == NULL) {
             fprintf(stderr, "Memory allocation failed. Quitting.\n");
             exit(1);
         }
@@ -724,7 +652,6 @@ void conjChannelsImpl(cf32** channelised, cf32** conjchannels, int *nchan, int *
     conjChannels(channelised, conjchannels, *nchan);
 
     memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
-    memcpy(conjchannels_out, conjchannels, 2 * sizeof(cf32*));
 }
 
 void stationDelayAndOffset(double ** delays, int *iteration, double *antFileOffsets, int *antValid, int *offset,
@@ -733,7 +660,7 @@ void stationDelayAndOffset(double ** delays, int *iteration, double *antFileOffs
     double meandelay, netdelaysamples_f;
     int netdelaysamples;
     int maxoffset = (numffts - 1) * *fftchannels;
-    int j = 0; // TODO : change
+    int j = 0; // TODO : change and test iter
     getStationDelay(j, *iteration, &meandelay, delaya, delayb, delays);
 
     netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
@@ -849,19 +776,58 @@ void processBaselinePara(int *nant, int *antValid, cf32 ***channelised, cf32 ***
     }
 }
 
-void merge(int split, int nbaselines, cf32 ***visibilities, int *nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out) {
-    if(split != 1) {
-        for(int i = 0; i < nbaselines; i++) {
-            for(int j = 0; j < 4; j++) {
-                for(int k = 1; k < split; k++) {
-                    vectorAdd_cf32_I(visibilities[i + k * (*nant * (*nant - 1) / 2)][j], visibilities[i][j], *nChan);
-                }
+void merge(int split, int nbaselines, int numffts, cf32 ***visibilities, int nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out){
+    // 28800 = 240 * 120 // 120 : objectif de sortie
+    for(int i = 0; i < nbaselines; i++) {
+        for(int j = 0; j < 4; j++) {
+            for(int k = 1; k < numffts; k++) {
+                vectorAdd_cf32_I(visibilities[i + k * nbaselines][j], visibilities[i][j], *nChan);
             }
-            for(int k = 1; k < split; k++) {
-                baselineCount[i] += baselineCount[i + k * nbaselines];
+        }
+        for(int k = 1; k < numffts; k++) {
+            baselineCount[i] += baselineCount[i + k * nbaselines];
+        }
+    }
+    memcpy(visibilities_out, visibilities, nbaselines * sizeof(cf32***));
+    memcpy(baselineCount_out, baselineCount, nbaselines * sizeof(int));
+}
+
+void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** conjchannels, int *nchan, cf32 *** visibilities, int *baselineCount_out){
+    for (int i = 0; i < (nant * (nant - 1) / 2); i++) {
+        visibilities[i] = (cf32**)malloc(4 * sizeof(cf32*));
+        if (visibilities[i] == NULL) {
+            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            exit(1);
+        }
+        for (int j = 0; j < 4; j++) {
+            visibilities[i][j] = vectorAlloc_cf32(*nchan);
+            if (visibilities[i][j] == NULL) {
+                fprintf(stderr, "Memory allocation failed. Quitting.\n");
+                exit(1);
             }
         }
     }
-    memcpy(visibilities_out, visibilities, (*nant * (*nant - 1) / 2) * sizeof(cf32***));
-    memcpy(baselineCount_out, baselineCount, (*nant * (*nant - 1) / 2) * sizeof(int));
+    int b = 0; // Baseline counter
+    for (int j = 0; j < nant - 1; j++) {
+        if (!antValid[j]) {
+            b += (nant - (j + 1));
+            continue;
+        }
+        for (int k = j + 1; k < nant; k++) {
+            if (!antValid[k]) {
+                (b)++;
+                continue;
+            }
+
+            for (int l = 0; l < 2; l++) {
+                for (int m = 0; m < 2; m++) {
+                    // cross multiply + accumulate
+                    vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
+                                          visibilities[b][2 * l + m], *nchan);
+                }
+            }
+            baselineCount_out[b]++;
+            (b)++;
+        }
+    }
 }

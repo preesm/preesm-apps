@@ -217,16 +217,26 @@
             <dataType name="u8*" size="64"/>
             <dataType name="cf32**" size="64"/>
             <dataType name="cf32*" size="8"/>
+            <dataType name="FxKernel" size="3072"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core1"/>
+            <specialVertexOperator path="Core2"/>
+            <specialVertexOperator path="Core3"/>
+            <specialVertexOperator path="Core4"/>
+            <specialVertexOperator path="Core5"/>
+            <specialVertexOperator path="Core6"/>
+            <specialVertexOperator path="Core7"/>
         </specialVertexOperators>
     </simuParams>
     <parameterValues/>
     <papifyConfigs xmlUrl=""/>
     <energyConfigs xmlUrl="">
         <performanceObjective objectiveEPS="0.0"/>
+        <pePower opName="Base" pePower="10.0"/>
+        <pePower opName="x86" pePower="10.0"/>
         <peActorsEnergy/>
+        <peTypeCommsEnergy sourcePeType="x86"/>
     </energyConfigs>
 </scenario>
