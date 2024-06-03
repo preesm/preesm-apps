@@ -70,7 +70,7 @@ void getStationDelay(int antenna, int fftindex, double *meandelay, double *a, do
 
 void unpackReal2bit(u8 *inputdata, cf32 **unpacked, int offset, int nsamp);
 
-void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo, int fftchannels, double fractionalLoFreq);
+void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo, int fftchannels, int fractionalLoFreq);
 
 void dofft(FxKernel *kernel, cf32 ** unpacked, cf32 ** channelised);
 
@@ -82,9 +82,9 @@ void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double
 
 void startTiming(struct timespec *starttime, char *starttimestring);
 
-void saveLog(long long *diff_ms, char *starttimestring);
+void saveLog(char *starttimestring, long long *diff_ms);
 
-void endTiming(struct timespec *starttime, long long *diff_ms, struct timespec *endtime);
+void endTiming(struct timespec *starttime, struct timespec *endtime, long long *diff_ms);
 
 void processAntennas(FxKernel *kernel, int *nant, int *numffts,
                      int *fftchannels, double *antFileOffsets, double *sampletime, int *antValid, u8 ** inputData,
@@ -115,23 +115,22 @@ void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, do
 
 void merge(int split, int nbaselines, int numffts, cf32 ***visibilities, int nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out);
 
-void unpackImpl(cf32** unpacked, int *fftchannels, u8* inputData, int *offset, int *nbit);
+void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked);
 
-void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo,
-                      int fftchannels, double fractionalLoFreq, cf32** unpacked_out, FxKernel *kernel_out);
+void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 *a, f64 *b, int *substridesize, int *stridesize, double *lo,
+                      int *fftchannels, int *fractionalLoFreq, cf32** unpacked_out, FxKernel *kernel_out);
 
-void doFFTImpl(FxKernel * kernel, cf32** unpacked, cf32** channelised, int *fftchannels);
+void doFFTImpl(cf32** unpacked, FxKernel * kernel, int *fftchannels, cf32** channelised);
 
 void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fractionaldelay, int *stridesize, int *nchan,
                            cf32** channelised_out);
 
-void conjChannelsImpl(cf32** channelised, cf32** conjchannels, int *nchan, int *fftchannels, cf32** channelised_out);
+void conjChannelsImpl(cf32** channelised, int *nchan, int *fftchannels, cf32*** conjchannels, cf32*** channelised_out);
 
-void stationDelayAndOffset(double ** delays, int *iteration, double *antFileOffsets, int *antValid, int *offset,
-                           double *fracDelay, double *delaya, double* delayb, double *sampletime, int *fftchannels,
-                           int numffts);
+void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double *antFileOffsets, double *sampletime, int *fftchannels,
+                           int *antValid, int *offset, double *fracDelay, double *delaya, double* delayb);
 
-void allocKernel(FxKernel *kernel, int *substridesize, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, double *bw);
+void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, FxKernel *kernel);
 
 void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** conjchannels, int *nchan, cf32 *** visibilities, int *baselineCount_out);
 

@@ -2,6 +2,7 @@
 // Created by emichel on 01/05/24.
 //
 
+#include <string.h>
 #include "openFiles.h"
 
 void openFiles(int *numantennas, char **antFiles, FILE **antStream) {
@@ -13,7 +14,7 @@ void openFiles(int *numantennas, char **antFiles, FILE **antStream) {
     }
 }
 
-void readdata(int *bytestoread, FILE **antStream, uint8_t **inputdata, int *numStreams, int numantenna) {
+void readdata(int NUM_FFTS, int *bytestoread, FILE **antStream, uint8_t **inputdata, int *numStreams, int numantenna) {
 
     //Allocate inputdata mem
 
@@ -21,7 +22,7 @@ void readdata(int *bytestoread, FILE **antStream, uint8_t **inputdata, int *numS
     printf("Allocating %d MB per antenna per subint\n", *bytestoread / (1024 * 1024));
     printf("           %d MB total\n", *bytestoread * numantenna / (1024 * 1024));
 
-    for (int a = 0; a < numantenna; a++)
+    for (int a = 0; a < numantenna * NUM_FFTS; a++)
     {
         (inputdata)[a] = (uint8_t *)malloc(*bytestoread);
         if ((inputdata)[a] == NULL)
@@ -42,5 +43,8 @@ void readdata(int *bytestoread, FILE **antStream, uint8_t **inputdata, int *numS
                 exit(1);
             }
         }
+    }
+    for(int i = 1; i < NUM_FFTS; i++) {
+        memcpy(inputdata[16 * i], inputdata[0], 16 * sizeof(uint8_t));
     }
 }

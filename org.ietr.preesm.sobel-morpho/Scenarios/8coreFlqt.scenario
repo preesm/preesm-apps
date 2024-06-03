@@ -23,7 +23,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -31,6 +30,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core1"/>
@@ -46,7 +46,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -54,6 +53,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core2"/>
@@ -69,7 +69,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -77,6 +76,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core3"/>
@@ -92,7 +92,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -100,6 +99,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core4"/>
@@ -115,7 +115,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -123,6 +122,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core5"/>
@@ -138,7 +138,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -146,6 +145,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core6"/>
@@ -161,7 +161,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -169,6 +168,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
         <constraintGroup>
             <operator name="Core7"/>
@@ -184,7 +184,6 @@
             <task name="sobel_morpho_flat/allocKernel"/>
             <task name="sobel_morpho_flat/stationDelayAndOffset"/>
             <task name="sobel_morpho_flat/unpack"/>
-            <task name="sobel_morpho_flat/frigeRotate"/>
             <task name="sobel_morpho_flat/dofft"/>
             <task name="sobel_morpho_flat/fracSampleCorrect"/>
             <task name="sobel_morpho_flat/conjchannels"/>
@@ -192,6 +191,7 @@
             <task name="sobel_morpho_flat/merge"/>
             <task name="sobel_morpho_flat/processNormalize"/>
             <task name="sobel_morpho_flat"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
         </constraintGroup>
     </constraints>
     <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
@@ -216,8 +216,8 @@
             <dataType name="u8" size="8"/>
             <dataType name="u8*" size="64"/>
             <dataType name="cf32**" size="64"/>
-            <dataType name="cf32*" size="8"/>
-            <dataType name="FxKernel" size="3072"/>
+            <dataType name="cf32*" size="64"/>
+            <dataType name="FxKernel" size="1920"/>
         </dataTypes>
         <specialVertexOperators>
             <specialVertexOperator path="Core0"/>
@@ -237,6 +237,5 @@
         <pePower opName="Base" pePower="10.0"/>
         <pePower opName="x86" pePower="10.0"/>
         <peActorsEnergy/>
-        <peTypeCommsEnergy sourcePeType="x86"/>
     </energyConfigs>
 </scenario>

@@ -12,6 +12,6 @@
 
 void openFiles(int *numantennas, char **antFiles, FILE **antStream);
 
-void readdata(int *bytestoread, FILE **antStream, uint8_t **inputdata, int *numStreams, int numantenna);
+void readdata(int NUM_FFTS, int *bytestoread, FILE **antStream, uint8_t **inputdata, int *numStreams, int numantenna);
 
 #endif //TESTS_DIFX_OPENFILES_H

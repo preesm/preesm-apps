@@ -22,7 +22,7 @@ void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, stru
         }
         initLUT2bitReal();
     } else if (*nbit != 8) {
-        fprintf(stderr, "Error: Do not support %d bits. Aborting\n", nbit);
+        fprintf(stderr, "Error: Do not support %d bits. Aborting\n", *nbit);
         exit(1);
     }
 
@@ -44,14 +44,16 @@ void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, stru
         order++;
     }
 
-    for(int i = 0; i < numffts; i ++){
-        iter[i] = i;
+    for(int j = 0; j<nant; j++){
+        for(int i = 0; i < numffts; i ++){
+            iter[i + j * numffts] = i;
+        }
     }
 
     startTiming(starttime, starttimestring);
 }
 
-void allocKernel(FxKernel *kernel, int *substridesize, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, double *bw) {
+void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, FxKernel *kernel) {
     kernel->subtoff  = vectorAlloc_f64(*substridesize);
     kernel->subtval  = vectorAlloc_f64(*substridesize);
     kernel->subxoff  = vectorAlloc_f64(*substridesize);
@@ -111,13 +113,37 @@ void allocKernel(FxKernel *kernel, int *substridesize, int*stridesize, int* fftc
     }
 
     int sizeFFTSpec, sizeFFTInitBuf, wbufsize;
-    u8 *fftInitBuf, *fftSpecBuf;
-    ippsFFTGetSize_C_32fc(order, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
+    u8 *fftInitBuf = NULL, *fftSpecBuf = NULL;
+    IppStatus status;
+
+// Get the sizes needed for the FFT
+    status = ippsFFTGetSize_C_32fc(order, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
+    if (status != ippStsNoErr) {
+        fprintf(stderr, "Error getting FFT size: %d\n", status);
+        exit(1);
+    }
+
+// Allocate the FFT specification and initialization buffers
     fftSpecBuf = ippsMalloc_8u(sizeFFTSpec);
     fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
     kernel->fftbuffer = ippsMalloc_8u(wbufsize);
-    ippsFFTInit_C_32fc(&kernel->pFFTSpecC, order, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
-    if (fftInitBuf) ippFree(fftInitBuf);
+
+    if (!fftSpecBuf || !fftInitBuf || !kernel->fftbuffer) {
+        fprintf(stderr, "Error allocating memory for FFT buffers\n");
+        exit(1);
+    }
+
+// Initialize the FFT
+    status = ippsFFTInit_C_32fc((IppsFFTSpec_C_32fc**)&kernel->pFFTSpecC, order, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
+    if (status != ippStsNoErr) {
+        fprintf(stderr, "Error initializing FFT: %d\n", status);
+        exit(1);
+    }
+
+// Free the initialization buffer if it was allocated
+    if (fftInitBuf) {
+        ippFree(fftInitBuf);
+    }
 }
 
 void initLUT2bitReal ()
@@ -220,7 +246,7 @@ void processAntennasAndBaseline(int *nant, int numffts, int *fftchannels, double
                      int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount, double *bw,
                      cf32 *** visibilities_out, int *baselineCount_out) {
     FxKernel kernel;
-    allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
+    //allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
     
     double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
     int *antValid = (int *)malloc(*nant * sizeof(int));
@@ -327,6 +353,7 @@ void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchann
 }
 
 void unpackReal2bit(u8 *inputdata, cf32 **unpacked, int offset, int nsamp) {
+
     cf32 *fp;
     int o = 0;
     u8 *byte = &inputdata[offset / 2];
@@ -357,7 +384,7 @@ void unpackReal2bit(u8 *inputdata, cf32 **unpacked, int offset, int nsamp) {
     }
 }
 
-void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo, int fftchannels, double fractionalLoFreq)
+void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo, int fftchannels, int fractionalLoFreq)
 {
     int integerdelay;
     int status;
@@ -425,19 +452,6 @@ void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substrid
         status = vectorMul_cf32_I(kernel->complexrotator, unpacked[i], fftchannels);
         if (status != vecNoErr)
             fprintf(stderr, "Error in complex fringe rotation" );
-    }
-}
-
-void dofft(FxKernel *kernel, cf32 ** unpacked, cf32 ** channelised) {
-    // Do a single FFT on the 2 pols for a single antenna
-    vecStatus status;
-
-    for (int i=0; i<2; i++) {
-        status = vectorFFT_CtoC_cf32(unpacked[i], channelised[i], kernel->pFFTSpecC, kernel->fftbuffer);
-        if(status != vecNoErr) {
-            fprintf(stderr, "Error calling FFT");
-            exit(1);
-        }
     }
 }
 
@@ -511,7 +525,7 @@ void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double
     amp = (f32***)malloc(*nbaselines * sizeof(f32**));
     phase = (f32***)malloc(*nbaselines * sizeof(f32**));
     if (!amp || !phase) {
-        fprintf(stderr, "Memory allocation failed. Quitting.\n");
+        fprintf(stderr, "Memory allocation save failed. Quitting.\n");
         return;
     }
 
@@ -519,14 +533,14 @@ void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double
         amp[i] = (f32**)malloc(4 * sizeof(f32*)); // 2 pols and crosspol
         phase[i] = (f32**)malloc(4 * sizeof(f32*)); // 2 pols and crosspol
         if (!amp[i] || !phase[i]) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            fprintf(stderr, "Memory allocation i loop save failed. Quitting.\n");
             return;
         }
         for (int j = 0; j < 4; j++) {
             amp[i][j] = vectorAlloc_f32(*nchan);
             phase[i][j] = vectorAlloc_f32(*nchan);
             if (!amp[i][j] || !phase[i][j]) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
+                fprintf(stderr, "Memory allocation j loop save failed. Quitting.\n");
                 return;
             }
             vectorMagnitude_cf32(visibilities[i][j], amp[i][j], *nchan);
@@ -558,7 +572,7 @@ void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double
     free(phase);
 }
 
-void saveLog(long long *diff_ms, char *starttimestring) {
+void saveLog(char *starttimestring, long long *diff_ms) {
     // Open the file for writing
     FILE *ftiming = fopen("runtime.fxkernel.log", "w");
     if (ftiming == NULL) {
@@ -582,7 +596,7 @@ void startTiming(struct timespec *starttime, char *starttimestring) {
     starttimestring[strlen(starttimestring) - 1] = '\0'; // Removing the newline character at the end
 }
 
-void endTiming(struct timespec *starttime, long long *diff_ms, struct timespec *endtime) {
+void endTiming(struct timespec *starttime, struct timespec *endtime, long long *diff_ms) {
     clock_gettime(CLOCK_MONOTONIC, endtime);
     long long diff_ns = ((*endtime).tv_sec - (*starttime).tv_sec) * 1000000000LL + ((*endtime).tv_nsec - (*starttime).tv_nsec);
     *diff_ms = diff_ns / 1000000LL;
@@ -602,35 +616,81 @@ void split_array(int *arr, int length, int **arr1, int **arr2) {
     memcpy(*arr2, arr + mid, (length - mid) * sizeof(int));
 }
 
-void unpacked(cf32** unpacked, int split, int *nant, int *fftchannels, u8* inputData, int *offset, int *nbit){
+void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked){
         for (int j = 0; j < 2; j++) {
-            unpacked[j] = vectorAlloc_cf32(*fftchannels);
-            if (unpacked[j] == NULL) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            (unpacked)[j] = vectorAlloc_cf32(*fftchannels);
+            if ((unpacked)[j] == NULL) {
+                fprintf(stderr, "Memory allocation unpacked failed. Quitting.\n");
                 exit(1);
             }
         }
-    unpack(inputData, unpacked, *offset, *nbit, *fftchannels);
+    unpack(*inputData, unpacked, *offset, *nbit, *fftchannels);
 }
 
-void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo,
-                      int fftchannels, double fractionalLoFreq, cf32** unpacked_out, FxKernel *kernel_out) {
+void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 *a, f64 *b, int *substridesize, int *stridesize, double *lo,
+                      int *fftchannels, int *fractionalLoFreq, cf32** unpacked_out, FxKernel *kernel_out) {
 
-    fringerotate(kernel, unpacked, a, b, substridesize, stridesize, lo, fftchannels, fractionalLoFreq);
+    fringerotate(kernel, unpacked, *a, *b, *substridesize, *stridesize, *lo, *fftchannels, *fractionalLoFreq);
 
     memcpy(unpacked_out, unpacked, 2 * sizeof(cf32*));
     memcpy(kernel_out, kernel, sizeof(FxKernel));
 }
 
-void doFFTImpl(FxKernel * kernel, cf32** unpacked, cf32** channelised, int *fftchannels) {
+void doFFTImpl(cf32** unpacked, FxKernel * kernel, int *fftchannels, cf32** channelised) {
     for(int j = 0; j < 2; j++) {
-        channelised[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
-        if (channelised[j] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+        (channelised)[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
+        if ((channelised)[j] == NULL) {
+            fprintf(stderr, "Memory allocation channelised failed. Quitting.\n");
             exit(1);
         }
     }
+
     dofft(kernel, unpacked, channelised);
+}
+
+void dofft(FxKernel *kernel, cf32 ** unpacked, cf32 ** channelised) {
+    // Do a single FFT on the 2 pols for a single antenna
+    vecStatus status;
+
+    int sizeFFTSpec, sizeFFTInitBuf, wbufsize;
+    u8 *fftInitBuf = NULL, *fftSpecBuf = NULL;
+
+// Get the sizes needed for the FFT
+    status = ippsFFTGetSize_C_32fc(15, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
+    if (status != ippStsNoErr) {
+        fprintf(stderr, "Error getting FFT size: %d\n", status);
+        exit(1);
+    }
+
+// Allocate the FFT specification and initialization buffers
+    fftSpecBuf = ippsMalloc_8u(sizeFFTSpec);
+    fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
+    kernel->fftbuffer = ippsMalloc_8u(wbufsize);
+
+    if (!fftSpecBuf || !fftInitBuf || !kernel->fftbuffer) {
+        fprintf(stderr, "Error allocating memory for FFT buffers\n");
+        exit(1);
+    }
+
+// Initialize the FFT
+    status = ippsFFTInit_C_32fc((IppsFFTSpec_C_32fc**)&kernel->pFFTSpecC, 15, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
+    if (status != ippStsNoErr) {
+        fprintf(stderr, "Error initializing FFT: %d\n", status);
+        exit(1);
+    }
+
+// Free the initialization buffer if it was allocated
+    if (fftInitBuf) {
+        ippFree(fftInitBuf);
+    }
+
+    for (int i=0; i<2; i++) {
+        status = vectorFFT_CtoC_cf32(unpacked[i], channelised[i], kernel->pFFTSpecC, kernel->fftbuffer);
+        if(status != vecNoErr) {
+            fprintf(stderr, "Error calling FFT");
+            exit(1);
+        }
+    }
 }
 
 void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fractionaldelay, int *stridesize, int *nchan,
@@ -640,28 +700,29 @@ void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fracti
     memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
 }
 
-void conjChannelsImpl(cf32** channelised, cf32** conjchannels, int *nchan, int *fftchannels, cf32** channelised_out) {
+void conjChannelsImpl(cf32** channelised, int *nchan, int *fftchannels, cf32*** conjchannels, cf32*** channelised_out) {
+    (*conjchannels) = (cf32**)malloc(2 * sizeof(cf32*));
     for(int j = 0; j < 2; j++) {
-        conjchannels[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
-        if (conjchannels[j] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+        (*conjchannels)[j] = (cf32 *) vectorAlloc_cf32(*fftchannels);
+        if ((*conjchannels)[j] == NULL) {
+            fprintf(stderr, "Memory allocation conj failed. Quitting.\n");
             exit(1);
         }
     }
 
-    conjChannels(channelised, conjchannels, *nchan);
+    conjChannels(channelised, *conjchannels, *nchan);
 
-    memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
+    memcpy(channelised_out, &channelised, 2*sizeof(cf32**));
 }
 
-void stationDelayAndOffset(double ** delays, int *iteration, double *antFileOffsets, int *antValid, int *offset,
-                           double *fracDelay, double *delaya, double* delayb, double *sampletime, int *fftchannels,
-                           int numffts) {
+void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double *antFileOffsets, double *sampletime, int *fftchannels,
+                           int *antValid, int *offset, double *fracDelay, double *delaya, double* delayb) {
     double meandelay, netdelaysamples_f;
     int netdelaysamples;
     int maxoffset = (numffts - 1) * *fftchannels;
     int j = 0; // TODO : change and test iter
     getStationDelay(j, *iteration, &meandelay, delaya, delayb, delays);
+
 
     netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
     netdelaysamples = (int) (netdelaysamples_f + 0.5);
@@ -692,7 +753,7 @@ void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, do
                                     int *iteration, double *bw, cf32 *** visibilities_out, int *baselineCount_out, int split) {
 
     FxKernel kernel;
-    allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
+    //allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
 
     double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
     int *antValid = (int *) malloc(*nant * sizeof(int));
@@ -781,13 +842,19 @@ void merge(int split, int nbaselines, int numffts, cf32 ***visibilities, int nan
     for(int i = 0; i < nbaselines; i++) {
         for(int j = 0; j < 4; j++) {
             for(int k = 1; k < numffts; k++) {
-                vectorAdd_cf32_I(visibilities[i + k * nbaselines][j], visibilities[i][j], *nChan);
+                vecStatus status = vectorAdd_cf32_I(visibilities[i + k * nbaselines][j], visibilities[i][j], *nChan);
+
+                if (status != ippStsNoErr) {
+                    fprintf(stderr, "Error processing merge: %d\n", status);
+                    exit(1);
+                }
             }
         }
         for(int k = 1; k < numffts; k++) {
             baselineCount[i] += baselineCount[i + k * nbaselines];
         }
     }
+    printf("Test : %d", baselineCount[0]);
     memcpy(visibilities_out, visibilities, nbaselines * sizeof(cf32***));
     memcpy(baselineCount_out, baselineCount, nbaselines * sizeof(int));
 }
@@ -796,17 +863,20 @@ void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** c
     for (int i = 0; i < (nant * (nant - 1) / 2); i++) {
         visibilities[i] = (cf32**)malloc(4 * sizeof(cf32*));
         if (visibilities[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed. Quitting.\n");
+            fprintf(stderr, "Memory allocation visibilities i failed. Quitting.\n");
             exit(1);
         }
         for (int j = 0; j < 4; j++) {
             visibilities[i][j] = vectorAlloc_cf32(*nchan);
             if (visibilities[i][j] == NULL) {
-                fprintf(stderr, "Memory allocation failed. Quitting.\n");
+                fprintf(stderr, "Memory allocation visibilities[%d][%d] j failed. Quitting.\n", i, j);
                 exit(1);
             }
         }
     }
+
+    vecStatus status;
+
     int b = 0; // Baseline counter
     for (int j = 0; j < nant - 1; j++) {
         if (!antValid[j]) {
@@ -822,8 +892,13 @@ void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** c
             for (int l = 0; l < 2; l++) {
                 for (int m = 0; m < 2; m++) {
                     // cross multiply + accumulate
-                    vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
+                    status = vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
                                           visibilities[b][2 * l + m], *nchan);
+
+                    if (status != ippStsNoErr) {
+                        fprintf(stderr, "Error processing Baseline: %d\n", status);
+                        exit(1);
+                    }
                 }
             }
             baselineCount_out[b]++;
