@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="sobel_morpho_flat" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.0/@anchors.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.1/@anchors.0/@link //@children.2/@link //@children.2/@children.0/@link //@children.2/@anchors.0/@link //@children.2/@anchors.1/@link //@children.2/@anchors.2/@link //@children.2/@anchors.3/@link //@children.2/@anchors.4/@link //@children.2/@anchors.5/@link //@children.2/@anchors.6/@link //@children.2/@anchors.7/@link //@children.2/@anchors.8/@link //@children.2/@anchors.9/@link //@children.2/@anchors.10/@link //@children.2/@anchors.11/@link //@children.2/@anchors.12/@link //@children.2/@anchors.13/@link //@children.3/@link //@children.3/@children.0/@link //@children.3/@anchors.0/@link //@children.3/@anchors.1/@link //@children.3/@anchors.2/@link //@children.3/@anchors.3/@link //@children.3/@anchors.4/@link //@children.3/@anchors.5/@link //@children.3/@anchors.6/@link //@children.3/@anchors.7/@link //@children.3/@anchors.8/@link //@children.3/@anchors.9/@link //@children.3/@anchors.10/@link //@children.3/@anchors.11/@link //@children.3/@anchors.12/@link //@children.3/@anchors.13/@link //@children.4/@link //@children.4/@children.0/@link //@children.4/@anchors.0/@link //@children.4/@anchors.1/@link //@children.4/@anchors.2/@link //@children.4/@anchors.3/@link //@children.4/@anchors.4/@link //@children.4/@anchors.5/@link //@children.4/@anchors.6/@link //@children.5/@link //@children.5/@children.0/@link //@children.5/@anchors.0/@link //@children.5/@anchors.1/@link //@children.5/@anchors.2/@link //@children.5/@anchors.3/@link //@children.5/@anchors.4/@link //@children.6/@link //@children.6/@children.0/@link //@children.6/@anchors.0/@link //@children.6/@anchors.1/@link //@children.6/@anchors.2/@link //@children.6/@anchors.3/@link //@children.6/@anchors.4/@link //@children.7/@link //@children.7/@children.0/@link //@children.7/@anchors.0/@link //@children.7/@anchors.1/@link //@children.7/@anchors.2/@link //@children.7/@anchors.3/@link //@children.8/@link //@children.8/@children.0/@link //@children.8/@anchors.0/@link //@children.8/@anchors.1/@link //@children.8/@anchors.2/@link //@children.8/@anchors.3/@link //@children.8/@anchors.4/@link //@children.8/@anchors.5/@link //@children.9/@link //@children.9/@children.0/@link //@children.9/@anchors.0/@link //@children.9/@anchors.1/@link //@children.9/@anchors.2/@link //@children.9/@anchors.3/@link //@children.10/@link //@children.10/@children.0/@link //@children.10/@anchors.0/@link //@children.10/@anchors.1/@link //@children.10/@anchors.2/@link //@children.10/@anchors.3/@link //@children.11/@link //@children.11/@children.0/@link //@children.11/@anchors.0/@link //@children.11/@anchors.1/@link //@children.11/@anchors.2/@link //@children.11/@anchors.3/@link //@children.11/@anchors.4/@link //@children.12/@link //@children.12/@children.0/@link //@children.12/@anchors.0/@link //@children.12/@anchors.1/@link //@children.12/@anchors.2/@link //@children.12/@anchors.3/@link //@children.13/@link //@children.13/@children.0/@link //@children.13/@anchors.0/@link //@children.13/@anchors.1/@link //@children.13/@anchors.2/@link //@children.13/@anchors.3/@link //@children.13/@anchors.4/@link //@children.13/@anchors.5/@link //@children.14/@link //@children.14/@children.0/@link //@children.14/@anchors.0/@link //@children.14/@anchors.1/@link //@children.14/@anchors.2/@link //@children.14/@anchors.3/@link //@children.15/@link //@children.15/@children.0/@link //@children.15/@anchors.0/@link //@children.15/@anchors.1/@link //@children.15/@anchors.2/@link //@children.15/@anchors.3/@link //@children.15/@anchors.4/@link //@children.16/@link //@children.16/@children.0/@link //@children.16/@anchors.0/@link //@children.16/@anchors.1/@link //@children.16/@anchors.2/@link //@children.16/@anchors.3/@link //@children.16/@anchors.4/@link //@children.17/@link //@children.17/@children.0/@link //@children.17/@anchors.0/@link //@children.17/@anchors.1/@link //@children.17/@anchors.2/@link //@children.17/@anchors.3/@link //@children.17/@anchors.4/@link //@children.18/@link //@children.18/@children.0/@link //@children.18/@anchors.0/@link //@children.18/@anchors.1/@link //@children.18/@anchors.2/@link //@children.18/@anchors.3/@link //@children.19/@link //@children.19/@children.0/@link //@children.19/@anchors.0/@link //@children.19/@anchors.1/@link //@children.19/@anchors.2/@link //@children.19/@anchors.3/@link //@children.19/@anchors.4/@link //@children.19/@anchors.5/@link //@children.20/@link //@children.20/@children.0/@link //@children.20/@anchors.0/@link //@children.20/@anchors.1/@link //@children.20/@anchors.2/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link //@connections.34/@link //@connections.35/@link //@connections.36/@link //@connections.37/@link //@connections.38/@link //@connections.39/@link //@connections.40/@link //@connections.41/@link //@connections.42/@link //@connections.43/@link //@children.21/@link //@children.21/@children.0/@link //@children.21/@anchors.0/@link //@children.21/@anchors.1/@link //@children.21/@anchors.2/@link //@children.21/@anchors.3/@link //@children.21/@anchors.4/@link //@children.21/@anchors.5/@link //@children.21/@anchors.6/@link //@children.21/@anchors.7/@link //@children.21/@anchors.8/@link //@children.21/@anchors.9/@link //@children.21/@anchors.10/@link //@children.21/@anchors.11/@link //@children.21/@anchors.12/@link //@children.21/@anchors.13/@link //@children.21/@anchors.14/@link //@children.21/@anchors.15/@link //@children.21/@anchors.16/@link //@children.22/@link //@children.22/@children.0/@link //@children.22/@anchors.0/@link //@children.22/@anchors.1/@link //@children.22/@anchors.2/@link //@children.22/@anchors.3/@link //@children.22/@anchors.4/@link //@children.22/@anchors.5/@link //@children.22/@anchors.6/@link //@children.22/@anchors.7/@link //@children.23/@link //@children.23/@children.0/@link //@children.23/@anchors.0/@link //@children.23/@anchors.1/@link //@children.23/@anchors.2/@link //@children.23/@anchors.3/@link //@children.23/@anchors.4/@link //@children.23/@anchors.5/@link //@children.23/@anchors.6/@link //@children.23/@anchors.7/@link //@children.23/@anchors.8/@link //@children.24/@link //@children.24/@children.0/@link //@children.24/@anchors.0/@link //@children.24/@anchors.1/@link //@children.24/@anchors.2/@link //@children.24/@anchors.3/@link //@children.24/@anchors.4/@link //@children.24/@anchors.5/@link //@children.25/@link //@children.25/@children.0/@link //@children.25/@anchors.0/@link //@children.25/@anchors.1/@link //@children.25/@anchors.2/@link //@children.25/@anchors.3/@link //@children.25/@anchors.4/@link //@children.25/@anchors.5/@link //@children.25/@anchors.6/@link //@children.25/@anchors.7/@link //@children.25/@anchors.8/@link //@children.25/@anchors.9/@link //@children.25/@anchors.10/@link //@children.25/@anchors.11/@link //@children.26/@link //@children.26/@children.0/@link //@children.26/@anchors.0/@link //@children.26/@anchors.1/@link //@children.26/@anchors.2/@link //@children.27/@link //@children.27/@children.0/@link //@children.27/@anchors.0/@link //@children.27/@anchors.1/@link //@children.27/@anchors.2/@link //@children.27/@anchors.3/@link //@children.27/@anchors.4/@link //@children.27/@anchors.5/@link //@children.27/@anchors.6/@link //@children.28/@link //@children.28/@children.0/@link //@children.28/@anchors.0/@link //@children.28/@anchors.1/@link //@children.28/@anchors.2/@link //@children.28/@anchors.3/@link //@children.28/@anchors.4/@link //@children.29/@link //@children.29/@children.0/@link //@children.29/@anchors.0/@link //@children.29/@anchors.1/@link //@children.29/@anchors.2/@link //@children.29/@anchors.3/@link //@children.29/@anchors.4/@link //@children.29/@anchors.5/@link //@children.29/@anchors.6/@link //@children.29/@anchors.7/@link //@children.29/@anchors.8/@link //@children.30/@link //@children.30/@children.0/@link //@children.30/@anchors.0/@link //@children.30/@anchors.1/@link //@children.30/@anchors.2/@link //@children.30/@anchors.3/@link //@children.30/@anchors.4/@link //@children.30/@anchors.5/@link //@children.30/@anchors.6/@link //@children.30/@anchors.7/@link //@children.30/@anchors.8/@link //@children.31/@link //@children.31/@children.0/@link //@children.31/@anchors.0/@link //@children.31/@anchors.1/@link //@children.31/@anchors.2/@link //@children.31/@anchors.3/@link //@children.31/@anchors.4/@link //@children.31/@anchors.5/@link //@children.31/@anchors.6/@link //@children.31/@anchors.7/@link //@children.31/@anchors.8/@link //@connections.44/@link //@connections.45/@link //@connections.46/@link //@connections.47/@link //@connections.48/@link //@connections.49/@link //@connections.50/@link //@connections.51/@link //@connections.52/@link //@connections.53/@link //@connections.54/@link //@connections.55/@link //@connections.56/@link //@connections.57/@link //@connections.58/@link //@connections.59/@link //@connections.60/@link //@connections.61/@link //@children.32/@link //@children.32/@children.0/@link //@children.32/@anchors.0/@link //@children.32/@anchors.1/@link //@connections.62/@link //@children.32/@anchors.2/@link //@connections.63/@link //@children.33/@link //@children.33/@children.0/@link //@children.33/@anchors.0/@link //@children.33/@anchors.1/@link //@connections.64/@link //@children.33/@anchors.2/@link //@children.33/@anchors.3/@link //@connections.65/@link //@connections.66/@link //@connections.67/@link //@connections.68/@link //@connections.69/@link //@children.23/@anchors.9/@link //@connections.70/@link //@connections.71/@link //@connections.72/@link //@children.34/@link //@children.34/@children.0/@link //@children.34/@anchors.0/@link //@connections.73/@link //@connections.74/@link //@connections.75/@link //@children.14/@anchors.4/@link //@connections.76/@link //@children.35/@link //@children.35/@children.0/@link //@children.35/@anchors.0/@link //@children.35/@anchors.1/@link //@connections.77/@link //@children.35/@anchors.2/@link //@connections.78/@link //@children.35/@anchors.3/@link //@connections.79/@link //@connections.80/@link //@children.5/@anchors.5/@link //@connections.81/@link //@children.8/@anchors.6/@link //@connections.82/@link //@connections.83/@link //@connections.84/@link //@connections.85/@link //@connections.86/@link //@connections.87/@link //@children.36/@link //@children.36/@children.0/@link //@children.36/@anchors.0/@link //@children.37/@link //@children.37/@children.0/@link //@children.37/@anchors.0/@link //@connections.88/@link //@connections.89/@link //@connections.90/@link //@children.8/@anchors.7/@link //@connections.91/@link //@children.8/@anchors.8/@link //@connections.92/@link //@children.8/@anchors.9/@link //@connections.93/@link //@children.8/@anchors.10/@link //@connections.94/@link //@children.38/@link //@children.38/@children.0/@link //@children.38/@anchors.0/@link //@connections.95/@link //@connections.96/@link //@children.32/@anchors.3/@link //@connections.97/@link //@children.15/@anchors.5/@link //@connections.98/@link //@children.33/@anchors.4/@link //@connections.99/@link //@children.35/@anchors.4/@link //@connections.100/@link //@children.8/@anchors.11/@link //@connections.101/@link //@children.39/@link //@children.39/@children.0/@link //@children.39/@anchors.0/@link //@children.39/@anchors.1/@link //@connections.102/@link //@children.39/@anchors.2/@link //@connections.103/@link //@children.39/@anchors.3/@link //@connections.104/@link //@children.14/@anchors.5/@link //@connections.105/@link //@children.40/@link //@children.40/@children.0/@link //@children.40/@anchors.0/@link //@children.40/@anchors.1/@link //@connections.106/@link //@children.40/@anchors.2/@link //@connections.107/@link //@children.40/@anchors.3/@link //@connections.108/@link //@children.15/@anchors.6/@link //@connections.109/@link //@children.6/@anchors.5/@link //@connections.110/@link //@children.8/@anchors.12/@link //@connections.111/@link //@children.33/@anchors.5/@link //@connections.112/@link //@children.5/@anchors.6/@link //@connections.113/@link //@children.6/@anchors.6/@link //@connections.114/@link //@children.19/@anchors.6/@link //@connections.115/@link //@children.19/@anchors.7/@link //@connections.116/@link //@connections.117/@link //@children.30/@anchors.9/@link //@connections.118/@link //@children.16/@anchors.5/@link //@connections.119/@link //@children.17/@anchors.5/@link //@connections.120/@link //@children.39/@anchors.4/@link //@connections.121/@link //@children.39/@anchors.5/@link //@connections.122/@link //@children.33/@anchors.6/@link //@connections.123/@link //@children.32/@anchors.4/@link //@connections.124/@link //@children.32/@anchors.5/@link //@connections.125/@link //@children.8/@anchors.13/@link //@connections.126/@link //@children.15/@anchors.7/@link //@connections.127/@link //@children.5/@anchors.7/@link //@connections.128/@link //@children.14/@anchors.6/@link //@connections.129/@link //@children.40/@anchors.4/@link //@connections.130/@link //@children.35/@anchors.5/@link //@connections.131/@link //@children.35/@anchors.6/@link //@connections.132/@link //@children.23/@anchors.10/@link //@connections.133/@link //@children.41/@link //@children.41/@children.0/@link //@children.41/@anchors.0/@link //@children.33/@anchors.7/@link //@connections.134/@link //@children.39/@anchors.6/@link //@connections.135/@link //@children.32/@anchors.6/@link //@connections.136/@link //@children.8/@anchors.14/@link //@connections.137/@link //@children.15/@anchors.8/@link //@connections.138/@link //@children.35/@anchors.7/@link //@connections.139/@link //@children.35/@anchors.8/@link //@children.23/@anchors.11/@link //@connections.140/@link //@children.23/@anchors.12/@link //@connections.141/@link //@children.42/@link //@children.42/@children.0/@link //@children.42/@anchors.0/@link //@children.42/@anchors.1/@link //@connections.142/@link //@children.42/@anchors.2/@link //@children.26/@anchors.3/@link //@connections.143/@link //@children.42/@anchors.3/@link //@connections.144/@link //@children.35/@anchors.9/@link //@children.26/@anchors.4/@link //@connections.145/@link //@children.35/@anchors.10/@link //@children.28/@anchors.5/@link //@connections.146/@link //@connections.147/@link //@connections.148/@link //@children.13/@anchors.6/@link //@connections.149/@link //@connections.150/@link" version="0.18.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="PiMM" name="sobel_morpho_flat" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.0/@anchors.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.1/@anchors.0/@link //@children.2/@link //@children.2/@children.0/@link //@children.2/@anchors.0/@link //@children.2/@anchors.1/@link //@children.2/@anchors.2/@link //@children.2/@anchors.3/@link //@children.2/@anchors.4/@link //@children.2/@anchors.5/@link //@children.2/@anchors.6/@link //@children.2/@anchors.7/@link //@children.2/@anchors.8/@link //@children.2/@anchors.9/@link //@children.2/@anchors.10/@link //@children.2/@anchors.11/@link //@children.2/@anchors.12/@link //@children.2/@anchors.13/@link //@children.3/@link //@children.3/@children.0/@link //@children.3/@anchors.0/@link //@children.3/@anchors.1/@link //@children.3/@anchors.2/@link //@children.3/@anchors.3/@link //@children.3/@anchors.4/@link //@children.3/@anchors.5/@link //@children.3/@anchors.6/@link //@children.3/@anchors.7/@link //@children.3/@anchors.8/@link //@children.3/@anchors.9/@link //@children.3/@anchors.10/@link //@children.3/@anchors.11/@link //@children.3/@anchors.12/@link //@children.3/@anchors.13/@link //@children.4/@link //@children.4/@children.0/@link //@children.4/@anchors.0/@link //@children.4/@anchors.1/@link //@children.4/@anchors.2/@link //@children.4/@anchors.3/@link //@children.4/@anchors.4/@link //@children.4/@anchors.5/@link //@children.4/@anchors.6/@link //@children.5/@link //@children.5/@children.0/@link //@children.5/@anchors.0/@link //@children.5/@anchors.1/@link //@children.5/@anchors.2/@link //@children.5/@anchors.3/@link //@children.5/@anchors.4/@link //@children.6/@link //@children.6/@children.0/@link //@children.6/@anchors.0/@link //@children.6/@anchors.1/@link //@children.6/@anchors.2/@link //@children.6/@anchors.3/@link //@children.6/@anchors.4/@link //@children.7/@link //@children.7/@children.0/@link //@children.7/@anchors.0/@link //@children.7/@anchors.1/@link //@children.7/@anchors.2/@link //@children.7/@anchors.3/@link //@children.8/@link //@children.8/@children.0/@link //@children.8/@anchors.0/@link //@children.8/@anchors.1/@link //@children.8/@anchors.2/@link //@children.8/@anchors.3/@link //@children.8/@anchors.4/@link //@children.8/@anchors.5/@link //@children.9/@link //@children.9/@children.0/@link //@children.9/@anchors.0/@link //@children.9/@anchors.1/@link //@children.9/@anchors.2/@link //@children.9/@anchors.3/@link //@children.10/@link //@children.10/@children.0/@link //@children.10/@anchors.0/@link //@children.10/@anchors.1/@link //@children.10/@anchors.2/@link //@children.10/@anchors.3/@link //@children.11/@link //@children.11/@children.0/@link //@children.11/@anchors.0/@link //@children.11/@anchors.1/@link //@children.11/@anchors.2/@link //@children.11/@anchors.3/@link //@children.11/@anchors.4/@link //@children.12/@link //@children.12/@children.0/@link //@children.12/@anchors.0/@link //@children.12/@anchors.1/@link //@children.12/@anchors.2/@link //@children.12/@anchors.3/@link //@children.13/@link //@children.13/@children.0/@link //@children.13/@anchors.0/@link //@children.13/@anchors.1/@link //@children.13/@anchors.2/@link //@children.13/@anchors.3/@link //@children.13/@anchors.4/@link //@children.13/@anchors.5/@link //@children.14/@link //@children.14/@children.0/@link //@children.14/@anchors.0/@link //@children.14/@anchors.1/@link //@children.14/@anchors.2/@link //@children.14/@anchors.3/@link //@children.15/@link //@children.15/@children.0/@link //@children.15/@anchors.0/@link //@children.15/@anchors.1/@link //@children.15/@anchors.2/@link //@children.15/@anchors.3/@link //@children.15/@anchors.4/@link //@children.16/@link //@children.16/@children.0/@link //@children.16/@anchors.0/@link //@children.16/@anchors.1/@link //@children.16/@anchors.2/@link //@children.16/@anchors.3/@link //@children.16/@anchors.4/@link //@children.17/@link //@children.17/@children.0/@link //@children.17/@anchors.0/@link //@children.17/@anchors.1/@link //@children.17/@anchors.2/@link //@children.17/@anchors.3/@link //@children.17/@anchors.4/@link //@children.18/@link //@children.18/@children.0/@link //@children.18/@anchors.0/@link //@children.18/@anchors.1/@link //@children.18/@anchors.2/@link //@children.18/@anchors.3/@link //@children.19/@link //@children.19/@children.0/@link //@children.19/@anchors.0/@link //@children.19/@anchors.1/@link //@children.19/@anchors.2/@link //@children.19/@anchors.3/@link //@children.19/@anchors.4/@link //@children.19/@anchors.5/@link //@children.20/@link //@children.20/@children.0/@link //@children.20/@anchors.0/@link //@children.20/@anchors.1/@link //@children.20/@anchors.2/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link //@connections.34/@link //@connections.35/@link //@connections.36/@link //@connections.37/@link //@connections.38/@link //@connections.39/@link //@connections.40/@link //@connections.41/@link //@connections.42/@link //@connections.43/@link //@children.21/@link //@children.21/@children.0/@link //@children.21/@anchors.0/@link //@children.21/@anchors.1/@link //@children.21/@anchors.2/@link //@children.21/@anchors.3/@link //@children.21/@anchors.4/@link //@children.21/@anchors.5/@link //@children.21/@anchors.6/@link //@children.21/@anchors.7/@link //@children.21/@anchors.8/@link //@children.21/@anchors.9/@link //@children.21/@anchors.10/@link //@children.21/@anchors.11/@link //@children.21/@anchors.12/@link //@children.21/@anchors.13/@link //@children.21/@anchors.14/@link //@children.21/@anchors.15/@link //@children.21/@anchors.16/@link //@children.22/@link //@children.22/@children.0/@link //@children.22/@anchors.0/@link //@children.22/@anchors.1/@link //@children.22/@anchors.2/@link //@children.22/@anchors.3/@link //@children.22/@anchors.4/@link //@children.22/@anchors.5/@link //@children.22/@anchors.6/@link //@children.22/@anchors.7/@link //@children.23/@link //@children.23/@children.0/@link //@children.23/@anchors.0/@link //@children.23/@anchors.1/@link //@children.23/@anchors.2/@link //@children.23/@anchors.3/@link //@children.23/@anchors.4/@link //@children.23/@anchors.5/@link //@children.23/@anchors.6/@link //@children.23/@anchors.7/@link //@children.23/@anchors.8/@link //@children.24/@link //@children.24/@children.0/@link //@children.24/@anchors.0/@link //@children.24/@anchors.1/@link //@children.24/@anchors.2/@link //@children.24/@anchors.3/@link //@children.24/@anchors.4/@link //@children.24/@anchors.5/@link //@children.25/@link //@children.25/@children.0/@link //@children.25/@anchors.0/@link //@children.25/@anchors.1/@link //@children.25/@anchors.2/@link //@children.25/@anchors.3/@link //@children.25/@anchors.4/@link //@children.25/@anchors.5/@link //@children.25/@anchors.6/@link //@children.25/@anchors.7/@link //@children.25/@anchors.8/@link //@children.25/@anchors.9/@link //@children.25/@anchors.10/@link //@children.25/@anchors.11/@link //@children.26/@link //@children.26/@children.0/@link //@children.26/@anchors.0/@link //@children.26/@anchors.1/@link //@children.26/@anchors.2/@link //@children.27/@link //@children.27/@children.0/@link //@children.27/@anchors.0/@link //@children.27/@anchors.1/@link //@children.27/@anchors.2/@link //@children.27/@anchors.3/@link //@children.27/@anchors.4/@link //@children.27/@anchors.5/@link //@children.27/@anchors.6/@link //@children.28/@link //@children.28/@children.0/@link //@children.28/@anchors.0/@link //@children.28/@anchors.1/@link //@children.28/@anchors.2/@link //@children.28/@anchors.3/@link //@children.28/@anchors.4/@link //@children.29/@link //@children.29/@children.0/@link //@children.29/@anchors.0/@link //@children.29/@anchors.1/@link //@children.29/@anchors.2/@link //@children.29/@anchors.3/@link //@children.29/@anchors.4/@link //@children.29/@anchors.5/@link //@children.29/@anchors.6/@link //@children.29/@anchors.7/@link //@children.29/@anchors.8/@link //@children.30/@link //@children.30/@children.0/@link //@children.30/@anchors.0/@link //@children.30/@anchors.1/@link //@children.30/@anchors.2/@link //@children.30/@anchors.3/@link //@children.30/@anchors.4/@link //@children.30/@anchors.5/@link //@children.30/@anchors.6/@link //@children.30/@anchors.7/@link //@children.30/@anchors.8/@link //@children.31/@link //@children.31/@children.0/@link //@children.31/@anchors.0/@link //@children.31/@anchors.1/@link //@children.31/@anchors.2/@link //@children.31/@anchors.3/@link //@children.31/@anchors.4/@link //@children.31/@anchors.5/@link //@children.31/@anchors.6/@link //@children.31/@anchors.7/@link //@children.31/@anchors.8/@link //@connections.44/@link //@connections.45/@link //@connections.46/@link //@connections.47/@link //@connections.48/@link //@connections.49/@link //@connections.50/@link //@connections.51/@link //@connections.52/@link //@connections.53/@link //@connections.54/@link //@connections.55/@link //@connections.56/@link //@connections.57/@link //@connections.58/@link //@connections.59/@link //@connections.60/@link //@connections.61/@link //@children.32/@link //@children.32/@children.0/@link //@children.32/@anchors.0/@link //@children.32/@anchors.1/@link //@connections.62/@link //@children.32/@anchors.2/@link //@connections.63/@link //@children.33/@link //@children.33/@children.0/@link //@children.33/@anchors.0/@link //@children.33/@anchors.1/@link //@connections.64/@link //@children.33/@anchors.2/@link //@children.33/@anchors.3/@link //@connections.65/@link //@connections.66/@link //@connections.67/@link //@connections.68/@link //@connections.69/@link //@children.23/@anchors.9/@link //@connections.70/@link //@connections.71/@link //@connections.72/@link //@children.34/@link //@children.34/@children.0/@link //@children.34/@anchors.0/@link //@connections.73/@link //@connections.74/@link //@connections.75/@link //@children.14/@anchors.4/@link //@connections.76/@link //@children.35/@link //@children.35/@children.0/@link //@children.35/@anchors.0/@link //@children.35/@anchors.1/@link //@connections.77/@link //@children.35/@anchors.2/@link //@connections.78/@link //@children.35/@anchors.3/@link //@connections.79/@link //@connections.80/@link //@children.5/@anchors.5/@link //@connections.81/@link //@children.8/@anchors.6/@link //@connections.82/@link //@connections.83/@link //@connections.84/@link //@connections.85/@link //@connections.86/@link //@connections.87/@link //@children.36/@link //@children.36/@children.0/@link //@children.36/@anchors.0/@link //@children.37/@link //@children.37/@children.0/@link //@children.37/@anchors.0/@link //@connections.88/@link //@connections.89/@link //@connections.90/@link //@children.8/@anchors.7/@link //@connections.91/@link //@children.8/@anchors.8/@link //@connections.92/@link //@children.8/@anchors.9/@link //@connections.93/@link //@children.8/@anchors.10/@link //@connections.94/@link //@children.38/@link //@children.38/@children.0/@link //@children.38/@anchors.0/@link //@connections.95/@link //@connections.96/@link //@children.32/@anchors.3/@link //@connections.97/@link //@children.15/@anchors.5/@link //@connections.98/@link //@children.33/@anchors.4/@link //@connections.99/@link //@children.35/@anchors.4/@link //@connections.100/@link //@children.8/@anchors.11/@link //@connections.101/@link //@children.39/@link //@children.39/@children.0/@link //@children.39/@anchors.0/@link //@children.39/@anchors.1/@link //@connections.102/@link //@children.39/@anchors.2/@link //@connections.103/@link //@children.39/@anchors.3/@link //@connections.104/@link //@children.14/@anchors.5/@link //@connections.105/@link //@children.40/@link //@children.40/@children.0/@link //@children.40/@anchors.0/@link //@children.40/@anchors.1/@link //@connections.106/@link //@children.40/@anchors.2/@link //@connections.107/@link //@children.40/@anchors.3/@link //@connections.108/@link //@children.15/@anchors.6/@link //@connections.109/@link //@children.6/@anchors.5/@link //@connections.110/@link //@children.8/@anchors.12/@link //@connections.111/@link //@children.33/@anchors.5/@link //@connections.112/@link //@children.5/@anchors.6/@link //@connections.113/@link //@children.6/@anchors.6/@link //@connections.114/@link //@children.19/@anchors.6/@link //@connections.115/@link //@children.19/@anchors.7/@link //@connections.116/@link //@connections.117/@link //@children.30/@anchors.9/@link //@connections.118/@link //@children.16/@anchors.5/@link //@connections.119/@link //@children.17/@anchors.5/@link //@connections.120/@link //@children.39/@anchors.4/@link //@connections.121/@link //@children.39/@anchors.5/@link //@connections.122/@link //@children.33/@anchors.6/@link //@connections.123/@link //@children.32/@anchors.4/@link //@connections.124/@link //@children.32/@anchors.5/@link //@connections.125/@link //@children.8/@anchors.13/@link //@connections.126/@link //@children.15/@anchors.7/@link //@connections.127/@link //@children.5/@anchors.7/@link //@connections.128/@link //@children.14/@anchors.6/@link //@connections.129/@link //@children.40/@anchors.4/@link //@connections.130/@link //@children.35/@anchors.5/@link //@connections.131/@link //@children.35/@anchors.6/@link //@connections.132/@link //@children.23/@anchors.10/@link //@connections.133/@link //@children.41/@link //@children.41/@children.0/@link //@children.41/@anchors.0/@link //@children.33/@anchors.7/@link //@connections.134/@link //@children.39/@anchors.6/@link //@connections.135/@link //@children.32/@anchors.6/@link //@connections.136/@link //@children.8/@anchors.14/@link //@connections.137/@link //@children.15/@anchors.8/@link //@connections.138/@link //@children.35/@anchors.7/@link //@connections.139/@link //@children.35/@anchors.8/@link //@children.23/@anchors.11/@link //@connections.140/@link //@children.23/@anchors.12/@link //@connections.141/@link //@children.42/@link //@children.42/@children.0/@link //@children.42/@anchors.0/@link //@children.42/@anchors.1/@link //@connections.142/@link //@children.42/@anchors.2/@link //@children.26/@anchors.3/@link //@connections.143/@link //@children.42/@anchors.3/@link //@connections.144/@link //@children.35/@anchors.9/@link //@children.26/@anchors.4/@link //@connections.145/@link //@children.35/@anchors.10/@link //@children.28/@anchors.5/@link //@connections.146/@link //@connections.147/@link //@connections.148/@link //@children.13/@anchors.6/@link //@connections.149/@link //@connections.150/@link //@children.21/@anchors.17/@link //@children.23/@anchors.13/@link //@connections.151/@link" version="0.18.0">
   <properties key="editor_version" value="3"/>
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <link>
@@ -190,7 +190,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="77" height="218" x="580" y="513" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="77" height="218" x="580" y="528" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="sobel_morpho_flat.pi#//@vertices.8"/>
     </link>
@@ -328,7 +328,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="144" height="98" x="580" y="791" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="144" height="98" x="580" y="806" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="sobel_morpho_flat.pi#//@vertices.9"/>
     </link>
@@ -853,7 +853,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="143" height="68" x="580" y="949" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="143" height="68" x="580" y="964" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="sobel_morpho_flat.pi#//@vertices.16"/>
     </link>
@@ -1524,7 +1524,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="196" height="203" x="580" y="250" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="196" height="218" x="580" y="250" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="sobel_morpho_flat.pi#//@vertices.26"/>
     </link>
@@ -1533,7 +1533,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.74" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.09852216748768473">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.74" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.09174311926605505">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="31" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="23" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="nant"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1546,7 +1546,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.75" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.1724137931034483">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.75" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.16055045871559634">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="100" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="92" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="NUM_BASELINES"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1559,7 +1559,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@configInputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.73" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.24630541871921183">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.73" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.22935779816513763">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="45" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="37" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="numffts"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1572,7 +1572,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@configInputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.66" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.32019704433497537">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.66" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.2981651376146789">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="39" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="31" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="nchan"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1581,7 +1581,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.67" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.39408866995073893">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.67" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.3669724770642202">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="27" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="19" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="nbit"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1590,7 +1590,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataInputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.68" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.46798029556650245">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.68" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.43577981651376146">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="18" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="10" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="lo"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1599,7 +1599,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataInputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.69" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.541871921182266">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.69" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeHeight="0.5045871559633027">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="24" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="16" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="bw"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1608,7 +1608,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataInputPorts.3"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.44" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.32019704433497537">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.44" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.2981651376146789">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="51" height="13" x="-51">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="13" font="//@fonts.1" value="starttime"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="43" y="2"/>
@@ -1617,7 +1617,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.45" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.39408866995073893">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.45" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.3669724770642202">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="77" height="13" x="-77">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="69" height="13" font="//@fonts.1" value="starttimestring"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="69" y="2"/>
@@ -1626,7 +1626,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.77" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.46798029556650245">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.77" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.43577981651376146">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="61" height="13" x="-61">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="53" height="13" font="//@fonts.1" value="fftchannels"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="53" y="2"/>
@@ -1635,7 +1635,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.102" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.541871921182266">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.102" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5045871559633027">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="64" height="13" x="-64">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="56" height="13" font="//@fonts.1" value="sampletime"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="56" y="2"/>
@@ -1644,7 +1644,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.3"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.64" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.6157635467980296">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.64" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.573394495412844">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="54" height="13" x="-54">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="46" height="13" font="//@fonts.1" value="stridesize"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="46" y="2"/>
@@ -1653,7 +1653,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.4"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.62" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.6896551724137931">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.62" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.6422018348623854">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="71" height="13" x="-71">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="63" height="13" font="//@fonts.1" value="substridesize"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="63" y="2"/>
@@ -1662,7 +1662,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.5"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.106" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.7635467980295566">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.106" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.7110091743119266">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="88" height="13" x="-88">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="80" height="13" font="//@fonts.1" value="fractionalLoFreq"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="80" y="2"/>
@@ -1671,7 +1671,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.6"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.70" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.8374384236453202">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.70" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.7798165137614679">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="60" height="13" x="-60">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="52" height="13" font="//@fonts.1" value="nbaselines"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="52" y="2"/>
@@ -1680,13 +1680,22 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.7"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.147" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.9113300492610837">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.147" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.8486238532110092">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="25" height="13" x="-25">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="17" height="13" font="//@fonts.1" value="iter"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="17" y="2"/>
       </graphicsAlgorithm>
       <link>
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.8"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.151" referencedGraphicsAlgorithm="//@children.21/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.9174311926605505">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="51" height="13" x="-51">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="13" font="//@fonts.1" value="antIndex"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="43" y="2"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="sobel_morpho_flat.pi#//@vertices.26/@dataOutputPorts.9"/>
       </link>
     </anchors>
     <children visible="true">
@@ -1697,7 +1706,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="120" height="113" x="1145" y="438" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="120" height="113" x="1145" y="453" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="sobel_morpho_flat.pi#//@vertices.27"/>
     </link>
@@ -1777,7 +1786,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="150" height="128" x="1145" y="250" cornerHeight="5" cornerWidth="5"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.6" foreground="//@colors.5" lineWidth="2" transparency="0.0" width="150" height="143" x="1145" y="250" cornerHeight="5" cornerWidth="5"/>
     <link>
       <businessObjects href="sobel_morpho_flat.pi#//@vertices.28"/>
     </link>
@@ -1786,7 +1795,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.46" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.390625">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.46" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.34965034965034963">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="40" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="32" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="delays"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1795,7 +1804,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.147" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.5078125">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.147" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.45454545454545453">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="48" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="40" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="iteration"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1804,7 +1813,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataInputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.47" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.625">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.47" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.5594405594405595">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="75" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="67" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="antFileOffsets"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1813,7 +1822,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataInputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.72" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.390625">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.72" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.34965034965034963">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="47" height="13" x="-47">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="39" height="13" font="//@fonts.1" value="antValid"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="39" y="2"/>
@@ -1822,7 +1831,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataOutputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.48" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5078125">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.48" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.45454545454545453">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="13" x="-36">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="13" font="//@fonts.1" value="offset"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="28" y="2"/>
@@ -1831,7 +1840,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataOutputPorts.1"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.71" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.625">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.71" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5594405594405595">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="55" height="13" x="-55">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="13" font="//@fonts.1" value="fracDelay"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="47" y="2"/>
@@ -1840,7 +1849,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataOutputPorts.2"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.50" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.7421875">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.50" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.6643356643356644">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="41" height="13" x="-41">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="33" height="13" font="//@fonts.1" value="delaya"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="33" y="2"/>
@@ -1849,7 +1858,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataOutputPorts.3"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.49" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.859375">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.49" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.7692307692307693">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="41" height="13" x="-41">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="33" height="13" font="//@fonts.1" value="delayb"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.7" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" x="33" y="2"/>
@@ -1858,7 +1867,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataOutputPorts.4"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.103" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.7421875">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.103" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.6643356643356644">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="64" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="56" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="sampletime"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1867,7 +1876,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataInputPorts.3"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.133" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.15625">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.133" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.13986013986013987">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="63" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="55" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="NUM_ANT"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1880,7 +1889,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@configInputPorts.0"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.140" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.859375">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.140" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.7692307692307693">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="61" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="53" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="fftchannels"/>
         <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
@@ -1889,7 +1898,7 @@
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataInputPorts.4"/>
       </link>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.141" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.2734375">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.141" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.24475524475524477">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="45" height="13">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="37" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="numffts"/>
         <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.2" foreground="//@colors.5" lineWidth="0" filled="true" transparency="0.0" y="1">
@@ -1900,6 +1909,15 @@
       </graphicsAlgorithm>
       <link>
         <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@configInputPorts.1"/>
+      </link>
+    </anchors>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.151" referencedGraphicsAlgorithm="//@children.23/@graphicsAlgorithm" relativeHeight="0.8741258741258742">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="51" height="13">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="13" x="8" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="antIndex"/>
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.8" foreground="//@colors.5" lineWidth="1" lineStyle="UNSPECIFIED" width="8" height="8" y="2"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="sobel_morpho_flat.pi#//@vertices.28/@dataInputPorts.5"/>
       </link>
     </anchors>
     <children visible="true">
@@ -3197,7 +3215,7 @@
     <bendpoints x="216" y="410"/>
     <bendpoints x="276" y="478"/>
     <bendpoints x="500" y="478"/>
-    <bendpoints x="560" y="673"/>
+    <bendpoints x="560" y="688"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.2" end="//@children.5/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3227,7 +3245,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="432" y="771"/>
-    <bendpoints x="560" y="831"/>
+    <bendpoints x="560" y="846"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.3" end="//@children.3/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3242,7 +3260,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="432" y="786"/>
-    <bendpoints x="560" y="553"/>
+    <bendpoints x="560" y="568"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.6" end="//@children.6/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3272,7 +3290,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="436" y="1102"/>
-    <bendpoints x="560" y="613"/>
+    <bendpoints x="560" y="628"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.4" end="//@children.7/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3302,7 +3320,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="462" y="1629"/>
-    <bendpoints x="560" y="583"/>
+    <bendpoints x="560" y="598"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.3" end="//@children.4/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3317,7 +3335,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="462" y="1644"/>
-    <bendpoints x="560" y="816"/>
+    <bendpoints x="560" y="831"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.5" end="//@children.8/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3347,7 +3365,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="320"/>
-    <bendpoints x="560" y="846"/>
+    <bendpoints x="560" y="861"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.3" end="//@children.3/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3362,7 +3380,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="335"/>
-    <bendpoints x="560" y="598"/>
+    <bendpoints x="560" y="613"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.9/@anchors.2" end="//@children.4/@anchors.4">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3377,7 +3395,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="429" y="1742"/>
-    <bendpoints x="560" y="861"/>
+    <bendpoints x="560" y="876"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.9/@anchors.3" end="//@children.3/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3392,7 +3410,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="429" y="1757"/>
-    <bendpoints x="560" y="568"/>
+    <bendpoints x="560" y="583"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.3" end="//@children.9/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3437,7 +3455,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="446" y="1855"/>
-    <bendpoints x="560" y="876"/>
+    <bendpoints x="560" y="891"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.10/@anchors.3" end="//@children.3/@anchors.9">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3452,7 +3470,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="446" y="1870"/>
-    <bendpoints x="560" y="658"/>
+    <bendpoints x="560" y="673"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.11" end="//@children.12/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3482,7 +3500,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="447" y="1373"/>
-    <bendpoints x="560" y="688"/>
+    <bendpoints x="560" y="703"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.12/@anchors.3" end="//@children.11/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3497,7 +3515,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="447" y="1388"/>
-    <bendpoints x="560" y="989"/>
+    <bendpoints x="560" y="1004"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.3" end="//@children.11/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3512,7 +3530,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="436" y="1117"/>
-    <bendpoints x="560" y="1004"/>
+    <bendpoints x="560" y="1019"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.6" end="//@children.13/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3526,7 +3544,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="744" y="816"/>
+    <bendpoints x="744" y="831"/>
     <bendpoints x="856" y="523"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.11/@anchors.4" end="//@children.13/@anchors.3">
@@ -3541,7 +3559,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="743" y="989"/>
+    <bendpoints x="743" y="1004"/>
     <bendpoints x="856" y="538"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.6/@anchors.4" end="//@children.13/@anchors.4">
@@ -3588,7 +3606,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="423" y="944"/>
-    <bendpoints x="560" y="628"/>
+    <bendpoints x="560" y="643"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.8" end="//@children.15/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3618,7 +3636,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="429" y="598"/>
-    <bendpoints x="560" y="643"/>
+    <bendpoints x="560" y="658"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.12" end="//@children.16/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3648,7 +3666,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="445" y="1516"/>
-    <bendpoints x="560" y="703"/>
+    <bendpoints x="560" y="718"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.13" end="//@children.17/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3678,7 +3696,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="500" y="1260"/>
-    <bendpoints x="560" y="718"/>
+    <bendpoints x="560" y="733"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.18/@anchors.3" end="//@children.20/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -3708,21 +3726,20 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="365"/>
-    <bendpoints x="560" y="463"/>
-    <bendpoints x="796" y="463"/>
-    <bendpoints x="856" y="458"/>
-    <bendpoints x="1065" y="458"/>
-    <bendpoints x="1125" y="636"/>
-    <bendpoints x="1315" y="636"/>
-    <bendpoints x="1540" y="636"/>
-    <bendpoints x="1813" y="636"/>
-    <bendpoints x="2025" y="636"/>
-    <bendpoints x="2260" y="636"/>
-    <bendpoints x="2533" y="636"/>
-    <bendpoints x="2794" y="636"/>
-    <bendpoints x="3072" y="636"/>
-    <bendpoints x="3357" y="636"/>
-    <bendpoints x="3638" y="636"/>
+    <bendpoints x="560" y="478"/>
+    <bendpoints x="796" y="478"/>
+    <bendpoints x="856" y="576"/>
+    <bendpoints x="1065" y="576"/>
+    <bendpoints x="1315" y="576"/>
+    <bendpoints x="1540" y="576"/>
+    <bendpoints x="1813" y="576"/>
+    <bendpoints x="2025" y="576"/>
+    <bendpoints x="2260" y="576"/>
+    <bendpoints x="2533" y="576"/>
+    <bendpoints x="2794" y="576"/>
+    <bendpoints x="3072" y="576"/>
+    <bendpoints x="3357" y="576"/>
+    <bendpoints x="3638" y="576"/>
     <bendpoints x="3698" y="335"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.15/@anchors.4" end="//@children.19/@anchors.5">
@@ -3738,25 +3755,25 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="429" y="628"/>
-    <bendpoints x="560" y="919"/>
-    <bendpoints x="796" y="919"/>
-    <bendpoints x="1065" y="919"/>
-    <bendpoints x="1315" y="919"/>
-    <bendpoints x="1540" y="919"/>
-    <bendpoints x="1813" y="919"/>
-    <bendpoints x="2025" y="919"/>
-    <bendpoints x="2260" y="919"/>
-    <bendpoints x="2533" y="919"/>
-    <bendpoints x="2794" y="919"/>
-    <bendpoints x="3072" y="919"/>
-    <bendpoints x="3357" y="919"/>
-    <bendpoints x="3638" y="919"/>
+    <bendpoints x="560" y="934"/>
+    <bendpoints x="796" y="934"/>
+    <bendpoints x="1065" y="934"/>
+    <bendpoints x="1315" y="934"/>
+    <bendpoints x="1540" y="934"/>
+    <bendpoints x="1813" y="934"/>
+    <bendpoints x="2025" y="934"/>
+    <bendpoints x="2260" y="934"/>
+    <bendpoints x="2533" y="934"/>
+    <bendpoints x="2794" y="934"/>
+    <bendpoints x="3072" y="934"/>
+    <bendpoints x="3357" y="934"/>
+    <bendpoints x="3638" y="934"/>
     <bendpoints x="3698" y="365"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.11/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.96"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.97"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3767,12 +3784,12 @@
     </connectionDecorators>
     <bendpoints x="384" y="166"/>
     <bendpoints x="548" y="166"/>
-    <bendpoints x="548" y="974"/>
+    <bendpoints x="548" y="989"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.13/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.97"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.98"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3788,7 +3805,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.17/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.98"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.99"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3804,7 +3821,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.3/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.99"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.100"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3815,12 +3832,12 @@
     </connectionDecorators>
     <bendpoints x="384" y="166"/>
     <bendpoints x="548" y="166"/>
-    <bendpoints x="548" y="538"/>
+    <bendpoints x="548" y="553"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.16/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.100"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.101"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3836,7 +3853,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.2/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.101"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.102"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3852,7 +3869,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.1/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.102"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.103"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -3866,7 +3883,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.19/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.103"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.104"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4017,8 +4034,8 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1315" y="365"/>
-    <bendpoints x="1375" y="503"/>
-    <bendpoints x="1540" y="503"/>
+    <bendpoints x="1375" y="498"/>
+    <bendpoints x="1540" y="498"/>
     <bendpoints x="1600" y="320"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.23/@anchors.7" end="//@children.25/@anchors.3">
@@ -4371,11 +4388,11 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1315" y="335"/>
-    <bendpoints x="1375" y="483"/>
-    <bendpoints x="1540" y="483"/>
-    <bendpoints x="1813" y="483"/>
-    <bendpoints x="2025" y="483"/>
-    <bendpoints x="2260" y="483"/>
+    <bendpoints x="1375" y="445"/>
+    <bendpoints x="1540" y="445"/>
+    <bendpoints x="1813" y="445"/>
+    <bendpoints x="2025" y="445"/>
+    <bendpoints x="2260" y="445"/>
     <bendpoints x="2320" y="305"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.23/@anchors.4" end="//@children.29/@anchors.3">
@@ -4393,18 +4410,18 @@
     <bendpoints x="1315" y="305"/>
     <bendpoints x="1375" y="370"/>
     <bendpoints x="1540" y="370"/>
-    <bendpoints x="1600" y="503"/>
-    <bendpoints x="1813" y="503"/>
-    <bendpoints x="2025" y="503"/>
-    <bendpoints x="2260" y="503"/>
-    <bendpoints x="2533" y="503"/>
-    <bendpoints x="2794" y="503"/>
+    <bendpoints x="1600" y="465"/>
+    <bendpoints x="1813" y="465"/>
+    <bendpoints x="2025" y="465"/>
+    <bendpoints x="2260" y="465"/>
+    <bendpoints x="2533" y="465"/>
+    <bendpoints x="2794" y="465"/>
     <bendpoints x="2854" y="305"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.21/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.104"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.105"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4420,7 +4437,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.21/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.105"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.106"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4436,7 +4453,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.21/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.106"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.107"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4462,12 +4479,12 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="423" y="974"/>
-    <bendpoints x="560" y="1047"/>
-    <bendpoints x="796" y="1047"/>
-    <bendpoints x="856" y="1105"/>
-    <bendpoints x="1065" y="1105"/>
-    <bendpoints x="1315" y="1105"/>
-    <bendpoints x="1540" y="1105"/>
+    <bendpoints x="560" y="1062"/>
+    <bendpoints x="796" y="1062"/>
+    <bendpoints x="856" y="1193"/>
+    <bendpoints x="1065" y="1193"/>
+    <bendpoints x="1315" y="1193"/>
+    <bendpoints x="1540" y="1193"/>
     <bendpoints x="1600" y="365"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.10" end="//@children.35/@anchors.1">
@@ -4498,9 +4515,9 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1052" y="320"/>
-    <bendpoints x="1125" y="656"/>
-    <bendpoints x="1315" y="656"/>
-    <bendpoints x="1540" y="656"/>
+    <bendpoints x="1125" y="403"/>
+    <bendpoints x="1315" y="403"/>
+    <bendpoints x="1540" y="403"/>
     <bendpoints x="1600" y="380"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.35/@anchors.3" end="//@children.24/@anchors.4">
@@ -4516,8 +4533,8 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1052" y="335"/>
-    <bendpoints x="1125" y="-11"/>
-    <bendpoints x="1315" y="-11"/>
+    <bendpoints x="1125" y="636"/>
+    <bendpoints x="1315" y="636"/>
     <bendpoints x="1375" y="320"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.24/@anchors.5" end="//@children.25/@anchors.2">
@@ -4548,11 +4565,11 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="432" y="816"/>
-    <bendpoints x="560" y="1027"/>
-    <bendpoints x="796" y="1027"/>
-    <bendpoints x="856" y="1085"/>
-    <bendpoints x="1065" y="1085"/>
-    <bendpoints x="1315" y="1085"/>
+    <bendpoints x="560" y="1042"/>
+    <bendpoints x="796" y="1042"/>
+    <bendpoints x="856" y="1105"/>
+    <bendpoints x="1065" y="1105"/>
+    <bendpoints x="1315" y="1105"/>
     <bendpoints x="1375" y="305"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.6" end="//@children.27/@anchors.5">
@@ -4568,21 +4585,21 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="380"/>
-    <bendpoints x="560" y="483"/>
-    <bendpoints x="796" y="483"/>
-    <bendpoints x="856" y="576"/>
-    <bendpoints x="1065" y="576"/>
-    <bendpoints x="1315" y="576"/>
-    <bendpoints x="1540" y="576"/>
-    <bendpoints x="1813" y="576"/>
-    <bendpoints x="2025" y="576"/>
-    <bendpoints x="2260" y="576"/>
+    <bendpoints x="560" y="498"/>
+    <bendpoints x="796" y="498"/>
+    <bendpoints x="856" y="596"/>
+    <bendpoints x="1065" y="596"/>
+    <bendpoints x="1315" y="596"/>
+    <bendpoints x="1540" y="596"/>
+    <bendpoints x="1813" y="596"/>
+    <bendpoints x="2025" y="596"/>
+    <bendpoints x="2260" y="596"/>
     <bendpoints x="2320" y="335"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.29/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.107"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.108"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4598,7 +4615,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.29/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.108"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.109"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4614,7 +4631,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.30/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.109"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.110"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4630,7 +4647,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.31/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.110"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.111"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4646,7 +4663,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.30/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.111"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.112"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4662,7 +4679,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.37/@anchors.0" end="//@children.36/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.112"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.113"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4676,7 +4693,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.36/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.113"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.114"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4690,7 +4707,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.36/@anchors.0" end="//@children.31/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.114"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.115"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4716,17 +4733,17 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="395"/>
-    <bendpoints x="560" y="503"/>
-    <bendpoints x="796" y="503"/>
-    <bendpoints x="856" y="596"/>
-    <bendpoints x="1065" y="596"/>
-    <bendpoints x="1315" y="596"/>
-    <bendpoints x="1540" y="596"/>
-    <bendpoints x="1813" y="596"/>
-    <bendpoints x="2025" y="596"/>
-    <bendpoints x="2260" y="596"/>
-    <bendpoints x="2533" y="596"/>
-    <bendpoints x="2794" y="596"/>
+    <bendpoints x="560" y="518"/>
+    <bendpoints x="796" y="518"/>
+    <bendpoints x="856" y="616"/>
+    <bendpoints x="1065" y="616"/>
+    <bendpoints x="1315" y="616"/>
+    <bendpoints x="1540" y="616"/>
+    <bendpoints x="1813" y="616"/>
+    <bendpoints x="2025" y="616"/>
+    <bendpoints x="2260" y="616"/>
+    <bendpoints x="2533" y="616"/>
+    <bendpoints x="2794" y="616"/>
     <bendpoints x="2854" y="350"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.8" end="//@children.30/@anchors.6">
@@ -4742,18 +4759,17 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="410"/>
-    <bendpoints x="560" y="741"/>
-    <bendpoints x="796" y="741"/>
-    <bendpoints x="856" y="616"/>
-    <bendpoints x="1065" y="616"/>
-    <bendpoints x="1315" y="616"/>
-    <bendpoints x="1540" y="616"/>
-    <bendpoints x="1813" y="616"/>
-    <bendpoints x="2025" y="616"/>
-    <bendpoints x="2260" y="616"/>
-    <bendpoints x="2533" y="616"/>
-    <bendpoints x="2794" y="616"/>
-    <bendpoints x="3072" y="616"/>
+    <bendpoints x="560" y="756"/>
+    <bendpoints x="796" y="756"/>
+    <bendpoints x="1065" y="756"/>
+    <bendpoints x="1315" y="756"/>
+    <bendpoints x="1540" y="756"/>
+    <bendpoints x="1813" y="756"/>
+    <bendpoints x="2025" y="756"/>
+    <bendpoints x="2260" y="756"/>
+    <bendpoints x="2533" y="756"/>
+    <bendpoints x="2794" y="756"/>
+    <bendpoints x="3072" y="756"/>
     <bendpoints x="3132" y="365"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.9" end="//@children.31/@anchors.6">
@@ -4769,18 +4785,18 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="425"/>
-    <bendpoints x="560" y="761"/>
-    <bendpoints x="796" y="761"/>
-    <bendpoints x="1065" y="761"/>
-    <bendpoints x="1315" y="761"/>
-    <bendpoints x="1540" y="761"/>
-    <bendpoints x="1813" y="761"/>
-    <bendpoints x="2025" y="761"/>
-    <bendpoints x="2260" y="761"/>
-    <bendpoints x="2533" y="761"/>
-    <bendpoints x="2794" y="761"/>
-    <bendpoints x="3072" y="761"/>
-    <bendpoints x="3357" y="761"/>
+    <bendpoints x="560" y="776"/>
+    <bendpoints x="796" y="776"/>
+    <bendpoints x="1065" y="776"/>
+    <bendpoints x="1315" y="776"/>
+    <bendpoints x="1540" y="776"/>
+    <bendpoints x="1813" y="776"/>
+    <bendpoints x="2025" y="776"/>
+    <bendpoints x="2260" y="776"/>
+    <bendpoints x="2533" y="776"/>
+    <bendpoints x="2794" y="776"/>
+    <bendpoints x="3072" y="776"/>
+    <bendpoints x="3357" y="776"/>
     <bendpoints x="3417" y="350"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.10" end="//@children.28/@anchors.2">
@@ -4796,21 +4812,22 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="440"/>
-    <bendpoints x="560" y="781"/>
-    <bendpoints x="796" y="781"/>
-    <bendpoints x="1065" y="781"/>
-    <bendpoints x="1315" y="781"/>
-    <bendpoints x="1540" y="781"/>
-    <bendpoints x="1813" y="781"/>
-    <bendpoints x="2025" y="781"/>
-    <bendpoints x="2260" y="781"/>
-    <bendpoints x="2533" y="781"/>
+    <bendpoints x="560" y="796"/>
+    <bendpoints x="796" y="796"/>
+    <bendpoints x="856" y="1065"/>
+    <bendpoints x="1065" y="1065"/>
+    <bendpoints x="1315" y="1065"/>
+    <bendpoints x="1540" y="1065"/>
+    <bendpoints x="1813" y="1065"/>
+    <bendpoints x="2025" y="1065"/>
+    <bendpoints x="2260" y="1065"/>
+    <bendpoints x="2533" y="1065"/>
     <bendpoints x="2593" y="290"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.38/@anchors.0" end="//@children.30/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.115"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.116"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4826,7 +4843,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.38/@anchors.0" end="//@children.31/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.116"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.117"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -4852,7 +4869,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1065" y="1042"/>
-    <bendpoints x="1125" y="463"/>
+    <bendpoints x="1125" y="478"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.15/@anchors.5" end="//@children.22/@anchors.2">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4867,10 +4884,11 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="429" y="643"/>
-    <bendpoints x="560" y="939"/>
-    <bendpoints x="796" y="939"/>
-    <bendpoints x="1065" y="939"/>
-    <bendpoints x="1125" y="478"/>
+    <bendpoints x="560" y="954"/>
+    <bendpoints x="796" y="954"/>
+    <bendpoints x="856" y="1085"/>
+    <bendpoints x="1065" y="1085"/>
+    <bendpoints x="1125" y="493"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.33/@anchors.4" end="//@children.22/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4885,7 +4903,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1039" y="726"/>
-    <bendpoints x="1125" y="493"/>
+    <bendpoints x="1125" y="508"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.35/@anchors.4" end="//@children.22/@anchors.4">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4900,7 +4918,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1052" y="350"/>
-    <bendpoints x="1125" y="508"/>
+    <bendpoints x="1125" y="523"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.8/@anchors.11" end="//@children.22/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4915,11 +4933,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="444" y="455"/>
-    <bendpoints x="560" y="899"/>
-    <bendpoints x="796" y="899"/>
-    <bendpoints x="856" y="1065"/>
-    <bendpoints x="1065" y="1065"/>
-    <bendpoints x="1125" y="523"/>
+    <bendpoints x="560" y="914"/>
+    <bendpoints x="796" y="914"/>
+    <bendpoints x="1065" y="914"/>
+    <bendpoints x="1125" y="538"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.11" end="//@children.39/@anchors.1">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
@@ -4964,12 +4981,12 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1058" y="884"/>
-    <bendpoints x="1125" y="538"/>
+    <bendpoints x="1125" y="553"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.14/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.117"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.118"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5017,7 +5034,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.40/@anchors.3">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.118"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.119"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5033,7 +5050,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.15/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.119"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.120"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5049,7 +5066,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.6/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.120"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.121"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5065,7 +5082,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.8/@anchors.12">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.121"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.122"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5081,7 +5098,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.33/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.122"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.123"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5097,7 +5114,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.5/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.123"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.124"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5113,7 +5130,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.6/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.124"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.125"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5129,7 +5146,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.19/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.125"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.126"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5145,7 +5162,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.19/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.126"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.127"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5178,7 +5195,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.30/@anchors.9">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.127"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.128"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5194,7 +5211,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.16/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.128"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.129"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5210,7 +5227,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.17/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.129"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.130"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5226,7 +5243,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.39/@anchors.4">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.130"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.131"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5242,7 +5259,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.39/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.131"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.132"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5258,7 +5275,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.33/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.132"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.133"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5274,7 +5291,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.32/@anchors.4">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.133"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.134"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5290,7 +5307,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.32/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.134"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.135"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5306,7 +5323,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.8/@anchors.13">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.135"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.136"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5322,7 +5339,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.15/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.136"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.137"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5338,7 +5355,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.5/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.137"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.138"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5354,7 +5371,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.14/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.138"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.139"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5370,7 +5387,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.40/@anchors.4">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.139"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.140"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5386,7 +5403,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.35/@anchors.5">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.140"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.141"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5402,7 +5419,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.35/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.141"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.142"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5418,7 +5435,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.23/@anchors.10">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.142"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.143"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5434,7 +5451,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.33/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.143"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.144"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5450,7 +5467,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.39/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.144"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.145"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5466,7 +5483,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.32/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.145"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.146"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5482,7 +5499,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.8/@anchors.14">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.146"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.147"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5498,7 +5515,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.15/@anchors.8">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.147"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.148"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5514,7 +5531,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.41/@anchors.0" end="//@children.35/@anchors.7">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.148"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.149"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5545,7 +5562,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.23/@anchors.12">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.149"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.150"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5618,11 +5635,11 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1052" y="380"/>
-    <bendpoints x="1125" y="676"/>
-    <bendpoints x="1315" y="676"/>
-    <bendpoints x="1540" y="676"/>
-    <bendpoints x="1813" y="676"/>
-    <bendpoints x="2025" y="676"/>
+    <bendpoints x="1125" y="656"/>
+    <bendpoints x="1315" y="656"/>
+    <bendpoints x="1540" y="656"/>
+    <bendpoints x="1813" y="656"/>
+    <bendpoints x="2025" y="656"/>
     <bendpoints x="2085" y="305"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.35/@anchors.10" end="//@children.28/@anchors.5">
@@ -5638,13 +5655,13 @@
       </graphicsAlgorithm>
     </connectionDecorators>
     <bendpoints x="1052" y="395"/>
-    <bendpoints x="1315" y="395"/>
-    <bendpoints x="1540" y="395"/>
-    <bendpoints x="1600" y="445"/>
-    <bendpoints x="1813" y="445"/>
-    <bendpoints x="2025" y="445"/>
-    <bendpoints x="2260" y="445"/>
-    <bendpoints x="2533" y="445"/>
+    <bendpoints x="1125" y="676"/>
+    <bendpoints x="1315" y="676"/>
+    <bendpoints x="1540" y="676"/>
+    <bendpoints x="1813" y="676"/>
+    <bendpoints x="2025" y="676"/>
+    <bendpoints x="2260" y="676"/>
+    <bendpoints x="2533" y="676"/>
     <bendpoints x="2593" y="305"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.16" end="//@children.23/@anchors.2">
@@ -5684,7 +5701,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.34/@anchors.0" end="//@children.13/@anchors.6">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="DASH" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="sobel_morpho_flat.pi#//@edges.150"/>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.151"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" lineStyle="UNSPECIFIED">
@@ -5709,9 +5726,25 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1285" y="463"/>
-    <bendpoints x="1540" y="463"/>
+    <bendpoints x="1285" y="478"/>
+    <bendpoints x="1540" y="478"/>
     <bendpoints x="1600" y="275"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.21/@anchors.17" end="//@children.23/@anchors.13">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.5" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="sobel_morpho_flat.pi#//@edges.96"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.5" foreground="//@colors.5" lineWidth="2" lineStyle="UNSPECIFIED">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="796" y="455"/>
+    <bendpoints x="1065" y="455"/>
+    <bendpoints x="1125" y="380"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

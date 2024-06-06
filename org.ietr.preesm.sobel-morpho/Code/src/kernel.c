@@ -7,7 +7,7 @@
 // Initialization function
 void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
                    char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
-                   int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter){
+                   int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter, int *antIndex){
 
     *fftchannels = 2 * *nchan;
     *sampletime = 1.0 / (2.0 * *bw);
@@ -44,11 +44,16 @@ void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, stru
         order++;
     }
 
-    for(int j = 0; j<nant; j++){
-        for(int i = 0; i < numffts; i ++){
-            iter[i + j * numffts] = i;
+    for(int i = 0; i < numffts; i ++) {
+        for (int j = 0; j < nant; j++) {
+            iter[i * nant + j] = i;
+            antIndex[i * nant + j] = j;
         }
     }
+
+
+
+        *nbaselines=nant * (nant-1)/2;
 
     startTiming(starttime, starttimestring);
 }
@@ -146,159 +151,18 @@ void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannel
     }
 }
 
-void initLUT2bitReal ()
-{
-    static const float HiMag = (float)3.3359;  // Optimal value
-    const float lut4level[4] = {-HiMag, (float)-1.0, (float)1.0, HiMag};
+void initLUT2bitReal () {
+    static const float HiMag = (float) 3.3359;  // Optimal value
+    const float lut4level[4] = {-HiMag, (float) -1.0, (float) 1.0, HiMag};
 
     int l;
-    for (int b = 0; b < 256; b++)	{
+    for (int b = 0; b < 256; b++) {
         for (int i = 0; i < 4; i++) {
-            l = (b >> (2*i)) & 0x03;
+            l = (b >> (2 * i)) & 0x03;
             lut2bit[b][i].re = lut4level[l];
             lut2bit[b][i].im = 0;
         }
     }
-}
-
-
-void processAntennasOld(FxKernel *kernel, int *nant, int *numffts, int *fftchannels, double *antFileOffsets,
-                     double *sampletime, int *antValid, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
-                     cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
-                     int *fractionalLoFreq, double *lo, int *nchan) {
-    double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
-    int netdelaysamples, offset;
-    for(int i=0;i<*numffts;i++) {
-        for (int j = 0; j < *nant; j++) {
-            int maxoffset = (*numffts - 1) * *fftchannels;
-            // unpack
-            getStationDelay(j, i, &meandelay, &delaya, &delayb, delays);
-            netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
-            netdelaysamples = (int) (netdelaysamples_f + 0.5);
-
-            fractionaldelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
-            offset = i * *fftchannels - netdelaysamples;
-            if (offset == -1) // can happen due to changing geometric delay over the subint
-            {
-                ++(offset);
-                fractionaldelay += *sampletime;
-            }
-            if (offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
-            {
-                --(offset);
-                fractionaldelay -= *sampletime;
-            }
-            if (offset < 0 || offset > maxoffset) {
-                antValid[j] = 0;
-                return;
-            }
-            antValid[j] = 1;
-            unpack(inputData[j], unpacked[j], offset, *nbit, *fftchannels);
-
-            // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
-            fringerotate(kernel, unpacked[j], delaya, delayb, *substridesize, *stridesize, *lo, *fftchannels,
-                         *fractionalLoFreq);
-
-            // Channelise
-            dofft(kernel, unpacked[j], channelised[j]);
-
-            // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
-
-            // Fractional sample correct
-            fracSampleCorrect(kernel, channelised[j], fractionaldelay, *stridesize, *nchan);
-
-            // Calculate complex conjugate once, for efficency
-            conjChannels(channelised[j], conjchannels[j], *nchan);
-        }
-    }
-}
-
-void processBaseline(int *nant, int *antValid, cf32 ***channelised, cf32 *** conjchannels, cf32 *** visibilities, int *nchan,
-                     int *baselineCount) {
-        int b = 0; // Baseline counter
-        for (int j = 0; j < *nant - 1; j++) {
-            if (!antValid[j]) {
-                b += (*nant - (j + 1));
-                continue;
-            }
-            for (int k = j + 1; k < *nant; k++) {
-                if (!antValid[k]) {
-                    (b)++;
-                    continue;
-                }
-
-                for (int l = 0; l < 2; l++) {
-                    for (int m = 0; m < 2; m++) {
-                        // cross multiply + accumulate
-                        vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
-                                              visibilities[b][2 * l + m], *nchan);
-                    }
-                }
-                baselineCount[b]++;
-                b++;
-            }
-        }
-}
-
-void processAntennasAndBaseline(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
-                     double *sampletime, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
-                     cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
-                     int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount, double *bw,
-                     cf32 *** visibilities_out, int *baselineCount_out) {
-    FxKernel kernel;
-    //allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
-    
-    double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
-    int *antValid = (int *)malloc(*nant * sizeof(int));
-
-    int netdelaysamples, offset;
-    for(int i=0;i<numffts;i++) {
-        for (int j = 0; j < *nant; j++) {
-            int maxoffset = (numffts - 1) * *fftchannels;
-            // unpack
-            getStationDelay(j, i, &meandelay, &delaya, &delayb, delays);
-            netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
-            netdelaysamples = (int) (netdelaysamples_f + 0.5);
-
-            fractionaldelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
-            offset = i * *fftchannels - netdelaysamples;
-            if (offset == -1) // can happen due to changing geometric delay over the subint
-            {
-                ++(offset);
-                fractionaldelay += *sampletime;
-            }
-            if (offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
-            {
-                --(offset);
-                fractionaldelay -= *sampletime;
-            }
-            if (offset < 0 || offset > maxoffset) {
-                antValid[j] = 0;
-                return;
-            }
-            antValid[j] = 1;
-            unpack(inputData[j], unpacked[j], offset, *nbit, *fftchannels);
-
-            // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
-            fringerotate(&kernel, unpacked[j], delaya, delayb, *substridesize, *stridesize, *lo, *fftchannels,
-                         *fractionalLoFreq);
-
-            // Channelise
-            dofft(&kernel, unpacked[j], channelised[j]);
-
-            // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
-
-            // Fractional sample correct
-            fracSampleCorrect(&kernel, channelised[j], fractionaldelay, *stridesize, *nchan);
-
-            // Calculate complex conjugate once, for efficency
-            conjChannels(channelised[j], conjchannels[j], *nchan);
-        }
-        processBaseline(nant, antValid, channelised, conjchannels, visibilities, nchan, baselineCount);
-    }
-    free(antValid);
-    memcpy(visibilities_out, visibilities, (*nant * (*nant - 1) / 2) * sizeof(cf32***));
-    memcpy(baselineCount_out, baselineCount, (*nant * (*nant - 1) / 2) * sizeof(int));
 }
 
 void processNormalize(int nbaselines, int *baselineCount,  cf32 *** visibilities, int *nchan, cf32 *** visibilities_out, struct timespec *endtime) {
@@ -316,18 +180,6 @@ void processNormalize(int nbaselines, int *baselineCount,  cf32 *** visibilities
     clock_gettime(CLOCK_MONOTONIC, endtime);
 }
 
-void resetBeforeProcess(int *nbaselines, cf32 *** visibilities, int *nchan, int *baselineCount, int split) {
-    // Zero visibilities
-    for (int i=0;i<split * *nbaselines; i++)
-    {
-        for (int j=0; j<4; j++)
-        {
-            vectorZero_cf32(visibilities[i][j], *nchan);
-        }
-    }
-    memset(baselineCount, 0, split * sizeof(int)* *nbaselines); // Reset baselinecount
-}
-
 void getStationDelay(int antenna, int fftindex, double *meandelay, double *a, double *b, double **delays) {
     double *interpolator = delays[antenna];
     double d0, d1, d2;
@@ -341,47 +193,6 @@ void getStationDelay(int antenna, int fftindex, double *meandelay, double *a, do
     *a = d2 - d0;
     *b = d0 + (d1 - (*a * 0.5 + d0)) / 3.0;
     *meandelay = *a * 0.5 + *b;
-}
-
-void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels)
-{
-    if (nbit==2) {
-        unpackReal2bit(inputdata, unpacked, offset, fftchannels);
-    } else {
-        fprintf(stderr, "Unsupported number of bits!!!");
-    }
-}
-
-void unpackReal2bit(u8 *inputdata, cf32 **unpacked, int offset, int nsamp) {
-
-    cf32 *fp;
-    int o = 0;
-    u8 *byte = &inputdata[offset / 2];
-
-    if (offset % 2) {
-        fp = lut2bit[*byte];
-        unpacked[0][o] = fp[2];
-        unpacked[1][o] = fp[3];
-        o++;
-        byte++;
-        nsamp--;
-    }
-
-    for (; o < nsamp - 1; o++) { // 2 time samples/byte
-        fp = lut2bit[*byte];  // pointer to vector of 4 complex floats
-        byte++;               // move pointer to next byte for next iteration of loop
-        unpacked[0][o] = fp[0];
-        unpacked[1][o] = fp[1];
-        o++;
-        unpacked[0][o] = fp[2];
-        unpacked[1][o] = fp[3];
-    }
-
-    if (nsamp % 2) {
-        fp = lut2bit[*byte];
-        unpacked[0][o] = fp[0];
-        unpacked[1][o] = fp[1];
-    }
 }
 
 void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substridesize, int stridesize, double lo, int fftchannels, int fractionalLoFreq)
@@ -453,6 +264,7 @@ void fringerotate(FxKernel *kernel, cf32 ** unpacked, f64 a, f64 b, int substrid
         if (status != vecNoErr)
             fprintf(stderr, "Error in complex fringe rotation" );
     }
+
 }
 
 void fracSampleCorrect(FxKernel *kernel, cf32 ** channelised, f64 fracdelay, int stridesize, int nchan)
@@ -513,109 +325,6 @@ void conjChannels(cf32 ** channelised, cf32 ** conjchannels, int nchan) {
     }
 }
 
-void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double *bw) {
-    f32 ***amp, ***phase;
-
-    FILE *fvis = fopen("vis.out", "w");
-    if (!fvis) {
-        fprintf(stderr, "Error opening file for writing.\n");
-        return;
-    }
-
-    amp = (f32***)malloc(*nbaselines * sizeof(f32**));
-    phase = (f32***)malloc(*nbaselines * sizeof(f32**));
-    if (!amp || !phase) {
-        fprintf(stderr, "Memory allocation save failed. Quitting.\n");
-        return;
-    }
-
-    for (int i = 0; i < *nbaselines; i++) {
-        amp[i] = (f32**)malloc(4 * sizeof(f32*)); // 2 pols and crosspol
-        phase[i] = (f32**)malloc(4 * sizeof(f32*)); // 2 pols and crosspol
-        if (!amp[i] || !phase[i]) {
-            fprintf(stderr, "Memory allocation i loop save failed. Quitting.\n");
-            return;
-        }
-        for (int j = 0; j < 4; j++) {
-            amp[i][j] = vectorAlloc_f32(*nchan);
-            phase[i][j] = vectorAlloc_f32(*nchan);
-            if (!amp[i][j] || !phase[i][j]) {
-                fprintf(stderr, "Memory allocation j loop save failed. Quitting.\n");
-                return;
-            }
-            vectorMagnitude_cf32(visibilities[i][j], amp[i][j], *nchan);
-            vectorPhase_cf32(visibilities[i][j], phase[i][j], *nchan);
-        }
-    }
-
-    for (int c = 0; c < *nchan; c++) {
-        fprintf(fvis, "%5d %11.6f", c, (c + 0.5) / *nchan * *bw / 1e6);
-        for (int i = 0; i < *nbaselines; i++) {
-            for (int j = 0; j < 4; j++) {
-                fprintf(fvis, " %11.6f %11.6f", visibilities[i][j][c].re, visibilities[i][j][c].im);
-                fprintf(fvis, " %11.6f %10.6f", amp[i][j][c], phase[i][j][c]);
-            }
-        }
-        fprintf(fvis, "\n");
-    }
-    fclose(fvis);
-
-    for (int i = 0; i < *nbaselines; i++) {
-        for (int j = 0; j < 4; j++) {
-            vectorFree(amp[i][j]);
-            vectorFree(phase[i][j]);
-        }
-        free(amp[i]);
-        free(phase[i]);
-    }
-    free(amp);
-    free(phase);
-}
-
-void saveLog(char *starttimestring, long long *diff_ms) {
-    // Open the file for writing
-    FILE *ftiming = fopen("runtime.fxkernel.log", "w");
-    if (ftiming == NULL) {
-        fprintf(stderr, "Error opening file for writing\n");
-        // Handle error as needed
-    }
-
-// Write to the file
-    fprintf(ftiming, "Run time was %lld milliseconds\n", *diff_ms);
-    fprintf(ftiming, "Start time was %s\n", starttimestring);
-
-// Close the file
-    fclose(ftiming);
-
-}
-
-void startTiming(struct timespec *starttime, char *starttimestring) {
-    clock_gettime(CLOCK_MONOTONIC, starttime);
-    time_t time_now_t = time(NULL);
-    strftime(starttimestring, 64*sizeof(char), "%c", localtime(&time_now_t));
-    starttimestring[strlen(starttimestring) - 1] = '\0'; // Removing the newline character at the end
-}
-
-void endTiming(struct timespec *starttime, struct timespec *endtime, long long *diff_ms) {
-    clock_gettime(CLOCK_MONOTONIC, endtime);
-    long long diff_ns = ((*endtime).tv_sec - (*starttime).tv_sec) * 1000000000LL + ((*endtime).tv_nsec - (*starttime).tv_nsec);
-    *diff_ms = diff_ns / 1000000LL;
-
-    printf("Run time was %lld milliseconds\n", *diff_ms);
-}
-
-void split_array(int *arr, int length, int **arr1, int **arr2) {
-    int mid = length / 2;
-    *arr1 = (int*)malloc(mid * sizeof(int));
-    *arr2 = (int*)malloc((length - mid) * sizeof(int));
-
-    // Copy elements to the first array
-    memcpy(*arr1, arr, mid * sizeof(int));
-
-    // Copy elements to the second array
-    memcpy(*arr2, arr + mid, (length - mid) * sizeof(int));
-}
-
 void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked){
         for (int j = 0; j < 2; j++) {
             (unpacked)[j] = vectorAlloc_cf32(*fftchannels);
@@ -625,6 +334,47 @@ void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32**
             }
         }
     unpack(*inputData, unpacked, *offset, *nbit, *fftchannels);
+}
+
+void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels)
+{
+    if (nbit==2) {
+        unpackReal2bit(inputdata, unpacked, offset, fftchannels);
+    } else {
+        fprintf(stderr, "Unsupported number of bits!!!");
+    }
+}
+
+void unpackReal2bit(u8 *inputdata, cf32 **unpacked, int offset, int nsamp) {
+
+    cf32 *fp;
+    int o = 0;
+    u8 *byte = &inputdata[offset / 2];
+
+    if (offset % 2) {
+        fp = lut2bit[*byte];
+        unpacked[0][o] = fp[2];
+        unpacked[1][o] = fp[3];
+        o++;
+        byte++;
+        nsamp--;
+    }
+
+    for (; o < nsamp - 1; o++) { // 2 time samples/byte
+        fp = lut2bit[*byte];  // pointer to vector of 4 complex floats
+        byte++;               // move pointer to next byte for next iteration of loop
+        unpacked[0][o] = fp[0];
+        unpacked[1][o] = fp[1];
+        o++;
+        unpacked[0][o] = fp[2];
+        unpacked[1][o] = fp[3];
+    }
+
+    if (nsamp % 2) {
+        fp = lut2bit[*byte];
+        unpacked[0][o] = fp[0];
+        unpacked[1][o] = fp[1];
+    }
 }
 
 void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 *a, f64 *b, int *substridesize, int *stridesize, double *lo,
@@ -716,15 +466,16 @@ void conjChannelsImpl(cf32** channelised, int *nchan, int *fftchannels, cf32*** 
 }
 
 void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double *antFileOffsets, double *sampletime, int *fftchannels,
-                           int *antValid, int *offset, double *fracDelay, double *delaya, double* delayb) {
+                           int * antIndex, int *antValid, int *offset, double *fracDelay, double *delaya, double* delayb) {
     double meandelay, netdelaysamples_f;
     int netdelaysamples;
     int maxoffset = (numffts - 1) * *fftchannels;
-    int j = 0; // TODO : change and test iter
+    int j = *antIndex; // TODO : change and test iter
     getStationDelay(j, *iteration, &meandelay, delaya, delayb, delays);
 
 
     netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
+
     netdelaysamples = (int) (netdelaysamples_f + 0.5);
 
     *fracDelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
@@ -746,104 +497,14 @@ void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double
     antValid[j] = 1;
 }
 
-void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, double *antFileOffsets,
-                                    double *sampletime, u8 ** inputData, cf32 *** unpacked, cf32 ***channelised,
-                                    cf32 *** conjchannels, double **delays, int *nbit, int *substridesize, int *stridesize,
-                                    int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount,
-                                    int *iteration, double *bw, cf32 *** visibilities_out, int *baselineCount_out, int split) {
-
-    FxKernel kernel;
-    //allocKernel(&kernel, substridesize, stridesize, fftchannels, nchan, sampletime, bw);
-
-    double meandelay, delaya, delayb, fractionaldelay, netdelaysamples_f;
-    int *antValid = (int *) malloc(*nant * sizeof(int));
-
-    int netdelaysamples, offset;
-
-    for(int k = 0; k < numffts/split; k++) {
-        for (int j = 0; j < *nant; j++) {
-            int maxoffset = (numffts - 1) * *fftchannels;
-            // unpack
-            getStationDelay(j, iteration[k], &meandelay, &delaya, &delayb, delays);
-            netdelaysamples_f = (meandelay - antFileOffsets[j]) / *sampletime;
-            netdelaysamples = (int) (netdelaysamples_f + 0.5);
-
-            fractionaldelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
-            offset = iteration[k] * *fftchannels - netdelaysamples;
-            if (offset == -1) // can happen due to changing geometric delay over the subint
-            {
-                ++(offset);
-                fractionaldelay += *sampletime;
-            }
-            if (offset == maxoffset + 1) // can happen due to changing geometric delay over the subint
-            {
-                --(offset);
-                fractionaldelay -= *sampletime;
-            }
-            if (offset < 0 || offset > maxoffset) {
-                antValid[j] = 0;
-                return;
-            }
-            antValid[j] = 1;
-            unpack(inputData[j], unpacked[j], offset, *nbit, *fftchannels);
-
-            // fringe rotate - after this function, each unpacked array has been fringe-rotated in-place
-            fringerotate(&kernel, unpacked[j], delaya, delayb, *substridesize, *stridesize, *lo, *fftchannels,
-                         *fractionalLoFreq);
-
-            // Channelise
-            dofft(&kernel, unpacked[j], channelised[j]);
-
-            // If original data was real voltages, required channels will fill n/2+1 of the n channels, so move in-place
-
-            // Fractional sample correct
-            fracSampleCorrect(&kernel, channelised[j], fractionaldelay, *stridesize, *nchan);
-
-            // Calculate complex conjugate once, for efficency
-            conjChannels(channelised[j], conjchannels[j], *nchan);
-        }
-        processBaselinePara(nant, antValid, channelised, conjchannels, visibilities, nchan, baselineCount);
-    }
-
-    free(antValid);
-    memcpy(visibilities_out, visibilities, (*nant * (*nant - 1) / 2) * sizeof(cf32***));
-    memcpy(baselineCount_out, baselineCount, (*nant * (*nant - 1) / 2) * sizeof(int));
-}
-
-void processBaselinePara(int *nant, int *antValid, cf32 ***channelised, cf32 *** conjchannels, cf32 *** visibilities, int *nchan,
-                         int *baselineCount) {
-    int b = 0; // Baseline counter
-    for (int j = 0; j < *nant - 1; j++) {
-        if (!antValid[j]) {
-            b += (*nant - (j + 1));
-            continue;
-        }
-        for (int k = j + 1; k < *nant; k++) {
-            if (!antValid[k]) {
-                (b)++;
-                continue;
-            }
-
-            for (int l = 0; l < 2; l++) {
-                for (int m = 0; m < 2; m++) {
-                    // cross multiply + accumulate
-                    vectorAddProduct_cf32(channelised[j][l], conjchannels[k][m],
-                                          visibilities[b][2 * l + m], *nchan);
-                }
-            }
-            baselineCount[b]++;
-            (b)++;
-        }
-    }
-}
-
-void merge(int split, int nbaselines, int numffts, cf32 ***visibilities, int nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out){
+void merge(int split, int nbaselines, int numffts, int nant, cf32 ***visibilities, int *baselineCount, int *nChan, int *baselineCount_out, cf32 ***visibilities_out){
     // 28800 = 240 * 120 // 120 : objectif de sortie
     for(int i = 0; i < nbaselines; i++) {
         for(int j = 0; j < 4; j++) {
             for(int k = 1; k < numffts; k++) {
                 vecStatus status = vectorAdd_cf32_I(visibilities[i + k * nbaselines][j], visibilities[i][j], *nChan);
 
+                //printf("Iter Number : %d \n", i + k * nbaselines);
                 if (status != ippStsNoErr) {
                     fprintf(stderr, "Error processing merge: %d\n", status);
                     exit(1);
@@ -854,12 +515,17 @@ void merge(int split, int nbaselines, int numffts, cf32 ***visibilities, int nan
             baselineCount[i] += baselineCount[i + k * nbaselines];
         }
     }
-    printf("Test : %d", baselineCount[0]);
+    printf("Test vis : %f \n", visibilities[0][0][0].re);
+
     memcpy(visibilities_out, visibilities, nbaselines * sizeof(cf32***));
     memcpy(baselineCount_out, baselineCount, nbaselines * sizeof(int));
 }
 
 void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** conjchannels, int *nchan, cf32 *** visibilities, int *baselineCount_out){
+    *nchan=16384;
+
+    //printf("Chann : %e \n", channelised[15][0][0].re);
+
     for (int i = 0; i < (nant * (nant - 1) / 2); i++) {
         visibilities[i] = (cf32**)malloc(4 * sizeof(cf32*));
         if (visibilities[i] == NULL) {
@@ -872,7 +538,9 @@ void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** c
                 fprintf(stderr, "Memory allocation visibilities[%d][%d] j failed. Quitting.\n", i, j);
                 exit(1);
             }
+            vectorZero_cf32(visibilities[i][j], *nchan);
         }
+        baselineCount_out[i] = 0;
     }
 
     vecStatus status;
@@ -905,4 +573,99 @@ void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** c
             (b)++;
         }
     }
+}
+
+void saveVisibilities(int *nbaselines, int *nchan, cf32 *** visibilities, double *bw) {
+    printf("nbase : %d \n", *nbaselines);
+    printf("nchan : %d \n", *nchan);
+    printf("bw : %f \n", *bw);
+
+    f32 ***amp, ***phase;
+
+    FILE *fvis = fopen("vis.out", "w");
+    if (!fvis) {
+        fprintf(stderr, "Error opening file for writing.\n");
+        return;
+    }
+
+    amp = (f32***)malloc(*nbaselines * sizeof(f32**));
+    phase = (f32***)malloc(*nbaselines * sizeof(f32**));
+    if (!amp || !phase) {
+        fprintf(stderr, "Memory allocation save failed. Quitting.\n");
+        return;
+    }
+
+    for (int i = 0; i < *nbaselines; i++) {
+        amp[i] = (f32**)malloc(4 * sizeof(f32*)); // 2 pols and crosspol
+        phase[i] = (f32**)malloc(4 * sizeof(f32*)); // 2 pols and crosspol
+        if (!amp[i] || !phase[i]) {
+            fprintf(stderr, "Memory allocation i loop save failed. Quitting.\n");
+            return;
+        }
+        for (int j = 0; j < 4; j++) {
+            amp[i][j] = vectorAlloc_f32(*nchan);
+            phase[i][j] = vectorAlloc_f32(*nchan);
+            if (!amp[i][j] || !phase[i][j]) {
+                fprintf(stderr, "Memory allocation j loop save failed. Quitting.\n");
+                return;
+            }
+            vectorMagnitude_cf32(visibilities[i][j], amp[i][j], *nchan);
+            vectorPhase_cf32(visibilities[i][j], phase[i][j], *nchan);
+        }
+    }
+
+    for (int c = 0; c < *nchan; c++) {
+        fprintf(fvis, "%5d %11.6f", c, (c + 0.5) / *nchan * *bw / 1e6);
+        for (int i = 0; i < *nbaselines; i++) {
+            for (int j = 0; j < 4; j++) {
+                fprintf(fvis, " %11.6f %11.6f", visibilities[i][j][c].re, visibilities[i][j][c].im);
+                fprintf(fvis, " %11.6f %10.6f", amp[i][j][c], phase[i][j][c]);
+            }
+        }
+        fprintf(fvis, "\n");
+    }
+    fclose(fvis);
+
+    for (int i = 0; i < *nbaselines; i++) {
+        for (int j = 0; j < 4; j++) {
+            vectorFree(amp[i][j]);
+            vectorFree(phase[i][j]);
+        }
+        free(amp[i]);
+        free(phase[i]);
+    }
+    free(amp);
+    free(phase);
+}
+
+void saveLog(char *starttimestring, long long *diff_ms) {
+    // Open the file for writing
+    FILE *ftiming = fopen("runtime.fxkernel.log", "w");
+    if (ftiming == NULL) {
+        fprintf(stderr, "Error opening file for writing\n");
+        // Handle error as needed
+    }
+
+// Write to the file
+    fprintf(ftiming, "Run time was %lld milliseconds\n", *diff_ms);
+    fprintf(ftiming, "Start time was %s\n", starttimestring);
+
+// Close the file
+    fclose(ftiming);
+
+}
+
+void startTiming(struct timespec *starttime, char *starttimestring) {
+    clock_gettime(CLOCK_MONOTONIC, starttime);
+    time_t time_now_t = time(NULL);
+    strftime(starttimestring, 64*sizeof(char), "%c", localtime(&time_now_t));
+    starttimestring[strlen(starttimestring) - 1] = '\0'; // Removing the newline character at the end
+}
+
+void endTiming(struct timespec *starttime, struct timespec *endtime, long long *diff_ms) {
+    clock_gettime(CLOCK_MONOTONIC, endtime);
+    long long diff_ns = ((*endtime).tv_sec - (*starttime).tv_sec) * 1000000000LL + ((*endtime).tv_nsec - (*starttime).tv_nsec);
+    *diff_ms = diff_ns / 1000000LL;
+
+    printf("Run time was %lld milliseconds\n", *diff_ms);
 }

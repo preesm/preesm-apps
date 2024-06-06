@@ -62,7 +62,7 @@ void initLUT2bitReal();
 
 void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
               char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
-              int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter);
+              int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter, int *antIndex);
 
 void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels);
 
@@ -113,7 +113,7 @@ void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, do
                                     int *fractionalLoFreq, double *lo, int *nchan, cf32 *** visibilities, int *baselineCount,
                                     int *iteration, double *bw, cf32 *** visibilities_out, int *baselineCount_out, int split);
 
-void merge(int split, int nbaselines, int numffts, cf32 ***visibilities, int nant, int *nChan, int *baselineCount, cf32 ***visibilities_out, int *baselineCount_out);
+void merge(int split, int nbaselines, int numffts, int nant, cf32 ***visibilities, int *baselineCount, int *nChan, int *baselineCount_out, cf32 ***visibilities_out);
 
 void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked);
 
@@ -128,7 +128,7 @@ void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fracti
 void conjChannelsImpl(cf32** channelised, int *nchan, int *fftchannels, cf32*** conjchannels, cf32*** channelised_out);
 
 void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double *antFileOffsets, double *sampletime, int *fftchannels,
-                           int *antValid, int *offset, double *fracDelay, double *delaya, double* delayb);
+                           int *antIndex, int *antValid, int *offset, double *fracDelay, double *delaya, double* delayb);
 
 void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, FxKernel *kernel);
 

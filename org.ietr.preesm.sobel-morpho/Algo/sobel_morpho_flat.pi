@@ -249,8 +249,8 @@
             <port kind="cfg_input" name="NUM_FFTS"/>
             <port annotation="NONE" expr="NUM_ANT" kind="input" name="antFileOffsets_in"/>
             <port annotation="NONE" expr="NUM_ANT" kind="output" name="antFileOffsets_0"/>
-            <port annotation="NONE" expr="NUM_ANT * NUM_FFTS"
-                kind="output" name="antFileOffsets_1"/>
+            <port annotation="NONE"
+                expr="NUM_ANT*NUM_ANT*NUM_FFTS" kind="output" name="antFileOffsets_1"/>
         </node>
         <node id="getTiming" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
@@ -327,6 +327,8 @@
                     name="numffts" type="int"/>
                 <param direction="OUT" isConfig="false"
                     name="iter" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="antIndex" type="int"/>
             </loop>
             <port kind="cfg_input" name="nant"/>
             <port kind="cfg_input" name="NUM_BASELINES"/>
@@ -345,6 +347,8 @@
             <port annotation="NONE" expr="1" kind="output" name="nbaselines"/>
             <port annotation="NONE" expr="numffts * nant"
                 kind="output" name="iter"/>
+            <port annotation="NONE" expr="nant*numffts"
+                kind="output" name="antIndex"/>
         </node>
         <node id="allocKernel" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
@@ -374,12 +378,18 @@
         <node id="stationDelayAndOffset" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
             <loop name="stationDelayAndOffset">
+                <param direction="IN" isConfig="true"
+                    name="numffts" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="delays" type="void*"/>
                 <param direction="IN" isConfig="false"
                     name="iteration" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="antFileOffsets" type="double"/>
+                <param direction="IN" isConfig="false"
+                    name="sampletime" type="double"/>
+                <param direction="IN" isConfig="false"
+                    name="fftchannels" type="int"/>
                 <param direction="OUT" isConfig="false"
                     name="antValid" type="int"/>
                 <param direction="OUT" isConfig="false"
@@ -391,19 +401,16 @@
                 <param direction="OUT" isConfig="false"
                     name="delayb" type="double"/>
                 <param direction="IN" isConfig="false"
-                    name="sampletime" type="double"/>
-                <param direction="IN" isConfig="false"
-                    name="fftchannels" type="int"/>
-                <param direction="IN" isConfig="true"
-                    name="numffts" type="int"/>
+                    name="antIndex" type="int"/>
             </loop>
             <port kind="cfg_input" name="NUM_ANT"/>
             <port kind="cfg_input" name="numffts"/>
             <port annotation="NONE" expr="NUM_ANT" kind="input" name="delays"/>
             <port annotation="NONE" expr="1" kind="input" name="iteration"/>
-            <port annotation="NONE" expr="1" kind="input" name="antFileOffsets"/>
+            <port annotation="NONE" expr="NUM_ANT" kind="input" name="antFileOffsets"/>
             <port annotation="NONE" expr="1" kind="input" name="sampletime"/>
             <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="1" kind="input" name="antIndex"/>
             <port annotation="NONE" expr="1" kind="output" name="antValid"/>
             <port annotation="NONE" expr="1" kind="output" name="offset"/>
             <port annotation="NONE" expr="1" kind="output" name="fracDelay"/>
@@ -944,6 +951,9 @@
         <edge kind="fifo" source="allocKernel"
             sourceport="kernel" target="fringeRotate"
             targetport="kernel" type="FxKernel"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="antIndex" target="stationDelayAndOffset"
+            targetport="antIndex" type="int"/>
         <edge kind="dependency" source="NUM_ANT"
             target="openAntFiles" targetport="NUM_ANT"/>
         <edge kind="dependency" source="NUM_ANT"

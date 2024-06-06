@@ -44,7 +44,10 @@ void readdata(int NUM_FFTS, int *bytestoread, FILE **antStream, uint8_t **inputd
             }
         }
     }
+
     for(int i = 1; i < NUM_FFTS; i++) {
-        memcpy(inputdata[16 * i], inputdata[0], 16 * sizeof(uint8_t));
+        for(int j = 0; j < numantenna; j++) {
+            memcpy(inputdata[j + numantenna * i], inputdata[j], *bytestoread * sizeof(uint8_t));
+        }
     }
 }
