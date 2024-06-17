@@ -151,6 +151,42 @@ void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannel
     }
 }
 
+void freeKernel(FxKernel *kernel) {
+    if (kernel->subtoff) ippFree(kernel->subtoff);
+    if (kernel->subtval) ippFree(kernel->subtval);
+    if (kernel->subxoff) ippFree(kernel->subxoff);
+    if (kernel->subxval) ippFree(kernel->subxval);
+    if (kernel->subphase) ippFree(kernel->subphase);
+    if (kernel->subarg) ippFree(kernel->subarg);
+    if (kernel->subsin) ippFree(kernel->subsin);
+    if (kernel->subcos) ippFree(kernel->subcos);
+    if (kernel->steptoff) ippFree(kernel->steptoff);
+    if (kernel->steptval) ippFree(kernel->steptval);
+    if (kernel->stepxoff) ippFree(kernel->stepxoff);
+    if (kernel->stepxval) ippFree(kernel->stepxval);
+    if (kernel->stepphase) ippFree(kernel->stepphase);
+    if (kernel->steparg) ippFree(kernel->steparg);
+    if (kernel->stepsin) ippFree(kernel->stepsin);
+    if (kernel->stepcos) ippFree(kernel->stepcos);
+    if (kernel->stepcplx) ippFree(kernel->stepcplx);
+    if (kernel->complexrotator) ippFree(kernel->complexrotator);
+
+    if (kernel->subfracsamparg) ippFree(kernel->subfracsamparg);
+    if (kernel->subfracsampsin) ippFree(kernel->subfracsampsin);
+    if (kernel->subfracsampcos) ippFree(kernel->subfracsampcos);
+    if (kernel->subchannelfreqs) ippFree(kernel->subchannelfreqs);
+
+    if (kernel->stepfracsamparg) ippFree(kernel->stepfracsamparg);
+    if (kernel->stepfracsampsin) ippFree(kernel->stepfracsampsin);
+    if (kernel->stepfracsampcos) ippFree(kernel->stepfracsampcos);
+    if (kernel->stepfracsampcplx) ippFree(kernel->stepfracsampcplx);
+    if (kernel->stepchannelfreqs) ippFree(kernel->stepchannelfreqs);
+    if (kernel->fracsamprotator) ippFree(kernel->fracsamprotator);
+
+    if (kernel->fftbuffer) ippFree(kernel->fftbuffer);
+    if (kernel->pFFTSpecC) ippFree(kernel->pFFTSpecC);
+}
+
 void initLUT2bitReal () {
     static const float HiMag = (float) 3.3359;  // Optimal value
     const float lut4level[4] = {-HiMag, (float) -1.0, (float) 1.0, HiMag};
@@ -312,19 +348,6 @@ void fracSampleCorrect(FxKernel *kernel, cf32 ** channelised, f64 fracdelay, int
     }
 }
 
-void conjChannels(cf32 ** channelised, cf32 ** conjchannels, int nchan) {
-    // To avoid calculating this multiple times, generate the complex conjugate of the channelised data
-    vecStatus status;
-
-    for (int i=0; i<2; i++) {
-        status = vectorConj_cf32(channelised[i], conjchannels[i], nchan); // Assumes USB and throws away 1 channel for real data
-        if(status != vecNoErr) {
-            fprintf(stderr, "Error calling vectorConj \n");
-            exit(1);
-        }
-    }
-}
-
 void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked){
         for (int j = 0; j < 2; j++) {
             (unpacked)[j] = vectorAlloc_cf32(*fftchannels);
@@ -334,6 +357,8 @@ void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32**
             }
         }
     unpack(*inputData, unpacked, *offset, *nbit, *fftchannels);
+
+        free(*inputData);
 }
 
 void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels)
@@ -396,6 +421,10 @@ void doFFTImpl(cf32** unpacked, FxKernel * kernel, int *fftchannels, cf32** chan
     }
 
     dofft(kernel, unpacked, channelised);
+
+    for(int j = 0; j < 2; j++) {
+        ippFree(unpacked[j]);
+    }
 }
 
 void dofft(FxKernel *kernel, cf32 ** unpacked, cf32 ** channelised) {
@@ -448,6 +477,8 @@ void fracSampleCorrectImpl(FxKernel * kernel, cf32** channelised, double *fracti
     fracSampleCorrect(kernel, channelised, *fractionaldelay, *stridesize, *nchan);
 
     memcpy(channelised_out, channelised, 2 * sizeof(cf32*));
+
+    freeKernel(kernel);
 }
 
 void conjChannelsImpl(cf32** channelised, int *nchan, int *fftchannels, cf32*** conjchannels, cf32*** channelised_out) {
@@ -462,7 +493,21 @@ void conjChannelsImpl(cf32** channelised, int *nchan, int *fftchannels, cf32*** 
 
     conjChannels(channelised, *conjchannels, *nchan);
 
-    memcpy(channelised_out, &channelised, 2*sizeof(cf32**));
+    (*channelised_out) = (cf32**)malloc(2 * sizeof(cf32*));
+    memcpy(*channelised_out, channelised, 2 * sizeof(cf32*));
+}
+
+void conjChannels(cf32 ** channelised, cf32 ** conjchannels, int nchan) {
+    // To avoid calculating this multiple times, generate the complex conjugate of the channelised data
+    vecStatus status;
+
+    for (int i=0; i<2; i++) {
+        status = vectorConj_cf32(channelised[i], conjchannels[i], nchan); // Assumes USB and throws away 1 channel for real data
+        if(status != vecNoErr) {
+            fprintf(stderr, "Error calling vectorConj \n");
+            exit(1);
+        }
+    }
 }
 
 void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double *antFileOffsets, double *sampletime, int *fftchannels,
@@ -480,6 +525,7 @@ void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double
 
     *fracDelay = -(netdelaysamples_f - netdelaysamples) * *sampletime;  // seconds
     *offset = *iteration * *fftchannels - netdelaysamples;
+
     if (*offset == -1) // can happen due to changing geometric delay over the subint
     {
         ++(*offset);
@@ -491,10 +537,10 @@ void stationDelayAndOffset(int numffts, double ** delays, int *iteration, double
         *fracDelay -= *sampletime;
     }
     if (*offset < 0 || *offset > maxoffset) {
-        antValid[j] = 0;
+        *antValid = 0;
         return;
     }
-    antValid[j] = 1;
+    *antValid = 1;
 }
 
 void merge(int split, int nbaselines, int numffts, int nant, cf32 ***visibilities, int *baselineCount, int *nChan, int *baselineCount_out, cf32 ***visibilities_out){
@@ -509,12 +555,16 @@ void merge(int split, int nbaselines, int numffts, int nant, cf32 ***visibilitie
                     fprintf(stderr, "Error processing merge: %d\n", status);
                     exit(1);
                 }
+
+                ippFree(visibilities[i + k * nbaselines][j]);
+
             }
         }
         for(int k = 1; k < numffts; k++) {
             baselineCount[i] += baselineCount[i + k * nbaselines];
         }
     }
+
     printf("Test vis : %f \n", visibilities[0][0][0].re);
 
     memcpy(visibilities_out, visibilities, nbaselines * sizeof(cf32***));
@@ -522,9 +572,6 @@ void merge(int split, int nbaselines, int numffts, int nant, cf32 ***visibilitie
 }
 
 void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** conjchannels, int *nchan, cf32 *** visibilities, int *baselineCount_out){
-    *nchan=16384;
-
-    //printf("Chann : %e \n", channelised[15][0][0].re);
 
     for (int i = 0; i < (nant * (nant - 1) / 2); i++) {
         visibilities[i] = (cf32**)malloc(4 * sizeof(cf32*));
@@ -572,6 +619,24 @@ void processBaselineImpl(int nant, int *antValid, cf32*** channelised, cf32*** c
             baselineCount_out[b]++;
             (b)++;
         }
+    }
+
+    if (*channelised) {
+        for (int j = 0; j < 2; j++) {
+            if (*channelised[j]) {
+                ippFree(*channelised[j]);
+            }
+        }
+        free(*channelised);
+    }
+
+    if (*conjchannels) {
+        for (int j = 0; j < 2; j++) {
+            if (*conjchannels[j]) {
+                ippFree(*conjchannels[j]);
+            }
+        }
+        free(*conjchannels);
     }
 }
 

@@ -7,9 +7,9 @@
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
         <data key="name">sobel_morpho_flat</data>
-        <node expr="16" id="NUM_ANT" kind="param"/>
+        <node expr="4" id="NUM_ANT" kind="param"/>
         <node expr="NUM_ANT * (NUM_ANT-1)/2" id="NUM_BASELINES" kind="param"/>
-        <node expr="240" id="NUM_FFTS" kind="param"/>
+        <node expr="16" id="NUM_FFTS" kind="param"/>
         <node expr="NUM_BASELINES/SPLIT_NORM" id="NORMALIZE_ITER" kind="param"/>
         <node expr="2" id="SPLIT_NORM" kind="param"/>
         <node expr="1" id="SPLIT" kind="param"/>
@@ -569,17 +569,17 @@
                     name="nbaselines" type="int"/>
                 <param direction="IN" isConfig="true"
                     name="numffts" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="visibilities" type="void*"/>
                 <param direction="IN" isConfig="true" name="nant" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="nChan" type="int"/>
+                    name="visibilities" type="void*"/>
                 <param direction="IN" isConfig="false"
                     name="baselineCount" type="int"/>
-                <param direction="OUT" isConfig="false"
-                    name="visibilities_out" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="nChan" type="int"/>
                 <param direction="OUT" isConfig="false"
                     name="baselineCount_out" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="visibilities_out" type="void*"/>
             </loop>
             <port kind="cfg_input" name="split"/>
             <port kind="cfg_input" name="nbaselines"/>
