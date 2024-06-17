@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
+    <files>
+        <algorithm url="/org.ietr.preesm.sobel-morpho/Algo/sobel_morpho_flat.pi"/>
+        <architecture url="/org.ietr.preesm.sobel-morpho/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.sobel-morpho/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="sobel_morpho_flat/loadCfg"/>
+            <task name="sobel_morpho_flat/readCfg"/>
+            <task name="sobel_morpho_flat/allocDataHost"/>
+            <task name="sobel_morpho_flat/openAntFiles"/>
+            <task name="sobel_morpho_flat/readData"/>
+            <task name="sobel_morpho_flat/getTiming"/>
+            <task name="sobel_morpho_flat/saveVis"/>
+            <task name="sobel_morpho_flat/saveLog"/>
+            <task name="sobel_morpho_flat/InitFxKernel"/>
+            <task name="sobel_morpho_flat/allocKernel"/>
+            <task name="sobel_morpho_flat/stationDelayAndOffset"/>
+            <task name="sobel_morpho_flat/unpack"/>
+            <task name="sobel_morpho_flat/fringeRotate"/>
+            <task name="sobel_morpho_flat/dofft"/>
+            <task name="sobel_morpho_flat/fracSampleCorrect"/>
+            <task name="sobel_morpho_flat/conjchannels"/>
+            <task name="sobel_morpho_flat/processBaseline"/>
+            <task name="sobel_morpho_flat/merge"/>
+            <task name="sobel_morpho_flat/processNormalize"/>
+            <task name="sobel_morpho_flat"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="8"/>
+            <dataType name="char" size="8"/>
+            <dataType name="int" size="32"/>
+            <dataType name="double" size="64"/>
+            <dataType name="char*" size="64"/>
+            <dataType name="double*" size="64"/>
+            <dataType name="uint8_t*" size="64"/>
+            <dataType name="FILE*" size="64"/>
+            <dataType name="long long" size="64"/>
+            <dataType name="struct timespec" size="128"/>
+            <dataType name="cf32" size="64"/>
+            <dataType name="u8" size="8"/>
+            <dataType name="u8*" size="64"/>
+            <dataType name="cf32**" size="64"/>
+            <dataType name="cf32*" size="64"/>
+            <dataType name="FxKernel" size="1920"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <pePower opName="Base" pePower="10.0"/>
+        <pePower opName="x86" pePower="10.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>
