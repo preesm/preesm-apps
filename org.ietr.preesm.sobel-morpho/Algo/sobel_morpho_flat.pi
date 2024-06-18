@@ -9,7 +9,7 @@
         <data key="name">sobel_morpho_flat</data>
         <node expr="4" id="NUM_ANT" kind="param"/>
         <node expr="NUM_ANT * (NUM_ANT-1)/2" id="NUM_BASELINES" kind="param"/>
-        <node expr="16" id="NUM_FFTS" kind="param"/>
+        <node expr="4" id="NUM_FFTS" kind="param"/>
         <node expr="NUM_BASELINES/SPLIT_NORM" id="NORMALIZE_ITER" kind="param"/>
         <node expr="2" id="SPLIT_NORM" kind="param"/>
         <node expr="1" id="SPLIT" kind="param"/>
