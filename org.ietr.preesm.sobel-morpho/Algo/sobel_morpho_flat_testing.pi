@@ -6,12 +6,12 @@
     <key attr.name="name" attr.type="string" for="graph"/>
     <key attr.name="graph_desc" attr.type="string" for="node"/>
     <graph edgedefault="directed">
-        <data key="name">sobel_morpho_flat</data>
-        <node expr="8" id="NUM_ANT" kind="param"/>
+        <data key="name">sobel_morpho_flat_testing</data>
+        <node expr="16" id="NUM_ANT" kind="param"/>
         <node expr="NUM_ANT * (NUM_ANT-1)/2" id="NUM_BASELINES" kind="param"/>
-        <node expr="32" id="NUM_FFTS" kind="param"/>
+        <node expr="240" id="NUM_FFTS" kind="param"/>
         <node expr="NUM_BASELINES/SPLIT_NORM" id="NORMALIZE_ITER" kind="param"/>
-        <node expr="1" id="SPLIT_NORM" kind="param"/>
+        <node expr="2" id="SPLIT_NORM" kind="param"/>
         <node expr="1" id="SPLIT" kind="param"/>
         <node expr="8" id="NCORES" kind="param"/>
         <node id="loadCfg" kind="actor">
@@ -155,7 +155,7 @@
                 kind="output" name="nchan_3"/>
             <port annotation="NONE" expr="NUM_FFTS" kind="output" name="nchan_5"/>
             <port annotation="NONE" expr="1" kind="output" name="nchan_6"/>
-            <port annotation="NONE" expr="1" kind="output" name="nchan_7"/>
+            <port annotation="NONE" expr="2" kind="output" name="nchan_7"/>
             <port annotation="NONE" expr="NUM_ANT*NUM_FFTS"
                 kind="output" name="nchan_8"/>
             <port annotation="NONE" expr="NUM_ANT * NUM_FFTS"
@@ -263,7 +263,7 @@
                     name="endtime" type="struct timespec"/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="starttime"/>
-            <port annotation="NONE" expr="1" kind="input" name="endtime"/>
+            <port annotation="NONE" expr="2" kind="input" name="endtime"/>
             <port annotation="NONE" expr="1" kind="output" name="diff_ms"/>
         </node>
         <node id="saveVis" kind="actor">
@@ -299,7 +299,7 @@
         </node>
         <node id="InitFxKernel" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
-            <loop name="init_FxKernel">
+            <loop name="init_FxKernelTesting">
                 <param direction="IN" isConfig="true" name="nant" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="nchan" type="int"/>
@@ -329,6 +329,8 @@
                     name="iter" type="int"/>
                 <param direction="OUT" isConfig="false"
                     name="antIndex" type="int"/>
+                <param direction="OUT" isConfig="false"
+                    name="unpacked" type="void*"/>
             </loop>
             <port kind="cfg_input" name="nant"/>
             <port kind="cfg_input" name="NUM_BASELINES"/>
@@ -349,13 +351,16 @@
                 kind="output" name="iter"/>
             <port annotation="NONE" expr="nant*numffts"
                 kind="output" name="antIndex"/>
+            <port annotation="NONE" expr="2*nant*numffts"
+                kind="output" name="unpacked"/>
         </node>
         <node id="allocKernel" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
             <loop name="allocKernel">
+                <param direction="OUT" isConfig="false"
+                    name="kernel" type="FxKernel"/>
                 <param direction="IN" isConfig="false"
                     name="substridesize" type="int"/>
-                <param direction="IN" isConfig="false" name="bw" type="double"/>
                 <param direction="IN" isConfig="false"
                     name="stridesize" type="int"/>
                 <param direction="IN" isConfig="false"
@@ -364,8 +369,7 @@
                     name="numchannels" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="sampletime" type="double"/>
-                <param direction="OUT" isConfig="false"
-                    name="kernel" type="FxKernel"/>
+                <param direction="IN" isConfig="false" name="bw" type="double"/>
             </loop>
             <port annotation="NONE" expr="1" kind="input" name="substridesize"/>
             <port annotation="NONE" expr="1" kind="input" name="bw"/>
@@ -390,8 +394,6 @@
                     name="sampletime" type="double"/>
                 <param direction="IN" isConfig="false"
                     name="fftchannels" type="int"/>
-                <param direction="IN" isConfig="false"
-                    name="antIndex" type="int"/>
                 <param direction="OUT" isConfig="false"
                     name="antValid" type="int"/>
                 <param direction="OUT" isConfig="false"
@@ -402,6 +404,8 @@
                     name="delaya" type="double"/>
                 <param direction="OUT" isConfig="false"
                     name="delayb" type="double"/>
+                <param direction="IN" isConfig="false"
+                    name="antIndex" type="int"/>
             </loop>
             <port kind="cfg_input" name="NUM_ANT"/>
             <port kind="cfg_input" name="numffts"/>
@@ -419,9 +423,11 @@
         </node>
         <node id="unpack" kind="actor">
             <data key="graph_desc">Code/include/kernel.h</data>
-            <loop name="unpackImpl">
+            <loop name="unpackImplTesting">
                 <param direction="IN" isConfig="false"
                     name="inputData" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="unpacked_in" type="void*"/>
                 <param direction="IN" isConfig="false"
                     name="offset" type="int"/>
                 <param direction="IN" isConfig="false"
@@ -435,6 +441,7 @@
             <port annotation="NONE" expr="1" kind="input" name="offset"/>
             <port annotation="NONE" expr="1" kind="input" name="nbit"/>
             <port annotation="NONE" expr="1" kind="input" name="fftchannels"/>
+            <port annotation="NONE" expr="2" kind="input" name="unpacked_in"/>
             <port annotation="NONE" expr="2" kind="output" name="unpacked"/>
         </node>
         <node id="fringeRotate" kind="actor">
@@ -454,7 +461,7 @@
                 <param direction="IN" isConfig="false"
                     name="fftchannels" type="int"/>
                 <param direction="IN" isConfig="false"
-                    name="fractionalLoFreq" type="int"/>
+                    name="fractionalLoFreq" type="double"/>
                 <param direction="OUT" isConfig="false"
                     name="unpacked_out" type="void*"/>
                 <param direction="OUT" isConfig="false"
@@ -476,13 +483,13 @@
             <data key="graph_desc">Code/include/kernel.h</data>
             <loop name="doFFTImpl">
                 <param direction="IN" isConfig="false"
-                    name="unpacked" type="void*"/>
-                <param direction="IN" isConfig="false"
                     name="kernel" type="FxKernel"/>
                 <param direction="IN" isConfig="false"
-                    name="fftchannels" type="int"/>
+                    name="unpacked" type="void*"/>
                 <param direction="OUT" isConfig="false"
                     name="channelised" type="void*"/>
+                <param direction="IN" isConfig="false"
+                    name="fftchannels" type="int"/>
             </loop>
             <port annotation="NONE" expr="2" kind="input" name="unpacked"/>
             <port annotation="NONE" expr="1" kind="input" name="kernel"/>
@@ -517,12 +524,12 @@
             <loop name="conjChannelsImpl">
                 <param direction="IN" isConfig="false"
                     name="channelised" type="void*"/>
+                <param direction="OUT" isConfig="false"
+                    name="conjchannels" type="void*"/>
                 <param direction="IN" isConfig="false"
                     name="nchan" type="int"/>
                 <param direction="IN" isConfig="false"
                     name="fftchannels" type="int"/>
-                <param direction="OUT" isConfig="false"
-                    name="conjchannels" type="void*"/>
                 <param direction="OUT" isConfig="false"
                     name="channelised_out" type="void*"/>
             </loop>
@@ -954,6 +961,9 @@
         <edge kind="fifo" source="InitFxKernel"
             sourceport="antIndex" target="stationDelayAndOffset"
             targetport="antIndex" type="int"/>
+        <edge kind="fifo" source="InitFxKernel"
+            sourceport="unpacked" target="unpack"
+            targetport="unpacked_in" type="cf32*"/>
         <edge kind="dependency" source="NUM_ANT"
             target="openAntFiles" targetport="NUM_ANT"/>
         <edge kind="dependency" source="NUM_ANT"

@@ -143,6 +143,95 @@ if (WIN32)
 	endif()
 endif()
 
+#************************* GPU VERSION *******************************
+
+#find_package(CUDA REQUIRED)
+set(CUDA_DIR /usr/local/cuda)
+set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
+set(CMAKE_CUDA_ARCHITECTURES native)
+if(CMAKE_CUDA_COMPILER)
+
+	project(difx_gpu CXX CUDA)
+
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -g -g -Wall ${ADDITIONAL_C_FLAGS}")
+
+	#find_package(CUDA 12.3 REQUIRED)
+	find_package(CUDA REQUIRED)
+	message(STATUS ">>> Found CUDA ${CUDA_VERSION_STRING} at ${CUDA_TOOLKIT_ROOT_DIR}")
+
+	set(
+			CUDA_NVCC_FLAGS
+			${CUDA_NVCC_FLAGS};
+			-std=c++11 -arch=sm_60 -Xptxas -O3 -restrict -D_FORCE_INLINES -D_DEBUG -lineinfo
+	)
+
+#	file(
+#			GLOB_RECURSE
+#			source_files_GPU
+#			./src/GPU/*.cu
+#			./generated/*.c
+#			./generated/*.cu
+#	)
+#
+#	file(
+#			GLOB_RECURSE
+#			header_files
+#			./include/difx_gpu_header.h
+#			./include/preesm.h
+#			./generated/*.h
+#	)
+#
+#	message("source_files_GPU : ${source_files_GPU}")
+#	#    message("header_files : ${header_files}")
+#	cuda_add_executable(difx_gpu ${source_files_GPU})
+#	#target_link_libraries(difx_gpu cudart cusolver cufft m) # math, CUDA FFT and SVD
+#	target_link_libraries(difx_gpu m cudart cusolver cufft ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB} ${header_files})
+
+	# Include directories
+	include_directories(
+			${CMAKE_CURRENT_SOURCE_DIR}/include
+			${CMAKE_CURRENT_SOURCE_DIR}/generated
+	)
+
+	# Source files
+	file(GLOB_RECURSE source_files_GPU
+			${CMAKE_CURRENT_SOURCE_DIR}/src/GPU/*.cu
+			${CMAKE_CURRENT_SOURCE_DIR}/src/GPU/difx_gpu.cu
+			${CMAKE_CURRENT_SOURCE_DIR}/generated/*.c
+			${CMAKE_CURRENT_SOURCE_DIR}/generated/*.cu
+	)
+
+	# Header files
+	file(GLOB_RECURSE header_files
+			${CMAKE_CURRENT_SOURCE_DIR}/generated/Cluster_difx_gpu_urc_0.h
+			${CMAKE_CURRENT_SOURCE_DIR}/include/difx_gpu_header.h
+			${CMAKE_CURRENT_SOURCE_DIR}/include/preesm.h
+			${CMAKE_CURRENT_SOURCE_DIR}/generated/*.h
+	)
+
+	# Message to display source files (optional)
+	message("source_files_GPU : ${source_files_GPU}")
+	message("header_files : ${header_files}")
+
+	# Add executable
+	cuda_add_executable(difx_gpu ${source_files_GPU} ${header_files})
+
+	# Link libraries
+	target_link_libraries(difx_gpu
+			m
+			cudart
+			cusolver
+			cufft
+			${SDL2_LIBRARY}
+			${SDL2TTF_LIBRARY}
+			${CMAKE_THREAD_LIBS_INIT}
+			${CMAKE_EXTRA_LIB}
+	)
+
+else()
+	message(STATUS "No CUDA compiler found")
+endif()
+
 # *******************************************
 # **************** IPP  ****************
 # *******************************************

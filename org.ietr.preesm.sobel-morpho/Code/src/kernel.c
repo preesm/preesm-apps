@@ -58,6 +58,66 @@ void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, stru
     startTiming(starttime, starttimestring);
 }
 
+void init_FxKernelTesting(int nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
+                   char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
+                   int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter, int *antIndex,
+                   cf32** unpacked){
+
+    *fftchannels = 2 * *nchan;
+    *sampletime = 1.0 / (2.0 * *bw);
+    int iscomplex = 0; // Allow for further generalization later
+    int cfact = iscomplex ? 2 : 1;
+
+    // Check for consistency and initialize lookup tables, if required
+    if (*nbit == 2) {
+        if (*fftchannels % 2) {
+            fprintf(stderr, "Error: FFT length must be divisible by 2 for 2 bit data. Aborting\n");
+            exit(1);
+        }
+        initLUT2bitReal();
+    } else if (*nbit != 8) {
+        fprintf(stderr, "Error: Do not support %d bits. Aborting\n", *nbit);
+        exit(1);
+    }
+
+    // Figure out the array stride size
+    *stridesize = (int)sqrt(*nchan);
+    if (*stridesize * *stridesize != *nchan) {
+        fprintf(stderr, "Please choose a number of channels that is a square\n");
+        exit(1);
+    }
+    *substridesize = (2 / cfact) * *stridesize;
+
+    // Check if LO frequency has a fractional component
+    *fractionalLoFreq = (*lo - (int)(*lo)) > TINY;
+
+    // Allocate memory for FFT'ed data and initialize FFT
+    int order = 0;
+    while((*fftchannels) >> order != 1)
+    {
+        order++;
+    }
+
+    for(int i = 0; i < numffts; i ++) {
+        for (int j = 0; j < nant; j++) {
+            iter[i * nant + j] = i;
+            antIndex[i * nant + j] = j;
+        }
+    }
+
+    for (int j = 0; j < numffts*nant*2; j++) {
+        (unpacked)[j] = vectorAlloc_cf32(*fftchannels);
+        if ((unpacked)[j] == NULL) {
+            fprintf(stderr, "Memory allocation unpacked failed. Quitting.\n");
+            exit(1);
+        }
+    }
+
+    *nbaselines=nant * (nant-1)/2;
+
+    startTiming(starttime, starttimestring);
+}
+
 void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannels, int* numchannels, double *sampletime, FxKernel *kernel) {
     kernel->subtoff  = vectorAlloc_f64(*substridesize);
     kernel->subtval  = vectorAlloc_f64(*substridesize);
@@ -123,6 +183,7 @@ void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannel
 
 // Get the sizes needed for the FFT
     status = ippsFFTGetSize_C_32fc(order, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
+
     if (status != ippStsNoErr) {
         fprintf(stderr, "Error getting FFT size: %d\n", status);
         exit(1);
@@ -133,7 +194,8 @@ void allocKernel(int *substridesize, double *bw, int*stridesize, int* fftchannel
     fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
     kernel->fftbuffer = ippsMalloc_8u(wbufsize);
 
-    if (!fftSpecBuf || !fftInitBuf || !kernel->fftbuffer) {
+    if (!fftSpecBuf || !kernel->fftbuffer) {
+
         fprintf(stderr, "Error allocating memory for FFT buffers\n");
         exit(1);
     }
@@ -361,6 +423,14 @@ void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32**
         free(*inputData);
 }
 
+void unpackImplTesting(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked_in, cf32** unpacked){
+
+    unpack(*inputData, unpacked_in, *offset, *nbit, *fftchannels);
+
+    memcpy(unpacked, unpacked_in, 2 * sizeof(cf32*));
+    free(*inputData);
+}
+
 void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels)
 {
     if (nbit==2) {
@@ -431,37 +501,37 @@ void dofft(FxKernel *kernel, cf32 ** unpacked, cf32 ** channelised) {
     // Do a single FFT on the 2 pols for a single antenna
     vecStatus status;
 
-    int sizeFFTSpec, sizeFFTInitBuf, wbufsize;
-    u8 *fftInitBuf = NULL, *fftSpecBuf = NULL;
-
-// Get the sizes needed for the FFT
-    status = ippsFFTGetSize_C_32fc(15, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
-    if (status != ippStsNoErr) {
-        fprintf(stderr, "Error getting FFT size: %d\n", status);
-        exit(1);
-    }
-
-// Allocate the FFT specification and initialization buffers
-    fftSpecBuf = ippsMalloc_8u(sizeFFTSpec);
-    fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
-    kernel->fftbuffer = ippsMalloc_8u(wbufsize);
-
-    if (!fftSpecBuf || !fftInitBuf || !kernel->fftbuffer) {
-        fprintf(stderr, "Error allocating memory for FFT buffers\n");
-        exit(1);
-    }
-
-// Initialize the FFT
-    status = ippsFFTInit_C_32fc((IppsFFTSpec_C_32fc**)&kernel->pFFTSpecC, 15, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
-    if (status != ippStsNoErr) {
-        fprintf(stderr, "Error initializing FFT: %d\n", status);
-        exit(1);
-    }
-
-// Free the initialization buffer if it was allocated
-    if (fftInitBuf) {
-        ippFree(fftInitBuf);
-    }
+//    int sizeFFTSpec, sizeFFTInitBuf, wbufsize;
+//    u8 *fftInitBuf = NULL, *fftSpecBuf = NULL;
+//
+//// Get the sizes needed for the FFT
+//    status = ippsFFTGetSize_C_32fc(15, vecFFT_NoReNorm, vecAlgHintFast, &sizeFFTSpec, &sizeFFTInitBuf, &wbufsize);
+//    if (status != ippStsNoErr) {
+//        fprintf(stderr, "Error getting FFT size: %d\n", status);
+//        exit(1);
+//    }
+//
+//// Allocate the FFT specification and initialization buffers
+//    fftSpecBuf = ippsMalloc_8u(sizeFFTSpec);
+//    fftInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
+//    kernel->fftbuffer = ippsMalloc_8u(wbufsize);
+//
+//    if (!fftSpecBuf || !fftInitBuf || !kernel->fftbuffer) {
+//        fprintf(stderr, "Error allocating memory for FFT buffers\n");
+//        exit(1);
+//    }
+//
+//// Initialize the FFT
+//    status = ippsFFTInit_C_32fc((IppsFFTSpec_C_32fc**)&kernel->pFFTSpecC, 15, vecFFT_NoReNorm, vecAlgHintFast, fftSpecBuf, fftInitBuf);
+//    if (status != ippStsNoErr) {
+//        fprintf(stderr, "Error initializing FFT: %d\n", status);
+//        exit(1);
+//    }
+//
+//// Free the initialization buffer if it was allocated
+//    if (fftInitBuf) {
+//        ippFree(fftInitBuf);
+//    }
 
     for (int i=0; i<2; i++) {
         status = vectorFFT_CtoC_cf32(unpacked[i], channelised[i], kernel->pFFTSpecC, kernel->fftbuffer);
@@ -733,4 +803,8 @@ void endTiming(struct timespec *starttime, struct timespec *endtime, long long *
     *diff_ms = diff_ns / 1000000LL;
 
     printf("Run time was %lld milliseconds\n", *diff_ms);
+
+    *diff_ms = diff_ns / 1000LL;
+
+    printf("Run time was %lld microsec\n", *diff_ms);
 }

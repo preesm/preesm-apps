@@ -56,6 +56,9 @@ typedef struct {
     vecFFTSpecC_cf32 * pFFTSpecC;
 } FxKernel;
 
+static long diff = 0L;
+static int count = 0;
+
 static cf32 lut2bit[256][4]; /**< Look up table for two bit data, will contain the 4 time samples corresponding to a given byte */
 
 void initLUT2bitReal();
@@ -63,6 +66,11 @@ void initLUT2bitReal();
 void init_FxKernel(int nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
               char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
               int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter, int *antIndex);
+
+void init_FxKernelTesting(int nant, int *nchan, int *nbit, double *lo, double *bw, struct timespec *starttime,
+                          char *starttimestring, int *fftchannels, double *sampletime, int *stridesize,
+                          int *substridesize, int *fractionalLoFreq, int *nbaselines, int numffts, int * iter, int *antIndex,
+                          cf32** unpacked);
 
 void unpack(u8 * inputdata, cf32 ** unpacked, int offset, int nbit, int fftchannels);
 
@@ -116,6 +124,8 @@ void processAntennasAndBaselinePara(int *nant, int numffts, int *fftchannels, do
 void merge(int split, int nbaselines, int numffts, int nant, cf32 ***visibilities, int *baselineCount, int *nChan, int *baselineCount_out, cf32 ***visibilities_out);
 
 void unpackImpl(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked);
+
+void unpackImplTesting(u8** inputData, int *offset, int *nbit, int *fftchannels, cf32** unpacked_in, cf32** unpacked);
 
 void fringeRotateImpl(FxKernel *kernel, cf32 ** unpacked, f64 *a, f64 *b, int *substridesize, int *stridesize, double *lo,
                       int *fftchannels, int *fractionalLoFreq, cf32** unpacked_out, FxKernel *kernel_out);

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
+    <files>
+        <algorithm url="/org.ietr.preesm.sobel-morpho/Algo/difx_gpu.pi"/>
+        <architecture url="/org.ietr.preesm.sobel-morpho/Archi/1CoreX86&amp;GPU.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.sobel-morpho/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="difx_gpu/loadCfg"/>
+            <task name="difx_gpu/deviceSetup"/>
+            <task name="difx_gpu/readData"/>
+            <task name="difx_gpu/openAntFiles"/>
+            <task name="difx_gpu/calculateDelaysAndPhases"/>
+            <task name="difx_gpu/unpackData"/>
+            <task name="difx_gpu/doFFT"/>
+            <task name="difx_gpu/fracSampleCorrection"/>
+            <task name="difx_gpu/CCAH"/>
+            <task name="difx_gpu/saveVisibilities"/>
+            <task name="difx_gpu"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="GPU"/>
+            <task name="difx_gpu/unpackData"/>
+            <task name="difx_gpu/fracSampleCorrection"/>
+            <task name="difx_gpu/CCAH"/>
+            <task name="difx_gpu"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/CCAH"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/CCAH"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/calculateDelaysAndPhases"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/calculateDelaysAndPhases"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/deviceSetup"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/deviceSetup"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/doFFT"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/doFFT"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/fracSampleCorrection"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/fracSampleCorrection"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/loadCfg"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/loadCfg"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/openAntFiles"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/openAntFiles"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/readData"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/readData"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/saveVisibilities"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/saveVisibilities"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/unpackData"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu/unpackData"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
+        <memcpyspeed opname="defaultGPU" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="8"/>
+            <dataType name="char" size="8"/>
+            <dataType name="int" size="32"/>
+            <dataType name="double" size="64"/>
+            <dataType name="char*" size="8"/>
+            <dataType name="double*" size="64"/>
+            <dataType name="uint8_t*" size="64"/>
+            <dataType name="FILE*" size="64"/>
+            <dataType name="long long" size="64"/>
+            <dataType name="struct timespec" size="128"/>
+            <dataType name="cf32" size="64"/>
+            <dataType name="u8" size="8"/>
+            <dataType name="u8*" size="64"/>
+            <dataType name="cf32**" size="64"/>
+            <dataType name="void" size="8"/>
+            <dataType name="uint8_t" size="8"/>
+            <dataType name="float" size="32"/>
+            <dataType name="COMPLEX" size="64"/>
+            <dataType name="cufftHandle" size="32"/>
+            <dataType name="int8_t" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>

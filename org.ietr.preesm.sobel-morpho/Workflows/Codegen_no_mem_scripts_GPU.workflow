@@ -31,7 +31,7 @@
         <dftools:data key="variables">
             <dftools:variable name="Allocator(s)" value="BestFit"/>
             <dftools:variable name="Best/First Fit order" value="LargestFirst"/>
-            <dftools:variable name="Data alignment" value="None"/>
+            <dftools:variable name="Data alignment" value="Fixed:=64"/>
             <dftools:variable name="Distribution" value="MixedMerged"/>
             <dftools:variable name="Merge broadcasts" value="True"/>
             <dftools:variable name="Nb of Shuffling Tested" value="10"/>
@@ -78,6 +78,15 @@
             <dftools:variable name="path" value="/Algo/generated/pisdf/"/>
         </dftools:data>
     </dftools:task>
+    <dftools:task pluginId="scape.task.identifier" taskId="SCAPE">
+        <dftools:data key="variables">
+            <dftools:variable name="Level number" value="1"/>
+            <dftools:variable name="Memory optimization" value="True"/>
+            <dftools:variable name="Non-cluster actor" value=""/>
+            <dftools:variable name="SCAPE mode" value="0"/>
+            <dftools:variable name="Stack size" value="1048576"/>
+        </dftools:data>
+    </dftools:task>
     <dftools:dataTransfer from="scenario" sourceport="scenario"
         targetport="scenario" to="Display Gantt"/>
     <dftools:dataTransfer from="Scheduling" sourceport="ABC"
@@ -110,10 +119,12 @@
         targetport="scenario" to="Gantt Exporter"/>
     <dftools:dataTransfer from="pisdf-srdag" sourceport="PiMM"
         targetport="PiMM" to="Scheduling"/>
-    <dftools:dataTransfer from="pisdf-srdag" sourceport="PiMM"
-        targetport="PiMM" to="pisdf-export"/>
-    <dftools:dataTransfer from="scenario" sourceport="PiMM"
+    <dftools:dataTransfer from="scenario" sourceport="scenario"
+        targetport="scenario" to="SCAPE"/>
+    <dftools:dataTransfer from="SCAPE" sourceport="PiMM"
         targetport="PiMM" to="pisdf-srdag"/>
     <dftools:dataTransfer from="MEG Updater" sourceport="MemEx"
         targetport="MemEx" to="Memory Allocation"/>
+    <dftools:dataTransfer from="SCAPE" sourceport="PiMM"
+        targetport="PiMM" to="pisdf-export"/>
 </dftools:workflow>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
+    <files>
+        <algorithm url="/org.ietr.preesm.sobel-morpho/Algo/difx_gpu_testing.pi"/>
+        <architecture url="/org.ietr.preesm.sobel-morpho/Archi/1CoreX86.slam"/>
+        <codegenDirectory url="/org.ietr.preesm.sobel-morpho/Code/generated"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="Core0"/>
+            <task name="difx_gpu_testing/loadCfg"/>
+            <task name="difx_gpu_testing/deviceSetup"/>
+            <task name="difx_gpu_testing/readData"/>
+            <task name="difx_gpu_testing/openAntFiles"/>
+            <task name="difx_gpu_testing/calculateDelaysAndPhases"/>
+            <task name="difx_gpu_testing/unpackData"/>
+            <task name="difx_gpu_testing/doFFT"/>
+            <task name="difx_gpu_testing/fracSampleCorrection"/>
+            <task name="difx_gpu_testing/CCAH"/>
+            <task name="difx_gpu_testing/saveVisibilities"/>
+            <task name="difx_gpu_testing"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
+    </timings>
+    <simuParams>
+        <mainCore>Core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="uchar" size="8"/>
+            <dataType name="char" size="8"/>
+            <dataType name="int" size="32"/>
+            <dataType name="double" size="64"/>
+            <dataType name="char*" size="8"/>
+            <dataType name="double*" size="64"/>
+            <dataType name="uint8_t*" size="64"/>
+            <dataType name="FILE*" size="64"/>
+            <dataType name="long long" size="64"/>
+            <dataType name="struct timespec" size="128"/>
+            <dataType name="cf32" size="64"/>
+            <dataType name="u8" size="8"/>
+            <dataType name="u8*" size="64"/>
+            <dataType name="cf32**" size="64"/>
+            <dataType name="void" size="8"/>
+            <dataType name="uint8_t" size="8"/>
+            <dataType name="float" size="32"/>
+            <dataType name="COMPLEX" size="64"/>
+            <dataType name="cufftHandle" size="32"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>
