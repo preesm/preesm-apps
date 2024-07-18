@@ -5,7 +5,7 @@
     </flags>
     <files>
         <algorithm url="/org.ietr.preesm.sobel-morpho/Algo/difx_gpu_testing.pi"/>
-        <architecture url="/org.ietr.preesm.sobel-morpho/Archi/1CoreX86.slam"/>
+        <architecture url="/org.ietr.preesm.sobel-morpho/Archi/1CoreX86&amp;GPU.slam"/>
         <codegenDirectory url="/org.ietr.preesm.sobel-morpho/Code/generated"/>
     </files>
     <constraints excelUrl="">
@@ -21,11 +21,65 @@
             <task name="difx_gpu_testing/fracSampleCorrection"/>
             <task name="difx_gpu_testing/CCAH"/>
             <task name="difx_gpu_testing/saveVisibilities"/>
+            <task name="difx_gpu_testing/channCorrect"/>
             <task name="difx_gpu_testing"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="GPU"/>
+            <task name="difx_gpu_testing/unpackData"/>
+            <task name="difx_gpu_testing/fracSampleCorrection"/>
+            <task name="difx_gpu_testing/CCAH"/>
+            <task name="difx_gpu_testing/channCorrect"/>
         </constraintGroup>
     </constraints>
     <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/CCAH"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/CCAH"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/calculateDelaysAndPhases"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/calculateDelaysAndPhases"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/channCorrect"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/channCorrect"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/deviceSetup"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/deviceSetup"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/doFFT"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/doFFT"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/fracSampleCorrection"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/fracSampleCorrection"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/loadCfg"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/loadCfg"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/readData"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/readData"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/openAntFiles"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/openAntFiles"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/saveVisibilities"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/saveVisibilities"/>
+        <timing opname="x86" time="1000"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/unpackData"/>
+        <timing opname="defaultGPU" time="150"
+            timingtype="EXECUTION_TIME" vertexname="difx_gpu_testing/unpackData"/>
         <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="0.001"/>
+        <memcpyspeed opname="defaultGPU" setuptime="1" timeperunit="0.001"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
@@ -53,6 +107,7 @@
             <dataType name="cufftHandle" size="32"/>
         </dataTypes>
         <specialVertexOperators>
+            <specialVertexOperator path="Core0"/>
             <specialVertexOperator path="Core0"/>
         </specialVertexOperators>
     </simuParams>

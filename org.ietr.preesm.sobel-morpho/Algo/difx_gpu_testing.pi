@@ -140,7 +140,7 @@
             <port annotation="NONE" expr="NANT" kind="input" name="antStream"/>
             <port annotation="NONE" expr="1" kind="input" name="numantennas"/>
             <port annotation="NONE"
-                expr="NANT*NCHAN*CFACTOR*(NFFTS+1)*NBIT/ (8 * NPOL)"
+                expr="NANT*NCHAN*CFACTOR*(NFFTS+1)*NBIT/ 8 * NPOL"
                 kind="output" name="inputData"/>
         </node>
         <node id="openAntFiles" kind="actor">
@@ -182,35 +182,21 @@
                     name="sampleShifts" type="int"/>
                 <param direction="OUT" isConfig="false"
                     name="fractionalSampleDelays" type="int"/>
-                <param direction="OUT" isConfig="false"
-                    name="packedData" type="uint8_t"/>
-                <param direction="IN" isConfig="false"
-                    name="inputData" type="uint8_t"/>
             </loop>
             <port kind="cfg_input" name="NANT"/>
             <port kind="cfg_input" name="NFFTS"/>
-            <port kind="cfg_input" name="CFACTOR"/>
-            <port kind="cfg_input" name="NCHAN"/>
-            <port kind="cfg_input" name="NBIT"/>
-            <port kind="cfg_input" name="NPOL"/>
             <port annotation="NONE" expr="NANT * 4" kind="input" name="delays"/>
             <port annotation="NONE" expr="1" kind="input" name="lo"/>
             <port annotation="NONE" expr="1" kind="input" name="sampletime"/>
             <port annotation="NONE" expr="1" kind="input" name="fftsamples"/>
             <port annotation="NONE" expr="1" kind="input" name="numchannels"/>
             <port annotation="NONE" expr="1" kind="input" name="samplegranularity"/>
-            <port annotation="NONE"
-                expr="NANT*NCHAN*CFACTOR*(NFFTS+1)*NBIT/ (8 * NPOL)"
-                kind="input" name="inputData"/>
             <port annotation="NONE" expr="NANT*NFFTS*2"
                 kind="output" name="rotationPhaseInfo"/>
             <port annotation="NONE" expr="NANT*NFFTS"
                 kind="output" name="sampleShifts"/>
             <port annotation="NONE" expr="NANT*NFFTS"
                 kind="output" name="fractionalSampleDelays"/>
-            <port annotation="NONE"
-                expr="NANT*NCHAN*CFACTOR*(NFFTS+1)*NBIT/ (8 * NPOL)"
-                kind="output" name="packedData"/>
         </node>
         <node id="numantennas_bc" kind="broadcast">
             <port annotation="NONE" expr="1" kind="input" name="numantennas"/>
@@ -287,7 +273,7 @@
             <port kind="cfg_input" name="NBIT"/>
             <port kind="cfg_input" name="SUBINTSAMP"/>
             <port annotation="NONE"
-                expr="NANT*NCHAN*CFACTOR*(NFFTS+1)*NBIT/ (8 * NPOL)"
+                expr="NANT*NCHAN*CFACTOR*(NFFTS+1)*NBIT/ 8 * NPOL"
                 kind="input" name="packedData"/>
             <port annotation="NONE" expr="NANT*NFFTS*2"
                 kind="input" name="rotationPhaseInfo"/>
@@ -432,6 +418,41 @@
             <port annotation="NONE" expr="1" kind="input" name="numchannels"/>
             <port annotation="NONE" expr="1" kind="input" name="bandwidth"/>
         </node>
+        <node id="chann_bc" kind="broadcast">
+            <port kind="cfg_input" name="SUBINTSAMP"/>
+            <port kind="cfg_input" name="NANT"/>
+            <port kind="cfg_input" name="NPOL"/>
+            <port annotation="NONE" expr="NANT*NPOL*SUBINTSAMP"
+                kind="input" name="chann_in"/>
+            <port annotation="NONE" expr="NANT*NPOL*SUBINTSAMP"
+                kind="output" name="chann_out1"/>
+            <port annotation="NONE" expr="NANT*NPOL*SUBINTSAMP"
+                kind="output" name="chann_out2"/>
+        </node>
+        <node id="channCorrect" kind="actor">
+            <data key="graph_desc">Code/include/difx_gpu_header.h</data>
+            <loop name="channCorrect">
+                <param direction="IN" isConfig="true"
+                    name="SUBINTSAMP" type="int"/>
+                <param direction="IN" isConfig="true" name="NANT" type="int"/>
+                <param direction="IN" isConfig="true" name="NPOL" type="int"/>
+                <param direction="IN" isConfig="false"
+                    name="chann_fft" type="COMPLEX"/>
+                <param direction="IN" isConfig="false"
+                    name="chann_frac" type="COMPLEX"/>
+                <param direction="OUT" isConfig="false"
+                    name="chann_out" type="COMPLEX"/>
+            </loop>
+            <port kind="cfg_input" name="SUBINTSAMP"/>
+            <port kind="cfg_input" name="NANT"/>
+            <port kind="cfg_input" name="NPOL"/>
+            <port annotation="NONE" expr="NANT*NPOL*SUBINTSAMP"
+                kind="input" name="chann_fft"/>
+            <port annotation="NONE" expr="NANT*NPOL*SUBINTSAMP"
+                kind="input" name="chann_frac"/>
+            <port annotation="NONE" expr="NANT*NPOL*SUBINTSAMP"
+                kind="output" name="chann_out"/>
+        </node>
         <edge kind="fifo" source="openAntFiles"
             sourceport="antStream" target="readData"
             targetport="antStream" type="FILE*"/>
@@ -506,6 +527,9 @@
         <edge kind="fifo" source="subintbytes_bc"
             sourceport="subintbytes1" target="readData"
             targetport="subintbytes" type="int"/>
+        <edge kind="fifo" source="readData"
+            sourceport="inputData" target="unpackData"
+            targetport="packedData" type="int8_t"/>
         <edge kind="fifo" source="calculateDelaysAndPhases"
             sourceport="rotationPhaseInfo" target="unpackData"
             targetport="rotationPhaseInfo" type="float"/>
@@ -520,14 +544,10 @@
             targetport="unpackedData" type="COMPLEX"/>
         <edge kind="fifo" source="deviceSetup" sourceport="plan"
             target="doFFT" targetport="plan" type="cufftHandle"/>
-        <edge kind="fifo" source="doFFT"
-            sourceport="channelisedData"
-            target="fracSampleCorrection"
-            targetport="channelisedData" type="COMPLEX"/>
         <edge kind="fifo" source="calculateDelaysAndPhases"
             sourceport="fractionalSampleDelays"
             target="fracSampleCorrection"
-            targetport="fractionalSampleDelays" type="int"/>
+            targetport="fractionalSampleDelays" type="float"/>
         <edge kind="fifo" source="numchannels_bc"
             sourceport="numchannels2"
             target="fracSampleCorrection"
@@ -548,9 +568,6 @@
             sourceport="subintsamples1"
             target="fracSampleCorrection"
             targetport="subintsamples" type="int"/>
-        <edge kind="fifo" source="fracSampleCorrection"
-            sourceport="channelisedData_out" target="CCAH"
-            targetport="channelisedData" type="COMPLEX"/>
         <edge kind="fifo" source="numantennas_bc"
             sourceport="numantennas3" target="CCAH"
             targetport="numantennas" type="int"/>
@@ -573,13 +590,21 @@
             targetport="numchannels" type="int"/>
         <edge kind="fifo" source="loadCfg" sourceport="bandwidth"
             target="saveVisibilities" targetport="bandwidth" type="double"/>
-        <edge kind="fifo" source="readData"
-            sourceport="inputData"
-            target="calculateDelaysAndPhases"
-            targetport="inputData" type="uint8_t"/>
-        <edge kind="fifo" source="calculateDelaysAndPhases"
-            sourceport="packedData" target="unpackData"
-            targetport="packedData" type="uint8_t"/>
+        <edge kind="fifo" source="doFFT"
+            sourceport="channelisedData" target="chann_bc"
+            targetport="chann_in" type="COMPLEX"/>
+        <edge kind="fifo" source="chann_bc"
+            sourceport="chann_out1" target="fracSampleCorrection"
+            targetport="channelisedData" type="COMPLEX"/>
+        <edge kind="fifo" source="chann_bc"
+            sourceport="chann_out2" target="channCorrect"
+            targetport="chann_fft" type="COMPLEX"/>
+        <edge kind="fifo" source="fracSampleCorrection"
+            sourceport="channelisedData_out"
+            target="channCorrect" targetport="chann_frac" type="COMPLEX"/>
+        <edge kind="fifo" source="channCorrect"
+            sourceport="chann_out" target="CCAH"
+            targetport="channelisedData" type="COMPLEX"/>
         <edge kind="dependency" source="NANT"
             target="calculateDelaysAndPhases" targetport="NANT"/>
         <edge kind="dependency" source="NANT" target="loadCfg" targetport="NANT"/>
@@ -635,13 +660,15 @@
         <edge kind="dependency" source="PARAACCUM" target="CCAH" targetport="PARAACCUM"/>
         <edge kind="dependency" source="PARAACCUM"
             target="saveVisibilities" targetport="PARAACCUM"/>
-        <edge kind="dependency" source="CFACTOR"
-            target="calculateDelaysAndPhases" targetport="CFACTOR"/>
-        <edge kind="dependency" source="NCHAN"
-            target="calculateDelaysAndPhases" targetport="NCHAN"/>
-        <edge kind="dependency" source="NBIT"
-            target="calculateDelaysAndPhases" targetport="NBIT"/>
+        <edge kind="dependency" source="SUBINTSAMP"
+            target="chann_bc" targetport="SUBINTSAMP"/>
+        <edge kind="dependency" source="NANT" target="chann_bc" targetport="NANT"/>
+        <edge kind="dependency" source="NPOL" target="chann_bc" targetport="NPOL"/>
+        <edge kind="dependency" source="SUBINTSAMP"
+            target="channCorrect" targetport="SUBINTSAMP"/>
+        <edge kind="dependency" source="NANT"
+            target="channCorrect" targetport="NANT"/>
         <edge kind="dependency" source="NPOL"
-            target="calculateDelaysAndPhases" targetport="NPOL"/>
+            target="channCorrect" targetport="NPOL"/>
     </graph>
 </graphml>

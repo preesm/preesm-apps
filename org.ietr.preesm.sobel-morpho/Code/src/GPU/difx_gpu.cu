@@ -227,7 +227,7 @@ void readData(int NBIT, int NPOL, int CFACTOR, int NFFTS, int NANT, int NCHAN, i
 }
 
 void openAntFiles(int NANT, int *numantennas, char **antFiles, FILE **antStream) {
-    for (int i = 0; i < *numantennas; i++) {
+    for (int i = 0; i < NANT; i++) {
         antStream[i] = fopen(antFiles[i], "rb");
         if (antStream[i] == NULL) {
             fprintf(stderr, "Problem with file %s - does it exist?\n", antFiles[i]);
@@ -282,87 +282,48 @@ calculateDelaysAndPhasesGPU(int NANT, int NFFTS, double *delays, double *lo, dou
 __global__ void
 unpackData(int NANT, int NFFTS, int CFACTOR, int NCHAN, int NPOL, int NBIT, int SUBINTSAMP, int8_t *packedData,
            float *rotationPhaseInfo, int *sampleShifts, int *fftsamples, COMPLEX *unpackedData) {
-    // static const float HiMag = 3.3359;  // Optimal value
-    // const float levels_2bit[4] = {-HiMag, -1.0, 1.0, HiMag};
-    const size_t isample = 2 * (blockDim.x * blockIdx.x + threadIdx.x);
-    const size_t ifft = blockIdx.y;
-    const size_t osample = isample + ifft * *fftsamples;
-    int subintsamples = *fftsamples * gridDim.y;
+    if(threadIdx.x < *fftsamples/2 && blockIdx.x < NFFTS) {
+        for (int i = 0; i < NANT; i++) {
+            // static const float HiMag = 3.3359;  // Optimal value
+            // const float levels_2bit[4] = {-HiMag, -1.0, 1.0, HiMag};
+            const size_t isample = 2 * threadIdx.x;
+            const size_t ifft = blockIdx.x;
+            const size_t osample = isample + ifft * *fftsamples;
+            int subintsamples = *fftsamples * NFFTS;
 
-    // Try to Fix
-    size_t idx = ((osample - sampleShifts[ifft]) /
-                  2); // FIXME: may lead to memory access outside src[] bounds, see with 'cuda-memcheck ./benchmark_gxkernel'
-    // And of try to fix
+            // Try to Fix
+            size_t idx = ((osample - sampleShifts[ifft + i * NFFTS]) /
+                          2); // FIXME: may lead to memory access outside src[] bounds, see with 'cuda-memcheck ./benchmark_gxkernel'
+            // And of try to fix
 
-    int8_t src_i = packedData[idx]; // Here I am just loading src into local memory to
-    // reduce the number of reads from global memory
+            int8_t src_i = packedData[idx + i * (NCHAN * CFACTOR * (NFFTS + 1) * NBIT / 8 *
+                                                 NPOL)]; // Here I am just loading src into local memory to
+            // reduce the number of reads from global memory
 
-    // I have just changed the order of the writes made to dest
-    // In theory this should reduce the number of write operations made
-    // I have also implemented the use of constant memory for the levels_2bit
-    // array
+            // I have just changed the order of the writes made to dest
+            // In theory this should reduce the number of write operations made
+            // I have also implemented the use of constant memory for the levels_2bit
+            // array
 
-    float samp0 = kLevels_2bit[src_i & 0x3];
-    float samp1 = kLevels_2bit[(src_i >> 4) & 0x3];
-    float samp2 = kLevels_2bit[(src_i >> 2) & 0x3];
-    float samp3 = kLevels_2bit[(src_i >> 6) & 0x3];
+            float samp0 = kLevels_2bit[src_i & 0x3];
+            float samp1 = kLevels_2bit[(src_i >> 4) & 0x3];
+            float samp2 = kLevels_2bit[(src_i >> 2) & 0x3];
+            float samp3 = kLevels_2bit[(src_i >> 6) & 0x3];
 
-    // phase and slope for this FFT
-    float p0 = rotationPhaseInfo[ifft * 2];
-    float p1 = rotationPhaseInfo[ifft * 2 + 1];
-    float theta0 = -p0 - isample * p1;
-    float theta1 = -p0 - (isample + 1) * p1;
+            // phase and slope for this FFT
+            float p0 = rotationPhaseInfo[ifft * 2 + i * NFFTS * 2];
+            float p1 = rotationPhaseInfo[ifft * 2 + 1 + i * NFFTS * 2];
+            float theta0 = -p0 - isample * p1;
+            float theta1 = -p0 - (isample + 1) * p1;
 
-    float sinT0, cosT0, sinT1, cosT1;
-    sincosf(theta0, &sinT0, &cosT0);
-    sincosf(theta1, &sinT1, &cosT1);
-    cuRotatePhase3(samp0, unpackedData[(osample)], sinT0, cosT0);
-    cuRotatePhase3(samp1, unpackedData[(osample + 1)], sinT1, cosT1);
-    cuRotatePhase3(samp2, unpackedData[(subintsamples + osample)], sinT0, cosT0);
-    cuRotatePhase3(samp3, unpackedData[(subintsamples + osample + 1)], sinT1, cosT1);
-}
-
-__global__ void
-unpackData2(int NANT, int NFFTS, int CFACTOR, int NCHAN, int NPOL, int NBIT, int SUBINTSAMP, int8_t *packedData,
-           float *rotationPhaseInfo, int *sampleShifts, int *fftsamples, COMPLEX *unpackedData) {
-    for(int i = 0; i < NANT; i++) {
-        // static const float HiMag = 3.3359;  // Optimal value
-        // const float levels_2bit[4] = {-HiMag, -1.0, 1.0, HiMag};
-        const size_t isample = 2 * (blockDim.x * blockIdx.x + threadIdx.x);
-        const size_t ifft = blockIdx.y;
-        const size_t osample = isample + ifft * *fftsamples;
-        int subintsamples = *fftsamples * gridDim.y;
-
-        // Try to Fix
-        size_t idx = ((osample - sampleShifts[ifft + i * NFFTS]) / 2); // FIXME: may lead to memory access outside src[] bounds, see with 'cuda-memcheck ./benchmark_gxkernel'
-        // And of try to fix
-
-        int8_t src_i = packedData[idx + i * (NCHAN * CFACTOR * (NFFTS + 1) * NBIT / 8 * NPOL)]; // Here I am just loading src into local memory to
-        // reduce the number of reads from global memory
-
-        // I have just changed the order of the writes made to dest
-        // In theory this should reduce the number of write operations made
-        // I have also implemented the use of constant memory for the levels_2bit
-        // array
-
-        float samp0 = kLevels_2bit[src_i & 0x3];
-        float samp1 = kLevels_2bit[(src_i >> 4) & 0x3];
-        float samp2 = kLevels_2bit[(src_i >> 2) & 0x3];
-        float samp3 = kLevels_2bit[(src_i >> 6) & 0x3];
-
-        // phase and slope for this FFT
-        float p0 = rotationPhaseInfo[ifft * 2 + i * NFFTS * 2];
-        float p1 = rotationPhaseInfo[ifft * 2 + 1 + i * NFFTS * 2];
-        float theta0 = -p0 - isample * p1;
-        float theta1 = -p0 - (isample + 1) * p1;
-
-        float sinT0, cosT0, sinT1, cosT1;
-        sincosf(theta0, &sinT0, &cosT0);
-        sincosf(theta1, &sinT1, &cosT1);
-        cuRotatePhase3(samp0, unpackedData[(osample + 2 * i * SUBINTSAMP)], sinT0, cosT0);
-        cuRotatePhase3(samp1, unpackedData[(osample + 1+ 2 * i * SUBINTSAMP)], sinT1, cosT1);
-        cuRotatePhase3(samp2, unpackedData[(subintsamples + osample+ 2 * i * SUBINTSAMP)], sinT0, cosT0);
-        cuRotatePhase3(samp3, unpackedData[(subintsamples + osample + 1+ 2 * i * SUBINTSAMP)], sinT1, cosT1);
+            float sinT0, cosT0, sinT1, cosT1;
+            sincosf(theta0, &sinT0, &cosT0);
+            sincosf(theta1, &sinT1, &cosT1);
+            cuRotatePhase3(samp0, unpackedData[(osample + 2 * i * SUBINTSAMP)], sinT0, cosT0);
+            cuRotatePhase3(samp1, unpackedData[(osample + 1 + 2 * i * SUBINTSAMP)], sinT1, cosT1);
+            cuRotatePhase3(samp2, unpackedData[(subintsamples + osample + 2 * i * SUBINTSAMP)], sinT0, cosT0);
+            cuRotatePhase3(samp3, unpackedData[(subintsamples + osample + 1 + 2 * i * SUBINTSAMP)], sinT1, cosT1);
+        }
     }
 }
 
@@ -373,7 +334,7 @@ doFFT(int SUBINTSAMP, int NANT, int NPOL, COMPLEX *unpackedData, cufftHandle *pl
     }
 }
 
-__global__ void fracSampleCorrection(int NANT, int NFFTS, int SUBINTSAMP, int NPOL, COMPLEX *channelisedData,
+__global__ void fracSampleCorrection_old(int NANT, int NFFTS, int SUBINTSAMP, int NPOL, COMPLEX *channelisedData,
                                      float *fractionalSampleDelays, int *numchannels, int *fftsamples, int *numffts,
                                      int *subintsamples, COMPLEX *channelisedData_out) {
     size_t ichan = threadIdx.x + blockIdx.x * blockDim.x;
@@ -390,91 +351,111 @@ __global__ void fracSampleCorrection(int NANT, int NFFTS, int SUBINTSAMP, int NP
     memcpy(&channelisedData_out[sampIdx(iant, 1, ichan + ifft * *fftsamples, *subintsamples)], &channelisedData[sampIdx(iant, 1, ichan + ifft * *fftsamples, *subintsamples)], sizeof(cuComplex));
 }
 
-__global__ void fracSampleCorrection1D(int NANT, int NFFTS, int SUBINTSAMP, int NPOL, COMPLEX *channelisedData,
+__global__ void fracSampleCorrection(int NANT, int NFFTS, int SUBINTSAMP, int NPOL, COMPLEX *channelisedData,
                                      float *fractionalSampleDelays, int *numchannels, int *fftsamples, int *numffts,
                                      int *subintsamples, COMPLEX *channelisedData_out) {
-    size_t ichan = threadIdx.x;
-    size_t combinedIndex = blockIdx.x;
-    size_t ifft = combinedIndex % *numffts;
-    size_t iant = combinedIndex / *numffts;
+    if(threadIdx.x < *numchannels && blockIdx.x < NFFTS*NANT) { // NUMCHAN et NUMFFTS*NUMANTENNAS
+        size_t ichan = threadIdx.x;
+        size_t combinedIndex = blockIdx.x;
+        size_t ifft = combinedIndex % *numffts;
+        size_t iant = combinedIndex / *numffts;
 
-    // phase and slope for this FFT
-    float dslope = fractionalSampleDelays[iant**numffts + ifft];
-    float theta = ichan*dslope;
-    cuRotatePhase(channelisedData[sampIdx(iant, 0, ichan+ifft**fftsamples, SUBINTSAMP)], theta);
-    cuRotatePhase(channelisedData[sampIdx(iant, 1, ichan+ifft**fftsamples, SUBINTSAMP)], theta);
+        // phase and slope for this FFT
+        float dslope = fractionalSampleDelays[iant * *numffts + ifft];
+        float theta = ichan * dslope;
+        cuRotatePhase(channelisedData[sampIdx(iant, 0, ichan + ifft * *fftsamples, SUBINTSAMP)], theta);
+        cuRotatePhase(channelisedData[sampIdx(iant, 1, ichan + ifft * *fftsamples, SUBINTSAMP)], theta);
+
+        memcpy(&channelisedData_out[sampIdx(iant, 0, ichan + ifft * *fftsamples, *subintsamples)], &channelisedData[sampIdx(iant, 0, ichan + ifft * *fftsamples, *subintsamples)], sizeof(cuComplex));
+        memcpy(&channelisedData_out[sampIdx(iant, 1, ichan + ifft * *fftsamples, *subintsamples)], &channelisedData[sampIdx(iant, 1, ichan + ifft * *fftsamples, *subintsamples)], sizeof(cuComplex));
+    }
 }
 
 
 __global__ void
 CCAH(int NPOL, int SUBINTSAMP, int NANT, int NBASELINE, int NCHAN, int PARAACCUM, COMPLEX *channelisedData,
      int *numantennas, int *numffts, int *numchannels, int *fftsamples, COMPLEX *baselineData) {
-    int t = threadIdx.x + blockIdx.x * blockDim.x;
-    if (t >= NCHAN) return;
+    if(blockIdx.x < (1+(NCHAN-1)/128)*NANT*NANT && threadIdx.x < 128) {
+        int linear_idx = blockIdx.x * 128 + threadIdx.x;
+        // Total number of pairs of antennas
+        int total_pairs = NANT * (NANT - 1) / 2;
+        int total_elements = total_pairs * NCHAN;
 
-    // Assuming nPol ==2 !!!!
+        if (linear_idx >= total_elements) return;
 
-    // blockIdx.y: index of first vector (antennaindex)
-    // blockIdx.z: index delta to second vector, minus 1.
-    int ant1 = blockIdx.y;
-    int ant2 = ant1 + blockIdx.z + 1;
+        // Calculate the channel index
+        int t = linear_idx % NCHAN;
 
-    if (ant2 >= NANT) return;
+        // Calculate the pair index
+        int pair_idx = linear_idx / NCHAN;
 
-    // index into output vector blocks: = (j-i-1) + n-1 + ... + n-i
-    int b = ant1 * NANT - ant1 * (ant1 + 1) / 2 + -ant1 + ant2 - 1;
+        // Calculate ant1 and ant2 from pair_idx
+        int ant1 = 0;
+        int ant2 = 0;
+        int offset = 0;
+        for (ant1 = 0; ant1 < NANT - 1; ++ant1) {
+            int remaining_pairs = NANT - ant1 - 1;
+            if (pair_idx < offset + remaining_pairs) {
+                ant2 = ant1 + 1 + (pair_idx - offset);
+                break;
+            }
+            offset += remaining_pairs;
+        }
 
-    int s = *numffts * *fftsamples;
+        // Index into output vector blocks: = (j-i-1) + n-1 + ... + n-i
+        int b = ant1 * NANT - ant1 * (ant1 + 1) / 2 - ant1 + ant2 - 1;
 
-    const COMPLEX *iv = channelisedData + ant1 * s * 2 + t;
-    const COMPLEX *jv = channelisedData + ant2 * s * 2 + t;
+        int s = *numffts * *fftsamples;
 
-    COMPLEX u1 = iv[0];
-    COMPLEX v1 = jv[0];
-    COMPLEX u2 = iv[s];
-    COMPLEX v2 = jv[s];
-    cuComplex a1;
-    cuComplex a2;
-    cuComplex a3;
-    cuComplex a4;
-    a1.x = (u1.x * v1.x + u1.y * v1.y);
+        const COMPLEX *iv = channelisedData + ant1 * s * 2 + t;
+        const COMPLEX *jv = channelisedData + ant2 * s * 2 + t;
 
-    a1.y = u1.y * v1.x - u1.x * v1.y;
-    a2.x = u1.x * v2.x + u1.y * v2.y;
-    a2.y = u1.y * v2.x - u1.x * v2.y;
-    a3.x = u2.x * v1.x + u2.y * v1.y;
-    a3.y = u2.y * v1.x - u2.x * v1.y;
-    a4.x = u2.x * v2.x + u2.y * v2.y;
-    a4.y = u2.y * v2.x - u2.x * v2.y;
+        COMPLEX u1 = iv[0];
+        COMPLEX v1 = jv[0];
+        COMPLEX u2 = iv[s];
+        COMPLEX v2 = jv[s];
+        cuComplex a1;
+        cuComplex a2;
+        cuComplex a3;
+        cuComplex a4;
+        a1.x = (u1.x * v1.x + u1.y * v1.y);
+        a1.y = u1.y * v1.x - u1.x * v1.y;
+        a2.x = u1.x * v2.x + u1.y * v2.y;
+        a2.y = u1.y * v2.x - u1.x * v2.y;
+        a3.x = u2.x * v1.x + u2.y * v1.y;
+        a3.y = u2.y * v1.x - u2.x * v1.y;
+        a4.x = u2.x * v2.x + u2.y * v2.y;
+        a4.y = u2.y * v2.x - u2.x * v2.y;
 
-    for (int k = *fftsamples; k < s; k += *fftsamples) {
-        u1 = iv[k];
-        v1 = jv[k];
-        u2 = iv[k + s];
-        v2 = jv[k + s];
+        for (int k = *fftsamples; k < s; k += *fftsamples) {
+            u1 = iv[k];
+            v1 = jv[k];
+            u2 = iv[k + s];
+            v2 = jv[k + s];
 
-        a1.x += HALF2FLOAT(u1.x * v1.x + u1.y * v1.y);
-        a1.y += HALF2FLOAT(u1.y * v1.x - u1.x * v1.y);
-        a2.x += HALF2FLOAT(u1.x * v2.x + u1.y * v2.y);
-        a2.y += HALF2FLOAT(u1.y * v2.x - u1.x * v2.y);
-        a3.x += HALF2FLOAT(u2.x * v1.x + u2.y * v1.y);
-        a3.y += HALF2FLOAT(u2.y * v1.x - u2.x * v1.y);
-        a4.x += HALF2FLOAT(u2.x * v2.x + u2.y * v2.y);
-        a4.y += HALF2FLOAT(u2.y * v2.x - u2.x * v2.y);
+            a1.x += HALF2FLOAT(u1.x * v1.x + u1.y * v1.y);
+            a1.y += HALF2FLOAT(u1.y * v1.x - u1.x * v1.y);
+            a2.x += HALF2FLOAT(u1.x * v2.x + u1.y * v2.y);
+            a2.y += HALF2FLOAT(u1.y * v2.x - u1.x * v2.y);
+            a3.x += HALF2FLOAT(u2.x * v1.x + u2.y * v1.y);
+            a3.y += HALF2FLOAT(u2.y * v1.x - u2.x * v1.y);
+            a4.x += HALF2FLOAT(u2.x * v2.x + u2.y * v2.y);
+            a4.y += HALF2FLOAT(u2.y * v2.x - u2.x * v2.y);
+        }
+
+        a1.x /= *numffts;
+        a1.y /= *numffts;
+        a2.x /= *numffts;
+        a2.y /= *numffts;
+        a3.x /= *numffts;
+        a3.y /= *numffts;
+        a4.x /= *numffts;
+        a4.y /= *numffts;
+        baselineData[4 * b * NCHAN + t] = a1;
+        baselineData[(4 * b + 1) * NCHAN + t] = a2;
+        baselineData[(4 * b + 2) * NCHAN + t] = a3;
+        baselineData[(4 * b + 3) * NCHAN + t] = a4;
     }
-
-    a1.x /= *numffts;
-    a1.y /= *numffts;
-    a2.x /= *numffts;
-    a2.y /= *numffts;
-    a3.x /= *numffts;
-    a3.y /= *numffts;
-    a4.x /= *numffts;
-    a4.y /= *numffts;
-    baselineData[4 * b * NCHAN + t] = a1;
-    baselineData[(4 * b + 1) * NCHAN + t] = a2;
-    baselineData[(4 * b + 2) * NCHAN + t] = a3;
-    baselineData[(4 * b + 3) * NCHAN + t] = a4;
 }
 
 // Function to compute the phase angle of a cuComplex number
@@ -560,4 +541,17 @@ void calculateDelaysAndPhases(int NANT, int NFFTS, double *delays, double *lo, d
             rotationPhaseInfo[iant * NFFTS * 2 + ifft * 2 + 1] = (float) (deltadelay * *lo) * 2 * M_PI;
         }
     }
+}
+
+__global__ void channCorrect(int SUBINTSAMP, int NANT, int NPOL, COMPLEX *  chann_fft, COMPLEX *  chann_frac, COMPLEX *  chann_out) {
+        int global_index = blockIdx.x * blockDim.x + threadIdx.x;
+        if (global_index < 15728640) {
+            if (chann_frac[global_index].x == 0.0f || chann_frac[global_index].y == 0.0f) {
+                //memcpy(&correct_out[global_index], &fft_out[global_index], sizeof(cuComplex));
+                chann_out[global_index] = chann_fft[global_index];
+            } else {
+                //memcpy(&correct_out[global_index], &frac_out[global_index], sizeof(cuComplex));
+                chann_out[global_index] = chann_frac[global_index];
+            }
+        }
 }

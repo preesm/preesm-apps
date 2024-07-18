@@ -81,7 +81,7 @@
     <dftools:task pluginId="scape.task.identifier" taskId="SCAPE">
         <dftools:data key="variables">
             <dftools:variable name="Level number" value="1"/>
-            <dftools:variable name="Memory optimization" value="True"/>
+            <dftools:variable name="Memory optimization" value="False"/>
             <dftools:variable name="Non-cluster actor" value=""/>
             <dftools:variable name="SCAPE mode" value="0"/>
             <dftools:variable name="Stack size" value="1048576"/>

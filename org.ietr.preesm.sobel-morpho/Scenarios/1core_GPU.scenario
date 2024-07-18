@@ -25,10 +25,10 @@
         </constraintGroup>
         <constraintGroup>
             <operator name="GPU"/>
+            <task name="difx_gpu"/>
             <task name="difx_gpu/unpackData"/>
             <task name="difx_gpu/fracSampleCorrection"/>
             <task name="difx_gpu/CCAH"/>
-            <task name="difx_gpu"/>
         </constraintGroup>
     </constraints>
     <timings excelUrl="/org.ietr.preesm.sobel-morpho/timings1core.csv">

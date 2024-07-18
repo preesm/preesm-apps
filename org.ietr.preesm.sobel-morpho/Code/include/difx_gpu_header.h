@@ -99,4 +99,6 @@ __global__ void CCAH(int NPOL, int SUBINTSAMP, int NANT, int NBASELINE, int NCHA
 
 void saveVisibilities(int NBASELINE, int NCHAN, int PARAACCUM, COMPLEX *  baselineData, int *  nbaselines, int *  numchannels, double *  bandwidth);
 
+__global__ void channCorrect(int SUBINTSAMP, int NANT, int NPOL, COMPLEX *  chann_fft, COMPLEX *  chann_frac, COMPLEX *  chann_out);
+
 #endif //PREESM_REFINEMENT_OF_DIFX_GPU
