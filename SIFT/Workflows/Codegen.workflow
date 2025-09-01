@@ -42,7 +42,7 @@
         pluginId="org.ietr.preesm.codegen.xtend.task.CodegenTask" taskId="Code Generation">
         <dftools:data key="variables">
             <dftools:variable name="Papify" value="false"/>
-            <dftools:variable name="Printer" value="InstrumentedC"/>
+            <dftools:variable name="Printer" value="C"/>
         </dftools:data>
     </dftools:task>
     <dftools:task pluginId="pisdf-srdag" taskId="pisdf-srdag">

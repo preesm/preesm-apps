@@ -5,6 +5,7 @@
 *.exe
 *.o
 *.so
+**/bin
 
 # Packages
 # it's better to unpack these files and commit the raw source
@@ -26,6 +27,8 @@
 *.sql
 *.sqlite
 *.md5
+# Used for CI
+!.validation.md5
 
 # Temporary files
 *~
