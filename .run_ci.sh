@@ -52,7 +52,7 @@ fi
 ##
 
 # PROJECT=$(cat $APPDIR/.project | grep -oPm1 "(?<=<name>)[^<]+")
-PROJECT=$(cat $APPDIR/.project  | tr -d [:blank:] | awk -F "</?name>" '/<name>/{print $2}')
+PROJECT=$(cat $APPDIR/.project | tr -d [:blank:] | awk -F "</?name>" '/<name>/{print $2}')
 # WORKSPACE=$(mktemp -d --suffix=_preesm-workspace)
 WORKSPACE=$(mktemp -d -t preesm-workspace.XXX)
 # EXECUTABLE=$(cat $APPDIR/Code/CMakeLists.txt | grep -oPm1 "(?<=add_executable\()[^)$]+" | tr -d [:blank:])
@@ -83,15 +83,17 @@ rm -rf ${WORKSPACE}
 
 # cd ${APPDIR}
 # (cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_LOOP_SIZE=${RUN_ITERATION}" .. && make -j4 VERBOSE=1)
-(cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_FLAGS="-DPREESM_VERBOSE $ITERATION_MACRO" .. && make -j4 VERBOSE=1)
+# (cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_FLAGS="-DPREESM_VERBOSE $ITERATION_MACRO" .. && make -j4 VERBOSE=1)
+(cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_FLAGS="-DPREESM_VERBOSE $ITERATION_MACRO" .. && cmake --build . --config Release -j 4 -v)
+
 
 # Run program
 
-EXEC_RESULT=$((cd ${APPDIR}/Code/bin/Release && ./${EXECUTABLE}) | grep -o 'preesm_md5_\w\+\s:\s[a-fA-F0-9]\{32\}' | sort)
+EXEC_RESULT=$((cd ${APPDIR}/Code/bin && ./Release/${EXECUTABLE}) | grep -o 'preesm_md5_\w\+\s:\s[a-fA-F0-9]\{32\}' | sort)
 echo "$EXEC_RESULT"
 # Check output
 
-(echo "$EXEC_RESULT" | cmp ${APPDIR}/.validation.hash -) || exit 1
+(echo "$EXEC_RESULT" | diff --strip-trailing-cr ${APPDIR}/.validation.hash -) || exit 1
 
 # Everything went right
 

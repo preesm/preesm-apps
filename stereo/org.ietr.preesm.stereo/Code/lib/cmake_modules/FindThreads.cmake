@@ -85,10 +85,10 @@ ELSEIF(_Threads_ptwin32)
   # Determine the library filename
   IF(MSVC)
     SET(_Threads_pthreads_libname
-        pthreadV${THREADS_PTHREADS_WIN32_EXCEPTION_SCHEME}2)
+        pthreadV${THREADS_PTHREADS_WIN32_EXCEPTION_SCHEME}3)
   ELSEIF(MINGW)
     SET(_Threads_pthreads_libname
-        pthreadG${THREADS_PTHREADS_WIN32_EXCEPTION_SCHEME}2)
+        pthreadG${THREADS_PTHREADS_WIN32_EXCEPTION_SCHEME}3)
   ELSE()
     MESSAGE(FATAL_ERROR "This should never happen")
   ENDIF()
