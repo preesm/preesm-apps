@@ -91,24 +91,26 @@ void export_kpt_list_to_file(const char * filename, int nb_kpt,
 }
 
 
-void export_keypoints_to_key_file(int FilePathLength, int nKeypointsMax,
+void export_keypoints_to_key_file(int nKeypointsMax,
 				  int DumpDescriptor, int nBins,
-				  IN char * filename,
 				  IN int * nbKeypoints, 
 				  IN SiftKpt * keypoints) {
 #ifdef SIFT_DEBUG
   fprintf(stderr, "Enter function: %s\n", __FUNCTION__);
 #endif
 
-  size_t filenameLength = strlen(filename);
-  char newFileName[FilePathLength];
-  if (filename[filenameLength-1] == 'm' &&
-      filename[filenameLength-3] == 'p' &&
-      filename[filenameLength-4] == '.') {
-    memcpy(newFileName, filename, filenameLength - 4);
+  size_t filenameLength = strlen(PATH_IMG1);
+//   char newFileName[FilePathLength];
+
+  char* newFileName = (char*) calloc(sizeof(PATH_IMG1) + 14, 1);
+
+  if (PATH_IMG1[filenameLength-1] == 'm' &&
+      PATH_IMG1[filenameLength-3] == 'p' &&
+      PATH_IMG1[filenameLength-4] == '.') {
+    memcpy(newFileName, PATH_IMG1, filenameLength - 4);
     newFileName[filenameLength-4] = '\0';
   } else {
-    memcpy(newFileName, filename, filenameLength + 1);    
+    memcpy(newFileName, PATH_IMG1, filenameLength + 1);
   }
   strcat(newFileName, "_keypoints.key");
 
@@ -116,8 +118,7 @@ void export_keypoints_to_key_file(int FilePathLength, int nKeypointsMax,
 }
 
 
-void read_pgm(int FilePathLength, IN char * filename,
-	     int image_width, int image_height, OUT unsigned char * img) {
+void read_pgm(int image_width, int image_height, OUT unsigned char * img) {
   FILE* in_file;
   char ch, type;
   int dummy;
@@ -127,9 +128,9 @@ void read_pgm(int FilePathLength, IN char * filename,
   fprintf(stderr, "Enter function: %s\n", __FUNCTION__);
 #endif
   
-  in_file = fopen(filename, "rb");
+  in_file = fopen(PATH_IMG1, "rb");
   if (! in_file) {
-    fprintf(stderr, "ERROR(0): Fail to open file %s\n", filename);
+    fprintf(stderr, "ERROR(0): Fail to open file %s\n", PATH_IMG1);
     //return -1;
   }
   /* Determine pgm image type (only type three can be used)*/
@@ -327,11 +328,10 @@ int combine_image(unsigned char * out_image,
 }
 
 
-void draw_keypoints_to_ppm_file(int FilePathLength, int nKeypointsMax,
+void draw_keypoints_to_ppm_file(int nKeypointsMax,
 				int image_width, int image_height,
 				int tot_image_size,
 				IN int * nbKeypoints,
-				IN char * filename,
 				IN unsigned char * image, 
 				IN struct SiftKeypoint * keypoints) {
   
@@ -375,15 +375,18 @@ void draw_keypoints_to_ppm_file(int FilePathLength, int nKeypointsMax,
   }
 
   // write rendered image to output
-  size_t filenameLength = strlen(filename);
-  char newFileName[FilePathLength];
-  if (filename[filenameLength-1] == 'm' &&
-      filename[filenameLength-3] == 'p' &&
-      filename[filenameLength-4] == '.') {
-    memcpy(newFileName, filename, filenameLength - 4);
+  size_t filenameLength = strlen(PATH_IMG1);
+//   char newFileName[FilePathLength];
+
+  char* newFileName = (char*) calloc(sizeof(PATH_IMG1) + 11, 1);
+
+  if (PATH_IMG1[filenameLength-1] == 'm' &&
+      PATH_IMG1[filenameLength-3] == 'p' &&
+      PATH_IMG1[filenameLength-4] == '.') {
+    memcpy(newFileName, PATH_IMG1, filenameLength - 4);
     newFileName[filenameLength-4] = '\0';
   } else {
-    memcpy(newFileName, filename, filenameLength + 1);    
+    memcpy(newFileName, PATH_IMG1, filenameLength + 1);
   }
   strcat(newFileName, "_wkpts.ppm");
 

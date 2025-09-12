@@ -32,11 +32,6 @@ if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
   add_definitions( -D_CRT_SECURE_NO_WARNINGS )
 endif()
 
-# Add definition for relative path into project
-add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
-
-project(stabilization-sequential)
-project(stabilization)
 
 # If running CMake through a script/cli
 if (CMAKE_BUILD_TYPE MATCHES "$^" OR NOT DEFINED CMAKE_BUILD_TYPE)

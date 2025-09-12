@@ -92,6 +92,8 @@
 #define SIFT_USE_SMOOTH1 1
 #define SIFT_ORI_BILINEAR 1
 
+#define PATH_IMG1 PROJECT_ROOT_PATH "/dat/img1.pgm"
+
 
 /****************************************
  * Definitions
@@ -284,23 +286,19 @@ void counterPLevels(int parallelismLevel, OUT int * iter);
 
 /* for extract */
 
-void filename1(int FilePathLength, OUT char * filename);
 
-void read_pgm(int FilePathLength, IN char * filename,
-	      int image_width, int image_height, OUT unsigned char * img);
+void read_pgm(int image_width, int image_height, OUT unsigned char * img);
 
-void draw_keypoints_to_ppm_file(int FilePathLength, int nKeypointsMax,
+void draw_keypoints_to_ppm_file(int nKeypointsMax,
 				int image_width, int image_height,
 				int tot_image_size,
 				IN int * nbKeypoints,
-				IN char * filename,
 				IN unsigned char * image, 
 				IN struct SiftKeypoint * keypoints);
 
 
-void export_keypoints_to_key_file(int FilePathLength, int nKeypointsMax,
+void export_keypoints_to_key_file(int nKeypointsMax,
 				  int DumpDescriptor, int nBins,
-				  IN char * filename,
 				  IN int * nbKeypoints, 
 				  IN SiftKpt * keypoints);
 
