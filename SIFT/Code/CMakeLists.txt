@@ -4,7 +4,7 @@ project(Sift)
 
 # Add definition for relative path into project
 add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
-set(DEBUG 0)
+set(DEBUG 1)
 
 set(IMG_FILE "img1.pgm")
 set(IMG_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${IMG_FILE}")
@@ -49,10 +49,10 @@ if(NOT DEFINED MSVC)
 
   if(CMAKE_BUILD_TYPE MATCHES Debug)
     MESSAGE("Generate Debug project")
-    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -std=gnu11 -g -pg -Wall -DSIFT_DEBUG")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -std=gnu11 -g -pg -Wall -DSIFT_DEBUG -Wvla")
   else()
     MESSAGE("Generate Release project")
-    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall -std=gnu11 -O2")
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall -std=gnu11 -O2 -Wvla")
   endif()
   #add libmath during non visual studio builds
   set(CMAKE_EXTRA_LIB m)
@@ -137,14 +137,14 @@ endif()
 # *******************************************
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated ${THREADS_PTHREADS_INCLUDE_DIR})
 file(
-	GLOB_RECURSE
-	source_files
-	./
-	./generated/*.c
-	./src/*.c
-	./src/x86/*.c
+    GLOB_RECURSE
+    source_files
+    ./src/*.c
+    ./src/*.h
+    ./include/*.h
+    ./generated/*.c
+    ./generated/*.h
 )
 
 add_executable(extract ${source_files} ${header_files})
-target_include_directories(extract PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/generated PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/x86)
 target_link_libraries(extract ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB}) # ${papi_LIBRARY})

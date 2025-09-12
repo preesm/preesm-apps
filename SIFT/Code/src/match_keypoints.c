@@ -1,4 +1,5 @@
 #include <float.h>
+#include <stdlib.h>
 
 #include "ezsift-preesm.h"
 #include "vvector.h"
@@ -40,7 +41,8 @@ int match_keypoints(int nBins, int nLocalMatchMax,
   struct MatchPair mp;
 
   struct OrderedMatchList match_list;
-  struct ElementOrdList elts[nLocalMatchMax];
+  struct ElementOrdList* elts = (struct ElementOrdList*) malloc(nLocalMatchMax * sizeof(struct ElementOrdList));
+
   initMemMatch(&match_list, nLocalMatchMax, elts, matches);
 
   
@@ -100,6 +102,8 @@ int match_keypoints(int nBins, int nLocalMatchMax,
     printf("\tMatch %3d: (%4d, %4d) -> (%4d, %4d)\n", index, p->r1, p->c1, p->r2, p->c2);
   }
 #endif
+
+  free(elts);
 
   return 0;
 }

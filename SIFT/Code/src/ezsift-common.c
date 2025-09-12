@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "ezsift-common.h"
 
@@ -32,9 +33,12 @@ void ITERATOR_generic(int parallelismLevel, int nbOctaves, int nbLayers,
   start_line[0] = 0;
   start_col[0] = 0;
 
-  int w[nbOctaves];
+  int* w = (int*) malloc(nbOctaves * sizeof(int));
+  int* h = (int*) malloc(nbOctaves * sizeof(int));
+
+//   int w[nbOctaves];
   w[0] = image_width;
-  int h[nbOctaves];
+//   int h[nbOctaves];
   h[0] = image_height;
   if (imgDouble) {
     w[0] *= 2;
@@ -49,6 +53,9 @@ void ITERATOR_generic(int parallelismLevel, int nbOctaves, int nbLayers,
     stop_layer[0] = nbLayers;
     stop_line[0] = h[nbOctaves-1];
     stop_col[0] = w[nbOctaves-1];
+
+    free(w);
+    free(h);
     return;
   }
 
@@ -234,6 +241,8 @@ void ITERATOR_generic(int parallelismLevel, int nbOctaves, int nbLayers,
   stop_line[parallelismLevel - 1] = h[nbOctaves - 1];
   stop_col[parallelismLevel - 1] = w[nbOctaves - 1];
   
+  free(w);
+  free(h);
 }
 
 

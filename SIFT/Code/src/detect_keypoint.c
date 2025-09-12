@@ -336,7 +336,8 @@ void detect_keypoints(int nLayers, int totSizeWithoutLayers,
 /* #endif */
   
   struct OrderedKptList kpt_list;
-  struct ElementOrdList elts[nLocalKptMax];
+  struct ElementOrdList* elts = (struct ElementOrdList*) malloc(nLocalKptMax * sizeof(struct ElementOrdList));
+
   initMemKpt(&kpt_list, nLocalKptMax, elts, keypoints);
   
   size_t offset_dogPyr = 0;
@@ -505,7 +506,7 @@ void detect_keypoints(int nLayers, int totSizeWithoutLayers,
   /* } */
   /* fprintf(stderr, "\n"); */
 
-  
+  free(elts);
   
 }
 
