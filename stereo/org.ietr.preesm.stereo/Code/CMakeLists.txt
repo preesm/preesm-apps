@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.18)
 
 # *******************************************
 # ************* CMake Content ***************
@@ -7,6 +7,30 @@ cmake_minimum_required(VERSION 2.6)
 #
 # Programs
 #  - stereo.exe
+
+
+set(IMG0_NAME "im0.ppm")
+set(IMG1_NAME "im1.ppm")
+set(IMG_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/")
+
+set(TTF_NAME "DejaVuSans.ttf")
+set(TTF_URL "https://preesm.github.io/assets/downloads/${TTF_NAME}")
+
+set(SDL2_VERSION "2.30.3")
+set(SDL2_MINGW_ARCHIVE "SDL2-devel-${SDL2_VERSION}-mingw.zip")
+set(SDL2_VC_ARCHIVE "SDL2-devel-${SDL2_VERSION}-VC.zip")
+set(SDL2_MINGW_URL "https://github.com/libsdl-org/SDL/releases/download/release-${SDL2_VERSION}/${SDL2_MINGW_ARCHIVE}")
+set(SDL2_VC_URL "https://github.com/libsdl-org/SDL/releases/download/release-${SDL2_VERSION}/${SDL2_VC_ARCHIVE}")
+
+set(SDL2_TTF_VERSION "2.22.0")
+set(SDL2_TTF_MINGW_ARCHIVE "SDL2_ttf-devel-${SDL2_TTF_VERSION}-mingw.zip")
+set(SDL2_TTF_VC_ARCHIVE "SDL2_ttf-devel-${SDL2_TTF_VERSION}-VC.zip")
+set(SDL2_TTF_MINGW_URL "https://github.com/libsdl-org/SDL_ttf/releases/download/release-${SDL2_TTF_VERSION}/${SDL2_TTF_MINGW_ARCHIVE}")
+set(SDL2_TTF_VC_URL "https://github.com/libsdl-org/SDL_ttf/releases/download/release-${SDL2_TTF_VERSION}/${SDL2_TTF_VC_ARCHIVE}")
+
+set(PTHREAD_ARCHIVE "pthread-3.0.0.zip")
+set(PTHREAD_URL "https://vaader-data.insa-rennes.fr/data/preesm/assets/${PTHREAD_ARCHIVE}")
+
 
 # IDE dependent config
 if(${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
@@ -17,31 +41,63 @@ endif()
 # Add definition for relative path into project
 add_definitions( -DPROJECT_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
 
-project(Stereo)
+project(stereo)
 
-# Set to 1 to activate debug compilation (0 for release)
-if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
-	set(DEBUG 0)
-
+# If running CMake through a script/cli
+if (CMAKE_BUILD_TYPE MATCHES "$^" OR NOT DEFINED CMAKE_BUILD_TYPE)
+	message("Set the DEBUG variable in CMakeLists.txt for Debug/Release selection if running outside of IDE")
 	if(${DEBUG})
-			MESSAGE("Generate Debug project")
-			set(CMAKE_BUILD_TYPE Debug)
-			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Debug)
-			set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -pg -Wall")
+		set(CMAKE_BUILD_TYPE Debug)
+	else ()
+		set(CMAKE_BUILD_TYPE Release)
+	endif ()
+	message("Configuring project in ${CMAKE_BUILD_TYPE} mode")
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+endif ()
+
+if(NOT DEFINED MSVC)
+
+	if(CMAKE_BUILD_TYPE MATCHES Debug)
+		MESSAGE("Generate Debug project")
+		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -pg -Wall")
 	else()
-			MESSAGE("Generate Release project")
-			set(CMAKE_BUILD_TYPE Release)
-			set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
-			set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -Wall")
+		MESSAGE("Generate Release project")
+		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 	endif()
 	#add libmath during non visual studio builds
 	set(CMAKE_EXTRA_LIB m)
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 else()
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
 
+set(DAT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dat/")
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/lib/cmake_modules/")
+
+# *******************************************
+# *********** LIBRARIES and Dat *************
+# *******************************************
+
+
+if (NOT EXISTS ${DAT_DIR}${IMG0_NAME})
+	MESSAGE("Downloading ${IMG0_NAME} from ${IMG_URL}${IMG0_NAME}")
+	file(DOWNLOAD "${IMG_URL}${IMG0_NAME}" "${DAT_DIR}${IMG0_NAME}"
+				EXPECTED_MD5 96f63f68e2a2f2a0e0b0212a1f5b3cba)
+endif()
+
+if (NOT EXISTS ${DAT_DIR}${IMG1_NAME})
+	MESSAGE("Downloading ${IMG1_NAME} from ${IMG_URL}${IMG1_NAME}")
+	file(DOWNLOAD "${IMG_URL}${IMG1_NAME}" "${DAT_DIR}${IMG1_NAME}"
+				EXPECTED_MD5 19c9eb40ceeb00a23e599994620fcd3e)
+endif()
+
+# Downloading font file
+if(NOT EXISTS ${DAT_DIR}${TTF_NAME})
+	MESSAGE("Downloading ${TTF_NAME}")
+	file(DOWNLOAD ${TTF_URL} "${DAT_DIR}${TTF_NAME}"
+			EXPECTED_MD5 BE189A7E2711CDF2A7F6275C60CBC7E2)
+endif()
 
 # *******************************************
 # ************** SDL2 LIBRARY ***************
@@ -49,31 +105,74 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/lib/cmak
 # Set variables before finding SDL Library
 # Helps to find where SDL libraries are saved (win32 only)
 if(WIN32)
-    # find the SDL2-x.y.z folder in the lib directory.
+
+	# find the SDL2-x.y.z folder in the lib directory.
 	file(GLOB SDL2DIR "${LIBS_DIR}/SDL2-[\\.|0-9]*")
 	set(ENV{SDL2DIR} ${SDL2DIR})
+
+	# if SDL lib folder exists
+	if(SDL2DIR MATCHES "$^")
+
+		if (MSVC)
+			set(SDL2_URL ${SDL2_VC_URL})
+			set(SDL2_ARCHIVE ${SDL2_VC_ARCHIVE})
+		else ()
+			set(SDL2_URL ${SDL2_MINGW_URL})
+			set(SDL2_ARCHIVE ${SDL2_MINGW_ARCHIVE})
+		endif ()
+
+		message("Downloading SDL2 library from ${SDL2_URL}")
+		file(DOWNLOAD ${SDL2_URL} "${LIBS_DIR}/${SDL2_ARCHIVE}")
+
+		message("Extracting SDL2 library")
+		file(ARCHIVE_EXTRACT
+				INPUT "${LIBS_DIR}/${SDL2_ARCHIVE}"
+				DESTINATION ${LIBS_DIR})
+		file(REMOVE ${LIBS_DIR}/${SDL2_ARCHIVE})
+
+		file(GLOB SDL2DIR "${LIBS_DIR}/SDL2-[\\.|0-9]*")
+		set(ENV{SDL2DIR} ${SDL2DIR})
+
+		# Moving files
+		if (MSVC)
+			file(COPY "${SDL2DIR}/lib/x64/" DESTINATION "${SDL2DIR}/lib/")
+		else ()
+			file(COPY "${SDL2DIR}/x86_64-w64-mingw32/bin/" DESTINATION "${SDL2DIR}/bin/")
+			file(COPY "${SDL2DIR}/x86_64-w64-mingw32/lib/" DESTINATION "${SDL2DIR}/lib/")
+
+			file(COPY "${SDL2DIR}/x86_64-w64-mingw32/include/SDL2/" DESTINATION "${SDL2DIR}/include/"
+					FILES_MATCHING PATTERN "*.h")
+		endif ()
+
+		# Cleaning/Removing unused files
+		# MinGW
+		file(REMOVE_RECURSE "${SDL2DIR}/i686-w64-mingw32")
+		file(REMOVE_RECURSE "${SDL2DIR}/x86_64-w64-mingw32")
+		file(REMOVE_RECURSE "${SDL2DIR}/test")
+
+		# MSVC
+		file(REMOVE_RECURSE "${SDL2DIR}/lib/x86")
+		file(REMOVE_RECURSE "${SDL2DIR}/lib/x64")
+
+	endif ()
+
 endif()
 
 Find_Package (SDL2 REQUIRED )
 
 if(NOT SDL2_FOUND)
-  MESSAGE(FATAL_ERROR "SDL not found !")
+	MESSAGE(FATAL_ERROR "SDL not found !")
 endif()
 
 if (WIN32)
 	file(GLOB
-		SDL2_DLL
-		${SDL2DIR}/bin/*.dll
-		${SDL2DIR}/lib/*.dll
-	)
+			SDL2_DLL
+			${SDL2DIR}/bin/*.dll
+			${SDL2DIR}/lib/*.dll
+			)
 
-	MESSAGE("Copy SDL DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
-		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-	else()
-		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
-		file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
-	endif()
+	MESSAGE("Copy SDL2 DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
 
 # *******************************************
@@ -82,43 +181,108 @@ endif()
 # Set variables before finding SDL2TTF Library
 # Helps to find where SDL2TTF libraries are saved (win32 only)
 if(WIN32)
-    # find the SDL2_ttf-x.y.z folder in the lib directory.
+	# find the SDL2_ttf-x.y.z folder in the lib directory.
 	file(GLOB SDL2TTFDIR "${LIBS_DIR}/SDL2_ttf-[\\.|0-9]*")
 	set(ENV{SDL2TTFDIR} ${SDL2TTFDIR})
+
+
+	# if SDL lib folder exists
+	if(SDL2TTFDIR MATCHES "$^")
+
+		if (MSVC)
+			set(SDL2_TTF_URL ${SDL2_TTF_VC_URL})
+			set(SDL2_TTF_ARCHIVE ${SDL2_TTF_VC_ARCHIVE})
+		else ()
+			set(SDL2_TTF_URL ${SDL2_TTF_MINGW_URL})
+			set(SDL2_TTF_ARCHIVE ${SDL2_TTF_MINGW_ARCHIVE})
+		endif ()
+
+		message("Downloading SDL2 library from ${SDL2_TTF_URL}")
+		file(DOWNLOAD ${SDL2_TTF_URL} "${LIBS_DIR}/${SDL2_TTF_ARCHIVE}")
+
+		message("Extracting SDL2_TTF library")
+		file(ARCHIVE_EXTRACT
+				INPUT "${LIBS_DIR}/${SDL2_TTF_ARCHIVE}"
+				DESTINATION ${LIBS_DIR})
+		file(REMOVE ${LIBS_DIR}/${SDL2_TTF_ARCHIVE})
+
+		file(GLOB SDL2TTFDIR "${LIBS_DIR}/SDL2_ttf-[\\.|0-9]*")
+		set(ENV{SDL2TTFDIR} ${SDL2TTFDIR})
+
+		# Moving files
+		if (MSVC)
+			file(COPY "${SDL2TTFDIR}/lib/x64/" DESTINATION "${SDL2TTFDIR}/lib/")
+		else ()
+			file(COPY "${SDL2TTFDIR}/x86_64-w64-mingw32/bin/" DESTINATION "${SDL2TTFDIR}/bin/")
+			file(COPY "${SDL2TTFDIR}/x86_64-w64-mingw32/lib/" DESTINATION "${SDL2TTFDIR}/lib/")
+
+			file(COPY "${SDL2TTFDIR}/x86_64-w64-mingw32/include/SDL2/" DESTINATION "${SDL2TTFDIR}/include/"
+					FILES_MATCHING PATTERN "*.h")
+		endif ()
+
+		# Cleaning/Removing unused files
+		# MinGW
+		file(REMOVE_RECURSE "${SDL2TTFDIR}/i686-w64-mingw32")
+		file(REMOVE_RECURSE "${SDL2TTFDIR}/x86_64-w64-mingw32")
+		file(REMOVE_RECURSE "${SDL2TTFDIR}/test")
+
+		# MSVC
+		file(REMOVE_RECURSE "${SDL2TTFDIR}/lib/x86")
+		file(REMOVE_RECURSE "${SDL2TTFDIR}/lib/x64")
+
+	endif ()
+
 endif()
 
 
 Find_Package (SDL2TTF REQUIRED )
 
 if(NOT SDL2TTF_FOUND)
-  MESSAGE(FATAL_ERROR "SDL2TTF not found !")
+	MESSAGE(FATAL_ERROR "SDL2TTF not found !")
 endif()
 
 if (WIN32)
 	file(GLOB
-		SDL2TTF_DLL
-		${SDL2TTFDIR}/bin/*.dll
-		${SDL2TTFDIR}/lib/*.dll
-	)
+			SDL2TTF_DLL
+			${SDL2TTFDIR}/bin/*.dll
+			${SDL2TTFDIR}/lib/*.dll
+			)
 
 	MESSAGE("Copy SDL2_ttf DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
-		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-	else()
-		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
-		file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
-	endif()
+	file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
 
 # *******************************************
 # ************ Pthread LIBRARY **************
 # *******************************************
 if (WIN32)
-  set(THREADS_USE_PTHREADS_WIN32 true)
-	# pthread included AFTER Sdl to avoid unnecessary warnings
-	file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
-	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
-	Find_Package ( THREADS REQUIRED )
+	if (MSVC)
+		set(THREADS_USE_PTHREADS_WIN32 true)
+		# pthread included AFTER Sdl to avoid unnecessary warnings
+
+		file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
+
+		# if SDL lib folder exists
+		if(PTHREADDIR MATCHES "$^")
+
+			message("Downloading PThread library from ${PTHREAD_URL}")
+			file(DOWNLOAD ${PTHREAD_URL} "${LIBS_DIR}/${PTHREAD_ARCHIVE}")
+
+			message("Extracting PThread library")
+			file(ARCHIVE_EXTRACT
+					INPUT "${LIBS_DIR}/${PTHREAD_ARCHIVE}"
+					DESTINATION ${LIBS_DIR})
+			file(REMOVE ${LIBS_DIR}/${PTHREAD_ARCHIVE})
+
+		endif ()
+
+		file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
+		set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
+		Find_Package ( Threads REQUIRED )
+		set(THREADS_PTHREADS_INCLUDE_DIR "${PTHREADDIR}/include")
+	else ()
+		set(THREADS_PTHREADS_INCLUDE_DIR "")
+	endif ()
 else()
 	Find_Package ( Threads )
 endif()
@@ -127,20 +291,14 @@ if(NOT THREADS_FOUND)
 	MESSAGE(FATAL_ERROR "Pthread not found !")
 endif()
 
-
-if (WIN32)
+if (MSVC)
 	file(GLOB
-		PTHREADS_DLL
-		${CMAKE_PREFIX_PATH}/lib/*.dll
-	)
+			PTHREADS_DLL
+			${CMAKE_PREFIX_PATH}/lib/*.dll
+			)
 
 	MESSAGE("Copy Pthreads DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-	if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
-		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-	else()
-		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
-		file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
-	endif()
+	file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
 
 # *******************************************
@@ -158,4 +316,4 @@ file(
 
 add_executable( stereo ${source_files} ${header_files})
 target_link_libraries(stereo ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_EXTRA_LIB})
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")

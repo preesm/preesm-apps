@@ -1,6 +1,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /* #include <pthread.h> */
 
@@ -198,8 +199,10 @@ void row_filter_transpose_1(int image_height, int image_width, int nGpyrLayers,
 #endif
   int gR = column_sizes[*iter];
   float * src = *iter ? imgIterPrev : img;
-  float row_buf[image_width + gWmax];
+
+  float* row_buf = (float*) malloc((image_width + gWmax) * sizeof(float));
   row_filter_transpose(src, imgGT, row_buf, image_width, image_height/parallelismLevel, gaussian_coefs+gWmax*(*iter), gR);
+  free(row_buf);
 }
 
 void row_filter_transpose_2(int image_height, int image_width, int nGpyrLayers,
@@ -210,8 +213,10 @@ void row_filter_transpose_2(int image_height, int image_width, int nGpyrLayers,
   fprintf(stderr, "Enter function: %s\n", __FUNCTION__);
 #endif
   int gR = column_sizes[*iter];
-  float row_buf[image_height + gWmax];
+
+  float* row_buf = (float*) malloc((image_height + gWmax) * sizeof(float));
   row_filter_transpose(img, imgGT, row_buf, image_height, image_width/parallelismLevel, gaussian_coefs+gWmax*(*iter), gR);
+  free(row_buf);
 }
 
 void row_filter_transpose2x_1(int image_height, int image_width, int nGpyrLayers,
@@ -225,8 +230,10 @@ void row_filter_transpose2x_1(int image_height, int image_width, int nGpyrLayers
   if (imgDouble) {
     int gR = column_sizes[*iter];
     float * src = *iter ? imgIterPrev : img;
-    float row_buf[image_width*2 + gWmax];
+
+    float* row_buf = (float*) malloc((image_width*2 + gWmax) * sizeof(float));
     row_filter_transpose(src, imgGT, row_buf, 2*image_width, 2*image_height/parallelismLevel, gaussian_coefs+gWmax*(*iter), gR);
+    free(row_buf);
   } 
 }
 
@@ -239,8 +246,10 @@ void row_filter_transpose2x_2(int image_height, int image_width, int nGpyrLayers
 #endif
   if (imgDouble) {
     int gR = column_sizes[*iter];
-    float row_buf[image_height*2 + gWmax];
+
+    float* row_buf = (float*) malloc((image_height*2 + gWmax) * sizeof(float));
     row_filter_transpose(img, imgGT, row_buf, 2*image_height, 2*image_width/parallelismLevel, gaussian_coefs+gWmax*(*iter), gR);
+    free(row_buf);
   } 
 }
 
@@ -254,11 +263,13 @@ void seq_blur1(int image_height, int image_width, int tot_image_size, int nGpyrL
   //fprintf(stderr, "*iter (seq_blur1): %d\n", *iter);
   int gR = column_sizes[*iter];
   float * src = *iter ? imgBlurPrev : fst_img;
-  float tmp[tot_image_size/4];
-  float row_buf[image_maxWH/2 + gWmax];
 
+  float* tmp = (float*) malloc((tot_image_size/4) * sizeof(float));
+  float* row_buf = (float*) malloc((image_maxWH/2 + gWmax) * sizeof(float));
   row_filter_transpose(src, tmp, row_buf, image_width/2, image_height/2, gaussian_coefs+gWmax*(*iter), gR);
   row_filter_transpose(tmp, imgBlurred, row_buf, image_height/2, image_width/2, gaussian_coefs+gWmax*(*iter), gR);
+  free(row_buf);
+  free(tmp);
 
   /* char fgpyr[512]; */
   /* unsigned char buffer[tot_image_size/4]; */
@@ -288,11 +299,12 @@ void seq_blurN(int image_height, int image_width, int tot_image_size, int nGpyrL
   /* sprintf(fgpyr, "in_seq_blurN-%d-%d.pgm", *octaveLevel, *iter); */
   /* write_float_pgm(fgpyr, src, buffer, dstW, dstH, 1); */
 
-  float tmp[tot_image_size/16];
-  float row_buf[image_maxWH/4 + gWmax];
-
+  float* tmp = (float*) malloc((tot_image_size/16) * sizeof(float));
+  float* row_buf = (float*) malloc((image_maxWH/4 + gWmax) * sizeof(float));
   row_filter_transpose(src, tmp, row_buf, dstW, dstH, gaussian_coefs+gWmax*(*iter), gR);
   row_filter_transpose(tmp, imgBlurred, row_buf, dstH, dstW, gaussian_coefs+gWmax*(*iter), gR);
+  free(row_buf);
+  free(tmp);
 
   /* sprintf(fgpyr, "seq_blurN-%d-%d.pgm", *octaveLevel, *iter); */
   /* write_float_pgm(fgpyr, imgBlurred, buffer, dstW, dstH, 1); */
@@ -388,7 +400,7 @@ void compute_gaussian_coefs(int gWmax, int nGpyrLayers,
   float sigma0 = SIFT_SIGMA;
   float k = powf(2.0f, 1.0f / nLayers);
 
-  float sig[nGpyrLayers];
+  float* sig = (float*) malloc(nGpyrLayers * sizeof(float));
   
   // for whatever reason we skip the first level,
   // so we do one more layer
@@ -422,4 +434,5 @@ void compute_gaussian_coefs(int gWmax, int nGpyrLayers,
       index++;
     } // End compute Gaussian filter coefs
   }
+  free(sig);
 }

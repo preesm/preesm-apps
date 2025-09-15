@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "ezsift-common.h"
 
@@ -57,7 +58,8 @@ void extract_descriptor(int nLayers, int totSizeWithoutLayers,
   // we expand the cube by 1 for each direction.
   int nSliceStep = (nSubregion + 2) * (nBinsPerSubregion + 2); // 32
   int nRowStep = (nBinsPerSubregion + 2);
-  float histBin[nHistBins];
+
+  float* histBin = (float*) malloc(nHistBins * sizeof(float));
 
   float exp_scale = -2.0f / (nSubregion * nSubregion);  // -1/(2* nSubregion/2 * nSubregion/2)
 
@@ -238,7 +240,8 @@ void extract_descriptor(int nLayers, int totSizeWithoutLayers,
 
     // Discard all the edges for row and column.
     // Only retrive edges for orientation bins.
-    float dstBins[nBins];
+    float* dstBins = (float*) malloc(nBins * sizeof(float));
+
     for (int i = 1; i <= nSubregion; i ++) { // slice
       for (int j = 1; j <= nSubregion; j ++) { // row
 	int idx = i * nSliceStep + j * nRowStep;
@@ -313,7 +316,11 @@ void extract_descriptor(int nLayers, int totSizeWithoutLayers,
 
     memcpy(kpt->descriptors, dstBins, nBins * sizeof(float));
 
+    free(dstBins);
+
   }
+
+  free(histBin);
 
   if (/* nbKeypoints_out != NULL &&  */keypoints_out != NULL) {
     /* *nbKeypoints_out = *nbKeypoints_in; */

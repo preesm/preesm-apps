@@ -35,7 +35,9 @@ void write_data2ppm(const char* filename, unsigned char* data, int w, int h) {
 }
 
 void write_rgb2ppm(const char * filename, unsigned char* r, unsigned char* g, unsigned char* b, int w, int h, int tot_image_size) {
-  unsigned char obuf[3*tot_image_size];
+
+  unsigned char* obuf = (unsigned char*) malloc(tot_image_size*3 * sizeof(unsigned char));
+
   unsigned char * dst = obuf;
   for(int i = 0; i < tot_image_size; i++){
     *(dst++) = r[i];
@@ -44,6 +46,8 @@ void write_rgb2ppm(const char * filename, unsigned char* r, unsigned char* g, un
   }
 
   write_data2ppm(filename, obuf, w, h);
+
+  free(obuf);
 }
 
 void setPixelRed(unsigned char* img_r, unsigned char* img_g, unsigned char* img_b, int w, int h, int r, int c) {
@@ -91,33 +95,35 @@ void export_kpt_list_to_file(const char * filename, int nb_kpt,
 }
 
 
-void export_keypoints_to_key_file(int FilePathLength, int nKeypointsMax,
+void export_keypoints_to_key_file(int nKeypointsMax,
 				  int DumpDescriptor, int nBins,
-				  IN char * filename,
 				  IN int * nbKeypoints, 
 				  IN SiftKpt * keypoints) {
 #ifdef SIFT_DEBUG
   fprintf(stderr, "Enter function: %s\n", __FUNCTION__);
 #endif
 
-  size_t filenameLength = strlen(filename);
-  char newFileName[FilePathLength];
-  if (filename[filenameLength-1] == 'm' &&
-      filename[filenameLength-3] == 'p' &&
-      filename[filenameLength-4] == '.') {
-    memcpy(newFileName, filename, filenameLength - 4);
+  size_t filenameLength = strlen(PATH_IMG1);
+
+  char* newFileName = (char*) calloc(sizeof(PATH_IMG1) + 14, 1);
+
+  if (PATH_IMG1[filenameLength-1] == 'm' &&
+      PATH_IMG1[filenameLength-3] == 'p' &&
+      PATH_IMG1[filenameLength-4] == '.') {
+    memcpy(newFileName, PATH_IMG1, filenameLength - 4);
     newFileName[filenameLength-4] = '\0';
   } else {
-    memcpy(newFileName, filename, filenameLength + 1);    
+    memcpy(newFileName, PATH_IMG1, filenameLength + 1);
   }
   strcat(newFileName, "_keypoints.key");
 
   export_kpt_list_to_file(newFileName, *nbKeypoints, keypoints, DumpDescriptor, nBins);
+
+  free(newFileName);
 }
 
 
-void read_pgm(int FilePathLength, IN char * filename,
-	     int image_width, int image_height, OUT unsigned char * img) {
+void read_pgm(int image_width, int image_height, OUT unsigned char * img) {
   FILE* in_file;
   char ch, type;
   int dummy;
@@ -127,9 +133,9 @@ void read_pgm(int FilePathLength, IN char * filename,
   fprintf(stderr, "Enter function: %s\n", __FUNCTION__);
 #endif
   
-  in_file = fopen(filename, "rb");
+  in_file = fopen(PATH_IMG1, "rb");
   if (! in_file) {
-    fprintf(stderr, "ERROR(0): Fail to open file %s\n", filename);
+    fprintf(stderr, "ERROR(0): Fail to open file %s\n", PATH_IMG1);
     //return -1;
   }
   /* Determine pgm image type (only type three can be used)*/
@@ -327,11 +333,10 @@ int combine_image(unsigned char * out_image,
 }
 
 
-void draw_keypoints_to_ppm_file(int FilePathLength, int nKeypointsMax,
+void draw_keypoints_to_ppm_file(int nKeypointsMax,
 				int image_width, int image_height,
 				int tot_image_size,
 				IN int * nbKeypoints,
-				IN char * filename,
 				IN unsigned char * image, 
 				IN struct SiftKeypoint * keypoints) {
   
@@ -349,9 +354,9 @@ void draw_keypoints_to_ppm_file(int FilePathLength, int nKeypointsMax,
   int cR;
 
   // initialize the imgPPM
-  unsigned char img_r[tot_image_size];
-  unsigned char img_g[tot_image_size];
-  unsigned char img_b[tot_image_size];
+  unsigned char* img_r = (unsigned char*) malloc(tot_image_size * sizeof(unsigned char));
+  unsigned char* img_g = (unsigned char*) malloc(tot_image_size * sizeof(unsigned char));
+  unsigned char* img_b = (unsigned char*) malloc(tot_image_size * sizeof(unsigned char));
 
   // Copy gray PGM images to color PPM images
   memcpy(img_r, image, sizeof(unsigned char) * tot_image_size);
@@ -375,20 +380,27 @@ void draw_keypoints_to_ppm_file(int FilePathLength, int nKeypointsMax,
   }
 
   // write rendered image to output
-  size_t filenameLength = strlen(filename);
-  char newFileName[FilePathLength];
-  if (filename[filenameLength-1] == 'm' &&
-      filename[filenameLength-3] == 'p' &&
-      filename[filenameLength-4] == '.') {
-    memcpy(newFileName, filename, filenameLength - 4);
+  size_t filenameLength = strlen(PATH_IMG1);
+
+  char* newFileName = (char*) calloc(sizeof(PATH_IMG1) + 11, 1);
+
+  if (PATH_IMG1[filenameLength-1] == 'm' &&
+      PATH_IMG1[filenameLength-3] == 'p' &&
+      PATH_IMG1[filenameLength-4] == '.') {
+    memcpy(newFileName, PATH_IMG1, filenameLength - 4);
     newFileName[filenameLength-4] = '\0';
   } else {
-    memcpy(newFileName, filename, filenameLength + 1);    
+    memcpy(newFileName, PATH_IMG1, filenameLength + 1);
   }
   strcat(newFileName, "_wkpts.ppm");
 
   write_rgb2ppm(newFileName, img_r, img_g, img_b, image_width, image_height, tot_image_size);
 
+  free(newFileName);
+
+  free(img_r);
+  free(img_g);
+  free(img_b);
 }
 
 
@@ -433,9 +445,10 @@ int draw_match_lines_to_ppm_file(const char * filename,
   int w = tmax_i(h1, h2);
   int h = w1+w2;
   size_t tot_size = w*h;
-  unsigned char tmpImage[tot_size];
-  unsigned char dstData[3*tot_size];
-  
+
+  unsigned char* tmpImage = (unsigned char*) malloc(tot_size * sizeof(unsigned char));
+  unsigned char* dstData = (unsigned char*) malloc(tot_size*3 * sizeof(unsigned char));
+
   combine_image(tmpImage, w1, h1, image1, w2, h2, image2);
 
   unsigned char * srcData = tmpImage;
@@ -452,6 +465,9 @@ int draw_match_lines_to_ppm_file(const char * filename,
   }
 
   write_data2ppm(filename, dstData, w, h);
+
+  free(dstData);
+  free(tmpImage);
 
   return 0;
 }
