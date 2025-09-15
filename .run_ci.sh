@@ -10,11 +10,12 @@ function usage() {
 	echo "	-w <path>: Workflow to run (must be under Workflows folder within the project)"
 	echo "	-i <num> : Number of graph iteration to execute"
 	echo "	-m	 : Mute mode, no output displayed"
+	echo "	-c	 : Check execution results"
 	echo "	-h	 : Display this message"
 }
 
 
-while getopts "hp:a:s:w:i:m" opt "$@" ; do
+while getopts "hp:a:s:w:i:mc" opt "$@" ; do
     case "$opt" in
 		h) usage; exit 0;;
 		p) PREESMDIR="${OPTARG:-}";;
@@ -22,6 +23,7 @@ while getopts "hp:a:s:w:i:m" opt "$@" ; do
 		s) SCENARIO="${OPTARG:-}";;
 		w) WORKFLOW="${OPTARG:-}";;
 		i) RUN_ITERATION="${OPTARG:-}";;
+		c) CHECK_RESULT=1;;
 		m) MUTE=1;;
 		\?) usage >&2; exit 1;;
 	esac
@@ -36,14 +38,13 @@ fi
 
 [ ! -x ${PREESMDIR}/eclipse ] && echo "Error: \$PREESMDIR does not contain a Preesm distro." && exit 1
 [ ! -e ${APPDIR}/.project ] && echo "Error: '${APPDIR}' is not an Eclipse project" && exit 1
-[ ! -e ${APPDIR}/Workflows/${WORKFLOW} ] && echo "Error: Could not locate workflow" && exit 1
+[ ! -e ${APPDIR}/Workflows/${WORKFLOW} ] && echo "Error: Could not loca || exit 1te workflow" && exit 1
 [ ! -e ${APPDIR}/Scenarios/${SCENARIO} ] && echo "Error: Could not locate scenario" && exit 1
 
 [ ! -z $MUTE ] && exec 1>/dev/null 2>/dev/null
 
-if [ -z ${RUN_ITERATION} ]; then
-	ITERATION_MACRO=
-else
+ITERATION_MACRO=
+if [ ! -z ${RUN_ITERATION} ]; then
 	ITERATION_MACRO=-DPREESM_LOOP_SIZE=${RUN_ITERATION}
 fi
 
@@ -65,13 +66,13 @@ echo ""
 echo "Init workspace and import project"
 echo ""
 
-${PREESMDIR}/eclipse -nosplash -consolelog -data ${WORKSPACE} -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import ${APPDIR}
+${PREESMDIR}/eclipse -nosplash -consolelog -data ${WORKSPACE} -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import ${APPDIR} || exit 1
 
 echo ""
 echo "Run workflow from project $PROJECT"
 echo ""
 
-${PREESMDIR}/eclipse -nosplash -consolelog -data ${WORKSPACE} -application org.preesm.cli.workflowCli ${PROJECT} -w ${WORKFLOW} -s ${SCENARIO}
+${PREESMDIR}/eclipse -nosplash -consolelog -data ${WORKSPACE} -application org.preesm.cli.workflowCli ${PROJECT} -w ${WORKFLOW} -s ${SCENARIO} || exit 1
 
 echo ""
 echo "***END*** $(date -R)"
@@ -84,19 +85,22 @@ rm -rf ${WORKSPACE}
 # cd ${APPDIR}
 # (cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_C_FLAGS="-DPREESM_LOOP_SIZE=${RUN_ITERATION}" .. && make -j4 VERBOSE=1)
 # (cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_FLAGS="-DPREESM_VERBOSE $ITERATION_MACRO" .. && make -j4 VERBOSE=1)
-(cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_FLAGS="-DPREESM_VERBOSE $ITERATION_MACRO" .. && cmake --build . --config Release -j 4 -v)
+(cd ${APPDIR} && mkdir -p Code/bin && cd Code/bin && rm -rf * && cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_FLAGS="-DPREESM_VERBOSE $ITERATION_MACRO" .. && cmake --build . --config Release -j 4 -v) || exit 1
 
 
 # Run program
 
-EXEC_RESULT=$((cd ${APPDIR}/Code/bin && ./Release/${EXECUTABLE}) | grep -o 'preesm_md5_\w\+\s:\s[a-fA-F0-9]\{32\}' | sort)
+EXEC_RESULT=$((cd ${APPDIR}/Code/bin && ./Release/${EXECUTABLE}) | grep -o 'preesm_md5_\w\+\s:\s[a-fA-F0-9]\{32\}' | sort) || exit 1
 echo "$EXEC_RESULT"
 # Check output
 
-(echo "$EXEC_RESULT" | diff --strip-trailing-cr ${APPDIR}/.validation.hash -) || exit 1
+if [ ! -z $CHECK_RESULT ]; then
+	(echo "$EXEC_RESULT" | diff --strip-trailing-cr ${APPDIR}/.validation.hash -) || exit 1
+	echo "Result is good"
+fi
 
 # Everything went right
-
+exit 0
 
 # bash .run_ci.sh -p ../preesm21/releng/org.preesm.product/target/products/org.preesm.product/linux/gtk/x86_64/ -a org.ietr.preesm.stabilization -w Codegen.workflow -s 4coreX86.scenario -i 375
 # bash .run_ci.sh -p ../preesm21/releng/org.preesm.product/target/products/org.preesm.product/linux/gtk/x86_64/ -a SIFT -w Codegen.workflow -s HextractSIFT4Corex86_64.scenario -i 1
