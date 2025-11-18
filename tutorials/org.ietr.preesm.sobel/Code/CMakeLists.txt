@@ -132,6 +132,7 @@ if (WIN32)
 	file(GLOB
 		PTHREADS_DLL
 		${CMAKE_PREFIX_PATH}/lib/*.dll
+		${CMAKE_PREFIX_PATH}/dll/*.dll
 	)
 
 	MESSAGE("Copy Pthreads DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
