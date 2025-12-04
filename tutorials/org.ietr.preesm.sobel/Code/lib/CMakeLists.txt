@@ -10,6 +10,9 @@ set(SDL2_TTF_VC_ARCHIVE "SDL2_ttf-devel-${SDL2_TTF_VERSION}-VC.zip")
 set(SDL2_TTF_MINGW_URL "https://github.com/libsdl-org/SDL_ttf/releases/download/release-${SDL2_TTF_VERSION}/${SDL2_TTF_MINGW_ARCHIVE}")
 set(SDL2_TTF_VC_URL "https://github.com/libsdl-org/SDL_ttf/releases/download/release-${SDL2_TTF_VERSION}/${SDL2_TTF_VC_ARCHIVE}")
 
+set(PTHREAD_ARCHIVE "pthread-2.9.1.zip")
+set(PTHREAD_URL "https://preesm.github.io/assets/downloads/${PTHREAD_ARCHIVE}")
+
 # *******************************************
 # ************** SDL2 LIBRARY ***************
 # *******************************************
@@ -163,25 +166,52 @@ if (WIN32)
 	file(COPY ${SDL2TTF_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
 
+# *******************************************
+# ************ Pthread LIBRARY **************
+# *******************************************
+if (WIN32)
+	if (MSVC)
+		set(THREADS_USE_PTHREADS_WIN32 true)
+		# pthread included AFTER Sdl to avoid unnecessary warnings
 
-# *******************************************
-# ************ OpenMP LIBRARY ***************
-# *******************************************
-IF(WIN32)
-	FIND_PACKAGE(OPENMP)
-	if(NOT OPENMP_FOUND)
-		MESSAGE(FATAL_ERROR "OpenMP not found !")
-	endif()
-	if (OPENMP_FOUND)
-		set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-	endif()
-ELSE()
-	FIND_PACKAGE(OpenMP)
-	if(NOT OpenMP_FOUND)
-		MESSAGE(FATAL_ERROR "OpenMP not found !")
-	endif()
-	IF(OpenMP_FOUND)
-	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-	ENDIF()
-ENDIF()
+		file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
+
+		# if SDL lib folder exists
+		if(PTHREADDIR MATCHES "$^")
+
+			message("Downloading PThread library from ${PTHREAD_URL}")
+			file(DOWNLOAD ${PTHREAD_URL} "${LIBS_DIR}/${PTHREAD_ARCHIVE}")
+
+			message("Extracting PThread library")
+			file(ARCHIVE_EXTRACT
+					INPUT "${LIBS_DIR}/${PTHREAD_ARCHIVE}"
+					DESTINATION ${LIBS_DIR})
+			file(REMOVE ${LIBS_DIR}/${PTHREAD_ARCHIVE})
+
+		endif ()
+
+		file(GLOB PTHREADDIR "${LIBS_DIR}/pthread-[\\.|0-9]*")
+		set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PTHREADDIR})
+		Find_Package ( Threads REQUIRED )
+		set(THREADS_PTHREADS_INCLUDE_DIR "${PTHREADDIR}/include")
+	else ()
+		set(THREADS_PTHREADS_INCLUDE_DIR "")
+	endif ()
+else()
+	Find_Package ( Threads )
+endif()
+
+if(NOT THREADS_FOUND)
+	MESSAGE(FATAL_ERROR "Pthread not found !")
+endif()
+
+if (MSVC)
+	file(GLOB
+			PTHREADS_DLL
+			${CMAKE_PREFIX_PATH}/dll/*.dll
+			)
+
+	MESSAGE("Copy Pthreads DLLs into ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	file(COPY ${PTHREADS_DLL} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	add_definitions( -DHAVE_STRUCT_TIMESPEC )
+endif()
