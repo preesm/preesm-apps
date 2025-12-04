@@ -15,10 +15,13 @@ Description : Displaying YUV frames one next to another in a row.
 #define NB_DISPLAY 1
 #define DISPLAY_W 1920*NB_DISPLAY
 #define DISPLAY_H 1080
+#define INITIAL_WINDOW_RATIO 0.5
 
 #define INIT_OVERLAY {NULL} // must be se same size as NB_DISPLAY
 
 #define PATH_TTF PROJECT_ROOT_PATH "/dat/DejaVuSans.ttf"
+
+#define FPS_MEAN 49
 
 /**
 * Function called to display one of the YUV frame of the window.

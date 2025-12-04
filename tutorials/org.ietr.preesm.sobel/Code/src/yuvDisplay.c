@@ -1,23 +1,21 @@
 /*
-============================================================================
-Name        : displayYUV.c
-Author      : mpelcat & kdesnos & jheulot
-Version     :
-Copyright   : CECILL-C
-Description : Displaying YUV frames one next to another in a row
-============================================================================
+	============================================================================
+	Name        : displayYUV.c
+	Author      : mpelcat & kdesnos & jheulot & GPT-4.1
+	Version     : 2025.12.02
+	Copyright   : CECILL-C
+	Description : Displaying YUV frames one next to another in a row
+	============================================================================
 */
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-
-#include "yuvDisplay.h"
-#include "clock.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#define FPS_MEAN 49
+#include "yuvDisplay.h"
+#include "clock.h"
 
 extern int preesmStopThreads;
 
@@ -27,9 +25,9 @@ extern int preesmStopThreads;
 typedef struct YuvDisplay
 {
 	SDL_Texture* textures[NB_DISPLAY];	    // One overlay per frame
-	SDL_Window *screen;					    // SDL surface where to display
-	SDL_Renderer *renderer;
-	TTF_Font *text_font;
+	SDL_Window* screen;					    // SDL surface where to display
+	SDL_Renderer* renderer;
+	TTF_Font* text_font;
 	int currentXMin;						// Position for next display
 	int initialized;                        // Initialization done ?
 	int stampId;
@@ -39,8 +37,8 @@ typedef struct YuvDisplay
 // Initialize
 static YuvDisplay display;
 
-int exitCallBack(void* userdata, SDL_Event* event){
-	if (event->type == SDL_QUIT){
+int exitCallBack(void* userdata, SDL_Event* event) {
+	if (event->type == SDL_QUIT) {
 		printf("Exit request from GUI.\n");
 		preesmStopThreads = 1;
 		return 0;
@@ -59,6 +57,7 @@ int exitCallBack(void* userdata, SDL_Event* event){
 */
 void yuvDisplayInit(int id, int width, int height)
 {
+
 	if (display.initialized == 0)
 	{
 		display.currentXMin = 0;
@@ -67,22 +66,28 @@ void yuvDisplayInit(int id, int width, int height)
 	if (height > DISPLAY_H)
 	{
 		fprintf(stderr, "SDL screen is not high enough for display %d.\n", id);
+		fflush(stdin);
+		fgetc(stdin);
 		exit(1);
 	}
 	else if (id >= NB_DISPLAY)
 	{
 		fprintf(stderr, "The number of displays is limited to %d.\n", NB_DISPLAY);
+		fflush(stdin);
+		fgetc(stdin);
 		exit(1);
 	}
 	else if (display.currentXMin + width > DISPLAY_W)
 	{
 		fprintf(stderr, "The number is not wide enough for display %d.\n", NB_DISPLAY);
+		fflush(stdin);
+		fgetc(stdin);
 		exit(1);
 	}
 
 
-#ifdef PREESM_VERBOSE
-	printf("SDL screen height OK, width OK, number of displays OK.\n");
+#ifdef VERBOSE
+	printf("SDL screen height OK, width OK, number of displays OK.\n", id);
 #endif
 
 	if (display.initialized == 0)
@@ -93,19 +98,9 @@ void yuvDisplayInit(int id, int width, int height)
 
 		printf("SDL_Init_Start\n");
 
-		int sdlInitRes = 1, cpt = 10;
-		while (sdlInitRes && cpt > 0) {
-			sdlInitRes = SDL_Init(SDL_INIT_VIDEO);
-			cpt--;
-			if (sdlInitRes && cpt > 10) {
-#ifdef PREESM_VERBOSE
-				printf(" fail ... retrying\n");
-#endif
-			}
-		}
-		if (sdlInitRes){
-			fflush(stdout);
-			fprintf(stderr, "%d - %d -- Could not initialize SDL - %s\n", cpt, sdlInitRes, SDL_GetError());
+		if (SDL_Init(SDL_INIT_VIDEO))
+		{
+			fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
 			exit(1);
 		}
 
@@ -127,7 +122,7 @@ void yuvDisplayInit(int id, int width, int height)
 		}
 
 		display.screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			DISPLAY_W, DISPLAY_H, SDL_WINDOW_SHOWN);
+			DISPLAY_W * INITIAL_WINDOW_RATIO, DISPLAY_H * INITIAL_WINDOW_RATIO, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		if (!display.screen)
 		{
 			fprintf(stderr, "SDL: could not set video mode - exiting\n");
@@ -160,7 +155,7 @@ void yuvDisplayInit(int id, int width, int height)
 	}
 
 	display.stampId = 0;
-	for (int i = 0; i<FPS_MEAN; i++){
+	for (int i = 0; i < FPS_MEAN; i++) {
 		startTiming(i + 1);
 	}
 
@@ -168,11 +163,11 @@ void yuvDisplayInit(int id, int width, int height)
 	SDL_SetEventFilter(exitCallBack, NULL);
 }
 
-void yuvDisplay(int id, unsigned char *y, unsigned char *u, unsigned char *v){
+void yuvDisplay(int id, unsigned char* y, unsigned char* u, unsigned char* v) {
 	yuvDisplayWithNbSlice(id, -1, y, u, v);
 }
 
-void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char *u, unsigned char *v)
+void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char* y, unsigned char* u, unsigned char* v)
 {
 	SDL_Texture* texture = display.textures[id];
 	int w, h;
@@ -185,58 +180,64 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
 		y, w,
 		u, w / 2,
 		v, w / 2
-		);
+	);
+
+	// Get current window size
+	int winW, winH;
+	SDL_GetWindowSize(display.screen, &winW, &winH);
+
+	// Calculate the width for each display (if multiple displays)
+	int displayWidth = winW / NB_DISPLAY;
+	int displayHeight = winH;
 
 	SDL_Rect screen_rect;
-
-	screen_rect.w = w;
-	screen_rect.h = h;
-	screen_rect.x = w*id;
+	screen_rect.x = id * displayWidth;
 	screen_rect.y = 0;
+	screen_rect.w = displayWidth;
+	screen_rect.h = displayHeight;
 
 	SDL_RenderCopy(display.renderer, texture, NULL, &screen_rect);
 
 	/* Draw FPS text */
-	char fps_text[20];
-	SDL_Color colorWhite = { 255, 255, 255, 255 };
+	if (id == 0) {
+		char fps_text[20];
+		SDL_Color colorWhite = { 255, 255, 255, 255 };
 
-	int time = stopTiming(display.stampId + 1);
-	sprintf(fps_text, "FPS: %.2f", 1. / (time / 1000000. / FPS_MEAN));
-	startTiming(display.stampId + 1);
-	display.stampId = (display.stampId + 1) % FPS_MEAN;
+		int time = stopTiming(display.stampId + 1);
+		sprintf(fps_text, "FPS: %.2f", 1. / (time / 1000000. / FPS_MEAN));
+		startTiming(display.stampId + 1);
+		display.stampId = (display.stampId + 1) % FPS_MEAN;
 
-	SDL_Surface* fpsText = TTF_RenderText_Blended(display.text_font, fps_text, colorWhite);
-	SDL_Texture* fpsTexture = SDL_CreateTextureFromSurface(display.renderer, fpsText);
+		SDL_Surface* fpsText = TTF_RenderText_Blended(display.text_font, fps_text, colorWhite);
+		SDL_Texture* fpsTexture = SDL_CreateTextureFromSurface(display.renderer, fpsText);
 
-	int fpsWidth, fpsHeight;
-	SDL_QueryTexture(fpsTexture, NULL, NULL, &fpsWidth, &fpsHeight);
-	SDL_Rect fpsTextRect;
+		int fpsWidth, fpsHeight;
+		SDL_QueryTexture(fpsTexture, NULL, NULL, &fpsWidth, &fpsHeight);
+		SDL_Rect fpsTextRect;
 
-	fpsTextRect.x = 0;
-	fpsTextRect.y = 0;
-	fpsTextRect.w = fpsWidth;
-	fpsTextRect.h = fpsHeight;
-	SDL_RenderCopy(display.renderer, fpsTexture, NULL, &fpsTextRect);
+		fpsTextRect.x = 0;
+		fpsTextRect.y = 0;
+		fpsTextRect.w = fpsWidth;
+		fpsTextRect.h = fpsHeight;
+		SDL_RenderCopy(display.renderer, fpsTexture, NULL, &fpsTextRect);
 
-	/* Free resources */
-	SDL_FreeSurface(fpsText);
-	SDL_DestroyTexture(fpsTexture);
+		/* Free resources */
+		SDL_FreeSurface(fpsText);
+		SDL_DestroyTexture(fpsTexture);
+	}
 
-	/* Draw NbSlice Text */
-	if (nbSlice > 0){
-		char slice_text[20];
-
-		sprintf(slice_text, "nbSlice: %d", nbSlice);
-
+	// Draw NbSlice text
+	if (nbSlice > 0 && id == 0) {
+		char slice_text[30];
+		SDL_Color colorWhite = { 255, 255, 255, 255 };
+		sprintf(slice_text, "NbSlices: %d", nbSlice);
 		SDL_Surface* sliceText = TTF_RenderText_Blended(display.text_font, slice_text, colorWhite);
 		SDL_Texture* sliceTexture = SDL_CreateTextureFromSurface(display.renderer, sliceText);
-
 		int sliceWidth, sliceHeight;
 		SDL_QueryTexture(sliceTexture, NULL, NULL, &sliceWidth, &sliceHeight);
 		SDL_Rect sliceTextRect;
-
 		sliceTextRect.x = 0;
-		sliceTextRect.y = fpsHeight;
+		sliceTextRect.y = 25;
 		sliceTextRect.w = sliceWidth;
 		sliceTextRect.h = sliceHeight;
 		SDL_RenderCopy(display.renderer, sliceTexture, NULL, &sliceTextRect);
@@ -254,16 +255,28 @@ void yuvDisplayWithNbSlice(int id, int nbSlice, unsigned char *y, unsigned char 
 	{
 		switch (event.type)
 		{
+		case SDL_QUIT:
+			preesmStopThreads = 1;
+			break;
+		case SDL_KEYDOWN:
+			if (event.key.keysym.sym == SDLK_ESCAPE) {
+				preesmStopThreads = 1;
+			}
+			break;
+		case SDL_WINDOWEVENT:
+			if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+				// Window was resized, handled by recalculating display sizes above
+			}
+			break;
 		default:
 			break;
 		}
 	}
 }
-
-
 void yuvFinalize(int id)
 {
 	SDL_DestroyTexture(display.textures[id]);
 	SDL_DestroyRenderer(display.renderer);
 	SDL_DestroyWindow(display.screen);
 }
+
