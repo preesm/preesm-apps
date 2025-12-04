@@ -21,7 +21,8 @@ cp ${PROJECTDIR}/Scenarios/1core_display.scenario ${ARCHIVEDIR}/org.ietr.preesm.
 cp ${PROJECTDIR}/Workflows/Codegen.workflow ${ARCHIVEDIR}/org.ietr.preesm.sobel/Workflows/
 cp ${PROJECTDIR}/.project ${PROJECTDIR}/Readme.md ${ARCHIVEDIR}/org.ietr.preesm.sobel/
 cp ${PROJECTDIR}/Code/dat/ReadMe.md ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/dat/
-cp -R ${PROJECTDIR}/Code/lib/cmake_modules ${PROJECTDIR}/Code/lib/ReadMe.md ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/lib/
+cp ${PROJECTDIR}/Code/dat/CMakeLists.txt ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/dat/
+cp -R ${PROJECTDIR}/Code/lib/cmake_modules ${PROJECTDIR}/Code/lib/ReadMe.md ${PROJECTDIR}/Code/lib/CMakeLists.txt ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/lib/
 cp -R ${PROJECTDIR}/Code/include/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/include/
 cp -R ${PROJECTDIR}/Code/src/* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/src/
 cp -R ${PROJECTDIR}/Code/CMake* ${ARCHIVEDIR}/org.ietr.preesm.sobel/Code/
