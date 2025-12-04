@@ -61,6 +61,8 @@ if (NOT EXISTS ${DAT_DIR}/${VIDEO_YUV})
 	else()
 		file(REMOVE "${DAT_DIR}/${FFMPEG_ARCHIVE}")
 	endif()
+
+	file(REMOVE ${DAT_DIR}/${VIDEO_MP4})
 endif()
 
 
