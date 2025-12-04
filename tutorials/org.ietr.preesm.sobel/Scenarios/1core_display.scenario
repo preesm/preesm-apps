@@ -17,7 +17,7 @@
         </constraintGroup>
     </constraints>
     <timings excelUrl="">
-        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-5"/>
+        <memcpyspeed opname="x86" setuptime="1" timeperunit="3.3333334E-7"/>
     </timings>
     <simuParams>
         <mainCore>Core0</mainCore>
