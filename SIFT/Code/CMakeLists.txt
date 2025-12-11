@@ -10,7 +10,7 @@ set(IMG_FILE "img1.pgm")
 set(IMG_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${IMG_FILE}")
 
 set(PTHREAD_ARCHIVE "pthread-3.0.0.zip")
-set(PTHREAD_URL "https://vaader-data.insa-rennes.fr/data/preesm/assets/${PTHREAD_ARCHIVE}")
+set(PTHREAD_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${PTHREAD_ARCHIVE}")
 
 # set(CMAKE_VERBOSE_MAKEFILE off)
 

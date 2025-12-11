@@ -2,7 +2,7 @@
 set(VIDEO_MP4 "ShakeNDry_1920x1080_120fps_420_8bit_YUV.mp4")
 set(VIDEO_YUV "ShakeNDry_1920x1080_120fps_420_8bit_YUV.yuv")
 set(VIDEO_ARCHIVE "ShakeNDry_1920x1080_120fps_420_8bit_YUV.zip")
-set(VIDEO_URL "https://vaader-data.insa-rennes.fr/data/preesm/assets/${VIDEO_ARCHIVE}")
+set(VIDEO_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${VIDEO_ARCHIVE}")
 set(VIDEO_MP4_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${VIDEO_MP4}")
 
 set(TTF_NAME "DejaVuSans.ttf")
