@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <flags>
+        <sizesAreInBit/>
+    </flags>
+    <files>
+        <algorithm url="/Wavelet_Filter/Algo/wavelet_heterogeneous_tuto.pi"/>
+        <architecture url="/Wavelet_Filter/Archi/2arm_fpga.slam"/>
+        <codegenDirectory url="/Wavelet_Filter/Code/generated_tuto"/>
+    </files>
+    <constraints excelUrl="">
+        <constraintGroup>
+            <operator name="KRIA260"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add"/>
+            <refinement name="sum&lt;input1_t,input2_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_Low_High"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Col_High"/>
+            <refinement name="downsample_col_pixelwise&lt;T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add_Low"/>
+            <refinement name="sum&lt;input1_t,input2_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_Low_Low"/>
+            <refinement name="downsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_High_High"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Col_Low"/>
+            <refinement name="upsample_col_pixelwise&lt;T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_Low_Low"/>
+            <refinement name="upsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Col_Low"/>
+            <refinement name="downsample_col_pixelwise&lt;T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_Low_Low"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Row_High"/>
+            <refinement name="convolution_1D_row&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Col_High"/>
+            <refinement name="upsample_col_pixelwise&lt;T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add_High"/>
+            <refinement name="sum&lt;input1_t,input2_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_High_Low"/>
+            <refinement name="upsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Row_Low"/>
+            <refinement name="convolution_1D_row&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_Low_High"/>
+            <refinement name="downsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_High_High"/>
+            <refinement name="downsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_High_Low"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Row_High"/>
+            <refinement name="convolution_1D_row&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_High_High"/>
+            <refinement name="upsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_High_Low"/>
+            <refinement name="downsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_Low_High"/>
+            <refinement name="upsample_row_linewise&lt;WIDTH,T&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_High_Low"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_High_High"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Row_Low"/>
+            <refinement name="convolution_1D_row&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_Low_Low"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+            <task name="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_Low_High"/>
+            <refinement name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core0"/>
+            <task name="wavelet_heterogeneous_tuto/reverse_Lowpass_filter"/>
+            <refinement name="reverse_filter"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_h_h"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/yuvRead"/>
+            <refinement name="readYUV"/>
+            <task name="wavelet_heterogeneous_tuto/reverse_Highpass_filter"/>
+            <refinement name="reverse_filter"/>
+            <task name="wavelet_heterogeneous_tuto/Source_Highpass_filter"/>
+            <refinement name="Source_Highpass_filter"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_h_l"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_l_l"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_l_h"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/float_to_uchar_y"/>
+            <refinement name="float_to_uchar"/>
+            <task name="wavelet_heterogeneous_tuto/PSNR"/>
+            <refinement name="compute_PSNR"/>
+            <task name="wavelet_heterogeneous_tuto/Source_Lowpass_filter"/>
+            <refinement name="Source_Lowpass_filter"/>
+            <task name="wavelet_heterogeneous_tuto/uchar_to_float_y"/>
+            <refinement name="uchar_to_float"/>
+            <task name="wavelet_heterogeneous_tuto/SSIM"/>
+            <refinement name="compute_SSIM"/>
+            <task name="wavelet_heterogeneous_tuto/yuvDisplay"/>
+            <refinement name="yuvDisplay"/>
+        </constraintGroup>
+        <constraintGroup>
+            <operator name="core1"/>
+            <task name="wavelet_heterogeneous_tuto/reverse_Lowpass_filter"/>
+            <refinement name="reverse_filter"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_h_h"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/yuvRead"/>
+            <refinement name="readYUV"/>
+            <task name="wavelet_heterogeneous_tuto/reverse_Highpass_filter"/>
+            <refinement name="reverse_filter"/>
+            <task name="wavelet_heterogeneous_tuto/Source_Highpass_filter"/>
+            <refinement name="Source_Highpass_filter"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_h_l"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_l_l"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/seuil_l_h"/>
+            <refinement name="soft_threshold"/>
+            <task name="wavelet_heterogeneous_tuto/float_to_uchar_y"/>
+            <refinement name="float_to_uchar"/>
+            <task name="wavelet_heterogeneous_tuto/PSNR"/>
+            <refinement name="compute_PSNR"/>
+            <task name="wavelet_heterogeneous_tuto/Source_Lowpass_filter"/>
+            <refinement name="Source_Lowpass_filter"/>
+            <task name="wavelet_heterogeneous_tuto/uchar_to_float_y"/>
+            <refinement name="uchar_to_float"/>
+            <task name="wavelet_heterogeneous_tuto/SSIM"/>
+            <refinement name="compute_SSIM"/>
+            <task name="wavelet_heterogeneous_tuto/yuvDisplay"/>
+            <refinement name="yuvDisplay"/>
+        </constraintGroup>
+    </constraints>
+    <timings excelUrl="/Wavelet_Filter/Code/generated_tuto/timings.xlsx">
+        <timing opname="FPGA" time="" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/SSIM"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Col_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Row_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Row_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Row_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Conv_Row_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Col_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Row_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Row_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Row_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Conv_Row_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Col_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Col_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Image_Add_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Col_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Col_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/IDWT_2D_fpga/Upsample_Row_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Col_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Col_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_High_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Col_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Col_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_High_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_Low_High"/>
+        <timing opname="FPGA" time="1000000" timingtype="EXECUTION_TIME" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_Low_Low"/>
+        <timing opname="FPGA" time="1000000" timingtype="INITIATION_INTERVAL" vertexname="wavelet_heterogeneous_tuto/DWT_2D_fpga/Downsample_Row_Low_Low"/>
+        <memcpyspeed opname="ARM" setuptime="1" timeperunit="0.001"/>
+        <memcpyspeed opname="FPGA" setuptime="1" timeperunit="0.001"/>
+    </timings>
+    <simuParams>
+        <mainCore>core0</mainCore>
+        <mainComNode>shared_mem</mainComNode>
+        <averageDataSize>1000</averageDataSize>
+        <dataTypes>
+            <dataType name="float" size="32"/>
+            <dataType name="unsigned char" size="8"/>
+        </dataTypes>
+        <specialVertexOperators>
+            <specialVertexOperator path="KRIA260"/>
+            <specialVertexOperator path="core0"/>
+            <specialVertexOperator path="core1"/>
+        </specialVertexOperators>
+    </simuParams>
+    <parameterValues/>
+    <papifyConfigs xmlUrl=""/>
+    <energyConfigs xmlUrl="">
+        <performanceObjective objectiveEPS="0.0"/>
+        <peActorsEnergy/>
+    </energyConfigs>
+</scenario>

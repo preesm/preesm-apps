@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <graph edgedefault="directed">
+        <data key="name">2d_dwt_float</data>
+        <node expr="WIDTH/2" id="HALF_WIDTH" kind="param"/>
+        <node expr="HEIGHT/2" id="HALF_HEIGHT" kind="param"/>
+        <node defaultValue="5.0" id="FILTER_SIZE" kind="cfg_in_iface"/>
+        <node defaultValue="18.0" id="HEIGHT" kind="cfg_in_iface"/>
+        <node defaultValue="22.0" id="WIDTH" kind="cfg_in_iface"/>
+        <node id="Conv_Row_High" kind="actor">
+            <data key="graph_desc">Code/include/convolution.hpp</data>
+            <loop isCPPdefinition="true" name="convolution_1D_row&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;input_t&gt;"/>
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="filter" type="hls::stream&lt;filter_t&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;output_t&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port annotation="READ_ONLY" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="READ_ONLY" expr="FILTER_SIZE" kind="input" name="filter"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="output"/>
+        </node>
+        <node id="Broadcast_Low_dwt" kind="broadcast">
+            <port annotation="READ_ONLY" expr="1.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output1"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output2"/>
+        </node>
+        <node id="Downsample_Row_Low_High" kind="actor">
+            <data key="graph_desc">Code/include/sampling_change.hpp</data>
+            <loop isCPPdefinition="true" name="downsample_row_linewise&lt;WIDTH,T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port annotation="NONE" expr="WIDTH*2" kind="input" name="input"/>
+            <port annotation="NONE" expr="WIDTH" kind="output" name="output"/>
+        </node>
+        <node id="Conv_Col_Low_High" kind="actor">
+            <data key="graph_desc">Code/include/convolution.hpp</data>
+            <loop isCPPdefinition="true" name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;input_t&gt;"/>
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="filter" type="hls::stream&lt;filter_t&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;output_t&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port annotation="READ_ONLY" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="READ_ONLY" expr="FILTER_SIZE" kind="input" name="filter"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="output"/>
+        </node>
+        <node id="Broadcast_High_dwt" kind="broadcast">
+            <port annotation="READ_ONLY" expr="1.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output1"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output2"/>
+        </node>
+        <node id="Conv_Col_High_High" kind="actor">
+            <data key="graph_desc">Code/include/convolution.hpp</data>
+            <loop isCPPdefinition="true" name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;input_t&gt;"/>
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="filter" type="hls::stream&lt;filter_t&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;output_t&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port annotation="READ_ONLY" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="READ_ONLY" expr="FILTER_SIZE" kind="input" name="filter"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="output"/>
+        </node>
+        <node id="Downsample_Col_Low" kind="actor">
+            <data key="graph_desc">Code/include/sampling_change.hpp</data>
+            <loop isCPPdefinition="true" name="downsample_col_pixelwise&lt;T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port annotation="NONE" expr="2.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output"/>
+        </node>
+        <node id="Conv_Col_Low_Low" kind="actor">
+            <data key="graph_desc">Code/include/convolution.hpp</data>
+            <loop isCPPdefinition="true" name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;input_t&gt;"/>
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="filter" type="hls::stream&lt;filter_t&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;output_t&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port annotation="READ_ONLY" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="READ_ONLY" expr="FILTER_SIZE" kind="input" name="filter"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="output"/>
+        </node>
+        <node id="Downsample_Row_High_High" kind="actor">
+            <data key="graph_desc">Code/include/sampling_change.hpp</data>
+            <loop isCPPdefinition="true" name="downsample_row_linewise&lt;WIDTH,T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port annotation="NONE" expr="WIDTH*2" kind="input" name="input"/>
+            <port annotation="NONE" expr="WIDTH" kind="output" name="output"/>
+        </node>
+        <node id="Broadcast_dwt" kind="broadcast">
+            <port annotation="READ_ONLY" expr="1.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output1"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output2"/>
+        </node>
+        <node id="Conv_Col_High_Low" kind="actor">
+            <data key="graph_desc">Code/include/convolution.hpp</data>
+            <loop isCPPdefinition="true" name="convolution_1D_col&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;input_t&gt;"/>
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="filter" type="hls::stream&lt;filter_t&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;output_t&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port annotation="READ_ONLY" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="READ_ONLY" expr="FILTER_SIZE" kind="input" name="filter"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="output"/>
+        </node>
+        <node id="Conv_Row_Low" kind="actor">
+            <data key="graph_desc">Code/include/convolution.hpp</data>
+            <loop isCPPdefinition="true" name="convolution_1D_row&lt;WIDTH,HEIGHT,FILTER_SIZE,input_t,filter_t,output_t&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;input_t&gt;"/>
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="filter" type="hls::stream&lt;filter_t&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;output_t&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port annotation="READ_ONLY" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="READ_ONLY" expr="FILTER_SIZE" kind="input" name="filter"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="output"/>
+        </node>
+        <node id="input" kind="src">
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="input"/>
+        </node>
+        <node id="out_Low_Low" kind="snk">
+            <port annotation="NONE" expr="HALF_WIDTH*HALF_HEIGHT" kind="input" name="out_Low_Low"/>
+        </node>
+        <node id="out_Low_High" kind="snk">
+            <port annotation="NONE" expr="HALF_WIDTH*HALF_HEIGHT" kind="input" name="out_Low_High"/>
+        </node>
+        <node id="out_High_Low" kind="snk">
+            <port annotation="NONE" expr="HALF_WIDTH*HALF_HEIGHT" kind="input" name="out_High_Low"/>
+        </node>
+        <node id="out_High_High" kind="snk">
+            <port annotation="NONE" expr="HALF_WIDTH*HALF_HEIGHT" kind="input" name="out_High_High"/>
+        </node>
+        <node id="Downsample_Col_High" kind="actor">
+            <data key="graph_desc">Code/include/sampling_change.hpp</data>
+            <loop isCPPdefinition="true" name="downsample_col_pixelwise&lt;T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port annotation="NONE" expr="2.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output"/>
+        </node>
+        <node id="Downsample_Row_High_Low" kind="actor">
+            <data key="graph_desc">Code/include/sampling_change.hpp</data>
+            <loop isCPPdefinition="true" name="downsample_row_linewise&lt;WIDTH,T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port annotation="NONE" expr="WIDTH*2" kind="input" name="input"/>
+            <port annotation="NONE" expr="WIDTH" kind="output" name="output"/>
+        </node>
+        <node id="Downsample_Row_Low_Low" kind="actor">
+            <data key="graph_desc">Code/include/sampling_change.hpp</data>
+            <loop isCPPdefinition="true" name="downsample_row_linewise&lt;WIDTH,T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="input" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="output" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port annotation="NONE" expr="WIDTH*2" kind="input" name="input"/>
+            <port annotation="NONE" expr="WIDTH" kind="output" name="output"/>
+        </node>
+        <node id="lowpass_filter" kind="src">
+            <port annotation="NONE" expr="FILTER_SIZE" kind="output" name="lowpass_filter"/>
+        </node>
+        <node id="highpass_filter" kind="src">
+            <port annotation="NONE" expr="FILTER_SIZE" kind="output" name="highpass_filter"/>
+        </node>
+        <node id="Broadcast_Highpass_filter_dwt" kind="broadcast">
+            <port annotation="READ_ONLY" expr="1.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output1"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output2"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output3"/>
+        </node>
+        <node id="Broadcast_Lowpass_filter_dwt" kind="broadcast">
+            <port annotation="READ_ONLY" expr="1.0" kind="input" name="input"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output1"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output2"/>
+            <port annotation="WRITE_ONLY" expr="1.0" kind="output" name="output3"/>
+        </node>
+        <edge kind="fifo" source="input" sourceport="input" target="Broadcast_dwt" targetport="input" type="float"/>
+        <edge kind="fifo" source="Broadcast_dwt" sourceport="output1" target="Conv_Row_High" targetport="input" type="float"/>
+        <edge kind="fifo" source="Broadcast_dwt" sourceport="output2" target="Conv_Row_Low" targetport="input" type="float"/>
+        <edge kind="fifo" source="Conv_Row_Low" sourceport="output" target="Downsample_Col_Low" targetport="input" type="float"/>
+        <edge kind="fifo" source="Conv_Row_High" sourceport="output" target="Downsample_Col_High" targetport="input" type="float"/>
+        <edge kind="fifo" source="Downsample_Col_Low" sourceport="output" target="Broadcast_Low_dwt" targetport="input" type="float"/>
+        <edge kind="fifo" source="Downsample_Col_High" sourceport="output" target="Broadcast_High_dwt" targetport="input" type="float"/>
+        <edge kind="fifo" source="Conv_Col_High_High" sourceport="output" target="Downsample_Row_High_High" targetport="input" type="float"/>
+        <edge kind="fifo" source="Downsample_Row_High_High" sourceport="output" target="out_High_High" targetport="out_High_High" type="float"/>
+        <edge kind="fifo" source="Conv_Col_High_Low" sourceport="output" target="Downsample_Row_High_Low" targetport="input" type="float"/>
+        <edge kind="fifo" source="Downsample_Row_High_Low" sourceport="output" target="out_High_Low" targetport="out_High_Low" type="float"/>
+        <edge kind="fifo" source="Conv_Col_Low_Low" sourceport="output" target="Downsample_Row_Low_Low" targetport="input" type="float"/>
+        <edge kind="fifo" source="Downsample_Row_Low_Low" sourceport="output" target="out_Low_Low" targetport="out_Low_Low" type="float"/>
+        <edge kind="fifo" source="Conv_Col_Low_High" sourceport="output" target="Downsample_Row_Low_High" targetport="input" type="float"/>
+        <edge kind="fifo" source="Downsample_Row_Low_High" sourceport="output" target="out_Low_High" targetport="out_Low_High" type="float"/>
+        <edge kind="fifo" source="Broadcast_High_dwt" sourceport="output1" target="Conv_Col_High_High" targetport="input" type="float"/>
+        <edge kind="fifo" source="Broadcast_High_dwt" sourceport="output2" target="Conv_Col_High_Low" targetport="input" type="float"/>
+        <edge kind="fifo" source="Broadcast_Low_dwt" sourceport="output1" target="Conv_Col_Low_High" targetport="input" type="float"/>
+        <edge kind="fifo" source="Broadcast_Low_dwt" sourceport="output2" target="Conv_Col_Low_Low" targetport="input" type="float"/>
+        <edge kind="fifo" source="highpass_filter" sourceport="highpass_filter" target="Broadcast_Highpass_filter_dwt" targetport="input" type="float"/>
+        <edge kind="fifo" source="lowpass_filter" sourceport="lowpass_filter" target="Broadcast_Lowpass_filter_dwt" targetport="input" type="float"/>
+        <edge kind="fifo" source="Broadcast_Highpass_filter_dwt" sourceport="output1" target="Conv_Row_High" targetport="filter" type="float"/>
+        <edge kind="fifo" source="Broadcast_Lowpass_filter_dwt" sourceport="output1" target="Conv_Row_Low" targetport="filter" type="float"/>
+        <edge kind="fifo" source="Broadcast_Highpass_filter_dwt" sourceport="output2" target="Conv_Col_High_High" targetport="filter" type="float"/>
+        <edge kind="fifo" source="Broadcast_Highpass_filter_dwt" sourceport="output3" target="Conv_Col_Low_High" targetport="filter" type="float"/>
+        <edge kind="fifo" source="Broadcast_Lowpass_filter_dwt" sourceport="output2" target="Conv_Col_High_Low" targetport="filter" type="float"/>
+        <edge kind="fifo" source="Broadcast_Lowpass_filter_dwt" sourceport="output3" target="Conv_Col_Low_Low" targetport="filter" type="float"/>
+        <edge kind="dependency" source="WIDTH" target="Conv_Row_High" targetport="WIDTH"/>
+        <edge kind="dependency" source="HEIGHT" target="Conv_Row_High" targetport="HEIGHT"/>
+        <edge kind="dependency" source="WIDTH" target="Conv_Row_Low" targetport="WIDTH"/>
+        <edge kind="dependency" source="HEIGHT" target="Conv_Row_Low" targetport="HEIGHT"/>
+        <edge kind="dependency" source="HEIGHT" target="Conv_Col_Low_Low" targetport="HEIGHT"/>
+        <edge kind="dependency" source="HEIGHT" target="Conv_Col_Low_High" targetport="HEIGHT"/>
+        <edge kind="dependency" source="HEIGHT" target="Conv_Col_High_Low" targetport="HEIGHT"/>
+        <edge kind="dependency" source="HEIGHT" target="Conv_Col_High_High" targetport="HEIGHT"/>
+        <edge kind="dependency" source="WIDTH" target="input"/>
+        <edge kind="dependency" source="HEIGHT" target="input"/>
+        <edge kind="dependency" source="HEIGHT" target="HALF_HEIGHT"/>
+        <edge kind="dependency" source="WIDTH" target="HALF_WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Conv_Col_High_High" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Conv_Col_High_Low" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Conv_Col_Low_High" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Conv_Col_Low_Low" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_HEIGHT" target="out_Low_Low"/>
+        <edge kind="dependency" source="HALF_HEIGHT" target="out_Low_High"/>
+        <edge kind="dependency" source="HALF_HEIGHT" target="out_High_Low"/>
+        <edge kind="dependency" source="HALF_HEIGHT" target="out_High_High"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="out_High_High"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="out_High_Low"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="out_Low_High"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="out_Low_Low"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Downsample_Row_High_High" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Downsample_Row_High_Low" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Downsample_Row_Low_High" targetport="WIDTH"/>
+        <edge kind="dependency" source="HALF_WIDTH" target="Downsample_Row_Low_Low" targetport="WIDTH"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="Conv_Row_High" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="Conv_Row_Low" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="Conv_Col_High_High" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="Conv_Col_High_Low" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="Conv_Col_Low_High" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="Conv_Col_Low_Low" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="highpass_filter"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="lowpass_filter"/>
+    </graph>
+</graphml>

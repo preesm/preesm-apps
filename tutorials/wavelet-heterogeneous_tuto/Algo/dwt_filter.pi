@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <graph edgedefault="directed">
+        <data key="name">dwt_filter</data>
+        <node defaultValue="5.0" id="FILTER_SIZE" kind="cfg_in_iface"/>
+        <node defaultValue="288.0" id="HEIGHT" kind="cfg_in_iface"/>
+        <node defaultValue="352.0" id="WIDTH" kind="cfg_in_iface"/>
+        <node expr="HEIGHT/2" id="half_height" kind="param"/>
+        <node expr="WIDTH/2" id="half_width" kind="param"/>
+        <node id="DWT_2D_fpga" kind="actor">
+            <data key="graph_desc">Algo/2D_DWT_fpga.pi</data>
+            <port kind="cfg_input" name="FILTER_SIZE"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="input" name="input"/>
+            <port annotation="NONE" expr="FILTER_SIZE" kind="input" name="lowpass_filter"/>
+            <port annotation="NONE" expr="FILTER_SIZE" kind="input" name="highpass_filter"/>
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="output" name="out_Low_Low"/>
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="output" name="out_Low_High"/>
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="output" name="out_High_Low"/>
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="output" name="out_High_High"/>
+        </node>
+        <node id="threshold_high_high" kind="actor">
+            <data key="graph_desc">Code/include/filter.hpp</data>
+            <loop isCPPdefinition="true" name="soft_threshold&lt;T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="src" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="snk" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port annotation="NONE" expr="1.0" kind="input" name="src"/>
+            <port annotation="NONE" expr="1.0" kind="output" name="snk"/>
+        </node>
+        <node id="threshold_high_low" kind="actor">
+            <data key="graph_desc">Code/include/filter.hpp</data>
+            <loop isCPPdefinition="true" name="soft_threshold&lt;T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="src" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="snk" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port annotation="NONE" expr="1.0" kind="input" name="src"/>
+            <port annotation="NONE" expr="1.0" kind="output" name="snk"/>
+        </node>
+        <node id="threshold_low_high" kind="actor">
+            <data key="graph_desc">Code/include/filter.hpp</data>
+            <loop isCPPdefinition="true" name="soft_threshold&lt;T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="src" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="snk" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port annotation="NONE" expr="1.0" kind="input" name="src"/>
+            <port annotation="NONE" expr="1.0" kind="output" name="snk"/>
+        </node>
+        <node id="threshold_low_low" kind="actor">
+            <data key="graph_desc">Code/include/filter.hpp</data>
+            <loop isCPPdefinition="true" name="soft_threshold&lt;T&gt;">
+                <param direction="IN" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="src" type="hls::stream&lt;T&gt;"/>
+                <param direction="OUT" isCPPdefinition="true" isConfig="false" isPassedByReference="true" name="snk" type="hls::stream&lt;T&gt;"/>
+            </loop>
+            <port kind="cfg_input" name="WIDTH"/>
+            <port kind="cfg_input" name="HEIGHT"/>
+            <port annotation="NONE" expr="1.0" kind="input" name="src"/>
+            <port annotation="NONE" expr="1.0" kind="output" name="snk"/>
+        </node>
+        <node id="input" kind="src">
+            <port annotation="NONE" expr="WIDTH*HEIGHT" kind="output" name="input"/>
+        </node>
+        <node id="lowpass_filter" kind="src">
+            <port annotation="NONE" expr="FILTER_SIZE" kind="output" name="lowpass_filter"/>
+        </node>
+        <node id="highpass_filter" kind="src">
+            <port annotation="NONE" expr="FILTER_SIZE" kind="output" name="highpass_filter"/>
+        </node>
+        <node id="out_Low_Low" kind="snk">
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="input" name="out_Low_Low"/>
+        </node>
+        <node id="out_Low_High" kind="snk">
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="input" name="out_Low_High"/>
+        </node>
+        <node id="out_High_Low" kind="snk">
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="input" name="out_High_Low"/>
+        </node>
+        <node id="out_High_High" kind="snk">
+            <port annotation="NONE" expr="WIDTH/2*HEIGHT/2" kind="input" name="out_High_High"/>
+        </node>
+        <edge kind="fifo" source="DWT_2D_fpga" sourceport="out_High_High" target="threshold_high_high" targetport="src" type="float"/>
+        <edge kind="fifo" source="DWT_2D_fpga" sourceport="out_High_Low" target="threshold_high_low" targetport="src" type="float"/>
+        <edge kind="fifo" source="DWT_2D_fpga" sourceport="out_Low_High" target="threshold_low_high" targetport="src" type="float"/>
+        <edge kind="fifo" source="DWT_2D_fpga" sourceport="out_Low_Low" target="threshold_low_low" targetport="src" type="float"/>
+        <edge kind="fifo" source="input" sourceport="input" target="DWT_2D_fpga" targetport="input" type="float"/>
+        <edge kind="fifo" source="lowpass_filter" sourceport="lowpass_filter" target="DWT_2D_fpga" targetport="lowpass_filter" type="float"/>
+        <edge kind="fifo" source="highpass_filter" sourceport="highpass_filter" target="DWT_2D_fpga" targetport="highpass_filter" type="float"/>
+        <edge kind="fifo" source="threshold_high_high" sourceport="snk" target="out_Low_Low" targetport="out_Low_Low" type="float"/>
+        <edge kind="fifo" source="threshold_high_low" sourceport="snk" target="out_Low_High" targetport="out_Low_High" type="float"/>
+        <edge kind="fifo" source="threshold_low_high" sourceport="snk" target="out_High_Low" targetport="out_High_Low" type="float"/>
+        <edge kind="fifo" source="threshold_low_low" sourceport="snk" target="out_High_High" targetport="out_High_High" type="float"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="highpass_filter"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="lowpass_filter"/>
+        <edge kind="dependency" source="FILTER_SIZE" target="DWT_2D_fpga" targetport="FILTER_SIZE"/>
+        <edge kind="dependency" source="HEIGHT" target="DWT_2D_fpga" targetport="HEIGHT"/>
+        <edge kind="dependency" source="WIDTH" target="DWT_2D_fpga" targetport="WIDTH"/>
+        <edge kind="dependency" source="HEIGHT" target="input"/>
+        <edge kind="dependency" source="WIDTH" target="input"/>
+        <edge kind="dependency" source="HEIGHT" target="half_height"/>
+        <edge kind="dependency" source="WIDTH" target="half_width"/>
+        <edge kind="dependency" source="half_height" target="threshold_high_high" targetport="HEIGHT"/>
+        <edge kind="dependency" source="half_height" target="threshold_high_low" targetport="HEIGHT"/>
+        <edge kind="dependency" source="half_height" target="threshold_low_high" targetport="HEIGHT"/>
+        <edge kind="dependency" source="half_height" target="threshold_low_low" targetport="HEIGHT"/>
+        <edge kind="dependency" source="half_width" target="threshold_high_high" targetport="WIDTH"/>
+        <edge kind="dependency" source="half_width" target="threshold_high_low" targetport="WIDTH"/>
+        <edge kind="dependency" source="half_width" target="threshold_low_high" targetport="WIDTH"/>
+        <edge kind="dependency" source="half_width" target="threshold_low_low" targetport="WIDTH"/>
+        <edge kind="dependency" source="HEIGHT" target="out_High_High"/>
+        <edge kind="dependency" source="WIDTH" target="out_High_High"/>
+        <edge kind="dependency" source="HEIGHT" target="out_High_Low"/>
+        <edge kind="dependency" source="HEIGHT" target="out_Low_High"/>
+        <edge kind="dependency" source="HEIGHT" target="out_Low_Low"/>
+        <edge kind="dependency" source="WIDTH" target="out_High_Low"/>
+        <edge kind="dependency" source="WIDTH" target="out_Low_High"/>
+        <edge kind="dependency" source="WIDTH" target="out_Low_Low"/>
+    </graph>
+</graphml>
