@@ -41,7 +41,7 @@ fi
 [ ! -e ${APPDIR}/Workflows/${WORKFLOW} ] && echo "Error: Could not loca || exit 1te workflow" && exit 1
 [ ! -e ${APPDIR}/Scenarios/${SCENARIO} ] && echo "Error: Could not locate scenario" && exit 1
 
-[ ! -z $MUTE ] && exec 1>/dev/null 2>/dev/null
+[ ! -z "${MUTE:-}" ] && exec 1>/dev/null 2>/dev/null
 
 ITERATION_MACRO=
 if [ ! -z ${RUN_ITERATION} ]; then
@@ -94,7 +94,7 @@ EXEC_RESULT=$((cd ${APPDIR}/Code/bin && ./Release/${EXECUTABLE}) | grep -o 'pree
 echo "$EXEC_RESULT"
 # Check output
 
-if [ ! -z $CHECK_RESULT ]; then
+if [ ! -z "${CHECK_RESULT:-}" ]; then
 	(echo "$EXEC_RESULT" | diff --strip-trailing-cr ${APPDIR}/.validation.hash -) || exit 1
 	echo "Result is good"
 fi
