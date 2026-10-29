@@ -12,7 +12,9 @@ set(DEBUG 0)
 
 set(VIDEO1_MP4 "JaguarAndCroco720x404-375f.mp4")
 set(VIDEO1_YUV "JaguarAndCroco360x202-375f.yuv")
+set(VIDEO1_ZIP "JaguarAndCroco360x202-375f.zip")
 set(VIDEO1_MP4_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${VIDEO1_MP4}")
+set(VIDEO1_ZIP_URL "https://nasext-vaader.insa-rennes.fr/ietr-vaader/preesm/assets/${VIDEO1_ZIP}")
 
 set(VIDEO2_MP4 "GivingScholarlyFallowdeer_1280x720-415f.webm")
 set(VIDEO2_YUV "GivingScholarlyFallowdeer_1280x720-415f.yuv")
@@ -49,7 +51,7 @@ elseif(UNIX AND NOT APPLE)
 elseif(APPLE)
 	set(FFMPEG_FOLDER "")	#EMPTY
 	set(FFMPEG_ARCHIVE "ffmpeg.zip")
-	set(FFMPEG_URL "https://evermeet.cx/ffmpeg/getrelease/zip")
+	set(FFMPEG_URL "https://evermeet.cx/ffmpeg/ffmpeg-9.0.2.zip")
 	set(FFMPEG_EXTRACT "ffmpeg")
 endif()
 
@@ -105,7 +107,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/lib/cmak
 
 MESSAGE("Download dat content.")
 
-# MP4 into FFMPEG
+#[[# MP4 into FFMPEG
 if (NOT EXISTS ${DAT_DIR}${VIDEO1_YUV} OR NOT EXISTS ${DAT_DIR}${VIDEO2_YUV})
 
 	if (NOT EXISTS ${DAT_DIR}${VIDEO1_MP4})
@@ -150,25 +152,25 @@ if (NOT EXISTS ${DAT_DIR}${VIDEO1_YUV} OR NOT EXISTS ${DAT_DIR}${VIDEO2_YUV})
 	else()
 		file(REMOVE "${DAT_DIR}${FFMPEG_ARCHIVE}")
 	endif()
-endif()
+endif()]]
 
 
 # Downloading/Extracting video file
-if(NOT EXISTS ${DAT_DIR}${VIDEO_YUV})
-	if(NOT EXISTS ${DAT_DIR}${VIDEO_ARCHIVE})
-		MESSAGE("Downloading ${VIDEO_ARCHIVE}")
-		file(DOWNLOAD ${VIDEO_URL} "${DAT_DIR}${VIDEO_ARCHIVE}"
-				EXPECTED_MD5 F439EA28BC5CE433CA9DB19FB487852D
+if(NOT EXISTS ${DAT_DIR}${VIDEO1_YUV})
+	if(NOT EXISTS ${DAT_DIR}${VIDEO1_ZIP})
+		MESSAGE("Downloading ${VIDEO1_ZIP}")
+		file(DOWNLOAD ${VIDEO1_ZIP_URL} "${DAT_DIR}${VIDEO1_ZIP}"
+				EXPECTED_MD5 a0bcf8e7575476b5386f79b698350be1
 				SHOW_PROGRESS)
 	endif()
-	MESSAGE("Extracting ${VIDEO_YUV}")
+	MESSAGE("Extracting ${VIDEO1_YUV}")
 	file(ARCHIVE_EXTRACT
-			INPUT "${DAT_DIR}${VIDEO_ARCHIVE}"
+			INPUT "${DAT_DIR}${VIDEO1_ZIP}"
 			DESTINATION ${DAT_DIR}
 			VERBOSE)
 
-	MESSAGE("Removing ${VIDEO_ARCHIVE}")
-	file(REMOVE ${DAT_DIR}${VIDEO_ARCHIVE})
+	MESSAGE("Removing ${VIDEO1_ZIP}")
+	file(REMOVE ${DAT_DIR}${VIDEO1_ZIP})
 endif()
 
 # Downloading font file

@@ -47,7 +47,7 @@ elseif(UNIX AND NOT APPLE)
 elseif(APPLE)
 	set(FFMPEG_FOLDER "")	#EMPTY
 	set(FFMPEG_ARCHIVE "ffmpeg.zip")
-	set(FFMPEG_URL "https://evermeet.cx/ffmpeg/getrelease/zip")
+	set(FFMPEG_URL "https://evermeet.cx/ffmpeg/ffmpeg-9.0.2.zip")
 	set(FFMPEG_EXTRACT "ffmpeg")
 endif()
 

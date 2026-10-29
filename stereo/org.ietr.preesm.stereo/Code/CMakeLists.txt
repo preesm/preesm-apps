@@ -59,10 +59,10 @@ if(NOT DEFINED MSVC)
 
 	if(CMAKE_BUILD_TYPE MATCHES Debug)
 		MESSAGE("Generate Debug project")
-		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -pg -Wall")
+		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -pg -Wall -ffp-contract=off")
 	else()
 		MESSAGE("Generate Release project")
-		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
+		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall -O2 -ffp-contract=off")
 	endif()
 	#add libmath during non visual studio builds
 	set(CMAKE_EXTRA_LIB m)
