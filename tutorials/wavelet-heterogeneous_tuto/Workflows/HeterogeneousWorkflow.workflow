@@ -9,9 +9,16 @@
     </dftools:task>
     <dftools:task pluginId="heterogeneous-synthesis" taskId="Synthesis ">
         <dftools:data key="variables">
+            <dftools:variable name="Check" value=""/>
+            <dftools:variable name="Log Path" value=""/>
+            <dftools:variable name="Optimize synchronization" value=""/>
             <dftools:variable name="allocation" value="legacy"/>
+            <dftools:variable name="balanceLoads" value="true"/>
             <dftools:variable name="clusterize" value="true"/>
+            <dftools:variable name="edgeSchedType" value="Simple"/>
+            <dftools:variable name="fpgascheduler" value="adfgfifoevallinear"/>
             <dftools:variable name="scheduler" value="legacy"/>
+            <dftools:variable name="simulatorType" value="LooselyTimed"/>
         </dftools:data>
     </dftools:task>
     <dftools:task pluginId="gantt-output-cluster" taskId="gantt Generation">
