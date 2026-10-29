@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dftools:workflow xmlns:dftools="http://net.sf.dftools" errorOnWarning="true" verboseLevel="INFO">
+<dftools:workflow xmlns:dftools="http://net.sf.dftools" errorOnWarning="false" verboseLevel="INFO">
     <dftools:scenario pluginId="org.ietr.preesm.scenario.task"/>
     <dftools:task pluginId="codegen2" taskId="Code Generation">
         <dftools:data key="variables">
